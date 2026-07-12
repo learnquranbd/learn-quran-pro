@@ -340,3 +340,260 @@ body {
     border: 1px solid #ddd;
   }
 }
+
+/* ============================================================================
+   LEGACY (OLD-APP) LOOK & FONTS
+   Appended section — visual parity with the old app at
+   ../understand-quran/firebase/public. Fonts load same-origin from the
+   legacy webfonts directory. Do not move above the base rules: several
+   selectors below intentionally override earlier declarations.
+   ========================================================================= */
+
+/* ---- 1. Legacy @font-face declarations -----------------------------------
+   Verified files in ../../understand-quran/firebase/public/webfonts/:
+   Kalpurush.{eot,svg,ttf,woff}  (NO woff2 exists for Kalpurush)
+   CustomArabic-Regular.{eot,svg,ttf,woff,woff2}
+   kitab.{woff,woff2}                                                        */
+
+@font-face {
+  font-family: 'Kalpurush';
+  src: url('../../understand-quran/firebase/public/webfonts/Kalpurush.woff') format('woff'),
+       url('../../understand-quran/firebase/public/webfonts/Kalpurush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CustomArabic';
+  src: url('../../understand-quran/firebase/public/webfonts/CustomArabic-Regular.woff2') format('woff2'),
+       url('../../understand-quran/firebase/public/webfonts/CustomArabic-Regular.woff') format('woff'),
+       url('../../understand-quran/firebase/public/webfonts/CustomArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kitab';
+  src: url('../../understand-quran/firebase/public/webfonts/kitab.woff2') format('woff2'),
+       url('../../understand-quran/firebase/public/webfonts/kitab.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bangla UI: system fonts first (Latin), Kalpurush picks up Bangla glyphs. */
+html[lang="bn"] body {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, 'Helvetica Neue',
+               'Kalpurush', 'SolaimanLipi', Arial, sans-serif;
+}
+
+/* Quran script now uses the old app's CustomArabic face, Amiri as fallback. */
+.ayah-arabic,
+.arabic-text {
+  font-family: 'CustomArabic', 'Amiri', 'Traditional Arabic', serif;
+}
+
+/* ---- 2. Old-app ayah-card chips -------------------------------------------
+   Old per-ayah chip was Bootstrap .badge.bg-secondary:
+   #6c757d pill, white text, opacity .75 (1 on hover).                       */
+
+.ayah-card .ayah-number {
+  width: auto;
+  height: auto;
+  min-width: 2.5rem;
+  padding: 0.25rem 0.75rem;
+  background: #6c757d;
+  color: #fff;
+  border-radius: 9999px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.ayah-card:hover .ayah-number,
+.ayah-card .ayah-number:hover {
+  opacity: 1;
+}
+
+/* Surah label at the right of the header (the .ml-auto span) → same pill. */
+.ayah-header > span.ml-auto {
+  background: #6c757d;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.dark .ayah-header > span.ml-auto {
+  background: #6c757d;
+  color: #fff;
+}
+
+.ayah-card:hover .ayah-header > span.ml-auto {
+  opacity: 1;
+}
+
+/* Action pill buttons (word-by-word / tafsir / grammar / tajweed toggles):
+   keep the current pill shape; on hover go to a darker slate like the old
+   #555 chips (old #b9e2a5 text kept out — too odd against the light theme). */
+.ayah-header .toggle-wbw:hover,
+.ayah-header .toggle-tafsir:hover,
+.ayah-header .toggle-grammar:hover,
+.ayah-header .toggle-tajweed:hover {
+  background-color: #475569;
+  border-color: #475569;
+  color: #fff;
+}
+
+.dark .ayah-header .toggle-wbw:hover,
+.dark .ayah-header .toggle-tafsir:hover,
+.dark .ayah-header .toggle-grammar:hover,
+.dark .ayah-header .toggle-tajweed:hover {
+  background-color: #475569;
+  border-color: #64748b;
+  color: #fff;
+}
+
+/* Word-by-word inline words: bigger Arabic (old app ~2.4rem), old meaning
+   color #273E6D, old hover wash #e3f7fa.
+   !important needed to beat the markup's Tailwind !text-3xl override.       */
+.wbw-inline-word .ayah-arabic {
+  font-size: calc(2.4rem * var(--font-scale)) !important;
+}
+
+.wbw-inline-word > div:last-child {
+  color: #273E6D;
+}
+
+.dark .wbw-inline-word > div:last-child {
+  color: #9ec5ff;
+}
+
+.ayah-card .wbw-inline-word:hover {
+  background-color: #e3f7fa;
+}
+
+.dark .ayah-card .wbw-inline-word:hover {
+  background-color: #374151;
+}
+
+/* Translation block: dashed top rule like the old .taisirul divider. */
+.ayah-translation {
+  border-top: 1px dashed #d7dbe0;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.dark .ayah-translation {
+  border-top-color: #4b5563;
+}
+
+/* ---- Legacy dark sidebar (opt-in) ------------------------------------------
+   The sidebar markup carries Tailwind dark: classes, so the old AdminLTE-style
+   look is scoped behind body.legacy-sidebar. The sidebar module opts in with:
+     document.body.classList.add('legacy-sidebar');
+   Old theme: sidebar #343a40, headings #cdf7d5, links #c2c7d0 (hover #fff),
+   treeview/group parents #394b5e rounded.                                    */
+
+body.legacy-sidebar aside#sidebar {
+  background: #343a40;
+  color: #c2c7d0;
+}
+
+body.legacy-sidebar aside#sidebar h2,
+body.legacy-sidebar aside#sidebar h3,
+body.legacy-sidebar aside#sidebar h4 {
+  color: #cdf7d5;
+}
+
+body.legacy-sidebar aside#sidebar hr {
+  border-color: #4b545c;
+}
+
+body.legacy-sidebar aside#sidebar a {
+  color: #c2c7d0;
+}
+
+body.legacy-sidebar aside#sidebar a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.legacy-sidebar aside#sidebar .sidebar-link.active {
+  background: #394b5e;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Expandable group parents (treeview-style); the sidebar module can mark
+   them with .nav-group (details/summary) or .nav-group-parent.              */
+body.legacy-sidebar aside#sidebar .nav-group > summary,
+body.legacy-sidebar aside#sidebar .nav-group-parent {
+  background: #394b5e;
+  color: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+body.legacy-sidebar aside#sidebar .nav-group > summary:hover,
+body.legacy-sidebar aside#sidebar .nav-group-parent:hover {
+  background: #46586d;
+  color: #fff;
+}
+
+/* ---- 3. Mushaf read-mode page (old surah_tajweed partials) -----------------
+   Used by the per-ayah module for legacy read-mode content. Old look:
+   Kitab font, justified RTL, pale green page.                               */
+
+.qtext-page {
+  font-family: 'Kitab', 'CustomArabic', 'Amiri', serif;
+  font-size: calc(2.6rem * var(--font-scale));
+  line-height: 2;
+  direction: rtl;
+  text-align: justify;
+  background: #f6fbf1;
+  color: #093333;
+  border: 1px solid #5bada5;
+  border-radius: 0.75rem;
+  padding: 1.75rem 2.25rem;
+}
+
+.dark .qtext-page {
+  background: #0f231f;
+  color: #d3e8d3;
+  border-color: #3f6e68;
+}
+
+@media (max-width: 768px) {
+  .qtext-page {
+    font-size: calc(2rem * var(--font-scale));
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* ==================== end LEGACY (OLD-APP) LOOK & FONTS ==================== */
+
+/* ==================== AUDIO WORD HIGHLIGHT ==================== */
+/* Soft amber pulse on the word currently being recited.
+   Applied by js/word-highlight.js (driven by js/audio.js timeupdate)
+   to both .wbw-inline-word tiles and plain-Arabic word spans. */
+
+.word-audio-highlight {
+  background-color: rgba(251, 191, 36, 0.35); /* amber-400 */
+  border-radius: 0.375rem;
+  animation: word-audio-pulse 1.2s ease-in-out infinite;
+}
+
+.dark .word-audio-highlight {
+  background-color: rgba(217, 119, 6, 0.45); /* amber-600 */
+}
+
+@keyframes word-audio-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
+  50%      { box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.10); }
+}
+
+/* ==================== end AUDIO WORD HIGHLIGHT ==================== */

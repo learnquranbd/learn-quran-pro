@@ -28,3 +28,8 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Firebase
+.firebase/
+firebase-debug.log
+.firebaserc.local

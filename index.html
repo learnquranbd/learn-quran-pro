@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
@@ -42,7 +42,7 @@
 
     <!-- Header Section -->
     <header class="bg-primary dark:bg-gray-800 text-white shadow-lg sticky top-0 z-50">
-      <div class="container mx-auto px-4 py-3">
+      <div class="w-full px-4 py-3">
         <div class="flex flex-wrap items-center justify-between gap-4">
 
           <!-- Logo/Brand -->
@@ -63,15 +63,34 @@
 
             <input type="text" id="ayah-range"
               class="flex-1 min-w-[150px] px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-              placeholder="1:1-7" readonly>
+              placeholder="2:255, 18:1-10" title="2:255, 18:1-10, 67:1-30">
 
             <button id="load-btn" class="px-6 py-2 bg-secondary hover:bg-secondary/80 rounded-lg font-medium transition-colors">
               <span data-lang-key="load">Load</span>
             </button>
           </div>
 
-          <!-- Quick Actions -->
-          <div class="flex items-center gap-2">
+          <!-- Quick Actions: language / font size / theme grouped top-right -->
+          <div class="flex items-center gap-1 bg-white/10 rounded-lg px-2 py-1">
+            <select id="language-select" class="px-2 py-1 text-sm rounded-md bg-transparent text-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 [&>option]:text-gray-900">
+              <option value="en">English</option>
+              <option value="bn">বাংলা (Bengali)</option>
+              <option value="ar">العربية (Arabic)</option>
+              <option value="ur">اردو (Urdu)</option>
+              <option value="id">Indonesia</option>
+              <option value="tr">Türkçe (Turkish)</option>
+              <option value="fr">Français (French)</option>
+            </select>
+            <span class="w-px h-5 bg-white/20"></span>
+            <button id="font-decrease" class="px-2 py-1 text-sm rounded-md hover:bg-white/10">A-</button>
+            <span id="font-size-display" class="px-1 text-xs text-white/80">100%</span>
+            <button id="font-increase" class="px-2 py-1 text-sm rounded-md hover:bg-white/10">A+</button>
+            <span class="w-px h-5 bg-white/20"></span>
+            <select id="theme-select" class="px-2 py-1 text-sm rounded-md bg-transparent text-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 [&>option]:text-gray-900">
+              <option value="light" data-lang-key="light">Light</option>
+              <option value="dark" data-lang-key="dark">Dark</option>
+              <option value="system" data-lang-key="system">System</option>
+            </select>
             <button id="theme-toggle" class="p-2 hover:bg-white/10 rounded-lg" title="Toggle Theme">
               <svg class="w-6 h-6 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
@@ -90,28 +109,10 @@
       <!-- Sidebar -->
       <aside id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg transform -translate-x-full lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-40 transition-transform duration-300 overflow-y-auto">
         <div class="p-4">
-          <h2 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200" data-lang-key="topics">Topics</h2>
-
-          <nav class="space-y-2">
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="reading">
-              <span data-lang-key="quran_reading">Quran Reading</span>
-            </a>
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="tafseer">
-              <span data-lang-key="tafseer">Tafseer</span>
-            </a>
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="dua">
-              <span data-lang-key="duas">Duas</span>
-            </a>
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="topics">
-              <span data-lang-key="topics_by_subject">Topics by Subject</span>
-            </a>
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="grammar">
-              <span data-lang-key="arabic_grammar">Arabic Grammar</span>
-            </a>
-            <a href="#" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-topic="words">
-              <span data-lang-key="quranic_words">Quranic Words</span>
-            </a>
-          </nav>
+          <!-- Full old-app menu tree, rendered by js/sidebar-menu.js (LEGACY_MENU).
+               The module adds body.legacy-sidebar so the old AdminLTE-style theme
+               in css/style.css (.nav-group / .nav-group-parent hooks) applies. -->
+          <nav id="legacy-menu" class="space-y-1"></nav>
 
           <hr class="my-4 border-gray-200 dark:border-gray-700">
 
@@ -127,7 +128,7 @@
 
       <!-- Main Content -->
       <main class="flex-1 overflow-y-auto">
-        <div class="container mx-auto px-4 py-6">
+        <div class="w-full px-4 py-6">
 
           <!-- Tabs Navigation -->
           <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
@@ -144,11 +145,17 @@
               <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="grammar">
                 <span data-lang-key="grammar">Grammar</span>
               </button>
+              <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="learn">
+                <span data-lang-key="learn">Learn</span>
+              </button>
+              <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="memorize">
+                <span data-lang-key="memorize">Memorize</span>
+              </button>
               <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="audio">
                 <span data-lang-key="audio">Audio</span>
               </button>
-              <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="videos">
-                <span data-lang-key="videos_lectures">Videos/Lectures</span>
+              <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="mushaf">
+                <span data-lang-key="mushaf">Mushaf</span>
               </button>
             </nav>
           </div>
@@ -158,14 +165,7 @@
 
             <!-- Reading Tab -->
             <div id="tab-reading" class="tab-panel active">
-              <div id="ayah-container" class="space-y-6">
-                <!-- Welcome message -->
-                <div class="text-center py-12">
-                  <div class="text-6xl mb-4">&#x1F4D6;</div>
-                  <h2 class="text-2xl font-bold mb-2" data-lang-key="welcome_title">Welcome to Learn Quran</h2>
-                  <p class="text-gray-600 dark:text-gray-400" data-lang-key="welcome_message">Select a Surah from the dropdown above to start reading</p>
-                </div>
-              </div>
+              <div id="ayah-container" class="space-y-6"></div>
             </div>
 
             <!-- Tafseer Tab -->
@@ -198,6 +198,22 @@
               <div id="grammar-container" class="space-y-6">
                 <p class="text-gray-500 dark:text-gray-400 text-center py-12" data-lang-key="load_ayah_first">Load ayahs first to view grammar analysis</p>
               </div>
+            </div>
+
+            <!-- Learn Tab -->
+            <div id="tab-learn" class="tab-panel hidden">
+              <div id="learn-back" class="hidden mb-4">
+                <button class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">← Back</button>
+              </div>
+              <div id="learn-hub"></div>
+              <div id="learn-kids-root" class="hidden"></div>
+              <div id="learn-vocab-root" class="hidden"></div>
+              <div id="learn-names-root" class="hidden"></div>
+            </div>
+
+            <!-- Memorize Tab -->
+            <div id="tab-memorize" class="tab-panel hidden">
+              <div id="memorize-container" class="space-y-6"></div>
             </div>
 
             <!-- Audio Tab -->
@@ -234,11 +250,9 @@
               </div>
             </div>
 
-            <!-- Videos Tab -->
-            <div id="tab-videos" class="tab-panel hidden">
-              <div id="videos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <p class="text-gray-500 dark:text-gray-400 text-center py-12 col-span-full" data-lang-key="videos_coming_soon">Video lectures coming soon</p>
-              </div>
+            <!-- Mushaf Tab -->
+            <div id="tab-mushaf" class="tab-panel hidden">
+              <div id="mushaf-container" class="space-y-6"></div>
             </div>
 
           </div>
@@ -248,46 +262,13 @@
 
     <!-- Footer -->
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 sticky bottom-0 z-40">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-wrap items-center justify-between gap-4">
-
-          <!-- Language Selector -->
-          <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-600 dark:text-gray-400" data-lang-key="language">Language:</label>
-            <select id="language-select" class="px-3 py-1 text-sm border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-              <option value="en">English</option>
-              <option value="bn">Bengali</option>
-              <option value="ar">Arabic</option>
-              <option value="ur">Urdu</option>
-              <option value="id">Indonesian</option>
-              <option value="tr">Turkish</option>
-            </select>
-          </div>
-
-          <!-- Font Size Control -->
-          <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-600 dark:text-gray-400" data-lang-key="font_size">Font Size:</label>
-            <div class="flex items-center gap-1">
-              <button id="font-decrease" class="px-3 py-1 text-sm border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600">A-</button>
-              <span id="font-size-display" class="px-2 text-sm">100%</span>
-              <button id="font-increase" class="px-3 py-1 text-sm border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600">A+</button>
-            </div>
-          </div>
-
-          <!-- Theme Toggle (Mobile) -->
-          <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-600 dark:text-gray-400" data-lang-key="theme">Theme:</label>
-            <select id="theme-select" class="px-3 py-1 text-sm border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-              <option value="light" data-lang-key="light">Light</option>
-              <option value="dark" data-lang-key="dark">Dark</option>
-              <option value="system" data-lang-key="system">System</option>
-            </select>
-          </div>
-
-          <!-- Copyright -->
-          <div class="text-sm text-gray-500 dark:text-gray-400">
-            &copy; 2024 Learn Quran BD
-          </div>
+      <div class="w-full px-4">
+        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm text-gray-500 dark:text-gray-400">
+          <span>&copy; 2024 Learn Quran BD</span>
+          <a href="https://learn-quran-bd.web.app" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-1 text-primary dark:text-blue-400 hover:underline">
+            🇧🇩 <span data-lang-key="bangla_site_link">বাংলা সাইট — learn-quran-bd.web.app</span>
+          </a>
         </div>
       </div>
     </footer>
@@ -302,10 +283,36 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/surah-data.js"></script>
-  <script src="js/translations.js"></script>
-  <script src="js/tabs.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/surah-data.js?v=5"></script>
+  <script src="js/translations.js?v=6"></script>
+  <script src="js/quran-data.js?v=5"></script>
+  <script src="js/tabs.js?v=5"></script>
+  <script src="js/settings.js?v=5"></script>
+  <script src="js/wordbyword.js?v=5"></script>
+  <script src="js/grammar.js?v=5"></script>
+  <script src="js/memorize.js?v=5"></script>
+  <script src="js/word-highlight.js?v=5"></script>
+  <script src="js/audio.js?v=5"></script>
+  <script src="js/tafseer.js?v=5"></script>
+  <script src="js/tajweed.js?v=5"></script>
+  <script src="js/qaida-data.js?v=5"></script>
+  <script src="js/learn-kids.js?v=5"></script>
+  <script src="js/vocab-data.js?v=5"></script>
+  <script src="js/learn-vocab.js?v=5"></script>
+  <script src="js/names-data.js?v=5"></script>
+  <script src="js/learn-names.js?v=5"></script>
+  <script src="js/learn.js?v=5"></script>
+  <script src="js/menu-data.js?v=5"></script>
+  <script src="js/legacy-surah-data.js?v=5"></script>
+  <script src="js/sidebar-menu.js?v=5"></script>
+  <script src="js/topics-data.js?v=5"></script>
+  <script src="js/navigation.js?v=5"></script>
+  <script src="js/legacy-ayah.js?v=5"></script>
+  <script src="js/settings-drawer.js?v=5"></script>
+  <script src="js/firebase-config.js?v=6"></script>
+  <script src="js/account.js?v=5"></script>
+  <script src="js/ponder.js?v=5"></script>
+  <script src="js/mushaf.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>
