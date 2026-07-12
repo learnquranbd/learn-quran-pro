@@ -67,7 +67,7 @@ Every request from this session, in order, with status.
 ## Reference / study
 43. ✅ Enrich **Waqf (stop) signs** — native, color-coded, all-language (replace hardcoded Bangla image). *(built)*
 44. ⏳ **Sarf declension/conjugation charts** — frequent Quranic roots, masc/fem × sing/dual/plural × case, with meanings.
-45. ⏳ **Word-repetition analysis** — per-surah AND per-ayah, exact (হুবুহু) + root (মৌলিক), with counts.
+45. ✅ **Word-repetition analysis** — per-surah AND per-ayah, exact (হুবুহু) + root (মৌলিক), with counts.
 
 ## Navigation redesign (pending)
 46. ✅ **Drill-down sidebar** (primary → children + back arrow).

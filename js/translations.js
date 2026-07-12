@@ -5,6 +5,17 @@
 
 const TRANSLATIONS = {
   en: {
+    wr_subtitle: 'How often each word repeats — by exact wording or shared root.',
+    wr_whole_surah: 'Whole surah',
+    wr_single_ayah: 'Single ayah',
+    wr_exact: 'Exact word',
+    wr_root: 'Root word',
+    wr_only_repeated: 'Repeated only',
+    wr_total_words: 'Total',
+    wr_unique: 'Unique',
+    wr_repeated: 'Repeated',
+    wr_none: 'Nothing to show.',
+    wr_title: 'Word Repetition',
     wa_title: 'Word-Arrangement Memory Test',
     wa_subtitle: 'Recall the wording from the meanings — Arabic is hidden until you check.',
     wa_mode_reveal: 'Reveal',
@@ -430,6 +441,7 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    wr_title: 'শব্দ পুনরাবৃত্তি',
     mem_mode_arrange: 'সাজান',
     topics_title: 'বিষয়সমূহ',
     nav_modules: 'মডিউল',
@@ -834,6 +846,7 @@ const TRANSLATIONS = {
   },
 
   ar: {
+    wr_title: 'تكرار الكلمات',
     mem_mode_arrange: 'ترتيب',
     topics_title: 'المواضيع',
     nav_modules: 'الوحدات',
@@ -1238,6 +1251,7 @@ const TRANSLATIONS = {
   },
 
   ur: {
+    wr_title: 'الفاظ کی تکرار',
     mem_mode_arrange: 'ترتیب',
     topics_title: 'موضوعات',
     nav_modules: 'ماڈیولز',
@@ -1642,6 +1656,7 @@ const TRANSLATIONS = {
   },
 
   id: {
+    wr_title: 'Pengulangan Kata',
     mem_mode_arrange: 'Susun',
     topics_title: 'Topik',
     nav_modules: 'Modul',
@@ -2046,6 +2061,7 @@ const TRANSLATIONS = {
   },
 
   tr: {
+    wr_title: 'Kelime Tekrarı',
     mem_mode_arrange: 'Sırala',
     topics_title: 'Konular',
     nav_modules: 'Modüller',
@@ -2450,6 +2466,7 @@ const TRANSLATIONS = {
   },
 
   fr: {
+    wr_title: 'Répétition des mots',
     mem_mode_arrange: 'Ordonner',
     topics_title: 'Thèmes',
     nav_modules: 'Modules',
@@ -2853,6 +2870,7 @@ const TRANSLATIONS = {
 
   },
   es: {
+    wr_title: 'Repetición de palabras',
     mem_mode_arrange: 'Ordenar',
     topics_title: 'Temas',
     nav_modules: 'Módulos',
@@ -3237,6 +3255,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Historias de los profetas"
   },
   ru: {
+    wr_title: 'Повтор слов',
     mem_mode_arrange: 'Порядок',
     topics_title: 'Темы',
     nav_modules: 'Модули',
@@ -3621,6 +3640,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Истории пророков"
   },
   fa: {
+    wr_title: 'تکرار واژگان',
     mem_mode_arrange: 'چیدمان',
     topics_title: 'موضوعات',
     nav_modules: 'ماژول\u200cها',
@@ -4005,6 +4025,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "داستان‌های پیامبران"
   },
   hi: {
+    wr_title: 'शब्द पुनरावृत्ति',
     mem_mode_arrange: 'क्रम',
     topics_title: 'विषय',
     nav_modules: 'मॉड्यूल',
@@ -4389,6 +4410,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "पैगंबरों की कहानियाँ"
   },
   de: {
+    wr_title: 'Wortwiederholung',
     mem_mode_arrange: 'Ordnen',
     topics_title: 'Themen',
     nav_modules: 'Module',
@@ -4773,6 +4795,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Geschichten der Propheten"
   },
   ms: {
+    wr_title: 'Pengulangan Kata',
     mem_mode_arrange: 'Susun',
     topics_title: 'Topik',
     nav_modules: 'Modul',
@@ -5157,6 +5180,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Kisah Para Nabi"
   },
   zh: {
+    wr_title: '词语重复',
     mem_mode_arrange: '排列',
     topics_title: '主题',
     nav_modules: '模块',
@@ -5541,6 +5565,7 @@ const TRANSLATIONS = {
     "stories_of_prophets": "先知们的故事"
   },
   ja: {
+    wr_title: '単語の繰り返し',
     mem_mode_arrange: '並べ替え',
     topics_title: 'トピック',
     nav_modules: 'モジュール',
