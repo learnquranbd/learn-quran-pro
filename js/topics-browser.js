@@ -55,7 +55,9 @@ class TopicsBrowser {
       const res = await fetch(`data/topic-names/${this.language}.json`);
       if (!res.ok) throw new Error('no names');
       this.names = await res.json();
-      if (this.loaded && this.container.querySelector('#topics-results')) this.render();
+      // Re-render with localized names once they arrive
+      if (this.loaded) this.render();
+      if (this.overlay && !this.overlay.classList.contains('hidden')) this.renderModalList();
     } catch (e) { this.names = null; }   // fall back to English display
   }
 
