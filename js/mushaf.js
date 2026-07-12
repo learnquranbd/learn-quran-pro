@@ -177,8 +177,9 @@ class MushafView {
           <div id="mushaf-plate" class="relative bg-white rounded-lg shadow-lg dark:shadow-black/40 p-2 sm:p-3
                                         flex items-center justify-center min-h-[300px] min-w-[200px] max-w-full">
             <div id="mushaf-status"
-                 class="absolute inset-0 flex items-center justify-center px-4 text-center text-sm text-gray-500 hidden"></div>
-            <img id="mushaf-img" class="max-h-[80vh] max-w-full w-auto rounded" alt="" draggable="false">
+                 class="absolute inset-0 flex items-center justify-center px-4 text-center text-sm text-gray-500 hidden z-10"></div>
+            <!-- One page normally; two side-by-side (RTL: current page on the right) on wide screens -->
+            <div id="mushaf-pages" class="flex items-stretch justify-center gap-1 sm:gap-2" dir="rtl"></div>
           </div>
 
           <button id="mushaf-prev" title="${t('previous', lang)}" aria-label="${t('previous', lang)}"
@@ -189,7 +190,7 @@ class MushafView {
       </div>
     `;
 
-    this.img = this.container.querySelector('#mushaf-img');
+    this.pagesEl = this.container.querySelector('#mushaf-pages');
     this.status = this.container.querySelector('#mushaf-status');
     this.pageInput = this.container.querySelector('#mushaf-page-input');
     this.surahSelect = this.container.querySelector('#mushaf-surah-select');
@@ -198,12 +199,18 @@ class MushafView {
     this.hdrNextBtn = this.container.querySelector('#mushaf-hdr-next');
     this.hdrPrevBtn = this.container.querySelector('#mushaf-hdr-prev');
 
-    // NEXT page is the LEFT one in a right-to-left book
-    this.nextBtn.addEventListener('click', () => this.goTo(this.page + 1));
-    this.prevBtn.addEventListener('click', () => this.goTo(this.page - 1));
-    // Header buttons follow reading order: "next" advances a page, "previous" goes back
-    this.hdrNextBtn.addEventListener('click', () => this.goTo(this.page + 1));
-    this.hdrPrevBtn.addEventListener('click', () => this.goTo(this.page - 1));
+    // NEXT page is the LEFT one in a right-to-left book; step by 2 in spread view
+    this.nextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
+    this.prevBtn.addEventListener('click', () => this.goTo(this.page - this.step()));
+    // Header buttons follow reading order: "next" advances, "previous" goes back
+    this.hdrNextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
+    this.hdrPrevBtn.addEventListener('click', () => this.goTo(this.page - this.step()));
+
+    // Re-render when crossing the one-page / two-page breakpoint
+    window.addEventListener('resize', () => {
+      const nowSpread = this.isSpread();
+      if (nowSpread !== this._wasSpread) { this._wasSpread = nowSpread; if (this.rendered) this.showPage(this.page); }
+    });
 
     const commitInput = () => {
       const p = parseInt(this.pageInput.value, 10);
@@ -233,10 +240,14 @@ class MushafView {
     if (this.rendered) this.showPage(page);
   }
 
+  isSpread() { return window.innerWidth >= 1024; }
+  step() { return this.isSpread() ? 2 : 1; }
+
   showPage(page) {
     const lang = this.language;
     page = this.clampPage(page);
     this.page = page;
+    this._wasSpread = this.isSpread();
     try { localStorage.setItem('mushafPage', String(page)); } catch (e) { /* ignore */ }
 
     if (this.pageInput) this.pageInput.value = page;
@@ -248,31 +259,27 @@ class MushafView {
     if (this.hdrPrevBtn) this.hdrPrevBtn.disabled = atFirst;
     this.syncSurahSelect(page);
 
-    // Load the page image; a token guards against out-of-order loads
+    // Which pages to show: current, plus the next one on wide screens (RTL: current on the right)
+    const pages = (this.isSpread() && page + 1 <= this.TOTAL_PAGES) ? [page, page + 1] : [page];
     const token = ++this._loadToken;
     this.showStatus(t('loading', lang));
-    this.img.classList.add('opacity-40');
+    let pending = pages.length;
+    const maxH = pages.length > 1 ? 'max-h-[82vh]' : 'max-h-[80vh]';
 
-    this.img.onload = () => {
-      if (token !== this._loadToken) return;
-      this.hideStatus();
-      this.img.classList.remove('opacity-40');
-    };
-    this.img.onerror = () => {
-      if (token !== this._loadToken) return;
-      this.img.classList.remove('opacity-40');
-      this.img.removeAttribute('src');
-      this.showStatus(t('mushaf_page_error', lang));
-    };
-    this.img.alt = `${t('page', lang)} ${page}`;
-    this.img.src = this.imageUrl(page);
+    this.pagesEl.innerHTML = pages.map(p =>
+      `<img class="mushaf-page-img ${maxH} max-w-full w-auto rounded opacity-40" data-page="${p}" alt="${t('page', lang)} ${p}" draggable="false">`
+    ).join('');
 
-    // Preload the two adjacent pages for instant page turns
-    [page - 1, page + 1].forEach(p => {
-      if (p >= 1 && p <= this.TOTAL_PAGES) {
-        const pre = new Image();
-        pre.src = this.imageUrl(p);
-      }
+    this.pagesEl.querySelectorAll('.mushaf-page-img').forEach(img => {
+      const p = parseInt(img.getAttribute('data-page'), 10);
+      img.onload = () => { if (token !== this._loadToken) return; img.classList.remove('opacity-40'); if (--pending <= 0) this.hideStatus(); };
+      img.onerror = () => { if (token !== this._loadToken) return; img.classList.remove('opacity-40'); img.removeAttribute('src'); this.showStatus(t('mushaf_page_error', lang)); };
+      img.src = this.imageUrl(p);
+    });
+
+    // Preload neighbours for instant turns
+    [page - 1, page + 2, page + 3].forEach(p => {
+      if (p >= 1 && p <= this.TOTAL_PAGES) { const pre = new Image(); pre.src = this.imageUrl(p); }
     });
   }
 
@@ -293,10 +300,10 @@ class MushafView {
 
     if (e.key === 'ArrowLeft') {        // left = forward in a RTL book
       e.preventDefault();
-      this.goTo(this.page + 1);
+      this.goTo(this.page + this.step());
     } else if (e.key === 'ArrowRight') { // right = back
       e.preventDefault();
-      this.goTo(this.page - 1);
+      this.goTo(this.page - this.step());
     }
   }
 
