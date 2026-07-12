@@ -433,6 +433,7 @@ class QuranApp {
         <div class="ayah-header flex flex-wrap items-center gap-2">
           <span class="ayah-number">${ayah.ayah}</span>
           <button class="copy-ayah p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-sm" title="${t('copy_ayah', lang)}" data-key="${ayah.key}">📋</button>
+          <button class="bookmark-ayah p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-sm" title="${t('bookmark', lang)}" data-key="${ayah.key}">☆</button>
           <button class="play-ayah p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded" title="${t('play', lang)}" data-ref="${ayah.key}">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>

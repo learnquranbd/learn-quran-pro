@@ -20,7 +20,7 @@
  * (allow read/write only when request.auth.uid == userId).
  */
 
-const ACCOUNT_SYNC_KEYS = ['vocabKnown', 'vocabQuizBest', 'kidsQuizBest', 'namesQuizBest', 'quranAppSettings'];
+const ACCOUNT_SYNC_KEYS = ['vocabKnown', 'vocabQuizBest', 'kidsQuizBest', 'namesQuizBest', 'quranAppSettings', 'bookmarks', 'lastRead'];
 const ACCOUNT_NUMERIC_KEYS = ['vocabQuizBest', 'kidsQuizBest', 'namesQuizBest'];
 const ACCOUNT_SETTINGS_TS_KEY = 'quranAppSettingsUpdatedAt';
 const ACCOUNT_FIREBASE_VERSION = '10.14.1';

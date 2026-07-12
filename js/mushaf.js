@@ -149,6 +149,22 @@ class MushafView {
                           focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-blue-500">
             <span class="text-sm text-gray-500 dark:text-gray-400">/ ${this.TOTAL_PAGES}</span>
           </div>
+
+          <!-- Clear labelled page navigation in the header -->
+          <div class="flex items-center gap-2">
+            <button id="mushaf-hdr-prev"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600
+                           text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700
+                           disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+              &lsaquo; ${t('previous', lang)}
+            </button>
+            <button id="mushaf-hdr-next"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600
+                           text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700
+                           disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+              ${t('next', lang)} &rsaquo;
+            </button>
+          </div>
         </div>
 
         <div class="flex items-center justify-center gap-2 sm:gap-4" dir="ltr">
@@ -179,10 +195,15 @@ class MushafView {
     this.surahSelect = this.container.querySelector('#mushaf-surah-select');
     this.nextBtn = this.container.querySelector('#mushaf-next');
     this.prevBtn = this.container.querySelector('#mushaf-prev');
+    this.hdrNextBtn = this.container.querySelector('#mushaf-hdr-next');
+    this.hdrPrevBtn = this.container.querySelector('#mushaf-hdr-prev');
 
     // NEXT page is the LEFT one in a right-to-left book
     this.nextBtn.addEventListener('click', () => this.goTo(this.page + 1));
     this.prevBtn.addEventListener('click', () => this.goTo(this.page - 1));
+    // Header buttons follow reading order: "next" advances a page, "previous" goes back
+    this.hdrNextBtn.addEventListener('click', () => this.goTo(this.page + 1));
+    this.hdrPrevBtn.addEventListener('click', () => this.goTo(this.page - 1));
 
     const commitInput = () => {
       const p = parseInt(this.pageInput.value, 10);
@@ -219,8 +240,12 @@ class MushafView {
     try { localStorage.setItem('mushafPage', String(page)); } catch (e) { /* ignore */ }
 
     if (this.pageInput) this.pageInput.value = page;
-    if (this.nextBtn) this.nextBtn.disabled = page >= this.TOTAL_PAGES;
-    if (this.prevBtn) this.prevBtn.disabled = page <= 1;
+    const atLast = page >= this.TOTAL_PAGES;
+    const atFirst = page <= 1;
+    if (this.nextBtn) this.nextBtn.disabled = atLast;
+    if (this.prevBtn) this.prevBtn.disabled = atFirst;
+    if (this.hdrNextBtn) this.hdrNextBtn.disabled = atLast;
+    if (this.hdrPrevBtn) this.hdrPrevBtn.disabled = atFirst;
     this.syncSurahSelect(page);
 
     // Load the page image; a token guards against out-of-order loads
