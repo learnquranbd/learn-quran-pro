@@ -93,6 +93,7 @@ class TypeMemorize {
           <textarea id="tm-input" rows="4" dir="rtl"
             class="w-full px-3 py-2 ayah-arabic !text-2xl !leading-loose rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="${t('typemem_placeholder', lang)}"></textarea>
+          <div class="text-right text-sm mt-1">${t('typemem_matched', lang)}: <span id="tm-live" class="text-gray-500 dark:text-gray-400 font-semibold">0 / 0</span></div>
 
           ${this.arabicKeyboard(lang)}
 
@@ -137,14 +138,30 @@ class TypeMemorize {
     if (!el) return;
     try {
       const words = await this.expectedWords();
+      this._expected = words;   // cached for live progress
       el.innerHTML = words.map(w => `<span class="mx-0.5">${w.arabic}</span>`).join(' ');
     } catch (e) { el.textContent = ''; }
   }
 
   /* ---------- checking ---------- */
 
-  async liveCheck() {
-    // lightweight running count (optional; full report on Check)
+  liveCheck() {
+    // Lightweight running count of correctly-typed words so far (full report on Check)
+    if (!this._expected) return;
+    const live = this.root.querySelector('#tm-live');
+    if (!live) return;
+    const expected = this._expected;
+    const typed = (this.root.querySelector('#tm-input').value || '').split(/\s+/).map(x => this.norm(x)).filter(Boolean);
+    let i = 0, ok = 0; const LOOK = 3;
+    for (const tok of typed) {
+      if (i >= expected.length) break;
+      if (this.match(expected[i].norm, tok)) { ok++; i++; continue; }
+      for (let k = 1; k <= LOOK && i + k < expected.length; k++) {
+        if (this.match(expected[i + k].norm, tok)) { ok++; i = i + k + 1; break; }
+      }
+    }
+    live.textContent = `${ok} / ${expected.length}`;
+    live.className = 'text-sm font-semibold ' + (ok === expected.length && ok > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400');
   }
 
   async check() {

@@ -323,9 +323,11 @@ class TafseerView {
     if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 
     if (!isOpen && !card.hasAttribute('data-loaded')) {
-      card.setAttribute('data-loaded', 'true');
       const body = panel.querySelector('.tafseer-body');
-      this.loadInto(body, this.selectedTafsirId(), toggle.getAttribute('data-key'), this.renderToken);
+      // Only mark as loaded when the fetch actually succeeds, so a failed load
+      // can be retried by collapsing and re-expanding.
+      this.loadInto(body, this.selectedTafsirId(), toggle.getAttribute('data-key'), this.renderToken)
+        .then(ok => { if (ok) card.setAttribute('data-loaded', 'true'); });
     }
   }
 
@@ -340,7 +342,7 @@ class TafseerView {
 
       if (!tafsir) {
         body.innerHTML = `<p class="text-gray-400 text-sm">${t('tafsir_unavailable', lang)}</p>`;
-        return;
+        return false;
       }
 
       body.innerHTML = tafsir.text;
@@ -350,10 +352,12 @@ class TafseerView {
         credit.textContent = `— ${tafsir.resourceName}`;
         body.appendChild(credit);
       }
+      return true;
     } catch (err) {
       console.error('Tafsir fetch failed:', err);
-      if (token !== this.renderToken) return;
+      if (token !== this.renderToken) return false;
       body.innerHTML = `<p class="text-gray-400 text-sm">${t('tafsir_unavailable', lang)}</p>`;
+      return false;
     }
   }
 }

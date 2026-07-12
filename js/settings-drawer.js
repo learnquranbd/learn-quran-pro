@@ -173,10 +173,10 @@ class SettingsDrawer {
   onChange(e) {
     const app = (typeof quranApp !== 'undefined') ? quranApp : null;
     const toggle = e.target.closest('[data-sd-toggle]');
-    if (toggle && app) {
+    if (toggle) {
       const id = toggle.getAttribute('data-sd-toggle');
       if (['wbw', 'tafsir', 'grammar', 'tajweed'].includes(id)) {
-        app.applyGlobalToggle(id);
+        if (app) app.applyGlobalToggle(id);   // these need the reading app
       } else if (id === 'translit') {
         appSettings.set('showTransliteration', toggle.checked);
         this.applyTextVisibility();

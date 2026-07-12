@@ -5,6 +5,7 @@
 
 const TRANSLATIONS = {
   en: {
+    typemem_matched: 'Matched',
     audio_repeat_each: 'Repeat each',
     audio_loop_range: 'Loop range',
     audio_speed: 'Speed',

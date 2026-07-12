@@ -88,7 +88,9 @@ class Bookmarks {
 
   saveLastRead(ayahs) {
     if (!Array.isArray(ayahs) || !ayahs.length) return;
-    const hash = decodeURIComponent(window.location.hash.slice(1));
+    const raw = window.location.hash.slice(1);
+    let hash;
+    try { hash = decodeURIComponent(raw); } catch (e) { hash = raw; }   // tolerate malformed %-sequences
     if (!hash) return;
     const first = ayahs[0];
     const last = ayahs[ayahs.length - 1];

@@ -75,7 +75,9 @@ class GrammarView {
   renderWordRow(ayah, segments, wordIndex) {
     const lang = this.language;
     const apiWord = ayah.words[wordIndex];
-    const arabic = apiWord?.arabic || segments.map(s => s.t).join('');
+    // Use the morphology segment text (always aligned with these segments) for the
+    // Arabic; the quran.com word list can segment differently, so only borrow its meaning.
+    const arabic = segments.map(s => s.t).join('') || apiWord?.arabic || '';
     const meaning = apiWord?.meaning || '';
     const root = segments.map(s => s.r).find(Boolean);
 

@@ -65,12 +65,16 @@ class LegacyAyah {
 
     const buttons = [];
 
-    // I'rab (syntax) covers surahs 1-8 and 59-114 in the bundled dataset
-    const irabBtn = document.createElement('button');
-    irabBtn.className = 'legacy-irab-btn ' + this.pillClass();
-    irabBtn.title = t('irab_label', lang);
-    irabBtn.textContent = '🏛 ' + t('irab_label', lang);
-    buttons.push(irabBtn);
+    // I'rab (syntax) only exists for surahs 1-8 and 59-114 in the bundled dataset —
+    // don't offer the pill on cards where it would open to nothing.
+    const surah = parseInt(card.getAttribute('data-surah'));
+    if ((surah >= 1 && surah <= 8) || (surah >= 59 && surah <= 114)) {
+      const irabBtn = document.createElement('button');
+      irabBtn.className = 'legacy-irab-btn ' + this.pillClass();
+      irabBtn.title = t('irab_label', lang);
+      irabBtn.textContent = '🏛 ' + t('irab_label', lang);
+      buttons.push(irabBtn);
+    }
 
     // Keep the pills grouped with the existing toggles (before the ml-auto meta span)
     const meta = header.querySelector('.ml-auto');

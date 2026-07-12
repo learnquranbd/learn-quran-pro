@@ -140,12 +140,9 @@ class PWA {
     try {
       prompt.prompt();
       const choice = await prompt.userChoice;
-      if (choice && choice.outcome === 'accepted') {
-        this.removeButton();
-      } else {
-        // User declined this round; hide but don't permanently dismiss.
-        this.removeButton();
-      }
+      // A choice was made and the browser consumed the prompt event; either way
+      // it cannot be shown again this session, so retire the button.
+      this.removeButton();
     } catch (e) {
       /* ignore */
     }

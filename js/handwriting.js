@@ -117,7 +117,12 @@ class Handwriting {
 
     this.canvas.addEventListener('pointerdown', start);
     this.canvas.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', end);
+    // The canvas is recreated each render, but window survives — bind pointerup once.
+    if (!this._pointerUpBound) {
+      this._pointerUpBound = true;
+      this._onPointerUp = () => { this.drawing = false; };
+      window.addEventListener('pointerup', this._onPointerUp);
+    }
   }
 
   redraw() {

@@ -153,8 +153,9 @@ class TopicsBrowser {
       const verse = e.target.closest('[data-verse]');
       if (verse) {
         const ref = verse.getAttribute('data-verse');
-        // Single verse → preview in-module modal; multi (Open all) → load into Reading (explicit).
-        if (ref.indexOf(',') === -1 && typeof ayahModal !== 'undefined' && ayahModal) {
+        const isOpenAll = verse.hasAttribute('data-openall');
+        // Single verse chip → preview in-module modal; "Open all" → load into Reading (explicit).
+        if (!isOpenAll && ref.indexOf(',') === -1 && typeof ayahModal !== 'undefined' && ayahModal) {
           ayahModal.open(ref);
         } else {
           this.gotoVerses(ref); this.closeModal();
@@ -225,7 +226,7 @@ class TopicsBrowser {
     this.modalBody.innerHTML = `
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-gray-500">${verses.length} ${this.tt('topics_verses_label')}</span>
-        <button data-verse="${verses.slice(0, this.OPEN_ALL_CAP).join(',')}"
+        <button data-verse="${verses.slice(0, this.OPEN_ALL_CAP).join(',')}" data-openall="1"
                 class="text-xs px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-secondary/90">
           ${this.tt('topics_open_all')}${verses.length > this.OPEN_ALL_CAP ? ` (${this.OPEN_ALL_CAP})` : ''}
         </button>
