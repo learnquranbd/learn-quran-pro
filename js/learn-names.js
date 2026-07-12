@@ -143,6 +143,92 @@ class NamesOfAllah {
     if (note) note.classList.remove('hidden');
   }
 
+  // ---------- name detail (audio + Quranic occurrences + reflection) ------
+
+  async loadTokens() {
+    if (!this._tokensPromise) this._tokensPromise = fetch('data/quran-tokens.json').then(r => r.json()).catch(() => null);
+    return this._tokensPromise;
+  }
+
+  ensureNameModal() {
+    if (this.nameModal) return;
+    this.nameModal = document.createElement('div');
+    this.nameModal.id = 'names-detail-modal';
+    this.nameModal.className = 'fixed inset-0 bg-black/60 z-[70] items-center justify-center p-4 hidden';
+    this.nameModal.innerHTML = `
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-lg max-h-[85vh] flex flex-col">
+        <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
+          <h3 id="names-detail-title" class="flex-1 font-bold text-gray-800 dark:text-gray-100"></h3>
+          <button id="names-detail-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>
+        </div>
+        <div id="names-detail-body" class="flex-1 overflow-y-auto p-5"></div>
+      </div>`;
+    document.body.appendChild(this.nameModal);
+    this.nameModal.addEventListener('click', (e) => {
+      if (e.target === this.nameModal || e.target.closest('#names-detail-close')) {
+        this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); return;
+      }
+      const sp = e.target.closest('[data-name-speak]');
+      if (sp) { this.speakArabic(sp.getAttribute('data-name-speak')); return; }
+      const verse = e.target.closest('[data-verse]');
+      if (verse) {
+        const ref = verse.getAttribute('data-verse');
+        if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
+        window.location.hash = ref;
+        this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex');
+      }
+    });
+  }
+
+  async openName(name) {
+    const lang = this.language;
+    this.ensureNameModal();
+    this.nameModal.classList.remove('hidden'); this.nameModal.classList.add('flex');
+    this.speakArabic(name.ar);
+    const title = this.nameModal.querySelector('#names-detail-title');
+    const body = this.nameModal.querySelector('#names-detail-body');
+    title.textContent = `${name.n}. ${name.translit}`;
+    body.innerHTML = `
+      <div class="text-center mb-4">
+        <div class="ayah-arabic !text-5xl mb-2" dir="rtl">${name.ar}</div>
+        <div class="text-lg font-semibold text-gray-800 dark:text-gray-100">${this.escapeHtml(name.translit)}</div>
+        <div class="text-gray-500 dark:text-gray-400" dir="auto">${this.escapeHtml(this.meaningOf(name))}</div>
+        <button data-name-speak="${this.escapeHtml(name.ar)}" class="mt-3 px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary/80">🔊 ${t('play', lang)}</button>
+      </div>
+      <div class="rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 p-4 mb-4">
+        <p class="text-sm text-indigo-800 dark:text-indigo-200" dir="auto">💭 ${t('names_reflect_lead', lang)} <b>${this.escapeHtml(this.meaningOf(name))}</b>. ${t('names_reflect_body', lang)}</p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <a href="https://quran.com/search?q=${encodeURIComponent(name.ar)}" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:shadow">🔎 ${t('names_search_quran', lang)}</a>
+          <a href="https://myislam.org/99-names-of-allah/" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:shadow">📖 ${t('names_learn_more', lang)}</a>
+        </div>
+      </div>
+      <div id="names-occ"><p class="text-center text-gray-400 text-sm py-2">${t('loading', lang)}</p></div>`;
+    // Quranic occurrences (exact word appearances) from bundled tokens.
+    const occBox = body.querySelector('#names-occ');
+    try {
+      const tokens = await this.loadTokens();
+      const norm = (QuranData && QuranData.normalizeWord) ? QuranData.normalizeWord(name.ar) : name.ar;
+      const refs = [];
+      if (tokens) {
+        for (const key in tokens) { if (tokens[key].includes(norm)) refs.push(key); }
+      }
+      refs.sort((a, b) => { const [s1, a1] = a.split(':').map(Number), [s2, a2] = b.split(':').map(Number); return s1 - s2 || a1 - a2; });
+      if (!refs.length) {
+        occBox.innerHTML = `<p class="text-center text-gray-400 text-sm py-2">${t('names_no_occurrences', lang)}</p>`;
+      } else {
+        const shown = refs.slice(0, 60);
+        occBox.innerHTML = `
+          <h4 class="text-sm font-bold mb-2">📿 ${t('names_in_quran', lang)} <span class="text-gray-400 font-normal">(${refs.length})</span></h4>
+          <div class="flex flex-wrap gap-1.5">
+            ${shown.map(r => `<button data-verse="${r}" class="text-xs font-mono px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white">${r}</button>`).join('')}
+            ${refs.length > shown.length ? `<span class="text-xs text-gray-400 self-center">+${refs.length - shown.length}</span>` : ''}
+          </div>`;
+      }
+    } catch (e) {
+      occBox.innerHTML = '';
+    }
+  }
+
   // ---------- events ----------
 
   onClick(e) {
@@ -164,7 +250,7 @@ class NamesOfAllah {
       case 'speak': {
         const n = parseInt(el.getAttribute('data-n'), 10);
         const name = NAMES_99.find(x => x.n === n);
-        if (name) this.speakArabic(name.ar);
+        if (name) this.openName(name);
         break;
       }
       case 'quiz-choice':

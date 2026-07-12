@@ -5,6 +5,12 @@
 
 const TRANSLATIONS = {
   en: {
+    names_reflect_lead: 'Reflect on Allah as',
+    names_reflect_body: 'How can knowing this name deepen your faith and shape how you live today?',
+    names_search_quran: 'Find in Quran',
+    names_learn_more: 'Learn more',
+    names_in_quran: 'Appears in the Quran',
+    names_no_occurrences: 'This exact word form is not found directly in the Quran text.',
     wa_next_ayah: 'Next ayah',
     dev_notice_title: 'This app is under active development',
     dev_notice_body: "You may hit rough edges — no need to complain yet, we're on it! Got an idea or found an issue? Email",
