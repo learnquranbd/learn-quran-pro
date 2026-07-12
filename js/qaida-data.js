@@ -141,10 +141,117 @@ const QAIDA_WORDS = [
   { arabic: 'جَنَّةٌ',   translit: 'Jannatun' },
   { arabic: 'سَلَامٌ',   translit: 'Salamun' },
   { arabic: 'عَيْنٌ',    translit: "'Aynun"  },
-  { arabic: 'بَابٌ',     translit: 'Babun'   }
+  { arabic: 'بَابٌ',     translit: 'Babun'   },
+  // --- ~28 additional simple, fully-voweled words for early readers ---
+  { arabic: 'أَب',       translit: 'Ab'      },
+  { arabic: 'أُمّ',       translit: 'Umm'     },
+  { arabic: 'مَاء',      translit: "Ma'"     },
+  { arabic: 'نَار',      translit: 'Nar'     },
+  { arabic: 'نُور',      translit: 'Nur'     },
+  { arabic: 'عَبْد',     translit: "'Abd"    },
+  { arabic: 'خَيْر',     translit: 'Khayr'   },
+  { arabic: 'حُبّ',      translit: 'Hubb'    },
+  { arabic: 'قَلْب',     translit: 'Qalb'    },
+  { arabic: 'عَيْن',     translit: "'Ayn"    },
+  { arabic: 'يَد',       translit: 'Yad'     },
+  { arabic: 'دَار',      translit: 'Dar'     },
+  { arabic: 'بَحْر',     translit: 'Bahr'    },
+  { arabic: 'جَبَل',     translit: 'Jabal'   },
+  { arabic: 'طَيْر',     translit: 'Tayr'    },
+  { arabic: 'وَرْد',     translit: 'Ward'    },
+  { arabic: 'لَيْل',     translit: 'Layl'    },
+  { arabic: 'نَهَار',    translit: 'Nahar'   },
+  { arabic: 'مَلِك',     translit: 'Malik'   },
+  { arabic: 'كَلْب',     translit: 'Kalb'    },
+  { arabic: 'سَمَك',     translit: 'Samak'   },
+  { arabic: 'شَجَر',     translit: 'Shajar'  },
+  { arabic: 'بَاب',      translit: 'Bab'     },
+  { arabic: 'بَيْت',     translit: 'Bayt'    },
+  { arabic: 'أَرْض',     translit: 'Ard'     },
+  { arabic: 'سَمَاء',    translit: "Sama'"   },
+  { arabic: 'رَحْمَة',   translit: 'Rahmah'  },
+  { arabic: 'سَلَام',    translit: 'Salam'   }
+];
+
+/**
+ * Arabic numbers 1–10: Eastern-Arabic digit, numeric value, fully-voweled word, transliteration.
+ */
+const KIDS_NUMBERS = [
+  { digit: '١',  value: 1,  word: 'وَاحِد',      translit: 'Wahid'      },
+  { digit: '٢',  value: 2,  word: 'اِثْنَان',    translit: 'Ithnan'     },
+  { digit: '٣',  value: 3,  word: 'ثَلَاثَة',    translit: 'Thalathah'  },
+  { digit: '٤',  value: 4,  word: 'أَرْبَعَة',   translit: "Arba'ah"    },
+  { digit: '٥',  value: 5,  word: 'خَمْسَة',     translit: 'Khamsah'    },
+  { digit: '٦',  value: 6,  word: 'سِتَّة',      translit: 'Sittah'     },
+  { digit: '٧',  value: 7,  word: 'سَبْعَة',     translit: "Sab'ah"     },
+  { digit: '٨',  value: 8,  word: 'ثَمَانِيَة',  translit: 'Thamaniyah' },
+  { digit: '٩',  value: 9,  word: 'تِسْعَة',     translit: "Tis'ah"     },
+  { digit: '١٠', value: 10, word: 'عَشَرَة',     translit: "'Asharah"   }
+];
+
+/**
+ * 6 short, authentic everyday duas for kids.
+ * arabic: fully-voweled one-line dua, translit, meaning_en, when_en (the occasion).
+ */
+const KIDS_DUAS = [
+  {
+    arabic: 'بِسْمِ اللَّهِ',
+    translit: 'Bismillah',
+    meaning_en: 'In the name of Allah.',
+    when_en: 'Before eating'
+  },
+  {
+    arabic: 'الْحَمْدُ لِلَّهِ',
+    translit: 'Alhamdulillah',
+    meaning_en: 'All praise is for Allah.',
+    when_en: 'After eating'
+  },
+  {
+    arabic: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا',
+    translit: 'Bismika-llahumma amutu wa ahya',
+    meaning_en: 'In Your name, O Allah, I die and I live.',
+    when_en: 'Before sleeping'
+  },
+  {
+    arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا',
+    translit: "Alhamdu lillahil-ladhi ahyana",
+    meaning_en: 'All praise is for Allah who gave us life.',
+    when_en: 'When waking up'
+  },
+  {
+    arabic: 'رَبِّ زِدْنِي عِلْمًا',
+    translit: "Rabbi zidni 'ilma",
+    meaning_en: 'My Lord, increase me in knowledge.',
+    when_en: 'Before studying'
+  },
+  {
+    arabic: 'بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ',
+    translit: "Bismillahi tawakkaltu 'ala-llah",
+    meaning_en: 'In the name of Allah, I place my trust in Allah.',
+    when_en: 'When leaving home'
+  }
+];
+
+/**
+ * Short surahs offered for guided reading. Text + per-word audio pulled at runtime
+ * via QuranData.fetchRange(). n: surah number, versesTo: ayah count.
+ */
+const KIDS_SURAHS = [
+  { n: 1,   versesTo: 7 },
+  { n: 103, versesTo: 3 },
+  { n: 108, versesTo: 3 },
+  { n: 110, versesTo: 3 },
+  { n: 112, versesTo: 4 },
+  { n: 113, versesTo: 5 },
+  { n: 114, versesTo: 6 },
+  { n: 107, versesTo: 7 },
+  { n: 105, versesTo: 5 },
+  { n: 106, versesTo: 4 },
+  { n: 109, versesTo: 6 },
+  { n: 111, versesTo: 5 }
 ];
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { QAIDA_LETTERS, QAIDA_HARAKAT, QAIDA_WORDS };
+  module.exports = { QAIDA_LETTERS, QAIDA_HARAKAT, QAIDA_WORDS, KIDS_NUMBERS, KIDS_DUAS, KIDS_SURAHS };
 }

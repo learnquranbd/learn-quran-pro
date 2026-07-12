@@ -13,7 +13,7 @@
  * rather than breaking the page.
  */
 
-const CACHE = 'lq-v11';
+const CACHE = 'lq-v12';
 
 /**
  * App shell — mirrors the <link>/<script> tags in the CURRENT index.html
@@ -26,44 +26,44 @@ const PRECACHE_URLS = [
   'manifest.webmanifest',
 
   // Styles
-  'css/style.css?v=11',
+  'css/style.css?v=12',
 
   // Scripts (order mirrors index.html)
-  'js/surah-data.js?v=11',
-  'js/translations.js?v=11',
-  'js/quran-data.js?v=11',
-  'js/tabs.js?v=11',
-  'js/settings.js?v=11',
-  'js/wordbyword.js?v=11',
-  'js/grammar.js?v=11',
-  'js/memorize.js?v=11',
-  'js/word-highlight.js?v=11',
-  'js/audio.js?v=11',
-  'js/tafseer.js?v=11',
-  'js/tajweed.js?v=11',
-  'js/qaida-data.js?v=11',
-  'js/learn-kids.js?v=11',
-  'js/vocab-data.js?v=11',
-  'js/learn-vocab.js?v=11',
-  'js/names-data.js?v=11',
-  'js/learn-names.js?v=11',
-  'js/learn.js?v=11',
-  'js/menu-data.js?v=11',
-  'js/legacy-surah-data.js?v=11',
-  'js/sidebar-menu.js?v=11',
-  'js/topics-data.js?v=11',
-  'js/navigation.js?v=11',
-  'js/legacy-ayah.js?v=11',
-  'js/settings-drawer.js?v=11',
-  'js/firebase-config.js?v=11',
-  'js/account.js?v=11',
-  'js/ponder.js?v=11',
-  'js/mushaf.js?v=11',
-  'js/pwa.js?v=11',
-  'js/search.js?v=11',
-  'js/subscribe.js?v=11',
-  'js/bookmarks.js?v=11',
-  'js/app.js?v=11',
+  'js/surah-data.js?v=12',
+  'js/translations.js?v=12',
+  'js/quran-data.js?v=12',
+  'js/tabs.js?v=12',
+  'js/settings.js?v=12',
+  'js/wordbyword.js?v=12',
+  'js/grammar.js?v=12',
+  'js/memorize.js?v=12',
+  'js/word-highlight.js?v=12',
+  'js/audio.js?v=12',
+  'js/tafseer.js?v=12',
+  'js/tajweed.js?v=12',
+  'js/qaida-data.js?v=12',
+  'js/learn-kids.js?v=12',
+  'js/vocab-data.js?v=12',
+  'js/learn-vocab.js?v=12',
+  'js/names-data.js?v=12',
+  'js/learn-names.js?v=12',
+  'js/learn.js?v=12',
+  'js/menu-data.js?v=12',
+  'js/legacy-surah-data.js?v=12',
+  'js/sidebar-menu.js?v=12',
+  'js/topics-data.js?v=12',
+  'js/navigation.js?v=12',
+  'js/legacy-ayah.js?v=12',
+  'js/settings-drawer.js?v=12',
+  'js/firebase-config.js?v=12',
+  'js/account.js?v=12',
+  'js/ponder.js?v=12',
+  'js/mushaf.js?v=12',
+  'js/pwa.js?v=12',
+  'js/search.js?v=12',
+  'js/subscribe.js?v=12',
+  'js/bookmarks.js?v=12',
+  'js/app.js?v=12',
 
   // Icons
   'icons/icon-192.png',
@@ -74,6 +74,7 @@ const PRECACHE_URLS = [
 
   // Offline data
   'data/quran-tokens.json',
+  'data/quran-words.json',
   'data/legacy-pages.json'
 ];
 
