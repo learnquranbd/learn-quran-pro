@@ -194,6 +194,7 @@ class LegacyAyah {
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay) this.closeModal();
     });
+    if (window.escClose) window.escClose(this.overlay, () => this.closeModal());
 
     this.modalPrev.addEventListener('click', () => this.stepIrab(-1));
     this.modalNext.addEventListener('click', () => this.stepIrab(1));

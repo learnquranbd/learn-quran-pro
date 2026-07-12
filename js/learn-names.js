@@ -164,6 +164,7 @@ class NamesOfAllah {
         <div id="names-detail-body" class="flex-1 overflow-y-auto p-5"></div>
       </div>`;
     document.body.appendChild(this.nameModal);
+    if (window.escClose) window.escClose(this.nameModal, () => { this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); });
     this.nameModal.addEventListener('click', (e) => {
       if (e.target === this.nameModal || e.target.closest('#names-detail-close')) {
         this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); return;

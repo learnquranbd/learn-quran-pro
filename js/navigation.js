@@ -150,6 +150,7 @@ class AppNavigation {
       </div>
     `;
     document.body.appendChild(this.overlay);
+    if (window.escClose) window.escClose(this.overlay, () => this.closeModal());
 
     this.modalTitle = this.overlay.querySelector('#nav-modal-title');
     this.modalBody = this.overlay.querySelector('#nav-modal-body');

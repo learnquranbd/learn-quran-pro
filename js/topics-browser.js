@@ -141,6 +141,7 @@ class TopicsBrowser {
         <div id="topics-modal-body" class="flex-1 overflow-y-auto p-4"></div>
       </div>`;
     document.body.appendChild(this.overlay);
+    if (window.escClose) window.escClose(this.overlay, () => this.closeModal());
     this.modalTitle = this.overlay.querySelector('#topics-modal-title');
     this.modalBody = this.overlay.querySelector('#topics-modal-body');
     this.modalBack = this.overlay.querySelector('#topics-modal-back');

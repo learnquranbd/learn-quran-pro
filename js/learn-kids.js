@@ -439,6 +439,7 @@ class KidsQaida {
         <div id="kids-finder-body" class="flex-1 overflow-y-auto p-4"></div>
       </div>`;
     document.body.appendChild(this.finder);
+    if (window.escClose) window.escClose(this.finder, () => { this.finder.classList.add('hidden'); this.finder.classList.remove('flex'); });
     this.finder.addEventListener('click', (e) => {
       if (e.target === this.finder || e.target.closest('#kids-finder-close')) {
         this.finder.classList.add('hidden'); this.finder.classList.remove('flex');
@@ -468,6 +469,7 @@ class KidsQaida {
         <div id="kids-ayah-body" class="flex-1 overflow-y-auto p-5"></div>
       </div>`;
     document.body.appendChild(this.ayahModal);
+    if (window.escClose) window.escClose(this.ayahModal, () => { if (this._ayahAudio) this._ayahAudio.pause(); this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex'); });
     this.ayahModal.addEventListener('click', (e) => {
       if (e.target === this.ayahModal || e.target.closest('#kids-ayah-close')) {
         if (this._ayahAudio) this._ayahAudio.pause();

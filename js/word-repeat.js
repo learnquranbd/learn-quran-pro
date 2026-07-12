@@ -203,6 +203,7 @@ class WordRepeat {
         <div id="wr-ayah-body" class="flex-1 overflow-y-auto p-5"></div>
       </div>`;
     document.body.appendChild(this.ayahModal);
+    if (window.escClose) window.escClose(this.ayahModal, () => { if (this._ayahAudio) this._ayahAudio.pause(); this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex'); });
     this.ayahModal.addEventListener('click', (e) => {
       if (e.target === this.ayahModal || e.target.closest('#wr-ayah-close')) {
         if (this._ayahAudio) this._ayahAudio.pause();

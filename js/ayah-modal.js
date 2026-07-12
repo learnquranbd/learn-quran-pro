@@ -105,3 +105,16 @@ class AyahModal {
 
 let ayahModal;
 document.addEventListener('DOMContentLoaded', () => { ayahModal = new AyahModal(); });
+
+/**
+ * Shared helper: close a modal overlay when Escape is pressed while it is visible.
+ * Modules call this once when they create their overlay.
+ *   window.escClose(this.overlay, () => this.close());
+ * `overlay` is the element that carries the `hidden` class when closed.
+ */
+window.escClose = function (overlay, closeFn) {
+  if (!overlay || typeof closeFn !== 'function') return;
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) closeFn();
+  });
+};
