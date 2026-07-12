@@ -77,10 +77,12 @@ class AppNav {
   }
 
   itemClass(active) {
+    // The sidebar always uses the dark legacy theme (#343a40), so items must be
+    // light-on-dark in BOTH colour schemes — not the light-mode gray text.
     return 'app-nav-item w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-left transition-colors ' +
       (active
-        ? 'bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-300'
-        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700');
+        ? 'bg-white/15 text-white'
+        : 'text-gray-200 hover:bg-white/10 hover:text-white');
   }
 
   renderPrimary() {
@@ -112,10 +114,10 @@ class AppNav {
       ? primary.children.map(c => ({ key: c.module, kind: 'module', emoji: c.emoji, label: c.label }))
       : primary.modes.map(m => ({ key: m.mode, kind: 'mode', emoji: m.emoji, label: m.label }));
     this.root.innerHTML = `
-      <button data-nav-back class="w-full flex items-center gap-2 px-3 py-2 mb-2 rounded-lg text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button data-nav-back class="w-full flex items-center gap-2 px-3 py-2 mb-2 rounded-lg text-sm font-semibold text-gray-200 hover:bg-white/10 hover:text-white">
         <span class="text-lg leading-none">←</span><span>${this.tt('back')}</span>
       </button>
-      <div class="flex items-center gap-2 px-3 mb-2 text-sm font-bold text-gray-800 dark:text-gray-100">
+      <div class="flex items-center gap-2 px-3 mb-2 text-sm font-bold text-white">
         <span>${primary.emoji}</span><span>${this.tt(primary.label)}</span>
       </div>
       ${items.map(it => {

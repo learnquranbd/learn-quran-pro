@@ -78,6 +78,10 @@ class QuranApp {
       if (e.detail.key === 'language') {
         this.language = e.detail.value;
         this.populateSurahDropdown();
+        // Word-by-word meanings should follow the reading language: drop any stale
+        // WBW-language override so switching to Bangla shows Bangla WBW (not English).
+        if (typeof appSettings !== 'undefined' && appSettings) appSettings.set('wbwLang', null);
+        QuranData._verseCache = {}; QuranData._pageCache = {};
         // Reload the current ayahs so translations follow the new language,
         // preserving any active collection banner
         if (this.ayahData.length > 0) {

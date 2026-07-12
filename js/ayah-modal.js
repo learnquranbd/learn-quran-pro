@@ -24,7 +24,7 @@ class AyahModal {
     this.overlay.id = 'shared-ayah-modal';
     this.overlay.className = 'fixed inset-0 bg-black/60 z-[80] hidden items-center justify-center p-4';
     this.overlay.innerHTML = `
-      <div role="dialog" aria-modal="true" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-xl max-h-[85vh] flex flex-col">
+      <div role="dialog" aria-modal="true" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-3xl max-h-[88vh] flex flex-col">
         <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
           <h3 id="sam-title" class="flex-1 font-bold text-gray-800 dark:text-gray-100 truncate"></h3>
           <button id="sam-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>

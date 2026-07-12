@@ -195,7 +195,7 @@ class WordRepeat {
     this.ayahModal.id = 'wr-ayah-modal';
     this.ayahModal.className = 'fixed inset-0 bg-black/60 z-[70] items-center justify-center p-4 hidden';
     this.ayahModal.innerHTML = `
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-xl max-h-[85vh] flex flex-col">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-3xl max-h-[88vh] flex flex-col">
         <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
           <h3 id="wr-ayah-title" class="flex-1 font-bold text-gray-800 dark:text-gray-100"></h3>
           <button id="wr-ayah-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>

@@ -357,6 +357,7 @@ class QuizCenter {
     this.streak = 0;
     this.answered = false;
     this.newBest = false;
+    this.missed = [];   // questions answered incorrectly, for the end-of-round review
     // Blur-strip: for ayah_sequence over a surah, reconstruct the surah as you answer.
     this.revealedAyahs = (this.currentType.id === 'ayah_sequence' && this.scope.kind === 'surah') ? new Set() : null;
     this.view = 'running';
