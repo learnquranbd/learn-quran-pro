@@ -5,6 +5,8 @@
 
 const TRANSLATIONS = {
   en: {
+    tap_word_to_hear: 'Tap any word to hear it',
+    play_full_ayah: 'Play full ayah',
     quiz_sub_first: 'First',
     quiz_sub_last: 'Last',
     quiz_sub_random: 'Random',

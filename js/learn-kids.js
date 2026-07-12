@@ -441,7 +441,7 @@ class KidsQaida {
       const wordBtn = e.target.closest('[data-finder-verse]');
       if (wordBtn) {
         // Show the ayah in a modal layered over the finder — stay in place
-        this.openAyahModal(wordBtn.getAttribute('data-finder-verse'));
+        this.openAyahModal(wordBtn.getAttribute('data-finder-verse'), wordBtn.getAttribute('data-finder-word'));
       }
     });
   }
@@ -467,6 +467,13 @@ class KidsQaida {
       if (e.target === this.ayahModal || e.target.closest('#kids-ayah-close')) {
         this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex');
       }
+      const wordPlay = e.target.closest('[data-word-audio]');
+      if (wordPlay) {
+        if (!this._ayahAudio) this._ayahAudio = new Audio();
+        this._ayahAudio.src = wordPlay.getAttribute('data-word-audio');
+        this._ayahAudio.play().catch(() => {});
+        return;
+      }
       const play = e.target.closest('[data-ayah-audio]');
       if (play) {
         if (!this._ayahAudio) this._ayahAudio = new Audio();
@@ -476,7 +483,7 @@ class KidsQaida {
     });
   }
 
-  async openAyahModal(verseKey) {
+  async openAyahModal(verseKey, targetWord) {
     const lang = this.language;
     this.ensureAyahModal();
     this.ayahModal.classList.remove('hidden'); this.ayahModal.classList.add('flex');
@@ -489,21 +496,45 @@ class KidsQaida {
       const v = verses[0];
       if (!v) throw new Error('not found');
       this.ayahModal.querySelector('#kids-ayah-title').textContent = `${v.surahName} ${v.key}`;
-      const wbw = (v.words || []).map(w => `
-        <span class="inline-block text-center px-1 my-1">
-          <span class="ayah-arabic !text-2xl block">${w.arabic}</span>
-          <span class="text-[11px] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
-        </span>`).join('');
+
+      const norm = (x) => (typeof QuranData !== 'undefined' && QuranData.normalizeWord)
+        ? QuranData.normalizeWord(x || '') : String(x || '');
+      const target = targetWord ? norm(targetWord) : null;
+
+      // Each word is its own play button; the tapped word is highlighted.
+      const wbw = (v.words || []).map(w => {
+        const isTarget = target && norm(w.arabic) === target;
+        const canPlay = !!w.audio;
+        return `
+          <button ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''} data-word-idx
+                  class="inline-flex flex-col items-center text-center px-2 py-1 my-1 rounded-lg transition-colors
+                         ${canPlay ? 'hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer' : 'cursor-default'}
+                         ${isTarget ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}">
+            <span class="ayah-arabic !text-2xl block">${w.arabic}${canPlay ? ' <span class="text-[10px] text-primary align-middle">🔊</span>' : ''}</span>
+            <span class="text-[11px] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
+          </button>`;
+      }).join('');
+
+      const pad = (n) => String(n).padStart(3, '0');
+      const fullAyahUrl = `https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3`;
+
       body.innerHTML = `
         <div class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${v.arabic}</div>
-        <div class="flex flex-wrap justify-center gap-x-3 mb-3" dir="rtl">${wbw}</div>
-        <p class="text-center text-gray-600 dark:text-gray-300" dir="auto">${v.translation || ''}</p>
-        ${v.words && v.words[0] && v.words[0].audio ? `
-          <div class="text-center mt-4">
-            <button data-ayah-audio="${v.words.map(w => w.audio).filter(Boolean)[0]}"
-                    class="px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary/80">🔊 ${t('play', lang)}</button>
-          </div>` : ''}
+        <p class="text-xs text-center text-gray-400 mb-2">${t('tap_word_to_hear', lang)}</p>
+        <div class="flex flex-wrap justify-center gap-x-1 mb-3" dir="rtl">${wbw}</div>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-4" dir="auto">${v.translation || ''}</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <button data-ayah-audio="${fullAyahUrl}"
+                  class="px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary/80">🔊 ${t('play_full_ayah', lang)}</button>
+        </div>
       `;
+
+      // Auto-play the tapped word so the user immediately hears what they clicked.
+      if (target) {
+        const btn = body.querySelector('[data-word-audio].ring-2') || body.querySelector('.ring-2 [data-word-audio], .ring-2');
+        const url = btn && btn.getAttribute && btn.getAttribute('data-word-audio');
+        if (url) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = url; this._ayahAudio.play().catch(() => {}); }
+      }
     } catch (err) {
       body.innerHTML = `<p class="text-center text-gray-500 dark:text-gray-400 py-8">${t('error', lang)}</p>`;
     }
@@ -535,7 +566,7 @@ class KidsQaida {
         </p>
         <div class="flex flex-wrap gap-2 justify-center" dir="rtl">
           ${shown.map(f => `
-            <button data-finder-verse="${f.first}"
+            <button data-finder-verse="${f.first}" data-finder-word="${this.esc(f.word)}"
                     class="group px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700/60 hover:bg-blue-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600">
               <span class="ayah-arabic !text-2xl">${this.highlightSeq(f.word, seq)}</span>
               <span class="block text-[10px] text-gray-400" dir="ltr">×${f.count}</span>
@@ -547,6 +578,8 @@ class KidsQaida {
       body.innerHTML = `<p class="text-center text-gray-500 dark:text-gray-400 py-8">${t('error', lang)}</p>`;
     }
   }
+
+  esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   /** Wrap the first occurrence of the letter+haraka sequence in an amber highlight */
   highlightSeq(word, seq) {
