@@ -3,9 +3,9 @@
  * sourced from QuranWBW's public quran-topics dataset and bundled locally at
  * data/quran-topics.json as { "Topic Name": ["surah:ayah", ...], ... }.
  *
- * Renders into #topics-container (tab "topics"). Pick a letter or search to
- * find a topic, open it to see every verse it references, then tap a verse to
- * load it in the Reading tab (via the app's #hash deep-link) — or open them all.
+ * Renders into #topics-container (tab "topics"). The page stays compact: a
+ * letter bar + a short preview of topics. Tapping a topic — or "Show more" —
+ * opens a quick modal to browse/search and load a topic's verses into Reading.
  */
 
 class TopicsBrowser {
@@ -21,9 +21,11 @@ class TopicsBrowser {
     this.letters = [];
     this.activeLetter = 'A';
     this.query = '';
-    this.openTopic = null;     // currently expanded topic name
     this.loaded = false;
+    this.PREVIEW = 24;         // topics shown inline before "Show more"
     this.OPEN_ALL_CAP = 30;    // max verses loaded at once via "Open all"
+    this.overlay = null;
+    this.modalQuery = '';
 
     window.addEventListener('tabChanged', (e) => {
       if (e.detail.tabId === 'topics') this.ensureLoaded();
@@ -65,83 +67,162 @@ class TopicsBrowser {
   bindOnce() {
     this.container.addEventListener('click', (e) => {
       const letter = e.target.closest('[data-letter]');
-      if (letter) { this.activeLetter = letter.getAttribute('data-letter'); this.query = ''; this.openTopic = null; this.render(); return; }
+      if (letter) { this.activeLetter = letter.getAttribute('data-letter'); this.render(); return; }
+      const showmore = e.target.closest('[data-showmore]');
+      if (showmore) { this.openModal(null); return; }
       const topic = e.target.closest('[data-topic]');
-      if (topic) { const name = topic.getAttribute('data-topic'); this.openTopic = (this.openTopic === name) ? null : name; this.render(); return; }
-      const verse = e.target.closest('[data-verse]');
-      if (verse) { this.gotoVerses(verse.getAttribute('data-verse')); return; }
-      const back = e.target.closest('[data-topics-back]');
-      if (back) { this.openTopic = null; this.render(); return; }
-    });
-    this.container.addEventListener('input', (e) => {
-      if (e.target.id === 'topics-search') { this.query = e.target.value.trim(); this.openTopic = null; this.renderResults(); }
+      if (topic) { this.openModal(topic.getAttribute('data-topic')); return; }
     });
   }
 
+  // ---- main (compact) view ----------------------------------------------
+
   render() {
-    const lang = this.language;
     this.container.innerHTML = `
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold mb-1">🗂️ ${this.tt('topics_title')}</h2>
           <p class="text-gray-500 dark:text-gray-400">${this.tt('topics_subtitle')}</p>
         </div>
-        <input id="topics-search" type="text" value="${this.esc(this.query)}"
-               placeholder="${this.esc(this.tt('topics_search_placeholder'))}"
-               class="w-full mb-4 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary">
+        <div class="flex justify-center mb-4">
+          <button data-showmore="1" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 shadow">
+            🔍 ${this.tt('topics_browse_all')} (${this.list.length})
+          </button>
+        </div>
         <div id="topics-letters" class="flex flex-wrap gap-1 justify-center mb-5">
           ${this.letters.map(l => `
             <button data-letter="${l}" class="w-8 h-8 rounded-lg text-sm font-semibold transition-colors ${
-              l === this.activeLetter && !this.query
+              l === this.activeLetter
                 ? 'bg-primary text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}">${l}</button>`).join('')}
         </div>
-        <div id="topics-results"></div>
+        ${this.previewHtml()}
       </div>`;
-    this.renderResults();
   }
 
-  renderResults() {
-    const box = this.container.querySelector('#topics-results');
+  previewHtml() {
+    const items = this.byLetter[this.activeLetter] || [];
+    const shown = items.slice(0, this.PREVIEW);
+    const more = items.length - shown.length;
+    return `
+      <div class="text-xs text-gray-400 mb-2">${items.length} ${this.tt('topics_count_label')}</div>
+      <div class="flex flex-wrap gap-2">
+        ${shown.map(i => this.chip(i)).join('')}
+      </div>
+      ${more > 0 ? `
+        <div class="text-center mt-4">
+          <button data-showmore="1" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-primary dark:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+            ${this.tt('topics_show_more')} (${more}) →
+          </button>
+        </div>` : ''}`;
+  }
+
+  chip(item) {
+    return `<button data-topic="${this.esc(item.topic)}" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary hover:shadow text-sm transition-all" dir="auto">
+      <span class="font-medium truncate max-w-[180px]">${this.esc(item.topic)}</span>
+      <span class="shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-300">${item.verses.length}</span>
+    </button>`;
+  }
+
+  // ---- quick modal (browse / load) --------------------------------------
+
+  ensureModal() {
+    if (this.overlay) return;
+    this.overlay = document.createElement('div');
+    this.overlay.id = 'topics-modal';
+    this.overlay.className = 'fixed inset-0 z-[70] hidden items-center justify-center bg-black/50 p-4';
+    this.overlay.innerHTML = `
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <button id="topics-modal-back" class="hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">←</button>
+          <h3 id="topics-modal-title" class="flex-1 font-semibold text-gray-800 dark:text-gray-100 truncate" dir="auto"></h3>
+          <button id="topics-modal-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>
+        </div>
+        <div id="topics-modal-body" class="flex-1 overflow-y-auto p-4"></div>
+      </div>`;
+    document.body.appendChild(this.overlay);
+    this.modalTitle = this.overlay.querySelector('#topics-modal-title');
+    this.modalBody = this.overlay.querySelector('#topics-modal-body');
+    this.modalBack = this.overlay.querySelector('#topics-modal-back');
+    this.overlay.querySelector('#topics-modal-close').addEventListener('click', () => this.closeModal());
+    this.modalBack.addEventListener('click', () => this.showModalList());
+    this.overlay.addEventListener('click', (e) => { if (e.target === this.overlay) this.closeModal(); });
+    this.modalBody.addEventListener('click', (e) => {
+      const mt = e.target.closest('[data-mtopic]');
+      if (mt) { this.showModalTopic(mt.getAttribute('data-mtopic')); return; }
+      const verse = e.target.closest('[data-verse]');
+      if (verse) { this.gotoVerses(verse.getAttribute('data-verse')); this.closeModal(); return; }
+    });
+    this.modalBody.addEventListener('input', (e) => {
+      if (e.target.id === 'topics-modal-search') { this.modalQuery = e.target.value.trim(); this.renderModalList(); }
+    });
+  }
+
+  openModal(topic) {
+    this.ensureModal();
+    this.overlay.classList.remove('hidden');
+    this.overlay.classList.add('flex');
+    if (topic) this.showModalTopic(topic);
+    else this.showModalList();
+  }
+
+  closeModal() {
+    if (!this.overlay) return;
+    this.overlay.classList.add('hidden');
+    this.overlay.classList.remove('flex');
+  }
+
+  showModalList() {
+    this.modalBack.classList.add('hidden');
+    this.modalTitle.textContent = this.tt('topics_title');
+    this.modalBody.innerHTML = `
+      <input id="topics-modal-search" type="text" value="${this.esc(this.modalQuery)}"
+             placeholder="${this.esc(this.tt('topics_search_placeholder'))}" autofocus
+             class="w-full mb-3 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary">
+      <div id="topics-modal-list"></div>`;
+    this.renderModalList();
+    const inp = this.modalBody.querySelector('#topics-modal-search');
+    if (inp) inp.focus();
+  }
+
+  renderModalList() {
+    const box = this.modalBody.querySelector('#topics-modal-list');
     if (!box) return;
     let items;
-    if (this.query) {
-      const q = this.query.toLowerCase();
-      items = this.list.filter(i => i.topic.toLowerCase().includes(q)).slice(0, 300);
+    if (this.modalQuery) {
+      const q = this.modalQuery.toLowerCase();
+      items = this.list.filter(i => i.topic.toLowerCase().includes(q)).slice(0, 200);
     } else {
       items = this.byLetter[this.activeLetter] || [];
     }
-    if (!items.length) { box.innerHTML = `<p class="text-center py-10 text-gray-400">${this.tt('topics_no_results')}</p>`; return; }
-
+    if (!items.length) { box.innerHTML = `<p class="text-center py-8 text-gray-400">${this.tt('topics_no_results')}</p>`; return; }
     box.innerHTML = `
       <div class="text-xs text-gray-400 mb-2">${items.length} ${this.tt('topics_count_label')}</div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        ${items.map(i => this.topicCard(i)).join('')}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+        ${items.map(i => `
+          <button data-mtopic="${this.esc(i.topic)}" class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-left hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600" dir="auto">
+            <span class="text-sm truncate">${this.esc(i.topic)}</span>
+            <span class="shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-300">${i.verses.length}</span>
+          </button>`).join('')}
       </div>`;
   }
 
-  topicCard(item) {
-    const open = this.openTopic === item.topic;
+  showModalTopic(name) {
+    const item = this.list.find(i => i.topic === name);
+    if (!item) return this.showModalList();
+    this.modalBack.classList.remove('hidden');
+    this.modalTitle.textContent = name;
     const verses = item.verses;
-    return `
-      <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden ${open ? 'sm:col-span-2 lg:col-span-3' : ''}">
-        <button data-topic="${this.esc(item.topic)}" class="w-full flex items-center justify-between gap-2 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50">
-          <span class="font-medium truncate" dir="auto">${this.esc(item.topic)}</span>
-          <span class="shrink-0 text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-300">${verses.length}</span>
+    this.modalBody.innerHTML = `
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm text-gray-500">${verses.length} ${this.tt('topics_verses_label')}</span>
+        <button data-verse="${verses.slice(0, this.OPEN_ALL_CAP).join(',')}"
+                class="text-xs px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-secondary/90">
+          ${this.tt('topics_open_all')}${verses.length > this.OPEN_ALL_CAP ? ` (${this.OPEN_ALL_CAP})` : ''}
         </button>
-        ${open ? `
-          <div class="px-4 pb-4 border-t border-gray-100 dark:border-gray-700 pt-3">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-sm text-gray-500">${verses.length} ${this.tt('topics_verses_label')}</span>
-              <button data-verse="${verses.slice(0, this.OPEN_ALL_CAP).join(',')}"
-                      class="text-xs px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-secondary/90">
-                ${this.tt('topics_open_all')}${verses.length > this.OPEN_ALL_CAP ? ` (${this.OPEN_ALL_CAP})` : ''}
-              </button>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              ${verses.map(v => `<button data-verse="${v}" class="text-xs font-mono px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">${v}</button>`).join('')}
-            </div>
-          </div>` : ''}
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        ${verses.map(v => `<button data-verse="${v}" class="text-sm font-mono px-2.5 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">${v}</button>`).join('')}
       </div>`;
   }
 
@@ -150,7 +231,6 @@ class TopicsBrowser {
     const clean = refStr.split(',').map(s => s.trim()).filter(Boolean).join(', ');
     if (!clean) return;
     if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
-    // Force a hashchange even when re-selecting the same target.
     if (window.location.hash.slice(1) === encodeURIComponent(clean)) {
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     } else {

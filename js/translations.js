@@ -5,6 +5,8 @@
 
 const TRANSLATIONS = {
   en: {
+    topics_browse_all: 'Browse all topics',
+    topics_show_more: 'Show more',
     topics_subtitle: 'Browse the Quran by subject — pick a topic to see every verse it mentions.',
     topics_search_placeholder: 'Search topics…',
     topics_no_results: 'No topics found.',
