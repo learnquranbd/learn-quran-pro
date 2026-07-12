@@ -465,6 +465,7 @@ class KidsQaida {
     document.body.appendChild(this.ayahModal);
     this.ayahModal.addEventListener('click', (e) => {
       if (e.target === this.ayahModal || e.target.closest('#kids-ayah-close')) {
+        if (this._ayahAudio) this._ayahAudio.pause();
         this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex');
       }
       const wordPlay = e.target.closest('[data-word-audio]');

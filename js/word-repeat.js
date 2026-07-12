@@ -55,6 +55,8 @@ class WordRepeat {
   }
 
   bindOnce() {
+    if (this._bound) return;
+    this._bound = true;
     this.container.addEventListener('click', (e) => {
       const t2 = e.target.closest('[data-typ]');
       if (t2) { this.type = t2.getAttribute('data-typ'); this.openTerm = null; this.render(); return; }
@@ -198,6 +200,7 @@ class WordRepeat {
     document.body.appendChild(this.ayahModal);
     this.ayahModal.addEventListener('click', (e) => {
       if (e.target === this.ayahModal || e.target.closest('#wr-ayah-close')) {
+        if (this._ayahAudio) this._ayahAudio.pause();
         this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex'); return;
       }
       const wp = e.target.closest('[data-word-audio]');

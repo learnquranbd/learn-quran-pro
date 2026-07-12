@@ -238,7 +238,8 @@ class QuranApp {
       this.ayahData = rangeResults.flat();
       this.renderAyahs();
 
-      // Update URL hash
+      // Update URL hash — flag it so the resulting 'hashchange' doesn't reload again
+      this._writingHash = rangeStr;
       window.location.hash = rangeStr;
 
     } catch (error) {
@@ -643,13 +644,18 @@ class QuranApp {
     const juz = JUZ_DATA.find(j => j.number === juzNumber);
     if (!juz) return;
 
-    // Build the ayah range string
+    // Build a range string covering the WHOLE juz (it usually spans surahs):
+    // start surah from startAyah→end, any full middle surahs, end surah 1→endAyah.
     let rangeStr;
     if (juz.startSurah === juz.endSurah) {
       rangeStr = `${juz.startSurah}:${juz.startAyah}-${juz.endAyah}`;
     } else {
-      // Just load the first few ayahs of the Juz for now
-      rangeStr = `${juz.startSurah}:${juz.startAyah}-${Math.min(juz.startAyah + 9, getSurahByNumber(juz.startSurah).ayahCount)}`;
+      const parts = [`${juz.startSurah}:${juz.startAyah}-${getSurahByNumber(juz.startSurah).ayahCount}`];
+      for (let s = juz.startSurah + 1; s < juz.endSurah; s++) {
+        parts.push(`${s}:1-${getSurahByNumber(s).ayahCount}`);
+      }
+      parts.push(`${juz.endSurah}:1-${juz.endAyah}`);
+      rangeStr = parts.join(',');
     }
 
     this.ayahRangeInput.value = rangeStr;
@@ -662,10 +668,13 @@ class QuranApp {
    */
   handleHashChange() {
     const hash = window.location.hash.slice(1);
-    if (hash) {
-      this.ayahRangeInput.value = decodeURIComponent(hash);
-      this.loadAyahs();
-    }
+    if (!hash) return;
+    const decoded = decodeURIComponent(hash);
+    // Ignore the hashchange we caused by writing the hash after a load
+    if (this._writingHash != null && decoded === this._writingHash) { this._writingHash = null; return; }
+    this._writingHash = null;
+    this.ayahRangeInput.value = decoded;
+    this.loadAyahs();
   }
 
   /**

@@ -24,7 +24,7 @@ class AyahModal {
     this.overlay.id = 'shared-ayah-modal';
     this.overlay.className = 'fixed inset-0 bg-black/60 z-[80] hidden items-center justify-center p-4';
     this.overlay.innerHTML = `
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-xl max-h-[85vh] flex flex-col">
+      <div role="dialog" aria-modal="true" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-xl max-h-[85vh] flex flex-col">
         <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
           <h3 id="sam-title" class="flex-1 font-bold text-gray-800 dark:text-gray-100 truncate"></h3>
           <button id="sam-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>
@@ -35,6 +35,9 @@ class AyahModal {
     this.titleEl = this.overlay.querySelector('#sam-title');
     this.bodyEl = this.overlay.querySelector('#sam-body');
     this.overlay.querySelector('#sam-close').addEventListener('click', () => this.close());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.overlay && !this.overlay.classList.contains('hidden')) this.close();
+    });
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay) { this.close(); return; }
       const wp = e.target.closest('[data-word-audio]');
@@ -53,7 +56,10 @@ class AyahModal {
   }
 
   play(src) { if (!this.audio) this.audio = new Audio(); this.audio.src = src; this.audio.play().catch(() => {}); }
-  close() { if (this.overlay) { this.overlay.classList.add('hidden'); this.overlay.classList.remove('flex'); } }
+  close() {
+    if (this.audio) { this.audio.pause(); }
+    if (this.overlay) { this.overlay.classList.add('hidden'); this.overlay.classList.remove('flex'); }
+  }
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   async open(ref, opts) {

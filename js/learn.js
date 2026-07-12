@@ -18,7 +18,7 @@ class LearnHub {
       handwriting: document.getElementById('handwriting-root')
     };
     this.backBar = document.getElementById('learn-back');
-    this.language = appSettings ? appSettings.get('language') : 'en';
+    this.language = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
 
     this.render();
 

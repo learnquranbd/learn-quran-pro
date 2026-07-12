@@ -18,7 +18,7 @@ const QuranData = {
 
   // Default verse-translation resource per UI language (quran.com resource IDs)
   TRANSLATION_IDS: {
-    en: 131,  // Dr. Mustafa Khattab, The Clear Quran
+    en: 20,   // Saheeh International (id 131 was deprecated by quran.com → returned no text)
     bn: 161,  // Taisirul Quran
     fr: 31,   // Muhammad Hamidullah
     id: 33,   // Indonesian Islamic Affairs Ministry
@@ -53,7 +53,11 @@ const QuranData = {
 
   translationId(lang) {
     const override = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('trId_' + lang) : null;
-    return override || this.TRANSLATION_IDS[lang] || this.TRANSLATION_IDS.en;
+    if (override) return override;
+    // A language present in the map with a null id (e.g. Arabic UI) means "no
+    // translation line"; only genuinely-missing languages fall back to English.
+    if (lang in this.TRANSLATION_IDS) return this.TRANSLATION_IDS[lang];
+    return this.TRANSLATION_IDS.en;
   },
 
   /**
@@ -74,7 +78,8 @@ const QuranData = {
     const trId = this.translationId(lang);
     const params =
       `words=true&language=${this.wbwLang(lang)}` +
-      `&word_fields=text_uthmani&translations=${trId}` +
+      `&word_fields=text_uthmani` +
+      (trId ? `&translations=${trId}` : '') +   // Arabic UI: no translation line
       `&fields=text_uthmani&per_page=${perPage}`;
 
     // Page-level cache: many small ranges in the same surah (topic/dua/story

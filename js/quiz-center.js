@@ -712,7 +712,7 @@ class QuizCenter {
     if (!candidates.length) return [];
 
     const questions = [];
-    for (const key of this.shuffle(candidates).slice(0, 10)) {
+    for (const key of this.shuffle(candidates).slice(0, this.roundSize())) {
       const text = words[key].join(' ');
       const correctSurahs = [...this._dupMap.get(text)];
       const others = this.sample(
@@ -758,7 +758,7 @@ class QuizCenter {
     if (pool.length < 4) return [];
 
     const questions = [];
-    for (const q of this.shuffle(pool).slice(0, 10)) {
+    for (const q of this.shuffle(pool).slice(0, this.roundSize())) {
       const distractors = this.sample(pool.filter(w => w !== q), 3);
       let options;
       if (reverse) {
@@ -816,7 +816,7 @@ class QuizCenter {
     if (candidates.length < 4) return [];
 
     const questions = [];
-    for (const c of this.shuffle(candidates).slice(0, 10)) {
+    for (const c of this.shuffle(candidates).slice(0, this.roundSize())) {
       const pool = POS.slice();
       if ((c.pos === 'proper_noun' || c.pos === 'adjective') && !pool.includes(c.pos)) pool.push(c.pos);
       const others = this.sample(pool.filter(p => p !== c.pos), 3);
@@ -846,7 +846,7 @@ class QuizCenter {
     if (uniqueBank.length < 4) return [];
 
     const questions = [];
-    for (const key of this.shuffle(keys).slice(0, 10)) {
+    for (const key of this.shuffle(keys).slice(0, this.roundSize())) {
       const arr = words[key];
       const blankIdx = this.rand(arr.length);
       const answer = arr[blankIdx];
@@ -870,7 +870,7 @@ class QuizCenter {
   async buildWhichJuz(scope) {
     const questions = [];
     let attempts = 0;
-    while (questions.length < 10 && attempts < 40) {
+    while (questions.length < this.roundSize() && attempts < this.roundSize() * 6) {
       attempts++;
       const surahNum = 1 + this.rand(114);
       let verses;
@@ -938,7 +938,7 @@ class QuizCenter {
 
     const esc = s => this.esc(s);
     const questions = [];
-    for (const it of this.shuffle(items).slice(0, 10)) {
+    for (const it of this.shuffle(items).slice(0, this.roundSize())) {
       const before = esc(it.text.slice(0, it.start));
       const hit = esc(it.text.slice(it.start, it.end));
       const after = esc(it.text.slice(it.end));
@@ -974,7 +974,7 @@ class QuizCenter {
     const questions = [];
     let attempts = 0;
     for (const root of this.shuffle(rootKeys)) {
-      if (questions.length >= 10 || attempts > 60) break;
+      if (questions.length >= this.roundSize() || attempts > this.roundSize() * 6) break;
       attempts++;
       const occs = this.shuffle(roots[root]);
       const shownOcc = occs[0];

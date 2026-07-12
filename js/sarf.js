@@ -127,7 +127,8 @@ class Sarf {
       const key = `${n.gender}|${n.number}|${n.ntype}`;
       if (!seen.find(x => x.key === key)) seen.push({ key, gender: n.gender, number: n.number, ntype: n.ntype });
     }
-    seen.sort((a, b) => (a.number.localeCompare(b.number)) || a.gender.localeCompare(b.gender));
+    const numOrder = { S: 0, D: 1, P: 2 };
+    seen.sort((a, b) => ((numOrder[a.number] ?? 3) - (numOrder[b.number] ?? 3)) || a.gender.localeCompare(b.gender));
     let html = `<h3 class="text-lg font-bold mb-2 mt-4">📐 ${this.tt('sarf_nouns')}</h3>
       <div class="overflow-x-auto"><table class="w-full text-center border-collapse">
         <thead><tr class="text-xs text-gray-400">
@@ -160,12 +161,6 @@ class Sarf {
         ${m.meaning ? `<span class="block text-[10px] text-gray-500 dark:text-gray-400 leading-tight max-w-[90px] truncate mx-auto" dir="auto">${this.esc(m.meaning)}</span>` : ''}
         <span class="block text-[10px] text-gray-400 leading-none">×${m.count}</span>
       </button>`).join(' ');
-  }
-
-  goto(ref) {
-    if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
-    if (window.location.hash.slice(1) === encodeURIComponent(ref)) window.dispatchEvent(new HashChangeEvent('hashchange'));
-    else window.location.hash = ref;
   }
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

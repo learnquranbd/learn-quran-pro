@@ -206,11 +206,14 @@ class MushafView {
     this.hdrNextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
     this.hdrPrevBtn.addEventListener('click', () => this.goTo(this.page - this.step()));
 
-    // Re-render when crossing the one-page / two-page breakpoint
-    window.addEventListener('resize', () => {
-      const nowSpread = this.isSpread();
-      if (nowSpread !== this._wasSpread) { this._wasSpread = nowSpread; if (this.rendered) this.showPage(this.page); }
-    });
+    // Re-render when crossing the one-page / two-page breakpoint (bind once)
+    if (!this._resizeBound) {
+      this._resizeBound = true;
+      window.addEventListener('resize', () => {
+        const nowSpread = this.isSpread();
+        if (nowSpread !== this._wasSpread) { this._wasSpread = nowSpread; if (this.rendered) this.showPage(this.page); }
+      });
+    }
 
     const commitInput = () => {
       const p = parseInt(this.pageInput.value, 10);

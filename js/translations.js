@@ -5,6 +5,7 @@
 
 const TRANSLATIONS = {
   en: {
+    score: 'Score',
     read_full_ayah: 'Read full ayah',
     kids_words_freq_note: 'Ordered by how often each word appears in the Quran',
     kids_in_quran: 'in the Quran',
