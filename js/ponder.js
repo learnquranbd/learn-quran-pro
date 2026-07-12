@@ -44,6 +44,12 @@ class PonderCard {
         this.render();
         return;
       }
+      if (e.target.closest('[data-dismiss-dev]')) {
+        try { localStorage.setItem('devNoticeDismissed', '1'); } catch (err) {}
+        const n = document.getElementById('dev-notice');
+        if (n) n.remove();
+        return;
+      }
       const ql = e.target.closest('[data-ql]');
       if (ql) {
         const tab = ql.getAttribute('data-ql');
@@ -56,6 +62,27 @@ class PonderCard {
 
   isShowing() {
     return !!document.getElementById('ponder-card');
+  }
+
+  /** Dismissible "under development" notice with a contact email. */
+  devBannerHtml(lang) {
+    let dismissed = false;
+    try { dismissed = localStorage.getItem('devNoticeDismissed') === '1'; } catch (e) {}
+    if (dismissed) return '';
+    const email = 'shahinbdboy@gmail.com';
+    return `
+      <div id="dev-notice" class="max-w-3xl mx-auto mt-4 rounded-2xl border border-amber-300 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-500/10 px-5 py-4 relative">
+        <button data-dismiss-dev class="absolute top-2 right-2 p-1.5 rounded-lg text-amber-700/70 dark:text-amber-300/70 hover:bg-amber-100 dark:hover:bg-amber-500/20" aria-label="Dismiss">✕</button>
+        <div class="flex items-start gap-3 pr-6">
+          <span class="text-2xl">🚧</span>
+          <div>
+            <p class="font-bold text-amber-800 dark:text-amber-200">${t('dev_notice_title', lang)}</p>
+            <p class="text-sm text-amber-700 dark:text-amber-300/90 mt-0.5">${t('dev_notice_body', lang)}
+              <a href="mailto:${email}" class="font-semibold underline hover:no-underline">${email}</a>.
+            </p>
+          </div>
+        </div>
+      </div>`;
   }
 
   /** Quick-launch cards for the most-used modules (legacy dashboard shortcuts). */
@@ -100,6 +127,7 @@ class PonderCard {
     const end = m[3] ? parseInt(m[3]) : start;
 
     this.container.innerHTML = `
+      ${this.devBannerHtml(lang)}
       <div id="ponder-card" class="max-w-3xl mx-auto mt-6 rounded-2xl overflow-hidden shadow-lg
                                    bg-gradient-to-br from-indigo-50 via-white to-emerald-50
                                    dark:from-gray-800 dark:via-gray-800 dark:to-gray-800

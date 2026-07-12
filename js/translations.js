@@ -5,6 +5,9 @@
 
 const TRANSLATIONS = {
   en: {
+    wa_next_ayah: 'Next ayah',
+    dev_notice_title: 'This app is under active development',
+    dev_notice_body: "You may hit rough edges — no need to complain yet, we're on it! Got an idea or found an issue? Email",
     wr_tap_hint: 'Tap a word to see every verse it appears in — opens here, in this module.',
     tap_word_to_hear: 'Tap any word to hear it',
     play_full_ayah: 'Play full ayah',
@@ -477,6 +480,8 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    dev_notice_title: 'অ্যাপটি এখনও তৈরি হচ্ছে',
+    dev_notice_body: 'কিছু সমস্যা দেখতে পারেন — এখনই অভিযোগ করবেন না, আমরা কাজ করছি! কোনো আইডিয়া বা সমস্যা? ইমেইল করুন',
     quick_links: 'অন্বেষণ করুন',
     sarf_title: 'সরফ (শব্দরূপ)',
     wr_title: 'শব্দ পুনরাবৃত্তি',
@@ -884,6 +889,8 @@ const TRANSLATIONS = {
   },
 
   ar: {
+    dev_notice_title: 'هذا التطبيق قيد التطوير',
+    dev_notice_body: 'قد تواجه بعض المشكلات — لا داعي للشكوى بعد، نحن نعمل عليها! لديك فكرة أو مشكلة؟ راسلنا على',
     quick_links: 'استكشف',
     sarf_title: 'الصرف',
     wr_title: 'تكرار الكلمات',
@@ -1291,6 +1298,8 @@ const TRANSLATIONS = {
   },
 
   ur: {
+    dev_notice_title: 'یہ ایپ ابھی زیرِ تکمیل ہے',
+    dev_notice_body: 'کچھ مسائل آ سکتے ہیں — ابھی شکایت نہ کریں، ہم کام کر رہے ہیں! کوئی خیال یا مسئلہ؟ ای میل کریں',
     quick_links: 'دریافت کریں',
     sarf_title: 'صرف',
     wr_title: 'الفاظ کی تکرار',
@@ -1698,6 +1707,8 @@ const TRANSLATIONS = {
   },
 
   id: {
+    dev_notice_title: 'Aplikasi ini sedang dikembangkan',
+    dev_notice_body: 'Anda mungkin menemui kendala — belum perlu mengeluh, kami sedang menanganinya! Punya ide atau menemukan masalah? Email',
     quick_links: 'Jelajahi',
     sarf_title: 'Sharaf (Morfologi)',
     wr_title: 'Pengulangan Kata',
@@ -2105,6 +2116,8 @@ const TRANSLATIONS = {
   },
 
   tr: {
+    dev_notice_title: 'Bu uygulama geliştirme aşamasında',
+    dev_notice_body: 'Bazı sorunlarla karşılaşabilirsiniz — henüz şikayet etmeyin, üzerinde çalışıyoruz! Fikriniz veya sorununuz mu var? E-posta',
     quick_links: 'Keşfet',
     sarf_title: 'Sarf (Morfoloji)',
     wr_title: 'Kelime Tekrarı',
@@ -2512,6 +2525,8 @@ const TRANSLATIONS = {
   },
 
   fr: {
+    dev_notice_title: 'Cette application est en cours de développement',
+    dev_notice_body: 'Vous pourriez rencontrer des soucis — pas besoin de se plaindre, on y travaille ! Une idée ou un problème ? Écrivez à',
     quick_links: 'Explorer',
     sarf_title: 'Sarf (Morphologie)',
     wr_title: 'Répétition des mots',
@@ -2918,6 +2933,8 @@ const TRANSLATIONS = {
 
   },
   es: {
+    dev_notice_title: 'Esta app está en desarrollo',
+    dev_notice_body: 'Puede que encuentres fallos — no hace falta quejarse aún, ¡estamos en ello! ¿Una idea o un problema? Escribe a',
     quick_links: 'Explorar',
     sarf_title: 'Sarf (Morfología)',
     wr_title: 'Repetición de palabras',
@@ -3305,6 +3322,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Historias de los profetas"
   },
   ru: {
+    dev_notice_title: 'Приложение в разработке',
+    dev_notice_body: 'Возможны недоработки — не спешите жаловаться, мы работаем! Есть идея или проблема? Пишите на',
     quick_links: 'Обзор',
     sarf_title: 'Сарф (морфология)',
     wr_title: 'Повтор слов',
@@ -3692,6 +3711,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Истории пророков"
   },
   fa: {
+    dev_notice_title: 'این برنامه در حال توسعه است',
+    dev_notice_body: 'ممکن است با مشکلاتی روبرو شوید — هنوز شکایت نکنید، در حال کار هستیم! ایده یا مشکلی دارید؟ ایمیل بزنید',
     quick_links: 'کاوش',
     sarf_title: 'صرف',
     wr_title: 'تکرار واژگان',
@@ -4079,6 +4100,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "داستان‌های پیامبران"
   },
   hi: {
+    dev_notice_title: 'यह ऐप विकासाधीन है',
+    dev_notice_body: 'आपको कुछ समस्याएँ मिल सकती हैं — अभी शिकायत न करें, हम काम कर रहे हैं! कोई सुझाव या समस्या? ईमेल करें',
     quick_links: 'अन्वेषण',
     sarf_title: 'सर्फ़ (आकृति विज्ञान)',
     wr_title: 'शब्द पुनरावृत्ति',
@@ -4466,6 +4489,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "पैगंबरों की कहानियाँ"
   },
   de: {
+    dev_notice_title: 'Diese App wird noch entwickelt',
+    dev_notice_body: 'Es kann noch haken — bitte noch nicht meckern, wir sind dran! Idee oder Problem? Schreib an',
     quick_links: 'Entdecken',
     sarf_title: 'Sarf (Morphologie)',
     wr_title: 'Wortwiederholung',
@@ -4853,6 +4878,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Geschichten der Propheten"
   },
   ms: {
+    dev_notice_title: 'Aplikasi ini sedang dibangunkan',
+    dev_notice_body: 'Anda mungkin menghadapi masalah — belum perlu mengadu, kami sedang mengusahakannya! Ada idea atau masalah? E-mel',
     quick_links: 'Terokai',
     sarf_title: 'Saraf (Morfologi)',
     wr_title: 'Pengulangan Kata',
@@ -5240,6 +5267,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Kisah Para Nabi"
   },
   zh: {
+    dev_notice_title: '本应用正在开发中',
+    dev_notice_body: '您可能会遇到一些问题 — 请先别抱怨，我们正在改进！有想法或发现问题？请发邮件至',
     quick_links: '探索',
     sarf_title: '词法（Sarf）',
     wr_title: '词语重复',
@@ -5627,6 +5656,8 @@ const TRANSLATIONS = {
     "stories_of_prophets": "先知们的故事"
   },
   ja: {
+    dev_notice_title: 'このアプリは開発中です',
+    dev_notice_body: '不具合に遭遇するかもしれませんが、まだご心配なく、対応中です！アイデアや問題があれば',
     quick_links: '見る',
     sarf_title: 'サルフ（形態論）',
     wr_title: '単語の繰り返し',

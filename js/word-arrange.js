@@ -20,7 +20,7 @@ class WordArrange {
       ? appSettings.get('language') : 'en';
     this.surah = 112;
     this.ayah = 1;
-    this.mode = 'reveal';
+    this.mode = 'arrange';
     this.words = null;         // [{ arabic, meaning }]
     this.revealed = new Set(); // reveal-mode: indices shown
     this.placed = [];          // arrange-mode: pool indices placed into slots (in order)
@@ -57,12 +57,16 @@ class WordArrange {
           <select id="wa-surah" class="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
             ${SURAH_DATA.map(s => `<option value="${s.number}" ${s.number === this.surah ? 'selected' : ''}>${this.esc(formatSurahOption(s, lang))}</option>`).join('')}
           </select>
-          <select id="wa-ayah" class="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            ${Array.from({ length: ayahCount }, (_, i) => i + 1).map(a => `<option value="${a}" ${a === this.ayah ? 'selected' : ''}>${this.tt('ayah')} ${a}</option>`).join('')}
-          </select>
+          <div class="inline-flex items-stretch rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+            <button data-ayah-nav="prev" ${this.ayah <= 1 ? 'disabled' : ''} class="px-2 py-2 text-sm bg-white dark:bg-gray-800 disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700" title="${this.tt('previous')}">‹</button>
+            <select id="wa-ayah" class="px-3 py-2 text-sm bg-white dark:bg-gray-800 border-x border-gray-200 dark:border-gray-700">
+              ${Array.from({ length: ayahCount }, (_, i) => i + 1).map(a => `<option value="${a}" ${a === this.ayah ? 'selected' : ''}>${this.tt('ayah')} ${a}</option>`).join('')}
+            </select>
+            <button data-ayah-nav="next" ${this.ayah >= ayahCount ? 'disabled' : ''} class="px-2 py-2 text-sm bg-white dark:bg-gray-800 disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700" title="${this.tt('next')}">›</button>
+          </div>
           <div class="inline-flex rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-            <button data-mode="reveal" class="wa-mode px-3 py-2 text-sm ${this.mode === 'reveal' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_mode_reveal')}</button>
             <button data-mode="arrange" class="wa-mode px-3 py-2 text-sm ${this.mode === 'arrange' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_mode_arrange')}</button>
+            <button data-mode="reveal" class="wa-mode px-3 py-2 text-sm ${this.mode === 'reveal' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_mode_reveal')}</button>
           </div>
         </div>
         <div id="wa-board" class="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 min-h-[180px]"></div>
@@ -108,7 +112,7 @@ class WordArrange {
     this.renderArrange(board);
   }
 
-  // ---- Reveal mode -------------------------------------------------------
+  // ---- Reveal mode (words side by side, RTL) -----------------------------
   renderReveal(board) {
     const allShown = this.revealed.size === this.words.length;
     board.innerHTML = `
@@ -117,52 +121,66 @@ class WordArrange {
           ${allShown ? this.tt('wa_hide_all') : this.tt('wa_reveal_all')}
         </button>
       </div>
-      <div class="space-y-2" dir="ltr">
+      <div class="flex flex-wrap gap-x-2 gap-y-4 justify-center" dir="rtl">
         ${this.words.map((w, i) => {
           const shown = this.revealed.has(i);
           return `
-            <div class="flex items-center gap-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-900/40">
-              <span class="shrink-0 w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-xs flex items-center justify-center">${i + 1}</span>
-              <span class="flex-1 text-sm text-gray-600 dark:text-gray-300" dir="auto">${this.esc(w.meaning)}</span>
-              <button data-reveal="${i}" class="min-w-[90px] text-right ayah-arabic text-2xl px-2 transition ${shown ? '' : 'blur-sm hover:blur-none'}" dir="rtl" title="${this.tt('wa_tap_reveal')}">${this.esc(w.arabic)}</button>
+            <div class="flex flex-col items-center max-w-[110px]">
+              <button data-reveal="${i}" class="ayah-arabic text-2xl px-1 leading-loose transition ${shown ? '' : 'blur-sm hover:blur-none'}" title="${this.tt('wa_tap_reveal')}">${this.esc(w.arabic)}</button>
+              <span class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
         }).join('')}
       </div>`;
   }
 
-  // ---- Arrange mode ------------------------------------------------------
+  // ---- Arrange mode (slots side by side, RTL) ----------------------------
   renderArrange(board) {
     const done = this.placed.length === this.words.length;
+    const allCorrect = done && this.placed.every((p, i) => p === i);
+    const info = (typeof getSurahByNumber === 'function') ? getSurahByNumber(this.surah) : null;
+    const hasNext = info && this.ayah < info.ayahCount;
     board.innerHTML = `
-      <p class="text-center text-sm text-gray-500 mb-3">${this.tt('wa_tap_hint')}</p>
-      <div class="space-y-1.5 mb-4" dir="ltr">
+      <p class="text-center text-sm text-gray-500 mb-4">${this.tt('wa_tap_hint')}</p>
+      <div class="flex flex-wrap gap-2 justify-center mb-5" dir="rtl">
         ${this.words.map((w, i) => {
-          const placedIdx = this.placed[i];              // original index placed in slot i
+          const placedIdx = this.placed[i];
           const filled = placedIdx !== undefined;
           const correct = filled && placedIdx === i;
           return `
-            <div class="flex items-center gap-3 p-2 rounded-lg ${filled ? (correct ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20') : 'bg-gray-50 dark:bg-gray-900/40'}">
-              <span class="shrink-0 w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-xs flex items-center justify-center">${i + 1}</span>
-              <span class="flex-1 text-sm text-gray-600 dark:text-gray-300" dir="auto">${this.esc(w.meaning)}</span>
-              <button ${filled ? `data-unplace="${i}"` : ''} class="min-w-[90px] text-right ayah-arabic text-2xl px-2" dir="rtl">${filled ? this.esc(this.words[placedIdx].arabic) : '<span class="text-gray-300 dark:text-gray-600">—</span>'}</button>
+            <div class="flex flex-col items-center">
+              <button ${filled ? `data-unplace="${i}"` : ''} class="min-w-[64px] h-12 px-2 flex items-center justify-center rounded-lg border-2 ${
+                filled ? (correct ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-red-400 bg-red-50 dark:bg-red-900/20')
+                       : 'border-dashed border-gray-300 dark:border-gray-600'}">
+                <span class="ayah-arabic text-2xl">${filled ? this.esc(this.words[placedIdx].arabic) : ''}</span>
+              </button>
+              <span class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 max-w-[72px] text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
         }).join('')}
       </div>
       <div class="border-t border-gray-100 dark:border-gray-700 pt-3">
-        <div class="flex flex-wrap gap-2 justify-center min-h-[44px]">
+        <div class="flex flex-wrap gap-2 justify-center min-h-[44px]" dir="rtl">
           ${this.pool.map(origIdx => {
             const used = this.placed.includes(origIdx);
-            return `<button data-place="${origIdx}" ${used ? 'disabled' : ''} class="ayah-arabic text-2xl px-3 py-1.5 rounded-lg border ${used ? 'opacity-30 border-gray-200 dark:border-gray-700' : 'border-primary/40 bg-primary/5 hover:bg-primary hover:text-white'}" dir="rtl">${this.esc(this.words[origIdx].arabic)}</button>`;
+            return `<button data-place="${origIdx}" ${used ? 'disabled' : ''} class="ayah-arabic text-2xl px-3 py-1.5 rounded-lg border ${used ? 'opacity-30 border-gray-200 dark:border-gray-700' : 'border-primary/40 bg-primary/5 hover:bg-primary hover:text-white'}">${this.esc(this.words[origIdx].arabic)}</button>`;
           }).join('')}
         </div>
-        <div class="flex items-center justify-center gap-2 mt-4">
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
           <button data-reset class="text-xs px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">${this.tt('wa_reset')}</button>
-          ${done ? `<span class="text-sm font-semibold ${this.placed.every((p, i) => p === i) ? 'text-green-600' : 'text-red-500'}">${this.placed.every((p, i) => p === i) ? '✓ ' + this.tt('wa_correct') : '✗ ' + this.tt('wa_wrong')}</span>` : ''}
+          ${done ? `<span class="text-sm font-semibold ${allCorrect ? 'text-green-600' : 'text-red-500'}">${allCorrect ? '✓ ' + this.tt('wa_correct') : '✗ ' + this.tt('wa_wrong')}</span>` : ''}
+          ${allCorrect && hasNext ? `<button data-ayah-nav="next" class="text-xs px-4 py-1.5 rounded-lg bg-primary text-white hover:bg-primary/80">${this.tt('wa_next_ayah')} →</button>` : ''}
         </div>
       </div>`;
   }
 
   onClick(e) {
+    const nav = e.target.closest('[data-ayah-nav]');
+    if (nav && !nav.disabled) {
+      const info = (typeof getSurahByNumber === 'function') ? getSurahByNumber(this.surah) : null;
+      const dir = nav.getAttribute('data-ayah-nav');
+      if (dir === 'next' && info && this.ayah < info.ayahCount) { this.ayah++; this.render(); }
+      else if (dir === 'prev' && this.ayah > 1) { this.ayah--; this.render(); }
+      return;
+    }
     const mode = e.target.closest('[data-mode]');
     if (mode) { this.mode = mode.getAttribute('data-mode'); this.render(); return; }
 
