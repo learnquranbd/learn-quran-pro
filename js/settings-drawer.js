@@ -33,6 +33,8 @@ class SettingsDrawer {
     const btn = document.createElement('button');
     btn.id = 'settings-drawer-btn';
     btn.className = 'p-2 hover:bg-white/10 rounded-lg';
+    btn.setAttribute('aria-label', t('settings', this.language) || 'Settings');
+    btn.setAttribute('title', t('settings', this.language) || 'Settings');
     btn.innerHTML = `
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -114,7 +116,7 @@ class SettingsDrawer {
     this.drawer.innerHTML = `
       <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
         <h3 class="font-bold">⚙️ ${t('reading_settings', lang)}</h3>
-        <button id="sd-close" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500">✕</button>
+        <button id="sd-close" aria-label="${t('close', lang) || 'Close'}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500">✕</button>
       </div>
       <div class="px-5 pb-8">
         ${this.sectionHead(t('display', lang))}

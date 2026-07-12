@@ -348,7 +348,7 @@ class KidsQaida {
       };
       host.innerHTML = `
         <p class="text-center text-xs text-gray-500 dark:text-gray-400 mb-2">${t('letter_examples', lang)}</p>
-        <div class="flex gap-2" dir="rtl">
+        <div class="flex flex-wrap gap-2" dir="rtl">
           ${cell(found.start, 'form_start')}
           ${cell(found.middle, 'form_middle')}
           ${cell(found.end, 'form_end')}
