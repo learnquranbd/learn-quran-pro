@@ -191,6 +191,7 @@ class AudioPlayer {
     this.clearHighlight();
 
     const ayah = this.ayahs[index];
+    this.renderNowPlaying(ayah);
     let src;
     let segments = null;
     try {
@@ -226,6 +227,7 @@ class AudioPlayer {
     this.audio.removeAttribute('src');
     this.currentSegments = null;
     this.clearHighlight();
+    this.renderNowPlaying(null);
     this.updateUI();
   }
 
@@ -249,6 +251,14 @@ class AudioPlayer {
     if (pos === this.highlightedPos) return;
     this.highlightedPos = pos;
 
+    // Mirror the highlight onto the Audio-tab word-by-word panel
+    const np = document.getElementById('audio-nowplaying');
+    if (np) np.querySelectorAll('.ap-word').forEach(s => {
+      const on = pos != null && String(s.getAttribute('data-ap-pos')) === String(pos);
+      s.classList.toggle('bg-amber-200', on);
+      s.classList.toggle('dark:bg-amber-500/40', on);
+    });
+
     if (typeof wordHighlight === 'undefined' || !wordHighlight) return;
     const key = this.ayahs[this.currentIndex]?.key;
     if (pos != null && key) {
@@ -261,6 +271,30 @@ class AudioPlayer {
   clearHighlight() {
     this.highlightedPos = null;
     if (typeof wordHighlight !== 'undefined' && wordHighlight) wordHighlight.clear();
+    const np = document.getElementById('audio-nowplaying');
+    if (np) np.querySelectorAll('.ap-word').forEach(s => s.classList.remove('bg-amber-200', 'dark:bg-amber-500/40'));
+  }
+
+  /** Word-by-word panel for the currently playing ayah (mirrors reading view). */
+  renderNowPlaying(ayah) {
+    let el = document.getElementById('audio-nowplaying');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'audio-nowplaying';
+      el.className = 'bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4';
+      this.container.insertBefore(el, this.container.firstChild);
+    }
+    if (!ayah) { el.innerHTML = ''; el.classList.add('hidden'); return; }
+    el.classList.remove('hidden');
+    const words = (ayah.words || []).map(w => `
+      <span class="ap-word inline-flex flex-col items-center px-1.5 py-1 rounded-lg transition-colors" data-ap-pos="${w.position}">
+        <span class="ayah-arabic !text-2xl sm:!text-3xl">${w.arabic}</span>
+        <span class="text-[11px] text-gray-500 dark:text-gray-400" dir="auto">${w.meaning || ''}</span>
+      </span>`).join('');
+    el.innerHTML = `
+      <div class="text-xs text-gray-400 mb-2 text-center">${ayah.surahName || ''} ${ayah.key}</div>
+      <div class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${ayah.arabic || ''}</div>
+      <div class="flex flex-wrap justify-center gap-x-1 gap-y-1" dir="rtl">${words}</div>`;
   }
 
   renderList() {
