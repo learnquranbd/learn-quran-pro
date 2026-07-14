@@ -24,6 +24,11 @@ class Handwriting {
 
     window.addEventListener('learnModuleSelected', (e) => {
       if (e.detail && e.detail.module === 'handwriting') this.render();
+      else this.stopAll(); // another module — or null when going back to the Learn hub
+    });
+    // Stop audio when the user leaves the Learn tab
+    window.addEventListener('tabChanged', (e) => {
+      if (e.detail && e.detail.tabId !== 'learn') this.stopAll();
     });
     window.addEventListener('settingChanged', (e) => {
       if (e.detail && e.detail.key === 'language') { this.language = e.detail.value; if (this.root.innerHTML) this.render(); }
@@ -86,7 +91,7 @@ class Handwriting {
           </div>
 
           <div class="relative rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white" style="touch-action:none;">
-            <canvas id="hw-canvas" class="w-full block rounded-xl" style="height:340px;"></canvas>
+            <canvas id="hw-canvas" class="w-full block rounded-xl" style="height:clamp(260px, 50vh, 480px);"></canvas>
           </div>
 
           <div class="flex flex-wrap justify-center gap-2 mt-3">
@@ -105,32 +110,64 @@ class Handwriting {
   setupCanvas() {
     this.canvas = this.root.querySelector('#hw-canvas');
     if (!this.canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    const rect = this.canvas.getBoundingClientRect();
-    this.canvas.width = rect.width * dpr;
-    this.canvas.height = 340 * dpr;
-    this.ctx = this.canvas.getContext('2d');
-    this.ctx.scale(dpr, dpr);
-    this.cw = rect.width; this.ch = 340;
-    this.redraw();
+    this.cw = 0; this.ch = 0; // fresh canvas — no stroke rescale on first sizing
+    this.sizeCanvas();
 
     const pos = (e) => {
       const r = this.canvas.getBoundingClientRect();
-      const p = e.touches ? e.touches[0] : e;
-      return { x: p.clientX - r.left, y: p.clientY - r.top };
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
-    const start = (e) => { e.preventDefault(); this.drawing = true; this.strokes.push([pos(e)]); };
+    const start = (e) => {
+      e.preventDefault();
+      // Capture the pointer so strokes keep recording past the canvas edge.
+      try { this.canvas.setPointerCapture(e.pointerId); } catch (err) {}
+      this.drawing = true;
+      this.strokes.push([pos(e)]);
+    };
     const move = (e) => { if (!this.drawing) return; e.preventDefault(); this.strokes[this.strokes.length - 1].push(pos(e)); this.redraw(); };
-    const end = () => { this.drawing = false; };
+    const end = (e) => {
+      this.drawing = false;
+      try { this.canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    };
 
     this.canvas.addEventListener('pointerdown', start);
     this.canvas.addEventListener('pointermove', move);
-    // The canvas is recreated each render, but window survives — bind pointerup once.
+    this.canvas.addEventListener('pointerup', end);
+    this.canvas.addEventListener('pointercancel', end);
+    // The canvas is recreated each render, but window survives — bind pointerup once (safety net).
     if (!this._pointerUpBound) {
       this._pointerUpBound = true;
       this._onPointerUp = () => { this.drawing = false; };
       window.addEventListener('pointerup', this._onPointerUp);
     }
+
+    // Re-size the backing store on rotation/resize so ink stays under the finger.
+    if (typeof ResizeObserver !== 'undefined') {
+      if (this._resizeObs) this._resizeObs.disconnect();
+      this._resizeObs = new ResizeObserver(() => {
+        clearTimeout(this._resizeTimer);
+        this._resizeTimer = setTimeout(() => this.sizeCanvas(), 120);
+      });
+      this._resizeObs.observe(this.canvas);
+    }
+  }
+
+  /** Match the backing store to the CSS box; rescale existing strokes to the new size. */
+  sizeCanvas() {
+    if (!this.canvas) return;
+    const rect = this.canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return; // hidden (other tab/module) — keep as-is
+    const dpr = window.devicePixelRatio || 1;
+    if (this.cw && this.ch && (rect.width !== this.cw || rect.height !== this.ch)) {
+      const sx = rect.width / this.cw, sy = rect.height / this.ch;
+      this.strokes = this.strokes.map(s => s.map(p => ({ x: p.x * sx, y: p.y * sy })));
+    }
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.scale(dpr, dpr);
+    this.cw = rect.width; this.ch = rect.height;
+    this.redraw();
   }
 
   redraw() {
@@ -141,7 +178,8 @@ class Handwriting {
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `${this.section === 'words' ? 150 : 220}px 'CustomArabic','Amiri',serif`;
+    const glyphSize = Math.round(this.ch * (this.section === 'words' ? 0.44 : 0.65)); // ≈150/220px at the old 340px height
+    ctx.font = `${glyphSize}px 'CustomArabic','Amiri',serif`;
     ctx.fillStyle = this.reveal ? 'rgba(30,64,175,0.85)' : 'rgba(120,120,120,0.14)';
     ctx.fillText(glyph, this.cw / 2, this.ch / 2 + 10);
     ctx.restore();
@@ -168,6 +206,12 @@ class Handwriting {
       const u = new SpeechSynthesisUtterance(text); u.lang = 'ar-SA'; u.rate = 0.8;
       try { speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (e) {}
     }
+  }
+
+  /** Stop the clip + TTS this module owns (called on tab/module leave). */
+  stopAll() {
+    try { this._audio.pause(); } catch (e) {}
+    try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
   }
 
   onClick(e) {

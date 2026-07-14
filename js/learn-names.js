@@ -146,7 +146,11 @@ class NamesOfAllah {
   // ---------- name detail (audio + Quranic occurrences + reflection) ------
 
   async loadTokens() {
-    if (!this._tokensPromise) this._tokensPromise = fetch('data/quran-tokens.json').then(r => r.json()).catch(() => null);
+    if (!this._tokensPromise) {
+      this._tokensPromise = fetch('data/quran-tokens.json')
+        .then(r => r.json())
+        .catch(() => { this._tokensPromise = null; return null; }); // don't cache failures — retry next open
+    }
     return this._tokensPromise;
   }
 
@@ -164,10 +168,11 @@ class NamesOfAllah {
         <div id="names-detail-body" class="flex-1 overflow-y-auto p-5"></div>
       </div>`;
     document.body.appendChild(this.nameModal);
-    if (window.escClose) window.escClose(this.nameModal, () => { if (this._nameAudio) this._nameAudio.pause(); this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); });
+    if (window.escClose) window.escClose(this.nameModal, () => { if (this._nameAudio) this._nameAudio.pause(); try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); });
     this.nameModal.addEventListener('click', (e) => {
       if (e.target === this.nameModal || e.target.closest('#names-detail-close')) {
         if (this._nameAudio) this._nameAudio.pause();
+        try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (err) { /* ignore */ }
         this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); return;
       }
       const sp = e.target.closest('[data-name-speak]');
@@ -220,6 +225,7 @@ class NamesOfAllah {
     const occBox = body.querySelector('#names-occ');
     try {
       const tokens = await this.loadTokens();
+      if (this._openName !== name) return; // another name was opened meanwhile — don't touch the live modal
       const norm = (QuranData && QuranData.normalizeWord) ? QuranData.normalizeWord(name.ar) : name.ar;
       const refs = [];
       if (tokens) {
@@ -242,6 +248,7 @@ class NamesOfAllah {
         try {
           const [s, a] = refs[0].split(':').map(Number);
           const v = (await QuranData.fetchRange(s, a, a, lang))[0];
+          if (this._openName !== name) return; // stale fetch — a newer name owns the modal now
           const w = (v && v.words || []).find(x => QuranData.normalizeWord(x.arabic) === norm && x.audio);
           const playBtn = body.querySelector('[data-name-speak]');
           if (w && playBtn) playBtn.setAttribute('data-name-audio', w.audio);
@@ -349,12 +356,18 @@ class NamesOfAllah {
   filteredNames() {
     const q = this.query.trim().toLowerCase();
     if (!q) return NAMES_99;
+    // Diacritic-insensitive Arabic match: strip tashkeel/tatweel + unify alefs
+    // so plain "الرحمن" finds the fully-voweled name.ar.
+    const normAr = (typeof QuranData !== 'undefined' && QuranData.normalizeWord)
+      ? (s) => QuranData.normalizeWord(s)
+      : (s) => s;
+    const qAr = normAr(this.query.trim());
     return NAMES_99.filter(name =>
       String(name.n) === q
       || name.translit.toLowerCase().includes(q)
       || this.meaningOf(name).toLowerCase().includes(q)
       || name.meanings.en.toLowerCase().includes(q)
-      || name.ar.includes(this.query.trim())
+      || (qAr && normAr(name.ar).includes(qAr))
     );
   }
 
@@ -430,7 +443,17 @@ class NamesOfAllah {
     if (this.quiz.finished) return this.renderQuizEnd();
 
     const q = this.quiz.questions[this.quiz.round];
-    const others = this.shuffle(NAMES_99.filter(x => x.n !== q.n)).slice(0, 3);
+    // Distractors deduped by meaning — some names share a gloss (e.g. Al-Ghaffar/
+    // Al-Ghafur), which would render two identical answer buttons.
+    const seenMeanings = new Set([this.meaningOf(q).toLowerCase()]);
+    const others = [];
+    for (const x of this.shuffle(NAMES_99.filter(x => x.n !== q.n))) {
+      const m = this.meaningOf(x).toLowerCase();
+      if (seenMeanings.has(m)) continue;
+      seenMeanings.add(m);
+      others.push(x);
+      if (others.length === 3) break;
+    }
     const choices = this.shuffle(
       [{ name: q, correct: true }].concat(others.map(x => ({ name: x, correct: false })))
     );

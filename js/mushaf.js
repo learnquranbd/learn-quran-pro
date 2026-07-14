@@ -168,10 +168,10 @@ class MushafView {
 
           <!-- Zoom (dense tajweed print is hard to read at fit-to-screen) -->
           <div class="flex items-center gap-1">
-            <button id="mushaf-zoom-out" title="A-" aria-label="Zoom out"
+            <button id="mushaf-zoom-out" title="${t('zoom_out', lang)}" aria-label="${t('zoom_out', lang)}"
                     class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">🔍−</button>
             <span id="mushaf-zoom-label" class="text-xs text-gray-400 w-10 text-center">100%</span>
-            <button id="mushaf-zoom-in" title="A+" aria-label="Zoom in"
+            <button id="mushaf-zoom-in" title="${t('zoom_in', lang)}" aria-label="${t('zoom_in', lang)}"
                     class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">🔍+</button>
           </div>
         </div>
@@ -329,9 +329,9 @@ class MushafView {
 
     this.applyZoom();
 
-    // Preload neighbours for instant turns
-    [page - 1, page + 2, page + 3].forEach(p => {
-      if (p >= 1 && p <= this.TOTAL_PAGES) { const pre = new Image(); pre.src = this.imageUrl(p); }
+    // Preload neighbours for instant turns (skip pages already displayed)
+    [page - 1, page + 1, page + 2, page + 3].forEach(p => {
+      if (p >= 1 && p <= this.TOTAL_PAGES && pages.indexOf(p) === -1) { const pre = new Image(); pre.src = this.imageUrl(p); }
     });
   }
 

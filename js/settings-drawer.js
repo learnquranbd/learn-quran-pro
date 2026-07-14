@@ -33,8 +33,8 @@ class SettingsDrawer {
     const btn = document.createElement('button');
     btn.id = 'settings-drawer-btn';
     btn.className = 'p-2 hover:bg-white/10 rounded-lg';
-    btn.setAttribute('aria-label', t('settings', this.language) || 'Settings');
-    btn.setAttribute('title', t('settings', this.language) || 'Settings');
+    btn.setAttribute('aria-label', t('reading_settings', this.language) || 'Settings');
+    btn.setAttribute('title', t('reading_settings', this.language) || 'Settings');
     btn.innerHTML = `
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,6 +50,7 @@ class SettingsDrawer {
     this.overlay.className = 'fixed inset-0 bg-black/40 z-50 hidden';
     this.overlay.addEventListener('click', () => this.close());
     document.body.appendChild(this.overlay);
+    if (window.escClose) window.escClose(this.overlay, () => this.close());
 
     this.drawer = document.createElement('aside');
     this.drawer.id = 'settings-drawer';
@@ -86,7 +87,7 @@ class SettingsDrawer {
         .then(d => (d.translations || [])
           .filter(x => (x.language_name || '').toLowerCase() === names[lang])
           .map(x => ({ id: x.id, name: x.name })))
-        .catch(() => []);
+        .catch(() => { delete this._translationLists[lang]; return []; });
     }
     return this._translationLists[lang];
   }
@@ -169,6 +170,7 @@ class SettingsDrawer {
 
     // Populate translation sources asynchronously
     const list = await this.translationsFor(lang);
+    if (lang !== this.language) return; // stale render: language changed while awaiting
     const sel = this.drawer.querySelector('[data-sd-select="translation"]');
     if (sel && list.length) {
       const current = appSettings.get('trId_' + lang) || QuranData.TRANSLATION_IDS[lang];

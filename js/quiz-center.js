@@ -60,8 +60,18 @@ class QuizCenter {
 
     this.root.addEventListener('click', (e) => this.onClick(e));
 
+    // <select> pickers fire 'change' (not 'click') on mobile native pickers and keyboard
+    this.root.addEventListener('change', (e) => {
+      const el = e.target.closest('[data-action]');
+      if (!el || !this.root.contains(el)) return;
+      const action = el.getAttribute('data-action');
+      if (action === 'set-surah' && this.scope) this.scope.surah = parseInt(el.value);
+      else if (action === 'set-juz' && this.scope) this.scope.juz = parseInt(el.value);
+    });
+
     // Keyboard answering: press 1-4 to pick an option while a question is up
     document.addEventListener('keydown', (e) => {
+      if (typeof tabSystem !== 'undefined' && tabSystem && tabSystem.getActiveTab() !== 'quiz') return;
       if (this.view !== 'running' || this.answered) return;
       const tag = (e.target && e.target.tagName || '').toLowerCase();
       if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
@@ -257,12 +267,6 @@ class QuizCenter {
         this.scope = this.defaultScope(this.currentType, el.getAttribute('data-kind'));
         this.render();
         break;
-      case 'set-surah':
-        if (this.scope) this.scope.surah = parseInt(el.value);
-        break;
-      case 'set-juz':
-        if (this.scope) this.scope.juz = parseInt(el.value);
-        break;
       case 'set-sub':
         this.subMode = el.getAttribute('data-sub');
         this.render();
@@ -291,6 +295,9 @@ class QuizCenter {
         break;
       case 'play-again':
         this.start();
+        break;
+      case 'retry-missed':
+        this.retryMissed();
         break;
       case 'back-menu':
         this.toHome();
@@ -378,8 +385,30 @@ class QuizCenter {
     this.streak = 0;
     this.answered = false;
     this.newBest = false;
+    this.retryRound = false;
     this.missed = [];   // questions answered incorrectly, for the end-of-round review
     // Blur-strip: for ayah_sequence over a surah, reconstruct the surah as you answer.
+    this.revealedAyahs = (this.currentType.id === 'ayah_sequence' && this.scope.kind === 'surah') ? new Set() : null;
+    this.wrongAyahs = new Set();
+    this.view = 'running';
+    this.render();
+  }
+
+  // Replay only the questions missed this round (options reshuffled, best score untouched)
+  retryMissed() {
+    if (!this.missed || !this.missed.length) return;
+    if (this.advanceTimer) { clearTimeout(this.advanceTimer); this.advanceTimer = null; }
+    this.questions = this.shuffle(this.missed.map(m => m.question)).map(q => ({
+      ...q,
+      options: this.shuffle(q.options)
+    }));
+    this.index = 0;
+    this.score = 0;
+    this.streak = 0;
+    this.answered = false;
+    this.newBest = false;
+    this.retryRound = true;
+    this.missed = [];
     this.revealedAyahs = (this.currentType.id === 'ayah_sequence' && this.scope.kind === 'surah') ? new Set() : null;
     this.wrongAyahs = new Set();
     this.view = 'running';
@@ -399,7 +428,7 @@ class QuizCenter {
       this.streak = 0;
       // Remember what was missed for the end-of-round review
       const right = q.options.find(o => o.correct);
-      this.missed.push({ prompt: q.prompt, promptHtml: q.promptHtml, chosenHtml: chosen ? chosen.html : '', correctHtml: right ? right.html : '', gotoVerse: q.gotoVerse || null });
+      this.missed.push({ prompt: q.prompt, promptHtml: q.promptHtml, chosenHtml: chosen ? chosen.html : '', correctHtml: right ? right.html : '', gotoVerse: q.gotoVerse || null, question: q });
     }
 
     // Reveal this ayah on the surah blur-strip — green if you got it right, red if not.
@@ -430,10 +459,11 @@ class QuizCenter {
 
     const fb = document.getElementById('quiz-feedback');
     if (fb) {
-      fb.innerHTML = correct
+      fb.innerHTML = (correct
         ? `<span class="text-green-600 dark:text-green-400 font-semibold">✓ ${this.tt('quiz_correct')}</span>`
         : `<span class="text-red-600 dark:text-red-400 font-semibold">✕ ${this.tt('quiz_wrong')}</span>`
-          + (q.explanation ? ` <span class="text-gray-500 dark:text-gray-400">— ${q.explanation}</span>` : '');
+          + (q.explanation ? ` <span class="text-gray-500 dark:text-gray-400">— ${q.explanation}</span>` : ''))
+        + (q.multi ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${this.tt('quiz_multi_note')}</div>` : '');
     }
 
     this.advanceTimer = setTimeout(() => {
@@ -441,11 +471,14 @@ class QuizCenter {
       this.index++;
       this.answered = false;
       if (this.index >= this.questions.length) {
-        const scope = this.bestKey();
-        const best = this.getBest(this.currentType.id, scope);
-        if (best === null || this.score > best) {
-          this.saveBest(this.currentType.id, scope, this.score);
-          this.newBest = true;
+        // Retry rounds have fewer questions — they don't count towards best scores
+        if (!this.retryRound) {
+          const scope = this.bestKey();
+          const best = this.getBest(this.currentType.id, scope);
+          if (best === null || this.score > best) {
+            this.saveBest(this.currentType.id, scope, this.score);
+            this.newBest = true;
+          }
         }
         this.view = 'end';
       }
@@ -636,7 +669,7 @@ class QuizCenter {
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 md:p-8 text-center mb-5">
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">${this.esc(q.prompt)}</p>
         <div>${q.promptHtml}</div>
-        ${q.gotoVerse ? `<button data-action="goto" data-goto="${q.gotoVerse}"
+        ${q.gotoVerse ? `<button data-action="show-ayah" data-ref="${q.gotoVerse}"
             class="mt-4 text-xs text-primary dark:text-blue-400 hover:underline">↗ ${t('quiz_view_verse', lang)}</button>` : ''}
       </div>
       ${this.sequenceStripHtml()}
@@ -664,12 +697,16 @@ class QuizCenter {
         <p class="text-sm text-gray-500 dark:text-gray-400">${pct}%</p>
         ${this.newBest
           ? `<p class="text-green-600 dark:text-green-400 font-medium">🌟 ${t('quiz_new_best', lang)}</p>`
-          : (best !== null ? `<p class="text-sm text-gray-500 dark:text-gray-400">${t('best_score', lang)}: ${best}/${total}</p>` : '')}
+          : (best !== null && !this.retryRound ? `<p class="text-sm text-gray-500 dark:text-gray-400">${t('best_score', lang)}: ${best}/${total}</p>` : '')}
         <div class="flex flex-wrap justify-center gap-3 pt-2">
           <button data-action="play-again"
                   class="px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-colors">
             ${t('play_again', lang)}
           </button>
+          ${this.missed && this.missed.length ? `<button data-action="retry-missed"
+                  class="px-6 py-3 bg-secondary hover:bg-secondary/80 text-white rounded-xl font-medium transition-colors">
+            🔁 ${t('quiz_practice_missed', lang)}
+          </button>` : ''}
           <button data-action="back-menu"
                   class="px-6 py-3 rounded-xl font-medium border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
             ${t('back', lang)}
@@ -715,8 +752,7 @@ class QuizCenter {
     if (verses.length < 3) return [];
     const surahNum = scope.surah;
     const N = verses.length;
-    const info = (typeof getSurahByNumber === 'function') ? getSurahByNumber(surahNum) : null;
-    const surahName = info ? (info.name || info.englishName || `Surah ${surahNum}`) : `Surah ${surahNum}`;
+    const surahName = getSurahName(surahNum, this.language) || `Surah ${surahNum}`;
 
     const makeDir = (i, dir) => {
       const shown = verses[i];
@@ -744,7 +780,11 @@ class QuizCenter {
 
     const size = this.roundSize();
     if (this.subMode === 'first' || this.subMode === 'last') {
-      return Array.from({ length: size }, () => makeEnd(this.subMode));
+      // One first/last question; pad the round with next/previous questions
+      const nextPos = verses.map((_, i) => i).filter(i => i < N - 1).map(i => ['next', i]);
+      const prevPos = verses.map((_, i) => i).filter(i => i > 0).map(i => ['previous', i]);
+      const fillers = this.shuffle(nextPos.concat(prevPos)).slice(0, size - 1).map(([d, i]) => makeDir(i, d));
+      return this.shuffle([makeEnd(this.subMode)].concat(fillers));
     }
     if (this.subMode === 'random') {
       const nextPos = verses.map((_, i) => i).filter(i => i < N - 1).map(i => ['next', i]);
@@ -966,6 +1006,12 @@ class QuizCenter {
     return questions;
   }
 
+  // Localized tajweed rule name (TAJWEED_LESSONS carries per-language names), English label fallback
+  ruleName(key) {
+    const lesson = (typeof TAJWEED_LESSONS !== 'undefined' && TAJWEED_LESSONS) ? TAJWEED_LESSONS[key] : null;
+    return (lesson && lesson.names && lesson.names[this.language]) || TAJWEED_RULES[key].label;
+  }
+
   // 8. Tajweed: which rule applies to a highlighted span
   async buildTajweedRule(scope) {
     const ruleKeys = Object.keys(TAJWEED_RULES);
@@ -1008,8 +1054,8 @@ class QuizCenter {
       const after = esc(it.text.slice(it.end));
       const promptHtml = `<div class="ayah-arabic !text-3xl !leading-loose" dir="rtl">${before}<span class="bg-yellow-200 dark:bg-yellow-500/40 rounded px-0.5">${hit}</span>${after}</div>`;
       const others = this.sample(ruleKeys.filter(k => k !== it.rule), 3);
-      const options = [{ html: this.esc(TAJWEED_RULES[it.rule].label), correct: true }]
-        .concat(others.map(k => ({ html: this.esc(TAJWEED_RULES[k].label), correct: false })));
+      const options = [{ html: this.esc(this.ruleName(it.rule)), correct: true }]
+        .concat(others.map(k => ({ html: this.esc(this.ruleName(k)), correct: false })));
       questions.push({
         prompt: this.tt('quiz_which_rule'),
         promptHtml,

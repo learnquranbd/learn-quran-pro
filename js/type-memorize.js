@@ -167,31 +167,36 @@ class TypeMemorize {
   async check() {
     const lang = this.language;
     const input = this.root.querySelector('#tm-input').value;
-    const typed = input.split(/\s+/).map(x => this.norm(x)).filter(Boolean);
+    const typed = input.split(/\s+/)
+      .map(raw => ({ raw, norm: this.norm(raw) }))
+      .filter(x => x.norm);
     let expected;
     try { expected = await this.expectedWords(); } catch (e) { return; }
 
     // Greedy word alignment with small lookahead (like the speech memorize)
     const states = new Array(expected.length);
+    const extras = {}; // slot index → [raw unmatched typed tokens shown red there]
+    let extraCount = 0;
+    const addExtra = (at, raw) => { (extras[at] = extras[at] || []).push(raw); extraCount++; };
     let i = 0;
     const LOOK = 3;
     for (const tok of typed) {
-      if (i >= expected.length) break;
-      if (this.match(expected[i].norm, tok)) { states[i] = 'ok'; i++; continue; }
+      if (i >= expected.length) { addExtra(expected.length, tok.raw); continue; }
+      if (this.match(expected[i].norm, tok.norm)) { states[i] = 'ok'; i++; continue; }
       let jumped = false;
       for (let k = 1; k <= LOOK && i + k < expected.length; k++) {
-        if (this.match(expected[i + k].norm, tok)) {
+        if (this.match(expected[i + k].norm, tok.norm)) {
           for (let m = i; m < i + k; m++) states[m] = 'miss';
           states[i + k] = 'ok'; i = i + k + 1; jumped = true; break;
         }
       }
-      // unmatched extra token → ignore (keeps i)
-      if (!jumped) { /* skip */ }
+      // unmatched extra token → wrong/extra (rendered red, lowers the score)
+      if (!jumped) addExtra(i, tok.raw);
     }
 
     const correct = states.filter(s => s === 'ok').length;
     const total = expected.length;
-    const pct = total ? Math.round((correct / total) * 100) : 0;
+    const pct = (total + extraCount) ? Math.round((correct / (total + extraCount)) * 100) : 0;
 
     const res = this.root.querySelector('#tm-result');
     res.classList.remove('hidden');
@@ -199,6 +204,7 @@ class TypeMemorize {
       <div class="text-center mb-3">
         <span class="text-2xl font-bold ${pct >= 80 ? 'text-green-600 dark:text-green-400' : 'text-amber-600 dark:text-amber-400'}">${t('accuracy', lang)}: ${pct}%</span>
         <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">${correct}/${total}</span>
+        ${extraCount ? `<span class="text-sm text-red-500 dark:text-red-400 ml-2">+${extraCount} ${t('typemem_extra', lang)}</span>` : ''}
       </div>
       <div class="ayah-arabic !text-2xl !leading-loose p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40" dir="rtl">
         ${expected.map((w, idx) => {
@@ -206,11 +212,20 @@ class TypeMemorize {
           const cls = st === 'ok' ? 'text-green-600 dark:text-green-400'
             : st === 'miss' ? 'text-red-500 dark:text-red-400'
             : 'text-gray-400 dark:text-gray-500';
-          return `<span class="${cls} mx-0.5">${w.arabic}</span>`;
+          return this.extraSpans(extras[idx]) + `<span class="${cls} mx-0.5">${w.arabic}</span>`;
         }).join(' ')}
+        ${this.extraSpans(extras[expected.length])}
       </div>
     `;
   }
+
+  /** Unmatched extra typed tokens → red + struck through, inline where they were typed. */
+  extraSpans(raws) {
+    if (!raws || !raws.length) return '';
+    return raws.map(r => `<span class="text-red-500 dark:text-red-400 line-through mx-0.5">${this.esc(r)}</span>`).join(' ') + ' ';
+  }
+
+  esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   match(exp, got) {
     if (exp === got) return true;
@@ -235,9 +250,20 @@ class TypeMemorize {
     if (key) {
       const ta = this.root.querySelector('#tm-input');
       const k = key.getAttribute('data-tm-key');
-      if (k === 'BS') ta.value = ta.value.slice(0, -1);
-      else ta.value += k;
+      // Insert/delete at the caret (not blindly at the end), keep the caret there.
+      const start = ta.selectionStart != null ? ta.selectionStart : ta.value.length;
+      const end = ta.selectionEnd != null ? ta.selectionEnd : ta.value.length;
+      if (k === 'BS') {
+        const from = start === end ? Math.max(0, start - 1) : start;
+        ta.value = ta.value.slice(0, from) + ta.value.slice(end);
+        ta.setSelectionRange(from, from);
+      } else {
+        ta.value = ta.value.slice(0, start) + k + ta.value.slice(end);
+        ta.setSelectionRange(start + k.length, start + k.length);
+      }
       ta.focus();
+      // Programmatic value changes don't fire 'input' → keep the live counter updated.
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
       return;
     }
     if (e.target.closest('#tm-check')) return this.check();

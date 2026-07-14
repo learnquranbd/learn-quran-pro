@@ -143,6 +143,10 @@ class PonderCard {
       ${this.quickLinksHtml(lang)}
     `;
 
+    // Rebuilding the container wipes the bookmarks/continue-reading strip
+    // bookmarks.js inserted above the card — ask it to re-insert (deferred).
+    if (typeof bookmarks !== 'undefined' && bookmarks) bookmarks.scheduleStrip();
+
     try {
       const verses = await QuranData.fetchRange(surah, start, end, lang);
       if (!this.isShowing() || !verses.length) return; // user loaded something meanwhile

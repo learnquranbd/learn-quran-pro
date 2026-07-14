@@ -129,6 +129,9 @@ class LearnHub {
     this.hub.classList.remove('hidden');
     this.backBar.classList.add('hidden');
     Object.values(this.roots).forEach(root => root.classList.add('hidden'));
+    // No module is active any more — lets modules stop audio/timers.
+    // (Safe for all listeners: they check module === '<name>' or roots[module].)
+    window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: null } }));
   }
 }
 

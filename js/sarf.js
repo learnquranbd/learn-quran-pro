@@ -5,11 +5,51 @@
  * actually occurs in the Quran (built from data/morphology), tagged with its
  * features. This module renders them as real, Quran-grounded paradigm tables:
  *   • Verbs  — conjugation by tense × person/gender × singular/dual/plural.
- *   • Nouns  — declension by gender/number × case (nominative/accusative/genitive).
+ *   • Nouns  — declension by gender/number × case (nominative/accusative/genitive/unmarked).
  * Every cell shows the actual form, how many times it occurs, and a sample verse.
  *
  * Renders into #sarf-container (tab "sarf").
  */
+
+/**
+ * Localized root glosses (data/sarf.json glosses are English-only).
+ * Keyed by UI language → root. Add more languages here as needed;
+ * missing entries fall back to the English gloss from sarf.json.
+ */
+const SARF_GLOSS = {
+  bn: {
+    'أله': 'ইলাহ / উপাস্য',
+    'قول': 'বলা',
+    'كون': 'হওয়া',
+    'ربب': 'রব / প্রতিপালক',
+    'أمن': 'ঈমান আনা / নিরাপত্তা',
+    'علم': 'জানা / জ্ঞান',
+    'قوم': 'জাতি / দাঁড়ানো',
+    'أيي': 'কোন / নিদর্শন',
+    'أتي': 'আসা',
+    'كفر': 'কুফরি করা / অবিশ্বাস',
+    'بين': 'মাঝে / স্পষ্ট',
+    'شيأ': 'চাওয়া / বস্তু',
+    'رسل': 'প্রেরণ করা / রাসূল',
+    'يوم': 'দিন',
+    'أرض': 'জমিন / পৃথিবী',
+    'سمو': 'আকাশ / নাম',
+    'كلل': 'সকল / প্রত্যেক',
+    'عذب': 'শাস্তি দেওয়া / আযাব',
+    'عمل': 'কাজ করা / আমল',
+    'جعل': 'বানানো / নির্ধারণ করা',
+    'رحم': 'রহমত / দয়া',
+    'أنس': 'মানুষ',
+    'رأي': 'দেখা',
+    'كتب': 'লেখা / কিতাব',
+    'هدي': 'হিদায়াত দেওয়া / পথ দেখানো',
+    'ظلم': 'জুলুম করা / অন্ধকার',
+    'نفس': 'আত্মা / নিজ',
+    'قبل': 'পূর্বে',
+    'نزل': 'নাযিল করা / অবতীর্ণ হওয়া',
+    'ذكر': 'স্মরণ করা / যিকর',
+  },
+};
 
 class Sarf {
   constructor() {
@@ -28,6 +68,12 @@ class Sarf {
   }
 
   tt(key) { return t(key, this.language); }
+
+  /** Localized gloss for a root, falling back to the English gloss in sarf.json. */
+  gloss(root) {
+    const map = SARF_GLOSS[this.language];
+    return (map && map[root]) || this.data.roots[root].gloss || '';
+  }
 
   async ensureLoaded() {
     if (this.loaded) { this.applyPendingRoot(); this.render(); return; }
@@ -83,14 +129,15 @@ class Sarf {
           <select id="sarf-root" class="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-lg">
             ${this.data.order.map(root => {
               const rr = this.data.roots[root];
-              return `<option value="${root}" ${root === this.root ? 'selected' : ''}>${root}${rr.gloss ? ' — ' + this.esc(rr.gloss) : ''} (${rr.count})</option>`;
+              const gl = this.gloss(root);
+              return `<option value="${root}" ${root === this.root ? 'selected' : ''}>${root}${gl ? ' — ' + this.esc(gl) : ''} (${rr.count})</option>`;
             }).join('')}
           </select>
         </div>
         <div class="text-center mb-6">
           <span class="ayah-arabic text-4xl" dir="rtl">${this.esc(this.root)}</span>
           <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            ${r.gloss ? `<span class="font-medium">${this.esc(r.gloss)}</span> · ` : ''}${r.count} ${this.tt('sarf_occurrences')}
+            ${this.gloss(this.root) ? `<span class="font-medium">${this.esc(this.gloss(this.root))}</span> · ` : ''}${r.count} ${this.tt('sarf_occurrences')}
           </div>
         </div>
         ${r.verbs.length ? this.verbSection(r.verbs, PERSON, NUM) : ''}
@@ -101,7 +148,8 @@ class Sarf {
   // ---- Verbs: conjugation tables per tense -------------------------------
   verbSection(verbs, PERSON, NUM) {
     const tenses = [['perfect', this.tt('sarf_perfect')], ['imperfect', this.tt('sarf_imperfect')], ['imperative', this.tt('sarf_imperative')]];
-    const rows = [['3', 'M'], ['3', 'F'], ['2', 'M'], ['2', 'F'], ['1', '']];
+    // '' gender = gender-common forms (e.g. 2nd-person duals) in a shared, unlabeled-gender row
+    const rows = [['3', 'M'], ['3', 'F'], ['3', ''], ['2', 'M'], ['2', 'F'], ['2', ''], ['1', '']];
     const cols = ['S', 'D', 'P'];
     let html = `<h3 class="text-lg font-bold mb-2">🔤 ${this.tt('sarf_verbs')}</h3>`;
     for (const [tKey, tLabel] of tenses) {
@@ -116,7 +164,7 @@ class Sarf {
             </tr></thead>
             <tbody>
               ${rows.map(([p, g]) => {
-                const label = p === '1' ? PERSON[p] : `${PERSON[p]} ${g === 'M' ? this.tt('sarf_masc') : this.tt('sarf_fem')}`;
+                const label = !g ? PERSON[p] : `${PERSON[p]} ${g === 'M' ? this.tt('sarf_masc') : this.tt('sarf_fem')}`;
                 const cells = cols.map(c => {
                   const matches = set.filter(v => v.person === p && (p === '1' || v.gender === g) && v.number === c);
                   return `<td class="p-1 border border-gray-100 dark:border-gray-700">${this.cellHtml(matches)}</td>`;
@@ -134,6 +182,8 @@ class Sarf {
   // ---- Nouns: declension by (gender/number) × case -----------------------
   nounSection(nouns, NUM) {
     const cases = [['nominative', this.tt('sarf_nom')], ['accusative', this.tt('sarf_acc')], ['genitive', this.tt('sarf_gen')]];
+    // indeclinable/unmarked forms (case '') get their own column, only when present
+    if (nouns.some(n => n.case === '')) cases.push(['', this.tt('sarf_case_none')]);
     // distinct (gender, number, ntype) rows present
     const seen = [];
     for (const n of nouns) {
@@ -165,15 +215,20 @@ class Sarf {
 
   cellHtml(matches) {
     if (!matches.length) return '<span class="text-gray-300 dark:text-gray-600">—</span>';
-    // distinct forms
+    // distinct forms, kept separate per voice; active before passive
     const byForm = {};
-    for (const m of matches) { if (!byForm[m.form]) byForm[m.form] = m; }
-    return Object.values(byForm).map(m => `
-      <button data-verse="${m.ref}" data-word="${this.esc(m.form)}" title="${m.count}× · ${m.ref}${m.meaning ? ' · ' + this.esc(m.meaning) : ''}" class="inline-block px-1 rounded hover:bg-primary hover:text-white">
+    for (const m of matches) { const k = `${m.form}|${m.voice || ''}`; if (!byForm[k]) byForm[k] = m; }
+    const forms = Object.values(byForm).sort((a, b) => (a.voice === 'passive') - (b.voice === 'passive'));
+    return forms.map(m => {
+      const voice = m.voice ? this.tt(m.voice === 'passive' ? 'sarf_passive' : 'sarf_active') : '';
+      return `
+      <button data-verse="${m.ref}" data-word="${this.esc(m.form)}" title="${m.count}× · ${m.ref}${voice ? ' · ' + voice : ''}${m.meaning ? ' · ' + this.esc(m.meaning) : ''}" class="inline-block px-1 rounded hover:bg-primary hover:text-white">
         <span class="ayah-arabic text-xl" dir="rtl">${this.esc(m.form)}</span>
-        ${m.meaning ? `<span class="block text-[10px] text-gray-500 dark:text-gray-400 leading-tight max-w-[90px] truncate mx-auto" dir="auto">${this.esc(m.meaning)}</span>` : ''}
-        <span class="block text-[10px] text-gray-400 leading-none">×${m.count}</span>
-      </button>`).join(' ');
+        ${m.voice === 'passive' ? `<span class="block text-[0.625rem] font-medium text-amber-600 dark:text-amber-400 leading-tight">${this.tt('sarf_passive')}</span>` : ''}
+        ${m.meaning ? `<span class="block text-[0.625rem] text-gray-500 dark:text-gray-400 leading-tight max-w-[6rem] truncate mx-auto" dir="auto">${this.esc(m.meaning)}</span>` : ''}
+        <span class="block text-[0.625rem] text-gray-400 leading-none">×${m.count}</span>
+      </button>`;
+    }).join(' ');
   }
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

@@ -48,17 +48,27 @@ class TopicsBrowser {
 
   /** Load the topic-name translations for the current language (once). */
   async ensureNames() {
-    if (this.language === 'en') { this.names = null; this._namesLang = 'en'; return; }
+    if (this.language === 'en') { this.names = null; this._namesLang = 'en'; this.rebuildLetters(); return; }
     if (this._namesLang === this.language) return;
-    this._namesLang = this.language;
+    const lang = this.language;
+    this._namesLang = lang;
     try {
-      const res = await fetch(`data/topic-names/${this.language}.json`);
+      const res = await fetch(`data/topic-names/${lang}.json`);
       if (!res.ok) throw new Error('no names');
-      this.names = await res.json();
+      const names = await res.json();
+      if (this.language !== lang) return;   // stale response: a newer language switch won
+      this.names = names;
+      this.rebuildLetters();
       // Re-render with localized names once they arrive
       if (this.loaded) this.render();
       if (this.overlay && !this.overlay.classList.contains('hidden')) this.renderModalList();
-    } catch (e) { this.names = null; }   // fall back to English display
+    } catch (e) {
+      if (this.language !== lang) return;   // stale failure: don't clobber the newer language
+      this.names = null;                    // fall back to English display
+      this._namesLang = null;               // so a later revisit retries the fetch
+      this.rebuildLetters();
+      if (this.loaded) this.render();
+    }
   }
 
   async ensureLoaded() {
@@ -75,18 +85,31 @@ class TopicsBrowser {
     this.list = Object.keys(this.data)
       .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
       .map(topic => ({ topic, verses: this.data[topic] }));
-    this.byLetter = {};
-    for (const item of this.list) {
-      const c = item.topic[0].toUpperCase();
-      const key = /[A-Z]/.test(c) ? c : '#';
-      (this.byLetter[key] = this.byLetter[key] || []).push(item);
-    }
-    this.letters = Object.keys(this.byLetter).sort();
-    if (!this.byLetter[this.activeLetter]) this.activeLetter = this.letters[0];
+    this.rebuildLetters();
     this.loaded = true;
     this.bindOnce();
     this.ensureNames();
     this.render();
+  }
+
+  /**
+   * Group topics by the first letter of their DISPLAYED (localized) name so
+   * the letter bar matches what the user actually sees (e.g. Bengali letters
+   * for Bengali names, not the hidden English keys).
+   */
+  rebuildLetters() {
+    if (!this.list.length) return;
+    this.byLetter = {};
+    for (const item of this.list) {
+      const c = (this.dn(item.topic)[0] || '#').toLocaleUpperCase(this.language);
+      const key = /\p{L}/u.test(c) ? c : '#';
+      (this.byLetter[key] = this.byLetter[key] || []).push(item);
+    }
+    for (const key of Object.keys(this.byLetter)) {
+      this.byLetter[key].sort((a, b) => this.dn(a.topic).localeCompare(this.dn(b.topic), this.language));
+    }
+    this.letters = Object.keys(this.byLetter).sort((a, b) => a.localeCompare(b, this.language));
+    if (!this.byLetter[this.activeLetter]) this.activeLetter = this.letters[0];
   }
 
   bindOnce() {
@@ -224,17 +247,23 @@ class TopicsBrowser {
   renderModalList() {
     const box = this.modalBody.querySelector('#topics-modal-list');
     if (!box) return;
-    let items;
+    let items, total;
     if (this.modalQuery) {
       const q = this.modalQuery.toLowerCase();
       // Match the English key AND the localized name so search works in any language.
-      items = this.list.filter(i => i.topic.toLowerCase().includes(q) || this.dn(i.topic).toLowerCase().includes(q)).slice(0, 200);
+      const matches = this.list.filter(i => i.topic.toLowerCase().includes(q) || this.dn(i.topic).toLowerCase().includes(q));
+      total = matches.length;
+      items = matches.slice(0, 200);
     } else {
       items = this.byLetter[this.activeLetter] || [];
+      total = items.length;
     }
     if (!items.length) { box.innerHTML = `<p class="text-center py-8 text-gray-400">${this.tt('topics_no_results')}</p>`; return; }
+    const countLine = total > items.length
+      ? this.tt('topics_showing_first').replace('{shown}', items.length).replace('{total}', total)
+      : `${items.length} ${this.tt('topics_count_label')}`;
     box.innerHTML = `
-      <div class="text-xs text-gray-400 mb-2">${items.length} ${this.tt('topics_count_label')}</div>
+      <div class="text-xs text-gray-400 mb-2">${countLine}</div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
         ${items.map(i => `
           <button data-mtopic="${this.esc(i.topic)}" class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-left hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600" dir="auto">
@@ -250,13 +279,30 @@ class TopicsBrowser {
     this.modalBack.classList.remove('hidden');
     this.modalTitle.textContent = this.dn(name);
     const verses = item.verses;
-    this.modalBody.innerHTML = `
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-sm text-gray-500">${verses.length} ${this.tt('topics_verses_label')}</span>
-        <button data-verse="${verses.slice(0, this.OPEN_ALL_CAP).join(',')}" data-openall="1"
+    const cap = this.OPEN_ALL_CAP;
+    // Small topic: a single "Open all" button. Large topic: one chip per
+    // batch of OPEN_ALL_CAP refs ("1–30", "31–60", …) so verses 31+ are reachable too.
+    let openBar;
+    if (verses.length <= cap) {
+      openBar = `<button data-verse="${verses.join(',')}" data-openall="1"
                 class="text-xs px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-secondary/90">
-          ${this.tt('topics_open_all')}${verses.length > this.OPEN_ALL_CAP ? ` (${this.OPEN_ALL_CAP})` : ''}
-        </button>
+          ${this.tt('topics_open_all')}
+        </button>`;
+    } else {
+      const chunks = [];
+      for (let i = 0; i < verses.length; i += cap) {
+        const slice = verses.slice(i, i + cap);
+        chunks.push(`<button data-verse="${slice.join(',')}" data-openall="1" class="text-xs font-mono px-2.5 py-1.5 rounded-lg bg-secondary text-white hover:bg-secondary/90">${i + 1}–${i + slice.length}</button>`);
+      }
+      openBar = `<div class="flex flex-wrap items-center gap-1.5">
+          <span class="text-xs text-gray-500">${this.tt('topics_open_batch').replace('{n}', cap)}</span>
+          ${chunks.join('')}
+        </div>`;
+    }
+    this.modalBody.innerHTML = `
+      <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+        <span class="text-sm text-gray-500">${verses.length} ${this.tt('topics_verses_label')}</span>
+        ${openBar}
       </div>
       <div class="flex flex-wrap gap-1.5">
         ${verses.map(v => `<button data-verse="${v}" class="text-sm font-mono px-2.5 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">${v}</button>`).join('')}
@@ -268,8 +314,12 @@ class TopicsBrowser {
     const clean = refStr.split(',').map(s => s.trim()).filter(Boolean).join(', ');
     if (!clean) return;
     if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
-    if (window.location.hash.slice(1) === encodeURIComponent(clean)) {
-      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    if (decodeURIComponent(window.location.hash.slice(1)) === clean) {
+      // Hash unchanged: no hashchange event will fire, load manually
+      if (typeof quranApp !== 'undefined' && quranApp) {
+        quranApp._writingHash = null;   // don't let the ignore-own-write guard swallow this reload
+        quranApp.handleHashChange();
+      }
     } else {
       window.location.hash = clean;
     }

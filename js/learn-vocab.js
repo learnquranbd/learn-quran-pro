@@ -17,11 +17,6 @@ class VocabTrainer {
     this.rendered = false;
     this.mode = 'flashcards';
 
-    // Flashcards state
-    this.deck = [];
-    this.cardIndex = 0;
-    this.flipped = false;
-
     // Quiz state
     this.quiz = null;
     this.quizTimer = null;
@@ -47,11 +42,6 @@ class VocabTrainer {
     });
 
     this.root.addEventListener('click', (e) => this.onClick(e));
-    // Keyboard: flip the focused card with Enter/Space
-    this.root.addEventListener('keydown', (e) => {
-      const flip = e.target.closest('[data-action="flip"]');
-      if (flip && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); this.onClick({ target: flip }); }
-    });
   }
 
   // ---------- persistence ----------
@@ -118,39 +108,18 @@ class VocabTrainer {
     } catch (err) { /* TTS failed — degrade silently */ }
   }
 
-  /** Show up to 8 real Quranic verses containing the current flashcard word. */
-  async loadOccurrences() {
-    const slot = this.root.querySelector('#vocab-occ');
-    const word = this.deck[this.cardIndex];
-    if (!slot || !word) return;
-    slot.innerHTML = `<span class="text-xs text-gray-400">${t('loading', this.language)}</span>`;
-    try {
-      const idx = await QuranData.getWordIndex();
-      const norm = QuranData.normalizeWord(word.arabic);
-      const refs = [...new Set((idx[norm] || []).map(o => o.split(':').slice(0, 2).join(':')))];
-      if (!refs.length) { slot.innerHTML = `<span class="text-xs text-gray-400">${t('names_no_occurrences', this.language)}</span>`; return; }
-      slot.innerHTML = refs.slice(0, 8).map(r =>
-        `<button data-vocab-verse="${r}" class="text-xs font-mono px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white">${r}</button>`
-      ).join('') + (refs.length > 8 ? `<span class="text-xs text-gray-400 self-center">+${refs.length - 8}</span>` : '');
-    } catch (e) {
-      slot.innerHTML = '';
-    }
-  }
-
   // ---------- events ----------
 
   onClick(e) {
-    // Occurrence chips / loader (card back) — handled before the action dispatch
+    // Verse-preview chip on a grid card — handled before the action dispatch
     const vv = e.target.closest('[data-vocab-verse]');
     if (vv) {
       e.stopPropagation();
       const ref = vv.getAttribute('data-vocab-verse');
-      const word = this.deck[this.cardIndex];
-      if (typeof ayahModal !== 'undefined' && ayahModal) ayahModal.open(ref, { word: word ? word.arabic : null });
+      const word = vv.getAttribute('data-word');
+      if (typeof ayahModal !== 'undefined' && ayahModal) ayahModal.open(ref, { word: word || null });
       return;
     }
-    const vo = e.target.closest('[data-vocab-occ]');
-    if (vo) { e.stopPropagation(); this.loadOccurrences(); return; }
 
     // Grid view actions
     const vknow = e.target.closest('[data-vknow]');
@@ -181,20 +150,6 @@ class VocabTrainer {
       case 'mode':
         this.setMode(el.getAttribute('data-mode'));
         break;
-      case 'tts':
-        e.stopPropagation();
-        this.speak(el.getAttribute('data-text') || '');
-        break;
-      case 'flip':
-        this.flipped = !this.flipped;
-        this.render();
-        break;
-      case 'know':
-        this.markCard(true);
-        break;
-      case 'learning':
-        this.markCard(false);
-        break;
       case 'quiz-choice':
         this.answerQuiz(el);
         break;
@@ -222,9 +177,7 @@ class VocabTrainer {
     this.resetArmed = false;
     if (this.quizTimer) { clearTimeout(this.quizTimer); this.quizTimer = null; }
 
-    if (mode === 'flashcards') {
-      this.buildDeck();
-    } else if (mode === 'quiz') {
+    if (mode === 'quiz') {
       this.startQuiz();
     }
     this.render();
@@ -273,15 +226,6 @@ class VocabTrainer {
 
   // ---------- flashcards ----------
 
-  buildDeck() {
-    const known = new Set(this.getKnown());
-    const unknown = VOCAB_WORDS.filter(w => !known.has(w.arabic));
-    const knownWords = VOCAB_WORDS.filter(w => known.has(w.arabic));
-    this.deck = unknown.concat(knownWords);
-    this.cardIndex = 0;
-    this.flipped = false;
-  }
-
   /* ---------- expanded corpus deck (beyond the curated 50) ---------- */
 
   /** Top frequent Quran words from the bundled index, excluding the curated 50. */
@@ -291,6 +235,12 @@ class VocabTrainer {
     try {
       const [idx, words] = await Promise.all([QuranData.getWordIndex(), QuranData.getQuranWords()]);
       const curated = new Set(VOCAB_WORDS.map(w => QuranData.normalizeWord(w.arabic)));
+      // First-occurrence verse refs for curated words (dyn words carry their own ref)
+      this.curatedRefs = {};
+      VOCAB_WORDS.forEach(w => {
+        const occ = (idx[QuranData.normalizeWord(w.arabic)] || [])[0];
+        if (occ) this.curatedRefs[w.arabic] = occ.split(':').slice(0, 2).join(':');
+      });
       this.extra = Object.entries(idx)
         .map(([norm, occs]) => ({ norm, count: occs.length, first: occs[0] }))
         .filter(e => !curated.has(e.norm) && e.count >= 40)
@@ -301,7 +251,7 @@ class VocabTrainer {
           const display = (words[`${s}:${a}`] || [])[w - 1] || e.norm;
           return { arabic: display, norm: e.norm, count: e.count, ref: `${s}:${a}`, pos: w, dyn: true };
         });
-      if (this.mode === 'flashcards') this.render();
+      if (this.mode === 'flashcards' || this.mode === 'progress') this.render();
     } catch (e) { this.extra = []; }
   }
 
@@ -365,6 +315,7 @@ class VocabTrainer {
         ${items.map((w, i) => {
           const key = w.dyn ? `${w.norm}:${lang}` : '';
           const revealed = show || (this.revealed && this.revealed.has(w.key));
+          const ref = w.dyn ? w.ref : (this.curatedRefs || {})[w.arabic];
           return `
           <div class="rounded-xl bg-white dark:bg-gray-800 border ${w.known ? 'border-green-300 dark:border-green-700' : 'border-gray-200 dark:border-gray-700'} p-2.5 flex flex-col items-center gap-1">
             <button data-vcard="${this.escapeHtml(w.key)}" data-text="${this.escapeHtml(w.arabic)}" class="flex flex-col items-center gap-0.5 w-full">
@@ -376,6 +327,8 @@ class VocabTrainer {
             </button>
             <div class="flex items-center gap-1.5">
               <span class="text-xs text-gray-400">×${w.count}</span>
+              ${ref ? `<button data-vocab-verse="${ref}" data-word="${this.escapeHtml(w.arabic)}" title="${t('names_search_quran', lang)}"
+                      class="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-400 hover:bg-primary hover:text-white">📖</button>` : ''}
               <button data-vknow="${this.escapeHtml(w.arabic)}" title="${t('vocab_know_it', lang)}"
                       class="text-xs px-1.5 py-0.5 rounded-full ${w.known ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-400 hover:bg-green-500 hover:text-white'}">✓</button>
             </div>
@@ -399,73 +352,6 @@ class VocabTrainer {
     `;
   }
 
-  renderFlashcardsSingle() {
-    const lang = this.language;
-    if (!this.deck.length) this.buildDeck();
-    const word = this.deck[this.cardIndex];
-    const known = this.getKnown().includes(word.arabic);
-
-    const front = `
-      <div class="ayah-arabic !text-6xl !leading-normal" dir="rtl">${word.arabic}</div>
-      <div class="text-lg text-gray-400 dark:text-gray-500 italic mt-4" dir="ltr">${word.translit}</div>
-      ${this.hasTTS() ? `
-        <button data-action="tts" data-text="${word.arabic}"
-                title="${t('play', lang)}"
-                class="mt-4 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm">
-          🔊 ${t('play', lang)}
-        </button>` : ''}
-      <p class="text-xs text-gray-400 dark:text-gray-500 mt-6">${t('vocab_tap_to_flip', lang)}</p>
-    `;
-
-    const back = `
-      <div class="ayah-arabic !text-3xl" dir="rtl">${word.arabic}</div>
-      <div class="text-3xl font-semibold mt-4" dir="auto">${this.meaningOf(word)}</div>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mt-6">
-        ${t('vocab_occurrences', lang).replace('{count}', word.count)}
-      </p>
-      <button data-vocab-occ class="mt-3 px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-600 text-primary dark:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700">📿 ${t('names_search_quran', lang)}</button>
-      <div id="vocab-occ" class="mt-2 flex flex-wrap gap-1.5 justify-center"></div>
-    `;
-
-    return `
-      <div class="text-center text-sm text-gray-500 dark:text-gray-400">
-        ${this.cardIndex + 1} / ${this.deck.length}
-        ${known ? `<span class="mx-2 px-2 py-0.5 text-xs rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">${t('vocab_known_badge', lang)}</span>` : ''}
-      </div>
-      <div data-action="flip" role="button" tabindex="0" aria-label="${t('flip_card', lang)}"
-           class="cursor-pointer select-none bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700
-                  min-h-[280px] flex flex-col items-center justify-center text-center p-8 transition-transform hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary">
-        ${this.flipped ? back : front}
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <button data-action="learning"
-                class="px-4 py-4 rounded-xl text-lg font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">
-          ${t('vocab_still_learning', lang)}
-        </button>
-        <button data-action="know"
-                class="px-4 py-4 rounded-xl text-lg font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors">
-          ${t('vocab_know_it', lang)}
-        </button>
-      </div>
-    `;
-  }
-
-  markCard(known) {
-    const word = this.deck[this.cardIndex];
-    if (word) {
-      let list = this.getKnown();
-      if (known && !list.includes(word.arabic)) {
-        list.push(word.arabic);
-      } else if (!known) {
-        list = list.filter(a => a !== word.arabic);
-      }
-      this.saveKnown(list);
-    }
-    this.cardIndex = (this.cardIndex + 1) % this.deck.length;
-    this.flipped = false;
-    this.render();
-  }
-
   // ---------- quiz ----------
 
   startQuiz() {
@@ -478,6 +364,24 @@ class VocabTrainer {
       finished: false,
       newBest: false
     };
+    this.buildQuizChoices();
+  }
+
+  /** Build the current round's answer buttons once, so re-renders are idempotent.
+   *  Distractors are deduped by meaning — two buttons must never show the same gloss. */
+  buildQuizChoices() {
+    const q = this.quiz.questions[this.quiz.round];
+    const seen = new Set([this.meaningOf(q)]);
+    const others = [];
+    for (const w of this.shuffle(VOCAB_WORDS)) {
+      if (w.arabic === q.arabic || seen.has(this.meaningOf(w))) continue;
+      seen.add(this.meaningOf(w));
+      others.push(w);
+      if (others.length === 3) break;
+    }
+    this.quiz.choices = this.shuffle(
+      [{ word: q, correct: true }].concat(others.map(w => ({ word: w, correct: false })))
+    );
   }
 
   renderQuiz() {
@@ -486,10 +390,8 @@ class VocabTrainer {
     if (this.quiz.finished) return this.renderQuizEnd();
 
     const q = this.quiz.questions[this.quiz.round];
-    const others = this.shuffle(VOCAB_WORDS.filter(w => w.arabic !== q.arabic)).slice(0, 3);
-    const choices = this.shuffle(
-      [{ word: q, correct: true }].concat(others.map(w => ({ word: w, correct: false })))
-    );
+    if (!this.quiz.choices) this.buildQuizChoices();
+    const choices = this.quiz.choices;
 
     return `
       <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
@@ -550,6 +452,8 @@ class VocabTrainer {
           this.saveBestScore(this.quiz.score);
           this.quiz.newBest = true;
         }
+      } else {
+        this.buildQuizChoices();
       }
       this.render();
     }, 1100);
@@ -584,18 +488,19 @@ class VocabTrainer {
 
   renderProgress() {
     const lang = this.language;
-    const known = this.getKnown().filter(a => VOCAB_WORDS.some(w => w.arabic === a));
-    const total = VOCAB_WORDS.length;
-    const percent = Math.round((known.length / total) * 100);
+    this.ensureExtra();
+    const all = this.deckAll();
+    const knownWords = all.filter(w => w.known);
+    const total = all.length;
+    const percent = total ? Math.round((knownWords.length / total) * 100) : 0;
     const best = this.getBestScore();
-    const knownWords = VOCAB_WORDS.filter(w => known.includes(w.arabic));
 
     return `
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 space-y-6">
         <div>
           <div class="flex items-center justify-between mb-2 text-sm text-gray-600 dark:text-gray-300">
             <span>${t('vocab_words_known', lang)
-              .replace('{known}', known.length)
+              .replace('{known}', knownWords.length)
               .replace('{total}', total)}</span>
             <span class="font-semibold">${percent}%</span>
           </div>
@@ -654,7 +559,6 @@ class VocabTrainer {
       localStorage.removeItem('vocabKnown');
       localStorage.removeItem('vocabQuizBest');
     } catch (err) { /* ignore */ }
-    this.buildDeck();
     this.render();
   }
 }

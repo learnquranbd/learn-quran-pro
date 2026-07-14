@@ -73,11 +73,26 @@ class AmalDaily {
     this.container.addEventListener('click', (e) => {
       const read = e.target.closest('[data-amal-read]');
       if (read) {
+        this.stopAudio();
         // Explicit navigation: load the passage in the Reading tab
         if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
-        window.location.hash = read.getAttribute('data-amal-read');
+        const refs = read.getAttribute('data-amal-read');
+        if (decodeURIComponent(window.location.hash.slice(1)) === refs) {
+          window.dispatchEvent(new HashChangeEvent('hashchange'));
+        } else {
+          window.location.hash = refs;
+        }
+        return;
       }
+      const prev = e.target.closest('[data-amal-preview]');
+      if (prev && typeof ayahModal !== 'undefined' && ayahModal) {
+        ayahModal.open(prev.getAttribute('data-amal-preview'));
+        return;
+      }
+      const listen = e.target.closest('[data-amal-listen]');
+      if (listen) this.toggleListen(listen);
     });
+    window.addEventListener('tabChanged', (e) => { if (e.detail.tabId !== 'amal') this.stopAudio(); });
   }
 
   tt(key) { return t(key, this.language); }
@@ -102,14 +117,65 @@ class AmalDaily {
     if (h >= 17 && h < 20) return 'evening';
     return 'night';
   }
-  isFriday() { return new Date().getDay() === 5; }
+  /**
+   * The night of Jumu'ah begins at Thursday sunset, so Kahf & co. surface
+   * from Thursday evening through Friday.
+   */
+  isFriday() {
+    const d = new Date();
+    return d.getDay() === 5 || (d.getDay() === 4 && d.getHours() >= 17);
+  }
 
-  /** Items recommended right now. */
+  /** Items recommended right now ('any' items always apply). */
   nowItems() {
     const p = this.period();
     const fri = this.isFriday();
     return AMAL_ITEMS.filter(it =>
-      it.when.includes(p) || (fri && it.when.includes('friday')));
+      it.when.includes(p) || it.when.includes('any') || (fri && it.when.includes('friday')));
+  }
+
+  /** Expand '2:255,112:1-4' into ['2:255','112:1',...]. */
+  expandRefs(refs) {
+    const out = [];
+    refs.split(',').forEach(part => {
+      const m = part.trim().match(/^(\d+):(\d+)(?:-(\d+))?$/);
+      if (!m) return;
+      const s = +m[1], from = +m[2], to = m[3] ? +m[3] : from;
+      for (let a = from; a <= to; a++) out.push(`${s}:${a}`);
+    });
+    return out;
+  }
+
+  stopAudio() {
+    this._playQueue = null;
+    if (this._audio) { try { this._audio.pause(); } catch (e) { /* ignore */ } }
+    if (this._playBtn) { this._playBtn.innerHTML = this._playBtn.getAttribute('data-idle'); this._playBtn = null; }
+  }
+
+  /** Play a short passage ayah-by-ayah (everyayah.com), toggling on second tap. */
+  toggleListen(btn) {
+    if (this._playBtn === btn) { this.stopAudio(); return; }
+    this.stopAudio();
+    const list = this.expandRefs(btn.getAttribute('data-amal-listen'));
+    if (!list.length) return;
+    this._playBtn = btn;
+    if (!btn.getAttribute('data-idle')) btn.setAttribute('data-idle', btn.innerHTML);
+    btn.innerHTML = '⏸ ' + this.tt('amal_listen');
+    if (!this._audio) {
+      this._audio = new Audio();
+      this._audio.addEventListener('ended', () => this._advance());
+      this._audio.addEventListener('error', () => this._advance());
+    }
+    this._playQueue = list.slice();
+    this._advance();
+  }
+
+  _advance() {
+    if (!this._playQueue || !this._playQueue.length) { this.stopAudio(); return; }
+    const [s, a] = this._playQueue.shift().split(':').map(Number);
+    const pad = n => String(n).padStart(3, '0');
+    this._audio.src = `https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3`;
+    this._audio.play().catch(() => this.stopAudio());
   }
 
   surahNames(item) {
@@ -117,6 +183,9 @@ class AmalDaily {
   }
 
   card(item, highlight) {
+    const allRefs = this.expandRefs(item.refs);
+    const ayahCount = allRefs.length;
+    const firstRef = allRefs[0] || item.refs.split(',')[0];
     const gradeBadge = item.grade === 'sahih'
       ? `<span class="text-xs px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-300">✓ ${this.tt('amal_grade_sahih')}</span>`
       : `<span class="text-xs px-1.5 py-0.5 rounded-full bg-gray-400/10 text-gray-500 dark:text-gray-400">${this.tt('amal_grade_common')}</span>`;
@@ -131,11 +200,16 @@ class AmalDaily {
         <div class="flex flex-wrap items-center gap-1.5">${whenBadges} ${gradeBadge}
           ${item.src !== '—' ? `<span class="text-xs text-gray-400">📖 ${this.srcHtml(item.src)}</span>` : ''}
         </div>
-        <button data-amal-read="${item.refs}" class="self-start mt-1 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">📖 ${this.tt('amal_read')}</button>
+        <div class="flex flex-wrap gap-2 mt-1">
+          <button data-amal-read="${item.refs}" class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">📖 ${this.tt('amal_read')}</button>
+          ${ayahCount <= 19 ? `<button data-amal-listen="${item.refs}" class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600">🔊 ${this.tt('amal_listen')}</button>` : ''}
+          ${ayahCount <= 3 ? `<button data-amal-preview="${firstRef}" class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600">👁 ${this.tt('amal_preview')}</button>` : ''}
+        </div>
       </div>`;
   }
 
   render() {
+    this.stopAudio();
     const now = this.nowItems();
     const nowIds = new Set(now.map(i => i.id));
     const rest = AMAL_ITEMS.filter(i => !nowIds.has(i.id));

@@ -613,3 +613,10 @@ body.legacy-sidebar aside#sidebar .nav-group-parent:hover {
 .ayah-arabic.text-xl     { font-size: calc(1.25rem  * var(--arabic-scale, 1)); }
 .ayah-arabic.text-2xl    { font-size: calc(1.5rem   * var(--arabic-scale, 1)); }
 .ayah-arabic.text-4xl    { font-size: calc(2.25rem  * var(--arabic-scale, 1)); }
+/* Responsive (sm:) variants must come after the base rules so they win the tie */
+@media (min-width: 640px) {
+  .ayah-arabic.sm\:\!text-3xl { font-size: calc(1.875rem * var(--arabic-scale, 1)) !important; }
+  .ayah-arabic.sm\:\!text-4xl { font-size: calc(2.25rem  * var(--arabic-scale, 1)) !important; }
+  .ayah-arabic.sm\:\!text-5xl { font-size: calc(3rem     * var(--arabic-scale, 1)) !important; }
+  .ayah-arabic.sm\:\!text-6xl { font-size: calc(3.75rem  * var(--arabic-scale, 1)) !important; }
+}

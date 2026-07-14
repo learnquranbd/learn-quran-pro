@@ -321,7 +321,7 @@ class AudioPlayer {
     const words = (ayah.words || []).map(w => `
       <span class="ap-word inline-flex flex-col items-center px-1.5 py-1 rounded-lg transition-colors" data-ap-pos="${w.position}">
         <span class="ayah-arabic !text-2xl sm:!text-3xl">${w.arabic}</span>
-        <span class="text-[11px] text-gray-500 dark:text-gray-400" dir="auto">${w.meaning || ''}</span>
+        <span class="text-[0.6875rem] text-gray-500 dark:text-gray-400" dir="auto">${w.meaning || ''}</span>
       </span>`).join('');
     el.innerHTML = `
       <div class="text-xs text-gray-400 mb-2 text-center">${ayah.surahName || ''} ${ayah.key}</div>

@@ -25,10 +25,10 @@ class WordRepeat {
     this.onlyRepeated = false;   // show ALL words by default (repeated + singles)
     this.openTerm = null;
     this.loaded = false;
-    this.ayahModal = null;
     this._ayahAudio = null;
     this.wordIndex = null;       // normalized word -> [s:a:w] globally (Quran-wide exact counts)
     this._meaning = {};          // "surah:lang" -> { normalizedToken: meaning }
+    this._rootMeaning = {};      // "surah:lang" -> { root: meaning } (WBW of first occurrence)
     this._metaToken = 0;
     this.openVerses = new Set(); // refs shown inline — several can be open at once
     this.qOpen = new Set();      // terms whose Quran-wide occurrence list is expanded
@@ -51,9 +51,12 @@ class WordRepeat {
         fetch('data/quran-tokens.json').then(r => r.json()),
         fetch('data/roots.json').then(r => r.json()),
         fetch('data/word-index.json').then(r => r.json()).catch(() => null),
-        fetch('data/sarf.json').then(r => r.json()).then(d => new Set(d.order)).catch(() => null)
+        fetch('data/sarf.json').then(r => r.json()).catch(() => null)
       ]);
-      this.tokens = tk; this.roots = rt; this.wordIndex = wi; this.sarfRoots = sf;
+      this.tokens = tk; this.roots = rt; this.wordIndex = wi;
+      this.sarfRoots = sf ? new Set(sf.order) : null;
+      this.sarfGloss = {};       // root -> English gloss from sarf.json (~30 roots)
+      if (sf && sf.roots) for (const r in sf.roots) { if (sf.roots[r].gloss) this.sarfGloss[r] = sf.roots[r].gloss; }
     } catch (e) {
       this.container.innerHTML = `<div class="text-center py-16 text-red-500">${this.tt('topics_load_error')}</div>`;
       return;
@@ -73,7 +76,7 @@ class WordRepeat {
       if (sc) { this.scope = sc.getAttribute('data-scope'); this.openTerm = null; this.render(); return; }
       // Inline-verse audio (per word / full ayah)
       const wp = e.target.closest('[data-word-audio]');
-      if (wp) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = wp.getAttribute('data-word-audio'); this._ayahAudio.play().catch(() => {}); return; }
+      if (wp) { const au = this.getAudio(); au.src = wp.getAttribute('data-word-audio'); au.play().catch(() => {}); return; }
       const fp = e.target.closest('[data-ayah-audio]');
       if (fp) { this.toggleAyahAudio(fp); return; }
 
@@ -90,7 +93,7 @@ class WordRepeat {
         const k = qocc.getAttribute('data-qocc');
         if (this.qOpen.has(k)) this.qOpen.delete(k);
         else { this.qOpen.add(k); this.openTerm = k; this.openVerseWord = k; }
-        this.renderResults(); this.fillInlineSlots();
+        this.renderResults();
         return;
       }
       // Clicking a word shows its first verse inline right away; the "N verses"
@@ -107,7 +110,7 @@ class WordRepeat {
           const first = wordBtn && wordBtn.getAttribute('data-first-ref');
           if (first) this.openVerses.add(first);
         }
-        this.renderResults(); this.fillInlineSlots();
+        this.renderResults();
         return;
       }
       // Verse chips TOGGLE that ayah inline — several can stay open together.
@@ -117,7 +120,7 @@ class WordRepeat {
         const opening = !this.openVerses.has(ref);
         if (opening) this.openVerses.add(ref); else this.openVerses.delete(ref);
         this.openVerseWord = verse.getAttribute('data-term-word') || this.openVerseWord;
-        this.renderResults(); this.fillInlineSlots();
+        this.renderResults();
         if (opening) {
           // Bring the new block into view INSIDE the detail pane only — never
           // move the page scroll (the user stays at the chip they clicked).
@@ -214,13 +217,25 @@ class WordRepeat {
 
   refCmp(a, b) { const [s1, a1] = a.split(':').map(Number), [s2, a2] = b.split(':').map(Number); return s1 - s2 || a1 - a2; }
 
+  /** Root mode: 1-based word positions of a root inside one verse ("s:a") —
+   *  a verse may hold several occurrences of the same root. Exact mode: null
+   *  (inlineVerseHtml falls back to string matching). */
+  termPositions(term, ref) {
+    if (this.type !== 'root') return null;
+    return (this.roots[term] || [])
+      .filter(o => o.startsWith(ref + ':'))
+      .map(o => Number(o.split(':')[2]));
+  }
+
   metaKey() { return `${this.surah}:${this.language}`; }
 
-  /** Fetch the surah's word-by-word meanings (in the UI language) and re-render. */
+  /** Fetch the surah's word-by-word meanings (in the UI language) and re-render.
+   *  Exact mode: normalized token -> meaning. Root mode: root -> meaning of its
+   *  first occurrence in this surah (roots.json refs are "s:a:w"). */
   async ensureMeta() {
-    if (this.type !== 'exact') return;            // meanings are per exact word
+    const store = this.type === 'root' ? this._rootMeaning : this._meaning;
     const key = this.metaKey();
-    if (this._meaning[key]) return;               // cached
+    if (store[key]) return;                       // cached
     const token = ++this._metaToken;
     try {
       const info = getSurahByNumber(this.surah);
@@ -228,32 +243,58 @@ class WordRepeat {
       const verses = await QuranData.fetchRange(this.surah, 1, info.ayahCount, this.language);
       if (token !== this._metaToken) return;
       const map = {};
-      for (const v of verses) for (const w of (v.words || [])) {
-        const n = QuranData.normalizeWord ? QuranData.normalizeWord(w.arabic) : w.arabic;
-        if (n && !map[n] && w.meaning) map[n] = w.meaning;
+      if (this.type === 'root') {
+        const byRef = {};
+        for (const v of verses) byRef[v.key] = v.words || [];
+        const prefix = `${this.surah}:`;
+        for (const root in this.roots) {
+          for (const occ of this.roots[root]) {
+            if (!occ.startsWith(prefix)) continue;
+            const [s, a, w] = occ.split(':');
+            const wd = (byRef[`${s}:${a}`] || [])[w - 1];
+            if (wd && wd.meaning) { map[root] = wd.meaning; break; }
+          }
+        }
+      } else {
+        for (const v of verses) for (const w of (v.words || [])) {
+          const n = QuranData.normalizeWord ? QuranData.normalizeWord(w.arabic) : w.arabic;
+          if (n && !map[n] && w.meaning) map[n] = w.meaning;
+        }
       }
-      this._meaning[key] = map;
+      store[key] = map;
       if (this.container.querySelector('#wr-results')) this.renderResults();
     } catch (e) { /* meanings are best-effort */ }
   }
 
   meaningOf(term) {
+    if (this.type === 'root') {
+      // Curated sarf gloss first, else the WBW meaning of the first occurrence
+      if (this.sarfGloss && this.sarfGloss[term]) return this.sarfGloss[term];
+      const m = this._rootMeaning[this.metaKey()];
+      return m ? (m[term] || '') : '';
+    }
     const m = this._meaning[this.metaKey()];
     return m ? (m[term] || '') : '';
   }
 
-  /** Play/pause toggle for the full-ayah buttons: the icon flips 🔊 ↔ ⏸. */
-  toggleAyahAudio(btn) {
+  /** Shared Audio element — created once, with the 'pause' → icon-reset listener
+   *  always attached ('pause' also fires when playback ends or src changes). */
+  getAudio() {
     if (!this._ayahAudio) {
       this._ayahAudio = new Audio();
-      // 'pause' also fires when playback ends, so one listener resets the icon
       this._ayahAudio.addEventListener('pause', () => this.resetPlayIcon());
     }
+    return this._ayahAudio;
+  }
+
+  /** Play/pause toggle for the full-ayah buttons: the icon flips 🔊 ↔ ⏸. */
+  toggleAyahAudio(btn) {
+    const au = this.getAudio();
     const src = btn.getAttribute('data-ayah-audio');
-    if (this._playingBtn === btn && !this._ayahAudio.paused) { this._ayahAudio.pause(); return; }
+    if (this._playingBtn === btn && !au.paused) { au.pause(); return; }
     this.resetPlayIcon();
-    this._ayahAudio.src = src;
-    this._ayahAudio.play().then(() => {
+    au.src = src;
+    au.play().then(() => {
       this._playingBtn = btn;
       btn.innerHTML = btn.innerHTML.replace('🔊', '⏸');
     }).catch(() => {});
@@ -268,11 +309,16 @@ class WordRepeat {
 
   inlineVerseLoading() { return `<p class="text-center text-gray-400 py-3 text-sm">${this.tt('loading')}</p>`; }
 
-  inlineVerseHtml(v, word, s, a, color) {
+  inlineVerseHtml(v, word, s, a, color, positions) {
     const norm = x => QuranData.normalizeWord ? QuranData.normalizeWord(x || '') : String(x || '');
     const target = word ? norm(word) : null;
-    const wbw = (v.words || []).map(w => {
-      const hit = target && (norm(w.arabic) === target || (word && (w.arabic || '').indexOf(word) >= 0));
+    // Root mode highlights BY POSITION (roots.json refs are "s:a:w") — the bare
+    // root rarely string-matches the diacritic-laden Uthmani surface form.
+    const posSet = positions && positions.length ? new Set(positions) : null;
+    const wbw = (v.words || []).map((w, i) => {
+      const hit = posSet
+        ? posSet.has(i + 1)
+        : target && (norm(w.arabic) === target || (word && (w.arabic || '').indexOf(word) >= 0));
       const canPlay = !!w.audio;
       return `<button ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''} class="inline-flex flex-col items-center px-1.5 py-1 rounded-lg ${canPlay ? 'hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer' : ''} ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}"><span class="ayah-arabic text-2xl block">${w.arabic}</span><span class="text-xs text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span></button>`;
     }).join('');
@@ -294,20 +340,21 @@ class WordRepeat {
   /** Fill every open inline slot — cached verses render instantly, the rest fetch. */
   fillInlineSlots() {
     const word = this.openVerseWord;
+    const posOf = el => (el.getAttribute('data-term-pos') || '').split(',').filter(Boolean).map(Number);
     this.container.querySelectorAll('[data-inline-slot]').forEach(slot => {
       const ref = slot.getAttribute('data-inline-slot');
       const color = slot.getAttribute('data-color');
       const [s, a] = ref.split(':').map(Number);
       const cacheKey = `${ref}:${this.language}`;
       const cached = this._verseCache[cacheKey];
-      if (cached) { slot.innerHTML = this.inlineVerseHtml(cached, word, s, a, color); return; }
+      if (cached) { slot.innerHTML = this.inlineVerseHtml(cached, word, s, a, color, posOf(slot)); return; }
       QuranData.fetchRange(s, a, a, this.language).then(verses => {
         const v = verses && verses[0];
         if (!v) throw new Error('nf');
         this._verseCache[cacheKey] = v;
         // Re-query: the container may have re-rendered while fetching
         const cur = this.container.querySelector(`[data-inline-slot="${ref}"]`);
-        if (cur) cur.innerHTML = this.inlineVerseHtml(v, word, s, a, cur.getAttribute('data-color'));
+        if (cur) cur.innerHTML = this.inlineVerseHtml(v, word, s, a, cur.getAttribute('data-color'), posOf(cur));
       }).catch(() => {
         const cur = this.container.querySelector(`[data-inline-slot="${ref}"]`);
         if (cur) cur.innerHTML = `<p class="text-center text-gray-400 py-3 text-sm">${this.tt('topics_load_error')}</p>`;
@@ -355,7 +402,8 @@ class WordRepeat {
         ${list.map(x => this.termChip(x)).join('')}
       </div>`;
     this.restoreScroll(scrollMem);
-    if (this.type === 'exact') this.ensureMeta();
+    this.fillInlineSlots();   // idempotent: cached verses render instantly, the rest fetch
+    this.ensureMeta();
   }
 
   /** All Quran-wide "s:a" refs for a term (exact via word-index, root via roots). */
@@ -392,7 +440,7 @@ class WordRepeat {
 
   termChip(x) {
     const open = this.openTerm === x.term;
-    const meaning = this.type === 'exact' ? this.meaningOf(x.term) : '';
+    const meaning = this.meaningOf(x.term);
     const qOpen = this.qOpen.has(x.term);
     let body = '';
     if (open) {
@@ -415,7 +463,7 @@ class WordRepeat {
             </div>
             <div data-scrollkeep="detail:${this.esc(x.term)}" class="relative flex-1 min-w-0 max-h-[70vh] overflow-y-auto space-y-3">
               ${openHere.length
-                ? openHere.map(r => `<div class="wr-inline" data-inline-slot="${r}" data-color="${this.pairColor(r)}">${this.inlineVerseLoading()}</div>`).join('')
+                ? openHere.map(r => `<div class="wr-inline" data-inline-slot="${r}" data-color="${this.pairColor(r)}" data-term-pos="${(this.termPositions(x.term, r) || []).join(',')}">${this.inlineVerseLoading()}</div>`).join('')
                 : `<p class="text-center text-sm text-gray-400 py-8">${this.tt('wr_tap_hint')}</p>`}
             </div>
           </div>
@@ -435,71 +483,6 @@ class WordRepeat {
         </div>
         ${body}
       </div>`;
-  }
-
-  // In-module ayah preview — stays inside Word Repetition (no tab switch).
-  ensureAyahModal() {
-    if (this.ayahModal) return;
-    this.ayahModal = document.createElement('div');
-    this.ayahModal.id = 'wr-ayah-modal';
-    this.ayahModal.className = 'fixed inset-0 bg-black/60 z-[70] items-center justify-center p-4 hidden';
-    this.ayahModal.innerHTML = `
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-3xl max-h-[88vh] flex flex-col">
-        <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
-          <h3 id="wr-ayah-title" class="flex-1 font-bold text-gray-800 dark:text-gray-100"></h3>
-          <button id="wr-ayah-close" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">✕</button>
-        </div>
-        <div id="wr-ayah-body" class="flex-1 overflow-y-auto p-5"></div>
-      </div>`;
-    document.body.appendChild(this.ayahModal);
-    if (window.escClose) window.escClose(this.ayahModal, () => { if (this._ayahAudio) this._ayahAudio.pause(); this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex'); });
-    this.ayahModal.addEventListener('click', (e) => {
-      if (e.target === this.ayahModal || e.target.closest('#wr-ayah-close')) {
-        if (this._ayahAudio) this._ayahAudio.pause();
-        this.ayahModal.classList.add('hidden'); this.ayahModal.classList.remove('flex'); return;
-      }
-      const wp = e.target.closest('[data-word-audio]');
-      if (wp) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = wp.getAttribute('data-word-audio'); this._ayahAudio.play().catch(() => {}); return; }
-      const fp = e.target.closest('[data-ayah-audio]');
-      if (fp) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = fp.getAttribute('data-ayah-audio'); this._ayahAudio.play().catch(() => {}); }
-    });
-  }
-
-  async openAyah(ref, term) {
-    const lang = this.language;
-    this.ensureAyahModal();
-    this.ayahModal.classList.remove('hidden'); this.ayahModal.classList.add('flex');
-    this.ayahModal.querySelector('#wr-ayah-title').textContent = ref;
-    const body = this.ayahModal.querySelector('#wr-ayah-body');
-    body.innerHTML = `<p class="text-center text-gray-400 py-8">${this.tt('loading')}</p>`;
-    try {
-      const [s, a] = ref.split(':').map(Number);
-      const v = (await QuranData.fetchRange(s, a, a, lang))[0];
-      if (!v) throw new Error('nf');
-      this.ayahModal.querySelector('#wr-ayah-title').textContent = `${v.surahName} ${v.key}`;
-      const norm = x => (QuranData.normalizeWord ? QuranData.normalizeWord(x || '') : String(x || ''));
-      // For root matches term is an Arabic root; for exact it's a normalized token.
-      const wbw = (v.words || []).map(w => {
-        const hit = term && (norm(w.arabic) === norm(term) || (w.arabic || '').indexOf(term) >= 0);
-        const canPlay = !!w.audio;
-        return `<button ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''}
-                  class="inline-flex flex-col items-center px-2 py-1 my-1 rounded-lg ${canPlay ? 'hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer' : ''} ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}">
-                  <span class="ayah-arabic !text-2xl block">${w.arabic}</span>
-                  <span class="text-xs text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
-                </button>`;
-      }).join('');
-      const pad = n => String(n).padStart(3, '0');
-      body.innerHTML = `
-        <div class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${v.arabic}</div>
-        <div class="flex flex-wrap justify-center gap-x-1 mb-3" dir="rtl">${wbw}</div>
-        <p class="text-center text-gray-600 dark:text-gray-300 mb-4" dir="auto">${v.translation || ''}</p>
-        <div class="flex justify-center">
-          <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3"
-                  class="px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary/80">🔊 ${this.tt('play_full_ayah')}</button>
-        </div>`;
-    } catch (e) {
-      body.innerHTML = `<p class="text-center text-gray-500 dark:text-gray-400 py-8">${this.tt('topics_load_error')}</p>`;
-    }
   }
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

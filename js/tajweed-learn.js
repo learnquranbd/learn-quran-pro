@@ -60,7 +60,7 @@ const TAJWEED_LESSONS = {
   hamzat_wasl: { group: 'other', names: { bn: 'হামযাতুল ওয়াসল', ar: 'همزة الوصل' }, letters: 'ٱ',
     en: 'Connecting hamza: pronounced only when you START at it; silent when you continue through.',
     bn: 'হামযাতুল ওয়াসল: শুরু করলে উচ্চারিত হয়; মাঝখানে পড়লে নীরব।' },
-  lam_shamsiyyah: { group: 'other', names: { bn: 'লাম শামসিয়্যাহ', ar: 'اللام الشمسية' }, letters: 'ال + sun letters',
+  lam_shamsiyyah: { group: 'other', names: { bn: 'লাম শামসিয়্যাহ', ar: 'اللام الشمسية' }, letters: 'ال', lettersExtraKey: 'tj_sun_letters',
     en: 'Sun lam: the ل of ال is silent and assimilates into the following "sun letter" (which doubles).',
     bn: 'লাম শামসিয়্যাহ: ال-এর লাম নীরব হয়ে পরবর্তী "সূর্য অক্ষরে" মিশে যায় (সেটি দ্বিগুণ হয়)।' },
   silent: { group: 'other', names: { bn: 'নীরব অক্ষর', ar: 'حرف صامت' }, letters: '—',
@@ -69,11 +69,11 @@ const TAJWEED_LESSONS = {
 };
 
 const TAJWEED_RESOURCES = [
-  { name: 'KSU Electronic Mushaf', url: 'https://quran.ksu.edu.sa', emoji: '🕌', desc: 'Tajweed-coloured mushaf with recitations' },
-  { name: 'TajweedQuran.com', url: 'https://www.tajweedquran.com', emoji: '📗', desc: 'Dar Al-Maarifah — the original colour-coded tajweed mushaf' },
-  { name: 'ReciteQuran.com', url: 'https://recitequran.com', emoji: '🎧', desc: 'Word-level audio with tajweed display' },
-  { name: 'Tarteel.ai', url: 'https://tarteel.ai', emoji: '🎙️', desc: 'AI recitation feedback on your tajweed' },
-  { name: 'EveryAyah', url: 'https://everyayah.com', emoji: '🔁', desc: 'Verse-by-verse audio from master reciters' },
+  { name: 'KSU Electronic Mushaf', url: 'https://quran.ksu.edu.sa', emoji: '🕌', descKey: 'tjr_ksu_desc' },
+  { name: 'TajweedQuran.com', url: 'https://www.tajweedquran.com', emoji: '📗', descKey: 'tjr_tajweedquran_desc' },
+  { name: 'ReciteQuran.com', url: 'https://recitequran.com', emoji: '🎧', descKey: 'tjr_recitequran_desc' },
+  { name: 'Tarteel.ai', url: 'https://tarteel.ai', emoji: '🎙️', descKey: 'tjr_tarteel_desc' },
+  { name: 'EveryAyah', url: 'https://everyayah.com', emoji: '🔁', descKey: 'tjr_everyayah_desc' },
 ];
 
 class TajweedLearn {
@@ -83,15 +83,27 @@ class TajweedLearn {
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
     this.rule = null;          // selected rule key
     this.surah = 1;            // examples surah
+    this.exLimit = 15;         // examples shown before "Show more"
+    this._exReq = 0;           // loadExamples() request token (guards stale responses)
     this.bound = false;
+    this.learned = this.loadLearned();
 
-    window.addEventListener('tabChanged', (e) => { if (e.detail.tabId === 'tajweedlearn') this.render(); });
+    window.addEventListener('tabChanged', (e) => {
+      if (e.detail.tabId === 'tajweedlearn') this.render();
+      else if (this._audio) this._audio.pause();
+    });
     window.addEventListener('settingChanged', (e) => {
       if (e.detail.key === 'language') { this.language = e.detail.value; if (this.container.innerHTML) this.render(); }
     });
   }
 
   tt(key) { return t(key, this.language); }
+  loadLearned() {
+    try { return new Set(JSON.parse(localStorage.getItem('tajweedLearned') || '[]')); } catch (e) { return new Set(); }
+  }
+  saveLearned() {
+    try { localStorage.setItem('tajweedLearned', JSON.stringify([...this.learned])); } catch (e) { /* ignore */ }
+  }
   lesson(k) { const l = TAJWEED_LESSONS[k] || {}; return l[this.language] || l.en || ''; }
   /** Rule display name in the UI language (technical Arabic terms transliterated). */
   ruleName(k) {
@@ -104,14 +116,25 @@ class TajweedLearn {
     if (this.bound) return;
     this.bound = true;
     this.container.addEventListener('click', (e) => {
+      const mark = e.target.closest('[data-tj-learned]');
+      if (mark) {
+        const k = mark.getAttribute('data-tj-learned');
+        this.learned.has(k) ? this.learned.delete(k) : this.learned.add(k);
+        this.saveLearned();
+        this.render();
+        return;
+      }
       const rule = e.target.closest('[data-tj-rule]');
       if (rule) {
         const k = rule.getAttribute('data-tj-rule');
         this.rule = this.rule === k ? null : k;
+        this.exLimit = 15;
         this.render();
         if (this.rule) this.loadExamples();
         return;
       }
+      const more = e.target.closest('[data-tj-more]');
+      if (more) { this.exLimit += 15; this.loadExamples(); return; }
       const quiz = e.target.closest('[data-tj-quiz]');
       if (quiz && typeof tabSystem !== 'undefined') {
         tabSystem.switchTab('quiz');
@@ -129,27 +152,63 @@ class TajweedLearn {
         return;
       }
       const play = e.target.closest('[data-ayah-audio]');
-      if (play) { if (!this._audio) this._audio = new Audio(); this._audio.src = play.getAttribute('data-ayah-audio'); this._audio.play().catch(() => {}); }
+      if (play) { this.toggleAyahAudio(play); return; }
+      // Ref badge → shared verse modal with word-by-word audio (checked AFTER 🔊)
+      const ref = e.target.closest('[data-ayah-ref]');
+      if (ref && typeof ayahModal !== 'undefined' && ayahModal) ayahModal.open(ref.getAttribute('data-ayah-ref'));
     });
     this.container.addEventListener('change', (e) => {
-      if (e.target.id === 'tj-surah') { this.surah = parseInt(e.target.value, 10); this.loadExamples(); }
+      if (e.target.id === 'tj-surah') { this.surah = parseInt(e.target.value, 10); this.exLimit = 15; this.loadExamples(); }
     });
+  }
+
+  /** 🔊 plays, second tap pauses (icon flips back via the 'pause' listener). */
+  toggleAyahAudio(btn) {
+    if (!this._audio) {
+      this._audio = new Audio();
+      // 'pause' also fires when playback ends, so one listener resets the icon
+      this._audio.addEventListener('pause', () => this.resetPlayIcon());
+    }
+    if (this._playingBtn === btn && !this._audio.paused) { this._audio.pause(); return; }
+    this.resetPlayIcon();
+    this._audio.src = btn.getAttribute('data-ayah-audio');
+    this._audio.play().then(() => {
+      this._playingBtn = btn;
+      btn.innerHTML = btn.innerHTML.replace('🔊', '⏸');
+    }).catch(() => {});
+  }
+
+  resetPlayIcon() {
+    if (this._playingBtn) {
+      this._playingBtn.innerHTML = this._playingBtn.innerHTML.replace('⏸', '🔊');
+      this._playingBtn = null;
+    }
   }
 
   ruleCard(key) {
     const def = (typeof TAJWEED_RULES !== 'undefined' && TAJWEED_RULES[key]) || { color: '#888', label: key };
     const open = this.rule === key;
+    const learned = this.learned.has(key);
     const les = TAJWEED_LESSONS[key] || {};
+    const lettersHtml = les.lettersExtraKey
+      ? `${this.esc(les.letters || '')} <span dir="auto">+ ${this.esc(this.tt(les.lettersExtraKey))}</span>`
+      : this.esc(les.letters || '');
     return `
-      <div class="rounded-xl bg-white dark:bg-gray-800 border ${open ? 'border-2' : 'border-gray-200 dark:border-gray-700'}" ${open ? `style="border-color:${def.color}"` : ''}>
-        <button data-tj-rule="${key}" class="w-full flex items-center gap-3 px-3 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700/40 rounded-xl">
-          <span class="shrink-0 w-4 h-4 rounded-full" style="background:${def.color}"></span>
-          <span class="flex-1 min-w-0">
-            <span class="block font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.ruleName(key))}</span>
-            <span class="block text-gray-400 truncate ayah-arabic !text-lg !leading-normal" dir="rtl">${this.esc(les.letters || '')}</span>
-          </span>
-          <span class="text-gray-400">${open ? '▾' : '▸'}</span>
-        </button>
+      <div class="rounded-xl bg-white dark:bg-gray-800 border ${open ? 'border-2' : 'border-gray-200 dark:border-gray-700'} ${learned ? 'ring-2 ring-green-500/40' : ''}" ${open ? `style="border-color:${def.color}"` : ''}>
+        <div class="flex items-center pe-2">
+          <button data-tj-rule="${key}" class="flex-1 min-w-0 flex items-center gap-3 px-3 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700/40 rounded-xl">
+            <span class="shrink-0 w-4 h-4 rounded-full" style="background:${def.color}"></span>
+            <span class="flex-1 min-w-0">
+              <span class="block font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.ruleName(key))}</span>
+              <span class="block text-gray-400 truncate ayah-arabic !text-lg !leading-normal" dir="rtl">${lettersHtml}</span>
+            </span>
+            <span class="text-gray-400">${open ? '▾' : '▸'}</span>
+          </button>
+          <button data-tj-learned="${key}" title="${this.tt('tj_mark_learned')}"
+                  class="shrink-0 w-7 h-7 rounded-full text-sm leading-none ${learned
+                    ? 'bg-green-500 text-white hover:bg-green-600'
+                    : 'border border-gray-300 dark:border-gray-600 text-gray-400 hover:text-green-600 hover:border-green-500'}">✓</button>
+        </div>
         <p class="px-4 pb-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.lesson(key))}</p>
         ${open ? `
           <div class="px-4 pb-4">
@@ -181,9 +240,13 @@ class TajweedLearn {
   async loadExamples() {
     const box = this.container.querySelector('#tj-examples');
     if (!box || !this.rule) return;
+    // Token guards against out-of-order responses on rapid surah changes
+    const req = ++this._exReq;
+    const surah = this.surah;
     box.innerHTML = `<p class="text-center text-gray-400 text-sm py-3">${this.tt('loading')}</p>`;
     try {
-      const { text, rules } = await TajweedData.load(this.surah);
+      const { text, rules } = await TajweedData.load(surah);
+      if (req !== this._exReq) return; // superseded by a newer request
       const color = (TAJWEED_RULES[this.rule] || {}).color || '#888';
       const rows = [];
       const pad = n => String(n).padStart(3, '0');
@@ -194,36 +257,46 @@ class TajweedLearn {
         if (!spans.length) continue;
         const a = parseInt(m[1], 10);
         rows.push({ a, html: this.highlight(text[vk] || '', spans, color), n: spans.length });
-        if (rows.length >= 15) break;
       }
       if (!rows.length) { box.innerHTML = `<p class="text-center text-gray-400 text-sm py-3">${this.tt('tj_no_examples')}</p>`; return; }
       rows.sort((x, y) => x.a - y.a);
-      box.innerHTML = rows.map(r => `
+      const shown = rows.slice(0, this.exLimit);
+      const remaining = rows.length - shown.length;
+      box.innerHTML = shown.map(r => `
         <div class="rounded-lg bg-gray-50 dark:bg-gray-900/40 p-3">
           <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-mono text-gray-400">${this.surah}:${r.a}</span>
+            <button data-ayah-ref="${surah}:${r.a}" title="${this.tt('tj_open_verse')}"
+                    class="text-xs font-mono text-gray-400 hover:text-primary underline decoration-dotted underline-offset-2">${surah}:${r.a} ⓘ</button>
             <span class="text-xs px-1.5 rounded-full" style="background:${color}22;color:${color}">×${r.n}</span>
-            <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(this.surah)}${pad(r.a)}.mp3" class="ms-auto text-xs px-2 py-0.5 rounded-md bg-primary text-white hover:bg-primary/80">🔊</button>
+            <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(surah)}${pad(r.a)}.mp3" class="ms-auto text-xs px-2 py-0.5 rounded-md bg-primary text-white hover:bg-primary/80">🔊</button>
           </div>
           <div class="ayah-arabic !text-2xl !leading-loose" dir="rtl">${r.html}</div>
-        </div>`).join('');
+        </div>`).join('')
+        + (remaining > 0 ? `
+        <button data-tj-more class="w-full text-center text-sm py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+          ${this.tt('topics_show_more')} (+${remaining})
+        </button>` : '');
     } catch (e) {
+      if (req !== this._exReq) return;
       box.innerHTML = `<p class="text-center text-gray-400 text-sm py-3">${this.tt('tj_no_examples')}</p>`;
     }
   }
 
   render() {
     this.bindOnce();
+    if (this._audio) this._audio.pause();
     const groups = [
       ['noon', 'tj_group_noon'], ['meem', 'tj_group_meem'], ['madd', 'tj_group_madd'],
       ['core', 'tj_group_core'], ['other', 'tj_group_other'],
     ];
     const keys = Object.keys(TAJWEED_LESSONS);
+    const learnedCount = keys.filter(k => this.learned.has(k)).length;
     this.container.innerHTML = `
       <div class="w-full">
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold mb-1">🎨 ${this.tt('tj_learn_title')}</h2>
           <p class="text-gray-500 dark:text-gray-400 text-sm">${this.tt('tj_learn_subtitle')}</p>
+          <p class="text-sm font-medium text-green-600 dark:text-green-400 mt-1">✓ ${learnedCount} / ${keys.length} ${this.tt('tj_learned')}</p>
         </div>
         <div class="flex flex-wrap justify-center gap-2 mb-6">
           <button data-tj-quiz class="px-4 py-2 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-secondary/80">❓ ${this.tt('tj_practice_quiz')}</button>
@@ -244,7 +317,7 @@ class TajweedLearn {
           ${TAJWEED_RESOURCES.map(r => `
             <a href="${r.url}" target="_blank" rel="noopener" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow text-sm">
               <span>${r.emoji}</span><span class="font-medium">${r.name}</span>
-              <span class="text-xs text-gray-400">${this.esc(r.desc)}</span>
+              <span class="text-xs text-gray-400">${this.esc(this.tt(r.descKey))}</span>
             </a>`).join('')}
         </div>
       </div>`;

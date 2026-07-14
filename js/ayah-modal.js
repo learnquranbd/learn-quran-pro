@@ -35,11 +35,11 @@ class AyahModal {
     this.titleEl = this.overlay.querySelector('#sam-title');
     this.bodyEl = this.overlay.querySelector('#sam-body');
     this.overlay.querySelector('#sam-close').addEventListener('click', () => this.close());
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.overlay && !this.overlay.classList.contains('hidden')) this.close();
-    });
+    if (window.escClose) window.escClose(this.overlay, () => this.close());
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay) { this.close(); return; }
+      const nv = e.target.closest('[data-nav-ayah]');
+      if (nv) { this.open(nv.getAttribute('data-nav-ayah')); return; }
       const wp = e.target.closest('[data-word-audio]');
       if (wp) { this.play(wp.getAttribute('data-word-audio')); return; }
       const fp = e.target.closest('[data-ayah-audio]');
@@ -49,7 +49,7 @@ class AyahModal {
         const ref = rd.getAttribute('data-read-full');
         this.close();
         if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
-        if (window.location.hash.slice(1) === encodeURIComponent(ref)) window.dispatchEvent(new HashChangeEvent('hashchange'));
+        if (decodeURIComponent(window.location.hash.slice(1)) === ref) window.dispatchEvent(new HashChangeEvent('hashchange'));
         else window.location.hash = ref;
       }
     });
@@ -64,6 +64,7 @@ class AyahModal {
 
   async open(ref, opts) {
     opts = opts || {};
+    this._req = ref;
     this.ensure();
     this.overlay.classList.remove('hidden'); this.overlay.classList.add('flex');
     this.titleEl.textContent = ref;
@@ -72,8 +73,10 @@ class AyahModal {
     try {
       const [s, a] = ref.split(':').map(Number);
       const v = (await QuranData.fetchRange(s, a, a, lang))[0];
+      if (this._req !== ref) return;
       if (!v) throw new Error('nf');
-      this.titleEl.textContent = `${v.surahName || ''} ${v.key}`;
+      const surahName = (typeof getSurahName === 'function') ? getSurahName(s, lang) : (v.surahName || '');
+      this.titleEl.textContent = `${surahName} ${v.key}`;
       const norm = x => (QuranData.normalizeWord ? QuranData.normalizeWord(x || '') : String(x || ''));
       const target = opts.word ? norm(opts.word) : null;
       const wbw = (v.words || []).map(w => {
@@ -82,22 +85,31 @@ class AyahModal {
         return `<button ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''}
                   class="inline-flex flex-col items-center px-2 py-1 my-1 rounded-lg ${canPlay ? 'hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer' : ''} ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}">
                   <span class="ayah-arabic !text-2xl block">${w.arabic}</span>
-                  <span class="text-[11px] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
+                  ${w.translit ? `<span class="text-[0.6875rem] text-gray-400 dark:text-gray-500 block" dir="ltr">${this.esc(w.translit)}</span>` : ''}
+                  <span class="text-[0.6875rem] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
                 </button>`;
       }).join('');
       const pad = n => String(n).padStart(3, '0');
+      const ayahCount = (typeof getSurahByNumber === 'function') ? (getSurahByNumber(s)?.ayahCount || a) : a;
+      const navBtn = (toRef, label, sym) => toRef
+        ? `<button data-nav-ayah="${toRef}" aria-label="${this.esc(label)}" title="${this.esc(label)}"
+                  class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">${sym}</button>`
+        : `<button disabled aria-label="${this.esc(label)}" class="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-300 dark:text-gray-600 cursor-not-allowed">${sym}</button>`;
       this.bodyEl.innerHTML = `
         <div class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${v.arabic}</div>
         <p class="text-xs text-center text-gray-400 mb-2">${this.tt('tap_word_to_hear')}</p>
         <div class="flex flex-wrap justify-center gap-x-1 mb-3" dir="rtl">${wbw}</div>
         <p class="text-center text-gray-600 dark:text-gray-300 mb-4" dir="auto">${v.translation || ''}</p>
-        <div class="flex flex-wrap justify-center gap-2">
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          ${navBtn(a > 1 ? `${s}:${a - 1}` : null, this.tt('previous'), '&lsaquo;')}
           <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3"
                   class="px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary/80">🔊 ${this.tt('play_full_ayah')}</button>
           <button data-read-full="${v.key}"
                   class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">📖 ${this.tt('read_full_ayah')}</button>
+          ${navBtn(a < ayahCount ? `${s}:${a + 1}` : null, this.tt('next'), '&rsaquo;')}
         </div>`;
     } catch (e) {
+      if (this._req !== ref) return;
       this.bodyEl.innerHTML = `<p class="text-center text-gray-500 dark:text-gray-400 py-8">${this.tt('error')}</p>`;
     }
   }
@@ -109,12 +121,34 @@ document.addEventListener('DOMContentLoaded', () => { ayahModal = new AyahModal(
 /**
  * Shared helper: close a modal overlay when Escape is pressed while it is visible.
  * Modules call this once when they create their overlay.
- *   window.escClose(this.overlay, () => this.close());
+ *   const unbind = window.escClose(this.overlay, () => this.close());
  * `overlay` is the element that carries the `hidden` class when closed.
+ * One shared keydown listener closes only the TOPMOST visible overlay (by
+ * z-index, then registration order); re-binding the same overlay is a no-op.
+ * Returns an unbind function.
  */
-window.escClose = function (overlay, closeFn) {
-  if (!overlay || typeof closeFn !== 'function') return;
+window.escClose = (function () {
+  const bound = new WeakSet(); // overlays already registered (de-dupe)
+  const entries = [];          // { overlay, closeFn } in registration order
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) closeFn();
+    if (e.key !== 'Escape') return;
+    let top = null, topZ = -Infinity;
+    for (const en of entries) {
+      if (!en.overlay.isConnected || en.overlay.classList.contains('hidden')) continue;
+      const z = parseInt(window.getComputedStyle(en.overlay).zIndex, 10) || 0;
+      if (z >= topZ) { topZ = z; top = en; }
+    }
+    if (top) top.closeFn();
   });
-};
+  return function (overlay, closeFn) {
+    if (!overlay || typeof closeFn !== 'function' || bound.has(overlay)) return () => {};
+    bound.add(overlay);
+    const entry = { overlay, closeFn };
+    entries.push(entry);
+    return function unbind() {
+      const i = entries.indexOf(entry);
+      if (i !== -1) entries.splice(i, 1);
+      bound.delete(overlay);
+    };
+  };
+})();

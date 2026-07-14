@@ -30,12 +30,12 @@ class WordArrange {
       if (e.detail && e.detail.module === 'wordarrange') this.render();
     });
     window.addEventListener('settingChanged', (e) => {
-      if (e.detail && e.detail.key === 'language') { this.language = e.detail.value; if (this.rendered) this.load(); }
+      if (e.detail && e.detail.key === 'language') { this.language = e.detail.value; if (this.rendered) this.render(); }
     });
 
     this.root.addEventListener('click', (e) => this.onClick(e));
     this.root.addEventListener('change', (e) => {
-      if (e.target.id === 'wa-surah') { this.surah = parseInt(e.target.value); this.ayah = 1; this.load(); }
+      if (e.target.id === 'wa-surah') { this.surah = parseInt(e.target.value); this.ayah = 1; this.render(); }
       else if (e.target.id === 'wa-ayah') { this.ayah = parseInt(e.target.value); this.load(); }
     });
   }
@@ -102,6 +102,12 @@ class WordArrange {
         [idx[i], idx[j]] = [idx[j], idx[i]];
       }
     }
+    // Guard: if the shuffle landed on the identity permutation, rotate so the
+    // pool is never presented already in verse order.
+    if (idx.length > 1 && idx.every((v, i) => v === i)) {
+      const half = Math.floor(idx.length / 2);
+      idx.push(...idx.splice(0, half));
+    }
     this.pool = idx;         // shuffled order of original indices
     this.placed = [];        // original indices placed so far, in order
   }
@@ -127,7 +133,7 @@ class WordArrange {
           return `
             <div class="flex flex-col items-center max-w-[110px]">
               <button data-reveal="${i}" class="ayah-arabic text-2xl px-1 leading-loose transition ${shown ? '' : 'blur-sm hover:blur-none'}" title="${this.tt('wa_tap_reveal')}">${this.esc(w.arabic)}</button>
-              <span class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
+              <span class="text-[0.625rem] text-gray-500 dark:text-gray-400 mt-1 text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
         }).join('')}
       </div>`;
@@ -136,7 +142,7 @@ class WordArrange {
   // ---- Arrange mode (slots side by side, RTL) ----------------------------
   renderArrange(board) {
     const done = this.placed.length === this.words.length;
-    const allCorrect = done && this.placed.every((p, i) => p === i);
+    const allCorrect = done && this.placed.every((p, i) => this.words[p].arabic === this.words[i].arabic);
     const info = (typeof getSurahByNumber === 'function') ? getSurahByNumber(this.surah) : null;
     const hasNext = info && this.ayah < info.ayahCount;
     board.innerHTML = `
@@ -145,7 +151,7 @@ class WordArrange {
         ${this.words.map((w, i) => {
           const placedIdx = this.placed[i];
           const filled = placedIdx !== undefined;
-          const correct = filled && placedIdx === i;
+          const correct = filled && this.words[placedIdx].arabic === this.words[i].arabic;
           return `
             <div class="flex flex-col items-center">
               <button ${filled ? `data-unplace="${i}"` : ''} class="min-w-[64px] h-12 px-2 flex items-center justify-center rounded-lg border-2 ${
@@ -153,7 +159,7 @@ class WordArrange {
                        : 'border-dashed border-gray-300 dark:border-gray-600'}">
                 <span class="ayah-arabic text-2xl">${filled ? this.esc(this.words[placedIdx].arabic) : ''}</span>
               </button>
-              <span class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 max-w-[72px] text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
+              <span class="text-[0.625rem] text-gray-500 dark:text-gray-400 mt-1 max-w-[72px] text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
         }).join('')}
       </div>
