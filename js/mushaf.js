@@ -165,6 +165,15 @@ class MushafView {
               ${t('next', lang)} &rsaquo;
             </button>
           </div>
+
+          <!-- Zoom (dense tajweed print is hard to read at fit-to-screen) -->
+          <div class="flex items-center gap-1">
+            <button id="mushaf-zoom-out" title="A-" aria-label="Zoom out"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">🔍−</button>
+            <span id="mushaf-zoom-label" class="text-xs text-gray-400 w-10 text-center">100%</span>
+            <button id="mushaf-zoom-in" title="A+" aria-label="Zoom in"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">🔍+</button>
+          </div>
         </div>
 
         <div class="flex items-center justify-center gap-2 sm:gap-4" dir="ltr">
@@ -191,6 +200,7 @@ class MushafView {
     `;
 
     this.pagesEl = this.container.querySelector('#mushaf-pages');
+    this.plateEl = this.container.querySelector('#mushaf-plate');
     this.status = this.container.querySelector('#mushaf-status');
     this.pageInput = this.container.querySelector('#mushaf-page-input');
     this.surahSelect = this.container.querySelector('#mushaf-surah-select');
@@ -205,6 +215,10 @@ class MushafView {
     // Header buttons follow reading order: "next" advances, "previous" goes back
     this.hdrNextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
     this.hdrPrevBtn.addEventListener('click', () => this.goTo(this.page - this.step()));
+
+    // Zoom controls
+    this.container.querySelector('#mushaf-zoom-in')?.addEventListener('click', () => this.setZoom(this.zoom() + 0.25));
+    this.container.querySelector('#mushaf-zoom-out')?.addEventListener('click', () => this.setZoom(this.zoom() - 0.25));
 
     // Re-render when crossing the one-page / two-page breakpoint (bind once)
     if (!this._resizeBound) {
@@ -246,6 +260,39 @@ class MushafView {
   isSpread() { return window.innerWidth >= 1024; }
   step() { return this.isSpread() ? 2 : 1; }
 
+  /* ---------- zoom (dense tajweed print) ---------- */
+
+  zoom() {
+    const v = parseFloat(localStorage.getItem('mushafZoom'));
+    return isNaN(v) ? 1 : Math.min(Math.max(v, 1), 2.5);
+  }
+
+  setZoom(z) {
+    z = Math.min(Math.max(Math.round(z * 100) / 100, 1), 2.5);
+    try { localStorage.setItem('mushafZoom', String(z)); } catch (e) { /* ignore */ }
+    this.applyZoom();
+  }
+
+  applyZoom() {
+    const z = this.zoom();
+    const label = this.container.querySelector('#mushaf-zoom-label');
+    if (label) label.textContent = Math.round(z * 100) + '%';
+    const zi = this.container.querySelector('#mushaf-zoom-in');
+    const zo = this.container.querySelector('#mushaf-zoom-out');
+    if (zi) zi.disabled = z >= 2.5;
+    if (zo) zo.disabled = z <= 1;
+    if (this.pagesEl) this.pagesEl.querySelectorAll('.mushaf-page-img').forEach(img => {
+      img.style.maxHeight = (80 * z) + 'vh';
+      img.style.maxWidth = z > 1 ? 'none' : '';
+    });
+    // When zoomed past fit, the plate pans (scrolls) instead of overflowing the page
+    if (this.plateEl) {
+      this.plateEl.classList.toggle('overflow-auto', z > 1);
+      this.plateEl.style.maxHeight = z > 1 ? '85vh' : '';
+      this.plateEl.style.maxWidth = z > 1 ? '100%' : '';
+    }
+  }
+
   showPage(page) {
     const lang = this.language;
     page = this.clampPage(page);
@@ -279,6 +326,8 @@ class MushafView {
       img.onerror = () => { if (token !== this._loadToken) return; img.classList.remove('opacity-40'); img.removeAttribute('src'); this.showStatus(t('mushaf_page_error', lang)); };
       img.src = this.imageUrl(p);
     });
+
+    this.applyZoom();
 
     // Preload neighbours for instant turns
     [page - 1, page + 2, page + 3].forEach(p => {

@@ -108,7 +108,7 @@ class TafseerView {
     const style = document.createElement('style');
     style.id = 'tafseer-styles';
     style.textContent = `
-      .tafseer-body { line-height: 1.8; }
+      .tafseer-body { line-height: 1.8; font-size: calc(1rem * var(--tafsir-scale, 1)); }
       .tafseer-body p { margin: 0 0 0.75rem; }
       .tafseer-body h1, .tafseer-body h2, .tafseer-body h3, .tafseer-body h4 {
         font-weight: 600; margin: 1rem 0 0.5rem;
@@ -118,7 +118,7 @@ class TafseerView {
         padding-inline-start: 0.75rem; margin: 0.75rem 0; opacity: 0.9;
       }
       .tafseer-body ul, .tafseer-body ol { padding-inline-start: 1.5rem; margin: 0 0 0.75rem; }
-      .tafseer-body[dir="rtl"] { font-size: 1.125rem; }
+      .tafseer-body[dir="rtl"] { font-size: calc(1.125rem * var(--tafsir-scale, 1)); }
     `;
     document.head.appendChild(style);
   }
@@ -239,13 +239,58 @@ class TafseerView {
     } else {
       this.renderExpanded(tafsirId);
     }
+    this.content.insertAdjacentHTML('afterbegin', this.toolbarHtml(lang));
+    this.applyFontScale();
   }
 
-  ayahHeaderHtml(ayah) {
+  /* ---------- reading comfort: font size + copy ---------- */
+
+  toolbarHtml(lang) {
     return `
-      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex items-center justify-end gap-1 mb-3 text-sm" id="tafsir-toolbar">
+        <span class="text-xs text-gray-400 mr-1">${t('font_size', lang)}</span>
+        <button data-tafsir-font="-1" class="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A-</button>
+        <button data-tafsir-font="1" class="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A+</button>
+      </div>`;
+  }
+
+  fontScale() {
+    const v = parseFloat(localStorage.getItem('tafsirFontScale'));
+    return isNaN(v) ? 1 : Math.min(Math.max(v, 0.8), 1.6);
+  }
+
+  applyFontScale() {
+    if (this.content) this.content.style.setProperty('--tafsir-scale', this.fontScale());
+  }
+
+  bumpFont(dir) {
+    const next = Math.min(Math.max(this.fontScale() + dir * 0.1, 0.8), 1.6);
+    try { localStorage.setItem('tafsirFontScale', String(next)); } catch (e) { /* ignore */ }
+    this.applyFontScale();
+  }
+
+  /** Copy an ayah's Arabic + its loaded tafsir text as plain text. */
+  copyCard(key) {
+    const card = this.content.querySelector(`[data-tafseer-card="${key}"]`) ||
+                 this.content.querySelector(`[data-key="${key}"]`)?.closest('div');
+    const ayah = this.ayahs.find(a => a.key === key);
+    const body = card && card.querySelector('.tafseer-body');
+    const text = `${ayah ? ayah.arabic : ''}\n(${key})\n\n${body ? body.innerText.trim() : ''}`.trim();
+    const done = (btn) => { if (btn) { const old = btn.textContent; btn.textContent = '✓'; setTimeout(() => { btn.textContent = old; }, 1200); } };
+    const btn = this.content.querySelector(`[data-tafsir-copy="${key}"]`);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => done(btn)).catch(() => {});
+    }
+  }
+
+  ayahHeaderHtml(ayah, withCopy = true) {
+    // withCopy=false inside the accordion toggle (a button can't nest a button)
+    return `
+      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 flex-1">
         <span class="ayah-number">${ayah.ayah}</span>
         <span>${ayah.surahName} ${ayah.key}</span>
+        ${withCopy ? `<button data-tafsir-copy="${ayah.key}" title="${t('copy', this.language)}" aria-label="${t('copy', this.language)}"
+                class="ml-auto px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button>` : ''}
       </div>
     `;
   }
@@ -295,13 +340,15 @@ class TafseerView {
                 class="tafseer-toggle w-full flex items-center justify-between gap-3 px-4 py-3 text-left
                        hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 data-key="${ayah.key}" aria-expanded="false">
-          ${this.ayahHeaderHtml(ayah)}
+          ${this.ayahHeaderHtml(ayah, false)}
           <svg class="tafseer-chevron w-5 h-5 text-gray-400 shrink-0 transition-transform"
                fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
         <div class="tafseer-panel hidden px-4 pb-4">
+          <div class="text-right"><button data-tafsir-copy="${ayah.key}" title="${t('copy', this.language)}" aria-label="${t('copy', this.language)}"
+                class="px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button></div>
           ${this.ayahArabicHtml(ayah)}
           ${this.tafsirBodyShell(tafsirId)}
         </div>
@@ -310,6 +357,11 @@ class TafseerView {
   }
 
   onContentClick(e) {
+    const font = e.target.closest('[data-tafsir-font]');
+    if (font) { this.bumpFont(parseInt(font.getAttribute('data-tafsir-font'), 10)); return; }
+    const copy = e.target.closest('[data-tafsir-copy]');
+    if (copy) { this.copyCard(copy.getAttribute('data-tafsir-copy')); return; }
+
     const toggle = e.target.closest('.tafseer-toggle');
     if (!toggle || !this.content.contains(toggle)) return;
 

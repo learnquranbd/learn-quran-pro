@@ -164,13 +164,25 @@ class NamesOfAllah {
         <div id="names-detail-body" class="flex-1 overflow-y-auto p-5"></div>
       </div>`;
     document.body.appendChild(this.nameModal);
-    if (window.escClose) window.escClose(this.nameModal, () => { this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); });
+    if (window.escClose) window.escClose(this.nameModal, () => { if (this._nameAudio) this._nameAudio.pause(); this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); });
     this.nameModal.addEventListener('click', (e) => {
       if (e.target === this.nameModal || e.target.closest('#names-detail-close')) {
+        if (this._nameAudio) this._nameAudio.pause();
         this.nameModal.classList.add('hidden'); this.nameModal.classList.remove('flex'); return;
       }
       const sp = e.target.closest('[data-name-speak]');
-      if (sp) { this.speakArabic(sp.getAttribute('data-name-speak')); return; }
+      if (sp) {
+        // Prefer real recitation (resolved from the name's first Quranic occurrence)
+        const url = sp.getAttribute('data-name-audio');
+        if (url) {
+          if (!this._nameAudio) this._nameAudio = new Audio();
+          this._nameAudio.src = url;
+          this._nameAudio.play().catch(() => this.speakArabic(sp.getAttribute('data-name-speak')));
+        } else {
+          this.speakArabic(sp.getAttribute('data-name-speak'));
+        }
+        return;
+      }
       const verse = e.target.closest('[data-verse]');
       if (verse) {
         const ref = verse.getAttribute('data-verse');
@@ -224,6 +236,16 @@ class NamesOfAllah {
             ${shown.map(r => `<button data-verse="${r}" class="text-xs font-mono px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white">${r}</button>`).join('')}
             ${refs.length > shown.length ? `<span class="text-xs text-gray-400 self-center">+${refs.length - shown.length}</span>` : ''}
           </div>`;
+
+        // Resolve REAL recitation for this name: the matching word's audio in its
+        // first Quranic occurrence (quran.com word audio) — beats robotic TTS.
+        try {
+          const [s, a] = refs[0].split(':').map(Number);
+          const v = (await QuranData.fetchRange(s, a, a, lang))[0];
+          const w = (v && v.words || []).find(x => QuranData.normalizeWord(x.arabic) === norm && x.audio);
+          const playBtn = body.querySelector('[data-name-speak]');
+          if (w && playBtn) playBtn.setAttribute('data-name-audio', w.audio);
+        } catch (e) { /* TTS fallback stays */ }
       }
     } catch (e) {
       occBox.innerHTML = '';

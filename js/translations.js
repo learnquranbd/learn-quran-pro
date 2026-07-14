@@ -5,6 +5,9 @@
 
 const TRANSLATIONS = {
   en: {
+    quiz_review_missed: 'Review your missed questions',
+    quiz_your_answer: 'Your answer',
+    quiz_correct_answer: 'Correct answer',
     wr_surah_short: 'Surah',
     wr_quran_short: 'Quran',
     wr_in_surah: 'In this surah',
@@ -996,6 +999,9 @@ const TRANSLATIONS = {
   },
 
   ar: {
+    quiz_review_missed: 'راجع الأسئلة التي أخطأت فيها',
+    quiz_your_answer: 'إجابتك',
+    quiz_correct_answer: 'الإجابة الصحيحة',
     wr_surah_short: 'سورة',
     wr_quran_short: 'القرآن',
     wr_in_surah: 'في هذه السورة',
@@ -1491,6 +1497,9 @@ const TRANSLATIONS = {
   },
 
   ur: {
+    quiz_review_missed: 'غلط سوالات کا جائزہ لیں',
+    quiz_your_answer: 'آپ کا جواب',
+    quiz_correct_answer: 'درست جواب',
     wr_surah_short: 'سورہ',
     wr_quran_short: 'قرآن',
     wr_in_surah: 'اس سورہ میں',
@@ -1986,6 +1995,9 @@ const TRANSLATIONS = {
   },
 
   id: {
+    quiz_review_missed: 'Tinjau soal yang salah',
+    quiz_your_answer: 'Jawaban Anda',
+    quiz_correct_answer: 'Jawaban benar',
     wr_surah_short: 'Surah',
     wr_quran_short: 'Al-Quran',
     wr_in_surah: 'Dalam surah ini',
@@ -2481,6 +2493,9 @@ const TRANSLATIONS = {
   },
 
   tr: {
+    quiz_review_missed: 'Yanlış sorularını gözden geçir',
+    quiz_your_answer: 'Cevabın',
+    quiz_correct_answer: 'Doğru cevap',
     wr_surah_short: 'Sure',
     wr_quran_short: 'Kuran',
     wr_in_surah: 'Bu surede',
@@ -2976,6 +2991,9 @@ const TRANSLATIONS = {
   },
 
   fr: {
+    quiz_review_missed: 'Revoir vos erreurs',
+    quiz_your_answer: 'Votre réponse',
+    quiz_correct_answer: 'Bonne réponse',
     wr_surah_short: 'Sourate',
     wr_quran_short: 'Coran',
     wr_in_surah: 'Dans cette sourate',
@@ -3470,6 +3488,9 @@ const TRANSLATIONS = {
 
   },
   es: {
+    quiz_review_missed: 'Repasa tus errores',
+    quiz_your_answer: 'Tu respuesta',
+    quiz_correct_answer: 'Respuesta correcta',
     wr_surah_short: 'Sura',
     wr_quran_short: 'Corán',
     wr_in_surah: 'En esta sura',
@@ -3945,6 +3966,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Historias de los profetas"
   },
   ru: {
+    quiz_review_missed: 'Разбор ошибок',
+    quiz_your_answer: 'Ваш ответ',
+    quiz_correct_answer: 'Правильный ответ',
     wr_surah_short: 'Сура',
     wr_quran_short: 'Коран',
     wr_in_surah: 'В этой суре',
@@ -4420,6 +4444,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Истории пророков"
   },
   fa: {
+    quiz_review_missed: 'مرور سوالات اشتباه',
+    quiz_your_answer: 'پاسخ شما',
+    quiz_correct_answer: 'پاسخ درست',
     wr_surah_short: 'سوره',
     wr_quran_short: 'قرآن',
     wr_in_surah: 'در این سوره',
@@ -4895,6 +4922,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "داستان‌های پیامبران"
   },
   hi: {
+    quiz_review_missed: 'गलत प्रश्न दोहराएँ',
+    quiz_your_answer: 'आपका उत्तर',
+    quiz_correct_answer: 'सही उत्तर',
     wr_surah_short: 'सूरह',
     wr_quran_short: 'कुरान',
     wr_in_surah: 'इस सूरह में',
@@ -5370,6 +5400,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "पैगंबरों की कहानियाँ"
   },
   de: {
+    quiz_review_missed: 'Fehler durchgehen',
+    quiz_your_answer: 'Deine Antwort',
+    quiz_correct_answer: 'Richtige Antwort',
     wr_surah_short: 'Sure',
     wr_quran_short: 'Koran',
     wr_in_surah: 'In dieser Sure',
@@ -5845,6 +5878,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Geschichten der Propheten"
   },
   ms: {
+    quiz_review_missed: 'Semak soalan yang salah',
+    quiz_your_answer: 'Jawapan anda',
+    quiz_correct_answer: 'Jawapan betul',
     wr_surah_short: 'Surah',
     wr_quran_short: 'Al-Quran',
     wr_in_surah: 'Dalam surah ini',
@@ -6320,6 +6356,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Kisah Para Nabi"
   },
   zh: {
+    quiz_review_missed: '回顾错题',
+    quiz_your_answer: '你的答案',
+    quiz_correct_answer: '正确答案',
     wr_surah_short: '苏拉',
     wr_quran_short: '古兰经',
     wr_in_surah: '在本苏拉中',
@@ -6795,6 +6834,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "先知们的故事"
   },
   ja: {
+    quiz_review_missed: '間違えた問題を復習',
+    quiz_your_answer: 'あなたの答え',
+    quiz_correct_answer: '正解',
     wr_surah_short: 'スーラ',
     wr_quran_short: 'コーラン',
     wr_in_surah: 'このスーラ内',

@@ -59,6 +59,18 @@ class QuizCenter {
     });
 
     this.root.addEventListener('click', (e) => this.onClick(e));
+
+    // Keyboard answering: press 1-4 to pick an option while a question is up
+    document.addEventListener('keydown', (e) => {
+      if (this.view !== 'running' || this.answered) return;
+      const tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= 4) {
+        const btn = this.root.querySelector(`[data-action="answer"][data-i="${n - 1}"]`);
+        if (btn && !btn.disabled) { e.preventDefault(); this.answer(btn); }
+      }
+    });
   }
 
   // ---------- one-time feedback animation styles ----------
@@ -266,9 +278,11 @@ class QuizCenter {
         this.answer(el);
         break;
       case 'show-ayah': {
-        const a = el.getAttribute('data-ayah');
-        if (this.scope && this.scope.surah && typeof ayahModal !== 'undefined' && ayahModal) {
-          ayahModal.open(`${this.scope.surah}:${a}`);
+        const full = el.getAttribute('data-ref');   // full "s:a" ref (review cards)
+        const a = el.getAttribute('data-ayah');     // ayah within the quiz surah (strip chips)
+        if (typeof ayahModal !== 'undefined' && ayahModal) {
+          if (full) ayahModal.open(full.replace(/^(\d+):(\d+).*$/, '$1:$2'));
+          else if (this.scope && this.scope.surah) ayahModal.open(`${this.scope.surah}:${a}`);
         }
         break;
       }
@@ -380,7 +394,13 @@ class QuizCenter {
     const chosen = q.options[i];
     const correct = !!(chosen && chosen.correct);
 
-    if (correct) { this.score++; this.streak++; } else { this.streak = 0; }
+    if (correct) { this.score++; this.streak++; }
+    else {
+      this.streak = 0;
+      // Remember what was missed for the end-of-round review
+      const right = q.options.find(o => o.correct);
+      this.missed.push({ prompt: q.prompt, promptHtml: q.promptHtml, chosenHtml: chosen ? chosen.html : '', correctHtml: right ? right.html : '', gotoVerse: q.gotoVerse || null });
+    }
 
     // Reveal this ayah on the surah blur-strip — green if you got it right, red if not.
     if (this.revealedAyahs && q.answerAyah != null) {
@@ -592,9 +612,10 @@ class QuizCenter {
 
     const options = q.options.map((o, i) => `
       <button data-action="answer" data-i="${i}" dir="auto"
-              class="w-full px-4 py-4 rounded-xl text-lg font-medium border-2 border-gray-200 dark:border-gray-700
+              class="relative w-full px-4 py-4 rounded-xl text-lg font-medium border-2 border-gray-200 dark:border-gray-700
                      bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100
                      hover:border-primary dark:hover:border-blue-400 transition-colors text-center">
+        <span class="hidden sm:flex absolute top-1.5 left-2 w-5 h-5 rounded-md bg-gray-100 dark:bg-gray-700 text-[10px] text-gray-400 items-center justify-center" aria-hidden="true">${i + 1}</span>
         ${o.html}
       </button>`).join('');
 
@@ -655,7 +676,35 @@ class QuizCenter {
           </button>
         </div>
       </div>
+      ${this.missedReviewHtml(lang)}
     `;
+  }
+
+  /** End-of-round review: every missed question with your answer vs the correct one. */
+  missedReviewHtml(lang) {
+    if (!this.missed || !this.missed.length) return '';
+    return `
+      <div class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow border border-gray-200 dark:border-gray-700 p-6">
+        <h4 class="font-bold mb-4 text-center">📖 ${t('quiz_review_missed', lang)} <span class="text-gray-400 font-normal">(${this.missed.length})</span></h4>
+        <div class="space-y-4">
+          ${this.missed.map(m => `
+            <div class="rounded-xl border border-gray-100 dark:border-gray-700 p-4">
+              <p class="text-xs text-gray-400 mb-1">${this.esc(m.prompt)}</p>
+              <div class="mb-3 text-center">${m.promptHtml}</div>
+              <div class="grid sm:grid-cols-2 gap-2 text-center">
+                <div class="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-2">
+                  <div class="text-[10px] uppercase text-red-500 mb-1">✗ ${t('quiz_your_answer', lang)}</div>
+                  ${m.chosenHtml}
+                </div>
+                <div class="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-2">
+                  <div class="text-[10px] uppercase text-green-600 mb-1">✓ ${t('quiz_correct_answer', lang)}</div>
+                  ${m.correctHtml}
+                </div>
+              </div>
+              ${m.gotoVerse ? `<div class="text-center mt-2"><button data-action="show-ayah" data-ayah="${m.gotoVerse.split(':')[1]}" class="text-xs text-primary dark:text-blue-400 hover:underline" data-ref="${m.gotoVerse}">↗ ${t('quiz_view_verse', lang)}</button></div>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`;
   }
 
   // ---------- generators ----------
