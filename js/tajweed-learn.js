@@ -119,7 +119,15 @@ class TajweedLearn {
         return;
       }
       const go = e.target.closest('[data-tj-goto]');
-      if (go && typeof tabSystem !== 'undefined') { tabSystem.switchTab(go.getAttribute('data-tj-goto')); return; }
+      if (go && typeof tabSystem !== 'undefined') {
+        const tab = go.getAttribute('data-tj-goto');
+        tabSystem.switchTab(tab);
+        // 'Coloured reading' should actually SHOW the colours: turn tajweed on
+        if (tab === 'reading' && typeof quranApp !== 'undefined' && quranApp && !quranApp.globalTajweed) {
+          quranApp.applyGlobalToggle('tajweed');
+        }
+        return;
+      }
       const play = e.target.closest('[data-ayah-audio]');
       if (play) { if (!this._audio) this._audio = new Audio(); this._audio.src = play.getAttribute('data-ayah-audio'); this._audio.play().catch(() => {}); }
     });
@@ -138,7 +146,7 @@ class TajweedLearn {
           <span class="shrink-0 w-4 h-4 rounded-full" style="background:${def.color}"></span>
           <span class="flex-1 min-w-0">
             <span class="block font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.ruleName(key))}</span>
-            <span class="block text-[11px] text-gray-400 truncate ayah-arabic" dir="rtl">${this.esc(les.letters || '')}</span>
+            <span class="block text-gray-400 truncate ayah-arabic !text-lg !leading-normal" dir="rtl">${this.esc(les.letters || '')}</span>
           </span>
           <span class="text-gray-400">${open ? '▾' : '▸'}</span>
         </button>
@@ -193,8 +201,8 @@ class TajweedLearn {
       box.innerHTML = rows.map(r => `
         <div class="rounded-lg bg-gray-50 dark:bg-gray-900/40 p-3">
           <div class="flex items-center gap-2 mb-1">
-            <span class="text-[11px] font-mono text-gray-400">${this.surah}:${r.a}</span>
-            <span class="text-[10px] px-1.5 rounded-full" style="background:${color}22;color:${color}">×${r.n}</span>
+            <span class="text-xs font-mono text-gray-400">${this.surah}:${r.a}</span>
+            <span class="text-xs px-1.5 rounded-full" style="background:${color}22;color:${color}">×${r.n}</span>
             <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(this.surah)}${pad(r.a)}.mp3" class="ms-auto text-xs px-2 py-0.5 rounded-md bg-primary text-white hover:bg-primary/80">🔊</button>
           </div>
           <div class="ayah-arabic !text-2xl !leading-loose" dir="rtl">${r.html}</div>

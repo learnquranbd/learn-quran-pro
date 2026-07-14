@@ -64,6 +64,14 @@ class Handwriting {
             </button>`).join('')}
         </div>
 
+        <!-- Every target on one page — tap any harf/word to practise it -->
+        <div class="flex flex-wrap justify-center gap-1.5 mb-4" dir="rtl">
+          ${this.targets().map((tg, i) => `
+            <button data-hw-pick="${i}" class="min-w-[2.5rem] px-2 py-1.5 rounded-lg ayah-arabic !text-xl !leading-none transition-colors ${i === this.index
+              ? 'bg-primary text-white shadow'
+              : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-gray-700'}">${tg.text}</button>`).join('')}
+        </div>
+
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
           <div class="flex items-center justify-between mb-2">
             <button data-hw-nav="-1" class="w-9 h-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-xl disabled:opacity-30">‹</button>
@@ -163,6 +171,8 @@ class Handwriting {
   }
 
   onClick(e) {
+    const pick = e.target.closest('[data-hw-pick]');
+    if (pick) { this.index = parseInt(pick.getAttribute('data-hw-pick'), 10); this.render(); return; }
     const sec = e.target.closest('[data-hw-section]');
     if (sec) { this.section = sec.getAttribute('data-hw-section'); this.index = 0; this.render(); return; }
     const nav = e.target.closest('[data-hw-nav]');
