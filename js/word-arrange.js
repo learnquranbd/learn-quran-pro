@@ -48,7 +48,7 @@ class WordArrange {
     const surah = getSurahByNumber(this.surah);
     const ayahCount = surah ? surah.ayahCount : 7;
     this.root.innerHTML = `
-      <div class="max-w-5xl mx-auto">
+      <div class="w-full">
         <div class="text-center mb-5">
           <h3 class="text-xl font-bold mb-1">🔀 ${this.tt('wa_title')}</h3>
           <p class="text-gray-500 dark:text-gray-400 text-sm">${this.tt('wa_subtitle')}</p>

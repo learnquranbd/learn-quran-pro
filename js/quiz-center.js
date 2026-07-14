@@ -464,7 +464,7 @@ class QuizCenter {
     else if (this.view === 'loading') body = this.renderLoading();
     else if (this.view === 'running') body = this.renderRunning();
     else if (this.view === 'end') body = this.renderEnd();
-    this.root.innerHTML = `<div dir="${dir}" class="max-w-5xl mx-auto">${body}</div>`;
+    this.root.innerHTML = `<div dir="${dir}" class="w-full">${body}</div>`;
   }
 
   renderHome() {

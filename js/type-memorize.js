@@ -72,7 +72,7 @@ class TypeMemorize {
       .map(s => `<option value="${s.number}">${s.number}. ${getSurahName(s.number, lang)} (${s.ayahCount})</option>`).join('');
 
     this.root.innerHTML = `
-      <div class="max-w-5xl mx-auto">
+      <div class="w-full">
         <div class="text-center mb-5">
           <div class="text-4xl mb-1">⌨️</div>
           <h2 class="text-xl font-bold">${t('typemem_title', lang)}</h2>
