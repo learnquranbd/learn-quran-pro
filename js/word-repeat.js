@@ -75,7 +75,7 @@ class WordRepeat {
       const wp = e.target.closest('[data-word-audio]');
       if (wp) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = wp.getAttribute('data-word-audio'); this._ayahAudio.play().catch(() => {}); return; }
       const fp = e.target.closest('[data-ayah-audio]');
-      if (fp) { if (!this._ayahAudio) this._ayahAudio = new Audio(); this._ayahAudio.src = fp.getAttribute('data-ayah-audio'); this._ayahAudio.play().catch(() => {}); return; }
+      if (fp) { this.toggleAyahAudio(fp); return; }
 
       // Root → full Sarf conjugation chart (explicit navigation)
       const sl = e.target.closest('[data-sarf-link]');
@@ -242,6 +242,30 @@ class WordRepeat {
     return m ? (m[term] || '') : '';
   }
 
+  /** Play/pause toggle for the full-ayah buttons: the icon flips 🔊 ↔ ⏸. */
+  toggleAyahAudio(btn) {
+    if (!this._ayahAudio) {
+      this._ayahAudio = new Audio();
+      // 'pause' also fires when playback ends, so one listener resets the icon
+      this._ayahAudio.addEventListener('pause', () => this.resetPlayIcon());
+    }
+    const src = btn.getAttribute('data-ayah-audio');
+    if (this._playingBtn === btn && !this._ayahAudio.paused) { this._ayahAudio.pause(); return; }
+    this.resetPlayIcon();
+    this._ayahAudio.src = src;
+    this._ayahAudio.play().then(() => {
+      this._playingBtn = btn;
+      btn.innerHTML = btn.innerHTML.replace('🔊', '⏸');
+    }).catch(() => {});
+  }
+
+  resetPlayIcon() {
+    if (this._playingBtn) {
+      this._playingBtn.innerHTML = this._playingBtn.innerHTML.replace('⏸', '🔊');
+      this._playingBtn = null;
+    }
+  }
+
   inlineVerseLoading() { return `<p class="text-center text-gray-400 py-3 text-sm">${this.tt('loading')}</p>`; }
 
   inlineVerseHtml(v, word, s, a, color) {
@@ -254,15 +278,15 @@ class WordRepeat {
     }).join('');
     const pad = n => String(n).padStart(3, '0');
     const c = color || '#3b82f6';
+    // Compact: the word-by-word row IS the Arabic — no duplicate plain-ayah line.
     return `
-      <div class="rounded-xl bg-white dark:bg-gray-800 border-2 p-3" style="border-color:${c}">
+      <div class="rounded-xl bg-white dark:bg-gray-800 border-2 p-2.5" style="border-color:${c}">
         <div class="flex items-center gap-2 mb-1">
           <span class="text-[11px] font-mono font-bold text-white px-2 py-0.5 rounded-md" style="background:${c}">${v.key}</span>
           <span class="text-xs text-gray-400">${this.esc(v.surahName || '')}</span>
           <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3" class="ms-auto text-xs px-2.5 py-1 rounded-lg bg-primary text-white hover:bg-primary/80">🔊 ${this.tt('play_full_ayah')}</button>
         </div>
-        <div class="ayah-arabic !text-2xl !leading-loose text-center mb-2" dir="rtl">${v.arabic}</div>
-        <div class="flex flex-wrap justify-center gap-x-1 mb-2" dir="rtl">${wbw}</div>
+        <div class="flex flex-wrap justify-center gap-x-1 mb-1" dir="rtl">${wbw}</div>
         <p class="text-center text-sm text-gray-600 dark:text-gray-300" dir="auto">${v.translation || ''}</p>
       </div>`;
   }
