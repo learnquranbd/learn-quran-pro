@@ -83,6 +83,17 @@ class AmalDaily {
   tt(key) { return t(key, this.language); }
   desc(item) { return item[this.language] || item.en; }
 
+  /** Link a hadith citation to sunnah.com so users can verify the source. */
+  srcHtml(src) {
+    const M = { 'Bukhari': 'bukhari', 'Muslim': 'muslim', 'Tirmidhi': 'tirmidhi', 'Abu Dawud': 'abudawud' };
+    const parts = src.split('·').map(x => x.trim());
+    return parts.map(part => {
+      const m = part.match(/^(Bukhari|Muslim|Tirmidhi|Abu Dawud)\s+(\d+)$/);
+      if (m) return `<a href="https://sunnah.com/${M[m[1]]}:${m[2]}" target="_blank" rel="noopener" class="underline decoration-dotted hover:text-primary">${this.esc(part)}</a>`;
+      return this.esc(part);
+    }).join(' · ');
+  }
+
   /** Current period of the local day. */
   period() {
     const h = new Date().getHours();
@@ -118,7 +129,7 @@ class AmalDaily {
         </div>
         <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.desc(item))}</p>
         <div class="flex flex-wrap items-center gap-1.5">${whenBadges} ${gradeBadge}
-          ${item.src !== '—' ? `<span class="text-xs text-gray-400">📖 ${this.esc(item.src)}</span>` : ''}
+          ${item.src !== '—' ? `<span class="text-xs text-gray-400">📖 ${this.srcHtml(item.src)}</span>` : ''}
         </div>
         <button data-amal-read="${item.refs}" class="self-start mt-1 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">📖 ${this.tt('amal_read')}</button>
       </div>`;

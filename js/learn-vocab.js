@@ -388,6 +388,14 @@ class VocabTrainer {
             ${t('topics_show_more', lang)} (${all.length - shownCount}) →
           </button>
         </div>` : ''}
+      <div class="mt-6">
+        <h3 class="text-xs uppercase font-semibold text-gray-400 dark:text-gray-500 mb-2 text-center">🌐 ${t('resources_title', lang)}</h3>
+        <div class="flex flex-wrap justify-center gap-2">
+          <a href="https://corpus.quran.com/wordbyword.jsp" target="_blank" rel="noopener" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow text-sm"><span>🏛️</span><span class="font-medium">Quranic Corpus</span><span class="text-xs text-gray-400">word grammar &amp; morphology</span></a>
+          <a href="https://understandquran.com" target="_blank" rel="noopener" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow text-sm"><span>📗</span><span class="font-medium">UnderstandQuran</span><span class="text-xs text-gray-400">80% words course</span></a>
+          <a href="https://quranwbw.com" target="_blank" rel="noopener" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow text-sm"><span>🔤</span><span class="font-medium">QuranWBW</span><span class="text-xs text-gray-400">word-by-word reader</span></a>
+        </div>
+      </div>
     `;
   }
 
