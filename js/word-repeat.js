@@ -237,7 +237,7 @@ class WordRepeat {
 
   inlineVerseLoading() { return `<p class="text-center text-gray-400 py-3 text-sm">${this.tt('loading')}</p>`; }
 
-  inlineVerseHtml(v, word, s, a) {
+  inlineVerseHtml(v, word, s, a, color) {
     const norm = x => QuranData.normalizeWord ? QuranData.normalizeWord(x || '') : String(x || '');
     const target = word ? norm(word) : null;
     const wbw = (v.words || []).map(w => {
@@ -246,15 +246,17 @@ class WordRepeat {
       return `<button ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''} class="inline-flex flex-col items-center px-1.5 py-1 rounded-lg ${canPlay ? 'hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer' : ''} ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}"><span class="ayah-arabic text-2xl block">${w.arabic}</span><span class="text-[11px] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span></button>`;
     }).join('');
     const pad = n => String(n).padStart(3, '0');
+    const c = color || '#3b82f6';
     return `
-      <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3">
-        <div class="text-xs text-gray-400 mb-1 text-center">${this.esc(v.surahName || '')} ${v.key}</div>
+      <div class="rounded-xl bg-white dark:bg-gray-800 border-2 p-3" style="border-color:${c}">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-[11px] font-mono font-bold text-white px-2 py-0.5 rounded-md" style="background:${c}">${v.key}</span>
+          <span class="text-xs text-gray-400">${this.esc(v.surahName || '')}</span>
+          <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3" class="ms-auto text-xs px-2.5 py-1 rounded-lg bg-primary text-white hover:bg-primary/80">🔊 ${this.tt('play_full_ayah')}</button>
+        </div>
         <div class="ayah-arabic !text-2xl !leading-loose text-center mb-2" dir="rtl">${v.arabic}</div>
         <div class="flex flex-wrap justify-center gap-x-1 mb-2" dir="rtl">${wbw}</div>
-        <p class="text-center text-sm text-gray-600 dark:text-gray-300 mb-2" dir="auto">${v.translation || ''}</p>
-        <div class="flex justify-center">
-          <button data-ayah-audio="https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3" class="text-xs px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-primary/80">🔊 ${this.tt('play_full_ayah')}</button>
-        </div>
+        <p class="text-center text-sm text-gray-600 dark:text-gray-300" dir="auto">${v.translation || ''}</p>
       </div>`;
   }
 
@@ -263,17 +265,18 @@ class WordRepeat {
     const word = this.openVerseWord;
     this.container.querySelectorAll('[data-inline-slot]').forEach(slot => {
       const ref = slot.getAttribute('data-inline-slot');
+      const color = slot.getAttribute('data-color');
       const [s, a] = ref.split(':').map(Number);
       const cacheKey = `${ref}:${this.language}`;
       const cached = this._verseCache[cacheKey];
-      if (cached) { slot.innerHTML = this.inlineVerseHtml(cached, word, s, a); return; }
+      if (cached) { slot.innerHTML = this.inlineVerseHtml(cached, word, s, a, color); return; }
       QuranData.fetchRange(s, a, a, this.language).then(verses => {
         const v = verses && verses[0];
         if (!v) throw new Error('nf');
         this._verseCache[cacheKey] = v;
         // Re-query: the container may have re-rendered while fetching
         const cur = this.container.querySelector(`[data-inline-slot="${ref}"]`);
-        if (cur) cur.innerHTML = this.inlineVerseHtml(v, word, s, a);
+        if (cur) cur.innerHTML = this.inlineVerseHtml(v, word, s, a, cur.getAttribute('data-color'));
       }).catch(() => {
         const cur = this.container.querySelector(`[data-inline-slot="${ref}"]`);
         if (cur) cur.innerHTML = `<p class="text-center text-gray-400 py-3 text-sm">${this.tt('topics_load_error')}</p>`;
@@ -310,9 +313,29 @@ class WordRepeat {
     return [...new Set(occs.map(o => o.split(':').slice(0, 2).join(':')))].sort(this.refCmp);
   }
 
+  /** Stable accent colour per open verse — pairs each chip with its inline block. */
+  pairColor(ref) {
+    const P = ['#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#ef4444', '#84cc16'];
+    const i = [...this.openVerses].indexOf(ref);
+    return i < 0 ? null : P[i % P.length];
+  }
+
   verseChip(r, term) {
-    const on = this.openVerses.has(r);
-    return `<button data-verse="${r}" data-term-word="${this.esc(term)}" class="text-xs font-mono px-2 py-1 rounded-md ${on ? 'bg-primary text-white' : 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-primary hover:text-white'}">${r}</button>`;
+    const c = this.openVerses.has(r) ? this.pairColor(r) : null;
+    return c
+      ? `<button data-verse="${r}" data-term-word="${this.esc(term)}" style="background:${c};border-color:${c}" class="text-xs font-mono px-2 py-1 rounded-md border text-white font-bold shadow">${r}</button>`
+      : `<button data-verse="${r}" data-term-word="${this.esc(term)}" class="text-xs font-mono px-2 py-1 rounded-md bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-primary hover:text-white">${r}</button>`;
+  }
+
+  /** One timeline row: node on the spine + ref chip; its verse expands attached below. */
+  timelineItem(r, term) {
+    const c = this.openVerses.has(r) ? this.pairColor(r) : null;
+    return `
+      <div class="relative ps-5 pb-2.5">
+        <span class="absolute -start-[7px] top-1 w-3 h-3 rounded-full ${c ? '' : 'bg-gray-300 dark:bg-gray-600'}" ${c ? `style="background:${c};box-shadow:0 0 0 3px ${c}33"` : ''}></span>
+        ${this.verseChip(r, term)}
+        ${c ? `<div class="wr-inline mt-2" data-inline-slot="${r}" data-color="${c}">${this.inlineVerseLoading()}</div>` : ''}
+      </div>`;
   }
 
   termChip(x) {
@@ -321,24 +344,21 @@ class WordRepeat {
     const qOpen = this.qOpen.has(x.term);
     let body = '';
     if (open) {
-      const qRefs = qOpen ? this.quranRefs(x.term) : [];
+      const qRefs = qOpen ? this.quranRefs(x.term).filter(r => !x.refs.includes(r)) : [];
       const qShown = qRefs.slice(0, 60);
-      // Inline slots for every open verse in this card (surah refs + expanded Quran refs)
-      const visible = [...new Set([...x.refs, ...qShown])].filter(r => this.openVerses.has(r));
+      // Timeline: surah occurrences first, then (if expanded) the Quran-wide ones.
       body = `
-        <div class="mx-2 mb-2 p-2 rounded-lg bg-gray-50 dark:bg-gray-900/40">
-          <div class="flex flex-wrap gap-1.5 justify-center">
-            ${x.refs.map(r => this.verseChip(r, x.term)).join('')}
-          </div>
-          ${qOpen ? `
-            <div class="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-              <div class="text-[10px] text-gray-400 mb-1 text-center">${this.tt('wr_in_quran')} (${qRefs.length})</div>
-              <div class="flex flex-wrap gap-1.5 justify-center">
-                ${qShown.map(r => this.verseChip(r, x.term)).join('')}
-                ${qRefs.length > qShown.length ? `<span class="text-xs text-gray-400 self-center">+${qRefs.length - qShown.length}</span>` : ''}
+        <div class="mx-3 mb-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40 max-h-[75vh] overflow-y-auto">
+          <div class="relative ms-2 border-s-2 border-gray-200 dark:border-gray-700 pt-1">
+            ${x.refs.map(r => this.timelineItem(r, x.term)).join('')}
+            ${qOpen ? `
+              <div class="relative ps-5 pb-2.5">
+                <span class="absolute -start-[5px] top-1.5 text-[9px] text-gray-400">●</span>
+                <span class="text-[10px] uppercase tracking-wide text-gray-400">${this.tt('wr_in_quran')} (${qRefs.length})</span>
               </div>
-            </div>` : ''}
-          ${visible.map(r => `<div class="wr-inline mt-3" data-inline-slot="${r}">${this.inlineVerseLoading()}</div>`).join('')}
+              ${qShown.map(r => this.timelineItem(r, x.term)).join('')}
+              ${qRefs.length > qShown.length ? `<div class="ps-5 text-xs text-gray-400">+${qRefs.length - qShown.length}</div>` : ''}` : ''}
+          </div>
         </div>`;
     }
     return `
