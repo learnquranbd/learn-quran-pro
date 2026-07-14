@@ -150,9 +150,9 @@ class TajweedLearn {
           </span>
           <span class="text-gray-400">${open ? '▾' : '▸'}</span>
         </button>
+        <p class="px-4 pb-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.lesson(key))}</p>
         ${open ? `
           <div class="px-4 pb-4">
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3" dir="auto">${this.esc(this.lesson(key))}</p>
             <div class="flex flex-wrap items-center gap-2 mb-2">
               <label class="text-xs text-gray-400">${this.tt('tj_examples_in')}</label>
               <select id="tj-surah" class="px-2 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700">

@@ -638,21 +638,71 @@ class KidsQaida {
 
   /* ------------------------------------------------------------ Numbers */
 
-  renderNumbers(lang) {
+  /** Every number the Quran actually uses, with its real Quranic phrase + verse. */
+  numbersExt() {
+    if (this._numExt) return this._numExt;
+    this._numExt = [
+      { sec: 'basic', value: 1, digit: '١', word: 'وَاحِد', translit: 'wahid', phrase: 'إِلَٰهٌ وَاحِدٌ', ref: '2:163' },
+      { sec: 'basic', value: 2, digit: '٢', word: 'اِثْنَان', translit: 'ithnan', phrase: 'إِلَٰهَيْنِ اثْنَيْنِ', ref: '16:51' },
+      { sec: 'basic', value: 3, digit: '٣', word: 'ثَلَاثَة', translit: 'thalathah', phrase: 'ثَلَاثَةِ أَيَّامٍ', ref: '2:196' },
+      { sec: 'basic', value: 4, digit: '٤', word: 'أَرْبَعَة', translit: "arba'ah", phrase: 'أَرْبَعَةٌ حُرُمٌ', ref: '9:36' },
+      { sec: 'basic', value: 5, digit: '٥', word: 'خَمْسَة', translit: 'khamsah', phrase: 'خَمْسَةٍ إِلَّا هُوَ سَادِسُهُمْ', ref: '58:7' },
+      { sec: 'basic', value: 6, digit: '٦', word: 'سِتَّة', translit: 'sittah', phrase: 'سِتَّةِ أَيَّامٍ', ref: '7:54' },
+      { sec: 'basic', value: 7, digit: '٧', word: 'سَبْعَة', translit: "sab'ah", phrase: 'سَبْعَ سَمَاوَاتٍ', ref: '2:29' },
+      { sec: 'basic', value: 8, digit: '٨', word: 'ثَمَانِيَة', translit: 'thamaniyah', phrase: 'ثَمَانِيَةٌ', ref: '69:17' },
+      { sec: 'basic', value: 9, digit: '٩', word: 'تِسْعَة', translit: "tis'ah", phrase: 'تِسْعَةُ رَهْطٍ', ref: '27:48' },
+      { sec: 'basic', value: 10, digit: '١٠', word: 'عَشَرَة', translit: "'asharah", phrase: 'عَشَرَةٌ كَامِلَةٌ', ref: '2:196' },
+      { sec: 'teens', value: 11, digit: '١١', word: 'أَحَدَ عَشَرَ', translit: "ahada 'ashar", phrase: 'أَحَدَ عَشَرَ كَوْكَبًا', ref: '12:4' },
+      { sec: 'teens', value: 12, digit: '١٢', word: 'اِثْنَا عَشَرَ', translit: "ithna 'ashar", phrase: 'اثْنَا عَشَرَ شَهْرًا', ref: '9:36' },
+      { sec: 'teens', value: 19, digit: '١٩', word: 'تِسْعَةَ عَشَرَ', translit: "tis'ata 'ashar", phrase: 'عَلَيْهَا تِسْعَةَ عَشَرَ', ref: '74:30' },
+      { sec: 'tens', value: 20, digit: '٢٠', word: 'عِشْرُون', translit: "'ishrun", phrase: 'عِشْرُونَ صَابِرُونَ', ref: '8:65' },
+      { sec: 'tens', value: 30, digit: '٣٠', word: 'ثَلَاثُون', translit: 'thalathun', phrase: 'ثَلَاثُونَ شَهْرًا', ref: '46:15' },
+      { sec: 'tens', value: 40, digit: '٤٠', word: 'أَرْبَعُون', translit: "arba'un", phrase: 'أَرْبَعِينَ لَيْلَةً', ref: '2:51' },
+      { sec: 'tens', value: 50, digit: '٥٠', word: 'خَمْسُون', translit: 'khamsun', phrase: 'خَمْسِينَ عَامًا', ref: '29:14' },
+      { sec: 'tens', value: 60, digit: '٦٠', word: 'سِتُّون', translit: 'sittun', phrase: 'سِتِّينَ مِسْكِينًا', ref: '58:4' },
+      { sec: 'tens', value: 70, digit: '٧٠', word: 'سَبْعُون', translit: "sab'un", phrase: 'سَبْعِينَ مَرَّةً', ref: '9:80' },
+      { sec: 'tens', value: 80, digit: '٨٠', word: 'ثَمَانُون', translit: 'thamanun', phrase: 'ثَمَانِينَ جَلْدَةً', ref: '24:4' },
+      { sec: 'tens', value: 99, digit: '٩٩', word: 'تِسْعٌ وَتِسْعُون', translit: "tis' wa-tis'un", phrase: 'تِسْعٌ وَتِسْعُونَ نَعْجَةً', ref: '38:23' },
+      { sec: 'big', value: 100, digit: '١٠٠', word: 'مِائَة', translit: "mi'ah", phrase: 'مِائَةُ حَبَّةٍ', ref: '2:261' },
+      { sec: 'big', value: 200, digit: '٢٠٠', word: 'مِائَتَيْن', translit: "mi'atayn", phrase: 'مِائَتَيْنِ', ref: '8:65' },
+      { sec: 'big', value: 300, digit: '٣٠٠', word: 'ثَلَاثُ مِائَة', translit: "thalathu mi'ah", phrase: 'ثَلَاثَ مِائَةٍ سِنِينَ', ref: '18:25' },
+      { sec: 'big', value: 1000, digit: '١٠٠٠', word: 'أَلْف', translit: 'alf', phrase: 'أَلْفِ شَهْرٍ', ref: '97:3' },
+      { sec: 'big', value: 2000, digit: '٢٠٠٠', word: 'أَلْفَيْن', translit: 'alfayn', phrase: 'أَلْفَيْنِ', ref: '8:66' },
+      { sec: 'big', value: 5000, digit: '٥٠٠٠', word: 'خَمْسَةُ آلَاف', translit: 'khamsatu alaf', phrase: 'بِخَمْسَةِ آلَافٍ', ref: '3:125' },
+      { sec: 'big', value: 50000, digit: '٥٠٠٠٠', word: 'خَمْسِينَ أَلْف', translit: 'khamsina alf', phrase: 'خَمْسِينَ أَلْفَ سَنَةٍ', ref: '70:4' },
+      { sec: 'big', value: 100000, digit: '١٠٠٠٠٠', word: 'مِائَةُ أَلْف', translit: "mi'atu alf", phrase: 'مِائَةِ أَلْفٍ أَوْ يَزِيدُونَ', ref: '37:147' },
+    ];
+    return this._numExt;
+  }
+
+  numberCard(num, i) {
     return `
-      <p class="text-center text-gray-500 dark:text-gray-400 mb-4">🔢 ${t('tap_number_hint', lang)}</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
-        ${KIDS_NUMBERS.map((num, i) => `
-          <button data-kids-number-idx="${i}"
-                  class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
-                         shadow hover:shadow-lg hover:scale-105 transition-all p-4 sm:p-5
-                         flex flex-col items-center gap-1">
-            <span class="ayah-arabic !text-6xl !leading-none" dir="rtl">${num.digit}</span>
-            <span class="ayah-arabic !text-2xl !leading-normal text-gray-700 dark:text-gray-200" dir="rtl">${num.word}</span>
-            <span class="text-sm font-bold text-gray-600 dark:text-gray-300">${num.value} · ${num.translit}</span>
-          </button>
-        `).join('')}
-      </div>
+      <div class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
+                  shadow hover:shadow-lg transition-all p-3 sm:p-4 flex flex-col items-center gap-1">
+        <button data-kids-num-word="${this.esc(num.word)}" class="flex flex-col items-center gap-0.5 hover:scale-105 transition-transform" title="${t('play', this.language)}">
+          <span class="ayah-arabic !text-5xl !leading-none" dir="rtl">${num.digit}</span>
+          <span class="ayah-arabic !text-2xl !leading-normal text-gray-700 dark:text-gray-200" dir="rtl">${num.word}</span>
+          <span class="text-sm font-bold text-gray-600 dark:text-gray-300">${num.value.toLocaleString()} · ${num.translit}</span>
+        </button>
+        <button data-kids-num-verse="${num.ref}" data-kids-num-hl="${this.esc(num.phrase.split(' ')[0])}"
+                class="mt-1 w-full rounded-lg bg-white/60 dark:bg-gray-900/40 hover:bg-white dark:hover:bg-gray-900 px-2 py-1.5 text-center">
+          <span class="ayah-arabic !text-lg !leading-normal block" dir="rtl">${num.phrase}</span>
+          <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">📖 ${num.ref}</span>
+        </button>
+      </div>`;
+  }
+
+  renderNumbers(lang) {
+    const ext = this.numbersExt();
+    const secs = [['basic', 'kids_num_basic'], ['teens', 'kids_num_teens'], ['tens', 'kids_num_tens'], ['big', 'kids_num_big']];
+    return `
+      <p class="text-center text-gray-500 dark:text-gray-400 mb-1">🔢 ${t('tap_number_hint', lang)}</p>
+      <p class="text-center text-xs text-gray-400 mb-4">${t('kids_num_note', lang)}</p>
+      ${secs.map(([sec, key]) => `
+        <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-2 mt-5">${t(key, lang)}</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          ${ext.filter(n => n.sec === sec).map((n, i) => this.numberCard(n, i)).join('')}
+        </div>`).join('')}
     `;
   }
 
@@ -1316,6 +1366,15 @@ class KidsQaida {
     if (wordBtn) {
       const word = this.freqWords()[parseInt(wordBtn.getAttribute('data-kids-word-idx'), 10)];
       if (word) this.speakArabic(word.arabic, 0.65);
+      return;
+    }
+
+    const numWord = e.target.closest('[data-kids-num-word]');
+    if (numWord) { this.speakArabic(numWord.getAttribute('data-kids-num-word'), 0.8); return; }
+    const numVerse = e.target.closest('[data-kids-num-verse]');
+    if (numVerse) {
+      // Show the number's real Quranic verse inline (word highlighted)
+      this.openAyahModal(numVerse.getAttribute('data-kids-num-verse'), numVerse.getAttribute('data-kids-num-hl'));
       return;
     }
 

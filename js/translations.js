@@ -5,6 +5,11 @@
 
 const TRANSLATIONS = {
   en: {
+    kids_num_note: 'Every number here appears in the Quran — tap the verse chip to see it in place.',
+    kids_num_basic: 'Numbers 1–10',
+    kids_num_teens: '11–19',
+    kids_num_tens: 'Tens (20–99)',
+    kids_num_big: 'Big numbers',
     amal_subtitle: 'What to recite now — authentic sunnah practices by time and day.',
     amal_now: 'Recommended now',
     amal_all: 'All practices',
@@ -532,6 +537,11 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    kids_num_note: 'এখানে প্রতিটি সংখ্যা কুরআনে এসেছে — আয়াত চিপে চাপ দিয়ে জায়গামতো দেখো।',
+    kids_num_basic: 'সংখ্যা ১–১০',
+    kids_num_teens: '১১–১৯',
+    kids_num_tens: 'দশক (২০–৯৯)',
+    kids_num_big: 'বড় সংখ্যা',
     quiz_correct_answer: 'সঠিক উত্তর',
     quiz_your_answer: 'আপনার উত্তর',
     quiz_review_missed: 'ভুল হওয়া প্রশ্নগুলো পর্যালোচনা করুন',
