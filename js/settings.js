@@ -9,6 +9,7 @@ class Settings {
       theme: 'system',
       language: 'en',
       fontSize: 100,
+      arabicFontSize: 100,
       showTransliteration: true,
       showTranslation: true,
       reciter: 'mishary'
@@ -32,6 +33,7 @@ class Settings {
     this.applyTheme();
     this.applyLanguage();
     this.applyFontSize();
+    this.applyArabicFontSize();
     this.setupEventListeners();
   }
 
@@ -87,6 +89,9 @@ class Settings {
         break;
       case 'fontSize':
         this.applyFontSize();
+        break;
+      case 'arabicFontSize':
+        this.applyArabicFontSize();
         break;
     }
 
@@ -149,6 +154,14 @@ class Settings {
   /**
    * Apply font size setting
    */
+  /** Separate multiplier for Quranic Arabic text (.ayah-arabic) only. */
+  applyArabicFontSize() {
+    const v = this.settings.arabicFontSize || 100;
+    document.documentElement.style.setProperty('--arabic-scale', v / 100);
+    const disp = document.getElementById('sd-arabic-display');
+    if (disp) disp.textContent = v + '%';
+  }
+
   applyFontSize() {
     const scale = this.settings.fontSize / 100;
     // Scale the ROOT font size: every Tailwind class is rem-based, so this

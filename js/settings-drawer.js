@@ -63,8 +63,10 @@ class SettingsDrawer {
       const theme = e.target.closest('[data-sd-theme]');
       if (theme) appSettings.set('theme', theme.getAttribute('data-sd-theme'));
       if (e.target.closest('#sd-font-dec')) appSettings.set('fontSize', Math.max(70, appSettings.get('fontSize') - 10));
-      if (e.target.closest('#sd-font-inc')) appSettings.set('fontSize', Math.min(150, appSettings.get('fontSize') + 10));
-      if (theme || e.target.closest('#sd-font-dec') || e.target.closest('#sd-font-inc')) this.render();
+      if (e.target.closest('#sd-font-inc')) appSettings.set('fontSize', Math.min(200, appSettings.get('fontSize') + 10));
+      if (e.target.closest('#sd-ar-dec')) appSettings.set('arabicFontSize', Math.max(70, (appSettings.get('arabicFontSize') || 100) - 10));
+      if (e.target.closest('#sd-ar-inc')) appSettings.set('arabicFontSize', Math.min(250, (appSettings.get('arabicFontSize') || 100) + 10));
+      if (theme || e.target.closest('#sd-font-dec') || e.target.closest('#sd-font-inc') || e.target.closest('#sd-ar-dec') || e.target.closest('#sd-ar-inc')) this.render();
     });
 
     this.drawer.addEventListener('change', (e) => this.onChange(e));
@@ -143,6 +145,13 @@ class SettingsDrawer {
           <button id="sd-font-dec" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A-</button>
           <span class="flex-1 text-center text-sm">${appSettings.get('fontSize')}%</span>
           <button id="sd-font-inc" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A+</button>
+        </div>
+
+        ${this.sectionHead(t('arabic_font_size', lang))}
+        <div class="flex items-center gap-3">
+          <button id="sd-ar-dec" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ayah-arabic !text-base">ا-</button>
+          <span id="sd-arabic-display" class="flex-1 text-center text-sm">${appSettings.get('arabicFontSize') || 100}%</span>
+          <button id="sd-ar-inc" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ayah-arabic !text-base">ا+</button>
         </div>
 
         ${this.sectionHead(t('theme', lang))}

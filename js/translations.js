@@ -5,6 +5,33 @@
 
 const TRANSLATIONS = {
   en: {
+    amal_subtitle: 'What to recite now — authentic sunnah practices by time and day.',
+    amal_now: 'Recommended now',
+    amal_all: 'All practices',
+    amal_read: 'Read',
+    amal_note: 'Gradings: ✓ authentic chain (Bukhari/Muslim/…); "commonly practised" = widespread but the specific narration is weak.',
+    amal_grade_sahih: 'Authentic',
+    amal_grade_common: 'Commonly practised',
+    amal_when_morning: 'Morning',
+    amal_when_day: 'Daytime',
+    amal_when_evening: 'Evening',
+    amal_when_night: 'Night',
+    amal_when_friday: 'Friday',
+    amal_when_any: 'Anytime',
+    tj_learn_subtitle: 'Learn every rule, then see it highlighted in the real Quran text.',
+    tj_examples_in: 'Examples in',
+    tj_no_examples: 'No occurrences of this rule in this surah — try another.',
+    tj_group_noon: 'Noon Sakinah & Tanween',
+    tj_group_meem: 'Meem Sakinah',
+    tj_group_madd: 'Madd (prolongation)',
+    tj_group_core: 'Ghunnah & Qalqalah',
+    tj_group_other: 'Other rules',
+    tj_practice_quiz: 'Tajweed quiz',
+    tj_practice_reading: 'Coloured reading',
+    tj_practice_mushaf: 'Tajweed mushaf',
+    arabic_font_size: 'Arabic Font Size',
+    tj_learn_title: 'Learn Tajweed',
+    amal_title: 'Daily Amal',
     bookmark_note: 'Add a note',
     quiz_review_missed: 'Review your missed questions',
     quiz_your_answer: 'Your answer',
@@ -505,6 +532,30 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    amal_subtitle: 'এখন কী তিলাওয়াত করবেন — সময় ও দিন অনুযায়ী সহিহ সুন্নাহ আমল।',
+    amal_now: 'এখনকার আমল',
+    amal_all: 'সব আমল',
+    amal_read: 'পড়ুন',
+    amal_note: 'মান: ✓ সহিহ সনদ (বুখারি/মুসলিম/…); "প্রচলিত আমল" = ব্যাপক প্রচলিত কিন্তু নির্দিষ্ট বর্ণনাটি দুর্বল।',
+    amal_grade_sahih: 'সহিহ',
+    amal_grade_common: 'প্রচলিত আমল',
+    amal_when_morning: 'সকাল',
+    amal_when_day: 'দিন',
+    amal_when_evening: 'সন্ধ্যা',
+    amal_when_night: 'রাত',
+    amal_when_friday: 'জুমা',
+    amal_when_any: 'যেকোনো সময়',
+    tj_learn_subtitle: 'প্রতিটি নিয়ম শিখুন, তারপর প্রকৃত কুরআনের পাঠে হাইলাইট দেখুন।',
+    tj_examples_in: 'উদাহরণ:',
+    tj_no_examples: 'এই সূরায় এই নিয়মের কোনো উদাহরণ নেই — অন্য সূরা দেখুন।',
+    tj_group_noon: 'নূন সাকিন ও তানউইন',
+    tj_group_meem: 'মীম সাকিন',
+    tj_group_madd: 'মাদ্দ (টান)',
+    tj_group_core: 'গুন্নাহ ও কলকলা',
+    tj_group_other: 'অন্যান্য নিয়ম',
+    tj_practice_quiz: 'তাজবীদ কুইজ',
+    tj_practice_reading: 'রঙিন তিলাওয়াত',
+    tj_practice_mushaf: 'তাজবীদ মুসহাফ',
     wr_surah_short: 'সূরা',
     wr_quran_short: 'কুরআন',
     wr_in_surah: 'এই সূরায়',
@@ -1000,6 +1051,9 @@ const TRANSLATIONS = {
   },
 
   ar: {
+    arabic_font_size: 'حجم الخط العربي',
+    tj_learn_title: 'تعلّم التجويد',
+    amal_title: 'الأعمال اليومية',
     bookmark_note: 'أضف ملاحظة',
     quiz_review_missed: 'راجع الأسئلة التي أخطأت فيها',
     quiz_your_answer: 'إجابتك',
@@ -1499,6 +1553,9 @@ const TRANSLATIONS = {
   },
 
   ur: {
+    arabic_font_size: 'عربی فونٹ سائز',
+    tj_learn_title: 'تجوید سیکھیں',
+    amal_title: 'روزانہ اعمال',
     bookmark_note: 'نوٹ شامل کریں',
     quiz_review_missed: 'غلط سوالات کا جائزہ لیں',
     quiz_your_answer: 'آپ کا جواب',
@@ -1998,6 +2055,9 @@ const TRANSLATIONS = {
   },
 
   id: {
+    arabic_font_size: 'Ukuran Font Arab',
+    tj_learn_title: 'Belajar Tajwid',
+    amal_title: 'Amalan Harian',
     bookmark_note: 'Tambah catatan',
     quiz_review_missed: 'Tinjau soal yang salah',
     quiz_your_answer: 'Jawaban Anda',
@@ -2497,6 +2557,9 @@ const TRANSLATIONS = {
   },
 
   tr: {
+    arabic_font_size: 'Arapça Yazı Boyutu',
+    tj_learn_title: 'Tecvid Öğren',
+    amal_title: 'Günlük Ameller',
     bookmark_note: 'Not ekle',
     quiz_review_missed: 'Yanlış sorularını gözden geçir',
     quiz_your_answer: 'Cevabın',
@@ -2996,6 +3059,9 @@ const TRANSLATIONS = {
   },
 
   fr: {
+    arabic_font_size: 'Taille de police arabe',
+    tj_learn_title: 'Apprendre le Tajwid',
+    amal_title: 'Amal quotidien',
     bookmark_note: 'Ajouter une note',
     quiz_review_missed: 'Revoir vos erreurs',
     quiz_your_answer: 'Votre réponse',
@@ -3494,6 +3560,9 @@ const TRANSLATIONS = {
 
   },
   es: {
+    arabic_font_size: 'Tamaño de fuente árabe',
+    tj_learn_title: 'Aprender Tajwid',
+    amal_title: 'Amal diario',
     bookmark_note: 'Añadir nota',
     quiz_review_missed: 'Repasa tus errores',
     quiz_your_answer: 'Tu respuesta',
@@ -3973,6 +4042,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Historias de los profetas"
   },
   ru: {
+    arabic_font_size: 'Размер арабского шрифта',
+    tj_learn_title: 'Изучить таджвид',
+    amal_title: 'Ежедневные амали',
     bookmark_note: 'Добавить заметку',
     quiz_review_missed: 'Разбор ошибок',
     quiz_your_answer: 'Ваш ответ',
@@ -4452,6 +4524,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Истории пророков"
   },
   fa: {
+    arabic_font_size: 'اندازه قلم عربی',
+    tj_learn_title: 'آموزش تجوید',
+    amal_title: 'اعمال روزانه',
     bookmark_note: 'افزودن یادداشت',
     quiz_review_missed: 'مرور سوالات اشتباه',
     quiz_your_answer: 'پاسخ شما',
@@ -4931,6 +5006,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "داستان‌های پیامبران"
   },
   hi: {
+    arabic_font_size: 'अरबी फ़ॉन्ट आकार',
+    tj_learn_title: 'तजवीद सीखें',
+    amal_title: 'दैनिक अमल',
     bookmark_note: 'नोट जोड़ें',
     quiz_review_missed: 'गलत प्रश्न दोहराएँ',
     quiz_your_answer: 'आपका उत्तर',
@@ -5410,6 +5488,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "पैगंबरों की कहानियाँ"
   },
   de: {
+    arabic_font_size: 'Arabische Schriftgröße',
+    tj_learn_title: 'Tadschwid lernen',
+    amal_title: 'Tägliche Amal',
     bookmark_note: 'Notiz hinzufügen',
     quiz_review_missed: 'Fehler durchgehen',
     quiz_your_answer: 'Deine Antwort',
@@ -5889,6 +5970,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Geschichten der Propheten"
   },
   ms: {
+    arabic_font_size: 'Saiz Fon Arab',
+    tj_learn_title: 'Belajar Tajwid',
+    amal_title: 'Amalan Harian',
     bookmark_note: 'Tambah nota',
     quiz_review_missed: 'Semak soalan yang salah',
     quiz_your_answer: 'Jawapan anda',
@@ -6368,6 +6452,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "Kisah Para Nabi"
   },
   zh: {
+    arabic_font_size: '阿拉伯语字体大小',
+    tj_learn_title: '学习诵读规则',
+    amal_title: '每日功修',
     bookmark_note: '添加笔记',
     quiz_review_missed: '回顾错题',
     quiz_your_answer: '你的答案',
@@ -6847,6 +6934,9 @@ const TRANSLATIONS = {
     "stories_of_prophets": "先知们的故事"
   },
   ja: {
+    arabic_font_size: 'アラビア語フォントサイズ',
+    tj_learn_title: 'タジュウィードを学ぶ',
+    amal_title: '毎日のアマル',
     bookmark_note: 'メモを追加',
     quiz_review_missed: '間違えた問題を復習',
     quiz_your_answer: 'あなたの答え',

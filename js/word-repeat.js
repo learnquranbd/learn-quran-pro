@@ -119,8 +119,11 @@ class WordRepeat {
         this.openVerseWord = verse.getAttribute('data-term-word') || this.openVerseWord;
         this.renderResults(); this.fillInlineSlots();
         if (opening) {
+          // Bring the new block into view INSIDE the detail pane only — never
+          // move the page scroll (the user stays at the chip they clicked).
           const slot = this.container.querySelector(`[data-inline-slot="${ref}"]`);
-          if (slot) slot.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          const pane = slot && slot.closest('[data-scrollkeep^="detail"]');
+          if (slot && pane) pane.scrollTop = Math.max(0, slot.offsetTop - 8);
         }
         return;
       }
@@ -288,9 +291,28 @@ class WordRepeat {
     });
   }
 
+  /** Keep the user's place: remember window + inner-pane scroll across re-renders. */
+  captureScroll() {
+    const mem = { win: window.scrollY };
+    this.container.querySelectorAll('[data-scrollkeep]').forEach(el => {
+      mem[el.getAttribute('data-scrollkeep')] = el.scrollTop;
+    });
+    return mem;
+  }
+
+  restoreScroll(mem) {
+    if (!mem) return;
+    this.container.querySelectorAll('[data-scrollkeep]').forEach(el => {
+      const k = el.getAttribute('data-scrollkeep');
+      if (mem[k] != null) el.scrollTop = mem[k];
+    });
+    window.scrollTo(0, mem.win);
+  }
+
   renderResults() {
     const box = this.container.querySelector('#wr-results');
     if (!box) return;
+    const scrollMem = this.captureScroll();
     const full = this.compute();
     const total = full.reduce((n, x) => n + x.count, 0);
     const uniqueCount = full.length;
@@ -308,6 +330,7 @@ class WordRepeat {
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2">
         ${list.map(x => this.termChip(x)).join('')}
       </div>`;
+    this.restoreScroll(scrollMem);
     if (this.type === 'exact') this.ensureMeta();
   }
 
@@ -359,14 +382,14 @@ class WordRepeat {
       body = `
         <div class="mx-3 mb-3 rounded-lg bg-gray-50 dark:bg-gray-900/40 p-3">
           <div class="flex gap-3 items-start">
-            <div class="w-20 sm:w-24 shrink-0 max-h-[70vh] overflow-y-auto pe-1 space-y-1.5 relative border-s-2 border-gray-200 dark:border-gray-700">
+            <div data-scrollkeep="rail:${this.esc(x.term)}" class="w-20 sm:w-24 shrink-0 max-h-[70vh] overflow-y-auto pe-1 space-y-1.5 relative border-s-2 border-gray-200 dark:border-gray-700">
               ${x.refs.map(r => this.railItem(r, x.term)).join('')}
               ${qOpen ? `
                 <div class="ps-4 pt-1 text-[9px] uppercase tracking-wide text-gray-400">${this.tt('wr_in_quran')} (${qRefs.length})</div>
                 ${qShown.map(r => this.railItem(r, x.term)).join('')}
                 ${qRefs.length > qShown.length ? `<div class="ps-4 text-xs text-gray-400">+${qRefs.length - qShown.length}</div>` : ''}` : ''}
             </div>
-            <div class="flex-1 min-w-0 max-h-[70vh] overflow-y-auto space-y-3">
+            <div data-scrollkeep="detail:${this.esc(x.term)}" class="relative flex-1 min-w-0 max-h-[70vh] overflow-y-auto space-y-3">
               ${openHere.length
                 ? openHere.map(r => `<div class="wr-inline" data-inline-slot="${r}" data-color="${this.pairColor(r)}">${this.inlineVerseLoading()}</div>`).join('')
                 : `<p class="text-center text-sm text-gray-400 py-8">${this.tt('wr_tap_hint')}</p>`}

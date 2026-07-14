@@ -16,6 +16,8 @@ const APP_NAV_PRIMARY = [
   { id: 'topics', emoji: '🗂️', label: 'topics_title', tab: 'topics' },
   { id: 'wordrepeat', emoji: '🔁', label: 'wr_title', tab: 'wordrepeat' },
   { id: 'sarf', emoji: '🧬', label: 'sarf_title', tab: 'sarf' },
+  { id: 'amal', emoji: '📿', label: 'amal_title', tab: 'amal' },
+  { id: 'tajweedlearn', emoji: '🎨', label: 'tj_learn_title', tab: 'tajweedlearn' },
   { id: 'learn', emoji: '🎓', label: 'learn', children: [
       { module: 'kids',        emoji: '🧒', label: 'learn_kids_title' },
       { module: 'vocab',       emoji: '📚', label: 'learn_vocab_title' },

@@ -40,7 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css?v=57">
+  <link rel="stylesheet" href="css/style.css?v=58">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
 
@@ -335,6 +335,16 @@
               <div id="sarf-container"></div>
             </div>
 
+            <!-- Daily Amal Tab (sunnah recitations by time/day) -->
+            <div id="tab-amal" class="tab-panel hidden">
+              <div id="amal-container"></div>
+            </div>
+
+            <!-- Tajweed Learning Tab (rules + live Quranic examples) -->
+            <div id="tab-tajweedlearn" class="tab-panel hidden">
+              <div id="tajweedlearn-container"></div>
+            </div>
+
           </div>
         </div>
       </main>
@@ -385,49 +395,51 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/surah-data.js?v=57"></script>
-  <script src="js/translations.js?v=57"></script>
-  <script src="js/quran-data.js?v=57"></script>
-  <script src="js/ayah-modal.js?v=57"></script>
-  <script src="js/tabs.js?v=57"></script>
-  <script src="js/settings.js?v=57"></script>
-  <script src="js/wordbyword.js?v=57"></script>
-  <script src="js/grammar.js?v=57"></script>
-  <script src="js/memorize.js?v=57"></script>
-  <script src="js/quiz-center.js?v=57"></script>
-  <script src="js/word-highlight.js?v=57"></script>
-  <script src="js/audio.js?v=57"></script>
-  <script src="js/tafseer.js?v=57"></script>
-  <script src="js/tajweed.js?v=57"></script>
-  <script src="js/qaida-data.js?v=57"></script>
-  <script src="js/learn-kids.js?v=57"></script>
-  <script src="js/vocab-data.js?v=57"></script>
-  <script src="js/learn-vocab.js?v=57"></script>
-  <script src="js/names-data.js?v=57"></script>
-  <script src="js/learn-names.js?v=57"></script>
-  <script src="js/learn.js?v=57"></script>
-  <script src="js/handwriting.js?v=57"></script>
-  <script src="js/type-memorize.js?v=57"></script>
-  <script src="js/word-arrange.js?v=57"></script>
-  <script src="js/menu-data.js?v=57"></script>
-  <script src="js/legacy-surah-data.js?v=57"></script>
-  <script src="js/sidebar-menu.js?v=57"></script>
-  <script src="js/app-nav.js?v=57"></script>
-  <script src="js/topics-browser.js?v=57"></script>
-  <script src="js/word-repeat.js?v=57"></script>
-  <script src="js/sarf.js?v=57"></script>
-  <script src="js/topics-data.js?v=57"></script>
-  <script src="js/navigation.js?v=57"></script>
-  <script src="js/legacy-ayah.js?v=57"></script>
-  <script src="js/settings-drawer.js?v=57"></script>
-  <script src="js/firebase-config.js?v=57"></script>
-  <script src="js/account.js?v=57"></script>
-  <script src="js/ponder.js?v=57"></script>
-  <script src="js/mushaf.js?v=57"></script>
-  <script src="js/pwa.js?v=57"></script>
-  <script src="js/search.js?v=57"></script>
-  <script src="js/subscribe.js?v=57"></script>
-  <script src="js/bookmarks.js?v=57"></script>
-  <script src="js/app.js?v=57"></script>
+  <script src="js/surah-data.js?v=58"></script>
+  <script src="js/translations.js?v=58"></script>
+  <script src="js/quran-data.js?v=58"></script>
+  <script src="js/ayah-modal.js?v=58"></script>
+  <script src="js/tabs.js?v=58"></script>
+  <script src="js/settings.js?v=58"></script>
+  <script src="js/wordbyword.js?v=58"></script>
+  <script src="js/grammar.js?v=58"></script>
+  <script src="js/memorize.js?v=58"></script>
+  <script src="js/quiz-center.js?v=58"></script>
+  <script src="js/word-highlight.js?v=58"></script>
+  <script src="js/audio.js?v=58"></script>
+  <script src="js/tafseer.js?v=58"></script>
+  <script src="js/tajweed.js?v=58"></script>
+  <script src="js/qaida-data.js?v=58"></script>
+  <script src="js/learn-kids.js?v=58"></script>
+  <script src="js/vocab-data.js?v=58"></script>
+  <script src="js/learn-vocab.js?v=58"></script>
+  <script src="js/names-data.js?v=58"></script>
+  <script src="js/learn-names.js?v=58"></script>
+  <script src="js/learn.js?v=58"></script>
+  <script src="js/handwriting.js?v=58"></script>
+  <script src="js/type-memorize.js?v=58"></script>
+  <script src="js/word-arrange.js?v=58"></script>
+  <script src="js/menu-data.js?v=58"></script>
+  <script src="js/legacy-surah-data.js?v=58"></script>
+  <script src="js/sidebar-menu.js?v=58"></script>
+  <script src="js/app-nav.js?v=58"></script>
+  <script src="js/topics-browser.js?v=58"></script>
+  <script src="js/word-repeat.js?v=58"></script>
+  <script src="js/sarf.js?v=58"></script>
+  <script src="js/amal-daily.js?v=58"></script>
+  <script src="js/tajweed-learn.js?v=58"></script>
+  <script src="js/topics-data.js?v=58"></script>
+  <script src="js/navigation.js?v=58"></script>
+  <script src="js/legacy-ayah.js?v=58"></script>
+  <script src="js/settings-drawer.js?v=58"></script>
+  <script src="js/firebase-config.js?v=58"></script>
+  <script src="js/account.js?v=58"></script>
+  <script src="js/ponder.js?v=58"></script>
+  <script src="js/mushaf.js?v=58"></script>
+  <script src="js/pwa.js?v=58"></script>
+  <script src="js/search.js?v=58"></script>
+  <script src="js/subscribe.js?v=58"></script>
+  <script src="js/bookmarks.js?v=58"></script>
+  <script src="js/app.js?v=58"></script>
 </body>
 </html>

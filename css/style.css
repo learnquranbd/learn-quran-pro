@@ -49,7 +49,7 @@ body {
 /* Arabic Text Styling */
 .arabic-text {
   font-family: 'Amiri', 'Traditional Arabic', serif;
-  font-size: calc(var(--arabic-font-size) * var(--font-scale));
+  font-size: calc(var(--arabic-font-size) * var(--font-scale) * var(--arabic-scale, 1));
   line-height: 2.2;
   direction: rtl;
   text-align: right;
@@ -148,7 +148,7 @@ body {
 
 .ayah-arabic {
   font-family: 'Amiri', 'Traditional Arabic', serif;
-  font-size: calc(var(--arabic-font-size) * var(--font-scale));
+  font-size: calc(var(--arabic-font-size) * var(--font-scale) * var(--arabic-scale, 1));
   line-height: 2.4;
   direction: rtl;
   text-align: right;
@@ -597,3 +597,19 @@ body.legacy-sidebar aside#sidebar .nav-group-parent:hover {
 }
 
 /* ==================== end AUDIO WORD HIGHLIGHT ==================== */
+
+/* ---- Arabic font-size control (--arabic-scale, set from the settings drawer)
+   .ayah-arabic sizes come from Tailwind !text-* utilities; these same-important,
+   higher-specificity rules re-express each size × the user's Arabic scale. */
+.ayah-arabic.\!text-base { font-size: calc(1rem     * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-lg   { font-size: calc(1.125rem * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-xl   { font-size: calc(1.25rem  * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-2xl  { font-size: calc(1.5rem   * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-3xl  { font-size: calc(1.875rem * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-4xl  { font-size: calc(2.25rem  * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-5xl  { font-size: calc(3rem     * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-6xl  { font-size: calc(3.75rem  * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.\!text-7xl  { font-size: calc(4.5rem   * var(--arabic-scale, 1)) !important; }
+.ayah-arabic.text-xl     { font-size: calc(1.25rem  * var(--arabic-scale, 1)); }
+.ayah-arabic.text-2xl    { font-size: calc(1.5rem   * var(--arabic-scale, 1)); }
+.ayah-arabic.text-4xl    { font-size: calc(2.25rem  * var(--arabic-scale, 1)); }
