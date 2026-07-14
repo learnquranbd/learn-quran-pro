@@ -532,6 +532,13 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    quiz_correct_answer: 'সঠিক উত্তর',
+    quiz_your_answer: 'আপনার উত্তর',
+    quiz_review_missed: 'ভুল হওয়া প্রশ্নগুলো পর্যালোচনা করুন',
+    bookmark_note: 'নোট যোগ করুন',
+    arabic_font_size: 'আরবি ফন্টের আকার',
+    tj_learn_title: 'তাজবীদ শিখুন',
+    amal_title: 'দৈনিক আমল',
     amal_subtitle: 'এখন কী তিলাওয়াত করবেন — সময় ও দিন অনুযায়ী সহিহ সুন্নাহ আমল।',
     amal_now: 'এখনকার আমল',
     amal_all: 'সব আমল',
