@@ -710,12 +710,41 @@ class KidsQaida {
 
   surahKey(n) { return `${n}:${this.language}`; }
 
+  /** Easy starter surahs first, then the rest of Juz 'Amma (78-114) by length. */
+  kidsSurahList() {
+    if (this._kidsSurahs) return this._kidsSurahs;
+    const easy = KIDS_SURAHS.map(s => ({ ...s, sec: 'easy' }));
+    const have = new Set(easy.map(s => s.n));
+    const more = [];
+    for (let n = 78; n <= 114; n++) {
+      if (have.has(n)) continue;
+      const info = getSurahByNumber(n);
+      if (info) more.push({ n, versesTo: info.ayahCount, sec: 'more' });
+    }
+    more.sort((a, b) => a.versesTo - b.versesTo);
+    this._kidsSurahs = easy.concat(more);
+    return this._kidsSurahs;
+  }
+
   renderSurahs(lang) {
     if (this.surahPick == null) {
+      const list = this.kidsSurahList();
+      const section = (sec, key) => `
+        <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-2 mt-5">${t(key, lang)}</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          ${list.filter(x => x.sec === sec).map((s, i) => this.surahPickCard(s, i, lang)).join('')}
+        </div>`;
       return `
-        <p class="text-center text-gray-500 dark:text-gray-400 mb-4">📖 ${t('pick_surah_hint', lang)}</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          ${KIDS_SURAHS.map((s, i) => {
+        <p class="text-center text-gray-500 dark:text-gray-400 mb-1">📖 ${t('pick_surah_hint', lang)}</p>
+        ${section('easy', 'kids_surah_easy')}
+        ${section('more', 'kids_surah_more')}
+      `;
+    }
+    return this.renderSurahReading(lang);
+  }
+
+  surahPickCard(s, i, lang) {
+    return [s].map((s, _i) => {
             const info = getSurahByNumber(s.n);
             return `
               <button data-kids-surah-pick="${s.n}"
@@ -731,11 +760,7 @@ class KidsQaida {
                 <span class="ayah-arabic !text-2xl shrink-0" dir="rtl">${info ? info.arabicName : ''}</span>
               </button>
             `;
-          }).join('')}
-        </div>
-      `;
-    }
-    return this.renderSurahReading(lang);
+          }).join('');
   }
 
   renderSurahReading(lang) {
@@ -814,7 +839,7 @@ class KidsQaida {
     if (this.surahCache[key] && !this.surahCache[key].error) return;
     if (this._loadingSurah === key) return;
     this._loadingSurah = key;
-    const info = KIDS_SURAHS.find(s => s.n === n);
+    const info = this.kidsSurahList().find(s => s.n === n);
     try {
       const verses = await QuranData.fetchRange(n, 1, info ? info.versesTo : 1, this.language);
       this.surahCache[key] = { verses };

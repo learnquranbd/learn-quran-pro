@@ -44,7 +44,8 @@ class LearnHub {
       { module: 'vocab', emoji: '📚', grad: 'from-sky-400 to-blue-600', title: 'learn_vocab_title', desc: 'learn_vocab_desc' },
       { module: 'names', emoji: '✨', grad: 'from-violet-400 to-purple-600', title: 'learn_names_title', desc: 'learn_names_desc' },
       { module: 'handwriting', emoji: '✍️', grad: 'from-rose-400 to-pink-600', title: 'hw_title', desc: 'hw_subtitle' },
-      { module: 'memorize', emoji: '🎙️', grad: 'from-emerald-400 to-green-600', title: 'learn_memorize_title', desc: 'learn_memorize_desc' }
+      { module: 'memorize', emoji: '🎙️', grad: 'from-emerald-400 to-green-600', title: 'learn_memorize_title', desc: 'learn_memorize_desc' },
+      { module: 'tajweedlearn', emoji: '🎨', grad: 'from-cyan-400 to-teal-600', title: 'tj_learn_title', desc: 'tj_learn_subtitle' }
     ];
 
     this.hub.innerHTML = `
@@ -52,7 +53,7 @@ class LearnHub {
         <h2 class="text-2xl font-bold mb-1">${t('learn_hub_title', lang)}</h2>
         <p class="text-gray-500 dark:text-gray-400">${t('learn_hub_subtitle', lang)}</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 w-full">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 w-full">
         ${cards.map(c => `
           <button data-module="${c.module}"
                   class="learn-card group text-left rounded-2xl shadow-lg overflow-hidden bg-white dark:bg-gray-800
@@ -73,6 +74,8 @@ class LearnHub {
         const module = card.getAttribute('data-module');
         if (module === 'memorize') {
           tabSystem.switchTab('memorize');
+        } else if (module === 'tajweedlearn') {
+          tabSystem.switchTab('tajweedlearn');
         } else {
           this.showModule(module, true);
         }

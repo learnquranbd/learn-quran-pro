@@ -5,6 +5,8 @@
 
 const TRANSLATIONS = {
   en: {
+    kids_surah_easy: 'Start here — the easiest surahs',
+    kids_surah_more: 'More from Juz \'Amma',
     vocab_words_label: 'words',
     vocab_hide_meanings: 'Hide meanings',
     vocab_show_meanings: 'Show meanings',
@@ -540,6 +542,8 @@ const TRANSLATIONS = {
   },
 
   bn: {
+    kids_surah_easy: 'এখান থেকে শুরু — সবচেয়ে সহজ সূরা',
+    kids_surah_more: 'জুয আম্মার আরও সূরা',
     vocab_words_label: 'শব্দ',
     vocab_hide_meanings: 'অর্থ লুকান',
     vocab_show_meanings: 'অর্থ দেখান',
