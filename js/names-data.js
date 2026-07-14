@@ -2,6 +2,17 @@
  * 99 Names of Allah (Asma ul Husna) Data
  * Standard list (Tirmidhi narration order), meanings in all 7 UI languages.
  * meanings.ar is a brief Arabic gloss of the name.
+ *
+ * Also: PROPHETS_25 — the 25 prophets named in the Quran (standard list).
+ * Each `count` was computed from this repo's data/quran-tokens.json by
+ * summing the name's token forms (incl. attached vocatives/prepositions,
+ * e.g. يادم = "O Adam", وابرهيم = "and Ibrahim") and matches the
+ * well-known published mention counts. `forms` lists those exact
+ * normalized token spellings (Uthmani rasm, diacritics stripped) so the
+ * app can find every occurrence at runtime. Where the bare spelling is
+ * ambiguous (هود also = "Jews", صلح also = "righteous", يحيى also =
+ * the verb "he lives"), the disambiguated verse list is stored in `refs`
+ * instead. `ref` is the name's first occurrence (mushaf order).
  */
 
 const NAMES_99 = [
@@ -106,7 +117,35 @@ const NAMES_99 = [
   { n: 99, ar: "الصَّبُورُ", translit: "Aṣ-Ṣabūr", meanings: { en: "The Most Patient", bn: "মহাধৈর্যশীল", fr: "Le Très Patient", id: "Yang Maha Sabar", ur: "بڑا صابر", tr: "Çok Sabırlı", ar: "الذي لا يعاجل بالعقوبة" } }
 ];
 
+const PROPHETS_25 = [
+  { n: 1, ar: "آدَم", translit: "Ādam", names: { en: "Adam", bn: "আদম", fr: "Adam", id: "Adam", ur: "آدم", tr: "Âdem", ar: "آدم" }, count: 25, ref: "2:31", forms: ["ءادم", "يادم", "لءادم", "ويادم"] },
+  { n: 2, ar: "إِدْرِيس", translit: "Idrīs", names: { en: "Idris (Enoch)", bn: "ইদরীস", fr: "Idris (Hénoch)", id: "Idris", ur: "ادریس", tr: "İdris", ar: "إدريس" }, count: 2, ref: "19:56", forms: ["ادريس", "وادريس"] },
+  { n: 3, ar: "نُوح", translit: "Nūḥ", names: { en: "Noah", bn: "নূহ", fr: "Noé", id: "Nuh", ur: "نوح", tr: "Nûh", ar: "نوح" }, count: 43, ref: "3:33", forms: ["نوح", "نوحا", "ونوحا", "ينوح"] },
+  { n: 4, ar: "هُود", translit: "Hūd", names: { en: "Hud", bn: "হূদ", fr: "Houd", id: "Hud", ur: "ہود", tr: "Hûd", ar: "هود" }, count: 7, ref: "7:65", refs: ["7:65", "11:50", "11:53", "11:58", "11:60", "11:89", "26:124"] },
+  { n: 5, ar: "صَالِح", translit: "Ṣāliḥ", names: { en: "Salih", bn: "সালিহ", fr: "Salih", id: "Shaleh", ur: "صالح", tr: "Salih", ar: "صالح" }, count: 9, ref: "7:73", refs: ["7:73", "7:75", "7:77", "11:61", "11:62", "11:66", "11:89", "26:142", "27:45"] },
+  { n: 6, ar: "إِبْرَاهِيم", translit: "Ibrāhīm", names: { en: "Abraham", bn: "ইবরাহীম", fr: "Abraham", id: "Ibrahim", ur: "ابراہیم", tr: "İbrahim", ar: "إبراهيم" }, count: 69, ref: "2:124", forms: ["ابرهيم", "ابرهم", "بابرهيم", "يابرهيم", "لابرهيم", "وابرهيم"] },
+  { n: 7, ar: "لُوط", translit: "Lūṭ", names: { en: "Lot", bn: "লূত", fr: "Loth", id: "Luth", ur: "لوط", tr: "Lût", ar: "لوط" }, count: 27, ref: "6:86", forms: ["لوط", "لوطا", "ولوطا", "يلوط"] },
+  { n: 8, ar: "إِسْمَاعِيل", translit: "Ismāʿīl", names: { en: "Ishmael", bn: "ইসমাঈল", fr: "Ismaël", id: "Ismail", ur: "اسماعیل", tr: "İsmail", ar: "إسماعيل" }, count: 12, ref: "2:125", forms: ["اسمعيل", "واسمعيل"] },
+  { n: 9, ar: "إِسْحَاق", translit: "Isḥāq", names: { en: "Isaac", bn: "ইসহাক", fr: "Isaac", id: "Ishaq", ur: "اسحاق", tr: "İshak", ar: "إسحاق" }, count: 17, ref: "2:133", forms: ["اسحق", "واسحق", "باسحق"] },
+  { n: 10, ar: "يَعْقُوب", translit: "Yaʿqūb", names: { en: "Jacob", bn: "ইয়াকুব", fr: "Jacob", id: "Ya'qub", ur: "یعقوب", tr: "Yakub", ar: "يعقوب" }, count: 16, ref: "2:132", forms: ["يعقوب", "ويعقوب"] },
+  { n: 11, ar: "يُوسُف", translit: "Yūsuf", names: { en: "Joseph", bn: "ইউসুফ", fr: "Joseph", id: "Yusuf", ur: "یوسف", tr: "Yusuf", ar: "يوسف" }, count: 27, ref: "6:84", forms: ["يوسف", "ويوسف", "ليوسف", "بيوسف"] },
+  { n: 12, ar: "أَيُّوب", translit: "Ayyūb", names: { en: "Job", bn: "আইয়ুব", fr: "Job", id: "Ayyub", ur: "ایوب", tr: "Eyyûb", ar: "أيوب" }, count: 4, ref: "4:163", forms: ["ايوب", "وايوب"] },
+  { n: 13, ar: "ذُو الْكِفْل", translit: "Dhul-Kifl", names: { en: "Dhul-Kifl", bn: "যুলকিফল", fr: "Dhoul-Kifl", id: "Zulkifli", ur: "ذوالکفل", tr: "Zülkifl", ar: "ذو الكفل" }, count: 2, ref: "21:85", refs: ["21:85", "38:48"] },
+  { n: 14, ar: "شُعَيْب", translit: "Shuʿayb", names: { en: "Shuayb", bn: "শুআইব", fr: "Chouaïb", id: "Syu'aib", ur: "شعیب", tr: "Şuayb", ar: "شعيب" }, count: 11, ref: "7:85", forms: ["شعيب", "شعيبا", "يشعيب"] },
+  { n: 15, ar: "مُوسَىٰ", translit: "Mūsā", names: { en: "Moses", bn: "মূসা", fr: "Moïse", id: "Musa", ur: "موسیٰ", tr: "Musa", ar: "موسى" }, count: 136, ref: "2:51", forms: ["موسى", "يموسى", "وموسى", "بموسى", "لموسى"] },
+  { n: 16, ar: "هَارُون", translit: "Hārūn", names: { en: "Aaron", bn: "হারূন", fr: "Aaron", id: "Harun", ur: "ہارون", tr: "Harun", ar: "هارون" }, count: 20, ref: "2:248", forms: ["هرون", "وهرون", "يهرون"] },
+  { n: 17, ar: "دَاوُود", translit: "Dāwūd", names: { en: "David", bn: "দাঊদ", fr: "David", id: "Daud", ur: "داؤد", tr: "Davud", ar: "داوود" }, count: 16, ref: "2:251", forms: ["داود", "وداود", "يداود", "لداود"] },
+  { n: 18, ar: "سُلَيْمَان", translit: "Sulaymān", names: { en: "Solomon", bn: "সুলাইমান", fr: "Salomon", id: "Sulaiman", ur: "سلیمان", tr: "Süleyman", ar: "سليمان" }, count: 17, ref: "2:102", forms: ["سليمن", "وسليمن", "لسليمن", "ولسليمن"] },
+  { n: 19, ar: "إِلْيَاس", translit: "Ilyās", names: { en: "Elijah", bn: "ইলিয়াস", fr: "Élie", id: "Ilyas", ur: "الیاس", tr: "İlyas", ar: "إلياس" }, count: 2, ref: "6:85", refs: ["6:85", "37:123"] },
+  { n: 20, ar: "الْيَسَع", translit: "Al-Yasaʿ", names: { en: "Elisha", bn: "আল-ইয়াসা", fr: "Élisée", id: "Ilyasa", ur: "الیسع", tr: "Elyesa", ar: "اليسع" }, count: 2, ref: "6:86", forms: ["واليسع"] },
+  { n: 21, ar: "يُونُس", translit: "Yūnus", names: { en: "Jonah", bn: "ইউনুস", fr: "Jonas", id: "Yunus", ur: "یونس", tr: "Yunus", ar: "يونس" }, count: 4, ref: "4:163", forms: ["يونس", "ويونس"] },
+  { n: 22, ar: "زَكَرِيَّا", translit: "Zakariyyā", names: { en: "Zechariah", bn: "যাকারিয়া", fr: "Zacharie", id: "Zakaria", ur: "زکریا", tr: "Zekeriya", ar: "زكريا" }, count: 7, ref: "3:37", forms: ["زكريا", "وزكريا", "يزكريا"] },
+  { n: 23, ar: "يَحْيَىٰ", translit: "Yaḥyā", names: { en: "John", bn: "ইয়াহইয়া", fr: "Jean", id: "Yahya", ur: "یحییٰ", tr: "Yahya", ar: "يحيى" }, count: 5, ref: "3:39", refs: ["3:39", "6:85", "19:7", "19:12", "21:90"] },
+  { n: 24, ar: "عِيسَىٰ", translit: "ʿĪsā", names: { en: "Jesus", bn: "ঈসা", fr: "Jésus", id: "Isa", ur: "عیسیٰ", tr: "İsa", ar: "عيسى" }, count: 25, ref: "2:87", forms: ["عيسى", "وعيسى", "يعيسى", "بعيسى"] },
+  { n: 25, ar: "مُحَمَّد", translit: "Muḥammad", names: { en: "Muhammad", bn: "মুহাম্মাদ", fr: "Muhammad", id: "Muhammad", ur: "محمد", tr: "Muhammed", ar: "محمد" }, count: 4, ref: "3:144", forms: ["محمد"] }
+];
+
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { NAMES_99 };
+  module.exports = { NAMES_99, PROPHETS_25 };
 }

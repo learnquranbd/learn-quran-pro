@@ -3,6 +3,31 @@
  * Handles tab navigation and content switching
  */
 
+// Per-module headline (emoji + i18n title key) shown at the top of the content
+// area so users always know which module — or sub-module — they're viewing,
+// even in deep sub-views (e.g. an in-progress quiz) that have no active top tab.
+const TAB_META = {
+  reading:      { emoji: '📖', key: 'ayah_reading' },
+  search:       { emoji: '🔍', key: 'search' },
+  tafseer:      { emoji: '📚', key: 'tafseers' },
+  wordbyword:   { emoji: '🔤', key: 'word_by_word' },
+  grammar:      { emoji: '🧩', key: 'grammar' },
+  tajweedreading: { emoji: '🎨', key: 'tajweed_label' },
+  learn:        { emoji: '🎓', key: 'learn' },
+  memorize:     { emoji: '🎙️', key: 'memorize' },
+  quiz:         { emoji: '❓', key: 'quiz_center_title' },
+  audio:        { emoji: '🎧', key: 'audio' },
+  mushaf:       { emoji: '📗', key: 'mushaf' },
+  topics:       { emoji: '🗂️', key: 'topics_title' },
+  wordrepeat:   { emoji: '🔁', key: 'wr_title' },
+  sarf:         { emoji: '🧬', key: 'sarf_title' },
+  amal:         { emoji: '📿', key: 'amal_title' },
+  khatmah:      { emoji: '📅', key: 'khatmah_title' },
+  tajweedlearn: { emoji: '🎨', key: 'tj_learn_title' },
+  resources:    { emoji: '🔗', key: 'resources_title' },
+  mutashabihat: { emoji: '🪞', key: 'mutashabihat_title' }
+};
+
 class TabSystem {
   constructor() {
     this.tabNav = document.getElementById('tabs-nav');
@@ -24,6 +49,36 @@ class TabSystem {
         this.switchTab(tabId);
       });
     });
+
+    // Module headline at the top of the content area (which module am I in?)
+    this.ensureHeadline();
+    this.updateHeadline(this.activeTab);
+    // Re-localize the headline when the UI language changes
+    window.addEventListener('settingChanged', (e) => {
+      if (e.detail && e.detail.key === 'language') this.updateHeadline(this.activeTab);
+    });
+  }
+
+  /** Insert the headline banner as the first child of the content area (once). */
+  ensureHeadline() {
+    if (this.headline || !this.tabContent) return;
+    this.headline = document.createElement('div');
+    this.headline.id = 'module-headline';
+    this.headline.className = 'flex items-center gap-3 mb-5';
+    this.tabContent.insertBefore(this.headline, this.tabContent.firstChild);
+  }
+
+  /** Set the headline to the current module's emoji + localized name. */
+  updateHeadline(tabId) {
+    if (!this.headline) return;
+    const meta = TAB_META[tabId];
+    if (!meta) { this.headline.classList.add('hidden'); this.headline.innerHTML = ''; return; }
+    const lang = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
+    const name = (typeof t === 'function') ? t(meta.key, lang) : tabId;
+    this.headline.classList.remove('hidden');
+    this.headline.innerHTML =
+      `<span class="text-2xl leading-none" aria-hidden="true">${meta.emoji}</span>` +
+      `<h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">${name}</h2>`;
   }
 
   /**
@@ -54,6 +109,7 @@ class TabSystem {
     });
 
     this.activeTab = tabId;
+    this.updateHeadline(tabId);
 
     // Back-navigation: when a module sends us to Reading to view a verse,
     // offer a one-tap return to that module.

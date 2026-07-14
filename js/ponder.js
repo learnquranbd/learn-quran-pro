@@ -20,13 +20,29 @@ const PONDER_REFS = [
   '93:3-5', '94:5-6', '103:1-3'
 ];
 
+// Generic, non-doctrinal tadabbur prompt keys (cycled per verse). These never
+// assert a specific tafsir — they only invite the reader's own reflection.
+const PONDER_PROMPT_KEYS = [
+  'ponder_q1', 'ponder_q2', 'ponder_q3', 'ponder_q4',
+  'ponder_q5', 'ponder_q6', 'ponder_q7', 'ponder_q8',
+  'ponder_q9', 'ponder_q10', 'ponder_q11', 'ponder_q12',
+  'ponder_q13', 'ponder_q14', 'ponder_q15', 'ponder_q16'
+];
+
 class PonderCard {
   constructor() {
     this.container = document.getElementById('ayah-container');
     if (!this.container) return;
 
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
-    this.offset = 0; // "another ayah" clicks shift off today's pick
+    this.offset = 0;          // "another ayah" clicks shift off today's pick
+    this.forcedRef = null;    // set by "Surprise me" (true random, ignores day)
+    this.randSeed = 0;        // seed for prompt rotation when a random verse is shown
+    this.curRef = null;       // ref currently shown in the card (for journaling)
+    this.curName = '';        // surah display name of the current verse
+    this.journalOpen = false; // reflection editor visibility
+    this.editingTs = null;    // ts of the entry being edited (null = new)
+    this.pendingDelete = null;// ts of entry awaiting delete confirmation
 
     // Show only when nothing is being loaded via the URL hash
     if (!window.location.hash.slice(1)) this.render();
@@ -38,30 +54,174 @@ class PonderCard {
       }
     });
 
-    this.container.addEventListener('click', (e) => {
-      if (e.target.closest('#ponder-another')) {
-        this.offset++;
-        this.render();
-        return;
-      }
-      if (e.target.closest('[data-dismiss-dev]')) {
-        try { localStorage.setItem('devNoticeDismissed', '1'); } catch (err) {}
-        const n = document.getElementById('dev-notice');
-        if (n) n.remove();
-        return;
-      }
-      const ql = e.target.closest('[data-ql]');
-      if (ql) {
-        const tab = ql.getAttribute('data-ql');
-        const mod = ql.getAttribute('data-ql-module');
-        if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab(tab);
-        if (mod) window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: mod } }));
-      }
-    });
+    this.container.addEventListener('click', (e) => this.onClick(e));
+  }
+
+  onClick(e) {
+    if (e.target.closest('#ponder-another')) {
+      this.forcedRef = null;
+      this.offset++;
+      this.render();
+      return;
+    }
+    if (e.target.closest('[data-ponder-random]')) {
+      this.forcedRef = PONDER_REFS[Math.floor(Math.random() * PONDER_REFS.length)];
+      this.randSeed = Math.floor(Math.random() * 100000);
+      this.render();
+      return;
+    }
+    if (e.target.closest('[data-dismiss-dev]')) {
+      try { localStorage.setItem('devNoticeDismissed', '1'); } catch (err) {}
+      const n = document.getElementById('dev-notice');
+      if (n) n.remove();
+      return;
+    }
+    // ---- Reflection journal interactions (only refresh the journal subtree) ----
+    if (e.target.closest('[data-ponder-write]')) {
+      this.journalOpen = true; this.editingTs = null; this.pendingDelete = null;
+      this.refreshJournal();
+      const ta = document.getElementById('ponder-note');
+      if (ta) ta.focus();
+      return;
+    }
+    if (e.target.closest('[data-ponder-cancel]')) {
+      this.journalOpen = false; this.editingTs = null;
+      this.refreshJournal();
+      return;
+    }
+    if (e.target.closest('[data-ponder-save]')) { this.saveEntry(); return; }
+    if (e.target.closest('[data-ponder-mark]')) { this.logToday(); this.refreshJournal(); return; }
+    const editBtn = e.target.closest('[data-ponder-edit]');
+    if (editBtn) {
+      this.editingTs = Number(editBtn.getAttribute('data-ponder-edit'));
+      this.journalOpen = true; this.pendingDelete = null;
+      this.refreshJournal();
+      return;
+    }
+    const delBtn = e.target.closest('[data-ponder-del]');
+    if (delBtn) { this.pendingDelete = Number(delBtn.getAttribute('data-ponder-del')); this.refreshJournal(); return; }
+    if (e.target.closest('[data-ponder-delcancel]')) { this.pendingDelete = null; this.refreshJournal(); return; }
+    const okBtn = e.target.closest('[data-ponder-delok]');
+    if (okBtn) { this.deleteEntry(Number(okBtn.getAttribute('data-ponder-delok'))); return; }
+    const copyBtn = e.target.closest('[data-ponder-copy]');
+    if (copyBtn) { this.copyEntry(Number(copyBtn.getAttribute('data-ponder-copy')), copyBtn); return; }
+    const expBtn = e.target.closest('[data-ponder-export]');
+    if (expBtn) { this.exportAll(expBtn); return; }
+
+    const ql = e.target.closest('[data-ql]');
+    if (ql) {
+      const tab = ql.getAttribute('data-ql');
+      const mod = ql.getAttribute('data-ql-module');
+      if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab(tab);
+      if (mod) window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: mod } }));
+    }
   }
 
   isShowing() {
     return !!document.getElementById('ponder-card');
+  }
+
+  // ---- small utilities -----------------------------------------------------
+  esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  todayStr(d) {
+    const n = d || new Date();
+    return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`;
+  }
+
+  copyText(text, btn) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        if (!btn) return;
+        const prev = btn.textContent;
+        btn.textContent = '✓';
+        setTimeout(() => { btn.textContent = prev; }, 1200);
+      }).catch(() => {});
+    }
+  }
+
+  // ---- localStorage: journal + reflection dates ----------------------------
+  loadJournal() {
+    try { return JSON.parse(localStorage.getItem('ponderJournal')) || []; } catch (e) { return []; }
+  }
+  saveJournal(list) {
+    try { localStorage.setItem('ponderJournal', JSON.stringify(list)); } catch (e) { /* ignore */ }
+  }
+  loadDates() {
+    try { return JSON.parse(localStorage.getItem('ponderDates')) || []; } catch (e) { return []; }
+  }
+  logToday() {
+    const d = this.todayStr();
+    const arr = this.loadDates();
+    if (!arr.includes(d)) { arr.push(d); try { localStorage.setItem('ponderDates', JSON.stringify(arr)); } catch (e) {} }
+  }
+  ponderedToday() { return this.loadDates().includes(this.todayStr()); }
+
+  /** Consecutive-day reflection streak ending today (or yesterday). */
+  streak() {
+    const set = new Set(this.loadDates());
+    let s = 0;
+    const d = new Date(); d.setHours(0, 0, 0, 0);
+    if (!set.has(this.todayStr(d))) d.setDate(d.getDate() - 1); // grace: today not logged yet
+    while (set.has(this.todayStr(d))) { s++; d.setDate(d.getDate() - 1); }
+    return s;
+  }
+
+  saveEntry() {
+    const noteEl = document.getElementById('ponder-note');
+    if (!noteEl) return;
+    const get = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    const note = noteEl.value.trim();
+    const divineName = get('ponder-name');
+    const dua = get('ponder-dua');
+    const action = get('ponder-action');
+    if (!note && !divineName && !dua && !action) { this.journalOpen = false; this.refreshJournal(); return; }
+
+    const list = this.loadJournal();
+    if (this.editingTs) {
+      const it = list.find(x => x.ts === this.editingTs);
+      if (it) { it.note = note; it.divineName = divineName; it.dua = dua; it.action = action; it.updated = Date.now(); }
+    } else {
+      list.unshift({ ts: Date.now(), ref: this.curRef, surahName: this.curName, note, divineName, dua, action });
+    }
+    this.saveJournal(list);
+    this.logToday();
+    this.journalOpen = false; this.editingTs = null; this.pendingDelete = null;
+    this.refreshJournal();
+  }
+
+  deleteEntry(ts) {
+    const list = this.loadJournal().filter(x => x.ts !== ts);
+    this.saveJournal(list);
+    this.pendingDelete = null;
+    if (this.editingTs === ts) { this.editingTs = null; this.journalOpen = false; }
+    this.refreshJournal();
+  }
+
+  entryText(it) {
+    const lang = this.language;
+    const lines = [`${it.surahName || ''} ${it.ref || ''}`.trim()];
+    if (it.note) lines.push(it.note);
+    if (it.divineName) lines.push(`${t('ponder_name_label', lang)}: ${it.divineName}`);
+    if (it.dua) lines.push(`${t('ponder_dua_label', lang)}: ${it.dua}`);
+    if (it.action) lines.push(`${t('ponder_action_label', lang)}: ${it.action}`);
+    return lines.join('\n');
+  }
+
+  copyEntry(ts, btn) {
+    const it = this.loadJournal().find(x => x.ts === ts);
+    if (it) this.copyText(this.entryText(it), btn);
+  }
+
+  exportAll(btn) {
+    const list = this.loadJournal();
+    if (!list.length) return;
+    const text = list.map(it => this.entryText(it)).join('\n\n───────────\n\n');
+    this.copyText(text, btn);
   }
 
   /** Dismissible "under development" notice with a contact email. */
@@ -118,9 +278,25 @@ class PonderCard {
     return (day + this.offset) % PONDER_REFS.length;
   }
 
+  /**
+   * Three distinct generic prompts for the given rotation seed.
+   * If an invented key hasn't been merged into translations.js yet, t() returns
+   * the key unchanged — in that case we fall back to the always-present q1..q4.
+   */
+  promptText(key) {
+    const s = t(key, this.language);
+    if (s !== key) return s;
+    const fb = 'ponder_q' + (((key.match(/\d+/) || [1])[0] - 1) % 4 + 1);
+    return t(fb, this.language);
+  }
+  promptsFor(seed) {
+    const n = PONDER_PROMPT_KEYS.length;
+    return [0, 1, 2].map(k => this.promptText(PONDER_PROMPT_KEYS[((seed * 3) + k) % n]));
+  }
+
   async render() {
     const lang = this.language;
-    const ref = PONDER_REFS[this.dayIndex()];
+    const ref = this.forcedRef || PONDER_REFS[this.dayIndex()];
     const m = ref.match(/(\d+):(\d+)(?:-(\d+))?/);
     const surah = parseInt(m[1]);
     const start = parseInt(m[2]);
@@ -155,10 +331,13 @@ class PonderCard {
       const translation = verses.map(v => v.translation).join(' ');
       const name = verses[0].surahName;
 
-      // Two rotating reflection prompts per day
-      const prompts = [1, 2, 3, 4].map(i => t('ponder_q' + i, lang));
-      const p1 = prompts[this.dayIndex() % 4];
-      const p2 = prompts[(this.dayIndex() + 1) % 4];
+      // Remember the current pick so the journal can attach reflections to it.
+      this.curRef = ref;
+      this.curName = name;
+
+      // Three rotating generic reflection prompts (varies with day / random pick).
+      const seed = this.forcedRef ? this.randSeed : this.dayIndex();
+      const [p1, p2, p3] = this.promptsFor(seed);
 
       document.getElementById('ponder-body').innerHTML = `
         <div class="ayah-arabic !text-3xl !leading-loose mb-3" dir="rtl">${arabic}</div>
@@ -167,6 +346,7 @@ class PonderCard {
         <div class="text-start max-w-3xl mx-auto space-y-2 mb-6">
           <p class="flex gap-2 text-sm text-gray-600 dark:text-gray-300"><span>💭</span><span>${p1}</span></p>
           <p class="flex gap-2 text-sm text-gray-600 dark:text-gray-300"><span>💭</span><span>${p2}</span></p>
+          <p class="flex gap-2 text-sm text-gray-600 dark:text-gray-300"><span>💭</span><span>${p3}</span></p>
         </div>
         <div class="flex flex-wrap justify-center gap-3">
           <button onclick="window.location.hash='${ref}'"
@@ -177,12 +357,136 @@ class PonderCard {
                   class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
             🎲 ${t('ponder_another', lang)}
           </button>
+          <button data-ponder-random
+                  class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+            ✨ ${t('ponder_random', lang)}
+          </button>
+        </div>
+        <div id="ponder-journal" class="mt-6 pt-5 border-t border-indigo-100 dark:border-gray-700 text-start">
+          ${this.journalInnerHtml()}
         </div>
       `;
     } catch (err) {
       const body = document.getElementById('ponder-body');
       if (body) body.innerHTML = `<p class="text-gray-400 py-4">${t('error', lang)}</p>`;
     }
+  }
+
+  /** Re-render only the journal subtree (keeps the verse above untouched). */
+  refreshJournal() {
+    const el = document.getElementById('ponder-journal');
+    if (el) el.innerHTML = this.journalInnerHtml();
+  }
+
+  /** The full reflection-journal panel: stats, editor, and saved list. */
+  journalInnerHtml() {
+    const lang = this.language;
+    const list = this.loadJournal();
+    const streak = this.streak();
+    const pondered = this.ponderedToday();
+
+    const inp = 'w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white/70 dark:bg-gray-900/40 px-3 py-2 text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40';
+
+    // ---- stats + primary actions ----
+    const stats = `
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div class="flex items-center gap-3 text-sm">
+          <span class="inline-flex items-center gap-1 font-semibold text-orange-500 dark:text-orange-400">🔥 ${streak} <span class="font-normal text-gray-500 dark:text-gray-400">${t('ponder_streak', lang)}</span></span>
+          <span class="inline-flex items-center gap-1 font-semibold text-indigo-500 dark:text-indigo-300">📔 ${list.length} <span class="font-normal text-gray-500 dark:text-gray-400">${t('ponder_total_label', lang)}</span></span>
+        </div>
+        <button data-ponder-mark ${pondered ? 'disabled' : ''}
+                class="px-3 py-1.5 rounded-lg text-xs font-medium ${pondered
+                  ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 cursor-default'
+                  : 'border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}">
+          ${pondered ? '✓ ' + t('ponder_marked', lang) : t('ponder_mark', lang)}
+        </button>
+      </div>`;
+
+    // ---- editor (open state) ----
+    let editor = '';
+    if (this.journalOpen) {
+      const editing = this.editingTs ? list.find(x => x.ts === this.editingTs) : null;
+      const v = (k) => editing ? this.esc(editing[k] || '') : '';
+      const refLabel = editing ? `${this.esc(editing.surahName || '')} ${this.esc(editing.ref || '')}` : `${this.esc(this.curName)} ${this.esc(this.curRef)}`;
+      editor = `
+        <div class="rounded-xl bg-white/60 dark:bg-gray-900/30 border border-indigo-100 dark:border-gray-700 p-4 mb-4 space-y-3">
+          <p class="text-xs font-semibold text-gray-400">${refLabel.trim()}</p>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">${t('ponder_note_label', lang)}</label>
+            <textarea id="ponder-note" rows="3" dir="auto" class="${inp}" placeholder="${t('ponder_note_ph', lang)}">${v('note')}</textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">${t('ponder_name_label', lang)}</label>
+            <input id="ponder-name" type="text" dir="auto" class="${inp}" placeholder="${t('ponder_name_ph', lang)}" value="${v('divineName')}">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">${t('ponder_dua_label', lang)}</label>
+            <input id="ponder-dua" type="text" dir="auto" class="${inp}" placeholder="${t('ponder_dua_ph', lang)}" value="${v('dua')}">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">${t('ponder_action_label', lang)}</label>
+            <input id="ponder-action" type="text" dir="auto" class="${inp}" placeholder="${t('ponder_action_ph', lang)}" value="${v('action')}">
+          </div>
+          <div class="flex gap-2 justify-end pt-1">
+            <button data-ponder-cancel class="px-4 py-1.5 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">${t('ponder_cancel', lang)}</button>
+            <button data-ponder-save class="px-4 py-1.5 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary/80">${this.editingTs ? t('ponder_update', lang) : t('ponder_save', lang)}</button>
+          </div>
+        </div>`;
+    } else {
+      editor = `
+        <button data-ponder-write class="w-full mb-4 px-4 py-2.5 rounded-xl border border-dashed border-indigo-300 dark:border-gray-600 text-sm font-medium text-indigo-600 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-gray-700/40">
+          ✍️ ${t('ponder_write', lang)}
+        </button>`;
+    }
+
+    // ---- saved list ----
+    let saved = '';
+    if (list.length) {
+      const items = list.map(it => {
+        const date = new Date(it.updated || it.ts);
+        const dateStr = date.toLocaleDateString(lang === 'ar' ? 'ar' : (lang === 'bn' ? 'bn-BD' : undefined), { year: 'numeric', month: 'short', day: 'numeric' });
+        const chip = (icon, label, val) => val
+          ? `<p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><span class="font-medium">${icon} ${label}:</span> <span dir="auto">${this.esc(val)}</span></p>` : '';
+        const confirming = this.pendingDelete === it.ts;
+        return `
+          <div class="rounded-xl bg-white/70 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-3">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="text-xs font-semibold text-primary dark:text-blue-300">${this.esc(it.surahName || '')} ${this.esc(it.ref || '')}</p>
+              <span class="text-[11px] text-gray-400">${dateStr}</span>
+            </div>
+            ${it.note ? `<p class="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap" dir="auto">${this.esc(it.note)}</p>` : ''}
+            ${chip('🕋', t('ponder_name_label', lang), it.divineName)}
+            ${chip('🤲', t('ponder_dua_label', lang), it.dua)}
+            ${chip('🎯', t('ponder_action_label', lang), it.action)}
+            <div class="flex items-center gap-1 mt-2">
+              ${confirming ? `
+                <span class="text-xs text-red-500 me-1">${t('ponder_confirm_delete', lang)}</span>
+                <button data-ponder-delok="${it.ts}" class="px-2 py-1 rounded text-xs font-medium bg-red-500 text-white hover:bg-red-600">${t('ponder_delete', lang)}</button>
+                <button data-ponder-delcancel class="px-2 py-1 rounded text-xs text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">${t('ponder_cancel', lang)}</button>
+              ` : `
+                <button data-ponder-edit="${it.ts}" class="px-2 py-1 rounded text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">✏️ ${t('ponder_edit', lang)}</button>
+                <button data-ponder-copy="${it.ts}" class="px-2 py-1 rounded text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button>
+                <button data-ponder-del="${it.ts}" class="px-2 py-1 rounded text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">🗑️ ${t('ponder_delete', lang)}</button>
+              `}
+            </div>
+          </div>`;
+      }).join('');
+      saved = `
+        <div class="flex items-center justify-between mb-2">
+          <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-300">${t('ponder_saved_list', lang)}</h4>
+          <button data-ponder-export class="px-2 py-1 rounded text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">${t('ponder_export', lang)}</button>
+        </div>
+        <div class="space-y-2">${items}</div>`;
+    } else {
+      saved = `<p class="text-xs text-gray-400 text-center py-2">${t('ponder_no_notes', lang)}</p>`;
+    }
+
+    return `
+      <h3 class="text-sm font-bold text-gray-700 dark:text-gray-200 mb-1">📔 ${t('ponder_journal_title', lang)}</h3>
+      <p class="text-xs text-gray-400 mb-4">${t('ponder_journal_subtitle', lang)}</p>
+      ${stats}
+      ${editor}
+      ${saved}`;
   }
 }
 

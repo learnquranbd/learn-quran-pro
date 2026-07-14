@@ -15,7 +15,12 @@ const KIDS_QUIZ_BEST_KEY = 'kidsQuizBest';
 const KIDS_BEST_KEYS = {
   wordmatch: 'kidsWordMatchBest',
   listenword: 'kidsListenWordBest',
-  letterhunt: 'kidsLetterHuntBest'
+  letterhunt: 'kidsLetterHuntBest',
+  harakat: 'kidsHarakatBest',
+  numbermatch: 'kidsNumberMatchBest',
+  surahmatch: 'kidsSurahMatchBest',
+  emojiword: 'kidsEmojiWordBest',
+  oddone: 'kidsOddOneBest'
 };
 
 // Amber highlight applied to a Quran word chip while its audio plays
@@ -57,6 +62,65 @@ const KIDS_DUA_L10N = [
   { // Bismillahi tawakkaltu 'ala-llah
     meaning: { en: 'In the name of Allah, I place my trust in Allah.', bn: 'আল্লাহর নামে, আমি আল্লাহর উপর ভরসা করলাম।' },
     when:    { en: 'When leaving home', bn: 'ঘর থেকে বের হওয়ার সময়' }
+  },
+  { // Allahumma inni a'udhu bika minal-khubuthi wal-khaba'ith
+    meaning: { en: 'O Allah, I seek Your protection from all evil and impure things.', bn: 'হে আল্লাহ, আমি সব অপবিত্র ও ক্ষতিকর জিনিস থেকে আপনার আশ্রয় চাই।' },
+    when:    { en: 'Before entering the toilet', bn: 'টয়লেটে ঢোকার আগে' }
+  },
+  { // Ghufranak
+    meaning: { en: 'I ask for Your forgiveness.', bn: 'আপনার কাছে ক্ষমা চাই।' },
+    when:    { en: 'After leaving the toilet', bn: 'টয়লেট থেকে বের হয়ে' }
+  },
+  { // Alhamdulillah (sneezing)
+    meaning: { en: 'All praise is for Allah.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য।' },
+    when:    { en: 'After sneezing', bn: 'হাঁচি দেওয়ার পরে' }
+  },
+  { // Subhanal-ladhi sakhkhara lana hadha
+    meaning: { en: 'Glory to Him who has placed this at our service; we could never have done it by ourselves.', bn: 'পবিত্র-মহান তিনি, যিনি এটিকে আমাদের বশ করে দিয়েছেন; আমরা নিজেরা এটি বশ করতে পারতাম না।' },
+    when:    { en: 'When riding a car or bus', bn: 'গাড়ি বা বাসে চড়ার সময়' }
+  },
+  { // Rabbi-rhamhuma
+    meaning: { en: 'My Lord, have mercy on my parents as they raised me when I was little.', bn: 'হে আমার রব, তাঁদের (বাবা-মায়ের) প্রতি রহম করুন, যেমন তাঁরা ছোটবেলায় আমাকে লালন-পালন করেছেন।' },
+    when:    { en: 'Praying for parents', bn: 'বাবা-মায়ের জন্য দোয়া' }
+  },
+  { // Rabbana atina fid-dunya hasanah
+    meaning: { en: 'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.', bn: 'হে আমাদের রব, আমাদের দুনিয়াতে কল্যাণ দিন, আখিরাতেও কল্যাণ দিন, আর জাহান্নামের আজাব থেকে আমাদের রক্ষা করুন।' },
+    when:    { en: 'Any time — a complete dua', bn: 'যেকোনো সময় — একটি পূর্ণাঙ্গ দোয়া' }
+  }
+];
+
+// Localized name/meaning for KIDS_KALIMAS (js/qaida-data.js), same order as
+// that array. Rendered as x[lang] || x.en, mirroring KIDS_DUA_L10N.
+const KIDS_KALIMA_L10N = [
+  {
+    name:    { en: '1st Kalima — Tayyibah (Purity)', bn: '১ম কালিমা — তাইয়্যিবাহ' },
+    meaning: { en: 'There is no god but Allah; Muhammad is the Messenger of Allah.',
+               bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।' }
+  },
+  {
+    name:    { en: '2nd Kalima — Shahadat (Testimony)', bn: '২য় কালিমা — শাহাদাত' },
+    meaning: { en: 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and His Messenger.',
+               bn: 'আমি সাক্ষ্য দিচ্ছি, আল্লাহ ছাড়া কোনো উপাস্য নেই, আর আমি সাক্ষ্য দিচ্ছি, মুহাম্মাদ ﷺ তাঁর বান্দা ও রাসূল।' }
+  },
+  {
+    name:    { en: '3rd Kalima — Tamjeed (Glorification)', bn: '৩য় কালিমা — তামজীদ' },
+    meaning: { en: 'Glory be to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest. There is no power and no strength except with Allah, the Most High, the Most Great.',
+               bn: 'আল্লাহ পবিত্র-মহান, সমস্ত প্রশংসা আল্লাহর, আল্লাহ ছাড়া কোনো উপাস্য নেই, আল্লাহ সবচেয়ে বড়। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।' }
+  },
+  {
+    name:    { en: '4th Kalima — Tawheed (Oneness)', bn: '৪র্থ কালিমা — তাওহীদ' },
+    meaning: { en: 'There is no god but Allah, alone, without partner. His is the kingdom and His is all praise, and He has power over everything.',
+               bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, তিনি একক, তাঁর কোনো শরিক নেই। রাজত্ব তাঁরই, সমস্ত প্রশংসা তাঁরই, আর তিনি সব কিছুর উপর ক্ষমতাবান।' }
+  },
+  {
+    name:    { en: '5th Kalima — Astaghfar (Seeking Forgiveness)', bn: '৫ম কালিমা — ইস্তিগফার' },
+    meaning: { en: 'I seek forgiveness from Allah, my Lord, for every sin I committed knowingly or by mistake, secretly or openly, and I turn to Him from the sin I know and the sin I do not know. Surely You are the Knower of the hidden, the Concealer of faults and the Forgiver of sins, and there is no power and no strength except with Allah, the Most High, the Most Great.',
+               bn: 'আমি আমার রব আল্লাহর কাছে ক্ষমা চাই — ইচ্ছায় বা ভুলে, গোপনে বা প্রকাশ্যে করা প্রতিটি গুনাহ থেকে; যে গুনাহ আমি জানি আর যে গুনাহ জানি না, সব থেকে তাঁর কাছে তাওবা করছি। নিশ্চয়ই আপনি অদৃশ্যের জ্ঞানী, দোষ গোপনকারী ও গুনাহ ক্ষমাকারী। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।' }
+  },
+  {
+    name:    { en: '6th Kalima — Radd-e-Kufr (Rejecting Disbelief)', bn: '৬ষ্ঠ কালিমা — রাদ্দে কুফর' },
+    meaning: { en: 'O Allah, I seek refuge in You from knowingly associating anything with You, and I ask Your forgiveness for what I do not know. I repent from it and free myself from disbelief, from associating partners with Allah, from lying, backbiting, innovation, tale-carrying, shameful deeds, false accusation and all sins. I submit, and I say: there is no god but Allah; Muhammad is the Messenger of Allah.',
+               bn: 'হে আল্লাহ! জেনে-শুনে আপনার সাথে কোনো কিছু শরিক করা থেকে আপনার কাছে আশ্রয় চাই, আর যা জানি না তার জন্য ক্ষমা চাই। আমি তাওবা করলাম এবং কুফর, শিরক, মিথ্যা, গীবত, বিদআত, চোগলখুরি, অশ্লীলতা, অপবাদ ও সকল গুনাহ থেকে মুক্ত হলাম। আমি ইসলাম গ্রহণ করলাম এবং বলছি — আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।' }
   }
 ];
 
@@ -68,7 +132,7 @@ class KidsQaida {
     this.language = (typeof appSettings !== 'undefined' && appSettings)
       ? appSettings.get('language') : 'en';
     this.rendered = false;
-    this.section = 'letters';        // letters | sounds | words | numbers | surahs | duas | quiz
+    this.section = 'letters';        // letters | sounds | words | themes | numbers | surahs | duas | kalimas | quiz | stars
     this.expandedLetter = null;      // char of the expanded letter card
     this.soundLetter = 'ب';          // letter selected in the Sounds picker
     this.quiz = null;                // active quiz state
@@ -231,10 +295,13 @@ class KidsQaida {
       { id: 'letters', emoji: '🔤', label: t('kids_letters', lang) },
       { id: 'sounds',  emoji: '🎵', label: t('kids_sounds', lang) },
       { id: 'words',   emoji: '📚', label: t('kids_words', lang) },
+      { id: 'themes',  emoji: '🐾', label: t('kids_themes', lang) },
       { id: 'numbers', emoji: '🔢', label: t('kids_numbers', lang) },
       { id: 'surahs',  emoji: '📖', label: t('kids_surahs', lang) },
       { id: 'duas',    emoji: '🤲', label: t('kids_duas', lang) },
-      { id: 'quiz',    emoji: '🎮', label: t('kids_quiz', lang) }
+      { id: 'kalimas', emoji: '🕋', label: t('kids_kalimas', lang) },
+      { id: 'quiz',    emoji: '🎮', label: t('kids_quiz', lang) },
+      { id: 'stars',   emoji: '⭐', label: t('kids_stars', lang) }
     ];
 
     return `
@@ -275,10 +342,13 @@ class KidsQaida {
     switch (this.section) {
       case 'sounds':  return this.renderSounds(lang);
       case 'words':   return this.renderWords(lang);
+      case 'themes':  return this.renderThemes(lang);
       case 'numbers': return this.renderNumbers(lang);
       case 'surahs':  return this.renderSurahs(lang);
       case 'duas':    return this.renderDuas(lang);
+      case 'kalimas': return this.renderKalimas(lang);
       case 'quiz':    return this.renderQuiz(lang);
+      case 'stars':   return this.renderStars(lang);
       default:        return this.renderLetters(lang);
     }
   }
@@ -699,6 +769,57 @@ class KidsQaida {
     return m[this.language] || m.en || '';
   }
 
+  /* ------------------------------------------- Themed words ("Word Fun") */
+
+  /** Flat list of all theme words with their theme attached (for the quiz). */
+  themeWordPool() {
+    if (!this._themePool) {
+      this._themePool = [];
+      const src = (typeof KIDS_THEME_WORDS !== 'undefined') ? KIDS_THEME_WORDS : [];
+      for (const theme of src) {
+        for (const w of theme.words) this._themePool.push({ ...w, themeId: theme.id, theme });
+      }
+    }
+    return this._themePool;
+  }
+
+  themeMeaning(w) {
+    const m = w.meaning || {};
+    return m[this.language] || m.en || '';
+  }
+
+  renderThemes(lang) {
+    const src = (typeof KIDS_THEME_WORDS !== 'undefined') ? KIDS_THEME_WORDS : [];
+    return `
+      <p class="text-center text-gray-500 dark:text-gray-400 mb-4">🐾 ${t('kids_theme_hint', lang)}</p>
+      ${src.map(theme => `
+        <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-2 mt-5">
+          ${theme.emoji} ${theme.label[lang] || theme.label.en}
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          ${theme.words.map((w, i) => `
+            <div class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
+                        shadow hover:shadow-lg transition-all p-3 sm:p-4 flex flex-col items-center gap-1 text-center">
+              <button data-kids-theme-word="${this.esc(w.arabic)}"
+                      class="flex flex-col items-center gap-0.5 hover:scale-105 transition-transform max-w-full"
+                      title="${t('play', lang)}">
+                <span class="text-4xl sm:text-5xl leading-none">${w.emoji}</span>
+                <span class="ayah-arabic !text-4xl sm:!text-5xl !leading-tight" dir="rtl">${w.arabic}</span>
+                <span class="text-sm font-bold text-gray-700 dark:text-gray-200">${w.translit}</span>
+                <span class="text-xs text-gray-600 dark:text-gray-300" dir="auto">${this.themeMeaning(w)}</span>
+              </button>
+              <button data-kids-theme-verse="${w.ref}" data-kids-theme-hl="${this.esc(w.hl || w.arabic)}"
+                      class="mt-1 px-2.5 py-1 text-xs rounded-full bg-white/70 dark:bg-gray-900/40
+                             text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-900/70">
+                📖 ${w.ref}
+              </button>
+            </div>
+          `).join('')}
+        </div>
+      `).join('')}
+    `;
+  }
+
   /* ------------------------------------------------------------ Numbers */
 
   /** Every number the Quran actually uses, with its real Quranic phrase + verse. */
@@ -1010,7 +1131,7 @@ class KidsQaida {
           <button data-kids-dua-idx="${i}"
                   class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
                          shadow hover:shadow-lg hover:scale-105 transition-all p-5 sm:p-6 text-center flex flex-col gap-3">
-            <span class="ayah-arabic !text-3xl sm:!text-4xl !leading-relaxed" dir="rtl">${d.arabic}</span>
+            <span class="ayah-arabic !text-3xl sm:!text-4xl !leading-[2.4]" dir="rtl">${d.arabic}</span>
             <span class="text-base font-bold text-gray-600 dark:text-gray-300">${d.translit}</span>
             <span class="text-sm text-gray-600 dark:text-gray-300" dir="auto">
               <span class="font-semibold">${t('meaning_label', lang)}</span> ${m[lang] || m.en}
@@ -1018,6 +1139,34 @@ class KidsQaida {
             <span class="text-xs text-gray-500 dark:text-gray-400" dir="auto">
               <span class="font-semibold">${t('when_label', lang)}</span> ${w[lang] || w.en}
             </span>
+            ${d.src ? `<span class="text-[10px] text-gray-500/80 dark:text-gray-400/80">📜 ${d.src}</span>` : ''}
+          </button>
+        `;}).join('')}
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------- Kalimas */
+
+  renderKalimas(lang) {
+    return `
+      <p class="text-center text-gray-500 dark:text-gray-400 mb-4">🕋 ${t('tap_kalima_hint', lang)}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${KIDS_KALIMAS.map((k, i) => {
+          const l10n = KIDS_KALIMA_L10N[i] || {};
+          const name = l10n.name || { en: k.name_en };
+          const m = l10n.meaning || { en: k.meaning_en };
+          return `
+          <button data-kids-kalima-idx="${i}"
+                  class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
+                         shadow hover:shadow-lg hover:scale-105 transition-all p-5 sm:p-6 text-center flex flex-col gap-3">
+            <span class="text-sm font-extrabold text-indigo-700 dark:text-indigo-300" dir="auto">${name[lang] || name.en}</span>
+            <span class="ayah-arabic !text-2xl sm:!text-3xl !leading-[2.4]" dir="rtl">${k.arabic}</span>
+            <span class="text-sm font-bold text-gray-600 dark:text-gray-300" dir="ltr">${k.translit}</span>
+            <span class="text-sm text-gray-600 dark:text-gray-300" dir="auto">
+              <span class="font-semibold">${t('meaning_label', lang)}</span> ${m[lang] || m.en}
+            </span>
+            ${k.src ? `<span class="text-[10px] text-gray-500/80 dark:text-gray-400/80">📜 ${k.src}</span>` : ''}
           </button>
         `;}).join('')}
       </div>
@@ -1032,14 +1181,24 @@ class KidsQaida {
     return this.renderQuizRound(lang);
   }
 
-  renderQuizMenu(lang) {
-    const games = [
+  /** All quiz games — shared by the quiz menu and the "My Stars" screen. */
+  gamesMeta(lang) {
+    return [
       { mode: 'listen',     emoji: '👂', grad: 'from-sky-100 to-blue-200 dark:from-sky-900/40 dark:to-blue-900/40',       title: t('quiz_listen_find', lang),  desc: t('quiz_listen_find_desc', lang) },
       { mode: 'name',       emoji: '👀', grad: 'from-rose-100 to-pink-200 dark:from-rose-900/40 dark:to-pink-900/40',      title: t('quiz_name_letter', lang),  desc: t('quiz_name_letter_desc', lang) },
       { mode: 'wordmatch',  emoji: '🔤', grad: 'from-lime-100 to-green-200 dark:from-lime-900/40 dark:to-green-900/40',    title: t('quiz_word_match', lang),   desc: t('quiz_word_match_desc', lang) },
       { mode: 'listenword', emoji: '🎧', grad: 'from-violet-100 to-purple-200 dark:from-violet-900/40 dark:to-purple-900/40', title: t('quiz_listen_word', lang), desc: t('quiz_listen_word_desc', lang) },
-      { mode: 'letterhunt', emoji: '🔍', grad: 'from-amber-100 to-orange-200 dark:from-amber-900/40 dark:to-orange-900/40', title: t('quiz_letter_hunt', lang),  desc: t('quiz_letter_hunt_desc', lang) }
+      { mode: 'letterhunt', emoji: '🔍', grad: 'from-amber-100 to-orange-200 dark:from-amber-900/40 dark:to-orange-900/40', title: t('quiz_letter_hunt', lang),  desc: t('quiz_letter_hunt_desc', lang) },
+      { mode: 'harakat',    emoji: '🎵', grad: 'from-teal-100 to-cyan-200 dark:from-teal-900/40 dark:to-cyan-900/40',        title: t('quiz_sound_match', lang),  desc: t('quiz_sound_match_desc', lang) },
+      { mode: 'numbermatch', emoji: '🔢', grad: 'from-emerald-100 to-green-200 dark:from-emerald-900/40 dark:to-green-900/40', title: t('quiz_number_match', lang), desc: t('quiz_number_match_desc', lang) },
+      { mode: 'surahmatch', emoji: '📖', grad: 'from-fuchsia-100 to-pink-200 dark:from-fuchsia-900/40 dark:to-pink-900/40',  title: t('quiz_surah_match', lang),  desc: t('quiz_surah_match_desc', lang) },
+      { mode: 'emojiword',  emoji: '🖼️', grad: 'from-orange-100 to-amber-200 dark:from-orange-900/40 dark:to-amber-900/40',  title: t('quiz_picture_match', lang), desc: t('quiz_picture_match_desc', lang) },
+      { mode: 'oddone',     emoji: '🧐', grad: 'from-cyan-100 to-sky-200 dark:from-cyan-900/40 dark:to-sky-900/40',          title: t('quiz_odd_one', lang),      desc: t('quiz_odd_one_desc', lang) }
     ];
+  }
+
+  renderQuizMenu(lang) {
+    const games = this.gamesMeta(lang);
     return `
       <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         ${games.map(g => {
@@ -1098,6 +1257,35 @@ class KidsQaida {
           <p class="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">${t('quiz_which_has_letter', lang)}</p>
           <div class="ayah-arabic !text-7xl !leading-tight" dir="rtl">${cur.promptChar}</div>`;
         break;
+      case 'harakat':
+        prompt = `
+          <p class="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">${t('quiz_which_sound', lang)}</p>
+          <button data-kids-quiz-replay
+                  class="px-6 py-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 text-white
+                         text-lg font-bold shadow hover:scale-105 transition-all">🔊 ${t('hear_again', lang)}</button>`;
+        break;
+      case 'numbermatch':
+        prompt = `
+          <p class="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">${t('quiz_which_number', lang)}</p>
+          <div class="ayah-arabic !text-7xl !leading-tight" dir="rtl">${cur.promptChar}</div>`;
+        break;
+      case 'surahmatch':
+        prompt = `
+          <p class="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">${t('kids_which_surah', lang)}</p>
+          <div class="ayah-arabic !text-5xl sm:!text-6xl !leading-tight" dir="rtl">${cur.promptChar}</div>`;
+        break;
+      case 'emojiword':
+        prompt = `
+          <p class="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">${t('quiz_which_picture_word', lang)}</p>
+          <div class="text-7xl leading-none">${cur.promptEmoji}</div>
+          <div class="text-base font-bold text-gray-600 dark:text-gray-300 mt-2" dir="auto">${cur.promptText}</div>`;
+        break;
+      case 'oddone':
+        prompt = `
+          <p class="text-lg font-bold text-gray-700 dark:text-gray-200" dir="auto">
+            ${t('quiz_odd_hint', lang).replace('{theme}', `${cur.promptEmoji} ${cur.promptText}`)}
+          </p>`;
+        break;
     }
 
     // How each option is displayed
@@ -1110,6 +1298,18 @@ class KidsQaida {
                   <span class="text-base font-bold text-gray-600 dark:text-gray-300">${opt.translit}</span>`;
         case 'translit':
           return `<span class="text-2xl sm:text-3xl font-extrabold text-gray-700 dark:text-gray-100">${opt.translit}</span>`;
+        case 'harakah':
+          return `<span class="ayah-arabic !text-5xl !leading-tight" dir="rtl">${opt.display}</span>
+                  <span class="text-sm font-bold text-gray-600 dark:text-gray-300">${opt.translit}</span>`;
+        case 'numword':
+          return `<span class="ayah-arabic !text-4xl !leading-tight" dir="rtl">${opt.word}</span>
+                  <span class="text-sm font-bold text-gray-600 dark:text-gray-300">${opt.translit}</span>`;
+        case 'surahname':
+          return `<span class="text-lg sm:text-xl font-extrabold text-gray-700 dark:text-gray-100" dir="auto">${opt.label}</span>
+                  <span class="text-xs text-gray-500 dark:text-gray-400">#${opt.n}</span>`;
+        case 'themeword':
+          return `<span class="ayah-arabic !text-4xl sm:!text-5xl !leading-tight" dir="rtl">${opt.arabic}</span>
+                  <span class="text-sm font-bold text-gray-600 dark:text-gray-300">${opt.translit}</span>`;
         case 'word':
         default:
           return `<span class="ayah-arabic !text-4xl sm:!text-5xl !leading-tight" dir="rtl">${opt.arabic}</span>`;
@@ -1176,6 +1376,56 @@ class KidsQaida {
             🎮 ${t('back_to_games', lang)}
           </button>
         </div>
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------- Stars (progress) */
+
+  /** Same thresholds as renderQuizEnd: 9+ → 3 stars, 6+ → 2, played → 1. */
+  starsForScore(score) {
+    if (score === null || score === undefined) return 0;
+    return score >= 9 ? 3 : score >= 6 ? 2 : 1;
+  }
+
+  renderStars(lang) {
+    const games = this.gamesMeta(lang);
+    // Note: 'listen' and 'name' share the legacy best-score key, so a best
+    // earned in either shows on both rows (same behaviour as the quiz menu).
+    let total = 0;
+    const rows = games.map((g, i) => {
+      const best = this.getBestScore(g.mode);
+      const stars = this.starsForScore(best);
+      total += stars;
+      return `
+        <button data-kids-quiz-go="${g.mode}"
+                class="w-full rounded-2xl bg-gradient-to-br ${g.grad} shadow hover:shadow-lg hover:scale-[1.02]
+                       transition-all p-4 flex items-center gap-3 text-left">
+          <span class="text-3xl shrink-0">${g.emoji}</span>
+          <span class="flex-1 min-w-0">
+            <span class="block font-extrabold text-gray-800 dark:text-gray-100 truncate">${g.title}</span>
+            <span class="block text-xs text-gray-600 dark:text-gray-300">
+              ${best !== null
+                ? `🏆 ${t('best_score', lang)}: ${best} / ${KIDS_QUIZ_ROUNDS}`
+                : t('kids_not_played_yet', lang)}
+            </span>
+          </span>
+          <span class="text-xl tracking-widest shrink-0">${'⭐'.repeat(stars)}${'☆'.repeat(3 - stars)}</span>
+        </button>`;
+    }).join('');
+
+    const maxStars = games.length * 3;
+    return `
+      <div class="max-w-2xl mx-auto space-y-4">
+        <div class="rounded-2xl bg-gradient-to-br from-amber-100 to-orange-200
+                    dark:from-amber-900/40 dark:to-orange-900/40 shadow p-6 text-center space-y-1">
+          <div class="text-5xl">${total > 0 ? '🌟' : '⭐'}</div>
+          <div class="text-2xl font-extrabold text-gray-800 dark:text-gray-100">
+            ${t('kids_total_stars', lang)}: ${total} / ${maxStars}
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-300">${t('kids_stars_hint', lang)}</p>
+        </div>
+        <div class="space-y-3">${rows}</div>
       </div>
     `;
   }
@@ -1268,6 +1518,100 @@ class KidsQaida {
         autoSpeak: mode === 'listenword' ? correct.arabic : null,
         rewardAudio: correct.arabic
       };
+    }
+
+    // harakat "Sound Match": hear letter+haraka, pick the written form.
+    // Same random letter in all 4 options, so only the haraka differs.
+    if (mode === 'harakat') {
+      const letter = QAIDA_LETTERS[Math.floor(Math.random() * QAIDA_LETTERS.length)];
+      const pool = this.shuffleInPlace(QAIDA_HARAKAT.slice()).slice(0, 4);
+      const options = pool.map(h => ({ display: h.makeExample(letter.char), translit: h.translit }));
+      const correctIndex = Math.floor(Math.random() * options.length);
+      const correct = options[correctIndex];
+      return {
+        mode, options, correctIndex,
+        optionType: 'harakah',
+        autoSpeak: correct.display,
+        rewardAudio: correct.display
+      };
+    }
+
+    // numbermatch: see the Eastern-Arabic digit, pick its Arabic word
+    if (mode === 'numbermatch') {
+      const pool = this.shuffleInPlace(KIDS_NUMBERS.slice());
+      const options = pool.slice(0, 4);
+      const correctIndex = Math.floor(Math.random() * options.length);
+      const correct = options[correctIndex];
+      return {
+        mode, options, correctIndex,
+        optionType: 'numword',
+        promptChar: correct.digit,
+        autoSpeak: null,
+        rewardAudio: correct.word
+      };
+    }
+
+    // surahmatch: see a surah's Arabic name, pick its translated name
+    if (mode === 'surahmatch') {
+      const list = this.kidsSurahList().filter(s => getSurahByNumber(s.n));
+      const pool = this.shuffleInPlace(list.slice()).slice(0, 4);
+      const options = pool.map(s => ({ n: s.n, label: getSurahName(s.n, this.language) }));
+      const correctIndex = Math.floor(Math.random() * options.length);
+      const correct = options[correctIndex];
+      const info = getSurahByNumber(correct.n);
+      return {
+        mode, options, correctIndex,
+        optionType: 'surahname',
+        promptChar: info ? info.arabicName : '',
+        autoSpeak: null,
+        rewardAudio: info ? info.arabicName : null
+      };
+    }
+
+    // emojiword "Picture Match": see the emoji + meaning, pick the Arabic word
+    if (mode === 'emojiword') {
+      const pool = this.shuffleInPlace(this.themeWordPool().slice());
+      const options = [];
+      const seen = new Set();
+      for (const w of pool) {
+        if (seen.has(w.arabic) || seen.has(w.emoji)) continue;
+        seen.add(w.arabic); seen.add(w.emoji);
+        options.push(w);
+        if (options.length === 4) break;
+      }
+      const correctIndex = Math.floor(Math.random() * options.length);
+      const correct = options[correctIndex];
+      return {
+        mode, options, correctIndex,
+        optionType: 'themeword',
+        promptEmoji: correct.emoji,
+        promptText: this.themeMeaning(correct),
+        autoSpeak: null,
+        rewardAudio: correct.arabic
+      };
+    }
+
+    // oddone "Odd One Out": 3 words from one theme + 1 from another
+    if (mode === 'oddone') {
+      const themes = (typeof KIDS_THEME_WORDS !== 'undefined') ? KIDS_THEME_WORDS : [];
+      const pick = this.shuffleInPlace(themes.filter(th => th.words.length >= 3).slice());
+      if (pick.length >= 2) {
+        const main = pick[0], other = pick[1];
+        const three = this.shuffleInPlace(main.words.slice()).slice(0, 3);
+        const odd = other.words[Math.floor(Math.random() * other.words.length)];
+        const options = this.shuffleInPlace([...three, odd]);
+        return {
+          mode, options,
+          correctIndex: options.indexOf(odd),
+          optionType: 'themeword',
+          promptEmoji: main.emoji,
+          promptText: main.label[this.language] || main.label.en,
+          autoSpeak: null,
+          rewardAudio: odd.arabic
+        };
+      }
+      // Fallback (should not happen): behave like emojiword
+      return this.buildRound('emojiword');
     }
 
     // letterhunt: pick one word containing a target letter, 3 without it
@@ -1463,6 +1807,16 @@ class KidsQaida {
       return;
     }
 
+    // ---- Themed words ("Word Fun") ----
+    const themeWord = e.target.closest('[data-kids-theme-word]');
+    if (themeWord) { this.speakArabic(themeWord.getAttribute('data-kids-theme-word'), 0.7); return; }
+    const themeVerse = e.target.closest('[data-kids-theme-verse]');
+    if (themeVerse) {
+      // Show the word's real Quranic verse inline (word highlighted)
+      this.openAyahModal(themeVerse.getAttribute('data-kids-theme-verse'), themeVerse.getAttribute('data-kids-theme-hl'));
+      return;
+    }
+
     const numWord = e.target.closest('[data-kids-num-word]');
     if (numWord) { this.speakArabic(numWord.getAttribute('data-kids-num-word'), 0.8); return; }
     const numVerse = e.target.closest('[data-kids-num-verse]');
@@ -1476,6 +1830,13 @@ class KidsQaida {
     if (duaBtn) {
       const dua = KIDS_DUAS[parseInt(duaBtn.getAttribute('data-kids-dua-idx'), 10)];
       if (dua) this.speakArabic(dua.arabic, 0.8);
+      return;
+    }
+
+    const kalimaBtn = e.target.closest('[data-kids-kalima-idx]');
+    if (kalimaBtn) {
+      const kalima = KIDS_KALIMAS[parseInt(kalimaBtn.getAttribute('data-kids-kalima-idx'), 10)];
+      if (kalima) this.speakArabic(kalima.arabic, 0.8);
       return;
     }
 
@@ -1512,6 +1873,16 @@ class KidsQaida {
     const wordChip = e.target.closest('.kq-wordchip');
     if (wordChip) {
       this.playWordChip(wordChip);
+      return;
+    }
+
+    // "My Stars" row → jump into the quiz section and start that game
+    const goBtn = e.target.closest('[data-kids-quiz-go]');
+    if (goBtn) {
+      const mode = goBtn.getAttribute('data-kids-quiz-go');
+      this.section = 'quiz';
+      this.render();               // marks the Quiz pill active
+      this.startQuiz(mode);        // fills #kids-body with the first round
       return;
     }
 

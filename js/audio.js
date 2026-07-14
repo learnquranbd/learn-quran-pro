@@ -55,10 +55,28 @@ class AudioPlayer {
     this.usingFallback = false;
 
     // Memorization controls
-    this.repeatEach = 1;      // replay each ayah N times before advancing
+    this.repeatEach = 1;      // replay each ayah N times before advancing (0 = ∞)
     this.loopRange = false;   // loop back to the first ayah at the end of the range
     this.speed = 1;           // playback rate
     this._repeatLeft = 0;
+
+    // Hifz session tools (A/B ayah range, range passes, sleep timer)
+    this.rangeStart = 0;      // index of the first ayah of the A/B loop range
+    this.rangeEnd = -1;       // index of the last ayah (-1 → end of the list)
+    this.rangePasses = 1;     // play the whole range M times before stopping (0 = ∞)
+    this._passesLeft = 1;
+    this.sleepMinutes = 0;    // auto-pause after N minutes (0 = off, not persisted)
+    this._sleepTimer = null;
+    this._sleepEndsAt = null; // epoch ms when the sleep timer fires, for the badge
+    this.hifzKey = 'audioHifzSettings'; // localStorage: {repeatEach, loopRange, speed, rangePasses}
+    const hifz = this.readHifzSettings();
+    if (hifz) {
+      if (Number.isFinite(hifz.repeatEach) && hifz.repeatEach >= 0) this.repeatEach = hifz.repeatEach;
+      if (typeof hifz.loopRange === 'boolean') this.loopRange = hifz.loopRange;
+      if (Number.isFinite(hifz.speed) && hifz.speed > 0) this.speed = hifz.speed;
+      if (Number.isFinite(hifz.rangePasses) && hifz.rangePasses >= 0) this.rangePasses = hifz.rangePasses;
+      this._passesLeft = Math.max(1, this.rangePasses);
+    }
 
     // Seek bar / position persistence state
     this._seeking = false;        // user is dragging the scrubber → don't fight timeupdate
@@ -68,11 +86,12 @@ class AudioPlayer {
 
     this.audio = new Audio();
     this.audio.addEventListener('ended', () => this.onEnded());
-    this.audio.addEventListener('play', () => this.updateUI());
+    this.audio.addEventListener('play', () => { this.updateUI(); this.broadcastState(); });
     this.audio.addEventListener('pause', () => {
       this.savePosition();
       this.clearHighlight();
       this.updateUI();
+      this.broadcastState();
     });
     this.audio.addEventListener('timeupdate', () => this.onTimeUpdate());
     this.audio.addEventListener('loadedmetadata', () => this.onLoadedMetadata());
@@ -98,6 +117,13 @@ class AudioPlayer {
       this.currentIndex = -1;
       this.stop();
       this.renderList();
+    });
+
+    // Keep injected hifz-control labels readable after a language switch:
+    // applyTranslations() writes the raw key for entries missing from
+    // translations.js, so restore the English fallback in that case.
+    window.addEventListener('settingChanged', (e) => {
+      if (e.detail && e.detail.key === 'language') this.refreshHifzLabels();
     });
 
     // Reading-tab per-ayah play buttons — click again to pause/resume
@@ -126,6 +152,35 @@ class AudioPlayer {
 
   edition() {
     return this.reciterEditions[this.reciterKey()] || 'ar.alafasy';
+  }
+
+  // ---- Public API for reading-mode tabs (Word-by-Word, Tajweed) -----------
+
+  /** Is an ayah currently playing (not merely loaded/paused)? */
+  isPlaying() { return !!(this.audio && this.audio.src && !this.audio.paused); }
+
+  /** Verse key ("s:a") of the ayah currently loaded in the player, or null. */
+  currentKey() {
+    const a = this.ayahs && this.ayahs[this.currentIndex];
+    return a ? a.key : null;
+  }
+
+  /**
+   * Toggle sequential playback of ALL loaded ayahs (used by the "play all"
+   * button on reading-mode tabs). Resumes if paused mid-track, starts from the
+   * top otherwise. Auto-advance through the surah is handled by onEnded().
+   */
+  togglePlayAll() {
+    if (this.isPlaying()) { this.audio.pause(); return; }
+    if (this.currentIndex >= 0 && this.audio.src) { this.audio.play().catch(() => {}); return; }
+    this.playIndex(this.rangeStartIndex());
+  }
+
+  /** Notify reading-mode tabs so their play/pause buttons can reflect state. */
+  broadcastState() {
+    window.dispatchEvent(new CustomEvent('audioStateChanged', {
+      detail: { playing: this.isPlaying(), key: this.currentKey() }
+    }));
   }
 
   /** islamic.network fallback URL (no word segments available) */
@@ -191,7 +246,7 @@ class AudioPlayer {
       } else if (this.currentIndex >= 0 && this.audio.src) {
         this.audio.play().catch(() => {});
       } else if (this.ayahs.length > 0) {
-        this.playIndex(Math.max(this.currentIndex, 0));
+        this.playIndex(this.currentIndex >= 0 ? this.currentIndex : this.rangeStartIndex());
       }
     });
     document.getElementById('audio-prev')?.addEventListener('click', () => {
@@ -201,23 +256,230 @@ class AudioPlayer {
     document.getElementById('reciter-select')?.addEventListener('change', () => {
       if (this.currentIndex >= 0 && !this.audio.paused) this.playIndex(this.currentIndex);
     });
-    document.getElementById('audio-repeat')?.addEventListener('change', (e) => {
-      this.repeatEach = parseInt(e.target.value, 10) || 1;
-      this._repeatLeft = Math.max(this._repeatLeft, 1);   // apply from the next ayah
+
+    // Repeat-each select: add an ∞ preset (value 0) and restore the saved value.
+    const repSel = document.getElementById('audio-repeat');
+    if (repSel) {
+      if (!repSel.querySelector('option[value="0"]')) {
+        const inf = document.createElement('option');
+        inf.value = '0';
+        inf.textContent = '∞';
+        repSel.appendChild(inf);
+      }
+      repSel.value = String(this.repeatEach);
+      if (repSel.value !== String(this.repeatEach)) { this.repeatEach = 1; repSel.value = '1'; }
+      repSel.addEventListener('change', (e) => {
+        const v = parseInt(e.target.value, 10);
+        this.repeatEach = (Number.isFinite(v) && v >= 0) ? v : 1;   // 0 = ∞, so no `|| 1`
+        this._repeatLeft = Math.max(this._repeatLeft, 1);   // apply from the next ayah
+        this.saveHifzSettings();
+      });
+    }
+
+    const loopBox = document.getElementById('audio-loop');
+    if (loopBox) {
+      loopBox.checked = this.loopRange;
+      loopBox.addEventListener('change', (e) => {
+        this.loopRange = e.target.checked;
+        this.saveHifzSettings();
+      });
+    }
+
+    const spdSel = document.getElementById('audio-speed');
+    if (spdSel) {
+      spdSel.value = String(this.speed);
+      if (spdSel.value !== String(this.speed)) { this.speed = 1; spdSel.value = '1'; }
+      spdSel.addEventListener('change', (e) => {
+        this.speed = parseFloat(e.target.value) || 1;
+        this.audio.playbackRate = this.speed;               // apply live
+        this.saveHifzSettings();
+      });
+    }
+
+    this.renderHifzControls();
+  }
+
+  // ---- Hifz enrichments: A/B range, range passes, sleep timer, persistence --
+
+  /** i18n with an English fallback while the key is missing from translations.js */
+  tr(key, fallback) {
+    const lang = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
+    const s = (typeof t === 'function') ? t(key, lang) : null;
+    return (s && s !== key) ? s : fallback;
+  }
+
+  readHifzSettings() {
+    try { return JSON.parse(localStorage.getItem(this.hifzKey) || 'null'); } catch (e) { return null; }
+  }
+
+  saveHifzSettings() {
+    const data = {
+      repeatEach: this.repeatEach,
+      loopRange: this.loopRange,
+      speed: this.speed,
+      rangePasses: this.rangePasses
+    };
+    try { localStorage.setItem(this.hifzKey, JSON.stringify(data)); } catch (e) { /* storage full/blocked */ }
+  }
+
+  /** First index of the A/B range, clamped to the loaded list. */
+  rangeStartIndex() {
+    if (!this.ayahs.length) return 0;
+    return Math.min(Math.max(this.rangeStart, 0), this.ayahs.length - 1);
+  }
+
+  /** Last index of the A/B range (-1 stored → end of the list). */
+  rangeEndIndex() {
+    const last = this.ayahs.length - 1;
+    if (this.rangeEnd < 0) return last;
+    return Math.min(Math.max(this.rangeEnd, this.rangeStartIndex()), last);
+  }
+
+  /** Second controls row (range A/B, range passes, sleep timer) inside #audio-player. */
+  renderHifzControls() {
+    const player = document.getElementById('audio-player');
+    if (!player || document.getElementById('audio-hifz')) return;
+    const selCls = 'px-2 py-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700';
+    const row = document.createElement('div');
+    row.id = 'audio-hifz';
+    row.className = 'flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 text-sm';
+    const min = this.tr('audio_min_short', 'min');
+    row.innerHTML = `
+      <label class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+        🎯 <span data-lang-key="audio_range_label">${this.tr('audio_range_label', 'Range')}</span>
+        <select id="audio-range-start" class="${selCls}"></select>
+        <span data-lang-key="audio_range_to">${this.tr('audio_range_to', 'to')}</span>
+        <select id="audio-range-end" class="${selCls}"></select>
+      </label>
+      <label class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+        🔂 <span data-lang-key="audio_range_repeat">${this.tr('audio_range_repeat', 'Repeat range')}</span>
+        <select id="audio-range-passes" class="${selCls}">
+          <option value="1">1×</option><option value="2">2×</option><option value="3">3×</option>
+          <option value="5">5×</option><option value="10">10×</option><option value="0">∞</option>
+        </select>
+      </label>
+      <label class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+        ⏰ <span data-lang-key="audio_sleep_timer">${this.tr('audio_sleep_timer', 'Sleep timer')}</span>
+        <select id="audio-sleep" class="${selCls}">
+          <option value="0" data-lang-key="audio_sleep_off">${this.tr('audio_sleep_off', 'Off')}</option>
+          <option value="5">5 ${min}</option><option value="10">10 ${min}</option>
+          <option value="15">15 ${min}</option><option value="30">30 ${min}</option>
+          <option value="60">60 ${min}</option>
+        </select>
+        <span id="audio-sleep-left" class="hidden text-xs font-medium text-primary dark:text-blue-400 tabular-nums"></span>
+      </label>`;
+    player.appendChild(row);
+
+    const startSel = document.getElementById('audio-range-start');
+    const endSel = document.getElementById('audio-range-end');
+    startSel?.addEventListener('change', () => {
+      this.rangeStart = parseInt(startSel.value, 10) || 0;
+      if (this.rangeEnd >= 0 && this.rangeEnd < this.rangeStart) {   // keep start ≤ end
+        this.rangeEnd = this.rangeStart;
+        if (endSel) endSel.value = String(this.rangeEnd);
+      }
+      this._passesLeft = Math.max(1, this.rangePasses);
     });
-    document.getElementById('audio-loop')?.addEventListener('change', (e) => { this.loopRange = e.target.checked; });
-    document.getElementById('audio-speed')?.addEventListener('change', (e) => {
-      this.speed = parseFloat(e.target.value) || 1;
-      this.audio.playbackRate = this.speed;               // apply live
+    endSel?.addEventListener('change', () => {
+      this.rangeEnd = parseInt(endSel.value, 10);
+      if (!Number.isFinite(this.rangeEnd)) this.rangeEnd = -1;
+      if (this.rangeEnd >= 0 && this.rangeEnd < this.rangeStart) {
+        this.rangeStart = this.rangeEnd;
+        if (startSel) startSel.value = String(this.rangeStart);
+      }
+      this._passesLeft = Math.max(1, this.rangePasses);
+    });
+
+    const passSel = document.getElementById('audio-range-passes');
+    if (passSel) {
+      passSel.value = String(this.rangePasses);
+      if (passSel.value !== String(this.rangePasses)) { this.rangePasses = 1; passSel.value = '1'; }
+      passSel.addEventListener('change', (e) => {
+        const v = parseInt(e.target.value, 10);
+        this.rangePasses = (Number.isFinite(v) && v >= 0) ? v : 1;  // 0 = ∞
+        this._passesLeft = Math.max(1, this.rangePasses);
+        this.saveHifzSettings();
+      });
+    }
+
+    document.getElementById('audio-sleep')?.addEventListener('change', (e) => {
+      this.setSleepTimer(parseInt(e.target.value, 10) || 0);
+    });
+
+    this.populateRangeSelects();
+  }
+
+  /** Fill the A/B selects with the loaded ayahs and reset to the full range. */
+  populateRangeSelects() {
+    const startSel = document.getElementById('audio-range-start');
+    const endSel = document.getElementById('audio-range-end');
+    if (!startSel || !endSel) return;
+    const opts = this.ayahs.map((a, i) => `<option value="${i}">${a.key}</option>`).join('');
+    startSel.innerHTML = opts;
+    endSel.innerHTML = opts;
+    this.rangeStart = 0;
+    this.rangeEnd = this.ayahs.length ? this.ayahs.length - 1 : -1;
+    this._passesLeft = Math.max(1, this.rangePasses);
+    startSel.value = '0';
+    endSel.value = String(this.rangeEnd);
+  }
+
+  /** Start (mins > 0) or cancel (mins = 0) the auto-pause sleep timer. */
+  setSleepTimer(mins) {
+    if (this._sleepTimer) { clearTimeout(this._sleepTimer); this._sleepTimer = null; }
+    this.sleepMinutes = mins;
+    this._sleepEndsAt = mins > 0 ? Date.now() + mins * 60000 : null;
+    if (mins > 0) {
+      this._sleepTimer = setTimeout(() => {
+        this._sleepTimer = null;
+        this._sleepEndsAt = null;
+        this.sleepMinutes = 0;
+        const sel = document.getElementById('audio-sleep');
+        if (sel) sel.value = '0';
+        // Pause (not stop) so the saved position lets the user resume here
+        if (!this.audio.paused) this.audio.pause();
+        this.updateSleepBadge();
+      }, mins * 60000);
+    }
+    this.updateSleepBadge();
+  }
+
+  /** Countdown badge next to the sleep-timer select. */
+  updateSleepBadge() {
+    const el = document.getElementById('audio-sleep-left');
+    if (!el) return;
+    if (!this._sleepEndsAt) {
+      el.classList.add('hidden');
+      el.textContent = '';
+      return;
+    }
+    el.textContent = this.fmtTime(Math.max(0, this._sleepEndsAt - Date.now()) / 1000);
+    el.classList.remove('hidden');
+  }
+
+  /** Restore English fallbacks after applyTranslations() wrote raw missing keys. */
+  refreshHifzLabels() {
+    const row = document.getElementById('audio-hifz');
+    if (!row) return;
+    const fallbacks = {
+      audio_range_label: 'Range',
+      audio_range_to: 'to',
+      audio_range_repeat: 'Repeat range',
+      audio_sleep_timer: 'Sleep timer',
+      audio_sleep_off: 'Off'
+    };
+    row.querySelectorAll('[data-lang-key]').forEach(el => {
+      const key = el.getAttribute('data-lang-key');
+      if (el.textContent === key && fallbacks[key]) el.textContent = fallbacks[key];
     });
   }
 
   onEnded() {
     // Track finished → the saved position is no longer useful
     this.clearSavedPosition();
-    // Repeat the same ayah N times before moving on (hifz drilling)
-    if (this._repeatLeft > 1) {
-      this._repeatLeft--;
+    // Repeat the same ayah N times (∞ when repeatEach is 0) before moving on
+    if (this.repeatEach === 0 || this._repeatLeft > 1) {
+      if (this.repeatEach !== 0) this._repeatLeft--;
       this.audio.currentTime = 0;
       this.audio.play().catch(() => {});
       this.updateUI();
@@ -225,10 +487,13 @@ class AudioPlayer {
     }
     this.playNext();
     this.updateUI();
+    this.broadcastState();   // reflect stop/advance on reading-mode tab buttons
   }
 
   async playIndex(index) {
     if (index < 0 || index >= this.ayahs.length) return;
+    // Fresh start after a stop → the range-pass counter begins a new session
+    if (!this.audio.src) this._passesLeft = Math.max(1, this.rangePasses);
     const token = ++this.playToken;
     this.currentIndex = index;
     this.usingFallback = false;
@@ -266,10 +531,28 @@ class AudioPlayer {
   }
 
   playNext() {
-    if (this.currentIndex < this.ayahs.length - 1) {
+    if (!this.ayahs.length) { this.stop(); return; }
+    const start = this.rangeStartIndex();
+    const end = this.rangeEndIndex();
+
+    // Outside the A/B range (user tapped an ayah manually) → plain advance
+    if (this.currentIndex < start || this.currentIndex > end) {
+      if (this.currentIndex < this.ayahs.length - 1) this.playIndex(this.currentIndex + 1);
+      else if (this.loopRange) this.playIndex(start);
+      else this.stop();
+      return;
+    }
+
+    if (this.currentIndex < end) {
       this.playIndex(this.currentIndex + 1);
-    } else if (this.loopRange && this.ayahs.length) {
-      this.playIndex(0);                  // loop back to the start of the range
+      return;
+    }
+    // Reached the end of the range: loop forever, burn a pass, or stop
+    if (this.loopRange || this.rangePasses === 0) {
+      this.playIndex(start);              // loop back to the start of the range
+    } else if (this._passesLeft > 1) {
+      this._passesLeft--;
+      this.playIndex(start);
     } else {
       this.stop();
     }
@@ -335,18 +618,18 @@ class AudioPlayer {
   }
 
   seekLabel() {
-    const lang = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
-    const s = (typeof t === 'function') ? t('audio_seek', lang) : null;
-    return (s && s !== 'audio_seek') ? s : 'Seek';
+    return this.tr('audio_seek', 'Seek');
   }
 
   /** Repaint time labels + scrubber (throttled to ~4Hz unless forced). */
   updateProgress(force = false) {
-    const bar = document.getElementById('audio-seek');
-    if (!bar) return;
     const now = performance.now();
     if (!force && now - this._lastProgressAt < 250) return;
     this._lastProgressAt = now;
+    this.updateSleepBadge();
+
+    const bar = document.getElementById('audio-seek');
+    if (!bar) return;
 
     const dur = this.audio.duration;
     const cur = this.audio.currentTime || 0;
@@ -455,6 +738,9 @@ class AudioPlayer {
       list.className = 'bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-1';
       this.container.appendChild(list);
     }
+
+    // New ayah set → refresh the A/B range selects (resets to the full range)
+    this.populateRangeSelects();
 
     if (this.ayahs.length === 0) {
       list.innerHTML = '';

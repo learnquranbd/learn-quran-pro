@@ -19,6 +19,7 @@ class WordByWord {
       });
 
       this.container.addEventListener('click', (e) => this.onClick(e));
+      window.addEventListener('audioStateChanged', (e) => this.syncAudio(e.detail));
       this.createDetailPanel();
     }
   }
@@ -31,17 +32,58 @@ class WordByWord {
       return;
     }
 
-    this.container.innerHTML = this.ayahs.map(ayah => `
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-        <div class="flex items-center gap-2 mb-3 text-sm text-gray-500 dark:text-gray-400">
-          <span class="ayah-number">${ayah.ayah}</span>
-          <span>${ayah.surahName} ${ayah.key}</span>
-        </div>
-        <div class="flex flex-wrap gap-2" dir="rtl">
-          ${ayah.words.map(w => this.renderWordTile(ayah, w)).join('')}
-        </div>
+    const lang = this.language;
+    const oneSurah = this.ayahs.length && this.ayahs.every(a => a.surah === this.ayahs[0].surah);
+    const surahBanner = (oneSurah && typeof QuranData !== 'undefined' && QuranData.surahInfoBannerHtml)
+      ? QuranData.surahInfoBannerHtml(this.ayahs[0].surah, lang) : '';
+    this.container.innerHTML = `
+      ${surahBanner}
+      <div class="flex items-center gap-2 mb-4">
+        <button data-play-all class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90">
+          <span class="pa-icon text-base leading-none">▶</span><span class="pa-label">${t('play_all', lang)}</span>
+        </button>
       </div>
-    `).join('');
+      ${this.ayahs.map(ayah => `
+        <div class="ayah-play-card bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4 transition-shadow" data-play-key="${ayah.key}">
+          <div class="flex items-center gap-2 mb-3 text-sm text-gray-500 dark:text-gray-400">
+            <span class="ayah-number">${ayah.ayah}</span>
+            <button class="ayah-play-btn p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-primary dark:text-blue-400 leading-none"
+                    data-play-ref="${ayah.key}" title="${t('play', lang)}" aria-label="${t('play', lang)}">▶</button>
+            <span class="ml-auto">${ayah.surahName} ${ayah.key}</span>
+          </div>
+          <div class="flex flex-wrap gap-2" dir="rtl">
+            ${ayah.words.map(w => this.renderWordTile(ayah, w)).join('')}
+          </div>
+        </div>
+      `).join('')}`;
+    this.syncAudio(this.audioState());
+  }
+
+  /** Current shared-audio state (safe before the player exists). */
+  audioState() {
+    return (typeof audioPlayer !== 'undefined' && audioPlayer)
+      ? { playing: audioPlayer.isPlaying(), key: audioPlayer.currentKey() }
+      : { playing: false, key: null };
+  }
+
+  /** Reflect play/pause state on the per-ayah + global buttons and playing card. */
+  syncAudio(state) {
+    if (!this.container) return;
+    const { playing, key } = state || {};
+    this.container.querySelectorAll('.ayah-play-btn').forEach(btn => {
+      btn.textContent = (playing && btn.getAttribute('data-play-ref') === key) ? '⏸' : '▶';
+    });
+    this.container.querySelectorAll('.ayah-play-card').forEach(card => {
+      const on = playing && card.getAttribute('data-play-key') === key;
+      card.classList.toggle('ring-2', on);
+      card.classList.toggle('ring-primary', on);
+    });
+    const pa = this.container.querySelector('[data-play-all]');
+    if (pa) {
+      const i = pa.querySelector('.pa-icon'), l = pa.querySelector('.pa-label');
+      if (i) i.textContent = playing ? '⏸' : '▶';
+      if (l) l.textContent = t(playing ? 'pause_all' : 'play_all', this.language);
+    }
   }
 
   renderWordTile(ayah, w) {
@@ -57,13 +99,39 @@ class WordByWord {
   }
 
   onClick(e) {
+    // Audio controls: global play-all + per-ayah play/pause (shared player)
+    const all = e.target.closest('[data-play-all]');
+    if (all) { if (typeof audioPlayer !== 'undefined' && audioPlayer) audioPlayer.togglePlayAll(); return; }
+    const one = e.target.closest('[data-play-ref]');
+    if (one) { window.dispatchEvent(new CustomEvent('playAyah', { detail: { ref: one.getAttribute('data-play-ref') } })); return; }
+
     const tile = e.target.closest('.wbw-word');
     if (!tile) return;
     const key = tile.getAttribute('data-key');
     const pos = parseInt(tile.getAttribute('data-pos'));
     const ayah = this.ayahs.find(a => a.key === key);
     const word = ayah?.words.find(w => w.position === pos);
-    if (ayah && word) this.showDetail(ayah, word);
+    if (!ayah || !word) return;
+
+    // First tap on a word plays its audio; tapping the SAME word again within
+    // 3s opens the word-repetition detail (gated by the `wordTapRepeat` setting).
+    const repeatOn = (typeof appSettings === 'undefined' || !appSettings) || appSettings.get('wordTapRepeat') !== false;
+    const id = `${key}:${pos}`;
+    const now = Date.now();
+    if (repeatOn && this._tapId === id && (now - this._tapAt) < 3000) {
+      this._tapId = null; this._tapAt = 0;
+      this.showDetail(ayah, word);
+      return;
+    }
+    this._tapId = id; this._tapAt = now;
+    if (word.audio) {
+      this.wordAudio.src = word.audio;
+      this.wordAudio.currentTime = 0;
+      this.wordAudio.play().catch(() => {});
+    }
+    // Brief visual pulse so the first tap gives feedback even without the panel.
+    tile.classList.add('ring-2', 'ring-primary');
+    setTimeout(() => tile.classList.remove('ring-2', 'ring-primary'), 600);
   }
 
   createDetailPanel() {

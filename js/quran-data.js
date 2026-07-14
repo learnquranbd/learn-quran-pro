@@ -120,14 +120,98 @@ const QuranData = {
       surahArabicName: surahInfo?.arabicName || '',
       words: (v.words || [])
         .filter(w => w.char_type_name === 'word')
-        .map(w => ({
+        .map((w, i) => ({
           position: w.position,
           arabic: w.text_uthmani || w.text,
           translit: w.transliteration?.text || '',
           meaning: w.translation?.text || '',
-          audio: w.audio_url ? this.wordAudioBase + w.audio_url : null
+          // quran.com's per-word `audio_url` is occasionally misnumbered: for a
+          // handful of ayahs it skips a file index, leaving later words pointing
+          // at the wrong clip and the LAST word pointing at a non-existent .mp3
+          // (e.g. 17:69 → ...023.mp3, HTTP 404, so it never plays). The CDN files
+          // are always numbered sequentially per real word, so derive the URL
+          // from the running word index instead of trusting the API's value.
+          audio: this.wordAudioUrl(surah, v.verse_number, i + 1)
         }))
     };
+  },
+
+  /** Sequential per-word audio URL on the qurancdn CDN. `idx` is 1-based among
+   *  the verse's real words (matches the CDN's file numbering). */
+  wordAudioUrl(surah, ayah, idx) {
+    const p = n => String(n).padStart(3, '0');
+    return `${this.wordAudioBase}wbw/${p(surah)}_${p(ayah)}_${p(idx)}.mp3`;
+  },
+
+  // ---- Surah info banner (shown atop a loaded surah in Reading / Word-by-Word) --
+
+  _chapterInfoCache: {},
+
+  /**
+   * Background/description of a surah from quran.com (Name, Period of Revelation,
+   * Theme…). Returned in the requested language where quran.com has it, otherwise
+   * English. Cached per surah:lang; failures evict so a later attempt can retry.
+   */
+  async getChapterInfo(surah, lang) {
+    const l = (lang || 'en');
+    const key = `${surah}:${l}`;
+    if (!this._chapterInfoCache[key]) {
+      this._chapterInfoCache[key] = fetch(`${this.apiBase}/chapters/${surah}/info?language=${l}`)
+        .then(r => { if (!r.ok) throw new Error(`chapter info ${r.status}`); return r.json(); })
+        .then(d => d.chapter_info || {})
+        .catch(err => { delete this._chapterInfoCache[key]; throw err; });
+    }
+    return this._chapterInfoCache[key];
+  },
+
+  /** Defensive sanitizer for the quran.com chapter HTML: drop script/style, keep
+   *  a small structural whitelist and strip ALL attributes (removes links/on*). */
+  sanitizeChapterHtml(html) {
+    if (!html) return '';
+    const allow = new Set(['h2', 'h3', 'h4', 'p', 'br', 'em', 'strong', 'b', 'i', 'ul', 'ol', 'li', 'blockquote']);
+    return String(html)
+      .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '')
+      .replace(/<(\/?)([a-zA-Z0-9]+)\b[^>]*>/g, (m, slash, tag) =>
+        allow.has(tag.toLowerCase()) ? `<${slash}${tag.toLowerCase()}>` : '');
+  },
+
+  /**
+   * Offline, fully-localized info header for a surah: Arabic name + localized
+   * name + Meccan/Medinan + verse count, with a collapsible "About this surah"
+   * (lazy-filled from getChapterInfo). Works in every UI language.
+   */
+  // Languages quran.com's chapter-info endpoint has NATIVELY (others fall back to
+  // English, so we don't show a foreign-language wall — just the localized header).
+  CHAPTER_INFO_LANGS: ['en', 'ur', 'id', 'ml', 'ta'],
+
+  surahInfoBannerHtml(surah, lang) {
+    if (typeof getSurahByNumber !== 'function') return '';
+    const info = getSurahByNumber(surah);
+    if (!info) return '';
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const name = (typeof getSurahName === 'function') ? getSurahName(surah, lang) : (info.names && info.names.en) || '';
+    const place = info.revelationType === 'Medinan' ? t('medinan', lang) : t('meccan', lang);
+    const chip = txt => `<span class="px-2 py-0.5 rounded-full bg-white/60 dark:bg-gray-800/60 text-gray-600 dark:text-gray-300">${txt}</span>`;
+    // Only offer the "About this surah" background when quran.com has it in this
+    // language; otherwise show the (fully localized) header alone.
+    const hasBg = this.CHAPTER_INFO_LANGS.includes(lang);
+    const about = hasBg ? `
+        <button data-surah-about="${surah}" class="mt-3 text-sm font-medium text-primary dark:text-blue-400 hover:underline">${t('about_surah', lang)} <span class="surah-about-caret">▾</span></button>
+        <div class="surah-about-body hidden mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-2
+                    [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-3 [&_h3]:font-semibold [&_p]:mt-1" dir="auto"></div>` : '';
+    return `
+      <div class="surah-info-banner bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-blue-900/30 dark:to-emerald-900/20
+                  border border-primary/20 dark:border-blue-800 rounded-lg p-5 mb-2">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span class="ayah-arabic !text-3xl !mb-0 !pb-0 !border-b-0 !leading-tight text-primary dark:text-blue-300" dir="rtl">${esc(info.arabicName)}</span>
+          <div class="min-w-0">
+            <h2 class="text-xl font-bold" dir="auto">${surah}. ${esc(name)}</h2>
+            <div class="flex flex-wrap gap-2 mt-1 text-xs">
+              ${chip(place)}${chip(`${info.ayahCount} ${t('verses', lang)}`)}
+            </div>
+          </div>
+        </div>${about}
+      </div>`;
   },
 
   stripFootnotes(html) {

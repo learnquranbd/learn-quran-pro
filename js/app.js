@@ -15,6 +15,7 @@ class QuranApp {
     this.globalTafsir = false;
     this.globalGrammar = false;
     this.globalTajweed = false;
+    this.globalOnlyArabic = false;   // "Only Arabic" focus mode: hide translation/translit/WBW etc.
     this.tajweedAvailable = false;
 
     this.init();
@@ -68,6 +69,7 @@ class QuranApp {
     if (this.sidebarToggle) {
       this.sidebarToggle.addEventListener('click', () => this.toggleSidebar());
     }
+    this.applySidebarCollapsed();
 
     if (this.sidebarOverlay) {
       this.sidebarOverlay.addEventListener('click', () => this.closeSidebar());
@@ -122,17 +124,30 @@ class QuranApp {
         const accBtn = e.target.closest('.tafsir-acc');
         if (accBtn) return this.expandTafsirAccordion(accBtn);
 
-        // Word tap → analysis modal (exact-word + root repetition), stays on page
+        // Word tap: first tap plays the word's audio; tapping the SAME word
+        // again within 3s opens the repetition modal (when that setting is on).
         const wordBtn = e.target.closest('.wbw-inline-word');
-        if (wordBtn && typeof wordByWord !== 'undefined' && wordByWord) {
+        if (wordBtn) {
           const key = wordBtn.getAttribute('data-key');
           const pos = parseInt(wordBtn.getAttribute('data-pos'));
           const ayah = this.ayahData.find(a => a.key === key);
-          const word = ayah?.words.find(w => w.position === pos);
-          if (ayah && word) wordByWord.showDetail(ayah, word);
+          const word = ayah && ayah.words.find(w => w.position === pos);
+          if (ayah && word) this.handleWordTap(ayah, word, wordBtn);
         }
       });
     }
+
+    // Render the standalone Tajweed reading tab when it becomes active
+    window.addEventListener('tabChanged', (e) => {
+      if (e.detail && e.detail.tabId === 'tajweedreading') this.renderTajweedReading();
+    });
+
+    // Surah "About" banner toggle — bound once at document level so it works on
+    // both the Reading tab and the Word-by-Word tab.
+    document.addEventListener('click', (e) => {
+      const about = e.target.closest('[data-surah-about]');
+      if (about) this.toggleSurahAbout(about);
+    });
 
     // Handle URL hash changes
     window.addEventListener('hashchange', () => this.handleHashChange());
@@ -303,8 +318,12 @@ class QuranApp {
 
     const lang = this.language;
     const banner = this.renderCollectionBanner(lang);
+    // Surah info header (name · Meccan/Medinan · verse count · background) — only
+    // for a plain single-surah selection, never over a topic/dua collection.
+    const surahBanner = banner ? '' : this.surahBannerHtml(lang);
     const html = this.ayahData.map(ayah => this.renderAyahCard(ayah, lang)).join('');
-    this.ayahContainer.innerHTML = this.renderGlobalControls(lang) + banner + html;
+    this.ayahContainer.innerHTML = this.renderGlobalControls(lang) + banner + surahBanner + html;
+    this.ayahContainer.classList.toggle('only-arabic', this.globalOnlyArabic);   // focus-reading mode
 
     // Apply the global expand states to the freshly rendered cards
     if (this.globalTafsir || this.globalGrammar || this.globalTajweed) {
@@ -346,6 +365,7 @@ class QuranApp {
         ${btn('tafsir', this.globalTafsir, '📖', t('tafseer', lang))}
         ${btn('grammar', this.globalGrammar, '🧩', t('grammar', lang))}
         ${this.tajweedAvailable ? btn('tajweed', this.globalTajweed, '🎨', t('tajweed_label', lang)) : ''}
+        ${btn('onlyarabic', this.globalOnlyArabic, '🅰️', t('only_arabic', lang))}
       </div>
     `;
   }
@@ -370,11 +390,90 @@ class QuranApp {
       if (typeof TajweedGuide !== 'undefined') {
         this.globalTajweed ? TajweedGuide.mount(this.language) : TajweedGuide.unmount();
       }
+    } else if (action === 'onlyarabic') {
+      this.globalOnlyArabic = !this.globalOnlyArabic;
+      // A single container class hides everything but the Arabic line (see css/style.css).
+      this.ayahContainer.classList.toggle('only-arabic', this.globalOnlyArabic);
     }
 
     // Re-render the toolbar so button states update
     const bar = document.getElementById('global-reading-controls');
     if (bar) bar.outerHTML = this.renderGlobalControls(this.language);
+  }
+
+  /**
+   * Word-tap behaviour shared by Reading & Word-by-Word: first tap on a word
+   * plays its audio; a second tap on the SAME word within 3s opens the
+   * repetition/analysis modal — the latter gated by the `wordTapRepeat` setting
+   * (default on). Any other word resets the timer.
+   */
+  handleWordTap(ayah, word, tile) {
+    const repeatOn = (typeof appSettings === 'undefined' || !appSettings) || appSettings.get('wordTapRepeat') !== false;
+    const id = `${ayah.key}:${word.position}`;
+    const now = Date.now();
+    if (repeatOn && this._wordTapId === id && (now - this._wordTapAt) < 3000) {
+      this._wordTapId = null; this._wordTapAt = 0;
+      if (typeof wordByWord !== 'undefined' && wordByWord) wordByWord.showDetail(ayah, word);
+      return;
+    }
+    this._wordTapId = id; this._wordTapAt = now;
+    if (word.audio) {
+      this._wordAudio = this._wordAudio || new Audio();
+      this._wordAudio.src = word.audio;
+      this._wordAudio.currentTime = 0;
+      this._wordAudio.play().catch(() => {});
+    }
+    if (tile) {
+      tile.classList.add('ring-2', 'ring-primary');
+      setTimeout(() => tile.classList.remove('ring-2', 'ring-primary'), 600);
+    }
+  }
+
+  /** Surah info banner when the whole loaded selection is one surah. */
+  surahBannerHtml(lang) {
+    if (!this.ayahData.length) return '';
+    const s = this.ayahData[0].surah;
+    if (!this.ayahData.every(a => a.surah === s)) return '';   // mixed-surah range → skip
+    return (typeof QuranData !== 'undefined' && QuranData.surahInfoBannerHtml)
+      ? QuranData.surahInfoBannerHtml(s, lang) : '';
+  }
+
+  /**
+   * Expand/collapse the "About this surah" section, lazily fetching the
+   * background from quran.com on first open. Shared by Reading & Word-by-Word
+   * (bound once at document level).
+   */
+  async toggleSurahAbout(btn) {
+    const banner = btn.closest('.surah-info-banner');
+    const body = banner && banner.querySelector('.surah-about-body');
+    if (!body) return;
+    const caret = btn.querySelector('.surah-about-caret');
+    const surah = parseInt(btn.getAttribute('data-surah-about'));
+    if (!body.classList.contains('hidden')) {   // currently open → collapse
+      body.classList.add('hidden'); if (caret) caret.textContent = '▾'; return;
+    }
+    body.classList.remove('hidden'); if (caret) caret.textContent = '▴';
+    if (body.dataset.loaded) return;
+    body.dataset.loaded = '1';
+    const lang = this.language;
+    body.innerHTML = `<p class="text-gray-400">${t('loading', lang)}</p>`;
+    try {
+      const info = await QuranData.getChapterInfo(surah, lang);
+      const html = QuranData.sanitizeChapterHtml(info && info.text);
+      // quran.com only has this background natively in en/ur/id/ml/ta; for every
+      // other UI language it returns English. Label that honestly instead of
+      // passing English off as a translation.
+      const isFallback = lang !== 'en' && ((info && info.language_name) || '').toLowerCase() === 'english';
+      const note = isFallback
+        ? `<p class="text-xs text-amber-600 dark:text-amber-400 mb-2">ℹ️ ${t('about_english_only', lang)}</p>`
+        : '';
+      body.innerHTML = html
+        ? note + html + `<p class="text-xs text-gray-400 mt-2">— quran.com</p>`
+        : `<p class="text-gray-400">${t('about_unavailable', lang)}</p>`;
+    } catch (err) {
+      body.dataset.loaded = '';   // permit retry on next open
+      body.innerHTML = `<p class="text-gray-400">${t('about_unavailable', lang)}</p>`;
+    }
   }
 
   /**
@@ -462,7 +561,7 @@ class QuranApp {
             ${wbwRow}
             <span class="ayah-arabic !text-3xl !leading-loose self-center">${medallion}</span>
           </div>
-          <div class="ayah-arabic ${this.globalWbw ? 'hidden' : ''}" dir="rtl">${plainArabic}</div>
+          <div class="ayah-arabic" dir="rtl">${plainArabic}</div>
           ${translitLine ? `<div class="ayah-translit mt-2 text-sm italic text-gray-400 dark:text-gray-500 ${showTranslit ? '' : 'hidden'}" dir="ltr">${translitLine}</div>` : ''}
           <div class="ayah-translation ${showTranslation ? '' : 'hidden'}">${translation}</div>
           <div class="tajweed-view hidden mt-2"></div>
@@ -498,7 +597,12 @@ class QuranApp {
     const row = card.querySelector('.wbw-row');
     if (!row) return;
     row.classList.toggle('hidden', !show);
-    card.querySelectorAll('.ayah-content > .ayah-arabic').forEach(el => el.classList.toggle('hidden', show));
+  }
+
+  /** (kept for callers) no-op: the continuous Arabic line is always shown; the
+   *  "Only Arabic" focus mode is handled by a container class in css/style.css. */
+  applyArabicVisibility(card) {
+    void card;
   }
 
   /**
@@ -614,6 +718,158 @@ class QuranApp {
     window.dispatchEvent(new CustomEvent('ayahsLoaded', {
       detail: { ayahs: this.ayahData, language: this.language }
     }));
+    // Refresh the standalone Tajweed reading tab alongside the sibling tabs
+    this.renderTajweedReading();
+  }
+
+  /**
+   * Standalone "Tajweed" reading tab: renders EVERY loaded ayah as color-coded
+   * tajweed Arabic (a dedicated read mode — distinct from the per-ayah tajweed
+   * toggle in the Reading tab). Per-verse renders are async, so a token guards
+   * against stale in-flight results when the selection or language changes
+   * (same pattern as setTajweed/showDetail).
+   */
+  async renderTajweedReading() {
+    const container = document.getElementById('tajweed-reading-container');
+    if (!container) return;
+    this.bindReadingAudioOnce(container, 'tajweed');
+    const lang = this.language;
+
+    // Nothing loaded yet → invite the user to load a selection first
+    if (this.ayahData.length === 0) {
+      container.innerHTML =
+        `<div class="text-center py-12"><p class="text-gray-500 dark:text-gray-400">${t('load_ayah_first', lang)}</p></div>`;
+      return;
+    }
+
+    const token = (this._tajweedReadingToken = (this._tajweedReadingToken || 0) + 1);
+
+    // Global play-all bar + a hint that colored letters are tappable.
+    // Card shells first (reading-style header + per-ayah play), then fill each
+    // body with the color-coded HTML as it resolves.
+    container.innerHTML = `
+      ${this.playAllBarHtml(lang)}
+      <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">${t('tjr_tap_hint', lang)}</p>
+      ${this.ayahData.map(ayah => `
+        <div class="ayah-play-card bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4 transition-shadow" data-play-key="${ayah.key}" data-tj-key="${ayah.key}">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="ayah-number">${ayah.ayah}</span>
+            ${this.ayahPlayBtnHtml(ayah.key, lang)}
+            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">
+              ${ayah.surahName} (${ayah.surahArabicName}) ${ayah.key} · ${t('juz', lang)} ${ayah.juz}
+            </span>
+          </div>
+          <div class="tj-body ayah-arabic !leading-loose p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40" dir="rtl">
+            <span class="text-sm text-gray-400">${t('loading', lang)}</span>
+          </div>
+          <div class="tj-rule-detail hidden mt-2 text-sm p-2.5 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20"></div>
+        </div>
+      `).join('')}`;
+
+    this.syncReadingAudio(container, this.currentAudioState());
+
+    // Fill each verse; tajweed unavailable or a per-verse failure falls back to
+    // the plain Arabic (or an "unavailable" note if there's no text at all).
+    for (const ayah of this.ayahData) {
+      let html = '';
+      if (this.tajweedAvailable) {
+        try { html = await TajweedData.renderAyah(ayah.surah, ayah.ayah); }
+        catch (err) { html = ''; }
+      }
+      if (token !== this._tajweedReadingToken) return;  // superseded → bail
+      const body = container.querySelector(`[data-tj-key="${ayah.key}"] .tj-body`);
+      if (!body) continue;
+      body.innerHTML = html || (ayah.arabic || `<span class="text-sm text-gray-400">${t('tajweed_unavailable', lang)}</span>`);
+    }
+  }
+
+  /** Current shared-audio-player state, safe before the player exists. */
+  currentAudioState() {
+    return (typeof audioPlayer !== 'undefined' && audioPlayer)
+      ? { playing: audioPlayer.isPlaying(), key: audioPlayer.currentKey() }
+      : { playing: false, key: null };
+  }
+
+  /** Global "play all / pause" bar shared by reading-mode tabs. */
+  playAllBarHtml(lang) {
+    return `
+      <div class="flex items-center gap-2 mb-4">
+        <button data-play-all class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90">
+          <span class="pa-icon text-base leading-none">▶</span><span class="pa-label">${t('play_all', lang)}</span>
+        </button>
+      </div>`;
+  }
+
+  /** Per-ayah play/pause button used on reading-mode tabs. */
+  ayahPlayBtnHtml(key, lang) {
+    return `<button class="ayah-play-btn p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-primary dark:text-blue-400 leading-none"
+                    data-play-ref="${key}" title="${t('play', lang)}" aria-label="${t('play', lang)}">▶</button>`;
+  }
+
+  /**
+   * One delegated listener per reading-mode container: per-ayah play, play-all,
+   * and (tajweed only) tap-a-colored-letter to reveal its rule inline. Also keeps
+   * the buttons in sync with the shared audio player.
+   */
+  bindReadingAudioOnce(container, kind) {
+    if (container._readingAudioBound) return;
+    container._readingAudioBound = true;
+    container.addEventListener('click', (e) => {
+      const all = e.target.closest('[data-play-all]');
+      if (all) { if (typeof audioPlayer !== 'undefined' && audioPlayer) audioPlayer.togglePlayAll(); return; }
+      const one = e.target.closest('[data-play-ref]');
+      if (one) { window.dispatchEvent(new CustomEvent('playAyah', { detail: { ref: one.getAttribute('data-play-ref') } })); return; }
+      if (kind === 'tajweed') {
+        const seg = e.target.closest('[data-tj-rule]');
+        if (seg) { this.toggleTajweedRuleDetail(seg); return; }
+      }
+    });
+    window.addEventListener('audioStateChanged', (e) => this.syncReadingAudio(container, e.detail));
+  }
+
+  /** Reflect playing/paused state on a reading-mode container's buttons + cards. */
+  syncReadingAudio(container, state) {
+    if (!container) return;
+    const { playing, key } = state || {};
+    container.querySelectorAll('.ayah-play-btn').forEach(btn => {
+      const on = playing && btn.getAttribute('data-play-ref') === key;
+      btn.textContent = on ? '⏸' : '▶';
+    });
+    container.querySelectorAll('.ayah-play-card').forEach(card => {
+      const on = playing && card.getAttribute('data-play-key') === key;
+      card.classList.toggle('ring-2', on);
+      card.classList.toggle('ring-primary', on);
+    });
+    const pa = container.querySelector('[data-play-all]');
+    if (pa) {
+      const icon = pa.querySelector('.pa-icon'); const label = pa.querySelector('.pa-label');
+      if (icon) icon.textContent = playing ? '⏸' : '▶';
+      if (label) label.textContent = t(playing ? 'pause_all' : 'play_all', this.language);
+    }
+  }
+
+  /** Tap a colored tajweed segment → toggle an inline rule name + description. */
+  toggleTajweedRuleDetail(seg) {
+    const card = seg.closest('[data-tj-key]');
+    const slot = card && card.querySelector('.tj-rule-detail');
+    if (!slot) return;
+    const ruleKey = seg.getAttribute('data-tj-rule');
+    if (slot.dataset.rule === ruleKey && !slot.classList.contains('hidden')) {
+      slot.classList.add('hidden'); slot.dataset.rule = ''; return;
+    }
+    const lang = this.language;
+    const rule = (typeof TAJWEED_RULES !== 'undefined') ? TAJWEED_RULES[ruleKey] : null;
+    const lesson = (typeof TAJWEED_LESSONS !== 'undefined') ? TAJWEED_LESSONS[ruleKey] : null;
+    const color = rule ? rule.color : '#888';
+    const name = (lesson && lesson.names && lesson.names[lang]) || (rule && rule.label) || ruleKey;
+    const desc = lesson ? (lesson[lang] || lesson.en) : t('tjd_' + ruleKey, lang);
+    const esch = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    slot.dataset.rule = ruleKey;
+    slot.innerHTML =
+      `<span class="inline-block w-3 h-3 rounded-full align-middle me-1.5" style="background:${color}"></span>` +
+      `<span class="font-semibold" style="color:${color}">${esch(name)}</span>` +
+      `<span class="text-gray-700 dark:text-gray-300" dir="auto"> — ${esch(desc)}</span>`;
+    slot.classList.remove('hidden');
   }
 
   /**
@@ -682,11 +938,27 @@ class QuranApp {
   }
 
   /**
-   * Toggle sidebar visibility
+   * Toggle sidebar visibility.
+   *  - Desktop (lg+): collapse the sticky sidebar out of the layout so the
+   *    reading column takes the full width; persisted across visits.
+   *  - Mobile: slide the drawer in/out with its overlay.
    */
   toggleSidebar() {
+    if (window.innerWidth >= 1024) {
+      const collapsed = this.sidebar.classList.toggle('lg:hidden');
+      try { localStorage.setItem('sidebarCollapsed', collapsed ? '1' : '0'); } catch (e) { /* ignore */ }
+      return;
+    }
     this.sidebar.classList.toggle('-translate-x-full');
     this.sidebarOverlay.classList.toggle('hidden');
+  }
+
+  /** Re-apply the persisted desktop collapse state on load. */
+  applySidebarCollapsed() {
+    if (!this.sidebar || window.innerWidth < 1024) return;
+    let collapsed = false;
+    try { collapsed = localStorage.getItem('sidebarCollapsed') === '1'; } catch (e) { /* ignore */ }
+    this.sidebar.classList.toggle('lg:hidden', collapsed);
   }
 
   /**

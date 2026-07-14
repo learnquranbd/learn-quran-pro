@@ -40,8 +40,13 @@ const TAFSIR_SOURCES = {
 
 // Content language of every tafsir resource (drives RTL rendering of the body)
 const TAFSIR_ID_LANG = {};
+// Proper title of every tafsir resource (used for compare-mode column labels)
+const TAFSIR_ID_NAME = {};
 Object.keys(TAFSIR_SOURCES).forEach(lang => {
-  TAFSIR_SOURCES[lang].forEach(src => { TAFSIR_ID_LANG[src.id] = lang; });
+  TAFSIR_SOURCES[lang].forEach(src => {
+    TAFSIR_ID_LANG[src.id] = lang;
+    TAFSIR_ID_NAME[src.id] = src.name;
+  });
 });
 
 const TAFSIR_RTL_LANGS = ['ar', 'ur'];
@@ -62,6 +67,9 @@ class TafseerView {
     this.rendered = false;
     this.renderToken = 0;
     this.cache = new Map(); // "tafsirId:verseKey" -> {text, resourceName} | null
+    // Side-by-side source comparison (remembered across sessions)
+    this.compare = false;
+    try { this.compare = localStorage.getItem('tafsirCompare') === '1'; } catch (e) { /* ignore */ }
 
     this.injectStyles();
     this.populateSources();
@@ -87,15 +95,23 @@ class TafseerView {
 
     if (this.select) {
       this.select.addEventListener('change', () => {
+        this.rememberSource();
         this.rendered = false;
         if (this.isTabVisible()) this.render();
       });
     }
 
-    // Lazy accordion expansion
+    // Lazy accordion expansion + in-pane controls (font, width, compare, jump…)
     if (this.content) {
       this.content.addEventListener('click', (e) => this.onContentClick(e));
+      this.content.addEventListener('change', (e) => this.onContentChange(e));
     }
+  }
+
+  /** Persist the chosen primary source, scoped to the current UI language. */
+  rememberSource() {
+    if (!this.select || !this.select.value) return;
+    try { localStorage.setItem('tafsirSource:' + this.language, this.select.value); } catch (e) { /* ignore */ }
   }
 
   isTabVisible() {
@@ -119,6 +135,11 @@ class TafseerView {
       }
       .tafseer-body ul, .tafseer-body ol { padding-inline-start: 1.5rem; margin: 0 0 0.75rem; }
       .tafseer-body[dir="rtl"] { font-size: calc(1.125rem * var(--tafsir-scale, 1)); }
+      /* Reading-width control: narrow centres the prose column for comfort */
+      #tafseer-content.tafseer-narrow > [data-tafseer-card] { max-width: 46rem; margin-inline: auto; }
+      /* Compare mode: two source columns side by side on wide screens */
+      .tafseer-compare-grid { display: grid; gap: 1rem; }
+      @media (min-width: 768px) { .tafseer-compare-grid { grid-template-columns: 1fr 1fr; } }
     `;
     document.head.appendChild(style);
   }
@@ -154,10 +175,36 @@ class TafseerView {
       this.select.appendChild(group);
     }
 
-    // Keep the previous choice if it still exists in the new list
-    if (previous && [...this.select.options].some(o => o.value === previous)) {
-      this.select.value = previous;
+    // Keep the previous choice, else fall back to the source remembered for
+    // this language, else leave the first option selected.
+    const has = (val) => val && [...this.select.options].some(o => o.value === val);
+    let saved = null;
+    try { saved = localStorage.getItem('tafsirSource:' + lang); } catch (e) { /* ignore */ }
+    if (has(previous)) this.select.value = previous;
+    else if (has(saved)) this.select.value = saved;
+  }
+
+  /** Shared <option>/<optgroup> markup for the primary + compare selects. */
+  sourceOptionsHtml(selectedId) {
+    const opt = (src) =>
+      `<option value="${src.id}"${src.id === selectedId ? ' selected' : ''}>${src.name}</option>`;
+    let html = this.sourcesFor(this.language).map(opt).join('');
+    if (this.language !== 'ar') {
+      html += `<optgroup label="${t('arabic_classics', this.language)}">` +
+        TAFSIR_SOURCES.ar.map(opt).join('') + '</optgroup>';
     }
+    return html;
+  }
+
+  /** Resolve the secondary source for compare mode (never equal to primary). */
+  compareTafsirId() {
+    const primary = this.selectedTafsirId();
+    let stored = NaN;
+    try { stored = parseInt(localStorage.getItem('tafsirCompareId'), 10); } catch (e) { /* ignore */ }
+    if (Number.isFinite(stored) && stored !== primary) return stored;
+    const list = this.sourcesFor(this.language).concat(TAFSIR_SOURCES.ar);
+    const alt = list.find(s => s.id !== primary);
+    return alt ? alt.id : primary;
   }
 
   selectedTafsirId() {
@@ -233,30 +280,90 @@ class TafseerView {
     this.rendered = true;
     this.renderToken++;
     const tafsirId = this.selectedTafsirId();
+    this.accordionMode = this.ayahs.length > TAFSIR_ACCORDION_THRESHOLD;
 
-    if (this.ayahs.length > TAFSIR_ACCORDION_THRESHOLD) {
+    if (this.accordionMode) {
       this.renderAccordions(tafsirId);
     } else {
       this.renderExpanded(tafsirId);
     }
-    this.content.insertAdjacentHTML('afterbegin', this.toolbarHtml(lang));
-    this.applyFontScale();
+    this.content.insertAdjacentHTML('afterbegin', this.headerHtml(lang));
+    this.applyReadingPrefs();
   }
 
-  /* ---------- reading comfort: font size + copy ---------- */
+  /* ---------- reading comfort: toolbar, outline, font, width ---------- */
 
+  /** Full in-pane header: outline strip (jump-to-ayah) + control toolbar. */
+  headerHtml(lang) {
+    return this.outlineHtml(lang) + this.toolbarHtml(lang) + this.compareBarHtml(lang);
+  }
+
+  /** Control toolbar: font size, reading width, compare + expand/collapse all. */
   toolbarHtml(lang) {
+    const btn = (attr, label) =>
+      `<button ${attr} class="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">${label}</button>`;
+    const bulk = this.accordionMode ? `
+        ${btn(`data-tafsir-expand-all="1"`, t('expand_all', lang))}
+        ${btn(`data-tafsir-collapse-all="1"`, t('collapse_all', lang))}
+        <span class="w-px h-5 bg-gray-200 dark:bg-gray-600 mx-1"></span>` : '';
+    const compareOn = this.compare;
+    const compareCls = compareOn
+      ? 'bg-primary text-white border-primary'
+      : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700';
     return `
-      <div class="flex items-center justify-end gap-1 mb-3 text-sm" id="tafsir-toolbar">
-        <span class="text-xs text-gray-400 mr-1">${t('font_size', lang)}</span>
-        <button data-tafsir-font="-1" class="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A-</button>
-        <button data-tafsir-font="1" class="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">A+</button>
+      <div class="flex flex-wrap items-center gap-1 mb-3 text-sm" id="tafsir-toolbar">
+        ${bulk}
+        <button data-tafsir-compare-toggle="1" aria-pressed="${compareOn}"
+                class="px-2 py-1 rounded-md border ${compareCls}">⇄ ${compareOn ? t('hide_comparison', lang) : t('compare_sources', lang)}</button>
+        <span class="w-px h-5 bg-gray-200 dark:bg-gray-600 mx-1"></span>
+        <span class="text-xs text-gray-400 mx-1" title="${t('reading_width', lang)}">${t('reading_width', lang)}</span>
+        ${btn(`data-tafsir-width="1" aria-label="${t('reading_width', lang)}"`, this.readingWidth() === 'narrow' ? '↔' : '⇥')}
+        <span class="ml-auto text-xs text-gray-400 mr-1">${t('font_size', lang)}</span>
+        ${btn(`data-tafsir-font="-1" aria-label="${t('font_size', lang)}"`, 'A-')}
+        ${btn(`data-tafsir-font="1" aria-label="${t('font_size', lang)}"`, 'A+')}
+      </div>`;
+  }
+
+  /** Compact horizontal index of every loaded ayah; a chip jumps to its card. */
+  outlineHtml(lang) {
+    if (this.ayahs.length < 2) return '';
+    const chips = this.ayahs.map(a =>
+      `<button data-tafsir-jump="${a.key}"
+          class="shrink-0 px-2.5 py-1 text-xs rounded-full border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white hover:border-primary transition-colors">${a.key}</button>`
+    ).join('');
+    return `
+      <div class="mb-3">
+        <div class="text-xs text-gray-400 mb-1">${t('tafseer_outline', lang)}</div>
+        <div class="flex gap-1.5 overflow-x-auto pb-1" dir="ltr">${chips}</div>
+      </div>`;
+  }
+
+  /** Second source picker, shown only while compare mode is active. */
+  compareBarHtml(lang) {
+    if (!this.compare) return '';
+    return `
+      <div class="flex items-center gap-2 mb-3 text-sm">
+        <span class="text-xs text-gray-400">${t('compare_sources', lang)}</span>
+        <select data-tafsir-compare-select
+                class="flex-1 px-3 py-1.5 border rounded-lg dark:bg-gray-700 dark:border-gray-600 text-sm">
+          ${this.sourceOptionsHtml(this.compareTafsirId())}
+        </select>
       </div>`;
   }
 
   fontScale() {
     const v = parseFloat(localStorage.getItem('tafsirFontScale'));
     return isNaN(v) ? 1 : Math.min(Math.max(v, 0.8), 1.6);
+  }
+
+  readingWidth() {
+    try { return localStorage.getItem('tafsirWidth') === 'narrow' ? 'narrow' : 'wide'; }
+    catch (e) { return 'wide'; }
+  }
+
+  applyReadingPrefs() {
+    this.applyFontScale();
+    if (this.content) this.content.classList.toggle('tafseer-narrow', this.readingWidth() === 'narrow');
   }
 
   applyFontScale() {
@@ -269,13 +376,35 @@ class TafseerView {
     this.applyFontScale();
   }
 
-  /** Copy an ayah's Arabic + its loaded tafsir text as plain text. */
+  toggleWidth() {
+    const next = this.readingWidth() === 'narrow' ? 'wide' : 'narrow';
+    try { localStorage.setItem('tafsirWidth', next); } catch (e) { /* ignore */ }
+    if (this.content) this.content.classList.toggle('tafseer-narrow', next === 'narrow');
+    // Refresh the toolbar glyph without a full re-render of the (fetched) bodies
+    const wbtn = this.content && this.content.querySelector('[data-tafsir-width]');
+    if (wbtn) wbtn.textContent = next === 'narrow' ? '↔' : '⇥';
+  }
+
+  toggleCompare() {
+    this.compare = !this.compare;
+    try { localStorage.setItem('tafsirCompare', this.compare ? '1' : '0'); } catch (e) { /* ignore */ }
+    this.rendered = false;
+    this.render();
+  }
+
+  /** Copy an ayah's Arabic + its loaded tafsir text (both columns in compare). */
   copyCard(key) {
     const card = this.content.querySelector(`[data-tafseer-card="${key}"]`) ||
                  this.content.querySelector(`[data-key="${key}"]`)?.closest('div');
     const ayah = this.ayahs.find(a => a.key === key);
-    const body = card && card.querySelector('.tafseer-body');
-    const text = `${ayah ? ayah.arabic : ''}\n(${key})\n\n${body ? body.innerText.trim() : ''}`.trim();
+    const bodies = card ? [...card.querySelectorAll('.tafseer-body')] : [];
+    const parts = bodies.map(b => {
+      const id = parseInt(b.getAttribute('data-tafsir'), 10);
+      const name = TAFSIR_ID_NAME[id] || '';
+      const txt = b.innerText.trim();
+      return this.compare && name ? `[${name}]\n${txt}` : txt;
+    }).filter(Boolean);
+    const text = `${ayah ? ayah.arabic : ''}\n(${key})\n\n${parts.join('\n\n')}`.trim();
     const done = (btn) => { if (btn) { const old = btn.textContent; btn.textContent = '✓'; setTimeout(() => { btn.textContent = old; }, 1200); } };
     const btn = this.content.querySelector(`[data-tafsir-copy="${key}"]`);
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -303,16 +432,48 @@ class TafseerView {
     `;
   }
 
+  /** One empty tafsir body, tagged with its source id (drives per-body fetch). */
   tafsirBodyShell(tafsirId, extraClasses = '') {
+    const label = this.compare
+      ? `<div class="text-xs font-semibold text-primary dark:text-blue-400 mb-1">${TAFSIR_ID_NAME[tafsirId] || ''}</div>`
+      : '';
     return `
-      <div class="tafseer-body text-gray-700 dark:text-gray-300 ${extraClasses}"
-           dir="${this.bodyDirAttr(tafsirId)}"></div>
-    `;
+      <div class="min-w-0">${label}
+        <div class="tafseer-body text-gray-700 dark:text-gray-300 ${extraClasses}"
+             data-tafsir="${tafsirId}" dir="${this.bodyDirAttr(tafsirId)}"></div>
+      </div>`;
+  }
+
+  /** Primary body, plus the compare body side by side when compare is on. */
+  bodiesHtml(primaryId) {
+    if (!this.compare) return this.tafsirBodyShell(primaryId);
+    return `
+      <div class="tafseer-compare-grid">
+        ${this.tafsirBodyShell(primaryId)}
+        ${this.tafsirBodyShell(this.compareTafsirId())}
+      </div>`;
+  }
+
+  /** Cross-navigation to the sibling modules that share the loaded selection. */
+  relatedToolsHtml(ayah) {
+    const lang = this.language;
+    const btn = (target, icon, key) =>
+      `<button data-tafsir-rel="${target}" data-key="${ayah.key}"
+          class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <span aria-hidden="true">${icon}</span>${t(key, lang)}</button>`;
+    return `
+      <div class="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+        <span class="text-xs text-gray-400 mr-1">${t('related_tools', lang)}</span>
+        ${btn('preview', '👁️', 'preview')}
+        ${btn('wordbyword', '🔤', 'word_by_word')}
+        ${btn('grammar', '🧩', 'grammar')}
+        ${btn('tajweedreading', '🎨', 'tajweed_label')}
+        ${btn('wordrepeat', '🔁', 'wr_title')}
+      </div>`;
   }
 
   /** 8 or fewer ayahs: full cards, all tafsirs fetched in parallel. */
   renderExpanded(tafsirId) {
-    const lang = this.language;
     const token = this.renderToken;
 
     this.content.innerHTML = this.ayahs.map(ayah => `
@@ -320,14 +481,14 @@ class TafseerView {
            data-tafseer-card="${ayah.key}">
         ${this.ayahHeaderHtml(ayah)}
         ${this.ayahArabicHtml(ayah)}
-        ${this.tafsirBodyShell(tafsirId)}
+        ${this.bodiesHtml(tafsirId)}
+        ${this.relatedToolsHtml(ayah)}
       </div>
     `).join('');
 
     this.ayahs.forEach(ayah => {
       const card = this.content.querySelector(`[data-tafseer-card="${ayah.key}"]`);
-      const body = card && card.querySelector('.tafseer-body');
-      if (body) this.loadInto(body, tafsirId, ayah.key, token);
+      if (card) this.loadCard(card, ayah, token);
     });
   }
 
@@ -350,7 +511,8 @@ class TafseerView {
           <div class="text-right"><button data-tafsir-copy="${ayah.key}" title="${t('copy', this.language)}" aria-label="${t('copy', this.language)}"
                 class="px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button></div>
           ${this.ayahArabicHtml(ayah)}
-          ${this.tafsirBodyShell(tafsirId)}
+          ${this.bodiesHtml(tafsirId)}
+          ${this.relatedToolsHtml(ayah)}
         </div>
       </div>
     `).join('');
@@ -359,34 +521,102 @@ class TafseerView {
   onContentClick(e) {
     const font = e.target.closest('[data-tafsir-font]');
     if (font) { this.bumpFont(parseInt(font.getAttribute('data-tafsir-font'), 10)); return; }
+    if (e.target.closest('[data-tafsir-width]')) { this.toggleWidth(); return; }
+    if (e.target.closest('[data-tafsir-compare-toggle]')) { this.toggleCompare(); return; }
+    if (e.target.closest('[data-tafsir-expand-all]')) { this.setAllCards(true); return; }
+    if (e.target.closest('[data-tafsir-collapse-all]')) { this.setAllCards(false); return; }
+
+    const jump = e.target.closest('[data-tafsir-jump]');
+    if (jump) { this.jumpToCard(jump.getAttribute('data-tafsir-jump')); return; }
+
+    const rel = e.target.closest('[data-tafsir-rel]');
+    if (rel) { this.gotoRelated(rel.getAttribute('data-tafsir-rel'), rel.getAttribute('data-key')); return; }
+
+    const retry = e.target.closest('[data-tafsir-retry]');
+    if (retry) {
+      const body = retry.closest('.tafseer-body');
+      const card = retry.closest('[data-tafseer-card]');
+      if (body && card) {
+        this.loadInto(body, parseInt(body.getAttribute('data-tafsir'), 10),
+                      card.getAttribute('data-tafseer-card'), this.renderToken);
+      }
+      return;
+    }
+
     const copy = e.target.closest('[data-tafsir-copy]');
     if (copy) { this.copyCard(copy.getAttribute('data-tafsir-copy')); return; }
 
     const toggle = e.target.closest('.tafseer-toggle');
     if (!toggle || !this.content.contains(toggle)) return;
-
     const card = toggle.closest('[data-tafseer-card]');
+    this.setCardOpen(card, card.querySelector('.tafseer-panel').classList.contains('hidden'));
+  }
+
+  onContentChange(e) {
+    const cmp = e.target.closest('[data-tafsir-compare-select]');
+    if (!cmp) return;
+    try { localStorage.setItem('tafsirCompareId', cmp.value); } catch (err) { /* ignore */ }
+    this.rendered = false;
+    this.render();
+  }
+
+  /** Open/close one accordion card, lazily loading its bodies on first open. */
+  setCardOpen(card, open) {
+    if (!card) return;
     const panel = card.querySelector('.tafseer-panel');
-    const chevron = toggle.querySelector('.tafseer-chevron');
-    const isOpen = !panel.classList.contains('hidden');
+    if (!panel) return; // expanded (non-accordion) mode: nothing to toggle
+    const toggle = card.querySelector('.tafseer-toggle');
+    const chevron = card.querySelector('.tafseer-chevron');
+    panel.classList.toggle('hidden', !open);
+    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+    if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
 
-    panel.classList.toggle('hidden', isOpen);
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
-
-    if (!isOpen && !card.hasAttribute('data-loaded')) {
-      const body = panel.querySelector('.tafseer-body');
-      // Only mark as loaded when the fetch actually succeeds, so a failed load
-      // can be retried by collapsing and re-expanding.
-      this.loadInto(body, this.selectedTafsirId(), toggle.getAttribute('data-key'), this.renderToken)
+    if (open && !card.hasAttribute('data-loaded')) {
+      const ayah = this.ayahs.find(a => a.key === card.getAttribute('data-tafseer-card'));
+      // Only mark loaded on full success, so a failed load can be retried by
+      // collapsing and re-expanding (or via the inline Retry button).
+      this.loadCard(card, ayah, this.renderToken)
         .then(ok => { if (ok) card.setAttribute('data-loaded', 'true'); });
     }
+  }
+
+  setAllCards(open) {
+    this.content.querySelectorAll('[data-tafseer-card]').forEach(card => this.setCardOpen(card, open));
+  }
+
+  /** Scroll a card into view; expand it first when in accordion mode. */
+  jumpToCard(key) {
+    const card = this.content.querySelector(`[data-tafseer-card="${key}"]`);
+    if (!card) return;
+    if (card.querySelector('.tafseer-panel')) this.setCardOpen(card, true);
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /** Jump to a sibling module (or preview the verse in the shared modal). */
+  gotoRelated(target, key) {
+    if (target === 'preview') {
+      if (typeof ayahModal !== 'undefined' && ayahModal) ayahModal.open(key);
+      return;
+    }
+    if (typeof tabSystem === 'undefined' || !tabSystem) return;
+    if (typeof tabSystem.switchTabWithReturn === 'function') tabSystem.switchTabWithReturn(target);
+    else tabSystem.switchTab(target);
+  }
+
+  /** Load every tagged body inside a card; resolves true only if all succeed. */
+  async loadCard(card, ayah, token) {
+    if (!ayah) return false;
+    const bodies = [...card.querySelectorAll('.tafseer-body[data-tafsir]')];
+    if (!bodies.length) return false;
+    const results = await Promise.all(bodies.map(b =>
+      this.loadInto(b, parseInt(b.getAttribute('data-tafsir'), 10), ayah.key, token)));
+    return results.every(r => r === true);
   }
 
   /** Fetch a tafsir and inject it into a body element (stale-render safe). */
   async loadInto(body, tafsirId, verseKey, token) {
     const lang = this.language;
-    body.innerHTML = `<p class="text-gray-400">${t('loading', lang)}</p>`;
+    body.innerHTML = this.skeletonHtml();
 
     try {
       const tafsir = await this.fetchTafsir(tafsirId, verseKey);
@@ -408,9 +638,23 @@ class TafseerView {
     } catch (err) {
       console.error('Tafsir fetch failed:', err);
       if (token !== this.renderToken) return false;
-      body.innerHTML = `<p class="text-gray-400 text-sm">${t('tafsir_unavailable', lang)}</p>`;
+      // Offer an explicit retry instead of a dead end (the id lives on the body).
+      body.innerHTML = `
+        <div class="text-sm text-gray-400">
+          <p class="mb-2">${t('tafsir_load_error', lang)}</p>
+          <button data-tafsir-retry="1"
+                  class="px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">${t('retry', lang)}</button>
+        </div>`;
       return false;
     }
+  }
+
+  /** Pulsing placeholder lines shown while a tafsir entry is being fetched. */
+  skeletonHtml() {
+    const bar = (w) => `<div class="h-3 bg-gray-200 dark:bg-gray-700 rounded ${w}"></div>`;
+    return `<div class="animate-pulse space-y-2 py-1" aria-hidden="true">
+      ${bar('w-11/12')}${bar('w-full')}${bar('w-10/12')}${bar('w-9/12')}
+    </div>`;
   }
 }
 

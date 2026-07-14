@@ -27,6 +27,9 @@ class SearchView {
     this.shown = 0;                // how many result verses are currently rendered
     this.pageSize = 50;
     this.displayCache = new Map(); // "s:a" -> normalized verse object (with words)
+    this.quranWords = null;        // { "s:a": [arabicWord, ...] } diacritized, for instant inline highlight
+    this._quranWordsPromise = null;
+    this._topWords = null;         // cached most-repeated word chips [{word, count}]
     this.debounceTimer = null;
     this.searchToken = 0;          // guards against stale async renders
 
@@ -87,12 +90,14 @@ class SearchView {
           <p class="text-xs text-gray-400 dark:text-gray-500" id="search-mode-hint">
             ${this.mode === 'phrase' ? t('search_phrase_hint', lang) : t('search_contains_hint', lang)}
           </p>
+          <div id="search-chips" class="pt-1"></div>
         </div>
         <div id="search-results"></div>
       </div>
     `;
 
     this.renderResults();
+    this.renderChips();
   }
 
   bindEvents() {
@@ -113,6 +118,17 @@ class SearchView {
           this.renderShell();
           if (this.query.trim()) this.runSearch();
         }
+        return;
+      }
+
+      const chip = e.target.closest('.search-chip');
+      if (chip) {
+        const word = chip.getAttribute('data-chip') || '';
+        const inp = this.container.querySelector('#search-input');
+        if (inp) { inp.value = word; inp.focus(); }
+        this.query = word;
+        clearTimeout(this.debounceTimer);
+        this.runSearch();
         return;
       }
 
@@ -144,6 +160,65 @@ class SearchView {
         .catch(err => { this._tokensPromise = null; throw err; });
     }
     return this._tokensPromise;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Most-repeated word quick-fill chips
+   * ------------------------------------------------------------------ */
+
+  /** Top `limit` normalized words by total occurrence across every verse.
+   *  Skips words of ≤2 Arabic letters (trivial particles); relaxes that filter
+   *  only if it would leave fewer than `limit` chips. */
+  computeTopWords(tokens, limit = 18) {
+    const tally = (minLen) => {
+      const freq = new Map();
+      for (const key in tokens) {
+        const V = tokens[key];
+        for (let i = 0; i < V.length; i++) {
+          const w = V[i];
+          if (w.length < minLen) continue;
+          freq.set(w, (freq.get(w) || 0) + 1);
+        }
+      }
+      return [...freq.entries()]
+        .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+        .slice(0, limit)
+        .map(([word, count]) => ({ word, count }));
+    };
+    let list = tally(3);
+    if (list.length < limit) list = tally(1); // relax if too sparse
+    return list;
+  }
+
+  /** Render the most-repeated word chips into the search card. Loads tokens
+   *  (reusing loadTokens) and caches the computed list across re-renders. */
+  renderChips() {
+    const host = this.container.querySelector('#search-chips');
+    if (!host) return;
+    const lang = this.language;
+
+    const build = (list) => {
+      const el = this.container.querySelector('#search-chips');
+      if (!el) return;
+      if (!list || !list.length) { el.innerHTML = ''; return; }
+      const chips = list.map(({ word, count }) => `
+        <button type="button" data-chip="${this._attr(word)}"
+                class="search-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+                       bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600
+                       hover:bg-primary/10 hover:border-primary/40 dark:hover:bg-blue-900/40 dark:hover:border-blue-600
+                       transition-colors">
+          <span class="ayah-arabic !text-lg !mb-0 !pb-0 !border-b-0 text-gray-800 dark:text-gray-100" dir="rtl">${this._esc(word)}</span>
+          <span class="text-xs text-gray-400 dark:text-gray-500">${count.toLocaleString()}</span>
+        </button>`).join('');
+      el.innerHTML = `
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">${t('search_top_words', lang)}</p>
+        <div class="flex flex-wrap gap-2">${chips}</div>`;
+    };
+
+    if (this._topWords) { build(this._topWords); return; }
+    this.loadTokens()
+      .then(tokens => { this._topWords = this.computeTopWords(tokens, 18); build(this._topWords); })
+      .catch(() => { /* chips are non-essential; stay silent on data errors */ });
   }
 
   /* ------------------------------------------------------------------ *
@@ -305,8 +380,56 @@ class SearchView {
       ${moreBtn}
     `;
 
-    // Lazily fetch + fill the display text (with tashkeel) for each shown verse
+    // Instant inline Arabic (matched words highlighted) from local data, then
+    // lazily fetch the translation (and an Arabic fallback) per shown verse.
+    this._renderInlineArabic(slice);
     slice.forEach(v => this.fillVerse(v));
+  }
+
+  /** Fill each shown card's Arabic line immediately from the bundled
+   *  diacritized word data (QuranData.getQuranWords) — no network needed. */
+  _renderInlineArabic(slice) {
+    const token = this.searchToken;
+    this.loadQuranWords().then(() => {
+      if (token !== this.searchToken) return; // superseded by a newer search
+      slice.forEach(v => {
+        const card = this.container.querySelector(`[data-verse-card="${v.key}"]`);
+        if (!card) return;
+        const arabicEl = card.querySelector('[data-arabic]');
+        if (!arabicEl) return;
+        const html = this.highlightLocalArabic(v.key, v.ayah, v.ranges);
+        if (html) { arabicEl.innerHTML = html; arabicEl.dataset.local = '1'; }
+      });
+    }).catch(() => { /* fall back to the API-filled Arabic in fillVerse */ });
+  }
+
+  /** Diacritized verse words from bundled data, once, cached. */
+  loadQuranWords() {
+    if (this.quranWords) return Promise.resolve(this.quranWords);
+    if (!this._quranWordsPromise) {
+      this._quranWordsPromise = QuranData.getQuranWords()
+        .then(json => { this.quranWords = json; return json; })
+        .catch(err => { this._quranWordsPromise = null; throw err; });
+    }
+    return this._quranWordsPromise;
+  }
+
+  /** Build the verse Arabic from local diacritized words, highlighting the
+   *  matched word-block(s) (amber) by their token positions in `ranges`. */
+  highlightLocalArabic(key, ayah, ranges) {
+    const words = (this.quranWords && this.quranWords[key]) || [];
+    if (!words.length) return '';
+
+    const hl = new Set();
+    ranges.forEach(r => { for (let k = 0; k < r.len; k++) hl.add(r.start + k); });
+
+    const medallion = `<span class="text-primary dark:text-blue-400 select-none mx-1">۝${this._arabicDigits(ayah)}</span>`;
+    return words.map((w, idx) => {
+      const text = this._esc(w);
+      return hl.has(idx)
+        ? `<span class="bg-amber-200 dark:bg-amber-500/30 rounded px-0.5">${text}</span>`
+        : `<span>${text}</span>`;
+    }).join(' ') + medallion;
   }
 
   /** A result card with a skeleton Arabic line, filled asynchronously. */
@@ -348,11 +471,14 @@ class SearchView {
     const arabicEl = card.querySelector('[data-arabic]');
     const transEl = card.querySelector('[data-translation]');
     if (!verse) {
-      if (arabicEl) arabicEl.textContent = t('search_verse_unavailable', this.language);
+      // Keep the instant local Arabic if it rendered; only report unavailable
+      // when we have nothing to show.
+      if (arabicEl && arabicEl.dataset.local !== '1') arabicEl.textContent = t('search_verse_unavailable', this.language);
       return;
     }
 
-    if (arabicEl) arabicEl.innerHTML = this.highlightArabic(verse, v.ranges);
+    // Prefer the already-shown local Arabic; use the API text only as a fallback.
+    if (arabicEl && arabicEl.dataset.local !== '1') arabicEl.innerHTML = this.highlightArabic(verse, v.ranges);
     if (transEl) transEl.textContent = verse.translation || '';
   }
 

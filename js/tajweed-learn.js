@@ -6,6 +6,11 @@
  * - Tap a rule → real examples: pick any surah and every occurrence of that rule
  *   is highlighted in the actual verse text (bundled data/tajweed-json spans).
  * - Practice: jump to the tajweed quiz, colored reading view, or tajweed mushaf.
+ * - Structured learning path (beginner → intermediate → advanced) driven by the
+ *   same learned-tracker, with per-level progress bars.
+ * - Makharij view: the classical 17 articulation points in 5 zones (pure HTML/CSS).
+ * - Inline rule-identification drill: real color-annotated verse spans, 4 options.
+ * - "Common mistakes" card per rule family (textbook-level guidance).
  * - Curated reputable external resources.
  *
  * Renders into #tajweedlearn-container (tab "tajweedlearn").
@@ -68,6 +73,135 @@ const TAJWEED_LESSONS = {
     bn: 'নীরব অক্ষর: লেখা থাকলেও উচ্চারিত হয় না।' },
 };
 
+/**
+ * Structured learning path: classical teaching order. A level is "complete"
+ * when every rule in it is marked learned; the next level then unlocks
+ * (advisory only — all rule cards stay reachable below).
+ */
+const TAJWEED_PATH = [
+  { level: 'beginner', emoji: '🌱', labelKey: 'tj_level_beginner', fallback: 'Beginner',
+    rules: ['madd_2', 'lam_shamsiyyah', 'hamzat_wasl', 'silent', 'ghunnah', 'qalqalah'] },
+  { level: 'intermediate', emoji: '🌿', labelKey: 'tj_level_intermediate', fallback: 'Intermediate',
+    rules: ['ikhfa', 'iqlab', 'idghaam_ghunnah', 'idghaam_no_ghunnah', 'ikhfa_shafawi', 'idghaam_shafawi'] },
+  { level: 'advanced', emoji: '🌳', labelKey: 'tj_level_advanced', fallback: 'Advanced',
+    rules: ['madd_muttasil', 'madd_munfasil', 'madd_246', 'madd_6', 'idghaam_mutajanisayn', 'idghaam_mutaqaribayn'] },
+];
+
+/**
+ * The classical 17 makharij (articulation points) in 5 zones, as taught in
+ * standard tajweed curricula (al-Jazariyyah ordering). Letters only — no
+ * example words needed, so nothing to verify against the corpus.
+ */
+const MAKHARIJ_ZONES = [
+  { key: 'jawf', ar: 'الجوف', color: '#3B82F6',
+    names: { en: 'Al-Jawf — the empty space of the mouth and throat', bn: 'আল-জাওফ — মুখ ও গলার খালি জায়গা' },
+    points: [
+      { letters: 'ا و ي',
+        en: 'The three madd letters — the sound flows from the open cavity and ends with the breath.',
+        bn: 'মাদ্দের তিন হরফ — খালি জায়গা থেকে আওয়াজ প্রবাহিত হয়ে শ্বাসের সাথে শেষ হয়।' },
+    ] },
+  { key: 'halq', ar: 'الحلق', color: '#EF4444',
+    names: { en: 'Al-Halq — the throat', bn: 'আল-হালক — গলা' },
+    points: [
+      { letters: 'ء هـ', en: 'Deepest part of the throat (nearest the chest).', bn: 'গলার গভীরতম অংশ (বুকের নিকটবর্তী)।' },
+      { letters: 'ع ح', en: 'Middle of the throat.', bn: 'গলার মধ্যভাগ।' },
+      { letters: 'غ خ', en: 'Top of the throat (nearest the mouth).', bn: 'গলার উপরের অংশ (মুখের নিকটবর্তী)।' },
+    ] },
+  { key: 'lisan', ar: 'اللسان', color: '#10B981',
+    names: { en: 'Al-Lisan — the tongue', bn: 'আল-লিসান — জিহ্বা' },
+    points: [
+      { letters: 'ق', en: 'Deepest part of the tongue with the soft palate above it.', bn: 'জিহ্বার গোড়া ও তার উপরের নরম তালু।' },
+      { letters: 'ك', en: 'Slightly forward of ق — back of the tongue with the palate.', bn: 'ق-এর সামান্য সামনে — জিহ্বার পিছনের অংশ ও তালু।' },
+      { letters: 'ج ش ي', en: 'Middle of the tongue with the roof of the mouth.', bn: 'জিহ্বার মধ্যভাগ ও তালু।' },
+      { letters: 'ض', en: 'Side(s) of the tongue against the upper molars.', bn: 'জিহ্বার পার্শ্বদেশ ও উপরের মাড়ির দাঁত।' },
+      { letters: 'ل', en: 'Nearest edge of the tongue with the upper gums.', bn: 'জিহ্বার অগ্রভাগের কিনারা ও উপরের মাড়ি।' },
+      { letters: 'ن', en: 'Tip of the tongue with the upper gums, just below the point of ل.', bn: 'জিহ্বার অগ্রভাগ ও উপরের মাড়ি — ل-এর ঠিক নিচে।' },
+      { letters: 'ر', en: 'Tip of the tongue (with its back) near the point of ن.', bn: 'জিহ্বার অগ্রভাগ (পিঠসহ) — ن-এর কাছাকাছি স্থান।' },
+      { letters: 'ط د ت', en: 'Tip of the tongue with the base of the upper front teeth.', bn: 'জিহ্বার অগ্রভাগ ও উপরের সামনের দাঁতের গোড়া।' },
+      { letters: 'ص س ز', en: 'Tip of the tongue close to the lower front teeth, leaving a small gap.', bn: 'জিহ্বার অগ্রভাগ ও নিচের সামনের দাঁত — সামান্য ফাঁক রেখে।' },
+      { letters: 'ظ ذ ث', en: 'Tip of the tongue with the edges of the upper front teeth.', bn: 'জিহ্বার অগ্রভাগ ও উপরের সামনের দাঁতের কিনারা।' },
+    ] },
+  { key: 'shafatan', ar: 'الشفتان', color: '#F59E0B',
+    names: { en: 'Ash-Shafatan — the two lips', bn: 'আশ-শাফাতান — দুই ঠোঁট' },
+    points: [
+      { letters: 'ف', en: 'Inside of the lower lip with the tips of the upper front teeth.', bn: 'নিচের ঠোঁটের ভেতরের অংশ ও উপরের সামনের দাঁতের প্রান্ত।' },
+      { letters: 'ب م و', en: 'The two lips together — closed for ب and م, slightly rounded open for و.', bn: 'দুই ঠোঁট একসাথে — ب ও م-এ বন্ধ, و-তে সামান্য গোল করে খোলা।' },
+    ] },
+  { key: 'khayshum', ar: 'الخيشوم', color: '#8B5CF6',
+    names: { en: 'Al-Khayshum — the nasal cavity', bn: 'আল-খাইশুম — নাসারন্ধ্র' },
+    points: [
+      { letters: 'نّ مّ',
+        en: 'Source of the ghunnah — in doubled ن/م, ikhfa, iqlab and idgham with ghunnah.',
+        bn: 'গুন্নাহর উৎস — নূন/মীম মুশাদ্দাদ, ইখফা, ইকলাব ও গুন্নাহসহ ইদগামে।' },
+    ] },
+];
+
+/** Common mistakes per rule family — standard textbook cautions only. */
+const TAJWEED_MISTAKES = {
+  noon: {
+    en: [
+      'Pronouncing the noon clearly during ikhfa — it should sit between izhar and idgham: lightly hidden, with ghunnah.',
+      'Cutting the ghunnah short — in ikhfa, iqlab and idgham with ghunnah, hold the nasal sound about 2 counts.',
+      'Applying idgham inside a single word — دُنْيَا and بُنْيَان are read with clear izhar (izhar mutlaq).',
+    ],
+    bn: [
+      'ইখফায় নূন স্পষ্ট করে পড়া — এটি ইযহার ও ইদগামের মাঝামাঝি: গুন্নাহসহ হালকাভাবে গোপন রাখতে হয়।',
+      'গুন্নাহ ছোট করে ফেলা — ইখফা, ইকলাব ও গুন্নাহসহ ইদগামে প্রায় ২ হরকত নাকি আওয়াজ ধরে রাখুন।',
+      'এক শব্দের ভিতরে ইদগাম করা — دُنْيَا ও بُنْيَان-এ স্পষ্ট ইযহার হবে (ইযহার মুতলাক)।',
+    ],
+  },
+  meem: {
+    en: [
+      'Hiding the meem before ف or و — meem sakinah there takes clear izhar (izhar shafawi) and needs extra care.',
+      'Dropping the ghunnah when meem sakinah merges into a following م (idgham shafawi).',
+      'Pressing the lips too hard in ikhfa shafawi before ب — the closure stays light, with ghunnah.',
+    ],
+    bn: [
+      'ف বা و-এর আগে মীম সাকিন গোপন করা — সেখানে স্পষ্ট ইযহার (ইযহার শাফাবি) হবে; বিশেষ সতর্কতা দরকার।',
+      'ইদগাম শাফাবিতে গুন্নাহ বাদ দেওয়া — মীম সাকিন পরের م-এ মিশলে গুন্নাহ বজায় থাকবে।',
+      'ইখফা শাফাবিতে ب-এর আগে ঠোঁট খুব শক্ত করে চাপা — চাপ হালকা হবে, গুন্নাহসহ।',
+    ],
+  },
+  madd: {
+    en: [
+      'Stretching natural madd beyond 2 counts — or clipping it below 2.',
+      'Shortening madd muttasil below 4 counts — its lengthening is obligatory (wajib).',
+      'Mixing lengths for madd munfasil — choose 4 or 5 counts and keep it consistent through the recitation.',
+      'Giving madd lazim less than its full 6 counts.',
+    ],
+    bn: [
+      'মাদ্দ তবিয়ি ২ হরকতের বেশি টানা — বা ২-এর কম করা।',
+      'মাদ্দ মুত্তাসিল ৪ হরকতের কম টানা — এর দৈর্ঘ্য ওয়াজিব।',
+      'মাদ্দ মুনফাসিলে একবার ৪, একবার ৫ — একটি দৈর্ঘ্য বেছে নিয়ে পুরো তিলাওয়াতে তা বজায় রাখুন।',
+      'মাদ্দ লাযিম পূর্ণ ৬ হরকতের কম টানা।',
+    ],
+  },
+  core: {
+    en: [
+      'Turning the qalqalah bounce into a vowel — it must not sound like a fathah, kasrah or dammah.',
+      'Applying qalqalah to ق ط ب ج د when they carry a vowel — it happens only with sukoon (strongest when stopping).',
+      'Weakening the ghunnah on a doubled ن or م — hold it about 2 counts.',
+    ],
+    bn: [
+      'কলকলার প্রতিধ্বনিকে হরকতের মতো করা — তা যেন ফাতহা, কাসরা বা দাম্মার মতো না শোনায়।',
+      'হরকতযুক্ত ق ط ب ج د-এ কলকলা করা — কলকলা কেবল সাকিন অবস্থায় (থামলে সবচেয়ে জোরালো)।',
+      'নূন/মীম মুশাদ্দাদে গুন্নাহ দুর্বল করা — প্রায় ২ হরকত ধরে রাখুন।',
+    ],
+  },
+  other: {
+    en: [
+      'Pronouncing hamzat al-wasl while continuing from the previous word — it is read only when you start at it.',
+      'Pronouncing the lam of ال before a sun letter — the lam is silent and the sun letter is doubled.',
+      'Extending idgham mutajanisayn/mutaqaribayn beyond their specific letter pairs — merge only where the rule applies.',
+    ],
+    bn: [
+      'আগের শব্দের সাথে মিলিয়ে পড়ার সময় হামযাতুল ওয়াসল উচ্চারণ করা — সেখান থেকে শুরু করলেই কেবল তা পড়া হয়।',
+      'সূর্য অক্ষরের আগে ال-এর লাম উচ্চারণ করা — লাম নীরব, সূর্য অক্ষর দ্বিগুণ হয়।',
+      'নির্দিষ্ট হরফ-জোড়ার বাইরে ইদগাম মুতাজানিসাইন/মুতাকারিবাইন প্রয়োগ করা — নিয়ম যেখানে প্রযোজ্য কেবল সেখানেই মিলন।',
+    ],
+  },
+};
+
 const TAJWEED_RESOURCES = [
   { name: 'KSU Electronic Mushaf', url: 'https://quran.ksu.edu.sa', emoji: '🕌', descKey: 'tjr_ksu_desc' },
   { name: 'TajweedQuran.com', url: 'https://www.tajweedquran.com', emoji: '📗', descKey: 'tjr_tajweedquran_desc' },
@@ -85,6 +219,9 @@ class TajweedLearn {
     this.surah = 1;            // examples surah
     this.exLimit = 15;         // examples shown before "Show more"
     this._exReq = 0;           // loadExamples() request token (guards stale responses)
+    this.view = 'rules';       // 'rules' | 'makharij' | 'drill'
+    this.drill = null;         // null | {status} | {questions, idx, score, picked}
+    this._drillReq = 0;        // startDrill() request token
     this.bound = false;
     this.learned = this.loadLearned();
 
@@ -97,7 +234,8 @@ class TajweedLearn {
     });
   }
 
-  tt(key) { return t(key, this.language); }
+  /** t() with an optional English fallback for keys not yet in translations.js */
+  tt(key, fb) { const v = t(key, this.language); return (fb && v === key) ? fb : v; }
   loadLearned() {
     try { return new Set(JSON.parse(localStorage.getItem('tajweedLearned') || '[]')); } catch (e) { return new Set(); }
   }
@@ -123,6 +261,33 @@ class TajweedLearn {
         this.saveLearned();
         this.render();
         return;
+      }
+      const view = e.target.closest('[data-tj-view]');
+      if (view) { this.view = view.getAttribute('data-tj-view'); this.render(); return; }
+      // Learning-path chip → open that rule's card below and scroll to it
+      const pathRule = e.target.closest('[data-tj-path]');
+      if (pathRule) {
+        const k = pathRule.getAttribute('data-tj-path');
+        this.view = 'rules'; this.rule = k; this.exLimit = 15;
+        this.render(); this.loadExamples();
+        const card = this.container.querySelector(`[data-tj-rule="${k}"]`);
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (e.target.closest('[data-tj-drill-start]')) { this.startDrill(); return; }
+      const opt = e.target.closest('[data-tj-opt]');
+      if (opt && this.drill && this.drill.questions && this.drill.picked === null) {
+        const i = parseInt(opt.getAttribute('data-tj-opt'), 10);
+        const q = this.drill.questions[this.drill.idx];
+        if (q && q.options[i]) {
+          this.drill.picked = i;
+          if (q.options[i].correct) this.drill.score++;
+          this.render();
+        }
+        return;
+      }
+      if (e.target.closest('[data-tj-drill-next]') && this.drill && this.drill.questions) {
+        this.drill.idx++; this.drill.picked = null; this.render(); return;
       }
       const rule = e.target.closest('[data-tj-rule]');
       if (rule) {
@@ -285,24 +450,49 @@ class TajweedLearn {
   render() {
     this.bindOnce();
     if (this._audio) this._audio.pause();
+    const keys = Object.keys(TAJWEED_LESSONS);
+    const learnedCount = keys.filter(k => this.learned.has(k)).length;
+    const pct = Math.round((learnedCount / keys.length) * 100);
+    const pills = [
+      ['rules', '📜', 'tj_nav_rules', 'Rules'],
+      ['makharij', '👄', 'tj_nav_makharij', 'Makharij'],
+      ['drill', '🎯', 'tj_nav_drill', 'Practice drill'],
+    ].map(([v, em, key, fb]) => `
+      <button data-tj-view="${v}" class="px-4 py-2 rounded-full text-sm font-medium ${this.view === v
+        ? 'bg-primary text-white'
+        : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}">${em} ${this.tt(key, fb)}</button>`).join('');
+    this.container.innerHTML = `
+      <div class="w-full">
+        <div class="text-center mb-5">
+          <p class="text-gray-500 dark:text-gray-400 text-sm">${this.tt('tj_learn_subtitle')}</p>
+          <div class="max-w-md mx-auto mt-3">
+            <div class="flex justify-between text-xs font-medium text-green-600 dark:text-green-400 mb-1">
+              <span>✓ ${learnedCount} / ${keys.length} ${this.tt('tj_learned')}</span><span>${pct}%</span>
+            </div>
+            <div class="h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+              <div class="h-full rounded-full bg-green-500 transition-all duration-500" style="width:${pct}%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 mb-6">${pills}</div>
+        ${this.view === 'makharij' ? this.makharijHtml() : this.view === 'drill' ? this.drillHtml() : this.rulesHtml(keys)}
+      </div>`;
+    if (this.view === 'rules' && this.rule) this.loadExamples();
+  }
+
+  /** Default view: practice shortcuts, learning path, rule groups (+ mistakes), resources. */
+  rulesHtml(keys) {
     const groups = [
       ['noon', 'tj_group_noon'], ['meem', 'tj_group_meem'], ['madd', 'tj_group_madd'],
       ['core', 'tj_group_core'], ['other', 'tj_group_other'],
     ];
-    const keys = Object.keys(TAJWEED_LESSONS);
-    const learnedCount = keys.filter(k => this.learned.has(k)).length;
-    this.container.innerHTML = `
-      <div class="w-full">
-        <div class="text-center mb-6">
-          <h2 class="text-2xl font-bold mb-1">🎨 ${this.tt('tj_learn_title')}</h2>
-          <p class="text-gray-500 dark:text-gray-400 text-sm">${this.tt('tj_learn_subtitle')}</p>
-          <p class="text-sm font-medium text-green-600 dark:text-green-400 mt-1">✓ ${learnedCount} / ${keys.length} ${this.tt('tj_learned')}</p>
-        </div>
+    return `
         <div class="flex flex-wrap justify-center gap-2 mb-6">
           <button data-tj-quiz class="px-4 py-2 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-secondary/80">❓ ${this.tt('tj_practice_quiz')}</button>
           <button data-tj-goto="reading" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">📖 ${this.tt('tj_practice_reading')}</button>
           <button data-tj-goto="mushaf" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">📗 ${this.tt('tj_practice_mushaf')}</button>
         </div>
+        ${this.pathHtml()}
         ${groups.map(([g, labelKey]) => {
           const inGroup = keys.filter(k => TAJWEED_LESSONS[k].group === g);
           if (!inGroup.length) return '';
@@ -310,7 +500,8 @@ class TajweedLearn {
             <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-2 mt-5">${this.tt(labelKey)}</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
               ${inGroup.map(k => this.ruleCard(k)).join('')}
-            </div>`;
+            </div>
+            ${this.mistakesHtml(g)}`;
         }).join('')}
         <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-2 mt-8">🌐 ${this.tt('resources_title')}</h3>
         <div class="flex flex-wrap gap-2">
@@ -319,9 +510,260 @@ class TajweedLearn {
               <span>${r.emoji}</span><span class="font-medium">${r.name}</span>
               <span class="text-xs text-gray-400">${this.esc(this.tt(r.descKey))}</span>
             </a>`).join('')}
+        </div>`;
+  }
+
+  /** Beginner → intermediate → advanced panel with per-level progress bars. */
+  pathHtml() {
+    let prevDone = true;
+    const cards = TAJWEED_PATH.map(stage => {
+      const done = stage.rules.filter(k => this.learned.has(k)).length;
+      const total = stage.rules.length;
+      const pct = Math.round((done / total) * 100);
+      const unlocked = prevDone;
+      const complete = done === total;
+      const html = `
+        <div class="rounded-lg border ${complete ? 'border-green-400 dark:border-green-600' : 'border-gray-200 dark:border-gray-700'} p-3 ${unlocked ? '' : 'opacity-60'}">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span>${complete ? '✅' : unlocked ? stage.emoji : '🔒'}</span>
+            <span class="font-semibold text-sm flex-1">${this.tt(stage.labelKey, stage.fallback)}</span>
+            <span class="text-xs text-gray-400">${done}/${total}</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden mb-2">
+            <div class="h-full rounded-full ${complete ? 'bg-green-500' : 'bg-primary'} transition-all duration-500" style="width:${pct}%"></div>
+          </div>
+          ${complete ? `<p class="text-xs text-green-600 dark:text-green-400 mb-1.5">${this.tt('tj_path_done', 'Level complete!')}</p>` : ''}
+          ${unlocked ? `
+            <div class="flex flex-wrap gap-1">
+              ${stage.rules.map(k => {
+                const learned = this.learned.has(k);
+                const color = ((typeof TAJWEED_RULES !== 'undefined' && TAJWEED_RULES[k]) || {}).color || '#888';
+                return `
+                  <button data-tj-path="${k}" dir="auto" class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs border ${learned
+                    ? 'border-green-400 dark:border-green-600 text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-500/10'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}">
+                    <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>${this.esc(this.ruleName(k))}${learned ? ' ✓' : ''}
+                  </button>`;
+              }).join('')}
+            </div>`
+          : `<p class="text-xs text-gray-400">${this.tt('tj_path_locked', 'Complete the previous level to unlock')}</p>`}
+        </div>`;
+      prevDone = complete;
+      return html;
+    }).join('');
+    return `
+      <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 mb-4">
+        <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-3">🧭 ${this.tt('tj_path_title', 'Learning path')}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">${cards}</div>
+      </div>`;
+  }
+
+  /** Collapsible "common mistakes" card under a rule group. */
+  mistakesHtml(group) {
+    const m = TAJWEED_MISTAKES[group];
+    if (!m) return '';
+    const list = m[this.language] || m.en;
+    return `
+      <details class="mt-2 rounded-xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10">
+        <summary class="cursor-pointer px-4 py-2.5 text-sm font-medium text-amber-800 dark:text-amber-300 select-none">⚠️ ${this.tt('tj_mistakes_title', 'Common mistakes')}</summary>
+        <ul class="px-4 pb-3 ps-9 space-y-1.5 text-sm text-amber-900/80 dark:text-amber-100/80 list-disc">
+          ${list.map(x => `<li dir="auto">${this.esc(x)}</li>`).join('')}
+        </ul>
+      </details>`;
+  }
+
+  /** The 17 makharij in 5 zones + a simple CSS cross-section diagram. */
+  makharijHtml() {
+    const lang = this.language;
+    const nasal = MAKHARIJ_ZONES.find(z => z.key === 'khayshum');
+    const seg = (z, flex, count) => `
+      <div class="py-2 px-1" style="background:${z.color};flex:${flex}">${z.ar}<br>${count}</div>`;
+    const byKey = k => MAKHARIJ_ZONES.find(z => z.key === k);
+    return `
+      <div class="text-center mb-4">
+        <h3 class="font-semibold text-gray-800 dark:text-gray-100">${this.tt('tj_makharij_title', 'Makharij — articulation points')}</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${this.tt('tj_makharij_subtitle', 'The 17 articulation points of the Arabic letters, grouped into 5 zones.')}</p>
+      </div>
+      <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 mb-4">
+        <div dir="rtl" class="max-w-md mx-auto">
+          <div class="mb-1 ps-1">
+            <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full text-white" style="background:${nasal.color}">👃 ${nasal.ar} · 1</span>
+          </div>
+          <div class="flex rounded-lg overflow-hidden text-[11px] text-white text-center font-medium">
+            ${seg(byKey('shafatan'), 2, 2)}${seg(byKey('lisan'), 6, 10)}${seg(byKey('halq'), 3, 3)}${seg(byKey('jawf'), 2, 1)}
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-400 mt-1">
+            <span>${this.tt('tj_mx_front', 'front (lips)')}</span><span>${this.tt('tj_mx_deep', 'deep (throat & cavity)')}</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        ${MAKHARIJ_ZONES.map(z => `
+          <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 ${z.key === 'lisan' ? 'lg:col-span-2' : ''}">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-3 h-3 rounded-full shrink-0" style="background:${z.color}"></span>
+              <span class="font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(z.names[lang] || z.names.en)}</span>
+              <span class="ms-auto ayah-arabic !text-xl !leading-none" dir="rtl">${z.ar}</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full shrink-0" style="background:${z.color}22;color:${z.color}">${z.points.length}</span>
+            </div>
+            <div class="space-y-1.5 ${z.key === 'lisan' ? 'lg:columns-2 lg:gap-3 lg:space-y-0' : ''}">
+              ${z.points.map(p => `
+                <div class="flex items-start gap-3 rounded-lg bg-gray-50 dark:bg-gray-900/40 p-2.5 ${z.key === 'lisan' ? 'lg:break-inside-avoid lg:mb-1.5' : ''}">
+                  <span class="ayah-arabic !text-2xl !leading-normal shrink-0 px-2 rounded-md border" style="border-color:${z.color}55;color:${z.color}" dir="rtl">${p.letters}</span>
+                  <span class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(p[lang] || p.en)}</span>
+                </div>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  /** Inline "which rule?" drill built from real annotated verses. */
+  drillHtml() {
+    const d = this.drill;
+    const head = `
+      <h3 class="font-semibold text-gray-800 dark:text-gray-100">🎯 ${this.tt('tj_drill_title', 'Rule identification drill')}</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${this.tt('tj_drill_intro', 'Read the highlighted letters in a real verse and pick the tajweed rule that applies.')}</p>`;
+    const startBtn = `<button data-tj-drill-start class="px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">▶ ${this.tt('tj_drill_start', 'Start drill')}</button>`;
+    if (!d) return `
+      <div class="max-w-xl mx-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 text-center">
+        ${head}
+        <div class="flex flex-wrap justify-center gap-2 mt-4">
+          ${startBtn}
+          <button data-tj-quiz class="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">❓ ${this.tt('tj_practice_quiz')}</button>
         </div>
       </div>`;
-    if (this.rule) this.loadExamples();
+    if (d.status === 'loading') return `<p class="text-center text-gray-400 text-sm py-8">${this.tt('loading')}</p>`;
+    if (d.status === 'empty') return `
+      <div class="max-w-xl mx-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 text-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">${this.tt('tj_drill_empty', 'Could not build drill questions — please try again.')}</p>
+        ${startBtn}
+      </div>`;
+    if (d.idx >= d.questions.length) {
+      const scorePct = d.score / d.questions.length;
+      return `
+        <div class="max-w-xl mx-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 text-center">
+          <div class="text-4xl mb-2">${scorePct === 1 ? '🏆' : scorePct >= 0.5 ? '🎉' : '💪'}</div>
+          <p class="font-semibold text-gray-800 dark:text-gray-100 mb-4">${this.esc(this.tt('quiz_your_score').replace('{score}', d.score).replace('{total}', d.questions.length))}</p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <button data-tj-drill-start class="px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">🔄 ${this.tt('retry')}</button>
+            <button data-tj-quiz class="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">❓ ${this.tt('tj_practice_quiz')}</button>
+          </div>
+        </div>`;
+    }
+    const q = d.questions[d.idx];
+    const answered = d.picked !== null;
+    const correct = answered && q.options[d.picked] && q.options[d.picked].correct;
+    return `
+      <div class="max-w-2xl mx-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-3">
+          <span>${d.idx + 1} / ${d.questions.length}</span>
+          <span>${this.tt('quiz_score')}: ${d.score}</span>
+        </div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3" dir="auto">${this.tt('quiz_which_rule')}</p>
+        <div class="rounded-lg bg-gray-50 dark:bg-gray-900/40 p-4 mb-2">
+          <div class="ayah-arabic !text-2xl !leading-loose" dir="rtl">${q.promptHtml}</div>
+        </div>
+        <div class="mb-4">
+          <button data-ayah-ref="${q.ref}" title="${this.tt('tj_open_verse')}"
+                  class="text-xs font-mono text-gray-400 hover:text-primary underline decoration-dotted underline-offset-2">${q.ref} ⓘ</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          ${q.options.map((o, i) => {
+            let cls = 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/40';
+            if (answered) {
+              if (o.correct) cls = 'border-green-500 bg-green-50 dark:bg-green-500/15 text-green-700 dark:text-green-300';
+              else if (i === d.picked) cls = 'border-red-500 bg-red-50 dark:bg-red-500/15 text-red-600 dark:text-red-300';
+              else cls = 'border-gray-200 dark:border-gray-700 opacity-60';
+            }
+            return `<button data-tj-opt="${i}" ${answered ? 'disabled' : ''} dir="auto" class="px-3 py-2.5 rounded-lg border text-sm text-start ${cls}">${this.esc(o.name)}</button>`;
+          }).join('')}
+        </div>
+        ${answered ? `
+          <div class="mt-4 rounded-lg p-3 text-sm ${correct ? 'bg-green-50 dark:bg-green-500/10 text-green-800 dark:text-green-200' : 'bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-200'}">
+            <p class="font-semibold mb-1">${correct ? '✅ ' + this.tt('quiz_correct') : '❌ ' + this.tt('quiz_wrong')}</p>
+            <p dir="auto">${this.esc(t('tjd_' + q.rule, this.language))}</p>
+          </div>
+          <button data-tj-drill-next class="mt-3 w-full px-4 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">${this.tt('next')} →</button>` : ''}
+      </div>`;
+  }
+
+  async startDrill() {
+    this.drill = { status: 'loading' };
+    this.render();
+    const req = ++this._drillReq;
+    let questions = [];
+    try { questions = await this.buildDrillQuestions(); } catch (e) { /* fall through to empty */ }
+    if (req !== this._drillReq) return; // superseded by a newer start
+    this.drill = questions.length ? { questions, idx: 0, score: 0, picked: null } : { status: 'empty' };
+    if (this.view === 'drill') this.render();
+  }
+
+  _shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  /** Long verses: keep ~70 chars of context on each side of the span (word-aligned). */
+  _trimWindow(text, start, end) {
+    const PAD = 70;
+    let s = 0, e = text.length, pre = '', post = '';
+    if (start > PAD) {
+      const sp = text.lastIndexOf(' ', start - PAD);
+      s = sp === -1 ? start - PAD : sp + 1;
+      pre = '… ';
+    }
+    if (text.length - end > PAD) {
+      const sp = text.indexOf(' ', end + PAD);
+      e = sp === -1 ? end + PAD : sp;
+      post = ' …';
+    }
+    return { s, e, pre, post };
+  }
+
+  /** ~8 questions: one random annotated span per verse from 6 random surahs, max 2 per rule. */
+  async buildDrillQuestions() {
+    const surahs = this._shuffle(SURAH_DATA.map(s => s.number)).slice(0, 6);
+    const items = [];
+    for (const n of surahs) {
+      try {
+        const { text, rules } = await TajweedData.load(n);
+        for (const vk in rules) {
+          const m = vk.match(/^verse_(\d+)$/);
+          if (!m || m[1] === '0') continue;
+          const tx = text[vk], anns = rules[vk];
+          if (!tx || !anns || !anns.length) continue;
+          const ann = anns[Math.floor(Math.random() * anns.length)];
+          if (!TAJWEED_RULES[ann.rule]) continue;
+          const start = Math.max(0, ann.start), end = Math.min(tx.length, ann.end);
+          if (end <= start) continue;
+          items.push({ surah: n, ayah: parseInt(m[1], 10), text: tx, start, end, rule: ann.rule });
+        }
+      } catch (e) { /* surah data unavailable — skip */ }
+      if (items.length >= 80) break;
+    }
+    this._shuffle(items);
+    const picked = [], perRule = {};
+    for (const it of items) {
+      if ((perRule[it.rule] || 0) >= 2) continue;
+      perRule[it.rule] = (perRule[it.rule] || 0) + 1;
+      picked.push(it);
+      if (picked.length >= 8) break;
+    }
+    const ruleKeys = Object.keys(TAJWEED_RULES);
+    return picked.map(it => {
+      const { s, e, pre, post } = this._trimWindow(it.text, it.start, it.end);
+      const promptHtml = pre + this.esc(it.text.slice(s, it.start))
+        + `<span class="bg-yellow-200 dark:bg-yellow-500/40 rounded px-0.5">${this.esc(it.text.slice(it.start, it.end))}</span>`
+        + this.esc(it.text.slice(it.end, e)) + post;
+      const others = this._shuffle(ruleKeys.filter(k => k !== it.rule)).slice(0, 3);
+      const options = this._shuffle(
+        [{ name: this.ruleName(it.rule), correct: true }]
+          .concat(others.map(k => ({ name: this.ruleName(k), correct: false }))));
+      return { promptHtml, options, rule: it.rule, ref: `${it.surah}:${it.ayah}` };
+    });
   }
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

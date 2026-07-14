@@ -1,10 +1,13 @@
 /**
  * Quiz Center Module (Quiz tab)
- * A shared quiz ENGINE + 9 quiz-type generators for testing Quran knowledge.
+ * A shared quiz ENGINE + 14 quiz-type generators for testing Quran knowledge,
+ * plus an Exam mode that mixes questions from several generators into one
+ * longer graded round (pass/merit bands, per-type breakdown, optional timer).
  * Renders into #quiz-container when the 'quiz' tab becomes active.
  *
  * Data sources: bundled data/quran-json, data/quran-words.json, data/morphology,
- * data/roots.json, data/tajweed-json + TajweedData, and the quran.com API
+ * data/roots.json, data/sarf.json, data/word-index.json, SURAH_DATA/JUZ_DATA,
+ * data/tajweed-json + TajweedData, and the quran.com API
  * (QuranData.fetchRange) for word meanings. Every quiz falls back to t('error')
  * when its data/API is unavailable.
  */
@@ -24,6 +27,14 @@ class QuizCenter {
     this.difficulty = 'mid';     // easy(5) | mid(10) | hifz(20) — sets question count
     this.DIFF = { easy: 5, mid: 10, hifz: 20 };
     this.revealedAyahs = null;   // ayah_sequence blur-strip: Set of revealed ayah numbers
+
+    // Exam mode (mixed-type test) settings
+    this.examLen = 20;           // exam question count: 10 | 20 | 30
+    this.EXAM_LENS = [10, 20, 30];
+    this.examTimePer = 0;        // seconds per exam question (0 = no timer)
+    this.EXAM_TIMES = [0, 15, 30];
+    this.qTimer = null;          // per-question countdown interval (exam mode)
+    this.timeLeft = 0;
 
     // Runner state
     this.questions = [];
@@ -144,6 +155,22 @@ class QuizCenter {
     return this._surahJson[n];
   }
 
+  // Sarf tables ({ order: [roots], roots: { root: { gloss, verbs, nouns } } }), loaded once
+  loadSarf() {
+    if (!this._sarfPromise) {
+      this._sarfPromise = fetch('data/sarf.json')
+        .then(r => { if (!r.ok) throw new Error('no sarf json'); return r.json(); })
+        .catch(err => { this._sarfPromise = null; throw err; });
+    }
+    return this._sarfPromise;
+  }
+
+  // Localized root gloss: SARF_GLOSS (js/sarf.js) if present, else the English gloss
+  sarfGloss(sarf, root) {
+    const map = (typeof SARF_GLOSS !== 'undefined' && SARF_GLOSS) ? SARF_GLOSS[this.language] : null;
+    return (map && map[root]) || (sarf.roots[root] && sarf.roots[root].gloss) || '';
+  }
+
   // [{ ayah, text }] for a surah, real verses only (verse_0 = bismillah dropped)
   async surahVerses(n) {
     const data = await this.loadSurahJson(n);
@@ -227,6 +254,8 @@ class QuizCenter {
 
   defineTypes() {
     this.types = [
+      { id: 'exam', emoji: '🎓', scopes: ['surah', 'juz', 'whole'], color: 'from-slate-600 to-gray-900', exam: true,
+        build: (sc) => this.buildExam(sc) },
       { id: 'ayah_sequence', emoji: '🔢', scopes: ['surah'], color: 'from-blue-500 to-indigo-600',
         build: (sc) => this.buildAyahSequence(sc) },
       { id: 'guess_surah', emoji: '🕌', scopes: ['juz', 'whole'], color: 'from-emerald-500 to-teal-600',
@@ -244,7 +273,17 @@ class QuizCenter {
       { id: 'tajweed_rule', emoji: '🎨', scopes: ['surah', 'whole'], color: 'from-lime-500 to-green-600',
         build: (sc) => this.buildTajweedRule(sc) },
       { id: 'same_root', emoji: '🌱', scopes: ['whole'], color: 'from-teal-500 to-emerald-600',
-        build: (sc) => this.buildSameRoot(sc) }
+        build: (sc) => this.buildSameRoot(sc) },
+      { id: 'revelation_type', emoji: '🕋', scopes: ['whole'], color: 'from-indigo-500 to-violet-600',
+        build: (sc) => this.buildRevelationType(sc) },
+      { id: 'ayah_count', emoji: '📏', scopes: ['whole'], color: 'from-cyan-500 to-blue-600',
+        build: (sc) => this.buildAyahCount(sc) },
+      { id: 'root_family', emoji: '🌳', scopes: ['whole'], color: 'from-green-500 to-lime-600',
+        build: (sc) => this.buildRootFamily(sc) },
+      { id: 'word_frequency', emoji: '📊', scopes: ['whole'], color: 'from-yellow-500 to-amber-600',
+        build: (sc) => this.buildWordFrequency(sc) },
+      { id: 'surah_juz_start', emoji: '🧭', scopes: ['whole'], color: 'from-red-500 to-rose-600',
+        build: (sc) => this.buildSurahJuzStart(sc) }
     ];
   }
 
@@ -273,6 +312,14 @@ class QuizCenter {
         break;
       case 'set-diff':
         this.difficulty = el.getAttribute('data-diff');
+        this.render();
+        break;
+      case 'set-exam-len':
+        this.examLen = parseInt(el.getAttribute('data-len')) || 20;
+        this.render();
+        break;
+      case 'set-exam-time':
+        this.examTimePer = parseInt(el.getAttribute('data-sec')) || 0;
         this.render();
         break;
       case 'start':
@@ -315,6 +362,7 @@ class QuizCenter {
 
   toHome() {
     if (this.advanceTimer) { clearTimeout(this.advanceTimer); this.advanceTimer = null; }
+    this.clearQuestionTimer();
     this.view = 'home';
     this.currentType = null;
     this.render();
@@ -338,10 +386,17 @@ class QuizCenter {
     return sc;
   }
 
-  roundSize() { return this.DIFF[this.difficulty] || 10; }
+  roundSize() {
+    return (this.currentType && this.currentType.exam) ? this.examLen : (this.DIFF[this.difficulty] || 10);
+  }
 
-  // Best scores are tracked per difficulty (question counts differ).
-  bestKey() { return `${this.scopeLabel()}:${this.difficulty}`; }
+  // Best scores are tracked per difficulty / exam length (question counts differ).
+  // (Named bestScopeKey so it doesn't shadow bestKey(type, scope) above.)
+  bestScopeKey() {
+    return (this.currentType && this.currentType.exam)
+      ? `${this.scopeLabel()}:x${this.examLen}`
+      : `${this.scopeLabel()}:${this.difficulty}`;
+  }
 
   scopeLabel() {
     const sc = this.scope;
@@ -368,6 +423,7 @@ class QuizCenter {
     // Shuffle each question's options, cap the round to the chosen difficulty
     questions = questions.slice(0, this.roundSize()).map(q => ({
       ...q,
+      _ok: false,
       options: this.shuffle(q.options)
     }));
 
@@ -400,6 +456,7 @@ class QuizCenter {
     if (this.advanceTimer) { clearTimeout(this.advanceTimer); this.advanceTimer = null; }
     this.questions = this.shuffle(this.missed.map(m => m.question)).map(q => ({
       ...q,
+      _ok: false,
       options: this.shuffle(q.options)
     }));
     this.index = 0;
@@ -418,10 +475,12 @@ class QuizCenter {
   answer(btn) {
     if (this.answered) return;
     this.answered = true;
+    this.clearQuestionTimer();
     const q = this.questions[this.index];
     const i = parseInt(btn.getAttribute('data-i'));
     const chosen = q.options[i];
     const correct = !!(chosen && chosen.correct);
+    q._ok = correct;   // per-type exam breakdown
 
     if (correct) { this.score++; this.streak++; }
     else {
@@ -466,6 +525,11 @@ class QuizCenter {
         + (q.multi ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${this.tt('quiz_multi_note')}</div>` : '');
     }
 
+    this.scheduleAdvance();
+  }
+
+  // Shared post-answer/timeout advance: next question or the end screen
+  scheduleAdvance() {
     this.advanceTimer = setTimeout(() => {
       this.advanceTimer = null;
       this.index++;
@@ -473,7 +537,7 @@ class QuizCenter {
       if (this.index >= this.questions.length) {
         // Retry rounds have fewer questions — they don't count towards best scores
         if (!this.retryRound) {
-          const scope = this.bestKey();
+          const scope = this.bestScopeKey();
           const best = this.getBest(this.currentType.id, scope);
           if (best === null || this.score > best) {
             this.saveBest(this.currentType.id, scope, this.score);
@@ -484,6 +548,58 @@ class QuizCenter {
       }
       this.render();
     }, 1100);
+  }
+
+  // ---------- exam per-question countdown (display only; timeout = unanswered) ----------
+
+  clearQuestionTimer() {
+    if (this.qTimer) { clearInterval(this.qTimer); this.qTimer = null; }
+  }
+
+  startQuestionTimer() {
+    this.clearQuestionTimer();
+    this.timeLeft = this.examTimePer;
+    this.qTimer = setInterval(() => {
+      this.timeLeft--;
+      const el = document.getElementById('quiz-timer');
+      if (el) {
+        el.textContent = `⏱ ${Math.max(0, this.timeLeft)}s`;
+        if (this.timeLeft <= 5) el.classList.add('text-red-500');
+      }
+      if (this.timeLeft <= 0) { this.clearQuestionTimer(); this.timeUp(); }
+    }, 1000);
+  }
+
+  // Countdown expired: counts as unanswered (wrong), reveals the answer, advances
+  timeUp() {
+    if (this.answered || this.view !== 'running') return;
+    this.answered = true;
+    const q = this.questions[this.index];
+    q._ok = false;
+    this.streak = 0;
+    const right = q.options.find(o => o.correct);
+    this.missed.push({
+      prompt: q.prompt, promptHtml: q.promptHtml,
+      chosenHtml: `<span class="text-gray-400">⏱ ${this.esc(this.tt('quiz_exam_timeout'))}</span>`,
+      correctHtml: right ? right.html : '', gotoVerse: q.gotoVerse || null, question: q
+    });
+
+    // Reveal correct option(s), disable the rest — same visual language as answer()
+    this.root.querySelectorAll('[data-action="answer"]').forEach(b => {
+      const bi = parseInt(b.getAttribute('data-i'));
+      b.disabled = true;
+      b.classList.remove('hover:border-primary', 'dark:hover:border-blue-400');
+      if (q.options[bi].correct) {
+        b.classList.remove('border-gray-200', 'dark:border-gray-700', 'bg-white', 'dark:bg-gray-800');
+        b.classList.add('border-green-500', 'bg-green-100', 'dark:bg-green-900/40', 'text-green-800', 'dark:text-green-200', 'quiz-pop');
+        b.insertAdjacentHTML('afterbegin', '<span class="mr-1">✓</span>');
+      }
+    });
+
+    const fb = document.getElementById('quiz-feedback');
+    if (fb) fb.innerHTML = `<span class="text-red-600 dark:text-red-400 font-semibold">⏱ ${this.tt('quiz_exam_timeout')}</span>`;
+
+    this.scheduleAdvance();
   }
 
   // ---------- rendering ----------
@@ -498,6 +614,14 @@ class QuizCenter {
     else if (this.view === 'running') body = this.renderRunning();
     else if (this.view === 'end') body = this.renderEnd();
     this.root.innerHTML = `<div dir="${dir}" class="w-full">${body}</div>`;
+
+    // Exam countdown lives while an unanswered exam question is on screen
+    if (this.view === 'running' && this.currentType && this.currentType.exam
+        && this.examTimePer > 0 && !this.answered) {
+      this.startQuestionTimer();
+    } else {
+      this.clearQuestionTimer();
+    }
   }
 
   renderHome() {
@@ -514,7 +638,6 @@ class QuizCenter {
 
     return `
       <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold">🎯 ${t('quiz_center_title', lang)}</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${t('quiz_center_subtitle', lang)}</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</div>
@@ -574,16 +697,30 @@ class QuizCenter {
                </div>`;
     }
 
-    // Difficulty (question count) — all quiz types
-    const diffBtn = (d, label) => `<button data-action="set-diff" data-diff="${d}"
-        class="px-3 py-2 rounded-lg text-sm font-medium transition-colors ${this.difficulty === d
-          ? 'bg-secondary text-white'
-          : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}">${label}<span class="block text-[10px] opacity-70">${this.DIFF[d]}${t('quiz_q_short', lang)}</span></button>`;
-    const diffUI = `<div class="flex flex-wrap justify-center gap-2 mb-4">
-        ${diffBtn('easy', t('quiz_diff_easy', lang))}${diffBtn('mid', t('quiz_diff_mid', lang))}${diffBtn('hifz', t('quiz_diff_hifz', lang))}
-      </div>`;
+    // Difficulty (question count) — exam mode gets its own length + timer pickers
+    const optCls = (on) => on
+      ? 'bg-secondary text-white'
+      : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700';
+    let diffUI;
+    if (type.exam) {
+      const lenBtn = (n) => `<button data-action="set-exam-len" data-len="${n}"
+          class="px-4 py-2 rounded-lg text-sm font-medium transition-colors ${optCls(this.examLen === n)}">${n}<span class="block text-[10px] opacity-70">${t('quiz_q_short', lang)}</span></button>`;
+      const timeBtn = (s) => `<button data-action="set-exam-time" data-sec="${s}"
+          class="px-3 py-2 rounded-lg text-sm font-medium transition-colors ${optCls(this.examTimePer === s)}">${s === 0 ? t('quiz_exam_no_timer', lang) : `⏱ ${s}s`}</button>`;
+      diffUI = `
+        <div class="text-xs text-gray-400 mb-1">${t('quiz_exam_length', lang)}</div>
+        <div class="flex flex-wrap justify-center gap-2 mb-3">${this.EXAM_LENS.map(lenBtn).join('')}</div>
+        <div class="text-xs text-gray-400 mb-1">${t('quiz_exam_timer', lang)}</div>
+        <div class="flex flex-wrap justify-center gap-2 mb-4">${this.EXAM_TIMES.map(timeBtn).join('')}</div>`;
+    } else {
+      const diffBtn = (d, label) => `<button data-action="set-diff" data-diff="${d}"
+          class="px-3 py-2 rounded-lg text-sm font-medium transition-colors ${optCls(this.difficulty === d)}">${label}<span class="block text-[10px] opacity-70">${this.DIFF[d]}${t('quiz_q_short', lang)}</span></button>`;
+      diffUI = `<div class="flex flex-wrap justify-center gap-2 mb-4">
+          ${diffBtn('easy', t('quiz_diff_easy', lang))}${diffBtn('mid', t('quiz_diff_mid', lang))}${diffBtn('hifz', t('quiz_diff_hifz', lang))}
+        </div>`;
+    }
 
-    const best = this.getBest(type.id, this.bestKey());
+    const best = this.getBest(type.id, this.bestScopeKey());
 
     return `
       <div class="mb-4">
@@ -659,6 +796,8 @@ class QuizCenter {
       <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
         <span>${t('quiz_question_of', lang).replace('{current}', this.index + 1).replace('{total}', total)}</span>
         <span class="flex items-center gap-3">
+          ${this.currentType.exam && this.examTimePer > 0
+            ? `<span id="quiz-timer" class="font-mono font-semibold text-gray-700 dark:text-gray-200">⏱ ${this.examTimePer}s</span>` : ''}
           <span>${t('score', lang)}: <b class="text-gray-700 dark:text-gray-200">${this.score}</b></span>
           <span>🔥 ${t('quiz_streak', lang)}: <b class="text-gray-700 dark:text-gray-200">${this.streak}</b></span>
         </span>
@@ -683,7 +822,7 @@ class QuizCenter {
     const total = this.questions.length;
     const pct = Math.round((this.score / total) * 100);
     const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
-    const best = this.getBest(this.currentType.id, this.bestKey());
+    const best = this.getBest(this.currentType.id, this.bestScopeKey());
     const starStr = '★'.repeat(stars) + '☆'.repeat(3 - stars);
 
     return `
@@ -695,6 +834,7 @@ class QuizCenter {
           ${t('quiz_your_score', lang).replace('{score}', this.score).replace('{total}', total)}
         </p>
         <p class="text-sm text-gray-500 dark:text-gray-400">${pct}%</p>
+        ${this.examResultHtml(lang, pct)}
         ${this.newBest
           ? `<p class="text-green-600 dark:text-green-400 font-medium">🌟 ${t('quiz_new_best', lang)}</p>`
           : (best !== null && !this.retryRound ? `<p class="text-sm text-gray-500 dark:text-gray-400">${t('best_score', lang)}: ${best}/${total}</p>` : '')}
@@ -715,6 +855,49 @@ class QuizCenter {
       </div>
       ${this.missedReviewHtml(lang)}
     `;
+  }
+
+  /** Exam end screen extras: pass/merit band + per-quiz-type breakdown. */
+  examResultHtml(lang, pct) {
+    if (!this.currentType || !this.currentType.exam) return '';
+
+    // Grade band (pass mark 60%)
+    const band = pct >= 90 ? ['excellent', 'text-emerald-600 dark:text-emerald-400', '🏅']
+      : pct >= 75 ? ['good', 'text-green-600 dark:text-green-400', '🎖️']
+      : pct >= 60 ? ['pass', 'text-amber-600 dark:text-amber-500', '✅']
+      : ['fail', 'text-red-600 dark:text-red-400', '📚'];
+
+    // Per-type breakdown from the questions actually asked (q.qType set by buildExam)
+    const stats = {};
+    this.questions.forEach(q => {
+      const id = q.qType || this.currentType.id;
+      if (!stats[id]) stats[id] = { c: 0, t: 0 };
+      stats[id].t++;
+      if (q._ok) stats[id].c++;
+    });
+    const rows = Object.keys(stats).map(id => {
+      const type = this.types.find(x => x.id === id);
+      const s = stats[id];
+      const w = Math.round((s.c / s.t) * 100);
+      return `
+        <div class="flex items-center gap-2 text-sm">
+          <span class="w-6 text-center">${type ? type.emoji : '❓'}</span>
+          <span class="flex-1 truncate">${this.esc(type ? this.typeName(type) : id)}</span>
+          <span class="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <span class="block h-full ${w >= 60 ? 'bg-green-500' : 'bg-red-400'}" style="width:${w}%"></span>
+          </span>
+          <span class="w-10 text-end font-medium text-gray-700 dark:text-gray-200">${s.c}/${s.t}</span>
+        </div>`;
+    }).join('');
+
+    return `
+      <p class="font-semibold ${band[1]}">${band[2]} ${t('quiz_exam_grade', lang)}: ${t('quiz_exam_band_' + band[0], lang)}
+        <span class="block text-xs font-normal text-gray-400 mt-1">${t('quiz_exam_pass_mark', lang)}: 60%</span>
+      </p>
+      <div class="max-w-sm mx-auto border-t border-gray-100 dark:border-gray-700 pt-4">
+        <p class="text-xs text-gray-400 mb-2">${t('quiz_exam_breakdown', lang)}</p>
+        <div class="space-y-2 text-start">${rows}</div>
+      </div>`;
   }
 
   /** End-of-round review: every missed question with your answer vs the correct one. */
@@ -1117,6 +1300,231 @@ class QuizCenter {
       });
     }
     return questions;
+  }
+
+  // 10. Meccan or Medinan: where was this surah revealed (SURAH_DATA.revelationType)
+  async buildRevelationType(scope) {
+    const surahs = this.sample(SURAH_DATA.filter(s => s.revelationType), this.roundSize());
+    return surahs.map(s => {
+      const meccan = s.revelationType === 'Meccan';
+      return {
+        prompt: this.tt('quiz_which_revelation'),
+        promptHtml: this.ar(s.arabicName, '!text-4xl')
+          + `<div class="text-lg font-semibold mt-2">${this.esc(getSurahName(s.number, this.language))}</div>`
+          + `<div class="text-xs text-gray-400 mt-1">${this.tt('surah')} ${s.number}</div>`,
+        options: [
+          { html: `🕋 ${this.esc(this.tt('quiz_meccan'))}`, correct: meccan },
+          { html: `🕌 ${this.esc(this.tt('quiz_medinan'))}`, correct: !meccan }
+        ],
+        gotoVerse: `${s.number}:1`
+      };
+    });
+  }
+
+  // 11. Ayah count: which of these 4 surahs has the most / fewest ayahs (SURAH_DATA)
+  async buildAyahCount(scope) {
+    const questions = [];
+    const seen = new Set();   // avoid repeating the same 4-surah set in one round
+    let attempts = 0;
+    while (questions.length < this.roundSize() && attempts < this.roundSize() * 10) {
+      attempts++;
+      // 4 surahs with pairwise-distinct ayah counts so the answer is unambiguous
+      const picked = [];
+      const counts = new Set();
+      for (const s of this.shuffle(SURAH_DATA)) {
+        if (counts.has(s.ayahCount)) continue;
+        counts.add(s.ayahCount);
+        picked.push(s);
+        if (picked.length === 4) break;
+      }
+      if (picked.length < 4) break;
+      const setKey = picked.map(s => s.number).sort((a, b) => a - b).join(',');
+      if (seen.has(setKey)) continue;
+      seen.add(setKey);
+
+      const most = this.rand(2) === 0;
+      const target = picked.reduce((best, s) =>
+        (most ? s.ayahCount > best.ayahCount : s.ayahCount < best.ayahCount) ? s : best, picked[0]);
+      questions.push({
+        prompt: most ? this.tt('quiz_most_ayahs') : this.tt('quiz_fewest_ayahs'),
+        promptHtml: `<div class="text-4xl">${most ? '📈' : '📉'}</div>`,
+        options: picked.map(s => ({
+          html: this.esc(getSurahName(s.number, this.language)),
+          correct: s.number === target.number
+        })),
+        explanation: picked.map(s =>
+          `${this.esc(getSurahName(s.number, this.language))}: ${s.ayahCount}`).join(' · '),
+        gotoVerse: `${target.number}:1`
+      });
+    }
+    return questions;
+  }
+
+  // 12. Root family: given a root + gloss (data/sarf.json), pick the word built from it
+  async buildRootFamily(scope) {
+    const sarf = await this.loadSarf();
+    const order = (sarf.order || []).filter(r => {
+      const e = sarf.roots[r];
+      return e && (e.verbs || []).concat(e.nouns || []).some(f => f.form);
+    });
+    if (order.length < 4) return [];
+
+    const formsOf = (root) => {
+      const e = sarf.roots[root];
+      return (e.verbs || []).concat(e.nouns || []).filter(f => f.form);
+    };
+
+    const questions = [];
+    for (const root of this.shuffle(order).slice(0, this.roundSize())) {
+      const forms = formsOf(root);
+      const answer = forms[this.rand(forms.length)];
+
+      // Distractors: one form each from 3 other roots
+      const distractors = [];
+      const usedText = new Set([answer.form]);
+      for (const dr of this.shuffle(order)) {
+        if (dr === root) continue;
+        const df = formsOf(dr);
+        const w = df[this.rand(df.length)];
+        if (w && !usedText.has(w.form)) { usedText.add(w.form); distractors.push(w); }
+        if (distractors.length >= 3) break;
+      }
+      if (distractors.length < 3) continue;
+
+      questions.push({
+        prompt: this.tt('quiz_which_root_word'),
+        promptHtml: this.ar(root.split('').join(' '), '!text-5xl')
+          + `<div class="text-sm text-gray-500 dark:text-gray-400 mt-2" dir="auto">${this.esc(this.sarfGloss(sarf, root))}</div>`,
+        options: [{ html: this.ar(answer.form, '!text-3xl'), correct: true }]
+          .concat(distractors.map(w => ({ html: this.ar(w.form, '!text-3xl'), correct: false }))),
+        explanation: answer.meaning ? `${this.esc(answer.form)} — ${this.esc(answer.meaning)}` : undefined,
+        gotoVerse: answer.ref || null
+      });
+    }
+    return questions;
+  }
+
+  // 13. Word frequency: which of these 4 words appears most often (data/word-index.json)
+  async buildWordFrequency(scope) {
+    if (!this._freqPool) {
+      const index = await QuranData.getWordIndex();
+      // Meaningful pool: words of >=2 letters occurring at least 3 times
+      this._freqPool = Object.keys(index)
+        .filter(w => w.length >= 2 && index[w].length >= 3)
+        .map(w => ({ word: w, count: index[w].length }));
+    }
+    const pool = this._freqPool;
+    if (pool.length < 4) return [];
+
+    const questions = [];
+    const usedWinners = new Set();
+    let attempts = 0;
+    while (questions.length < this.roundSize() && attempts < this.roundSize() * 30) {
+      attempts++;
+      const picked = this.sample(pool, 4).sort((a, b) => b.count - a.count);
+      // Answerable only when the winner clearly dominates (2x the runner-up)
+      if (picked[0].count < picked[1].count * 2) continue;
+      if (usedWinners.has(picked[0].word)) continue;
+      usedWinners.add(picked[0].word);
+
+      questions.push({
+        prompt: this.tt('quiz_most_frequent'),
+        promptHtml: `<div class="text-4xl">📊</div>`,
+        options: picked.map(p => ({
+          html: this.ar(p.word, '!text-3xl'),
+          correct: p === picked[0]
+        })),
+        explanation: picked.map(p => `${this.esc(p.word)}: ${p.count}×`).join(' · ')
+      });
+    }
+    return questions;
+  }
+
+  // 14. Which juz does a surah begin in (JUZ_DATA boundaries)
+  async buildSurahJuzStart(scope) {
+    const surahs = this.sample(SURAH_DATA, this.roundSize());
+    return surahs.map(s => {
+      const juz = this.juzOf(s.number, 1);
+
+      // Options: correct + nearby juz numbers (same pattern as buildWhichJuz)
+      const opts = new Set([juz]);
+      let spread = 1;
+      while (opts.size < 4 && spread <= 30) {
+        if (juz - spread >= 1) opts.add(juz - spread);
+        if (opts.size < 4 && juz + spread <= 30) opts.add(juz + spread);
+        spread++;
+      }
+      return {
+        prompt: this.tt('quiz_which_juz_start'),
+        promptHtml: this.ar(s.arabicName, '!text-4xl')
+          + `<div class="text-lg font-semibold mt-2">${this.esc(getSurahName(s.number, this.language))}</div>`
+          + `<div class="text-xs text-gray-400 mt-1">${this.tt('surah')} ${s.number}</div>`,
+        options: [...opts].map(n => ({
+          html: `${t('juz', this.language)} ${n}`,
+          correct: n === juz
+        })),
+        gotoVerse: `${s.number}:1`
+      };
+    });
+  }
+
+  // 15. Exam: a longer MIXED round composed from the existing generators above.
+  // No question logic of its own — it only picks scope-compatible generators,
+  // builds their pools, tags each question with its source type (qType) and
+  // merges them round-robin so every type is represented.
+  async buildExam(scope) {
+    const plans = [];   // [{ id, scope }] — generator runs, each with a valid scope for it
+    if (scope.kind === 'surah') {
+      ['ayah_sequence', 'word_meaning', 'meaning_word', 'complete_ayah', 'grammar_pos', 'tajweed_rule']
+        .forEach(id => plans.push({ id, scope: { kind: 'surah', surah: scope.surah } }));
+    } else if (scope.kind === 'juz') {
+      // Verse→surah questions over the whole juz + surah-local questions
+      // for a couple of surahs inside it (keeps every question juz-local).
+      plans.push({ id: 'guess_surah', scope: { kind: 'juz', juz: scope.juz } });
+      const j = JUZ_DATA.find(x => x.number === scope.juz);
+      if (j) {
+        const surahs = [];
+        for (let s = j.startSurah; s <= j.endSurah; s++) surahs.push(s);
+        for (const s of this.sample(surahs, Math.min(2, surahs.length))) {
+          plans.push({ id: 'ayah_sequence', scope: { kind: 'surah', surah: s } });
+          plans.push({ id: 'complete_ayah', scope: { kind: 'surah', surah: s } });
+          plans.push({ id: 'grammar_pos', scope: { kind: 'surah', surah: s } });
+        }
+      }
+    } else {
+      // Whole Quran: cheap SURAH_DATA/JUZ_DATA facts always, plus 2 heavier data-file types
+      ['guess_surah', 'revelation_type', 'ayah_count', 'surah_juz_start']
+        .forEach(id => plans.push({ id, scope: { kind: 'whole' } }));
+      this.sample(['same_root', 'root_family', 'word_frequency', 'which_juz'], 2)
+        .forEach(id => plans.push({ id, scope: { kind: 'whole' } }));
+    }
+
+    // Build each pool; a failing generator (missing data) is skipped, not fatal
+    const buckets = [];
+    const savedSub = this.subMode;
+    for (const plan of plans) {
+      const type = this.types.find(x => x.id === plan.id);
+      if (!type) continue;
+      try {
+        this.subMode = 'random';   // ayah_sequence: mixed directions in exams
+        const qs = await type.build(plan.scope);
+        if (qs && qs.length) buckets.push(this.shuffle(qs.map(q => ({ ...q, qType: plan.id }))));
+      } catch (e) { /* skip this generator */ }
+      this.subMode = savedSub;
+    }
+    if (!buckets.length) return [];
+
+    // Round-robin draw so the exam mixes types evenly, then shuffle the order
+    const size = this.roundSize();
+    const merged = [];
+    let drew = true;
+    while (merged.length < size && drew) {
+      drew = false;
+      for (const b of this.shuffle(buckets)) {
+        if (b.length && merged.length < size) { merged.push(b.pop()); drew = true; }
+      }
+    }
+    return this.shuffle(merged);
   }
 }
 

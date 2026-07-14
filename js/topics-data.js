@@ -319,7 +319,100 @@ const TOPIC_GROUPS = [
   }
 ];
 
+/**
+ * Curated thematic collections surfaced at the top of the Topics browser.
+ * Each verse reference below was verified to exist in data/quran-tokens.json,
+ * and — for the "Names of…" sets — the named place was confirmed to appear in
+ * the verse's Arabic text (data/quran-json). Same schema as TOPIC_GROUPS.
+ */
+const TOPIC_COLLECTIONS = [
+  {
+    id: 'tawakkul',
+    emoji: '🌿',
+    names: {
+      en: 'Reliance on Allah',
+      bn: 'আল্লাহর ওপর ভরসা',
+      ar: 'التوكل على الله',
+      ur: 'اللہ پر بھروسہ',
+      id: 'Tawakal kepada Allah',
+      tr: "Allah'a tevekkül",
+      fr: 'Confiance en Allah'
+    },
+    refs: ['3:159', '8:2', '25:58', '65:3', '14:11-12']
+  },
+  {
+    id: 'repentance',
+    emoji: '🔄',
+    names: {
+      en: 'Repentance',
+      bn: 'তাওবা',
+      ar: 'التوبة',
+      ur: 'توبہ',
+      id: 'Tobat',
+      tr: 'Tevbe',
+      fr: 'Repentir'
+    },
+    refs: ['2:222', '4:17', '9:104', '24:31', '66:8']
+  },
+  {
+    id: 'dhikr',
+    emoji: '📿',
+    names: {
+      en: 'Remembrance of Allah',
+      bn: 'আল্লাহর জিকির',
+      ar: 'ذكر الله',
+      ur: 'اللہ کا ذکر',
+      id: 'Zikir kepada Allah',
+      tr: "Allah'ı anmak",
+      fr: "Rappel d'Allah"
+    },
+    refs: ['2:152', '13:28', '33:41-42', '62:10', '8:45']
+  },
+  {
+    id: 'hereafter',
+    emoji: '⏳',
+    names: {
+      en: 'The Hereafter',
+      bn: 'আখিরাত',
+      ar: 'الآخرة',
+      ur: 'آخرت',
+      id: 'Akhirat',
+      tr: 'Ahiret',
+      fr: "L'au-delà"
+    },
+    refs: ['3:185', '21:35', '50:19', '56:83-87', '62:8']
+  },
+  {
+    id: 'jannah_names',
+    emoji: '🌷',
+    names: {
+      en: 'Names of Paradise',
+      bn: 'জান্নাতের নামসমূহ',
+      ar: 'أسماء الجنة',
+      ur: 'جنت کے نام',
+      id: 'Nama-nama Surga',
+      tr: 'Cennetin isimleri',
+      fr: 'Les noms du Paradis'
+    },
+    refs: ['18:107', '9:72', '32:19', '6:127', '56:89']
+  },
+  {
+    id: 'jahannam_names',
+    emoji: '🔥',
+    names: {
+      en: 'Names of the Fire',
+      bn: 'জাহান্নামের নামসমূহ',
+      ar: 'أسماء النار',
+      ur: 'جہنم کے نام',
+      id: 'Nama-nama Neraka',
+      tr: 'Cehennemin isimleri',
+      fr: "Les noms de l'Enfer"
+    },
+    refs: ['74:26-27', '70:15', '104:4-5', '101:9', '79:39']
+  }
+];
+
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { RABBANA_DUAS, TOPIC_GROUPS };
+  module.exports = { RABBANA_DUAS, TOPIC_GROUPS, TOPIC_COLLECTIONS };
 }

@@ -15,11 +15,26 @@ class MemorizeChecker {
     this.language = 'en';
     this.words = [];          // flat list: {ayahKey, position, arabic, norm, meaning, translit, audio, el}
     this.listening = false;
+    this.typing = false;      // keyboard-only fallback active
     this.hideWords = true;
     this.recognition = null;
     this.startTime = null;
     this.startWordIndex = 0;  // "restart from ayah" support
+    this.activeEnd = null;    // exclusive upper word bound (drill / range), null = all
     this.diag = [];           // per word index: {heard: [tokens], skipped: bool}
+    this.ayahBounds = [];     // per ayah: {key, start, end} word-index range
+
+    // Matching leniency: 0 strict, 1 normal, 2 lenient — tunes edit-distance tolerance
+    this.leniency = 1;
+
+    // Structured repetition ("compounding") drill: repeat each ayah N times,
+    // then chain 1, 1-2, 1-2-3… — populated when the drill is running
+    this.drill = null;
+    this.drillReps = 3;
+
+    // Lifetime hifz stats + daily streak, and per-selection resume progress
+    this.stats = this.loadStats();
+    this.progress = { done: [] };  // { done: [ayahKey, …] } for the current selection
 
     // Per-ayah voice recordings: ayahKey -> {url, blob}
     this.recordings = {};
@@ -33,6 +48,10 @@ class MemorizeChecker {
       this.ayahs = e.detail.ayahs;
       this.language = e.detail.language;
       this.stop();
+      this.drill = null;
+      this.activeEnd = null;
+      this.startWordIndex = 0;
+      this.progress = this.loadProgress();
       this.render();
       this.loadStoredRecordings();
     });
@@ -53,6 +72,12 @@ class MemorizeChecker {
 
       const rec = e.target.closest('[data-play-recording]');
       if (rec) return this.playRecording(rec.getAttribute('data-play-recording'));
+
+      const dot = e.target.closest('[data-jump-ayah]');
+      if (dot) return this.restartFromAyah(dot.getAttribute('data-jump-ayah'));
+
+      const mistake = e.target.closest('[data-mistake-index]');
+      if (mistake) return this.openTipModal(parseInt(mistake.getAttribute('data-mistake-index')));
 
       const word = e.target.closest('.mem-word');
       if (word && (word.dataset.state === 'missed' || word.dataset.state === 'correct')) {
@@ -122,7 +147,7 @@ class MemorizeChecker {
   }
 
   levenshtein(a, b) {
-    if (Math.abs(a.length - b.length) > 2) return 99;
+    if (Math.abs(a.length - b.length) > 3) return 99;
     const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
     for (let j = 1; j <= b.length; j++) dp[0][j] = j;
     for (let i = 1; i <= a.length; i++) {
@@ -140,7 +165,9 @@ class MemorizeChecker {
   wordsMatch(expected, heard) {
     if (!expected || !heard) return false;
     if (expected === heard) return true;
-    const tol = expected.length >= 6 ? 2 : expected.length >= 4 ? 1 : 0;
+    let tol = expected.length >= 6 ? 2 : expected.length >= 4 ? 1 : 0;
+    if (this.leniency === 0) tol = Math.max(0, tol - 1);   // strict
+    else if (this.leniency === 2) tol += 1;                // lenient
     return tol > 0 && this.levenshtein(expected, heard) <= tol;
   }
 
@@ -163,7 +190,9 @@ class MemorizeChecker {
 
     this.container.innerHTML = `
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
+        ${this.statsBarHtml()}
+
+        <div class="flex flex-wrap items-center gap-3 mb-3">
           <button id="mem-start" ${supported ? '' : 'disabled'}
                   class="px-6 py-3 rounded-lg font-medium text-white ${supported ? 'bg-secondary hover:bg-secondary/80' : 'bg-gray-400 cursor-not-allowed'}">
             🎙️ <span>${t('start_reciting', lang)}</span>
@@ -171,16 +200,49 @@ class MemorizeChecker {
           <button id="mem-reset" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
             ${t('reset', lang)}
           </button>
+          <button id="mem-peek" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700" title="${t('mem_peek', lang)}">
+            👁️ ${t('mem_peek', lang)}
+          </button>
           <label class="flex items-center gap-2 ml-auto text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
             <input type="checkbox" id="mem-hide" ${this.hideWords ? 'checked' : ''} class="w-4 h-4">
             ${t('hide_words', lang)}
           </label>
         </div>
 
+        <div class="flex flex-wrap items-center gap-4 mb-4 text-sm">
+          <label class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+            ${t('mem_leniency', lang)}:
+            <select id="mem-leniency" class="rounded border border-gray-300 dark:border-gray-600 bg-transparent px-2 py-1">
+              <option value="0" ${this.leniency === 0 ? 'selected' : ''}>${t('mem_strict', lang)}</option>
+              <option value="1" ${this.leniency === 1 ? 'selected' : ''}>${t('mem_normal', lang)}</option>
+              <option value="2" ${this.leniency === 2 ? 'selected' : ''}>${t('mem_lenient', lang)}</option>
+            </select>
+          </label>
+          <button id="mem-type-toggle" class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+            ⌨️ ${t('mem_type_instead', lang)}
+          </button>
+        </div>
+
         ${supported ? '' : `
           <div class="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-sm">
-            ${t('speech_not_supported', lang)}
+            ${t('speech_not_supported', lang)} — ${t('mem_type_hint', lang)}
           </div>`}
+
+        ${this.drillPanelHtml()}
+
+        ${this.progressMapHtml()}
+
+        <div id="mem-type-box" class="mb-4 ${supported && !this.typing ? 'hidden' : ''}">
+          <div class="text-xs text-gray-400 dark:text-gray-500 mb-1">💡 ${t('mem_type_hint', lang)}</div>
+          <div class="flex gap-2" dir="rtl">
+            <input id="mem-type-input" type="text" dir="rtl"
+                   class="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent px-3 py-2 ayah-arabic !text-xl"
+                   placeholder="${t('mem_type_placeholder', lang)}">
+            <button id="mem-type-check" class="px-4 py-2 rounded-lg bg-secondary text-white hover:bg-secondary/80 whitespace-nowrap">
+              ${t('mem_check', lang)}
+            </button>
+          </div>
+        </div>
 
         <div id="mem-status" class="mb-1 text-sm text-gray-500 dark:text-gray-400 min-h-[1.5rem]"></div>
         <div class="mb-4 text-xs text-gray-400 dark:text-gray-500">💡 ${t('tap_word_hint', lang)}</div>
@@ -197,10 +259,21 @@ class MemorizeChecker {
       this.listening ? this.stop() : this.start();
     });
     this.container.querySelector('#mem-reset').addEventListener('click', () => this.reset());
+    this.container.querySelector('#mem-peek').addEventListener('click', () => this.peek());
     this.container.querySelector('#mem-hide').addEventListener('change', (e) => {
       this.hideWords = e.target.checked;
       this.applyHideMode();
     });
+    this.container.querySelector('#mem-leniency').addEventListener('change', (e) => {
+      this.leniency = parseInt(e.target.value) || 0;
+    });
+    this.container.querySelector('#mem-type-toggle').addEventListener('click', () => this.toggleTyping());
+    this.container.querySelector('#mem-type-check').addEventListener('click', () => this.submitTyped());
+    this.container.querySelector('#mem-type-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') this.submitTyped();
+    });
+
+    this.bindDrillControls();
   }
 
   renderWords() {
@@ -252,11 +325,20 @@ class MemorizeChecker {
       });
     });
 
+    // Word-index range [start, end) for each ayah — drives the drill and progress map
+    this.ayahBounds = this.ayahs.map(ayah => {
+      let start = this.words.findIndex(w => w.ayahKey === ayah.key);
+      let end = start;
+      while (end < this.words.length && this.words[end].ayahKey === ayah.key) end++;
+      return { key: ayah.key, start, end };
+    }).filter(b => b.start >= 0);
+
     // Re-show playback buttons for ayahs that already have recordings
     Object.keys(this.recordings).forEach(key => this.showRecordingButton(key));
 
     this.applyHideMode();
     this.paint([], 0);
+    this.markCompletedAyahs();
   }
 
   applyHideMode() {
@@ -430,10 +512,12 @@ class MemorizeChecker {
   /* ---------- Restart from a chosen ayah ---------- */
 
   restartFromAyah(ayahKey) {
+    if (this.drill) return; // drill drives its own ranges
     const idx = this.words.findIndex(w => w.ayahKey === ayahKey);
     if (idx < 0) return;
 
     this.startWordIndex = idx;
+    this.activeEnd = null;
     this.finalTranscript = '';
     this.diag = this.words.map(() => null);
     this.words.forEach(w => { delete w.el.dataset.state; });
@@ -457,6 +541,9 @@ class MemorizeChecker {
 
   reset() {
     this.stop();
+    this.typing = false;
+    this.drill = null;
+    this.activeEnd = null;
     this.finalTranscript = '';
     this.startWordIndex = 0;
     this.diag = [];
@@ -466,6 +553,7 @@ class MemorizeChecker {
     this.words.forEach(w => { delete w.el.dataset.state; });
     this.paint([], 0);
     this.applyHideMode();
+    this.render();
   }
 
   setStartButton(listening) {
@@ -493,13 +581,14 @@ class MemorizeChecker {
 
     // Greedy alignment with a small lookahead window:
     // states[i] = 'correct' | 'missed' | undefined
+    const end = this.activeEnd == null ? this.words.length : this.activeEnd;
     const states = new Array(this.words.length);
     const diag = this.words.map(() => null);
     let i = this.startWordIndex; // pointer into expected words
     const LOOKAHEAD = 3;
 
     for (const token of heard) {
-      if (i >= this.words.length) break;
+      if (i >= end) break;
 
       if (this.wordsMatch(this.words[i].norm, token.norm)) {
         states[i] = 'correct';
@@ -511,7 +600,7 @@ class MemorizeChecker {
 
       // Did the reciter skip ahead a few words?
       let jumped = false;
-      for (let k = 1; k <= LOOKAHEAD && i + k < this.words.length; k++) {
+      for (let k = 1; k <= LOOKAHEAD && i + k < end; k++) {
         if (this.wordsMatch(this.words[i + k].norm, token.norm)) {
           for (let m = i; m < i + k; m++) {
             states[m] = 'missed';
@@ -536,14 +625,16 @@ class MemorizeChecker {
 
     this.diag = diag;
     this.paint(states, i);
+    this.markCompletedAyahs(states);
 
     // Rotate the per-ayah voice recorder when the pointer enters a new ayah
     if (this.listening && i < this.words.length) {
       this.rotateRecorder(this.words[i].ayahKey);
     }
 
-    if (i >= this.words.length && this.words.length > 0) {
-      this.finish(states);
+    if (i >= end && end > this.startWordIndex) {
+      if (this.drill) this.onDrillStepComplete(states);
+      else this.finish(states);
     }
   }
 
@@ -571,7 +662,7 @@ class MemorizeChecker {
         el.style.filter = '';
       } else {
         delete el.dataset.state;
-        if (idx === currentIndex && this.listening) {
+        if (idx === currentIndex && (this.listening || this.typing)) {
           el.classList.add('bg-amber-100', 'dark:bg-amber-900/40');
         }
         if (this.hideWords) el.style.filter = 'blur(8px)';
@@ -581,11 +672,22 @@ class MemorizeChecker {
 
   finish(states) {
     this.stop();
+    this.typing = false;
     const lang = this.language;
     const correct = states.filter(s => s === 'correct').length;
     const total = this.words.length - this.startWordIndex;
     const pct = Math.round((correct / Math.max(total, 1)) * 100);
-    const secs = Math.round((Date.now() - this.startTime) / 1000);
+    const secs = Math.round((Date.now() - (this.startTime || Date.now())) / 1000);
+
+    // Longest run of consecutive correct words in this session
+    let run = 0, best = 0;
+    for (let idx = this.startWordIndex; idx < this.words.length; idx++) {
+      if (states[idx] === 'correct') { run++; best = Math.max(best, run); }
+      else run = 0;
+    }
+
+    this.recordStats({ correct, total, pct, best });
+    this.markCompletedAyahs(states);
 
     const summary = this.container.querySelector('#mem-summary');
     summary.classList.remove('hidden');
@@ -595,10 +697,351 @@ class MemorizeChecker {
         ${t('accuracy', lang)}: ${pct}%
       </div>
       <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-        ${correct}/${total} · ${secs}s
+        ${correct}/${total} · ${secs}s · ${t('mem_best_run', lang)} ${best}
       </div>
+      ${this.mistakesHtml(states)}
     `;
     this.setStatus(`✅ ${t('completed', lang)}`);
+    this.renderStatsBar();
+  }
+
+  /** Missed / mis-recited words as a tappable review list (opens the tip modal). */
+  mistakesHtml(states) {
+    const lang = this.language;
+    const misses = [];
+    this.words.forEach((w, idx) => {
+      if (idx < this.startWordIndex) return;
+      const d = this.diag[idx] || {};
+      if (states[idx] === 'missed' || (d.heard && d.heard.length)) misses.push(idx);
+    });
+    if (!misses.length) {
+      return `<div class="mt-3 text-sm text-green-600 dark:text-green-400">${t('mem_no_mistakes', lang)}</div>`;
+    }
+    return `
+      <div class="mt-4 pt-3 border-t border-green-200 dark:border-green-800 text-left">
+        <div class="text-xs uppercase text-gray-400 mb-2">${t('mem_mistakes', lang)} (${misses.length})</div>
+        <div class="flex flex-wrap gap-2" dir="rtl">
+          ${misses.map(idx => `
+            <button data-mistake-index="${idx}"
+                    class="ayah-arabic !text-xl px-2 py-1 rounded border border-red-300 dark:border-red-700 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">
+              ${this.words[idx].arabic}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /* ---------- Lifetime stats & daily streak (localStorage) ---------- */
+
+  loadStats() {
+    try {
+      return Object.assign(
+        { sessions: 0, wordsCorrect: 0, ayahsCompleted: 0, accSum: 0, accN: 0,
+          bestRun: 0, streak: 0, lastDay: null },
+        JSON.parse(localStorage.getItem('memorizeStats') || '{}')
+      );
+    } catch (e) {
+      return { sessions: 0, wordsCorrect: 0, ayahsCompleted: 0, accSum: 0, accN: 0,
+               bestRun: 0, streak: 0, lastDay: null };
+    }
+  }
+
+  saveStats() {
+    try { localStorage.setItem('memorizeStats', JSON.stringify(this.stats)); } catch (e) { /* ignore */ }
+  }
+
+  recordStats({ correct, total, pct, best }) {
+    const s = this.stats;
+    s.sessions += 1;
+    s.wordsCorrect += correct;
+    s.accSum += pct;
+    s.accN += 1;
+    s.bestRun = Math.max(s.bestRun || 0, best || 0);
+
+    // Daily streak: consecutive calendar days with at least one session
+    const dayMs = 86400000;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const todayN = Math.floor(today.getTime() / dayMs);
+    if (s.lastDay == null) s.streak = 1;
+    else if (todayN === s.lastDay) { /* already counted today */ }
+    else if (todayN === s.lastDay + 1) s.streak = (s.streak || 0) + 1;
+    else s.streak = 1;
+    s.lastDay = todayN;
+
+    this.saveStats();
+  }
+
+  statsBarHtml() {
+    const lang = this.language;
+    const s = this.stats;
+    const avg = s.accN ? Math.round(s.accSum / s.accN) : 0;
+    const cell = (icon, val, label) => `
+      <div class="flex-1 min-w-[5rem] text-center">
+        <div class="text-lg font-bold text-gray-800 dark:text-gray-100">${icon} ${val}</div>
+        <div class="text-[11px] text-gray-400">${label}</div>
+      </div>`;
+    return `
+      <div id="mem-stats" class="flex flex-wrap gap-2 mb-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40">
+        ${cell('🔥', s.streak || 0, t('mem_streak', lang))}
+        ${cell('🏆', s.bestRun || 0, t('mem_best_run', lang))}
+        ${cell('📖', s.ayahsCompleted || 0, t('mem_ayahs_done', lang))}
+        ${cell('✅', s.wordsCorrect || 0, t('mem_words_correct', lang))}
+        ${cell('🎯', avg + '%', t('mem_avg_accuracy', lang))}
+      </div>`;
+  }
+
+  renderStatsBar() {
+    const bar = this.container.querySelector('#mem-stats');
+    if (bar) bar.outerHTML = this.statsBarHtml();
+  }
+
+  /* ---------- Per-selection progress (resume) ---------- */
+
+  selectionSig() {
+    if (!this.ayahs.length) return '';
+    return this.ayahs[0].key + '_' + this.ayahs[this.ayahs.length - 1].key + '_' + this.ayahs.length;
+  }
+
+  loadProgress() {
+    try {
+      const all = JSON.parse(localStorage.getItem('memorizeProgress') || '{}');
+      return all[this.selectionSig()] || { done: [] };
+    } catch (e) { return { done: [] }; }
+  }
+
+  saveProgress() {
+    try {
+      const all = JSON.parse(localStorage.getItem('memorizeProgress') || '{}');
+      all[this.selectionSig()] = this.progress;
+      localStorage.setItem('memorizeProgress', JSON.stringify(all));
+    } catch (e) { /* ignore */ }
+  }
+
+  /** Mark ayahs whose every word is 'correct' as completed — updates dots,
+   *  lifetime "ayahs done", and persisted resume progress. */
+  markCompletedAyahs(states) {
+    if (!this.ayahBounds.length) return;
+    let changed = false;
+    this.ayahBounds.forEach(b => {
+      const doneNow = states
+        ? this.range(b.start, b.end).every(i => states[i] === 'correct')
+        : false;
+      const already = this.progress.done.includes(b.key);
+      if (doneNow && !already) {
+        this.progress.done.push(b.key);
+        this.stats.ayahsCompleted = (this.stats.ayahsCompleted || 0) + 1;
+        changed = true;
+      }
+      const dot = this.container.querySelector(`[data-jump-ayah="${b.key}"]`);
+      if (dot && (doneNow || already)) {
+        dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+        dot.classList.add('bg-green-500');
+      }
+    });
+    if (changed) { this.saveStats(); this.saveProgress(); this.renderStatsBar(); }
+  }
+
+  range(a, b) { const r = []; for (let i = a; i < b; i++) r.push(i); return r; }
+
+  progressMapHtml() {
+    if (this.ayahs.length < 2) return '';
+    const lang = this.language;
+    const done = new Set(this.progress.done || []);
+    const dots = this.ayahs.map((ayah, i) => {
+      const on = done.has(ayah.key);
+      return `<button data-jump-ayah="${ayah.key}" title="${ayah.key}"
+                class="w-3.5 h-3.5 rounded-full ${on ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'} hover:ring-2 hover:ring-secondary/50"></button>`;
+    }).join('');
+    const firstUndone = this.ayahs.find(a => !done.has(a.key));
+    return `
+      <div class="mb-4 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs uppercase text-gray-400">${t('mem_progress', lang)} (${done.size}/${this.ayahs.length})</span>
+          ${firstUndone ? `<button data-jump-ayah="${firstUndone.key}"
+              class="text-xs px-2 py-0.5 rounded border border-secondary text-secondary hover:bg-secondary/10">
+              ⏵ ${t('mem_resume', lang)}</button>` : ''}
+        </div>
+        <div class="flex flex-wrap gap-1.5">${dots}</div>
+      </div>`;
+  }
+
+  /* ---------- Repetition (compounding) drill ---------- */
+
+  drillPanelHtml() {
+    const lang = this.language;
+    if (this.ayahs.length < 1) return '';
+    if (!this.drill) {
+      return `
+        <div class="mb-4 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
+          <div class="text-sm font-semibold text-indigo-700 dark:text-indigo-300 mb-1">🔁 ${t('mem_drill', lang)}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mb-2">${t('mem_drill_hint', lang)}</div>
+          <div class="flex flex-wrap items-center gap-2">
+            <label class="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
+              ${t('mem_drill_reps', lang)}:
+              <select id="mem-drill-reps" class="rounded border border-gray-300 dark:border-gray-600 bg-transparent px-2 py-1">
+                ${[2, 3, 5, 7].map(n => `<option value="${n}" ${n === this.drillReps ? 'selected' : ''}>${n}</option>`).join('')}
+              </select>
+            </label>
+            <button id="mem-drill-start" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm hover:bg-indigo-700">
+              ${t('mem_drill_start', lang)}
+            </button>
+          </div>
+        </div>`;
+    }
+    return `
+      <div class="mb-4 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm font-semibold text-indigo-700 dark:text-indigo-300">🔁 ${t('mem_drill', lang)}</span>
+          <button id="mem-drill-exit" class="text-xs px-2 py-0.5 rounded border border-indigo-400 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">
+            ${t('mem_drill_stop', lang)}
+          </button>
+        </div>
+        <div id="mem-drill-step" class="text-sm text-gray-700 dark:text-gray-200 mb-2"></div>
+        <div class="h-1.5 rounded bg-indigo-100 dark:bg-indigo-900/50 overflow-hidden">
+          <div id="mem-drill-bar" class="h-full bg-indigo-500 transition-all" style="width:0%"></div>
+        </div>
+      </div>`;
+  }
+
+  bindDrillControls() {
+    const startBtn = this.container.querySelector('#mem-drill-start');
+    if (startBtn) {
+      const sel = this.container.querySelector('#mem-drill-reps');
+      if (sel) sel.addEventListener('change', (e) => { this.drillReps = parseInt(e.target.value) || 3; });
+      startBtn.addEventListener('click', () => this.startDrill());
+    }
+    const exitBtn = this.container.querySelector('#mem-drill-exit');
+    if (exitBtn) exitBtn.addEventListener('click', () => this.exitDrill());
+  }
+
+  buildDrillSteps(reps) {
+    const steps = [];
+    this.ayahBounds.forEach((b, ai) => {
+      for (let r = 1; r <= reps; r++) {
+        steps.push({ type: 'rep', ai, rep: r, reps, start: b.start, end: b.end });
+      }
+      if (ai > 0) {
+        steps.push({ type: 'chain', ai, start: this.ayahBounds[0].start, end: b.end });
+      }
+    });
+    return steps;
+  }
+
+  startDrill() {
+    if (!this.ayahBounds.length) return;
+    const supported = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+    if (!supported) this.typing = true; // fall back to keyboard when speech is unavailable
+    this.drill = { steps: this.buildDrillSteps(this.drillReps), i: 0 };
+    this.render();
+    this.applyDrillStep(0);
+    if (!this.typing && supported) this.start();
+  }
+
+  exitDrill() {
+    this.drill = null;
+    this.activeEnd = null;
+    this.startWordIndex = 0;
+    this.stop();
+    this.render();
+  }
+
+  applyDrillStep(index) {
+    const step = this.drill.steps[index];
+    if (!step) return;
+    this.drill.i = index;
+    this.drill.advancing = false;
+    this.startWordIndex = step.start;
+    this.activeEnd = step.end;
+    this.finalTranscript = '';
+    this.diag = this.words.map(() => null);
+    this.startTime = Date.now();
+
+    // Clear session state within (and after) the active range so it can be re-painted
+    this.words.forEach((w, idx) => { if (idx >= step.start) delete w.el.dataset.state; });
+    this.paint([], step.start);
+    this.applyHideMode();
+
+    const lang = this.language;
+    const stepEl = this.container.querySelector('#mem-drill-step');
+    if (stepEl) {
+      const ayahKey = this.ayahBounds[step.ai].key;
+      if (step.type === 'rep') {
+        stepEl.textContent = t('mem_drill_rep_of', lang)
+          .replace('{a}', ayahKey).replace('{n}', step.rep).replace('{m}', step.reps);
+      } else {
+        stepEl.textContent = t('mem_drill_chain', lang)
+          .replace('{from}', this.ayahBounds[0].key).replace('{to}', ayahKey);
+      }
+    }
+    const bar = this.container.querySelector('#mem-drill-bar');
+    if (bar) bar.style.width = Math.round((index / this.drill.steps.length) * 100) + '%';
+
+    // Restart the recognizer cleanly so alignment begins at the new range
+    if (this.listening && this.recognition) {
+      try { this.recognition.abort(); } catch (e) { /* not started */ }
+    }
+    this.rotateRecorder(this.words[step.start]?.ayahKey);
+    this.words[step.start]?.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const typeInput = this.container.querySelector('#mem-type-input');
+    if (typeInput) { typeInput.value = ''; if (this.typing) typeInput.focus(); }
+  }
+
+  onDrillStepComplete(states) {
+    if (this.drill.advancing) return; // ignore repeat check() calls mid-transition
+    this.drill.advancing = true;
+    this.markCompletedAyahs(states);
+    // Count correctly-recited words toward lifetime stats
+    const correct = this.range(this.startWordIndex, this.activeEnd)
+      .filter(i => states[i] === 'correct').length;
+    this.stats.wordsCorrect = (this.stats.wordsCorrect || 0) + correct;
+    this.saveStats();
+    this.renderStatsBar();
+
+    const next = this.drill.i + 1;
+    if (next < this.drill.steps.length) {
+      setTimeout(() => { if (this.drill) this.applyDrillStep(next); }, 700);
+    } else {
+      const lang = this.language;
+      this.recordStats({ correct: 0, total: 1, pct: 100, best: 0 });
+      const bar = this.container.querySelector('#mem-drill-bar');
+      if (bar) bar.style.width = '100%';
+      this.setStatus(`🎉 ${t('mem_drill_done', lang)}`);
+      this.drill = null;
+      this.activeEnd = null;
+      this.stop();
+      this.renderStatsBar();
+    }
+  }
+
+  /* ---------- Peek & keyboard-only fallback ---------- */
+
+  peek() {
+    this.words.forEach(w => { w.el.style.filter = ''; });
+    clearTimeout(this._peekTimer);
+    this._peekTimer = setTimeout(() => this.applyHideMode(), 2500);
+  }
+
+  toggleTyping() {
+    this.typing = !this.typing;
+    const box = this.container.querySelector('#mem-type-box');
+    if (box) box.classList.toggle('hidden', !this.typing);
+    if (this.typing) {
+      this.container.querySelector('#mem-type-input')?.focus();
+      this.setStatus(`⌨️ ${t('mem_type_hint', this.language)}`);
+    }
+  }
+
+  /** Feed typed Arabic through the same alignment as speech. */
+  submitTyped() {
+    const input = this.container.querySelector('#mem-type-input');
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    if (!this.startTime) this.startTime = Date.now();
+    this.finalTranscript = text;
+    this.check(text);
   }
 
   /* ---------- Word tip modal (correct word vs. what was heard) ---------- */

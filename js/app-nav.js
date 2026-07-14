@@ -17,6 +17,7 @@ const APP_NAV_PRIMARY = [
   { id: 'wordrepeat', emoji: '🔁', label: 'wr_title', tab: 'wordrepeat' },
   { id: 'sarf', emoji: '🧬', label: 'sarf_title', tab: 'sarf' },
   { id: 'amal', emoji: '📿', label: 'amal_title', tab: 'amal' },
+  { id: 'khatmah', emoji: '📅', label: 'khatmah_title', tab: 'khatmah' },
   { id: 'learn', emoji: '🎓', label: 'learn', children: [
       { module: 'kids',        emoji: '🧒', label: 'learn_kids_title' },
       { module: 'vocab',       emoji: '📚', label: 'learn_vocab_title' },
@@ -27,11 +28,14 @@ const APP_NAV_PRIMARY = [
   { id: 'memorize', emoji: '🎙️', label: 'memorize', modes: [
       { mode: 'speech', emoji: '🎙️', label: 'mem_mode_speech' },
       { mode: 'typing', emoji: '⌨️', label: 'mem_mode_typing' },
-      { mode: 'arrange', emoji: '🔀', label: 'mem_mode_arrange' }
+      { mode: 'arrange', emoji: '🔀', label: 'mem_mode_arrange' },
+      { mode: 'record', emoji: '🔴', label: 'mem_mode_record' }
     ] },
   { id: 'quiz',   emoji: '❓', label: 'quiz_center_title', tab: 'quiz' },
   { id: 'audio',  emoji: '🎧', label: 'audio',  tab: 'audio' },
-  { id: 'mushaf', emoji: '📗', label: 'mushaf', tab: 'mushaf' }
+  { id: 'mushaf', emoji: '📗', label: 'mushaf', tab: 'mushaf' },
+  { id: 'resources', emoji: '🔗', label: 'resources_title', tab: 'resources' },
+  { id: 'mutashabihat', emoji: '🪞', label: 'mutashabihat_title', tab: 'mutashabihat' }
 ];
 
 class AppNav {
@@ -91,7 +95,17 @@ class AppNav {
     this.view = 'primary';
     if (this.legacyWrap) this.legacyWrap.classList.add('hidden');
     this.root.classList.remove('hidden');
+    const toolBtn = (tool, emoji, label) => `
+      <button data-navtool="${tool}" title="${label}" aria-label="${label}"
+              class="flex-1 py-2 text-lg rounded-lg text-gray-200 bg-white/10 hover:bg-white/20 hover:text-white transition-colors">
+        ${emoji}
+      </button>`;
     this.root.innerHTML = `
+      <div id="app-nav-tools" class="flex items-center gap-2 mb-3">
+        ${toolBtn('keyboard', '⌨️', this.tt('arabic_keyboard'))}
+        ${toolBtn('waqf', '🛑', this.tt('waqf_signs'))}
+        ${toolBtn('memorize', '🎯', this.tt('memorize'))}
+      </div>
       <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 px-3 mb-2">${this.tt('nav_modules')}</h3>
       ${APP_NAV_PRIMARY.map(p => {
         const active = p.tab && p.tab === this.activeTab;
@@ -107,6 +121,20 @@ class AppNav {
     this.root.querySelectorAll('[data-primary]').forEach(btn => {
       btn.addEventListener('click', () => this.onPrimary(btn.getAttribute('data-primary')));
     });
+    const toolsRow = this.root.querySelector('#app-nav-tools');
+    if (toolsRow) toolsRow.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-navtool]');
+      if (btn) this.runTool(btn.getAttribute('data-navtool'));
+    });
+  }
+
+  // Delegate the always-visible quick tools to the legacy sidebar-menu singleton
+  // (which owns the keyboard / waqf modals). Guard against init order: both are
+  // created on DOMContentLoaded, so the instance may not exist yet.
+  runTool(name) {
+    if (typeof sidebarMenu !== 'undefined' && sidebarMenu && typeof sidebarMenu.runTool === 'function') {
+      sidebarMenu.runTool(name);
+    }
   }
 
   renderChildren(primary) {
@@ -191,7 +219,8 @@ class AppNav {
     const panels = {
       speech: document.getElementById('memorize-container'),
       typing: document.getElementById('type-memorize-root'),
-      arrange: document.getElementById('word-arrange-root')
+      arrange: document.getElementById('word-arrange-root'),
+      record: document.getElementById('record-memorize-root')
     };
     Object.entries(panels).forEach(([m, el]) => { if (el) el.classList.toggle('hidden', m !== mode); });
     // Reflect the active mode on the in-panel buttons
@@ -209,6 +238,7 @@ class AppNav {
     // The typing / arrange modules render on this event (idempotent re-render).
     if (mode === 'typing') window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: 'typememorize' } }));
     if (mode === 'arrange') window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: 'wordarrange' } }));
+    if (mode === 'record') window.dispatchEvent(new CustomEvent('learnModuleSelected', { detail: { module: 'recordmemorize' } }));
   }
 
   switchTab(tabId) {

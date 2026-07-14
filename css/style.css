@@ -620,3 +620,14 @@ body.legacy-sidebar aside#sidebar .nav-group-parent:hover {
   .ayah-arabic.sm\:\!text-5xl { font-size: calc(3rem     * var(--arabic-scale, 1)) !important; }
   .ayah-arabic.sm\:\!text-6xl { font-size: calc(3.75rem  * var(--arabic-scale, 1)) !important; }
 }
+
+/* "Only Arabic" focus mode (Reading tab toggle): show just the flowing Arabic
+   line, hiding the word-by-word row, transliteration, translation and any
+   inline tafsir/grammar/tajweed panels. */
+.only-arabic .wbw-row,
+.only-arabic .ayah-translit,
+.only-arabic .ayah-translation,
+.only-arabic .inline-tafsir,
+.only-arabic .inline-grammar,
+.only-arabic .tajweed-view { display: none !important; }
+.only-arabic .ayah-content > .ayah-arabic { display: block !important; }

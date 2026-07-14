@@ -43,7 +43,7 @@ if (typeof document !== 'undefined') (function () {
   document.head.appendChild(style);
   document.addEventListener('click', (e) => {
     // Panel chrome (collapse arrow, mobile pill / close) must not toggle tips
-    if (e.target.closest('#tjg-collapse, #tjg-m-open, #tjg-m-close')) return;
+    if (e.target.closest('.tjg-toggle, #tjg-m-open, #tjg-m-close')) return;
     const item = e.target.closest('.tj-item');
     document.querySelectorAll('.tj-item.tj-open').forEach(el => {
       if (el !== item) el.classList.remove('tj-open');
@@ -91,7 +91,7 @@ const TajweedData = {
       if (start > cursor) html += esc(text.slice(cursor, start));
       const rule = TAJWEED_RULES[ann.rule];
       html += rule
-        ? `<span style="color:${rule.color}" title="${rule.label}">${esc(text.slice(start, end))}</span>`
+        ? `<span class="tj-seg cursor-pointer" style="color:${rule.color}" title="${rule.label}" data-tj-rule="${ann.rule}">${esc(text.slice(start, end))}</span>`
         : esc(text.slice(start, end));
       cursor = end;
     }
@@ -120,8 +120,10 @@ const TajweedData = {
 };
 
 /**
- * Sticky right-side tajweed guide, shown while tajweed mode is on.
- * Collapsible (state remembered); rule rows show hover explanations.
+ * Off-canvas tajweed rules guide, shown while tajweed mode is on.
+ * Desktop (lg+): slide-in drawer docked to the inner screen edge (right in LTR,
+ * left in RTL) with an always-visible handle tab; open/closed remembered.
+ * Mobile (<lg): floating 🎨 pill opening a bottom sheet. Rows show explanations.
  */
 const TajweedGuide = {
   el: null,   // desktop fixed side panel (lg+)
@@ -144,7 +146,7 @@ const TajweedGuide = {
       document.body.appendChild(this.el);
 
       this.el.addEventListener('click', (e) => {
-        if (e.target.closest('#tjg-collapse')) {
+        if (e.target.closest('.tjg-toggle')) {
           this.collapsed = !this.collapsed;
           this.render(this._lang);
         }
@@ -259,35 +261,52 @@ const TajweedGuide = {
     if (!this.el) return;
     this.renderMobile(lang);
 
-    // Dock beside the sidebar: left edge in LTR, right edge in RTL (ar/ur/fa
-    // flip document dir, so the desktop sidebar sits on the RIGHT).
+    // Off-canvas drawer anchored to the inner screen edge (right in LTR, left in
+    // RTL — ar/ur/fa flip document dir). It slides fully off that edge when
+    // closed, leaving only the handle tab; the whole panel stays mounted so the
+    // translate-x transition can animate it in and out.
     const rtl = document.documentElement.dir === 'rtl';
     const hidden = this.el.classList.contains('hidden');
-    this.el.className = `fixed ${rtl ? 'right-0 lg:right-64' : 'left-0 lg:left-64'} top-28 z-30 flex items-start max-lg:!hidden${hidden ? ' hidden' : ''}`;
-    const corner = rtl ? 'rounded-l-xl border-r-0' : 'rounded-r-xl border-l-0';
-    const glyph = rtl ? '→' : '←';
-    const peek = rtl ? 'hover:pr-3' : 'hover:pl-3';
-    const tipSide = rtl ? 'right-full mr-2' : 'left-full ml-2';
+    const open = !this.collapsed;
+    const edge = rtl ? 'left-0' : 'right-0';
+    const closedShift = rtl ? '-translate-x-72' : 'translate-x-72'; // = panel w-72
+    this.el.className = `fixed ${edge} top-28 z-40 flex items-start max-lg:!hidden `
+      + `transition-transform duration-300 ease-in-out `
+      + `${open ? 'translate-x-0' : closedShift}${hidden ? ' hidden' : ''}`;
 
-    if (this.collapsed) {
-      this.el.innerHTML = `
-        <button id="tjg-collapse" title="${t('tajweed_label', lang)}"
-                class="px-2 py-3 ${corner} bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700
-                       text-lg ${peek} transition-all">🎨</button>`;
-      return;
-    }
+    // Tooltip floats into the open space beside the drawer (toward screen centre).
+    const tipSide = rtl ? 'left-full ml-2' : 'right-full mr-2';
+    const handleRound = rtl ? 'rounded-r-xl' : 'rounded-l-xl';
+    const handleBorder = rtl ? 'border-l-0' : 'border-r-0';
+    const panelRound = rtl ? 'rounded-r-none' : 'rounded-l-none';
+    const panelBorder = rtl ? 'border-r-0' : 'border-l-0';
+    // Chevron points the way a click will move the drawer.
+    const glyph = open ? (rtl ? '‹' : '›') : (rtl ? '›' : '‹');
 
-    this.el.innerHTML = `
-      <div class="w-56 max-w-[70vw] ${corner} bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    const handle = `
+      <button title="${t('tajweed_label', lang)}" aria-label="${t('tajweed_label', lang)}"
+              class="tjg-toggle self-start mt-2 flex flex-col items-center gap-1 px-1.5 py-3 ${handleRound} ${handleBorder}
+                     bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700
+                     text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+        <span class="text-base leading-none">🎨</span>
+        <span class="text-xs leading-none">${glyph}</span>
+      </button>`;
+
+    const panel = `
+      <div class="w-72 max-w-[80vw] ${panelRound} ${panelBorder} bg-white dark:bg-gray-800 shadow-2xl
+                  border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div class="flex items-center gap-2 px-3 py-2 border-b border-gray-200 dark:border-gray-700">
           <span class="text-sm font-semibold flex-1">🎨 ${t('tajweed_label', lang)}</span>
-          <button id="tjg-collapse" class="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500" title="${t('hide_all', lang)}">${glyph}</button>
+          <button class="tjg-toggle p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500"
+                  title="${t('hide_all', lang)}" aria-label="${t('hide_all', lang)}">✕</button>
         </div>
-        <div class="max-h-[62vh] overflow-y-auto px-2 py-2 space-y-0.5">
+        <div class="max-h-[70vh] overflow-y-auto px-2 py-2 space-y-0.5">
           ${this._rowsHtml(lang, tipSide)}
         </div>
-      </div>
-    `;
+      </div>`;
+
+    // Handle sits on the inner side of the panel: after it in LTR, before in RTL.
+    this.el.innerHTML = rtl ? panel + handle : handle + panel;
   }
 };
 

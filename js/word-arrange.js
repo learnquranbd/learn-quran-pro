@@ -21,7 +21,9 @@ class WordArrange {
     this.surah = 112;
     this.ayah = 1;
     this.mode = 'arrange';
+    this.difficulty = 'normal'; // 'normal' | 'hard' (hard salts the pool with decoy words)
     this.words = null;         // [{ arabic, meaning }]
+    this.decoys = [];          // hard mode: real Quranic words from OTHER ayahs mixed into the pool
     this.revealed = new Set(); // reveal-mode: indices shown
     this.placed = [];          // arrange-mode: pool indices placed into slots (in order)
     this.rendered = false;
@@ -68,6 +70,11 @@ class WordArrange {
             <button data-mode="arrange" class="wa-mode px-3 py-2 text-sm ${this.mode === 'arrange' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_mode_arrange')}</button>
             <button data-mode="reveal" class="wa-mode px-3 py-2 text-sm ${this.mode === 'reveal' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_mode_reveal')}</button>
           </div>
+          ${this.mode === 'arrange' ? `
+          <div class="inline-flex rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700" title="${this.tt('wa_hard_hint')}">
+            <button data-diff="normal" class="px-3 py-2 text-sm ${this.difficulty === 'normal' ? 'bg-secondary text-white' : 'bg-white dark:bg-gray-800'}">${this.tt('wa_diff_normal')}</button>
+            <button data-diff="hard" class="px-3 py-2 text-sm ${this.difficulty === 'hard' ? 'bg-secondary text-white' : 'bg-white dark:bg-gray-800'}">🌶️ ${this.tt('wa_diff_hard')}</button>
+          </div>` : ''}
         </div>
         <div id="wa-board" class="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 min-h-[180px]"></div>
       </div>`;
@@ -88,14 +95,58 @@ class WordArrange {
       return;
     }
     this.revealed = new Set();
+    this.decoys = [];
+    if (this.mode === 'arrange' && this.difficulty === 'hard') {
+      try { await this.loadDecoys(); } catch (e) { /* hard mode degrades to normal pool */ }
+    }
     this.buildArrangePool();
     this.renderBoard();
   }
 
+  /** Pool index → word: real verse words first, then decoys (hard mode). */
+  wordAt(i) {
+    return i < this.words.length ? this.words[i] : this.decoys[i - this.words.length];
+  }
+
+  /**
+   * Hard mode: pull real Quranic words from NEIGHBORING ayahs of the same surah
+   * (falling back to the next surah for single-ayah ends) to salt the pool with
+   * plausible decoys. Decoys never duplicate a word of the current verse.
+   */
+  async loadDecoys() {
+    const info = getSurahByNumber(this.surah);
+    const count = Math.min(5, Math.max(3, Math.ceil(this.words.length / 2)));
+    const inVerse = new Set(this.words.map(w => w.arabic));
+    const seen = new Set();
+    const decoys = [];
+    const harvest = (verses) => {
+      for (const v of (verses || [])) {
+        if (v.ayah === this.ayah && v.surah === this.surah) continue;
+        for (const w of (v.words || [])) {
+          if (decoys.length >= count) return;
+          if (!w.arabic || !w.meaning) continue;
+          if (inVerse.has(w.arabic) || seen.has(w.arabic)) continue;
+          seen.add(w.arabic);
+          decoys.push({ arabic: w.arabic, meaning: w.meaning });
+        }
+      }
+    };
+    const from = Math.max(1, this.ayah - 2);
+    const to = Math.min(info ? info.ayahCount : this.ayah, this.ayah + 2);
+    harvest(await QuranData.fetchRange(this.surah, from, to, this.language));
+    if (decoys.length < count && this.surah < 114) {
+      // Short surah: top up from the start of the next surah
+      harvest(await QuranData.fetchRange(this.surah + 1, 1, 3, this.language));
+    }
+    this.decoys = decoys;
+  }
+
   buildArrangePool() {
     // Deterministic-ish shuffle (no Math.random dependency on load order): rotate by ayah+len.
-    const idx = this.words.map((_, i) => i);
-    const seed = (this.surah * 31 + this.ayah * 7 + this.words.length) % (this.words.length || 1);
+    // Hard mode appends decoy indices (>= words.length) so extra words salt the pool.
+    const idx = this.words.map((_, i) => i)
+      .concat(this.decoys.map((_, j) => this.words.length + j));
+    const seed = (this.surah * 31 + this.ayah * 7 + idx.length) % (idx.length || 1);
     for (let r = 0; r < seed + 3; r++) {
       for (let i = idx.length - 1; i > 0; i--) {
         const j = (i * 7 + seed + r) % (i + 1);
@@ -132,7 +183,7 @@ class WordArrange {
           const shown = this.revealed.has(i);
           return `
             <div class="flex flex-col items-center max-w-[110px]">
-              <button data-reveal="${i}" class="ayah-arabic text-2xl px-1 leading-loose transition ${shown ? '' : 'blur-sm hover:blur-none'}" title="${this.tt('wa_tap_reveal')}">${this.esc(w.arabic)}</button>
+              <button data-reveal="${i}" class="ayah-arabic !text-2xl !leading-loose !mb-0 !pb-0 !border-b-0 px-1 transition ${shown ? '' : 'blur-sm hover:blur-none'}" title="${this.tt('wa_tap_reveal')}">${this.esc(w.arabic)}</button>
               <span class="text-[0.625rem] text-gray-500 dark:text-gray-400 mt-1 text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
         }).join('')}
@@ -142,7 +193,7 @@ class WordArrange {
   // ---- Arrange mode (slots side by side, RTL) ----------------------------
   renderArrange(board) {
     const done = this.placed.length === this.words.length;
-    const allCorrect = done && this.placed.every((p, i) => this.words[p].arabic === this.words[i].arabic);
+    const allCorrect = done && this.placed.every((p, i) => this.wordAt(p) && this.wordAt(p).arabic === this.words[i].arabic);
     const info = (typeof getSurahByNumber === 'function') ? getSurahByNumber(this.surah) : null;
     const hasNext = info && this.ayah < info.ayahCount;
     board.innerHTML = `
@@ -151,13 +202,13 @@ class WordArrange {
         ${this.words.map((w, i) => {
           const placedIdx = this.placed[i];
           const filled = placedIdx !== undefined;
-          const correct = filled && this.words[placedIdx].arabic === this.words[i].arabic;
+          const correct = filled && this.wordAt(placedIdx) && this.wordAt(placedIdx).arabic === this.words[i].arabic;
           return `
             <div class="flex flex-col items-center">
-              <button ${filled ? `data-unplace="${i}"` : ''} class="min-w-[64px] h-12 px-2 flex items-center justify-center rounded-lg border-2 ${
+              <button ${filled ? `data-unplace="${i}"` : ''} class="min-w-[64px] h-14 px-2 flex items-center justify-center rounded-lg border-2 ${
                 filled ? (correct ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-red-400 bg-red-50 dark:bg-red-900/20')
                        : 'border-dashed border-gray-300 dark:border-gray-600'}">
-                <span class="ayah-arabic text-2xl">${filled ? this.esc(this.words[placedIdx].arabic) : ''}</span>
+                <span class="ayah-arabic !text-2xl !leading-normal !mb-0 !pb-0 !border-b-0">${filled ? this.esc(this.wordAt(placedIdx)?.arabic || '') : ''}</span>
               </button>
               <span class="text-[0.625rem] text-gray-500 dark:text-gray-400 mt-1 max-w-[72px] text-center leading-tight" dir="auto">${this.esc(w.meaning)}</span>
             </div>`;
@@ -167,7 +218,7 @@ class WordArrange {
         <div class="flex flex-wrap gap-2 justify-center min-h-[44px]" dir="rtl">
           ${this.pool.map(origIdx => {
             const used = this.placed.includes(origIdx);
-            return `<button data-place="${origIdx}" ${used ? 'disabled' : ''} class="ayah-arabic text-2xl px-3 py-1.5 rounded-lg border ${used ? 'opacity-30 border-gray-200 dark:border-gray-700' : 'border-primary/40 bg-primary/5 hover:bg-primary hover:text-white'}">${this.esc(this.words[origIdx].arabic)}</button>`;
+            return `<button data-place="${origIdx}" ${used ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border ${used ? 'opacity-30 border-gray-200 dark:border-gray-700' : 'border-primary/40 bg-primary/5 hover:bg-primary hover:text-white'}"><span class="ayah-arabic !text-2xl !leading-normal !mb-0 !pb-0 !border-b-0 !text-inherit">${this.esc(this.wordAt(origIdx).arabic)}</span></button>`;
           }).join('')}
         </div>
         <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
@@ -189,6 +240,12 @@ class WordArrange {
     }
     const mode = e.target.closest('[data-mode]');
     if (mode) { this.mode = mode.getAttribute('data-mode'); this.render(); return; }
+    const diff = e.target.closest('[data-diff]');
+    if (diff) {
+      const d = diff.getAttribute('data-diff');
+      if (d !== this.difficulty) { this.difficulty = d; this.render(); }
+      return;
+    }
 
     const revealAll = e.target.closest('[data-reveal-all]');
     if (revealAll) {

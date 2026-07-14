@@ -367,6 +367,32 @@ class AppNavigation {
         <button data-qn-tab="juz" class="qn-tab flex-1 px-3 py-1.5 text-sm rounded-md transition-colors">${t('juz', lang)}</button>
         <button data-qn-tab="page" class="qn-tab flex-1 px-3 py-1.5 text-sm rounded-md transition-colors">${t('page', lang)}</button>
       </div>
+      <div id="qn-goto" class="flex gap-2 mb-2">
+        <input type="text" id="qn-goto-input" inputmode="numeric" autocomplete="off"
+               class="flex-1 min-w-0 px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600
+                      bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
+                      placeholder-gray-400 dark:placeholder-gray-500
+                      focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-blue-500"
+               placeholder="${t('go_to_verse_hint', lang)}">
+        <button id="qn-goto-go"
+                class="px-3 py-1.5 text-sm rounded-lg bg-secondary text-white hover:bg-secondary/80 transition-colors">${t('go', lang)}</button>
+      </div>
+      <div id="qn-actions" class="flex flex-wrap gap-1 mb-2">
+        <button id="qn-continue" data-refs="" title="${t('continue_reading', lang)}"
+                class="hidden flex items-center gap-1 px-2 py-1 text-xs rounded-lg
+                       bg-primary/10 text-primary dark:bg-blue-500/20 dark:text-blue-300
+                       hover:bg-primary hover:text-white dark:hover:bg-blue-600 transition-colors max-w-full">
+          <span>▶</span><span class="qn-cont-word">${t('continue_reading', lang)}</span>
+          <span class="qn-cont-label font-medium truncate"></span>
+        </button>
+        <button id="qn-rand-surah" title="${t('random_surah_title', lang)}"
+                class="px-2 py-1 text-xs rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300
+                       hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">🎲 <span class="qn-rs-label">${t('surah', lang)}</span></button>
+        <button id="qn-rand-juz" title="${t('random_juz_title', lang)}"
+                class="px-2 py-1 text-xs rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300
+                       hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">🎲 <span class="qn-rj-label">${t('juz', lang)}</span></button>
+      </div>
+      <div id="qn-recent" class="mb-2"></div>
       <div id="qn-surah-pane">
         <input type="text" id="surah-quick-search"
                class="w-full px-3 py-1.5 mb-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600
@@ -434,7 +460,45 @@ class AppNavigation {
       if (e.key === 'Enter') { e.preventDefault(); goToPage(); }
     });
 
+    // "Go to verse" quick input: accepts "2:255" or "18:1-10"
+    this.gotoInput = this.surahSection.querySelector('#qn-goto-input');
+    const gotoGo = this.surahSection.querySelector('#qn-goto-go');
+    this.gotoInput.addEventListener('input', () => this.gotoInput.classList.remove('ring-2', 'ring-red-500'));
+    gotoGo.addEventListener('click', () => this.goToVerse());
+    this.gotoInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); this.goToVerse(); }
+    });
+
+    // Quick actions: Continue / Random surah / Random juz
+    this.surahSection.querySelector('#qn-continue').addEventListener('click', (e) => {
+      const refs = e.currentTarget.getAttribute('data-refs');
+      if (refs) this.navigateToRefs(refs);
+    });
+    this.surahSection.querySelector('#qn-rand-surah').addEventListener('click', () => this.randomSurah());
+    this.surahSection.querySelector('#qn-rand-juz').addEventListener('click', () => this.randomJuz());
+
+    // Recent list (delegated: chips reload a range, clear button empties it)
+    this.surahSection.querySelector('#qn-recent').addEventListener('click', (e) => {
+      if (e.target.closest('#qn-recent-clear')) { this.clearRecents(); return; }
+      const chip = e.target.closest('[data-recent-refs]');
+      if (!chip) return;
+      const refs = chip.getAttribute('data-recent-refs');
+      const entry = this.getRecents().find(r => r.refs === refs);
+      this.recordVisit(refs, entry ? entry.label : refs);
+      this.navigateToRefs(refs);
+    });
+
+    // Record visits made through the adopted Juz list (app.js still loads them)
+    this.surahSection.querySelector('#qn-juz-pane').addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      const idx = Array.prototype.indexOf.call(juzList.children, link);
+      const juz = (idx >= 0) ? JUZ_DATA[idx] : null;
+      if (juz) this.recordVisit(this.juzRangeString(juz), `${t('juz', this.language)} ${juz.number}`);
+    });
+
     this.renderSurahList('');
+    this.renderQuickExtras();
   }
 
   /** Show the active quick-nav pane and style the pill tabs */
@@ -448,6 +512,132 @@ class AppNavigation {
     this.surahSection.querySelector('#qn-surah-pane').classList.toggle('hidden', this.qnTab !== 'surah');
     this.surahSection.querySelector('#qn-juz-pane').classList.toggle('hidden', this.qnTab !== 'juz');
     this.surahSection.querySelector('#qn-page-pane').classList.toggle('hidden', this.qnTab !== 'page');
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Recently-visited ranges (localStorage) + "continue where I left off"
+   * ------------------------------------------------------------------ */
+
+  getRecents() {
+    try { return JSON.parse(localStorage.getItem('quickNavRecent') || '[]'); }
+    catch (e) { return []; }
+  }
+
+  saveRecents(list) {
+    try { localStorage.setItem('quickNavRecent', JSON.stringify(list.slice(0, 6))); }
+    catch (e) { /* storage may be unavailable */ }
+  }
+
+  /** Push a range to the front of the recent list (deduped) and re-render. */
+  recordVisit(refs, label) {
+    if (!refs) return;
+    const list = this.getRecents().filter(r => r.refs !== refs);
+    list.unshift({ refs, label: label || refs });
+    this.saveRecents(list);
+    this.renderQuickExtras();
+  }
+
+  clearRecents() {
+    this.saveRecents([]);
+    this.renderQuickExtras();
+  }
+
+  /** Render the Recent chips and toggle the Continue button (uses newest). */
+  renderQuickExtras() {
+    if (!this.surahSection) return;
+    const lang = this.language;
+    const list = this.getRecents();
+
+    const cont = this.surahSection.querySelector('#qn-continue');
+    if (cont) {
+      if (list.length) {
+        cont.classList.remove('hidden');
+        cont.setAttribute('data-refs', list[0].refs);
+        const lbl = cont.querySelector('.qn-cont-label');
+        if (lbl) lbl.textContent = list[0].label;
+      } else {
+        cont.classList.add('hidden');
+        cont.setAttribute('data-refs', '');
+      }
+    }
+
+    const rec = this.surahSection.querySelector('#qn-recent');
+    if (!rec) return;
+    if (!list.length) { rec.innerHTML = ''; return; }
+    rec.innerHTML = `
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-semibold uppercase text-gray-400 dark:text-gray-500">${t('recent', lang)}</span>
+        <button id="qn-recent-clear" class="text-xs text-gray-400 hover:text-red-500 transition-colors">${t('clear', lang)}</button>
+      </div>
+      <div class="flex flex-wrap gap-1">
+        ${list.map(r => `
+          <button data-recent-refs="${r.refs}" title="${r.refs}"
+                  class="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300
+                         hover:bg-primary hover:text-white dark:hover:bg-blue-600 transition-colors max-w-full truncate"
+                  dir="auto">${r.label}</button>`).join('')}
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Go-to-verse + random helpers
+   * ------------------------------------------------------------------ */
+
+  /**
+   * Validate a "S:A" / "S:A-B" reference against SURAH_DATA.
+   * @returns {{surah: object, refs: string}|null}
+   */
+  parseVerseRef(raw) {
+    const m = (raw || '').trim().match(/^(\d{1,3})\s*:\s*(\d{1,3})(?:\s*-\s*(\d{1,3}))?$/);
+    if (!m) return null;
+    const surah = (typeof getSurahByNumber !== 'undefined') ? getSurahByNumber(parseInt(m[1])) : null;
+    if (!surah) return null;
+    const start = parseInt(m[2]);
+    const end = m[3] ? parseInt(m[3]) : start;
+    if (start < 1 || start > surah.ayahCount || end < start || end > surah.ayahCount) return null;
+    return { surah, refs: start === end ? `${surah.number}:${start}` : `${surah.number}:${start}-${end}` };
+  }
+
+  goToVerse() {
+    if (!this.gotoInput) return;
+    const parsed = this.parseVerseRef(this.gotoInput.value);
+    if (!parsed) {
+      this.gotoInput.classList.add('ring-2', 'ring-red-500');
+      this.gotoInput.setAttribute('title', t('invalid_reference', this.language));
+      return;
+    }
+    const ayahPart = parsed.refs.split(':')[1];
+    const label = `${parsed.surah.number}. ${getSurahName(parsed.surah.number, this.language)} · ${ayahPart}`;
+    this.gotoInput.value = '';
+    this.recordVisit(parsed.refs, label);
+    this.navigateToRefs(parsed.refs);
+  }
+
+  randomSurah() {
+    if (typeof SURAH_DATA === 'undefined' || !SURAH_DATA.length) return;
+    const surah = SURAH_DATA[Math.floor(Math.random() * SURAH_DATA.length)];
+    this.onSurahPicked(surah.number);
+  }
+
+  randomJuz() {
+    if (typeof JUZ_DATA === 'undefined' || !JUZ_DATA.length) return;
+    const juz = JUZ_DATA[Math.floor(Math.random() * JUZ_DATA.length)];
+    const refs = this.juzRangeString(juz);
+    this.recordVisit(refs, `${t('juz', this.language)} ${juz.number}`);
+    this.navigateToRefs(refs);
+  }
+
+  /** Build a comma-joined range string spanning a whole Juz (mirrors app.loadJuz). */
+  juzRangeString(juz) {
+    if (juz.startSurah === juz.endSurah) {
+      return `${juz.startSurah}:${juz.startAyah}-${juz.endAyah}`;
+    }
+    const parts = [`${juz.startSurah}:${juz.startAyah}-${getSurahByNumber(juz.startSurah).ayahCount}`];
+    for (let s = juz.startSurah + 1; s < juz.endSurah; s++) {
+      parts.push(`${s}:1-${getSurahByNumber(s).ayahCount}`);
+    }
+    parts.push(`${juz.endSurah}:1-${juz.endAyah}`);
+    return parts.join(',');
   }
 
   renderSurahList(query) {
@@ -471,15 +661,24 @@ class AppNavigation {
       return;
     }
 
-    this.surahList.innerHTML = matches.map(surah => `
+    this.surahList.innerHTML = matches.map(surah => {
+      const meccan = surah.revelationType === 'Meccan';
+      const badge = `<span class="px-1.5 py-0.5 rounded text-[10px] font-medium ${meccan
+        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+        : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'}">${t(meccan ? 'meccan' : 'medinan', lang)}</span>`;
+      return `
       <a href="#" data-surah="${surah.number}"
          class="flex items-center justify-between gap-2 px-2 py-1 rounded
                 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400
                 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-        <span dir="auto">${surah.number}. ${getSurahName(surah.number, lang)}</span>
-        <span class="text-xs text-gray-400 dark:text-gray-500">${surah.ayahCount}</span>
+        <span dir="auto" class="truncate">${surah.number}. ${getSurahName(surah.number, lang)}</span>
+        <span class="flex items-center gap-1.5 shrink-0">
+          ${badge}
+          <span class="text-xs text-gray-400 dark:text-gray-500">${surah.ayahCount} ${t('verses', lang)}</span>
+        </span>
       </a>
-    `).join('');
+    `;
+    }).join('');
   }
 
   refreshSurahPicker() {
@@ -492,6 +691,19 @@ class AppNavigation {
     if (this.searchInput) this.searchInput.setAttribute('placeholder', t('search_surah', lang));
     const goBtn = this.surahSection.querySelector('#qn-page-go');
     if (goBtn) goBtn.textContent = t('go', lang);
+
+    // Re-localize the enrichment controls
+    if (this.gotoInput) this.gotoInput.setAttribute('placeholder', t('go_to_verse_hint', lang));
+    const gotoGo = this.surahSection.querySelector('#qn-goto-go');
+    if (gotoGo) gotoGo.textContent = t('go', lang);
+    const contWord = this.surahSection.querySelector('.qn-cont-word');
+    if (contWord) contWord.textContent = t('continue_reading', lang);
+    const rsLabel = this.surahSection.querySelector('.qn-rs-label');
+    if (rsLabel) rsLabel.textContent = t('surah', lang);
+    const rjLabel = this.surahSection.querySelector('.qn-rj-label');
+    if (rjLabel) rjLabel.textContent = t('juz', lang);
+    this.renderQuickExtras();
+
     this.renderSurahList(this.searchInput ? this.searchInput.value : '');
   }
 
@@ -503,7 +715,9 @@ class AppNavigation {
     const surahSelect = document.getElementById('surah-select');
     if (surahSelect) surahSelect.value = String(surah.number);
 
-    this.navigateToRefs(`${surah.number}:1-${surah.ayahCount}`);
+    const refs = `${surah.number}:1-${surah.ayahCount}`;
+    this.recordVisit(refs, `${surah.number}. ${getSurahName(surah.number, this.language)}`);
+    this.navigateToRefs(refs);
   }
 }
 

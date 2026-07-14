@@ -18,6 +18,16 @@ class TypeMemorize {
     this.hideTarget = true;
     this._words = null; // data/quran-words.json
 
+    // enrichments -----------------------------------------------------------
+    this.firstLetterHint = false;  // show first letter of each not-yet-typed word
+    this.strictTashkeel = false;   // also require exact diacritics to count a word
+    this.revealCount = 0;          // words progressively revealed via 💡 button
+    this.elapsedMs = 0;            // stopwatch for the current ayah/range
+    this.timerStart = null;
+    this.timerId = null;
+    this.lastResult = null;        // {pct, ms} of the last Check (for Next-ayah)
+    this.session = { count: 0, sumPct: 0, sumMs: 0, items: [] }; // range-chain summary
+
     window.addEventListener('learnModuleSelected', (e) => {
       if (e.detail && e.detail.module === 'typememorize') this.render();
     });
@@ -30,7 +40,10 @@ class TypeMemorize {
 
     this.root.addEventListener('click', (e) => this.onClick(e));
     this.root.addEventListener('input', (e) => {
-      if (e.target && e.target.id === 'tm-input') this.liveCheck();
+      if (e.target && e.target.id === 'tm-input') {
+        if (e.target.value.trim()) this.startTimer();
+        this.liveCheck();
+      }
     });
   }
 
@@ -43,6 +56,23 @@ class TypeMemorize {
       .replace(/ى/g, 'ي').replace(/ة/g, 'ه')
       .replace(/ء/g, '')
       .replace(/[^ء-ي]/g, '');
+  }
+
+  /** Like norm() but KEEPS the tashkeel — used only when strict-tashkeel mode is on. */
+  normD(t) {
+    return (t || '')
+      .replace(/ـ/g, '')
+      .replace(/[آأإٱ]/g, 'ا')
+      .replace(/ؤ/g, 'و').replace(/ئ/g, 'ي')
+      .replace(/ى/g, 'ي').replace(/ة/g, 'ه')
+      .replace(/[^ء-ْٰ]/g, '');
+  }
+
+  /** Split raw input into comparable tokens: [{raw, norm, normD}]. */
+  tokenize(str) {
+    return (str || '').split(/\s+/)
+      .map(raw => ({ raw, norm: this.norm(raw), normD: this.normD(raw) }))
+      .filter(x => x.norm);
   }
 
   async loadWords() {
@@ -61,7 +91,7 @@ class TypeMemorize {
     const out = [];
     for (let a = from; a <= to; a++) {
       const ws = data[`${this.surah}:${a}`] || [];
-      ws.forEach(w => out.push({ arabic: w, norm: this.norm(w), key: `${this.surah}:${a}` }));
+      ws.forEach(w => out.push({ arabic: w, norm: this.norm(w), normD: this.normD(w), key: `${this.surah}:${a}` }));
     }
     return out;
   }
@@ -106,6 +136,24 @@ class TypeMemorize {
 
           <div id="tm-target" class="${this.hideTarget ? 'hidden' : ''} ayah-arabic !text-2xl !leading-loose p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40 max-h-56 overflow-y-auto" dir="rtl"></div>
 
+          <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="tm-hint" ${this.firstLetterHint ? 'checked' : ''} class="w-4 h-4"> ${t('typemem_first_letter', lang)}
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="tm-strict" ${this.strictTashkeel ? 'checked' : ''} class="w-4 h-4"> ${t('typemem_strict', lang)}
+            </label>
+            <button id="tm-reveal" class="px-2.5 py-1 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">💡 ${t('typemem_reveal', lang)}</button>
+            <span class="ml-auto font-mono">⏱ <span id="tm-timer">0:00</span></span>
+          </div>
+
+          <div id="tm-skeleton" class="ayah-arabic !text-2xl !leading-loose p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40 min-h-[3.5rem]" dir="rtl"></div>
+
+          <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+            <span id="tm-stats"></span>
+            <button id="tm-reset-stats" class="underline hover:text-gray-700 dark:hover:text-gray-200">${t('reset', lang)}</button>
+          </div>
+
           <textarea id="tm-input" rows="4" dir="rtl"
             class="w-full px-3 py-2 ayah-arabic !text-2xl !leading-loose rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="${t('typemem_placeholder', lang)}"></textarea>
@@ -119,6 +167,7 @@ class TypeMemorize {
           </div>
 
           <div id="tm-result" class="hidden"></div>
+          <div id="tm-session" class="hidden"></div>
         </div>
       </div>
     `;
@@ -170,39 +219,221 @@ class TypeMemorize {
       const words = await this.expectedWords();
       this._expected = words;   // cached for live progress
       el.innerHTML = words.map(w => `<span class="mx-0.5">${w.arabic}</span>`).join(' ');
-      this.liveCheck();         // counter total follows the selected range
+      this.revealCount = 0;     // fresh range → nothing revealed yet
+      this.resetTimer();        // fresh range → fresh stopwatch
+      this.renderStats();       // best score/time for this exact range
+      this.liveCheck();         // counter + skeleton follow the selected range
+      this.renderSessionBar();  // keep the running session banner in sync
     } catch (e) { el.textContent = ''; }
+  }
+
+  /* ---------- stopwatch ---------- */
+
+  startTimer() {
+    if (this.timerId) return;
+    this.timerStart = Date.now() - this.elapsedMs;
+    this.timerId = setInterval(() => {
+      this.elapsedMs = Date.now() - this.timerStart;
+      this.updateTimerDisplay();
+    }, 250);
+  }
+
+  stopTimer() {
+    if (this.timerId) { clearInterval(this.timerId); this.timerId = null; }
+    if (this.timerStart != null) this.elapsedMs = Date.now() - this.timerStart;
+  }
+
+  resetTimer() {
+    this.stopTimer();
+    this.elapsedMs = 0; this.timerStart = null;
+    this.updateTimerDisplay();
+  }
+
+  updateTimerDisplay() {
+    const el = this.root && this.root.querySelector('#tm-timer');
+    if (el) el.textContent = this.fmtTime(this.elapsedMs);
+  }
+
+  fmtTime(ms) {
+    const s = Math.round((ms || 0) / 1000);
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  }
+
+  /* ---------- best-score persistence ---------- */
+
+  statsKey() {
+    const [from, to] = this.range();
+    return `tmStats:${this.surah}:${from}-${to}`;
+  }
+
+  loadStats() {
+    try { return JSON.parse(localStorage.getItem(this.statsKey())) || {}; }
+    catch (e) { return {}; }
+  }
+
+  /** Persist best accuracy (and fastest time for a perfect run). Returns true if improved. */
+  saveStats(pct, ms) {
+    const s = this.loadStats();
+    let improved = false;
+    if (pct > (s.bestPct || 0)) { s.bestPct = pct; improved = true; }
+    if (pct >= 100 && (!s.bestTimeMs || ms < s.bestTimeMs)) { s.bestTimeMs = ms; improved = true; }
+    s.attempts = (s.attempts || 0) + 1;
+    try { localStorage.setItem(this.statsKey(), JSON.stringify(s)); } catch (e) { /* full/blocked */ }
+    return improved;
+  }
+
+  renderStats() {
+    const el = this.root && this.root.querySelector('#tm-stats');
+    if (!el) return;
+    const lang = this.language;
+    const s = this.loadStats();
+    if (!s.bestPct) { el.textContent = ''; return; }
+    el.textContent = `${t('typemem_best', lang)}: ${s.bestPct}%`
+      + (s.bestTimeMs ? ` · ⏱ ${this.fmtTime(s.bestTimeMs)}` : '')
+      + (s.attempts ? ` · ${s.attempts}×` : '');
+  }
+
+  /* ---------- per-word hint / reveal strip ---------- */
+
+  firstLetterOf(arabic) {
+    const m = (arabic || '').match(/[ء-ي]/);
+    return m ? m[0] : '•';
+  }
+
+  /** Live per-word strip: matched→green word, revealed→blue word, else first-letter/blank hint. */
+  renderSkeleton(matched) {
+    const el = this.root && this.root.querySelector('#tm-skeleton');
+    if (!el || !this._expected) return;
+    if (!matched) matched = this.liveAlignment().matched;
+    el.innerHTML = this._expected.map((w, idx) => {
+      let text, cls;
+      if (matched[idx]) { text = w.arabic; cls = 'text-green-600 dark:text-green-400'; }
+      else if (idx < this.revealCount) { text = w.arabic; cls = 'text-blue-500 dark:text-blue-400'; }
+      else if (this.firstLetterHint) { text = this.firstLetterOf(w.arabic) + '…'; cls = 'text-gray-400 dark:text-gray-500'; }
+      else { text = '•'.repeat(Math.min(Math.max(w.norm.length, 2), 5)); cls = 'text-gray-300 dark:text-gray-600'; }
+      return `<span class="mx-0.5 ${cls}">${this.esc(text)}</span>`;
+    }).join(' ');
+  }
+
+  /* ---------- range-chaining session ---------- */
+
+  recordAttempt() {
+    if (!this.lastResult) return;
+    const r = this.lastResult;
+    const [from, to] = this.range();
+    this.session.items.push({ label: `${this.surah}:${from}${to !== from ? '-' + to : ''}`, pct: r.pct, ms: r.ms });
+    this.session.count++;
+    this.session.sumPct += r.pct;
+    this.session.sumMs += r.ms;
+    this.lastResult = null;
+  }
+
+  /** Advance the selection to the next single ayah (chaining through a range). */
+  nextAyah() {
+    this.recordAttempt();
+    const count = getSurahByNumber(this.surah).ayahCount;
+    const [, to] = this.range();
+    if (to < count) { this.fromAyah = to + 1; this.toAyah = to + 1; }
+    else if (this.surah < 114) { this.surah += 1; this.fromAyah = 1; this.toAyah = 1; }
+    // reflect the new selection in the pickers
+    const sSel = this.root.querySelector('#tm-surah');
+    if (sSel) sSel.value = String(this.surah);
+    this.fillRangeSelects();
+    const input = this.root.querySelector('#tm-input');
+    if (input) input.value = '';
+    const res = this.root.querySelector('#tm-result');
+    if (res) res.classList.add('hidden');
+    this.loadTarget();
+  }
+
+  renderSessionBar() {
+    const el = this.root && this.root.querySelector('#tm-session');
+    if (!el) return;
+    const lang = this.language;
+    const s = this.session;
+    if (!s.count) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+    const avg = Math.round(s.sumPct / s.count);
+    el.classList.remove('hidden');
+    el.innerHTML = `
+      <div class="flex flex-wrap items-center gap-2 text-sm p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+        <span>${t('typemem_session', lang)}: ${s.count} ${t('typemem_ayat_done', lang)} · ${t('accuracy', lang)} ${avg}% · ⏱ ${this.fmtTime(s.sumMs)}</span>
+        <button id="tm-finish" class="ml-auto px-3 py-1 rounded-lg border border-blue-300 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-800/40">${t('typemem_finish', lang)}</button>
+      </div>`;
+  }
+
+  /** Freeze the running session into a summary card, then start a new session. */
+  finishSession() {
+    this.recordAttempt();
+    const lang = this.language;
+    const s = this.session;
+    const res = this.root.querySelector('#tm-result');
+    if (!s.count) { if (res) res.classList.add('hidden'); return; }
+    const avg = Math.round(s.sumPct / s.count);
+    res.classList.remove('hidden');
+    res.innerHTML = `
+      <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40">
+        <div class="text-center font-bold mb-2">🏁 ${t('typemem_session', lang)}</div>
+        <div class="flex justify-center gap-4 text-sm mb-3">
+          <span>${t('typemem_ayat_done', lang)}: <b>${s.count}</b></span>
+          <span>${t('typemem_avg_accuracy', lang)}: <b>${avg}%</b></span>
+          <span>${t('typemem_total_time', lang)}: <b>${this.fmtTime(s.sumMs)}</b></span>
+        </div>
+        <div class="space-y-1 text-sm" dir="ltr">
+          ${s.items.map(it => `<div class="flex justify-between border-b border-gray-200 dark:border-gray-700 py-0.5">
+            <span>${this.esc(it.label)}</span>
+            <span class="${it.pct >= 80 ? 'text-green-600 dark:text-green-400' : 'text-amber-600 dark:text-amber-400'}">${it.pct}% · ${this.fmtTime(it.ms)}</span>
+          </div>`).join('')}
+        </div>
+      </div>`;
+    this.session = { count: 0, sumPct: 0, sumMs: 0, items: [] };
+    this.renderSessionBar();
   }
 
   /* ---------- checking ---------- */
 
-  liveCheck() {
-    // Lightweight running count of correctly-typed words so far (full report on Check)
-    if (!this._expected) return;
-    const live = this.root.querySelector('#tm-live');
-    if (!live) return;
-    const expected = this._expected;
-    const typed = (this.root.querySelector('#tm-input').value || '').split(/\s+/).map(x => this.norm(x)).filter(Boolean);
+  /** True if a typed token matches an expected word (honours the strict-tashkeel toggle). */
+  wordOk(exp, tok) {
+    if (!this.match(exp.norm, tok.norm)) return false;
+    if (this.strictTashkeel) return this.normD(exp.arabic) === tok.normD;
+    return true;
+  }
+
+  /** Greedy word alignment (small lookahead) → per-word matched flags + count. */
+  liveAlignment() {
+    const expected = this._expected || [];
+    const inputEl = this.root.querySelector('#tm-input');
+    const typed = this.tokenize(inputEl ? inputEl.value : '');
+    const matched = new Array(expected.length).fill(false);
     let i = 0, ok = 0; const LOOK = 3;
     for (const tok of typed) {
       if (i >= expected.length) break;
-      if (this.match(expected[i].norm, tok)) { ok++; i++; continue; }
+      if (this.wordOk(expected[i], tok)) { matched[i] = true; ok++; i++; continue; }
       for (let k = 1; k <= LOOK && i + k < expected.length; k++) {
-        if (this.match(expected[i + k].norm, tok)) { ok++; i = i + k + 1; break; }
+        if (this.wordOk(expected[i + k], tok)) { matched[i + k] = true; ok++; i = i + k + 1; break; }
       }
     }
-    live.textContent = `${ok} / ${expected.length}`;
-    live.className = 'text-sm font-semibold ' + (ok === expected.length && ok > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400');
+    return { matched, ok, total: expected.length };
+  }
+
+  liveCheck() {
+    // Lightweight running count + per-word feedback strip (full report on Check)
+    if (!this._expected) return;
+    const align = this.liveAlignment();
+    const live = this.root.querySelector('#tm-live');
+    if (live) {
+      live.textContent = `${align.ok} / ${align.total}`;
+      live.className = 'text-sm font-semibold ' + (align.ok === align.total && align.ok > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400');
+    }
+    this.renderSkeleton(align.matched);
   }
 
   async check() {
     const lang = this.language;
     const input = this.root.querySelector('#tm-input').value;
-    const typed = input.split(/\s+/)
-      .map(raw => ({ raw, norm: this.norm(raw) }))
-      .filter(x => x.norm);
+    const typed = this.tokenize(input);
     let expected;
     try { expected = await this.expectedWords(); } catch (e) { return; }
+    this.stopTimer();
 
     // Greedy word alignment with small lookahead (like the speech memorize)
     const states = new Array(expected.length);
@@ -213,10 +444,10 @@ class TypeMemorize {
     const LOOK = 3;
     for (const tok of typed) {
       if (i >= expected.length) { addExtra(expected.length, tok.raw); continue; }
-      if (this.match(expected[i].norm, tok.norm)) { states[i] = 'ok'; i++; continue; }
+      if (this.wordOk(expected[i], tok)) { states[i] = 'ok'; i++; continue; }
       let jumped = false;
       for (let k = 1; k <= LOOK && i + k < expected.length; k++) {
-        if (this.match(expected[i + k].norm, tok.norm)) {
+        if (this.wordOk(expected[i + k], tok)) {
           for (let m = i; m < i + k; m++) states[m] = 'miss';
           states[i + k] = 'ok'; i = i + k + 1; jumped = true; break;
         }
@@ -229,6 +460,11 @@ class TypeMemorize {
     const total = expected.length;
     const pct = (total + extraCount) ? Math.round((correct / (total + extraCount)) * 100) : 0;
 
+    const ms = this.elapsedMs;
+    this.lastResult = { pct, ms };
+    const improved = this.saveStats(pct, ms);
+    this.renderStats();
+
     const res = this.root.querySelector('#tm-result');
     res.classList.remove('hidden');
     res.innerHTML = `
@@ -236,6 +472,8 @@ class TypeMemorize {
         <span class="text-2xl font-bold ${pct >= 80 ? 'text-green-600 dark:text-green-400' : 'text-amber-600 dark:text-amber-400'}">${t('accuracy', lang)}: ${pct}%</span>
         <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">${correct}/${total}</span>
         ${extraCount ? `<span class="text-sm text-red-500 dark:text-red-400 ml-2">+${extraCount} ${t('typemem_extra', lang)}</span>` : ''}
+        <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">⏱ ${this.fmtTime(ms)}</span>
+        ${improved ? `<span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">★ ${t('typemem_new_best', lang)}</span>` : ''}
       </div>
       <div class="ayah-arabic !text-2xl !leading-loose p-3 rounded-lg bg-gray-50 dark:bg-gray-900/40" dir="rtl">
         ${expected.map((w, idx) => {
@@ -246,6 +484,9 @@ class TypeMemorize {
           return this.extraSpans(extras[idx]) + `<span class="${cls} mx-0.5">${w.arabic}</span>`;
         }).join(' ')}
         ${this.extraSpans(extras[expected.length])}
+      </div>
+      <div class="flex justify-center mt-3">
+        <button id="tm-next" class="px-5 py-2 rounded-lg bg-primary text-white font-medium hover:bg-primary/80">${t('typemem_next_ayah', lang)} →</button>
       </div>
     `;
   }
@@ -301,6 +542,9 @@ class TypeMemorize {
     if (e.target.closest('#tm-clear')) {
       this.root.querySelector('#tm-input').value = '';
       this.root.querySelector('#tm-result').classList.add('hidden');
+      this.revealCount = 0;
+      this.resetTimer();
+      this.liveCheck();
       return;
     }
     if (e.target.closest('#tm-hide')) {
@@ -308,6 +552,28 @@ class TypeMemorize {
       this.root.querySelector('#tm-target').classList.toggle('hidden', this.hideTarget);
       return;
     }
+    if (e.target.closest('#tm-hint')) {
+      this.firstLetterHint = this.root.querySelector('#tm-hint').checked;
+      this.renderSkeleton();
+      return;
+    }
+    if (e.target.closest('#tm-strict')) {
+      this.strictTashkeel = this.root.querySelector('#tm-strict').checked;
+      this.liveCheck();
+      return;
+    }
+    if (e.target.closest('#tm-reveal')) {
+      if (this._expected) this.revealCount = Math.min(this.revealCount + 1, this._expected.length);
+      this.renderSkeleton();
+      return;
+    }
+    if (e.target.closest('#tm-reset-stats')) {
+      try { localStorage.removeItem(this.statsKey()); } catch (e2) { /* ignore */ }
+      this.renderStats();
+      return;
+    }
+    if (e.target.closest('#tm-next')) return this.nextAyah();
+    if (e.target.closest('#tm-finish')) return this.finishSession();
     if (e.target.closest('#tm-surah')) { /* handled on change */ }
   }
 }

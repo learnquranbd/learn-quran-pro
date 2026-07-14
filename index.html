@@ -40,7 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css?v=70">
+  <link rel="stylesheet" href="css/style.css?v=85">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
 
@@ -53,7 +53,7 @@
 
           <!-- Logo/Brand -->
           <div class="flex items-center gap-2">
-            <button id="sidebar-toggle" class="lg:hidden p-2 hover:bg-white/10 rounded-lg">
+            <button id="sidebar-toggle" class="p-2 hover:bg-white/10 rounded-lg" title="Toggle sidebar" aria-label="Toggle sidebar">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
@@ -174,6 +174,11 @@
               <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="grammar">
                 <span data-lang-key="grammar">Grammar</span>
               </button>
+              <!-- Standalone read mode: whole loaded selection rendered in tajweed colors
+                   (distinct from the per-ayah tajweed toggle inside the Reading tab). -->
+              <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="tajweedreading">
+                <span data-lang-key="tajweed_label">Tajweed</span>
+              </button>
               <!-- Learn / Memorize / Quiz / Audio / Mushaf now live in the left sidebar
                    drill-down nav (js/app-nav.js); their panels below are switched from there. -->
             </nav>
@@ -224,6 +229,11 @@
               </div>
             </div>
 
+            <!-- Tajweed Reading Tab: whole loaded selection in tajweed colors -->
+            <div id="tab-tajweedreading" class="tab-panel hidden">
+              <div id="tajweed-reading-container" class="space-y-6"></div>
+            </div>
+
             <!-- Learn Tab -->
             <div id="tab-learn" class="tab-panel hidden">
               <div id="learn-back" class="hidden mb-4">
@@ -248,10 +258,14 @@
                 <button data-mmode="arrange" class="mmode-btn px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600">
                   🔀 <span data-lang-key="mem_mode_arrange">Arrange</span>
                 </button>
+                <button data-mmode="record" class="mmode-btn px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600">
+                  🔴 <span data-lang-key="mem_mode_record">Record</span>
+                </button>
               </div>
               <div id="memorize-container" class="space-y-6"></div>
               <div id="type-memorize-root" class="hidden"></div>
               <div id="word-arrange-root" class="hidden"></div>
+              <div id="record-memorize-root" class="hidden"></div>
             </div>
 
             <!-- Quiz Tab -->
@@ -345,6 +359,19 @@
               <div id="tajweedlearn-container"></div>
             </div>
 
+            <!-- Khatmah Tab (Quran completion planner) -->
+            <div id="tab-khatmah" class="tab-panel hidden">
+              <div id="khatmah-container"></div>
+            </div>
+
+            <div id="tab-resources" class="tab-panel hidden">
+              <div id="resources-container"></div>
+            </div>
+
+            <div id="tab-mutashabihat" class="tab-panel hidden">
+              <div id="mutashabihat-container"></div>
+            </div>
+
           </div>
         </div>
       </main>
@@ -395,51 +422,55 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/surah-data.js?v=70"></script>
-  <script src="js/translations.js?v=70"></script>
-  <script src="js/quran-data.js?v=70"></script>
-  <script src="js/ayah-modal.js?v=70"></script>
-  <script src="js/tabs.js?v=70"></script>
-  <script src="js/settings.js?v=70"></script>
-  <script src="js/wordbyword.js?v=70"></script>
-  <script src="js/grammar.js?v=70"></script>
-  <script src="js/memorize.js?v=70"></script>
-  <script src="js/quiz-center.js?v=70"></script>
-  <script src="js/word-highlight.js?v=70"></script>
-  <script src="js/audio.js?v=70"></script>
-  <script src="js/tafseer.js?v=70"></script>
-  <script src="js/tajweed.js?v=70"></script>
-  <script src="js/qaida-data.js?v=70"></script>
-  <script src="js/learn-kids.js?v=70"></script>
-  <script src="js/vocab-data.js?v=70"></script>
-  <script src="js/learn-vocab.js?v=70"></script>
-  <script src="js/names-data.js?v=70"></script>
-  <script src="js/learn-names.js?v=70"></script>
-  <script src="js/learn.js?v=70"></script>
-  <script src="js/handwriting.js?v=70"></script>
-  <script src="js/type-memorize.js?v=70"></script>
-  <script src="js/word-arrange.js?v=70"></script>
-  <script src="js/menu-data.js?v=70"></script>
-  <script src="js/legacy-surah-data.js?v=70"></script>
-  <script src="js/sidebar-menu.js?v=70"></script>
-  <script src="js/app-nav.js?v=70"></script>
-  <script src="js/topics-browser.js?v=70"></script>
-  <script src="js/word-repeat.js?v=70"></script>
-  <script src="js/sarf.js?v=70"></script>
-  <script src="js/amal-daily.js?v=70"></script>
-  <script src="js/tajweed-learn.js?v=70"></script>
-  <script src="js/topics-data.js?v=70"></script>
-  <script src="js/navigation.js?v=70"></script>
-  <script src="js/legacy-ayah.js?v=70"></script>
-  <script src="js/settings-drawer.js?v=70"></script>
-  <script src="js/firebase-config.js?v=70"></script>
-  <script src="js/account.js?v=70"></script>
-  <script src="js/ponder.js?v=70"></script>
-  <script src="js/mushaf.js?v=70"></script>
-  <script src="js/pwa.js?v=70"></script>
-  <script src="js/search.js?v=70"></script>
-  <script src="js/subscribe.js?v=70"></script>
-  <script src="js/bookmarks.js?v=70"></script>
-  <script src="js/app.js?v=70"></script>
+  <script src="js/surah-data.js?v=85"></script>
+  <script src="js/translations.js?v=85"></script>
+  <script src="js/quran-data.js?v=85"></script>
+  <script src="js/ayah-modal.js?v=85"></script>
+  <script src="js/tabs.js?v=85"></script>
+  <script src="js/settings.js?v=85"></script>
+  <script src="js/wordbyword.js?v=85"></script>
+  <script src="js/grammar.js?v=85"></script>
+  <script src="js/memorize.js?v=85"></script>
+  <script src="js/quiz-center.js?v=85"></script>
+  <script src="js/word-highlight.js?v=85"></script>
+  <script src="js/audio.js?v=85"></script>
+  <script src="js/tafseer.js?v=85"></script>
+  <script src="js/tajweed.js?v=85"></script>
+  <script src="js/qaida-data.js?v=85"></script>
+  <script src="js/learn-kids.js?v=85"></script>
+  <script src="js/vocab-data.js?v=85"></script>
+  <script src="js/learn-vocab.js?v=85"></script>
+  <script src="js/names-data.js?v=85"></script>
+  <script src="js/learn-names.js?v=85"></script>
+  <script src="js/learn.js?v=85"></script>
+  <script src="js/handwriting.js?v=85"></script>
+  <script src="js/type-memorize.js?v=85"></script>
+  <script src="js/word-arrange.js?v=85"></script>
+  <script src="js/record-memorize.js?v=85"></script>
+  <script src="js/menu-data.js?v=85"></script>
+  <script src="js/legacy-surah-data.js?v=85"></script>
+  <script src="js/sidebar-menu.js?v=85"></script>
+  <script src="js/app-nav.js?v=85"></script>
+  <script src="js/topics-browser.js?v=85"></script>
+  <script src="js/word-repeat.js?v=85"></script>
+  <script src="js/sarf.js?v=85"></script>
+  <script src="js/amal-daily.js?v=85"></script>
+  <script src="js/tajweed-learn.js?v=85"></script>
+  <script src="js/khatmah.js?v=85"></script>
+  <script src="js/resources.js?v=85"></script>
+  <script src="js/mutashabihat.js?v=85"></script>
+  <script src="js/topics-data.js?v=85"></script>
+  <script src="js/navigation.js?v=85"></script>
+  <script src="js/legacy-ayah.js?v=85"></script>
+  <script src="js/settings-drawer.js?v=85"></script>
+  <script src="js/firebase-config.js?v=85"></script>
+  <script src="js/account.js?v=85"></script>
+  <script src="js/ponder.js?v=85"></script>
+  <script src="js/mushaf.js?v=85"></script>
+  <script src="js/pwa.js?v=85"></script>
+  <script src="js/search.js?v=85"></script>
+  <script src="js/subscribe.js?v=85"></script>
+  <script src="js/bookmarks.js?v=85"></script>
+  <script src="js/app.js?v=85"></script>
 </body>
 </html>

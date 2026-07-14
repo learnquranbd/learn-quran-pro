@@ -128,10 +128,7 @@ class SidebarMenu {
     this.container.querySelector('#legacy-menu-tools').addEventListener('click', (e) => {
       const btn = e.target.closest('[data-tool]');
       if (!btn) return;
-      const tool = btn.getAttribute('data-tool');
-      if (tool === 'keyboard') this.openKeyboardModal();
-      else if (tool === 'waqf') this.openWaqfModal();
-      else if (tool === 'memorize') { this.switchTab('memorize'); this.closeSidebar(); }
+      this.runTool(btn.getAttribute('data-tool'));
     });
 
     // Live search across ALL items (bn + en)
@@ -161,6 +158,20 @@ class SidebarMenu {
     }, true);
 
     this.renderTree();
+  }
+
+  /**
+   * Run one of the three quick tools by name. Public so the always-visible
+   * tool row in the MAIN sidebar (js/app-nav.js) can delegate here instead of
+   * duplicating the modal logic.
+   *   keyboard → on-screen Arabic keyboard modal
+   *   waqf     → waqf (stop) signs chart modal
+   *   memorize → switch to the Memorize tab
+   */
+  runTool(tool) {
+    if (tool === 'keyboard') this.openKeyboardModal();
+    else if (tool === 'waqf') this.openWaqfModal();
+    else if (tool === 'memorize') { this.switchTab('memorize'); this.closeSidebar(); }
   }
 
   renderTree() {

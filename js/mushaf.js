@@ -29,7 +29,11 @@ class MushafView {
 
     this.rendered = false;
     this.surahPages = null; // { surahNumber: firstMushafPage }
+    this.juzPages = null;   // { juzNumber: firstMushafPage } — derived from JUZ_DATA via the API
     this._loadToken = 0;
+
+    // Distinct pages opened this session (a reading-effort indicator)
+    this.sessionPages = new Set();
 
     // Availability check at startup (hides the tab if legacy assets missing)
     this.checkAvailability();
@@ -124,6 +128,7 @@ class MushafView {
     this.rendered = true;
     this.renderShell();
     this.loadSurahPages(); // async; populates the surah jump select when ready
+    this.loadJuzPages();   // async; populates the Juz jump select when ready
     this.showPage(this.page);
   }
 
@@ -140,6 +145,12 @@ class MushafView {
                          bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
                          focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-blue-500">
             <option value="">${t('select_surah', lang)}</option>
+          </select>
+          <select id="mushaf-juz-select"
+                  class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600
+                         bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
+                         focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-blue-500">
+            <option value="">${t('select_juz', lang)}</option>
           </select>
           <div class="flex items-center gap-2">
             <label for="mushaf-page-input" class="text-sm text-gray-600 dark:text-gray-300">${t('page', lang)}</label>
@@ -174,6 +185,40 @@ class MushafView {
             <button id="mushaf-zoom-in" title="${t('zoom_in', lang)}" aria-label="${t('zoom_in', lang)}"
                     class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">🔍+</button>
           </div>
+
+          <!-- View comfort: fit mode + night/sepia reading filter (persisted) -->
+          <div class="flex items-center gap-1">
+            <button id="mushaf-fit" title="${t('mushaf_fit', lang)}" aria-label="${t('mushaf_fit', lang)}"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"></button>
+            <button id="mushaf-filter" title="${t('mushaf_filter', lang)}" aria-label="${t('mushaf_filter', lang)}"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"></button>
+          </div>
+
+          <!-- Page bookmarks -->
+          <div class="flex items-center gap-1">
+            <button id="mushaf-bookmark" title="${t('mushaf_bookmark_add', lang)}" aria-label="${t('mushaf_bookmark_add', lang)}"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">☆</button>
+            <button id="mushaf-bookmarks-toggle" title="${t('mushaf_bookmarks', lang)}" aria-label="${t('mushaf_bookmarks', lang)}"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">🔖</button>
+          </div>
+        </div>
+
+        <!-- Reading progress + session effort -->
+        <div class="mb-3">
+          <div class="h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+            <div id="mushaf-progress-bar" class="h-full bg-primary dark:bg-blue-500 transition-all duration-300" style="width:0%"></div>
+          </div>
+          <div class="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
+            <span id="mushaf-progress-text"></span>
+            <span id="mushaf-session-count"></span>
+            <span class="hidden sm:inline">${t('mushaf_shortcuts', lang)}</span>
+          </div>
+        </div>
+
+        <!-- Bookmarks panel (toggled) -->
+        <div id="mushaf-bookmarks-panel" class="hidden mb-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40">
+          <div class="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">${t('mushaf_bookmarks', lang)}</div>
+          <div id="mushaf-bookmarks-list" class="flex flex-wrap gap-2"></div>
         </div>
 
         <div class="flex items-center justify-center gap-2 sm:gap-4" dir="ltr">
@@ -204,10 +249,19 @@ class MushafView {
     this.status = this.container.querySelector('#mushaf-status');
     this.pageInput = this.container.querySelector('#mushaf-page-input');
     this.surahSelect = this.container.querySelector('#mushaf-surah-select');
+    this.juzSelect = this.container.querySelector('#mushaf-juz-select');
     this.nextBtn = this.container.querySelector('#mushaf-next');
     this.prevBtn = this.container.querySelector('#mushaf-prev');
     this.hdrNextBtn = this.container.querySelector('#mushaf-hdr-next');
     this.hdrPrevBtn = this.container.querySelector('#mushaf-hdr-prev');
+    this.fitBtn = this.container.querySelector('#mushaf-fit');
+    this.filterBtn = this.container.querySelector('#mushaf-filter');
+    this.bookmarkBtn = this.container.querySelector('#mushaf-bookmark');
+    this.bookmarksPanel = this.container.querySelector('#mushaf-bookmarks-panel');
+    this.bookmarksList = this.container.querySelector('#mushaf-bookmarks-list');
+    this.progressBar = this.container.querySelector('#mushaf-progress-bar');
+    this.progressText = this.container.querySelector('#mushaf-progress-text');
+    this.sessionCountEl = this.container.querySelector('#mushaf-session-count');
 
     // NEXT page is the LEFT one in a right-to-left book; step by 2 in spread view
     this.nextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
@@ -219,6 +273,26 @@ class MushafView {
     // Zoom controls
     this.container.querySelector('#mushaf-zoom-in')?.addEventListener('click', () => this.setZoom(this.zoom() + 0.25));
     this.container.querySelector('#mushaf-zoom-out')?.addEventListener('click', () => this.setZoom(this.zoom() - 0.25));
+
+    // View comfort controls
+    this.fitBtn.addEventListener('click', () => this.setFit(this.fit() === 'height' ? 'width' : 'height'));
+    this.filterBtn.addEventListener('click', () => this.cycleFilter());
+    this.syncFitButton();
+    this.syncFilterButton();
+
+    // Bookmark controls
+    this.bookmarkBtn.addEventListener('click', () => this.toggleBookmark(this.page));
+    this.container.querySelector('#mushaf-bookmarks-toggle')?.addEventListener('click', () => {
+      this.bookmarksPanel.classList.toggle('hidden');
+      if (!this.bookmarksPanel.classList.contains('hidden')) this.renderBookmarks();
+    });
+    this.renderBookmarks();
+
+    // Juz jump
+    this.juzSelect.addEventListener('change', () => {
+      const n = parseInt(this.juzSelect.value, 10);
+      if (n && this.juzPages && this.juzPages[n]) this.goTo(this.juzPages[n]);
+    });
 
     // Re-render when crossing the one-page / two-page breakpoint (bind once)
     if (!this._resizeBound) {
@@ -330,16 +404,102 @@ class MushafView {
     const zo = this.container.querySelector('#mushaf-zoom-out');
     if (zi) zi.disabled = z >= 2.5;
     if (zo) zo.disabled = z <= 1;
-    if (this.pagesEl) this.pagesEl.querySelectorAll('.mushaf-page-img').forEach(img => {
-      img.style.maxHeight = (80 * z) + 'vh';
-      img.style.maxWidth = z > 1 ? 'none' : '';
-    });
+    this.applyImageSizing();
     // When zoomed past fit, the plate pans (scrolls) instead of overflowing the page
     if (this.plateEl) {
       this.plateEl.classList.toggle('overflow-auto', z > 1);
       this.plateEl.style.maxHeight = z > 1 ? '85vh' : '';
       this.plateEl.style.maxWidth = z > 1 ? '100%' : '';
     }
+  }
+
+  /* ---------- view comfort: fit mode + reading filter ---------- */
+
+  /** 'height' (cap by viewport height — default) or 'width' (fill available width). */
+  fit() {
+    const v = localStorage.getItem('mushafFit');
+    return v === 'width' ? 'width' : 'height';
+  }
+
+  setFit(mode) {
+    mode = mode === 'width' ? 'width' : 'height';
+    try { localStorage.setItem('mushafFit', mode); } catch (e) { /* ignore */ }
+    this.syncFitButton();
+    this.applyZoom();
+  }
+
+  syncFitButton() {
+    if (!this.fitBtn) return;
+    const w = this.fit() === 'width';
+    // Show the icon for the mode you'd switch TO, with a clear label
+    this.fitBtn.textContent = w ? '↕' : '↔';
+    const label = w ? t('mushaf_fit_height', this.language) : t('mushaf_fit_width', this.language);
+    this.fitBtn.title = label;
+    this.fitBtn.setAttribute('aria-label', label);
+  }
+
+  /** none → sepia → night → none. */
+  filter() {
+    const v = localStorage.getItem('mushafFilter');
+    return (v === 'sepia' || v === 'night') ? v : 'none';
+  }
+
+  filterCss() {
+    switch (this.filter()) {
+      case 'sepia': return 'sepia(0.55) brightness(0.97) contrast(0.95)';
+      // Invert the white scan to a dark page for low-light reading; hue-rotate keeps
+      // tajweed colours roughly recognisable after the inversion.
+      case 'night': return 'invert(0.9) hue-rotate(180deg) brightness(0.92) contrast(0.95)';
+      default: return '';
+    }
+  }
+
+  cycleFilter() {
+    const order = ['none', 'sepia', 'night'];
+    const next = order[(order.indexOf(this.filter()) + 1) % order.length];
+    try { localStorage.setItem('mushafFilter', next); } catch (e) { /* ignore */ }
+    this.syncFilterButton();
+    this.applyImageSizing();
+  }
+
+  syncFilterButton() {
+    if (!this.filterBtn) return;
+    const f = this.filter();
+    const icon = f === 'sepia' ? '📜' : (f === 'night' ? '🌙' : '☀️');
+    const name = f === 'sepia' ? t('mushaf_sepia', this.language)
+      : (f === 'night' ? t('mushaf_night', this.language) : t('mushaf_filter_off', this.language));
+    this.filterBtn.textContent = icon;
+    this.filterBtn.title = name;
+    this.filterBtn.setAttribute('aria-label', name);
+  }
+
+  /** Single place that sizes the page image(s) from zoom + fit + reading filter. */
+  applyImageSizing() {
+    if (!this.pagesEl) return;
+    const z = this.zoom();
+    const fit = this.fit();
+    const fcss = this.filterCss();
+    const imgs = this.pagesEl.querySelectorAll('.mushaf-page-img');
+    const single = imgs.length <= 1;
+    // Fit-width needs the plate to span the row so a % width is meaningful.
+    if (this.plateEl) {
+      if (fit === 'width') { this.plateEl.style.flex = '1 1 auto'; this.plateEl.style.width = '100%'; }
+      else { this.plateEl.style.flex = ''; this.plateEl.style.width = ''; }
+    }
+    imgs.forEach(img => {
+      img.style.filter = fcss;
+      if (fit === 'width') {
+        img.style.height = 'auto';
+        img.style.maxHeight = 'none';
+        img.style.width = single ? (100 * z) + '%' : `calc(${50 * z}% - 0.5rem)`;
+        img.style.maxWidth = z > 1 ? 'none' : '100%';
+      } else {
+        img.style.width = 'auto';
+        img.style.height = '';
+        img.style.maxHeight = ((single ? 80 : 82) * z) + 'vh';
+        img.style.maxWidth = z > 1 ? 'none' : '100%';
+      }
+    });
   }
 
   showPage(page) {
@@ -357,6 +517,12 @@ class MushafView {
     if (this.hdrNextBtn) this.hdrNextBtn.disabled = atLast;
     if (this.hdrPrevBtn) this.hdrPrevBtn.disabled = atFirst;
     this.syncSurahSelect(page);
+    this.syncJuzSelect(page);
+
+    // Session reading effort + progress
+    this.sessionPages.add(page);
+    this.updateProgress(page);
+    this.syncBookmarkButton(page);
 
     // Which pages to show: current, plus the next one on wide screens (RTL: current on the right)
     const pages = (this.isSpread() && page + 1 <= this.TOTAL_PAGES) ? [page, page + 1] : [page];
@@ -405,6 +571,18 @@ class MushafView {
     } else if (e.key === 'ArrowRight') { // right = back
       e.preventDefault();
       this.goTo(this.page - this.step());
+    } else if (e.key === 'Home') {       // first page
+      e.preventDefault();
+      this.goTo(1);
+    } else if (e.key === 'End') {        // last page
+      e.preventDefault();
+      this.goTo(this.TOTAL_PAGES);
+    } else if (e.key === 'g' || e.key === 'G') { // go to page
+      e.preventDefault();
+      if (this.pageInput) { this.pageInput.focus(); this.pageInput.select(); }
+    } else if (e.key === 'b' || e.key === 'B') { // bookmark current page
+      e.preventDefault();
+      this.toggleBookmark(this.page);
     }
   }
 
@@ -447,6 +625,8 @@ class MushafView {
     }
     this.surahSelect.innerHTML = options;
     this.syncSurahSelect(this.page);
+    // Bookmark chips can now show surah names too
+    this.renderBookmarks();
   }
 
   /** Select the surah that begins closest before (or on) the given page. */
@@ -459,6 +639,158 @@ class MushafView {
       else if (start && start > page) break;
     }
     this.surahSelect.value = current;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Juz -> page mapping (start ayah of each Juz from JUZ_DATA, resolved
+   * to a mushaf page via the quran.com verse page_number, cached locally)
+   * ------------------------------------------------------------------ */
+
+  async loadJuzPages() {
+    if (typeof JUZ_DATA === 'undefined' || !Array.isArray(JUZ_DATA)) {
+      if (this.juzSelect) this.juzSelect.classList.add('hidden');
+      return;
+    }
+    try {
+      let map = null;
+      try { map = JSON.parse(localStorage.getItem('mushafJuzPages')); } catch (e) { /* ignore */ }
+
+      if (!map || Object.keys(map).length !== JUZ_DATA.length) {
+        const results = await Promise.all(JUZ_DATA.map(j =>
+          fetch(`${QuranData.apiBase}/verses/by_key/${j.startSurah}:${j.startAyah}?fields=page_number`)
+            .then(r => (r.ok ? r.json() : null))
+            .catch(() => null)
+        ));
+        map = {};
+        results.forEach((d, i) => {
+          const p = d && d.verse && d.verse.page_number;
+          if (p) map[JUZ_DATA[i].number] = p;
+        });
+        if (Object.keys(map).length !== JUZ_DATA.length) throw new Error('juz page mapping incomplete');
+        try { localStorage.setItem('mushafJuzPages', JSON.stringify(map)); } catch (e) { /* ignore */ }
+      }
+
+      this.juzPages = map;
+      this.populateJuzSelect();
+    } catch (err) {
+      // Degrade gracefully: paging still works, only the Juz jump is hidden
+      if (this.juzSelect) this.juzSelect.classList.add('hidden');
+    }
+  }
+
+  populateJuzSelect() {
+    if (!this.juzSelect || !this.juzPages) return;
+    const lang = this.language;
+    let options = `<option value="">${t('select_juz', lang)}</option>`;
+    Object.keys(this.juzPages).map(Number).sort((a, b) => a - b).forEach(n => {
+      options += `<option value="${n}">${t('juz', lang)} ${n} — ${t('page', lang)} ${this.juzPages[n]}</option>`;
+    });
+    this.juzSelect.innerHTML = options;
+    this.syncJuzSelect(this.page);
+  }
+
+  /** Select the Juz that begins closest before (or on) the given page. */
+  syncJuzSelect(page) {
+    if (!this.juzSelect || !this.juzPages) return;
+    let current = '';
+    Object.keys(this.juzPages).map(Number).sort((a, b) => a - b).forEach(n => {
+      if (this.juzPages[n] <= page) current = String(n);
+    });
+    this.juzSelect.value = current;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Reading progress + per-session effort
+   * ------------------------------------------------------------------ */
+
+  updateProgress(page) {
+    const lang = this.language;
+    const pct = Math.round((page / this.TOTAL_PAGES) * 100);
+    if (this.progressBar) this.progressBar.style.width = pct + '%';
+    if (this.progressText) {
+      this.progressText.textContent =
+        `${t('page', lang)} ${page} / ${this.TOTAL_PAGES} · ${pct}% ${t('mushaf_of_quran', lang)}`;
+    }
+    if (this.sessionCountEl) {
+      this.sessionCountEl.textContent =
+        `${t('mushaf_read_session', lang)}: ${this.sessionPages.size}`;
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Page bookmarks (localStorage 'mushafBookmarks')
+   * ------------------------------------------------------------------ */
+
+  getBookmarks() {
+    let arr = [];
+    try { arr = JSON.parse(localStorage.getItem('mushafBookmarks')) || []; } catch (e) { /* ignore */ }
+    return Array.isArray(arr) ? arr.filter(p => Number.isInteger(p)) : [];
+  }
+
+  setBookmarks(arr) {
+    const uniq = Array.from(new Set(arr)).sort((a, b) => a - b);
+    try { localStorage.setItem('mushafBookmarks', JSON.stringify(uniq)); } catch (e) { /* ignore */ }
+    return uniq;
+  }
+
+  toggleBookmark(page) {
+    page = this.clampPage(page);
+    const marks = this.getBookmarks();
+    const idx = marks.indexOf(page);
+    if (idx === -1) marks.push(page); else marks.splice(idx, 1);
+    this.setBookmarks(marks);
+    this.syncBookmarkButton(this.page);
+    this.renderBookmarks();
+  }
+
+  syncBookmarkButton(page) {
+    if (!this.bookmarkBtn) return;
+    const marked = this.getBookmarks().indexOf(page) !== -1;
+    this.bookmarkBtn.textContent = marked ? '★' : '☆';
+    this.bookmarkBtn.classList.toggle('text-yellow-500', marked);
+    const label = marked ? t('mushaf_bookmark_remove', this.language) : t('mushaf_bookmark_add', this.language);
+    this.bookmarkBtn.title = label;
+    this.bookmarkBtn.setAttribute('aria-label', label);
+  }
+
+  renderBookmarks() {
+    if (!this.bookmarksList) return;
+    const lang = this.language;
+    const marks = this.getBookmarks();
+    if (!marks.length) {
+      this.bookmarksList.innerHTML =
+        `<span class="text-xs text-gray-400 dark:text-gray-500">${t('mushaf_no_bookmarks', lang)}</span>`;
+      return;
+    }
+    this.bookmarksList.innerHTML = marks.map(p => {
+      const surah = this.surahForPage(p);
+      const name = surah ? `${surah}. ${(typeof getSurahName !== 'undefined') ? getSurahName(surah, lang) : ''}` : '';
+      return `
+        <span class="inline-flex items-center gap-1 pl-2 pr-1 py-1 rounded-full text-xs
+                     bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600">
+          <button class="mushaf-bm-go text-gray-700 dark:text-gray-200 hover:text-primary" data-page="${p}"
+                  title="${t('page', lang)} ${p}">${t('page', lang)} ${p}${name ? ' · ' + name : ''}</button>
+          <button class="mushaf-bm-del w-4 h-4 flex items-center justify-center rounded-full
+                         text-gray-400 hover:text-red-500" data-page="${p}"
+                  title="${t('mushaf_bookmark_remove', lang)}" aria-label="${t('mushaf_bookmark_remove', lang)}">×</button>
+        </span>`;
+    }).join('');
+    this.bookmarksList.querySelectorAll('.mushaf-bm-go').forEach(b =>
+      b.addEventListener('click', () => this.goTo(parseInt(b.getAttribute('data-page'), 10))));
+    this.bookmarksList.querySelectorAll('.mushaf-bm-del').forEach(b =>
+      b.addEventListener('click', (e) => { e.stopPropagation(); this.toggleBookmark(parseInt(b.getAttribute('data-page'), 10)); }));
+  }
+
+  /** Surah number whose scan begins on/before the given page (for labelling). */
+  surahForPage(page) {
+    if (!this.surahPages) return null;
+    let current = null;
+    for (let n = 1; n <= 114; n++) {
+      const start = this.surahPages[n];
+      if (start && start <= page) current = n;
+      else if (start && start > page) break;
+    }
+    return current;
   }
 }
 

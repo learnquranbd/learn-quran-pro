@@ -1,9 +1,40 @@
 /**
  * Vocabulary Trainer Module (Learn tab > Vocabulary)
- * Flashcards + quiz + progress tracking for the 50 most frequent Quran words.
+ * Flashcards + thematic word sets + word-of-the-day + quizzes (meanings, root
+ * families, listening drill with real per-word Quran audio) + spaced-repetition
+ * review + per-theme mastery tracking for the most frequent Quran words.
  * Renders into #learn-vocab-root when the 'learnModuleSelected' event fires
- * with {module:'vocab'}. Uses VOCAB_WORDS from js/vocab-data.js.
+ * with {module:'vocab'}. Uses VOCAB_WORDS / VOCAB_THEMES from js/vocab-data.js,
+ * plus data/word-index.json (corpus deck) and data/sarf.json (root-family quiz).
  */
+
+/**
+ * Local fallbacks for i18n keys not yet in js/translations.js (that file is
+ * owned by the orchestrator). t() returns the key itself when missing; these
+ * keep the UI readable (en/bn) until the keys land centrally.
+ */
+const VOCAB_I18N_FALLBACK = {
+  vocab_review:         { en: 'Review', bn: 'রিভিউ' },
+  vocab_due:            { en: '{count} due', bn: '{count}টি বাকি' },
+  vocab_review_empty:   { en: 'All caught up! Nothing due for review.', bn: 'দারুণ! এখন রিভিউয়ের জন্য কিছু বাকি নেই।' },
+  vocab_next_due:       { en: 'Next review in {time}', bn: 'পরবর্তী রিভিউ {time} পরে' },
+  vocab_show_meaning:   { en: 'Show meaning', bn: 'অর্থ দেখুন' },
+  vocab_again:          { en: 'Again', bn: 'আবার' },
+  vocab_good:           { en: 'Good', bn: 'পেরেছি' },
+  vocab_new_word:       { en: 'New', bn: 'নতুন' },
+  vocab_all:            { en: 'All', bn: 'সব' },
+  vocab_quiz_words:     { en: 'Word meanings', bn: 'শব্দের অর্থ' },
+  vocab_quiz_roots:     { en: 'Root families', bn: 'মূল ধাতু' },
+  vocab_choose_arabic:  { en: 'Choose the Arabic word', bn: 'সঠিক আরবি শব্দটি বেছে নিন' },
+  vocab_root_prompt:    { en: 'Which word comes from this root?', bn: 'কোন শব্দটি এই মূল থেকে এসেছে?' },
+  vocab_reviewed_count: { en: '{count} reviewed this session', bn: 'এই সেশনে {count}টি রিভিউ হয়েছে' },
+  vocab_wotd:           { en: 'Word of the day', bn: 'আজকের শব্দ' },
+  vocab_quiz_listen:    { en: 'Listening', bn: 'শুনে চিনুন' },
+  vocab_listen_prompt:  { en: 'Listen, then choose the meaning', bn: 'শুনে সঠিক অর্থটি বেছে নিন' },
+  vocab_play_word:      { en: 'Play word audio', bn: 'শব্দটি শুনুন' },
+  vocab_mastery:        { en: 'Mastery by theme', bn: 'বিষয়ভিত্তিক অগ্রগতি' },
+  vocab_core_words:     { en: 'Core 50 words', bn: 'মূল ৫০ শব্দ' }
+};
 
 class VocabTrainer {
   constructor() {
@@ -16,10 +47,17 @@ class VocabTrainer {
 
     this.rendered = false;
     this.mode = 'flashcards';
+    this.category = 'all';       // flashcards filter: 'all' or a VOCAB_THEMES id
 
     // Quiz state
     this.quiz = null;
+    this.quizType = 'words';     // 'words' | 'roots'
     this.quizTimer = null;
+
+    // Review (spaced-repetition-lite) state
+    this.reviewQueue = null;
+    this.reviewRevealed = false;
+    this.reviewedCount = 0;
 
     // Progress state
     this.resetArmed = false;
@@ -62,15 +100,37 @@ class VocabTrainer {
     } catch (err) { /* storage unavailable — session-only progress */ }
   }
 
-  getBestScore() {
-    const v = parseInt(localStorage.getItem('vocabQuizBest'), 10);
+  bestScoreKey(type) {
+    if (type === 'roots') return 'vocabQuizBestRoots';
+    if (type === 'listen') return 'vocabQuizBestListen';
+    return 'vocabQuizBest';
+  }
+
+  getBestScore(type) {
+    const v = parseInt(localStorage.getItem(this.bestScoreKey(type)), 10);
     return isNaN(v) ? null : v;
   }
 
-  saveBestScore(score) {
+  saveBestScore(score, type) {
     try {
-      localStorage.setItem('vocabQuizBest', String(score));
+      localStorage.setItem(this.bestScoreKey(type), String(score));
     } catch (err) { /* ignore */ }
+  }
+
+  /** Review queue store: { arabic: { iv: intervalDays, due: epochMs } } */
+  getReview() {
+    try {
+      const o = JSON.parse(localStorage.getItem('vocabReview') || '{}');
+      return (o && typeof o === 'object' && !Array.isArray(o)) ? o : {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  saveReview(obj) {
+    try {
+      localStorage.setItem('vocabReview', JSON.stringify(obj));
+    } catch (err) { /* storage unavailable — session-only review */ }
   }
 
   // ---------- helpers ----------
@@ -81,6 +141,59 @@ class VocabTrainer {
 
   meaningOf(word) {
     return word.meanings[this.language] || word.meanings.en;
+  }
+
+  /** t() with local en/bn fallback for keys not yet in translations.js. */
+  tt(key, repl) {
+    let s = t(key, this.language);
+    if (s === key) {
+      const fb = VOCAB_I18N_FALLBACK[key];
+      if (fb) s = fb[this.language] || fb.en || key;
+    }
+    if (repl) {
+      Object.keys(repl).forEach(k => { s = s.split('{' + k + '}').join(repl[k]); });
+    }
+    return s;
+  }
+
+  /** All thematic words flattened (schema identical to VOCAB_WORDS + ref). */
+  themeWords() {
+    if (typeof VOCAB_THEMES === 'undefined') return [];
+    if (!this._themeWords) {
+      this._themeWords = VOCAB_THEMES.reduce((acc, th) => acc.concat(th.words), []);
+    }
+    return this._themeWords;
+  }
+
+  /** Curated 50 + thematic words, deduped by Arabic form. */
+  studyPool() {
+    const seen = new Set();
+    return VOCAB_WORDS.concat(this.themeWords()).filter(w => {
+      if (seen.has(w.arabic)) return false;
+      seen.add(w.arabic);
+      return true;
+    });
+  }
+
+  /** Words currently due for review (never-seen words count as due). */
+  dueList() {
+    const rev = this.getReview();
+    const now = Date.now();
+    return this.studyPool().filter(w => {
+      const r = rev[w.arabic];
+      return !r || r.due <= now;
+    });
+  }
+
+  /** Compact relative time: "5m", "3h", "2d". */
+  formatDue(ts) {
+    const d = ts - Date.now();
+    if (d <= 0) return '0m';
+    const m = Math.round(d / 60000);
+    if (m < 60) return m + 'm';
+    const h = Math.round(m / 60);
+    if (h < 48) return h + 'h';
+    return Math.round(h / 24) + 'd';
   }
 
   shuffle(arr) {
@@ -106,6 +219,89 @@ class VocabTrainer {
       utter.rate = 0.8;
       window.speechSynthesis.speak(utter);
     } catch (err) { /* TTS failed — degrade silently */ }
+  }
+
+  // ---------- word audio (qurancdn per-word recordings) ----------
+
+  /** Lazily load data/word-index.json for word audio + word-of-the-day refs. */
+  ensureWordIdx() {
+    if (this._idx || this._idxLoading || this._idxFailed) return;
+    this._idxLoading = true;
+    QuranData.getWordIndex()
+      .then(idx => {
+        this._idx = idx;
+        this._idxLoading = false;
+        if (this.mode === 'quiz' && this.quizType === 'listen' && !this.quiz) {
+          this.startListenQuiz();
+          this.render();
+        } else if (this.mode === 'flashcards') {
+          this.render();  // WOTD audio/ref chips become available
+        }
+      })
+      .catch(() => {
+        this._idxLoading = false;
+        this._idxFailed = true;
+        // Listening quiz needs the index — fall back to the word quiz.
+        if (this.mode === 'quiz' && this.quizType === 'listen') {
+          this.quizType = 'words';
+          this.startQuiz();
+          this.render();
+        }
+      });
+  }
+
+  /**
+   * Find a "surah:ayah:word" occurrence of this vocab word in the exact-word
+   * index so its CDN recording can be played. Tries the normalized form plus
+   * Uthmani-orthography variants (صلاة→صلوة, آخرة→ءاخرة, قيامة→قيمة, …);
+   * prefers an occurrence inside the word's own `ref` verse.
+   */
+  audioOcc(word) {
+    if (!this._idx) return null;
+    const n = word.norm || QuranData.normalizeWord(word.arabic);
+    const alt = n.replace(/اة$/, 'وة');           // tāʾ-marbūṭa after alif → wāw spelling
+    const maq = n.replace(/ي/g, 'ى');             // yāʾ → alif maqṣūra (في→فى, شيء→شىء)
+    const bald = n.replace(/ا/g, '');             // dagger-alif spellings (قيمة, خلدين…)
+    const variants = [
+      n, alt, maq, 'ال' + n, 'ال' + alt, 'الء' + n, bald, 'ال' + bald,
+      'و' + n, 'ف' + n, n + 'ا',
+      n.charAt(0) === 'ل' ? 'ا' + n : null        // assimilated lām (الليل → اليل)
+    ].filter(Boolean);
+    // First pass: an occurrence inside the word's own ref verse wins outright.
+    if (word.ref) {
+      for (const v of variants) {
+        const hit = (this._idx[v] || []).find(o => o.startsWith(word.ref + ':'));
+        if (hit) return hit;
+      }
+    }
+    for (const v of variants) {
+      const occs = this._idx[v];
+      if (occs && occs.length) return occs[0];
+    }
+    return null;
+  }
+
+  /** Play the word's real Quran recording; fall back to Arabic TTS. */
+  playWord(word) {
+    if (!word) return;
+    const occ = this.audioOcc(word);
+    if (!occ) { this.speak(word.arabic); return; }
+    const [s, a, w] = occ.split(':').map(Number);
+    if (!this._audioEl) this._audioEl = new Audio();
+    const el = this._audioEl;
+    el.onerror = () => this.speak(word.arabic);
+    el.src = QuranData.wordAudioUrl(s, a, w);
+    el.play().catch(() => this.speak(word.arabic));
+  }
+
+  // ---------- word of the day ----------
+
+  /** Deterministic daily pick: rotates through the study pool by day number. */
+  wordOfDay() {
+    const pool = this.studyPool();
+    if (!pool.length) return null;
+    const day = Math.floor(Date.now() / 86400000);
+    return pool[day % pool.length];
   }
 
   // ---------- events ----------
@@ -166,6 +362,47 @@ class VocabTrainer {
         this.page = (this.page || 0) + 1;
         this.render();
         break;
+      case 'vcat': {
+        const cat = el.getAttribute('data-cat');
+        if (cat !== this.category) {
+          this.category = cat;
+          this.page = 0;
+          this.revealed = new Set();
+          this.render();
+        }
+        break;
+      }
+      case 'quiz-type': {
+        const ty = el.getAttribute('data-qt');
+        if (ty !== this.quizType) {
+          this.quizType = ty;
+          if (this.quizTimer) { clearTimeout(this.quizTimer); this.quizTimer = null; }
+          this.startQuiz();
+          this.render();
+        }
+        break;
+      }
+      case 'rev-show':
+        this.reviewRevealed = true;
+        this.render();
+        break;
+      case 'rev-again':
+        this.gradeReview(false);
+        break;
+      case 'rev-good':
+        this.gradeReview(true);
+        break;
+      case 'rev-speak':
+        this.speak(el.getAttribute('data-text') || '');
+        break;
+      case 'wotd-audio':
+        this.playWord(this.wordOfDay());
+        break;
+      case 'quiz-play': {
+        const q = this.quiz && this.quiz.questions[this.quiz.round];
+        if (q && q.word) this.playWord(q.word);
+        break;
+      }
       case 'reset':
         this.handleReset();
         break;
@@ -179,6 +416,10 @@ class VocabTrainer {
 
     if (mode === 'quiz') {
       this.startQuiz();
+    } else if (mode === 'review') {
+      this.reviewQueue = this.shuffle(this.dueList()).slice(0, 20);
+      this.reviewRevealed = false;
+      this.reviewedCount = 0;
     }
     this.render();
   }
@@ -193,7 +434,10 @@ class VocabTrainer {
     let body = '';
     if (this.mode === 'flashcards') body = this.renderFlashcards();
     else if (this.mode === 'quiz') body = this.renderQuiz();
+    else if (this.mode === 'review') body = this.renderReview();
     else body = this.renderProgress();
+
+    const due = this.dueList().length;
 
     this.root.innerHTML = `
       <div dir="${dir}" class="w-full space-y-6">
@@ -204,6 +448,7 @@ class VocabTrainer {
         <div class="flex justify-center gap-2 flex-wrap">
           ${this.renderModeTab('flashcards', t('flashcards', lang))}
           ${this.renderModeTab('quiz', t('quiz', lang))}
+          ${this.renderModeTab('review', this.tt('vocab_review'), due)}
           ${this.renderModeTab('progress', t('progress', lang))}
         </div>
         ${body}
@@ -211,15 +456,18 @@ class VocabTrainer {
     `;
   }
 
-  renderModeTab(mode, label) {
+  renderModeTab(mode, label, badge) {
     const active = this.mode === mode;
     const cls = active
       ? 'bg-primary text-white dark:bg-blue-600'
       : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700';
+    const badgeHtml = badge
+      ? `<span class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold align-middle ${active ? 'bg-white/25' : 'bg-amber-500 text-white'}">${badge}</span>`
+      : '';
     return `
       <button data-action="mode" data-mode="${mode}"
               class="px-4 py-2 rounded-lg text-sm font-medium transition-colors ${cls}">
-        ${label}
+        ${label}${badgeHtml}
       </button>
     `;
   }
@@ -257,9 +505,26 @@ class VocabTrainer {
 
   deckAll() {
     const known = new Set(this.getKnown());
-    const list = VOCAB_WORDS.map(w => ({ ...w, key: w.arabic }))
-      .concat(this.extra || []);
+    let list;
+    if (this.category && this.category !== 'all' && typeof VOCAB_THEMES !== 'undefined') {
+      const th = VOCAB_THEMES.find(x => x.id === this.category);
+      list = th ? th.words.map(w => ({ ...w, key: w.arabic })) : [];
+    } else {
+      list = VOCAB_WORDS.map(w => ({ ...w, key: w.arabic }))
+        .concat(this.extra || []);
+    }
     return list.map(w => ({ ...w, key: w.key || w.arabic, known: known.has(w.arabic) }));
+  }
+
+  /** Everything trackable for progress: curated + themes + corpus extras. */
+  progressDeck() {
+    const known = new Set(this.getKnown());
+    const seen = new Set();
+    return this.studyPool().concat(this.extra || []).filter(w => {
+      if (seen.has(w.arabic)) return false;
+      seen.add(w.arabic);
+      return true;
+    }).map(w => ({ ...w, known: known.has(w.arabic) }));
   }
 
   showMeanings() {
@@ -292,9 +557,43 @@ class VocabTrainer {
     return m || '…';
   }
 
+  /** Hero card for the deterministic daily word (rotates with the day number). */
+  renderWotd() {
+    const w = this.wordOfDay();
+    if (!w) return '';
+    const lang = this.language;
+    const occ = this.audioOcc(w);
+    const ref = w.ref || (occ ? occ.split(':').slice(0, 2).join(':') : null);
+    const known = this.getKnown().includes(w.arabic);
+    return `
+      <div class="rounded-2xl bg-gradient-to-br from-primary to-secondary text-white p-5 shadow-lg">
+        <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide opacity-90">
+          <span>📅 ${this.tt('vocab_wotd')}</span>
+          <span>×${w.count}</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-2">
+          <div>
+            <div class="ayah-arabic !text-5xl !leading-normal" dir="rtl">${w.arabic}</div>
+            <div class="text-sm italic opacity-80" dir="ltr">${w.translit}</div>
+            <div class="text-lg font-semibold mt-1" dir="auto">${this.escapeHtml(this.meaningOf(w))}</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button data-action="wotd-audio" title="${this.tt('vocab_play_word')}"
+                    class="w-11 h-11 rounded-full bg-white/20 hover:bg-white/35 text-xl transition-colors">🔊</button>
+            ${ref ? `<button data-vocab-verse="${ref}" data-word="${this.escapeHtml(w.arabic)}" title="${t('names_search_quran', lang)}"
+                    class="w-11 h-11 rounded-full bg-white/20 hover:bg-white/35 text-xl transition-colors">📖</button>` : ''}
+            <button data-vknow="${this.escapeHtml(w.arabic)}" title="${t('vocab_know_it', lang)}"
+                    class="w-11 h-11 rounded-full ${known ? 'bg-green-500' : 'bg-white/20 hover:bg-white/35'} text-xl transition-colors">✓</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   renderFlashcards() {
     const lang = this.language;
     this.ensureExtra();
+    this.ensureWordIdx();
     const all = this.deckAll();
     const pageSize = 24;
     const shownCount = Math.min(((this.page || 0) + 1) * pageSize, all.length);
@@ -303,7 +602,24 @@ class VocabTrainer {
     const knownCount = all.filter(w => w.known).length;
     setTimeout(() => this.prefetchDyn(items), 0);
 
+    const themes = (typeof VOCAB_THEMES !== 'undefined') ? VOCAB_THEMES : [];
+    const cats = [{ id: 'all', icon: '⭐', name: this.tt('vocab_all') }]
+      .concat(themes.map(th => ({ id: th.id, icon: th.icon, name: th.names[lang] || th.names.en })));
+
     return `
+      ${this.renderWotd()}
+      <div class="flex flex-wrap justify-center gap-1.5">
+        ${cats.map(c => {
+          const active = (this.category || 'all') === c.id;
+          const cls = active
+            ? 'bg-secondary text-white border-secondary'
+            : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700';
+          return `<button data-action="vcat" data-cat="${c.id}"
+                    class="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${cls}">
+                    ${c.icon} ${c.name}
+                  </button>`;
+        }).join('')}
+      </div>
       <div class="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
         <span><b class="text-gray-800 dark:text-gray-100">${all.length}</b> ${t('vocab_words_label', lang)}</span>
         <span>✓ <b class="text-green-600">${knownCount}</b></span>
@@ -315,7 +631,7 @@ class VocabTrainer {
         ${items.map((w, i) => {
           const key = w.dyn ? `${w.norm}:${lang}` : '';
           const revealed = show || (this.revealed && this.revealed.has(w.key));
-          const ref = w.dyn ? w.ref : (this.curatedRefs || {})[w.arabic];
+          const ref = w.ref || (this.curatedRefs || {})[w.arabic];
           return `
           <div class="rounded-xl bg-white dark:bg-gray-800 border ${w.known ? 'border-green-300 dark:border-green-700' : 'border-gray-200 dark:border-gray-700'} p-2.5 flex flex-col items-center gap-1">
             <button data-vcard="${this.escapeHtml(w.key)}" data-text="${this.escapeHtml(w.arabic)}" class="flex flex-col items-center gap-0.5 w-full">
@@ -356,8 +672,13 @@ class VocabTrainer {
 
   startQuiz() {
     if (this.quizTimer) { clearTimeout(this.quizTimer); this.quizTimer = null; }
+    if (this.quizType === 'roots') { this.startRootQuiz(); return; }
+    if (this.quizType === 'listen') { this.startListenQuiz(); return; }
     this.quiz = {
-      questions: this.shuffle(VOCAB_WORDS).slice(0, 10),
+      type: 'words',
+      // Half the questions run in reverse: meaning shown, Arabic word chosen.
+      questions: this.shuffle(this.studyPool()).slice(0, 10)
+        .map(w => ({ word: w, rev: Math.random() < 0.5 })),
       round: 0,
       score: 0,
       answered: false,
@@ -367,33 +688,220 @@ class VocabTrainer {
     this.buildQuizChoices();
   }
 
+  /** Lazily load data/sarf.json (top-30 root morphology) for the root quiz. */
+  ensureSarf() {
+    if (this.sarf || this._sarfLoading) return;
+    this._sarfLoading = true;
+    fetch('data/sarf.json')
+      .then(r => { if (!r.ok) throw new Error('sarf not found'); return r.json(); })
+      .then(data => {
+        this.sarf = data;
+        this._sarfLoading = false;
+        if (this.mode === 'quiz' && this.quizType === 'roots' && !this.quiz) {
+          this.startRootQuiz();
+          this.render();
+        }
+      })
+      .catch(() => {
+        this._sarfLoading = false;
+        this._sarfFailed = true;
+        // Fall back to the word quiz so the tab never dead-ends.
+        if (this.mode === 'quiz' && this.quizType === 'roots') {
+          this.quizType = 'words';
+          this.startQuiz();
+          this.render();
+        }
+      });
+  }
+
+  /** Localized root gloss: SARF_GLOSS (defined in js/sarf.js) → English gloss. */
+  rootGloss(root, info) {
+    if (typeof SARF_GLOSS !== 'undefined'
+        && SARF_GLOSS[this.language] && SARF_GLOSS[this.language][root]) {
+      return SARF_GLOSS[this.language][root];
+    }
+    return (info && info.gloss) || '';
+  }
+
+  /** Random verb form {text, meaning} from a sarf root entry. */
+  pickRootForm(info) {
+    const list = (info && info.verbs) || [];
+    if (!list.length) return null;
+    const v = list[Math.floor(Math.random() * list.length)];
+    return { text: v.form, meaning: v.meaning || '' };
+  }
+
+  /** "Which word comes from this root?" — 10 rounds over data/sarf.json roots. */
+  startRootQuiz() {
+    if (!this.sarf) {
+      this.quiz = null;          // renderQuiz shows a loading card meanwhile
+      this.ensureSarf();
+      return;
+    }
+    const order = (this.sarf.order || Object.keys(this.sarf.roots || {}))
+      .filter(r => ((this.sarf.roots[r] || {}).verbs || []).length);
+    const picks = this.shuffle(order).slice(0, 10);
+    const questions = picks.map(root => {
+      const info = this.sarf.roots[root];
+      const correct = this.pickRootForm(info);
+      const seenTexts = new Set([correct.text]);
+      const others = [];
+      for (const r of this.shuffle(order)) {
+        if (r === root) continue;
+        const f = this.pickRootForm(this.sarf.roots[r]);
+        if (!f || seenTexts.has(f.text)) continue;
+        seenTexts.add(f.text);
+        others.push({ form: f, correct: false });
+        if (others.length === 3) break;
+      }
+      return {
+        root,
+        gloss: this.rootGloss(root, info),
+        choices: this.shuffle([{ form: correct, correct: true }].concat(others))
+      };
+    });
+    this.quiz = {
+      type: 'roots', questions, round: 0, score: 0,
+      answered: false, finished: false, newBest: false
+    };
+    this.buildQuizChoices();
+  }
+
+  /** Listening drill: play the word's Quran recording, pick the meaning. */
+  startListenQuiz() {
+    if (!this._idx) {
+      this.quiz = null;          // renderQuiz shows a loading card meanwhile
+      this.ensureWordIdx();
+      return;
+    }
+    const pool = this.studyPool().filter(w => this.audioOcc(w));
+    if (pool.length < 8) {
+      // Not enough words with real recordings — hide the tab, use word quiz.
+      this._idxFailed = true;
+      this.quizType = 'words';
+      this.startQuiz();
+      return;
+    }
+    this.quiz = {
+      type: 'listen',
+      questions: this.shuffle(pool).slice(0, 10).map(w => ({ word: w })),
+      round: 0, score: 0, answered: false, finished: false, newBest: false
+    };
+    this.buildQuizChoices();
+    // Autoplay attempt (allowed after the tab click; degrades to the 🔊 button)
+    const first = this.quiz.questions[0];
+    setTimeout(() => {
+      if (this.quiz && this.quiz.type === 'listen' && this.quiz.round === 0) this.playWord(first.word);
+    }, 300);
+  }
+
   /** Build the current round's answer buttons once, so re-renders are idempotent.
-   *  Distractors are deduped by meaning — two buttons must never show the same gloss. */
+   *  Distractors are deduped by meaning AND Arabic form — two buttons must never
+   *  show the same gloss (or, in reverse mode, the same word). */
   buildQuizChoices() {
     const q = this.quiz.questions[this.quiz.round];
-    const seen = new Set([this.meaningOf(q)]);
+    if (this.quiz.type === 'roots') {
+      this.quiz.choices = q.choices;    // prebuilt per-question
+      return;
+    }
+    const w = q.word;
+    const seenMeanings = new Set([this.meaningOf(w)]);
+    const seenArabic = new Set([w.arabic]);
     const others = [];
-    for (const w of this.shuffle(VOCAB_WORDS)) {
-      if (w.arabic === q.arabic || seen.has(this.meaningOf(w))) continue;
-      seen.add(this.meaningOf(w));
-      others.push(w);
+    for (const c of this.shuffle(this.studyPool())) {
+      if (seenArabic.has(c.arabic) || seenMeanings.has(this.meaningOf(c))) continue;
+      seenMeanings.add(this.meaningOf(c));
+      seenArabic.add(c.arabic);
+      others.push(c);
       if (others.length === 3) break;
     }
     this.quiz.choices = this.shuffle(
-      [{ word: q, correct: true }].concat(others.map(w => ({ word: w, correct: false })))
+      [{ word: w, correct: true }].concat(others.map(o => ({ word: o, correct: false })))
     );
+  }
+
+  renderQuizTypeTabs() {
+    const mk = (ty, label) => {
+      const active = this.quizType === ty;
+      const cls = active
+        ? 'bg-secondary text-white border-secondary'
+        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700';
+      return `<button data-action="quiz-type" data-qt="${ty}"
+                class="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${cls}">${label}</button>`;
+    };
+    return `
+      <div class="flex justify-center gap-1.5">
+        ${mk('words', '🃏 ' + this.tt('vocab_quiz_words'))}
+        ${this._sarfFailed ? '' : mk('roots', '🌱 ' + this.tt('vocab_quiz_roots'))}
+        ${this._idxFailed ? '' : mk('listen', '🔊 ' + this.tt('vocab_quiz_listen'))}
+      </div>
+    `;
   }
 
   renderQuiz() {
     const lang = this.language;
+    if (!this.quiz && this.quizType === 'roots' && !this.sarf) {
+      this.ensureSarf();
+      return `
+        ${this.renderQuizTypeTabs()}
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400">
+          <div class="text-3xl animate-pulse">🌱</div>
+        </div>
+      `;
+    }
+    if (!this.quiz && this.quizType === 'listen' && !this._idx) {
+      this.ensureWordIdx();
+      return `
+        ${this.renderQuizTypeTabs()}
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400">
+          <div class="text-3xl animate-pulse">🔊</div>
+        </div>
+      `;
+    }
     if (!this.quiz) this.startQuiz();
     if (this.quiz.finished) return this.renderQuizEnd();
 
     const q = this.quiz.questions[this.quiz.round];
     if (!this.quiz.choices) this.buildQuizChoices();
     const choices = this.quiz.choices;
+    const isRoots = this.quiz.type === 'roots';
+    const isListen = this.quiz.type === 'listen';
+    const reversed = !isRoots && !isListen && q.rev;
+
+    let promptCard;
+    if (isListen) {
+      promptCard = `
+        <button data-action="quiz-play" title="${this.tt('vocab_play_word')}"
+                class="w-20 h-20 rounded-full bg-primary hover:bg-primary/80 text-white text-3xl shadow-lg transition-colors">🔊</button>
+        <div data-listen-reveal class="hidden pt-3">
+          <span class="ayah-arabic !text-4xl !leading-normal" dir="rtl">${q.word.arabic}</span>
+          <div class="text-sm italic text-gray-400 dark:text-gray-500" dir="ltr">${q.word.translit}</div>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">${this.tt('vocab_listen_prompt')}</p>
+      `;
+    } else if (isRoots) {
+      promptCard = `
+        <div class="ayah-arabic !text-6xl !leading-normal tracking-widest" dir="rtl">${q.root.split('').join(' ')}</div>
+        <div class="text-base text-gray-500 dark:text-gray-400 mt-3" dir="auto">${this.escapeHtml(q.gloss)}</div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">${this.tt('vocab_root_prompt')}</p>
+      `;
+    } else if (reversed) {
+      promptCard = `
+        <div class="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100" dir="auto">${this.escapeHtml(this.meaningOf(q.word))}</div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">${this.tt('vocab_choose_arabic')}</p>
+      `;
+    } else {
+      promptCard = `
+        <div class="ayah-arabic !text-6xl !leading-normal" dir="rtl">${q.word.arabic}</div>
+        <div class="text-base text-gray-400 dark:text-gray-500 italic mt-3" dir="ltr">${q.word.translit}</div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">${t('vocab_choose_meaning', lang)}</p>
+      `;
+    }
+
+    const arabicChoices = isRoots || reversed;
 
     return `
+      ${this.renderQuizTypeTabs()}
       <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
         <span>${t('vocab_question_of', lang)
           .replace('{current}', this.quiz.round + 1)
@@ -401,19 +909,23 @@ class VocabTrainer {
         <span>${t('vocab_score', lang).replace('{score}', this.quiz.score)}</span>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-        <div class="ayah-arabic !text-6xl !leading-normal" dir="rtl">${q.arabic}</div>
-        <div class="text-base text-gray-400 dark:text-gray-500 italic mt-3" dir="ltr">${q.translit}</div>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">${t('vocab_choose_meaning', lang)}</p>
+        ${promptCard}
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        ${choices.map(c => `
-          <button data-action="quiz-choice" data-correct="${c.correct ? '1' : '0'}" dir="auto"
+        ${choices.map(c => {
+          const label = isRoots
+            ? `<span class="ayah-arabic !text-2xl !leading-normal">${c.form.text}</span>`
+            : (reversed
+              ? `<span class="ayah-arabic !text-2xl !leading-normal">${c.word.arabic}</span>`
+              : this.meaningOf(c.word));
+          return `
+          <button data-action="quiz-choice" data-correct="${c.correct ? '1' : '0'}" dir="${arabicChoices ? 'rtl' : 'auto'}"
                   class="px-4 py-4 rounded-xl text-lg font-medium border-2 border-gray-200 dark:border-gray-700
                          bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100
                          hover:border-primary dark:hover:border-blue-400 transition-colors">
-            ${this.meaningOf(c.word)}
-          </button>
-        `).join('')}
+            ${label}
+          </button>`;
+        }).join('')}
       </div>
     `;
   }
@@ -424,6 +936,12 @@ class VocabTrainer {
 
     const correct = btn.getAttribute('data-correct') === '1';
     if (correct) this.quiz.score++;
+
+    // Listening round: reveal the Arabic word alongside the graded buttons
+    if (this.quiz.type === 'listen') {
+      const rv = this.root.querySelector('[data-listen-reveal]');
+      if (rv) rv.classList.remove('hidden');
+    }
 
     this.root.querySelectorAll('[data-action="quiz-choice"]').forEach(b => {
       b.disabled = true;
@@ -447,22 +965,29 @@ class VocabTrainer {
       this.quiz.round++;
       if (this.quiz.round >= this.quiz.questions.length) {
         this.quiz.finished = true;
-        const best = this.getBestScore();
+        const best = this.getBestScore(this.quiz.type);
         if (best === null || this.quiz.score > best) {
-          this.saveBestScore(this.quiz.score);
+          this.saveBestScore(this.quiz.score, this.quiz.type);
           this.quiz.newBest = true;
         }
       } else {
         this.buildQuizChoices();
       }
       this.render();
+      if (this.quiz.type === 'listen' && !this.quiz.finished) {
+        const nq = this.quiz.questions[this.quiz.round];
+        setTimeout(() => {
+          if (this.quiz && this.quiz.type === 'listen' && !this.quiz.answered) this.playWord(nq.word);
+        }, 250);
+      }
     }, 1100);
   }
 
   renderQuizEnd() {
     const lang = this.language;
-    const best = this.getBestScore();
+    const best = this.getBestScore(this.quiz.type);
     return `
+      ${this.renderQuizTypeTabs()}
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10 text-center space-y-4">
         <div class="text-5xl">${this.quiz.score >= 7 ? '🏆' : '📚'}</div>
         <h3 class="text-xl font-bold">${t('vocab_quiz_complete', lang)}</h3>
@@ -484,16 +1009,125 @@ class VocabTrainer {
     `;
   }
 
+  // ---------- review (spaced-repetition-lite) ----------
+
+  /**
+   * Grade the current review card. Good doubles the interval (1d → 2d → …,
+   * capped at 30d); Again resets it and re-queues the card ~5 minutes out
+   * (it stays in this session's queue so it comes around again).
+   */
+  gradeReview(good) {
+    const w = this.reviewQueue && this.reviewQueue[0];
+    if (!w) return;
+    const rev = this.getReview();
+    const r = rev[w.arabic];
+    if (good) {
+      const iv = (r && r.iv) ? Math.min(r.iv * 2, 30) : 1;
+      rev[w.arabic] = { iv, due: Date.now() + iv * 86400000 };
+      this.reviewQueue.shift();
+    } else {
+      rev[w.arabic] = { iv: 0, due: Date.now() + 5 * 60000 };
+      if (this.reviewQueue.length > 1) this.reviewQueue.push(this.reviewQueue.shift());
+    }
+    this.saveReview(rev);
+    this.reviewedCount++;
+    this.reviewRevealed = false;
+    if (!this.reviewQueue.length) {
+      this.reviewQueue = this.shuffle(this.dueList()).slice(0, 20);
+    }
+    this.render();
+  }
+
+  renderReview() {
+    const rev = this.getReview();
+    if (!this.reviewQueue || !this.reviewQueue.length) {
+      this.reviewQueue = this.shuffle(this.dueList()).slice(0, 20);
+    }
+
+    if (!this.reviewQueue.length) {
+      const future = Object.values(rev).map(r => r.due).filter(d => d > Date.now());
+      const next = future.length ? Math.min(...future) : null;
+      return `
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10 text-center space-y-3">
+          <div class="text-5xl">🎉</div>
+          <p class="font-medium text-gray-700 dark:text-gray-200">${this.tt('vocab_review_empty')}</p>
+          ${next ? `<p class="text-sm text-gray-500 dark:text-gray-400">${this.tt('vocab_next_due', { time: this.formatDue(next) })}</p>` : ''}
+          ${this.reviewedCount ? `<p class="text-sm text-green-600 dark:text-green-400">${this.tt('vocab_reviewed_count', { count: this.reviewedCount })}</p>` : ''}
+        </div>
+      `;
+    }
+
+    const w = this.reviewQueue[0];
+    const r = rev[w.arabic];
+    const isNew = !r;
+    const dueCount = this.dueList().length;
+    const goodIv = (r && r.iv) ? Math.min(r.iv * 2, 30) : 1;
+
+    return `
+      <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <span>📥 ${this.tt('vocab_due', { count: dueCount })}</span>
+        <span>${this.reviewedCount ? this.tt('vocab_reviewed_count', { count: this.reviewedCount }) : ''}</span>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center space-y-4">
+        ${isNew ? `<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 uppercase">${this.tt('vocab_new_word')}</span>` : ''}
+        <div class="ayah-arabic !text-6xl !leading-normal" dir="rtl">${w.arabic}</div>
+        <div class="flex items-center justify-center gap-2 text-base text-gray-400 dark:text-gray-500 italic" dir="ltr">
+          <span>${w.translit}</span>
+          ${this.hasTTS() ? `<button data-action="rev-speak" data-text="${this.escapeHtml(w.arabic)}" class="not-italic text-sm px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-primary hover:text-white">🔊</button>` : ''}
+        </div>
+        ${this.reviewRevealed ? `
+          <div class="text-2xl font-semibold text-gray-800 dark:text-gray-100 pt-2" dir="auto">${this.escapeHtml(this.meaningOf(w))}</div>
+          <div class="grid grid-cols-2 gap-3 pt-2 max-w-md mx-auto">
+            <button data-action="rev-again"
+                    class="px-4 py-3 rounded-xl font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors">
+              🔁 ${this.tt('vocab_again')} <span class="text-xs opacity-70">5m</span>
+            </button>
+            <button data-action="rev-good"
+                    class="px-4 py-3 rounded-xl font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors">
+              ✓ ${this.tt('vocab_good')} <span class="text-xs opacity-70">${goodIv}d</span>
+            </button>
+          </div>` : `
+          <button data-action="rev-show"
+                  class="px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-colors">
+            👁 ${this.tt('vocab_show_meaning')}
+          </button>`}
+      </div>
+    `;
+  }
+
   // ---------- progress ----------
 
   renderProgress() {
     const lang = this.language;
     this.ensureExtra();
-    const all = this.deckAll();
+    const all = this.progressDeck();
     const knownWords = all.filter(w => w.known);
     const total = all.length;
     const percent = total ? Math.round((knownWords.length / total) * 100) : 0;
-    const best = this.getBestScore();
+    const best = this.getBestScore('words');
+    const bestRoots = this.getBestScore('roots');
+    const bestListen = this.getBestScore('listen');
+
+    // Mastery per theme (Core 50 + each thematic set), from the known list
+    const knownSet = new Set(this.getKnown());
+    const themes = (typeof VOCAB_THEMES !== 'undefined') ? VOCAB_THEMES : [];
+    const groups = [{ icon: '⭐', name: this.tt('vocab_core_words'), words: VOCAB_WORDS }]
+      .concat(themes.map(th => ({ icon: th.icon, name: th.names[lang] || th.names.en, words: th.words })));
+    const masteryRows = groups.map(g => {
+      const gTotal = g.words.length;
+      const gKnown = g.words.filter(w => knownSet.has(w.arabic)).length;
+      const gPct = gTotal ? Math.round((gKnown / gTotal) * 100) : 0;
+      return `
+        <div>
+          <div class="flex items-center justify-between text-xs text-gray-600 dark:text-gray-300 mb-1">
+            <span>${g.icon} ${g.name}</span>
+            <span class="tabular-nums">${gKnown}/${gTotal}</span>
+          </div>
+          <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="h-full ${gPct === 100 ? 'bg-green-500' : 'bg-secondary'} rounded-full transition-all duration-500" style="width:${gPct}%"></div>
+          </div>
+        </div>`;
+    }).join('');
 
     return `
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 space-y-6">
@@ -511,8 +1145,21 @@ class VocabTrainer {
 
         ${best !== null ? `
           <p class="text-sm text-gray-500 dark:text-gray-400">
-            ${t('vocab_best_score', lang).replace('{score}', best)}
+            🃏 ${this.tt('vocab_quiz_words')} — ${t('vocab_best_score', lang).replace('{score}', best)}
           </p>` : ''}
+        ${bestRoots !== null ? `
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            🌱 ${this.tt('vocab_quiz_roots')} — ${t('vocab_best_score', lang).replace('{score}', bestRoots)}
+          </p>` : ''}
+        ${bestListen !== null ? `
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            🔊 ${this.tt('vocab_quiz_listen')} — ${t('vocab_best_score', lang).replace('{score}', bestListen)}
+          </p>` : ''}
+
+        <div>
+          <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">${this.tt('vocab_mastery')}</h3>
+          <div class="space-y-3">${masteryRows}</div>
+        </div>
 
         <div>
           <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">${t('vocab_known_words', lang)}</h3>
@@ -558,7 +1205,12 @@ class VocabTrainer {
     try {
       localStorage.removeItem('vocabKnown');
       localStorage.removeItem('vocabQuizBest');
+      localStorage.removeItem('vocabQuizBestRoots');
+      localStorage.removeItem('vocabQuizBestListen');
+      localStorage.removeItem('vocabReview');
     } catch (err) { /* ignore */ }
+    this.reviewQueue = null;
+    this.reviewedCount = 0;
     this.render();
   }
 }
