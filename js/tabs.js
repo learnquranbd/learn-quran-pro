@@ -28,7 +28,8 @@ const TAB_META = {
   mutashabihat: { emoji: '🪞', key: 'mutashabihat_title' },
   quranicarabic: { emoji: '🔤', key: 'qa_title' },
   seerah:       { emoji: '🌙', key: 'seerah_title' },
-  whyislam:     { emoji: '💡', key: 'whyislam_title' }
+  whyislam:     { emoji: '💡', key: 'whyislam_title' },
+  prophets:     { emoji: '📜', key: 'prophets_title' }
 };
 
 class TabSystem {
@@ -60,6 +61,19 @@ class TabSystem {
     window.addEventListener('settingChanged', (e) => {
       if (e.detail && e.detail.key === 'language') this.updateHeadline(this.activeTab);
     });
+
+    // Browser Back/Forward: restore the tab recorded in the history state.
+    // Only acts on our own tab entries (state.lqTab); ayah-hash entries keep
+    // their existing hashchange handling untouched.
+    window.addEventListener('popstate', (e) => {
+      const tab = e.state && e.state.lqTab;
+      if (tab && tab !== this.activeTab && document.getElementById('tab-' + tab)) {
+        this.switchTab(tab, true);   // fromHistory=true → don't push a new entry
+      }
+    });
+    // Seed the first history entry with the initial tab so the very first Back
+    // has somewhere to return to.
+    try { history.replaceState({ lqTab: this.activeTab }, ''); } catch (e) { /* ignore */ }
   }
 
   /** Insert the headline banner as the first child of the content area (once). */
@@ -88,7 +102,7 @@ class TabSystem {
    * Switch to a specific tab
    * @param {string} tabId
    */
-  switchTab(tabId) {
+  switchTab(tabId, fromHistory = false) {
     const fromTab = this.activeTab;
     // Update active button
     const tabButtons = this.tabNav.querySelectorAll('.tab-btn');
@@ -129,6 +143,16 @@ class TabSystem {
 
     // Dispatch custom event
     window.dispatchEvent(new CustomEvent('tabChanged', { detail: { tabId } }));
+
+    // Browser-history integration: push a state entry per tab switch so the
+    // browser Back button returns to the previous module (instead of leaving the
+    // app). We use history STATE (not the hash — the hash is already used for
+    // ayah deep-links). Skips the push when the switch itself came from popstate.
+    if (!fromHistory && tabId !== fromTab) {
+      try {
+        history.pushState({ lqTab: tabId }, '');
+      } catch (e) { /* history unavailable — ignore */ }
+    }
   }
 
   /** Cross-module jump (e.g. Word-Repetition → Sarf) with a one-tap return pill. */

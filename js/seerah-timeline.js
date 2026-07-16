@@ -480,6 +480,101 @@ const SEERAH_BATTLES = {
   },
 };
 
+// Abstract/geometric view-toggle icons (no figures): a timeline spine, and an
+// interlaced 8-point star (classic Islamic geometry) for the Topics view.
+const SEERAH_TIMELINE_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="7" r="2" fill="currentColor"/><circle cx="6" cy="16" r="2" fill="currentColor"/><line x1="10" y1="7" x2="19" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="16" x2="17" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+const SEERAH_TOPICS_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="6" y="6" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.4" transform="rotate(45 12 12)"/></svg>';
+
+/**
+ * MAJOR TOPICS — browsable thematic cards (bilingual, tap-to-expand). Content is
+ * drawn from mainstream Sunni sources; only well-established points are used and
+ * no images of the Prophet ﷺ, companions, or any figures are made (per the
+ * aniconic tradition). Emoji are decorative labels, not depictions. Each topic
+ * carries verified Quran refs shown as tappable pills.
+ */
+const SEERAH_TOPICS = [
+  {
+    id: 'tp_akhlaq', emoji: '🌟',
+    titleEn: 'Noble Character & Manners (Akhlaq)',
+    titleBn: 'মহৎ চরিত্র ও আচরণ (আখলাক)',
+    summaryEn: 'Even before prophethood the Prophet ﷺ was called al-Amin, "the trustworthy," for his honesty and truthfulness. The Quran describes him as being upon "an exalted standard of character," and he was gentle, merciful, and humble with all people.',
+    summaryBn: 'নবুয়তের আগেও নবী ﷺ সততা ও সত্যবাদিতার জন্য "আল-আমিন" (বিশ্বস্ত) নামে পরিচিত ছিলেন। কুরআন তাঁকে "মহান চরিত্রের অধিকারী" বলে বর্ণনা করেছে; তিনি ছিলেন সকলের প্রতি কোমল, দয়ালু ও বিনয়ী।',
+    pointsEn: ['Trusted even by his opponents, who left valuables in his keeping', 'Gentle and forgiving — he pardoned the people of Mecca at its conquest', 'Humble in daily life: he helped his family and served others'],
+    pointsBn: ['শত্রুরাও তাঁকে বিশ্বাস করত ও মূল্যবান জিনিস তাঁর কাছে গচ্ছিত রাখত', 'কোমল ও ক্ষমাশীল — মক্কা বিজয়ের দিন তিনি মক্কাবাসীকে ক্ষমা করেন', 'দৈনন্দিন জীবনে বিনয়ী: তিনি পরিবারকে সাহায্য করতেন ও অন্যদের সেবা করতেন'],
+    verses: ['68:4', '3:159', '33:21'],
+  },
+  {
+    id: 'tp_appearance', emoji: '📜',
+    titleEn: 'Physical Description & Appearance',
+    titleBn: 'দৈহিক বর্ণনা ও অবয়ব',
+    summaryEn: 'Authentic narrations from companions such as Anas and Ali (RA) describe the Prophet ﷺ as of medium height and balanced build, with a radiant, luminous face, dark eyes, and hair reaching between his earlobes and shoulders. Out of reverence, Muslims describe him in words only and make no images of him.',
+    summaryBn: 'আনাস ও আলী (রাঃ)-এর মতো সাহাবিদের সহিহ বর্ণনায় নবী ﷺ-কে মাঝারি উচ্চতা ও সুষম গড়নের, উজ্জ্বল দীপ্তিময় চেহারা, কালো চোখ এবং কান ও কাঁধের মাঝামাঝি পর্যন্ত পৌঁছানো চুলের অধিকারী বলে বর্ণনা করা হয়েছে। শ্রদ্ধাবশত মুসলিমরা তাঁকে কেবল ভাষায় বর্ণনা করেন, কোনো ছবি আঁকেন না।',
+    pointsEn: ['Neither very tall nor short; of a balanced, dignified build', 'A bright, radiant face and a welcoming presence', 'The "seal of prophethood" was between his shoulders', 'Muslims honour him without any image or portrait'],
+    pointsBn: ['খুব লম্বাও নন, বেঁটেও নন; সুষম ও মর্যাদাপূর্ণ গড়ন', 'উজ্জ্বল দীপ্তিময় চেহারা ও প্রীতিকর উপস্থিতি', '"নবুয়তের মোহর" ছিল তাঁর দুই কাঁধের মাঝে', 'মুসলিমরা কোনো ছবি বা প্রতিকৃতি ছাড়াই তাঁকে সম্মান করেন'],
+    verses: ['33:45', '48:29'],
+  },
+  {
+    id: 'tp_family', emoji: '🏡',
+    titleEn: 'His Family — Khadijah (RA), the Mothers of the Believers & His Children',
+    titleBn: 'তাঁর পরিবার — খাদিজা (রাঃ), উম্মাহাতুল মুমিনিন ও সন্তানগণ',
+    summaryEn: 'The Prophet ﷺ was married to Khadijah (RA) alone for about 25 years, and she was the mother of most of his children. After her death he married several wives — the "Mothers of the Believers" (Ummahat al-Mu’minin), including Aishah, Hafsah, Umm Salamah and Zaynab (RA) — many of these marriages building ties or giving care and support. His daughter Fatimah (RA) is among the most honoured women in Islam.',
+    summaryBn: 'নবী ﷺ প্রায় ২৫ বছর কেবল খাদিজা (রাঃ)-এর সাথে দাম্পত্যে ছিলেন, এবং তিনিই তাঁর অধিকাংশ সন্তানের মা। তাঁর মৃত্যুর পর তিনি একাধিক স্ত্রী গ্রহণ করেন — "উম্মাহাতুল মুমিনিন" (মুমিনদের মাতাগণ), যাদের মধ্যে আয়েশা, হাফসা, উম্মে সালামা ও যয়নব (রাঃ) রয়েছেন — এসব বিবাহের অনেকগুলো ছিল সম্পর্ক গড়া বা আশ্রয়-সহায়তা দানের জন্য। তাঁর কন্যা ফাতিমা (রাঃ) ইসলামে সর্বাধিক সম্মানিত নারীদের একজন।',
+    pointsEn: ['Khadijah (RA): his first wife and first supporter of the message', 'The Mothers of the Believers (RA) taught the community much of the Sunnah', 'His children included Fatimah, Zaynab, Ruqayyah and Umm Kulthum (RA); his sons died young'],
+    pointsBn: ['খাদিজা (রাঃ): তাঁর প্রথম স্ত্রী ও বার্তার প্রথম সহায়', 'উম্মাহাতুল মুমিনিন (রাঃ) সমাজকে সুন্নাহর অনেক কিছু শিখিয়েছেন', 'তাঁর সন্তানদের মধ্যে ছিলেন ফাতিমা, যয়নব, রুকাইয়া ও উম্মে কুলসুম (রাঃ); পুত্ররা অল্প বয়সে মারা যান'],
+    verses: ['33:6', '33:32'],
+  },
+  {
+    id: 'tp_companions', emoji: '🤝',
+    titleEn: 'The Major Companions (Sahaba)',
+    titleBn: 'প্রধান সাহাবিগণ',
+    summaryEn: 'The Companions (Sahaba, RA) believed in the Prophet ﷺ and carried his message forward. Foremost are the four Rightly-Guided Caliphs: Abu Bakr, Umar, Uthman and Ali (RA). Along with six others they are traditionally counted among the ten given glad tidings of Paradise, and countless companions — such as Bilal (RA) — served Islam devotedly.',
+    summaryBn: 'সাহাবিগণ (রাঃ) নবী ﷺ-এর প্রতি ঈমান আনেন ও তাঁর বার্তা এগিয়ে নেন। সবার অগ্রে চার খুলাফায়ে রাশিদিন: আবু বকর, উমর, উসমান ও আলী (রাঃ)। আরও ছয়জনসহ তাঁরা ঐতিহ্যগতভাবে জান্নাতের সুসংবাদপ্রাপ্ত দশজনের অন্তর্ভুক্ত, এবং বিলাল (রাঃ)-এর মতো অগণিত সাহাবি নিষ্ঠার সাথে ইসলামের সেবা করেছেন।',
+    pointsEn: ['Abu Bakr (RA): closest friend, companion of the Hijra, and first caliph', 'Umar (RA): known for justice; the community expanded greatly in his time', 'Uthman (RA): generous, and the Quran was compiled into one standard text in his caliphate', 'Ali (RA): the Prophet’s cousin, noted for knowledge and courage'],
+    pointsBn: ['আবু বকর (রাঃ): ঘনিষ্ঠতম বন্ধু, হিজরতের সঙ্গী ও প্রথম খলিফা', 'উমর (রাঃ): ন্যায়বিচারের জন্য প্রসিদ্ধ; তাঁর সময়ে ইসলাম বহুদূর বিস্তৃত হয়', 'উসমান (রাঃ): দানশীল; তাঁর খিলাফতে কুরআন এক আদর্শ গ্রন্থে সংকলিত হয়', 'আলী (রাঃ): নবীর চাচাতো ভাই, জ্ঞান ও সাহসের জন্য খ্যাত'],
+    verses: ['9:100', '48:29', '9:40'],
+  },
+  {
+    id: 'tp_worship', emoji: '🕌',
+    titleEn: 'His Worship & Daily Life',
+    titleBn: 'তাঁর ইবাদত ও দৈনন্দিন জীবন',
+    summaryEn: 'Though he was forgiven, the Prophet ﷺ worshipped intensely out of gratitude — standing long in night prayer, fasting often, and remembering Allah constantly. In daily life he was generous "like the blowing wind," simple in his needs, and served his own household.',
+    summaryBn: 'ক্ষমাপ্রাপ্ত হওয়া সত্ত্বেও নবী ﷺ কৃতজ্ঞতাবশত তীব্রভাবে ইবাদত করতেন — রাতে দীর্ঘক্ষণ সালাতে দাঁড়াতেন, প্রায়ই রোজা রাখতেন এবং সদা আল্লাহর স্মরণে থাকতেন। দৈনন্দিন জীবনে তিনি ছিলেন "প্রবহমান বাতাসের মতো" দানশীল, চাহিদায় সরল, এবং নিজের ঘরের কাজ নিজেই করতেন।',
+    pointsEn: ['He stood in night prayer (tahajjud) at length', 'He fasted frequently and encouraged moderation and gratitude', 'He was exceedingly generous, especially in Ramadan', 'He lived simply and helped with household chores'],
+    pointsBn: ['তিনি দীর্ঘ সময় রাতের সালাত (তাহাজ্জুদ) আদায় করতেন', 'তিনি প্রায়ই রোজা রাখতেন এবং পরিমিতি ও কৃতজ্ঞতার উৎসাহ দিতেন', 'তিনি ছিলেন অত্যন্ত দানশীল, বিশেষত রমজানে', 'তিনি সরল জীবনযাপন করতেন ও ঘরের কাজে সাহায্য করতেন'],
+    verses: ['73:1', '73:2', '17:79'],
+  },
+  {
+    id: 'tp_miracles', emoji: '✨',
+    titleEn: 'Signs & Miracles',
+    titleBn: 'নিদর্শন ও মুজিজা',
+    summaryEn: 'The greatest and lasting miracle of the Prophet ﷺ is the Quran — a revelation whose eloquence and guidance no one has matched, preserved unchanged to this day. Other authentically-reported signs include the splitting of the moon and occasions when water increased from between his fingers.',
+    summaryBn: 'নবী ﷺ-এর সর্বশ্রেষ্ঠ ও চিরস্থায়ী মুজিজা হলো কুরআন — এমন এক ওহি যার ভাষাশৈলী ও হেদায়েতের সমতুল্য কেউ আনতে পারেনি এবং যা আজ পর্যন্ত অপরিবর্তিত রয়েছে। সহিহভাবে বর্ণিত অন্যান্য নিদর্শনের মধ্যে রয়েছে চন্দ্র বিদীর্ণ হওয়া এবং তাঁর আঙুলের মাঝ থেকে পানি বৃদ্ধি পাওয়ার ঘটনা।',
+    pointsEn: ['The Quran is the greatest miracle — an open, lasting challenge to all people', 'The splitting of the moon is mentioned in the Quran (54:1)', 'Muslims focus on well-established signs and avoid weak or invented reports'],
+    pointsBn: ['কুরআনই সর্বশ্রেষ্ঠ মুজিজা — সকল মানুষের জন্য এক উন্মুক্ত, চিরস্থায়ী চ্যালেঞ্জ', 'চন্দ্র বিদীর্ণ হওয়ার কথা কুরআনে উল্লেখ আছে (৫৪:১)', 'মুসলিমরা সুপ্রতিষ্ঠিত নিদর্শনে মনোযোগ দেন, দুর্বল বা বানানো বর্ণনা এড়িয়ে চলেন'],
+    verses: ['54:1', '17:88', '2:23'],
+  },
+  {
+    id: 'tp_mercy', emoji: '💚',
+    titleEn: 'A Mercy to All',
+    titleBn: 'সকলের জন্য রহমত',
+    summaryEn: 'Allah describes the Prophet ﷺ as "a mercy to the worlds." He was tender with children, kind to the poor and the weak, gentle even with animals, and forgiving toward those who had wronged him — most famously when he pardoned the people of Mecca.',
+    summaryBn: 'আল্লাহ নবী ﷺ-কে "বিশ্বজগতের জন্য রহমত" বলে বর্ণনা করেছেন। তিনি শিশুদের প্রতি স্নেহশীল, দরিদ্র ও দুর্বলদের প্রতি দয়ালু, এমনকি প্রাণীর প্রতিও কোমল, এবং তাঁর প্রতি অন্যায়কারীদের প্রতিও ক্ষমাশীল ছিলেন — সবচেয়ে বিখ্যাতভাবে মক্কাবাসীকে ক্ষমা করার মাধ্যমে।',
+    pointsEn: ['Tender to children and the young', 'Kind to the poor, the weak and the traveller', 'Forgave enemies — and prayed for the guidance of the people of Ta’if'],
+    pointsBn: ['শিশু ও তরুণদের প্রতি স্নেহশীল', 'দরিদ্র, দুর্বল ও মুসাফিরের প্রতি দয়ালু', 'শত্রুদের ক্ষমা করেছেন — এবং তায়েফবাসীর হেদায়েতের জন্য দোয়া করেছেন'],
+    verses: ['21:107', '9:128', '3:159'],
+  },
+  {
+    id: 'tp_sermon', emoji: '📢',
+    titleEn: 'The Farewell Sermon',
+    titleBn: 'বিদায় হজের ভাষণ',
+    summaryEn: 'During his only Hajj in 10 AH, the Prophet ﷺ addressed a great gathering at Arafat. He affirmed the sanctity of life, property and honour, abolished the interest (riba) of the pre-Islamic age, urged the good treatment of women, and declared the equality of all people — the noblest being the most God-conscious.',
+    summaryBn: '১০ হিজরিতে তাঁর একমাত্র হজের সময় নবী ﷺ আরাফাতে এক বিশাল সমাবেশে ভাষণ দেন। তিনি জীবন, সম্পদ ও সম্মানের পবিত্রতা নিশ্চিত করেন, জাহেলি যুগের সুদ (রিবা) রহিত করেন, নারীর প্রতি সদাচরণের আহ্বান জানান এবং সকল মানুষের সমতা ঘোষণা করেন — সবচেয়ে সম্মানিত সেই, যে সবচেয়ে বেশি আল্লাহভীরু।',
+    pointsEn: ['The life, property and honour of people are sacred', 'Interest (riba) of the age of ignorance was abolished', 'He urged kindness and justice toward women', 'All people are equal; the noblest is the most righteous', 'He left two things to hold to: the Book of Allah (and his Sunnah)'],
+    pointsBn: ['মানুষের জীবন, সম্পদ ও সম্মান পবিত্র', 'জাহেলি যুগের সুদ (রিবা) রহিত করা হয়', 'তিনি নারীর প্রতি সদয় ও ন্যায়পরায়ণ হওয়ার আহ্বান জানান', 'সকল মানুষ সমান; সবচেয়ে সম্মানিত সেই যে সবচেয়ে বেশি পরহেজগার', 'তিনি আঁকড়ে ধরার জন্য দুটি জিনিস রেখে যান: আল্লাহর কিতাব (ও তাঁর সুন্নাহ)'],
+    verses: ['5:3', '49:13'],
+  },
+];
+
 /**
  * Local fallback dictionary for all UI chrome. tt() prefers the global t()
  * (so translations.js can override once wired), and falls back here so the
@@ -514,6 +609,11 @@ const SEERAH_UI = {
   seerah_bt_casualties: { en: 'Casualties', bn: 'হতাহত' },
   seerah_bt_moments: { en: 'Key moments', bn: 'গুরুত্বপূর্ণ মুহূর্ত' },
   seerah_bt_verses: { en: 'Related verses', bn: 'সম্পর্কিত আয়াত' },
+  seerah_view_timeline: { en: 'Timeline', bn: 'টাইমলাইন' },
+  seerah_view_topics: { en: 'Topics', bn: 'বিষয়সমূহ' },
+  seerah_topics_title: { en: 'Major Topics', bn: 'প্রধান বিষয়সমূহ' },
+  seerah_topics_intro: { en: "Explore key themes from the life and teachings of the Prophet ﷺ. Tap any topic to expand.", bn: 'নবী ﷺ-এর জীবন ও শিক্ষার গুরুত্বপূর্ণ বিষয়গুলো ঘুরে দেখুন। বিস্তারিত দেখতে যেকোনো বিষয়ে ট্যাপ করুন।' },
+  seerah_key_points: { en: 'Key points', bn: 'মূল বিষয়' },
 };
 
 class SeerahView {
@@ -523,6 +623,7 @@ class SeerahView {
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
     if (!this.language) this.language = 'en';
     this.rendered = false;
+    this.view = 'timeline';
     this.filter = 'all';
     this.query = '';
     this.expanded = new Set();
@@ -597,45 +698,105 @@ class SeerahView {
           <span aria-hidden="true">${c.emoji}</span> ${this.esc(this.tt(c.key))}</button>`;
       }).join('');
 
+    const vbtn = (id, icon, label) => {
+      const active = this.view === id;
+      return `<button type="button" data-seerah-view="${id}"
+        class="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium transition-colors
+               ${active ? 'bg-white dark:bg-gray-700 text-primary shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}">
+        <span aria-hidden="true">${icon}</span>${this.esc(label)}</button>`;
+    };
+    const toggle = `
+      <div class="flex justify-center mb-4">
+        <div class="inline-flex gap-1 p-1 rounded-xl bg-gray-100 dark:bg-gray-800">
+          ${vbtn('timeline', SEERAH_TIMELINE_ICON, this.tt('seerah_view_timeline'))}
+          ${vbtn('topics', SEERAH_TOPICS_ICON, this.tt('seerah_view_topics'))}
+        </div>
+      </div>`;
+
+    const timelineBody = `
+      <div class="mb-3">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${this.esc(this.tt('seerah_progress'))}</span>
+          <span class="text-xs font-semibold text-primary" data-seerah-count>${readCount} / ${total}</span>
+        </div>
+        <div class="w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div data-seerah-bar class="h-full bg-primary transition-all" style="width:${pct}%"></div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <input type="search" data-seerah-search value="${this.esc(this.query)}"
+          placeholder="${this.esc(this.tt('seerah_search_placeholder'))}"
+          class="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800
+                 text-sm text-gray-800 dark:text-gray-100 focus:outline-none focus:border-primary" dir="auto" />
+      </div>
+
+      <div class="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1">${chips}</div>
+
+      <div data-seerah-list></div>
+
+      <div class="text-center mt-6 mb-8">
+        <button type="button" data-seerah-reset
+          class="text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 underline">
+          ${this.esc(this.tt('seerah_reset_progress'))}
+        </button>
+      </div>`;
+
+    const topicsBody = `
+      <div class="text-center mb-4">
+        <p class="text-xs text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('seerah_topics_intro'))}</p>
+      </div>
+      <div class="space-y-3 mb-8">
+        ${SEERAH_TOPICS.map(tp => this.topicCardHtml(tp)).join('')}
+      </div>`;
+
     this.container.innerHTML = `
       <div class="w-full max-w-3xl mx-auto">
         <div class="text-center mb-3">
           <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">🌙 ${this.esc(this.tt('seerah_title'))}</h2>
           <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">${this.esc(this.tt('seerah_subtitle'))}</p>
-          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" dir="auto">${this.esc(this.tt('seerah_intro'))}</p>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" dir="auto">${this.esc(this.view === 'topics' ? this.tt('seerah_topics_title') : this.tt('seerah_intro'))}</p>
         </div>
-
-        <div class="mb-3">
-          <div class="flex items-center justify-between gap-2 mb-1">
-            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${this.esc(this.tt('seerah_progress'))}</span>
-            <span class="text-xs font-semibold text-primary" data-seerah-count>${readCount} / ${total}</span>
-          </div>
-          <div class="w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-            <div data-seerah-bar class="h-full bg-primary transition-all" style="width:${pct}%"></div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <input type="search" data-seerah-search value="${this.esc(this.query)}"
-            placeholder="${this.esc(this.tt('seerah_search_placeholder'))}"
-            class="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800
-                   text-sm text-gray-800 dark:text-gray-100 focus:outline-none focus:border-primary" dir="auto" />
-        </div>
-
-        <div class="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1">${chips}</div>
-
-        <div data-seerah-list></div>
-
-        <div class="text-center mt-6 mb-8">
-          <button type="button" data-seerah-reset
-            class="text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 underline">
-            ${this.esc(this.tt('seerah_reset_progress'))}
-          </button>
-        </div>
+        ${toggle}
+        ${this.view === 'topics' ? topicsBody : timelineBody}
       </div>`;
 
-    this.renderList();
+    if (this.view !== 'topics') this.renderList();
     this.bind();
+  }
+
+  topicCardHtml(tp) {
+    const isOpen = this.expanded.has(tp.id);
+    const points = (this.language === 'bn' ? (tp.pointsBn || tp.pointsEn) : tp.pointsEn) || [];
+    const verses = Array.isArray(tp.verses) ? tp.verses : [];
+    const pointsHtml = points.length
+      ? `<ul class="mt-2 space-y-1 list-none">
+           ${points.map(p => `<li class="flex gap-2 text-sm text-gray-700 dark:text-gray-200" dir="auto"><span class="text-primary mt-0.5" aria-hidden="true">▸</span><span class="flex-1">${this.esc(p)}</span></li>`).join('')}
+         </ul>`
+      : '';
+    const versesHtml = verses.length
+      ? `<div class="pt-3"><span class="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">${this.esc(this.tt('seerah_bt_verses'))}</span>
+           <div class="flex flex-wrap gap-1.5 mt-1">
+             ${verses.map(v => `<button type="button" data-seerah-ayah="${this.esc(v)}"
+               class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium hover:bg-primary hover:text-white transition-colors">
+               📖 ${this.esc(v)}</button>`).join('')}
+           </div>
+         </div>`
+      : '';
+    return `
+      <article class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+        <button type="button" data-seerah-toggle="${this.esc(tp.id)}"
+          class="w-full text-left p-4 flex items-center gap-3">
+          <span class="text-2xl" aria-hidden="true">${this.esc(tp.emoji)}</span>
+          <span class="flex-1 font-semibold text-gray-800 dark:text-gray-100 leading-snug" dir="auto">${this.esc(this.pick(tp, 'title'))}</span>
+          <span class="text-gray-300 dark:text-gray-500 text-sm" data-seerah-caret="${this.esc(tp.id)}">${isOpen ? '▲' : '▼'}</span>
+        </button>
+        <div data-seerah-detail="${this.esc(tp.id)}" class="${isOpen ? '' : 'hidden'} px-4 pb-4 -mt-1">
+          <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.pick(tp, 'summary'))}</p>
+          ${pointsHtml ? `<div class="mt-2"><span class="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">${this.esc(this.tt('seerah_key_points'))}</span>${pointsHtml}</div>` : ''}
+          ${versesHtml}
+        </div>
+      </article>`;
   }
 
   renderList() {
@@ -906,6 +1067,9 @@ class SeerahView {
       try {
         const t2 = e.target.closest ? e.target : e.target.parentElement;
         if (!t2) return;
+
+        const viewBtn = e.target.closest('[data-seerah-view]');
+        if (viewBtn) { this.view = viewBtn.getAttribute('data-seerah-view'); this.render(); return; }
 
         const filterBtn = e.target.closest('[data-seerah-filter]');
         if (filterBtn) { this.filter = filterBtn.getAttribute('data-seerah-filter'); this.render(); return; }

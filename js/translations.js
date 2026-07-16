@@ -1148,7 +1148,9 @@ const TRANSLATIONS = {
     ponder_next: "Next ayah",
     qa_title: "Learn Quranic Arabic",
     seerah_title: "Seerah — Life of the Prophet ﷺ",
-    whyislam_title: "Why Islam?"
+    whyislam_title: "Why Islam?",
+    prophets_title: "Prophets & Messengers",
+    group_prophets: "Nabi & Rasul"
 
   },
 
@@ -2296,7 +2298,9 @@ const TRANSLATIONS = {
     ponder_next: "পরবর্তী আয়াত",
     qa_title: "কুরআনি আরবি শিখুন",
     seerah_title: "সিরাত — নবী ﷺ-এর জীবনী",
-    whyislam_title: "কেন ইসলাম?"
+    whyislam_title: "কেন ইসলাম?",
+    prophets_title: "নবী ও রাসূলগণ",
+    group_prophets: "নবী ও রাসূল"
 
   },
 

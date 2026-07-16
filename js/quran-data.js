@@ -35,9 +35,10 @@ const QuranData = {
     ja: 35    // Ryoichi Mita (Japanese)
   },
 
-  // Languages with real word-by-word translations on quran.com.
-  // Others (e.g. fr) fall back to English word meanings.
-  WBW_LANGS: ['en', 'bn', 'ur', 'id', 'tr', 'fa', 'ru', 'de', 'ta', 'ml', 'hi'],
+  // Languages with real word-by-word translations bundled offline (data/wbw/<lang>.json).
+  // Verified genuine (non-English) glosses: en, bn, ur, id, tr, fa, hi.
+  // All other UI languages reuse en.json glosses (their ayah translation is still native).
+  WBW_LANGS: ['en', 'bn', 'ur', 'id', 'tr', 'fa', 'hi'],
 
   _morphCache: {},
   _rootsPromise: null,
@@ -68,6 +69,12 @@ const QuranData = {
     const variant = `${this.translationId(lang)}:${this.wbwLang(lang)}`;
     const cacheKey = `${surah}:${startAyah}-${endAyah}:${lang}:${variant}`;
     if (this._verseCache[cacheKey]) return this._verseCache[cacheKey];
+
+    // Offline-first: build from bundled per-language data. Always works, no network,
+    // and never silently shows English for a language whose data we bundle. Falls
+    // through to the quran.com API only when a required local file/range is missing.
+    const local = await this.buildLocalRange(surah, startAyah, endAyah, lang);
+    if (local) { this._verseCache[cacheKey] = local; return local; }
 
     const perPage = 50;
     const firstPage = Math.floor((startAyah - 1) / perPage) + 1;
@@ -271,6 +278,85 @@ const QuranData = {
       .map(([word, r]) => ({ word, count: r.count, first: r.first }))
       .sort((a, b) => b.count - a.count);
     return { total, verses: verses.size, forms: list };
+  },
+
+  // ---- Offline per-language data (bundled static JSON; see scripts/gen_offline_lang.py) ----
+  // Language-neutral base: { "s:a": { t:uthmani, j:juz, p:page, tr:[translit,...] } }
+  _verseBaseP: null,
+  getVerseBase() {
+    if (!this._verseBaseP) {
+      this._verseBaseP = fetch('data/verse-base.json')
+        .then(r => r.ok ? r.json() : null).catch(() => null);
+    }
+    return this._verseBaseP;
+  },
+  // Per-language ayah translations: { "s:a": "translation" }
+  _localTrP: {},
+  getLocalTranslations(lang) {
+    if (!(lang in this._localTrP)) {
+      this._localTrP[lang] = fetch(`data/translations/${lang}.json`)
+        .then(r => r.ok ? r.json() : null).catch(() => null);
+    }
+    return this._localTrP[lang];
+  },
+  // Per-language word glosses aligned to quran-words.json: { "s:a": ["w1",...] }
+  _localWbwP: {},
+  getLocalWbw(wl) {
+    if (!(wl in this._localWbwP)) {
+      this._localWbwP[wl] = fetch(`data/wbw/${wl}.json`)
+        .then(r => r.ok ? r.json() : null).catch(() => null);
+    }
+    return this._localWbwP[wl];
+  },
+
+  /**
+   * Build a verse range entirely from bundled offline data (no network), so
+   * word-by-word + translation always render in the selected language. Returns
+   * null if any required piece is missing, so fetchRange falls back to the API.
+   */
+  async buildLocalRange(surah, startAyah, endAyah, lang) {
+    try {
+      const trId = this.translationId(lang);          // null for Arabic UI (no translation line)
+      const wbwLang = this.wbwLang(lang);
+      const [base, words, translations, wbw] = await Promise.all([
+        this.getVerseBase(),
+        this.getQuranWords(),
+        trId ? this.getLocalTranslations(lang) : Promise.resolve({}),
+        this.getLocalWbw(wbwLang)
+      ]);
+      // Essentials + (translation when the UI language expects one) + glosses must all be present.
+      if (!base || !words || !wbw) return null;
+      if (trId && !translations) return null;
+      const surahInfo = getSurahByNumber(surah);
+      const out = [];
+      for (let a = startAyah; a <= endAyah; a++) {
+        const key = `${surah}:${a}`;
+        const b = base[key];
+        const wArr = words[key];
+        if (!b || !wArr) return null;                 // gap → let the API handle this range
+        const tr = b.tr || [];
+        const glosses = wbw[key] || [];
+        out.push({
+          surah, ayah: a, key,
+          arabic: b.t || wArr.join(' '),
+          translation: (translations && translations[key]) || '',
+          juz: b.j || 0,
+          page: b.p || 0,
+          surahName: surahInfo?.names?.en || '',
+          surahArabicName: surahInfo?.arabicName || '',
+          words: wArr.map((ar, i) => ({
+            position: i + 1,
+            arabic: ar,
+            translit: tr[i] || '',
+            meaning: glosses[i] || '',
+            audio: this.wordAudioUrl(surah, a, i + 1)
+          }))
+        });
+      }
+      return out;
+    } catch (e) {
+      return null;
+    }
   },
 
   /** Exact-word index: { normalizedWord: ["surah:ayah:word", ...] } (~1MB, loaded once) */

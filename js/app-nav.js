@@ -12,6 +12,14 @@
  */
 
 const APP_NAV_PRIMARY = [
+  // Pinned to the top of the sidebar (per request): Similar Verses + Memorize.
+  { id: 'mutashabihat', emoji: '🪞', label: 'mutashabihat_title', tab: 'mutashabihat' },
+  { id: 'memorize', emoji: '🎙️', label: 'memorize', modes: [
+      { mode: 'speech', emoji: '🎙️', label: 'mem_mode_speech' },
+      { mode: 'typing', emoji: '⌨️', label: 'mem_mode_typing' },
+      { mode: 'arrange', emoji: '🔀', label: 'mem_mode_arrange' },
+      { mode: 'record', emoji: '🔴', label: 'mem_mode_record' }
+    ] },
   { id: 'subject', emoji: '📖', label: 'nav_subject', drill: 'legacy' },
   { id: 'topics', emoji: '🗂️', label: 'topics_title', tab: 'topics' },
   { id: 'wordrepeat', emoji: '🔁', label: 'wr_title', tab: 'wordrepeat' },
@@ -26,19 +34,15 @@ const APP_NAV_PRIMARY = [
       { tab: 'tajweedlearn', emoji: '🎨', label: 'tj_learn_title' },
       { tab: 'quranicarabic', emoji: '🔤', label: 'qa_title' }
     ] },
-  { id: 'memorize', emoji: '🎙️', label: 'memorize', modes: [
-      { mode: 'speech', emoji: '🎙️', label: 'mem_mode_speech' },
-      { mode: 'typing', emoji: '⌨️', label: 'mem_mode_typing' },
-      { mode: 'arrange', emoji: '🔀', label: 'mem_mode_arrange' },
-      { mode: 'record', emoji: '🔴', label: 'mem_mode_record' }
-    ] },
   { id: 'quiz',   emoji: '❓', label: 'quiz_center_title', tab: 'quiz' },
   { id: 'audio',  emoji: '🎧', label: 'audio',  tab: 'audio' },
   { id: 'mushaf', emoji: '📗', label: 'mushaf', tab: 'mushaf' },
-  { id: 'seerah', emoji: '🌙', label: 'seerah_title', tab: 'seerah' },
+  { id: 'anbiya', emoji: '🕋', label: 'group_prophets', children: [
+      { tab: 'prophets', emoji: '📜', label: 'prophets_title' },
+      { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' }
+    ] },
   { id: 'whyislam', emoji: '💡', label: 'whyislam_title', tab: 'whyislam' },
-  { id: 'resources', emoji: '🔗', label: 'resources_title', tab: 'resources' },
-  { id: 'mutashabihat', emoji: '🪞', label: 'mutashabihat_title', tab: 'mutashabihat' }
+  { id: 'resources', emoji: '🔗', label: 'resources_title', tab: 'resources' }
 ];
 
 class AppNav {
@@ -80,7 +84,12 @@ class AppNav {
   // ---- rendering ---------------------------------------------------------
 
   render() {
-    if (this.view === 'learn') return this.renderChildren(APP_NAV_PRIMARY.find(p => p.id === 'learn'));
+    // A drilled-in children group (Learn, Nabi & Rasul, …) — tracked by id so any
+    // number of groups work, not just a hardcoded one.
+    if (this.view === 'children') {
+      const g = APP_NAV_PRIMARY.find(p => p.id === this.childGroup);
+      if (g) return this.renderChildren(g);
+    }
     if (this.view === 'memorize') return this.renderChildren(APP_NAV_PRIMARY.find(p => p.id === 'memorize'));
     this.renderPrimary();
   }
@@ -188,7 +197,7 @@ class AppNav {
     const p = APP_NAV_PRIMARY.find(x => x.id === id);
     if (!p) return;
     if (p.drill === 'legacy') return this.showLegacy();
-    if (p.children) { this.view = 'learn'; return this.renderChildren(p); }
+    if (p.children) { this.view = 'children'; this.childGroup = p.id; return this.renderChildren(p); }
     if (p.modes) { this.view = 'memorize'; return this.renderChildren(p); }
     if (p.tab) { this.switchTab(p.tab); this.closeSidebarMobile(); }
   }
