@@ -17,7 +17,13 @@ const PONDER_REFS = [
   '29:69', '30:21', '31:17-19', '39:53', '40:60', '42:36-38',
   '49:12-13', '50:16', '51:55-56', '53:39-42', '55:13',
   '57:22-23', '59:18-19', '65:2-3', '67:1-2', '87:14-17',
-  '93:3-5', '94:5-6', '103:1-3'
+  '93:3-5', '94:5-6', '103:1-3',
+  // extended curated selections
+  '2:45-46', '2:201', '3:133-134', '3:185', '4:36', '6:32',
+  '7:23', '9:105', '11:114', '13:24', '14:34', '17:80',
+  '20:25-28', '23:1-3', '24:22', '31:14', '33:41-42',
+  '35:29-30', '39:9', '41:34', '46:15', '55:60', '64:11',
+  '73:8', '89:27-30', '99:7-8'
 ];
 
 // Generic, non-doctrinal tadabbur prompt keys (cycled per verse). These never
@@ -70,6 +76,8 @@ class PonderCard {
       this.render();
       return;
     }
+    const shareBtn = e.target.closest('[data-ponder-share]');
+    if (shareBtn) { this.shareCurrent(shareBtn); return; }
     if (e.target.closest('[data-dismiss-dev]')) {
       try { localStorage.setItem('devNoticeDismissed', '1'); } catch (err) {}
       const n = document.getElementById('dev-notice');
@@ -224,6 +232,32 @@ class PonderCard {
     this.copyText(text, btn);
   }
 
+  /** Build shareable text for the verse currently on the card. */
+  shareText() {
+    const lang = this.language;
+    const lines = [];
+    if (this.curArabic) lines.push(this.curArabic);
+    if (this.curTranslation) lines.push(this.curTranslation);
+    lines.push(`— ${this.curName || ''} ${this.curRef || ''}`.trim());
+    if (Array.isArray(this.curPrompts) && this.curPrompts.length) {
+      lines.push('');
+      lines.push(`${t('ponder_title', lang)}:`);
+      this.curPrompts.forEach(p => { if (p) lines.push(`• ${p}`); });
+    }
+    return lines.join('\n');
+  }
+
+  /** Share via the native share sheet when available, otherwise copy to clipboard. */
+  shareCurrent(btn) {
+    if (!this.curRef) return;
+    const text = this.shareText();
+    if (navigator.share) {
+      navigator.share({ text }).catch(() => {});
+      return;
+    }
+    this.copyText(text, btn);
+  }
+
   /** Dismissible "under development" notice with a contact email. */
   devBannerHtml(lang) {
     let dismissed = false;
@@ -334,10 +368,13 @@ class PonderCard {
       // Remember the current pick so the journal can attach reflections to it.
       this.curRef = ref;
       this.curName = name;
+      this.curArabic = arabic;
+      this.curTranslation = translation;
 
       // Three rotating generic reflection prompts (varies with day / random pick).
       const seed = this.forcedRef ? this.randSeed : this.dayIndex();
       const [p1, p2, p3] = this.promptsFor(seed);
+      this.curPrompts = [p1, p2, p3];
 
       document.getElementById('ponder-body').innerHTML = `
         <div class="ayah-arabic !text-3xl !leading-loose mb-3" dir="rtl">${arabic}</div>
@@ -360,6 +397,10 @@ class PonderCard {
           <button data-ponder-random
                   class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
             ✨ ${t('ponder_random', lang)}
+          </button>
+          <button data-ponder-share
+                  class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+            📤 ${t('ponder_share', lang)}
           </button>
         </div>
         <div id="ponder-journal" class="mt-6 pt-5 border-t border-indigo-100 dark:border-gray-700 text-start">

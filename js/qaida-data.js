@@ -50,42 +50,48 @@ const QAIDA_HARAKAT = [
     name: 'فَتْحَة',
     translit: 'Fatha',
     soundSuffix: 'a',
-    makeExample: function (letterChar) { return letterChar + 'َ'; }
+    makeExample: function (letterChar) { return letterChar + 'َ'; },
+    example: { arabic: 'كَتَبَ', translit: 'Kataba', meaning: { en: 'he wrote', bn: 'সে লিখল' } }
   },
   {
     mark: 'ِ', // kasra
     name: 'كَسْرَة',
     translit: 'Kasra',
     soundSuffix: 'i',
-    makeExample: function (letterChar) { return letterChar + 'ِ'; }
+    makeExample: function (letterChar) { return letterChar + 'ِ'; },
+    example: { arabic: 'بِنْت', translit: 'Bint', meaning: { en: 'girl', bn: 'মেয়ে' } }
   },
   {
     mark: 'ُ', // damma
     name: 'ضَمَّة',
     translit: 'Damma',
     soundSuffix: 'u',
-    makeExample: function (letterChar) { return letterChar + 'ُ'; }
+    makeExample: function (letterChar) { return letterChar + 'ُ'; },
+    example: { arabic: 'كُتُب', translit: 'Kutub', meaning: { en: 'books', bn: 'বইসমূহ' } }
   },
   {
     mark: 'ً', // fathatan
     name: 'فَتْحَتَان',
     translit: 'Fathatan',
     soundSuffix: 'an',
-    makeExample: function (letterChar) { return letterChar + 'ًا'; } // e.g. بًا
+    makeExample: function (letterChar) { return letterChar + 'ًا'; }, // e.g. بًا
+    example: { arabic: 'عَلِيمًا', translit: "'Aliman", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
   },
   {
     mark: 'ٍ', // kasratan
     name: 'كَسْرَتَان',
     translit: 'Kasratan',
     soundSuffix: 'in',
-    makeExample: function (letterChar) { return letterChar + 'ٍ'; }
+    makeExample: function (letterChar) { return letterChar + 'ٍ'; },
+    example: { arabic: 'عَلِيمٍ', translit: "'Alimin", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
   },
   {
     mark: 'ٌ', // dammatan
     name: 'ضَمَّتَان',
     translit: 'Dammatan',
     soundSuffix: 'un',
-    makeExample: function (letterChar) { return letterChar + 'ٌ'; }
+    makeExample: function (letterChar) { return letterChar + 'ٌ'; },
+    example: { arabic: 'عَلِيمٌ', translit: "'Alimun", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
   },
   {
     mark: 'ْ', // sukoon
@@ -93,13 +99,15 @@ const QAIDA_HARAKAT = [
     translit: 'Sukoon',
     soundSuffix: '',
     // A resting letter needs a vowel before it: أَبْ (ab)
-    makeExample: function (letterChar) { return 'أَ' + letterChar + 'ْ'; }
+    makeExample: function (letterChar) { return 'أَ' + letterChar + 'ْ'; },
+    example: { arabic: 'قُلْ', translit: 'Qul', meaning: { en: 'say', bn: 'বলো' } }
   },
   {
     mark: 'ّ', // shadda
     name: 'شَدَّة',
     translit: 'Shadda',
     soundSuffix: '',
+    example: { arabic: 'رَبّ', translit: 'Rabb', meaning: { en: 'Lord', bn: 'প্রভু' } },
     // Doubled letter: أَبَّ (abba)
     makeExample: function (letterChar) { return 'أَ' + letterChar + 'َّ'; }
   },
@@ -108,6 +116,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ أَلِف',
     translit: 'Madd Alif',
     soundSuffix: 'aa',
+    example: { arabic: 'قَالَ', translit: 'Qala', meaning: { en: 'he said', bn: 'সে বলল' } },
     makeExample: function (letterChar) { return letterChar + 'َا'; } // بَا
   },
   {
@@ -115,6 +124,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ يَاء',
     translit: 'Madd Ya',
     soundSuffix: 'ii',
+    example: { arabic: 'قِيلَ', translit: 'Qila', meaning: { en: 'it was said', bn: 'বলা হলো' } },
     makeExample: function (letterChar) { return letterChar + 'ِي'; } // بِي
   },
   {
@@ -122,6 +132,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ وَاو',
     translit: 'Madd Waw',
     soundSuffix: 'uu',
+    example: { arabic: 'نُور', translit: 'Nur', meaning: { en: 'light', bn: 'আলো' } },
     makeExample: function (letterChar) { return letterChar + 'ُو'; } // بُو
   }
 ];

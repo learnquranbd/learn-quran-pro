@@ -93,6 +93,7 @@ class SearchView {
             ${this.mode === 'phrase' ? t('search_phrase_hint', lang) : t('search_contains_hint', lang)}
           </p>
           <div id="search-chips" class="pt-1"></div>
+          <div id="search-history" class="pt-1"></div>
         </div>
         <div id="search-results"></div>
       </div>
@@ -100,6 +101,7 @@ class SearchView {
 
     this.renderResults();
     this.renderChips();
+    this.renderHistory();
   }
 
   bindEvents() {
@@ -109,6 +111,15 @@ class SearchView {
       this.query = e.target.value;
       clearTimeout(this.debounceTimer);
       this.debounceTimer = setTimeout(() => this.runSearch(), 250);
+    });
+
+    // Enter runs the search immediately and records it in the recent history.
+    this.container.addEventListener('keydown', (e) => {
+      if (e.target.id !== 'search-input' || e.key !== 'Enter') return;
+      e.preventDefault();
+      clearTimeout(this.debounceTimer);
+      this.addHistory(this.query);
+      this.runSearch();
     });
 
     this.container.addEventListener('click', (e) => {
@@ -130,6 +141,22 @@ class SearchView {
         if (inp) { inp.value = word; inp.focus(); }
         this.query = word;
         clearTimeout(this.debounceTimer);
+        this.addHistory(word);
+        this.runSearch();
+        return;
+      }
+
+      const histClear = e.target.closest('#search-clear-history');
+      if (histClear) { this.clearHistory(); return; }
+
+      const histChip = e.target.closest('.search-hist-chip');
+      if (histChip) {
+        const q = histChip.getAttribute('data-hist') || '';
+        const inp = this.container.querySelector('#search-input');
+        if (inp) { inp.value = q; inp.focus(); }
+        this.query = q;
+        clearTimeout(this.debounceTimer);
+        this.addHistory(q); // re-affirm to move it to the front
         this.runSearch();
         return;
       }
@@ -222,6 +249,62 @@ class SearchView {
     this.loadTokens()
       .then(tokens => { this._topWords = this.computeTopWords(tokens, 18); build(this._topWords); })
       .catch(() => { /* chips are non-essential; stay silent on data errors */ });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Recent search history (localStorage 'searchHistory')
+   * ------------------------------------------------------------------ */
+
+  getHistory() {
+    let arr = [];
+    try { arr = JSON.parse(localStorage.getItem('searchHistory')) || []; } catch (e) { /* ignore */ }
+    return Array.isArray(arr) ? arr.filter(q => typeof q === 'string' && q.trim()) : [];
+  }
+
+  /** Push a query to the front of the recent list (deduped, capped at 12). */
+  addHistory(q) {
+    q = (q || '').trim();
+    if (!q) return;
+    let arr = this.getHistory().filter(x => x !== q);
+    arr.unshift(q);
+    arr = arr.slice(0, 12);
+    try { localStorage.setItem('searchHistory', JSON.stringify(arr)); } catch (e) { /* ignore */ }
+    this.renderHistory();
+  }
+
+  clearHistory() {
+    try { localStorage.removeItem('searchHistory'); } catch (e) { /* ignore */ }
+    this.renderHistory();
+  }
+
+  /** Render the recent-search chips (Arabic queries shown RTL) with a clear-all. */
+  renderHistory() {
+    const host = this.container.querySelector('#search-history');
+    if (!host) return;
+    const lang = this.language;
+    const list = this.getHistory();
+    if (!list.length) { host.innerHTML = ''; return; }
+
+    const chips = list.map(q => `
+      <button type="button" data-hist="${this._attr(q)}"
+              class="search-hist-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+                     bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600
+                     hover:bg-primary/10 hover:border-primary/40 dark:hover:bg-blue-900/40 dark:hover:border-blue-600
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 dark:focus-visible:ring-blue-400
+                     transition-colors">
+        <span class="ayah-arabic !text-base !mb-0 !pb-0 !border-b-0 text-gray-700 dark:text-gray-200" dir="rtl">${this._esc(q)}</span>
+      </button>`).join('');
+
+    host.innerHTML = `
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">${t('search_recent', lang)}</p>
+        <button type="button" id="search-clear-history"
+                class="text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 dark:focus-visible:ring-blue-400 rounded transition-colors">
+          ${t('search_clear_history', lang)}
+        </button>
+      </div>
+      <div class="flex flex-wrap gap-2">${chips}</div>`;
   }
 
   /* ------------------------------------------------------------------ *

@@ -21,6 +21,9 @@
 const HW_NON_CONNECTORS = ['ا', 'د', 'ذ', 'ر', 'ز', 'و'];
 const HW_FORMS = ['isolated', 'initial', 'medial', 'final'];
 const HW_PASS_PCT = 60;
+/** Ink palette + nib sizes offered under the canvas (persisted per user). */
+const HW_COLORS = ['#111827', '#1e40af', '#dc2626', '#059669', '#d97706', '#7c3aed'];
+const HW_SIZES = [3, 6, 10, 16];
 
 class Handwriting {
   constructor() {
@@ -36,6 +39,7 @@ class Handwriting {
     this.reveal = false;
     this.guide = false;
     this.progress = this.loadProgress(); // { 'section:target[:form]': bestPct }
+    this.brush = this.loadBrush();        // { size, color } — persisted nib
     this._audio = new Audio();
     this._clips = null;
     fetch('audio/qaida/manifest.json').then(r => r.ok ? r.json() : null).then(m => { this._clips = m || {}; }).catch(() => {});
@@ -90,6 +94,22 @@ class Handwriting {
 
   saveProgress() {
     try { localStorage.setItem('hw_progress', JSON.stringify(this.progress)); } catch (e) {}
+  }
+
+  /* ---------- brush (localStorage) ---------- */
+
+  loadBrush() {
+    try {
+      const b = JSON.parse(localStorage.getItem('hw_brush') || '{}') || {};
+      return {
+        size: HW_SIZES.includes(b.size) ? b.size : 6,
+        color: (typeof b.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(b.color)) ? b.color : '#111827'
+      };
+    } catch (e) { return { size: 6, color: '#111827' }; }
+  }
+
+  saveBrush() {
+    try { localStorage.setItem('hw_brush', JSON.stringify(this.brush)); } catch (e) {}
   }
 
   progressKey(text, form) {
@@ -196,6 +216,28 @@ class Handwriting {
             <button data-hw-undo class="px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">↶ ${t('hw_undo', lang)}</button>
             <button data-hw-clear class="px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">${t('clear', lang)}</button>
           </div>
+
+          <!-- Nib controls: ink colour, brush size, and save-as-PNG -->
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mt-3">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs text-gray-500 dark:text-gray-400">${t('hw_color', lang)}</span>
+              ${HW_COLORS.map(c => `
+                <button data-hw-color="${c}" aria-label="${c}" title="${c}"
+                        class="w-6 h-6 rounded-full border-2 transition-transform ${c === this.brush.color ? 'border-primary scale-110' : 'border-transparent'}"
+                        style="background:${c}"></button>`).join('')}
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs text-gray-500 dark:text-gray-400">${t('hw_brush', lang)}</span>
+              ${HW_SIZES.map(s => `
+                <button data-hw-size="${s}" aria-label="${s}px"
+                        class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${s === this.brush.size
+                          ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}">
+                  <span style="display:inline-block;width:${Math.max(4, Math.round(s / 1.4))}px;height:${Math.max(4, Math.round(s / 1.4))}px;border-radius:9999px;background:currentColor"></span>
+                </button>`).join('')}
+            </div>
+            <button data-hw-download class="px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">⬇ ${t('hw_download', lang)}</button>
+          </div>
+
           <div id="hw-feedback" class="text-center text-sm mt-2 min-h-[1.25rem]"></div>
           <p id="hw-hint" class="text-center text-xs text-gray-400 mt-1">${this.guide ? t('hw_guide_hint', lang) : t('hw_hint', lang)}</p>
         </div>
@@ -296,8 +338,8 @@ class Handwriting {
     // Numbered stroke-direction dots (right-to-left) when the guide is on
     if (this.guide && !this.reveal) this.drawGuideDots(ctx);
     // User strokes
-    ctx.strokeStyle = '#111827';
-    ctx.lineWidth = 6;
+    ctx.strokeStyle = (this.brush && this.brush.color) || '#111827';
+    ctx.lineWidth = (this.brush && this.brush.size) || 6;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     for (const stroke of this.strokes) {
@@ -449,6 +491,28 @@ class Handwriting {
     }
   }
 
+  /** Flatten the canvas (guide glyph + ink) onto a white page and download a PNG. */
+  downloadPNG() {
+    if (!this.canvas || !this.canvas.width) return;
+    try {
+      const out = document.createElement('canvas');
+      out.width = this.canvas.width;
+      out.height = this.canvas.height;
+      const ox = out.getContext('2d');
+      if (!ox) return;
+      ox.fillStyle = '#ffffff';
+      ox.fillRect(0, 0, out.width, out.height);
+      ox.drawImage(this.canvas, 0, 0);
+      const safe = String(this.current().label || 'letter').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'letter';
+      const a = document.createElement('a');
+      a.href = out.toDataURL('image/png');
+      a.download = `handwriting_${safe}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {}
+  }
+
   /** Stop the clip + TTS this module owns (called on tab/module leave). */
   stopAll() {
     try { this._audio.pause(); } catch (e) {}
@@ -488,6 +552,37 @@ class Handwriting {
       this.redraw();
       return;
     }
+    const color = e.target.closest('[data-hw-color]');
+    if (color) {
+      // Live — no re-render, so in-progress ink survives the colour change.
+      this.brush.color = color.getAttribute('data-hw-color');
+      this.saveBrush();
+      this.root.querySelectorAll('[data-hw-color]').forEach(b => {
+        const on = b.getAttribute('data-hw-color') === this.brush.color;
+        b.classList.toggle('border-primary', on);
+        b.classList.toggle('scale-110', on);
+        b.classList.toggle('border-transparent', !on);
+      });
+      this.redraw();
+      return;
+    }
+    const size = e.target.closest('[data-hw-size]');
+    if (size) {
+      this.brush.size = parseInt(size.getAttribute('data-hw-size'), 10) || 6;
+      this.saveBrush();
+      this.root.querySelectorAll('[data-hw-size]').forEach(b => {
+        const on = parseInt(b.getAttribute('data-hw-size'), 10) === this.brush.size;
+        b.classList.toggle('bg-primary', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-gray-100', !on);
+        b.classList.toggle('dark:bg-gray-800', !on);
+        b.classList.toggle('text-gray-600', !on);
+        b.classList.toggle('dark:text-gray-300', !on);
+      });
+      this.redraw();
+      return;
+    }
+    if (e.target.closest('[data-hw-download]')) return this.downloadPNG();
     if (e.target.closest('[data-hw-reveal]')) { this.reveal = !this.reveal; this.redraw(); return; }
     if (e.target.closest('[data-hw-undo]')) { this.strokes.pop(); this.redraw(); return; }
     if (e.target.closest('[data-hw-clear]')) {

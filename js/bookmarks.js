@@ -35,6 +35,22 @@ class Bookmarks {
     this.importing = false;         // import panel open?
     this.sortMode = this.read('bookmarkSort', 'recent'); // 'recent' | 'surah'
 
+    // Local fallback for NEW i18n keys not yet merged into translations.js;
+    // t() returns the raw key when missing, so fb() substitutes a readable
+    // string until the keys land. (Reported alongside this change.)
+    this.FB = {
+      en: {
+        recently_read: 'Recently read',
+        jump_to_ayah: 'Go',
+        jump_placeholder: 'Jump to ayah, e.g. 2:255',
+      },
+      bn: {
+        recently_read: 'সম্প্রতি পঠিত',
+        jump_to_ayah: 'যান',
+        jump_placeholder: 'আয়াতে যান, যেমন ২:২৫৫',
+      },
+    };
+
     // Toggle stars + strip controls (own delegated listener on the container)
     this.container.addEventListener('click', (e) => this.onClick(e));
 
@@ -75,6 +91,13 @@ class Bookmarks {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (err) { /* private mode / quota — in-memory only */ }
+  }
+
+  /** Translate a (possibly new) key with a local en/bn fallback. */
+  fb(key, lang) {
+    let s = t(key, lang);
+    if (s === key) s = (this.FB[lang] && this.FB[lang][key]) || this.FB.en[key] || key;
+    return s;
   }
 
   getBookmarks() {
@@ -141,7 +164,14 @@ class Bookmarks {
     const last = ayahs[ayahs.length - 1];
     const name = this.localSurahName(first.surah);
     const range = ayahs.length > 1 ? `${first.ayah}–${last.ayah}` : `${first.ayah}`;
-    this.write('lastRead', { hash, label: `${name} ${range}`.trim() });
+    const label = `${name} ${range}`.trim();
+    this.write('lastRead', { hash, label });
+
+    // Recent-read history: newest first, deduped by hash, capped.
+    const prev = this.read('recentReads', []);
+    const arr = Array.isArray(prev) ? prev.filter(x => x && x.hash && x.hash !== hash) : [];
+    arr.unshift({ hash, label, at: Date.now() });
+    this.write('recentReads', arr.slice(0, 8));
   }
 
   /* --------------------------------------------------------- helpers */
@@ -207,6 +237,22 @@ class Bookmarks {
     if (cont) {
       e.preventDefault();
       window.location.hash = cont.getAttribute('data-hash');
+      return;
+    }
+
+    // Recent-read chip → jump back to that range
+    const recent = e.target.closest('.bm-recent');
+    if (recent) {
+      e.preventDefault();
+      window.location.hash = recent.getAttribute('data-hash');
+      return;
+    }
+
+    // Jump-to-ayah button
+    const jump = e.target.closest('#bm-jump');
+    if (jump) {
+      e.preventDefault();
+      this.doJump();
       return;
     }
 
@@ -333,6 +379,15 @@ class Bookmarks {
     }).catch(() => {});
   }
 
+  /** Navigate to a "s:a" typed into the jump box (ignores invalid input). */
+  doJump() {
+    const inp = document.getElementById('bm-jump-input');
+    if (!inp) return;
+    const m = String(inp.value).trim().match(/^(\d+)\s*:\s*(\d+)$/);
+    if (!m) return;
+    window.location.hash = `${m[1]}:${m[2]}`;
+  }
+
   saveNote(key) {
     const input = document.getElementById('bm-note-input');
     if (!input) return;
@@ -409,6 +464,9 @@ class Bookmarks {
         </button>`;
     }
 
+    inner += this.buildRecentHtml(lang, lastRead);
+    inner += this.buildJumpHtml(lang);
+
     if (bookmarks.length) inner += this.buildBookmarksSection(lang, bookmarks);
 
     return `
@@ -416,6 +474,36 @@ class Bookmarks {
            class="w-full mt-6 mb-2 rounded-2xl bg-white dark:bg-gray-800 shadow px-4 py-4
                   border border-gray-100 dark:border-gray-700">
         ${inner}
+      </div>`;
+  }
+
+  /** Chips for previously-read ranges (excludes the one shown as Continue). */
+  buildRecentHtml(lang, lastRead) {
+    const hist = this.read('recentReads', []);
+    if (!Array.isArray(hist)) return '';
+    const topHash = lastRead && lastRead.hash;
+    const items = hist
+      .filter(x => x && x.hash && x.hash !== topHash)
+      .slice(0, 6);
+    if (!items.length) return '';
+    const chips = items.map(x => `
+      <button class="bm-recent px-2.5 py-1 rounded-full text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white transition-colors truncate max-w-[11rem]"
+              data-hash="${this.escapeHtml(x.hash)}" dir="auto">${this.escapeHtml(x.label || x.hash)}</button>`).join('');
+    return `
+      <div class="mt-3">
+        <h3 class="text-xs uppercase font-semibold text-gray-400 dark:text-gray-500 mb-2 px-1">🕘 ${this.fb('recently_read', lang)}</h3>
+        <div class="flex flex-wrap gap-1.5">${chips}</div>
+      </div>`;
+  }
+
+  /** Quick "go to any ayah by s:a" input. */
+  buildJumpHtml(lang) {
+    return `
+      <div class="mt-3 flex items-center gap-2">
+        <input id="bm-jump-input" type="text" dir="ltr" inputmode="text"
+               placeholder="${this.escapeHtml(this.fb('jump_placeholder', lang))}"
+               class="flex-1 min-w-0 px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/60 focus:outline-none focus:ring-2 focus:ring-primary">
+        <button id="bm-jump" class="px-3 py-1.5 text-sm rounded-lg bg-primary text-white hover:bg-primary/80 whitespace-nowrap">↪ ${this.fb('jump_to_ayah', lang)}</button>
       </div>`;
   }
 
@@ -605,6 +693,12 @@ class Bookmarks {
     if (collInput) collInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); this.setCollection(this.editingCollection, collInput.value); this.editingCollection = null; this.renderStrip(); }
       if (e.key === 'Escape') { this.editingCollection = null; this.renderStrip(); }
+    });
+
+    // Enter jumps to the typed ayah
+    const jumpInput = strip.querySelector('#bm-jump-input');
+    if (jumpInput) jumpInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); this.doJump(); }
     });
 
     // Apply any existing search term to the freshly rendered rows

@@ -35,6 +35,8 @@ class Khatmah {
     this.FB = {
       en: {
         khatmah_or_pages: 'or by pages/day:',
+        khatmah_or_date: 'or finish by a date:',
+        khatmah_ramadan: 'Ramadan plan (30 days)',
         khatmah_stat_streak: 'Day streak',
         khatmah_stat_verses: 'Verses read',
         khatmah_stat_projected: 'Projected finish',
@@ -48,6 +50,8 @@ class Khatmah {
       },
       bn: {
         khatmah_or_pages: 'অথবা পৃষ্ঠা/দিন হিসেবে:',
+        khatmah_or_date: 'অথবা নির্দিষ্ট তারিখের মধ্যে:',
+        khatmah_ramadan: 'রমজান পরিকল্পনা (৩০ দিন)',
         khatmah_stat_streak: 'ধারাবাহিকতা',
         khatmah_stat_verses: 'পঠিত আয়াত',
         khatmah_stat_projected: 'প্রক্ষেপিত সমাপ্তি',
@@ -234,6 +238,16 @@ class Khatmah {
         const inp = this.container.querySelector('#kh-ppd');
         const ppd = inp ? parseInt(inp.value) : NaN;
         if (ppd >= 1) this.startPlan(Math.max(1, Math.round(604 / ppd)));
+      } else if (v === 'date') {
+        const inp = this.container.querySelector('#kh-date');
+        if (inp && inp.value) {
+          const target = new Date(inp.value + 'T00:00:00');
+          const today = new Date(); today.setHours(0, 0, 0, 0);
+          if (!isNaN(target.getTime())) {
+            const days = Math.floor((target.getTime() - today.getTime()) / 86400000) + 1;
+            if (days >= 1) this.startPlan(days);
+          }
+        }
       } else this.startPlan(parseInt(v));
       return;
     }
@@ -286,6 +300,9 @@ class Khatmah {
       <div class="w-full max-w-3xl mx-auto">
         <h3 class="text-sm uppercase tracking-wide font-semibold text-gray-400 dark:text-gray-500 mb-3 text-center">${this.tt('khatmah_choose')}</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">${cards}</div>
+        <div class="text-center mb-4">
+          <button data-kh-start="30" class="px-4 py-2 rounded-xl bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600 shadow">🌙 ${this.f('khatmah_ramadan')}</button>
+        </div>
         <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <div class="flex items-center gap-2">
             <label for="kh-custom" class="text-sm text-gray-500 dark:text-gray-400">${this.tt('khatmah_custom')}</label>
@@ -299,8 +316,27 @@ class Khatmah {
                    class="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-center">
             <button data-kh-start="pages" class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">${this.tt('khatmah_start')}</button>
           </div>
+          <div class="flex items-center gap-2">
+            <label for="kh-date" class="text-sm text-gray-500 dark:text-gray-400">${this.f('khatmah_or_date')}</label>
+            <input id="kh-date" type="date"
+                   class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-center">
+            <button data-kh-start="date" class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/80">${this.tt('khatmah_start')}</button>
+          </div>
         </div>
       </div>`;
+  }
+
+  /** SVG progress ring showing an integer percentage. */
+  ring(pct) {
+    const r = 26, c = 2 * Math.PI * r, off = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
+    return `
+      <svg width="64" height="64" viewBox="0 0 64 64" class="shrink-0" role="img" aria-label="${pct}%">
+        <circle cx="32" cy="32" r="${r}" fill="none" stroke="currentColor" stroke-width="6" class="text-gray-100 dark:text-gray-700"/>
+        <circle cx="32" cy="32" r="${r}" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"
+                stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"
+                transform="rotate(-90 32 32)" class="text-primary dark:text-blue-400 transition-all"/>
+        <text x="32" y="37" text-anchor="middle" font-size="15" font-weight="700" class="fill-current text-primary dark:text-blue-400">${pct}%</text>
+      </svg>`;
   }
 
   statCard(label, value) {
@@ -382,16 +418,20 @@ class Khatmah {
       ${this.header()}
       <div class="w-full">
         <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 mb-5">
-          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-            <span class="text-sm font-semibold">${this.tt('khatmah_progress').replace('{done}', doneCount).replace('{total}', p.days)}</span>
-            <span class="text-sm">${pace}</span>
-          </div>
-          <div class="h-2.5 rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-primary to-secondary transition-all" style="width:${pct}%"></div>
-          </div>
-          <div class="flex flex-wrap items-center justify-between gap-2 mt-2 text-xs text-gray-400">
-            <span>${pct}%</span>
-            <span>${this.tt('khatmah_finish').replace('{date}', finishStr)}</span>
+          <div class="flex items-center gap-4">
+            ${this.ring(pct)}
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="text-sm font-semibold">${this.tt('khatmah_progress').replace('{done}', doneCount).replace('{total}', p.days)}</span>
+                <span class="text-sm">${pace}</span>
+              </div>
+              <div class="h-2.5 rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-primary to-secondary transition-all" style="width:${pct}%"></div>
+              </div>
+              <div class="mt-2 text-xs text-gray-400 text-end">
+                ${this.tt('khatmah_finish').replace('{date}', finishStr)}
+              </div>
+            </div>
           </div>
         </div>
 

@@ -31,7 +31,9 @@ class TopicsBrowser {
     this.collections = (typeof TOPIC_COLLECTIONS !== 'undefined') ? TOPIC_COLLECTIONS : [];
     this.FAV_KEY = 'topics_favs_v1';
     this.RECENT_KEY = 'topics_recent_v1';
+    this.SORT_KEY = 'topics_sort_v1';
     this.RECENT_MAX = 12;
+    this.sort = this.loadSort();          // 'az' | 'count'
     this.favs = this.loadStore(this.FAV_KEY);       // [topic keys]
     this.recent = this.loadStore(this.RECENT_KEY);  // [topic keys], most-recent first
 
@@ -81,6 +83,25 @@ class TopicsBrowser {
     this.saveStore(this.FAV_KEY, this.favs);
     this.render();
   }
+  loadSort() {
+    try { return localStorage.getItem(this.SORT_KEY) === 'count' ? 'count' : 'az'; }
+    catch (e) { return 'az'; }
+  }
+  setSort(mode) {
+    this.sort = mode === 'count' ? 'count' : 'az';
+    try { localStorage.setItem(this.SORT_KEY, this.sort); } catch (e) { /* ignore */ }
+    this.renderModalList();
+  }
+  /** Order a topic list by the active sort: localized name, or verse count desc. */
+  sortItems(items) {
+    const arr = items.slice();
+    if (this.sort === 'count') {
+      arr.sort((a, b) => (b.verses.length - a.verses.length) ||
+        this.dn(a.topic).localeCompare(this.dn(b.topic), this.language));
+    }
+    return arr;
+  }
+
   pushRecent(topic) {
     this.recent = [topic, ...this.recent.filter(t => t !== topic)].slice(0, this.RECENT_MAX);
     this.saveStore(this.RECENT_KEY, this.recent);
@@ -308,6 +329,10 @@ class TopicsBrowser {
     this.modalBack.addEventListener('click', () => this.showModalList());
     this.overlay.addEventListener('click', (e) => { if (e.target === this.overlay) this.closeModal(); });
     this.modalBody.addEventListener('click', (e) => {
+      const sort = e.target.closest('[data-sort]');
+      if (sort) { this.setSort(sort.getAttribute('data-sort')); return; }
+      const cr = e.target.closest('[data-copyrefs]');
+      if (cr) { this.copyRefs(cr.getAttribute('data-copyrefs'), cr); return; }
       const mfav = e.target.closest('[data-mfav]');
       if (mfav) { this.toggleFav(mfav.getAttribute('data-mfav')); this.showModalTopic(mfav.getAttribute('data-mfav'), true); return; }
       const mt = e.target.closest('[data-mtopic]');
@@ -378,12 +403,24 @@ class TopicsBrowser {
       items = this.byLetter[this.activeLetter] || [];
       total = items.length;
     }
+    items = this.sortItems(items);
     if (!items.length) { box.innerHTML = `<p class="text-center py-8 text-gray-400">${this.tt('topics_no_results')}</p>`; return; }
     const countLine = total > items.length
       ? this.tt('topics_showing_first').replace('{shown}', items.length).replace('{total}', total)
       : `${items.length} ${this.tt('topics_count_label')}`;
+    const sortBtn = (mode, label) =>
+      `<button data-sort="${mode}" class="px-2 py-0.5 rounded-md ${this.sort === mode
+        ? 'bg-primary text-white'
+        : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}">${label}</button>`;
     box.innerHTML = `
-      <div class="text-xs text-gray-400 mb-2">${countLine}</div>
+      <div class="flex items-center justify-between gap-2 mb-2">
+        <span class="text-xs text-gray-400">${countLine}</span>
+        <span class="flex items-center gap-1 text-xs">
+          <span class="text-gray-400">${this.tt('sort_by')}</span>
+          ${sortBtn('az', this.tt('topics_sort_az'))}
+          ${sortBtn('count', this.tt('topics_sort_count'))}
+        </span>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
         ${items.map(i => `
           <button data-mtopic="${this.esc(i.topic)}" class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-start hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600" dir="auto">
@@ -447,11 +484,27 @@ class TopicsBrowser {
     return `
       <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
         <span class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">${headerExtra || ''}<span>${verses.length} ${this.tt('topics_verses_label')}</span></span>
-        ${openBar}
+        <span class="flex items-center gap-1.5">
+          <button data-copyrefs="${this.esc(verses.join(','))}" title="${this.esc(this.tt('copy'))}" aria-label="${this.esc(this.tt('copy'))}"
+                  class="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button>
+          ${openBar}
+        </span>
       </div>
       <div class="flex flex-wrap gap-1.5">
         ${verses.map(v => `<button data-verse="${this.esc(v)}" class="text-sm font-mono px-2.5 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">${this.esc(v)}</button>`).join('')}
       </div>`;
+  }
+
+  /** Copy a topic/collection's verse references to the clipboard. */
+  copyRefs(refStr, btn) {
+    const text = String(refStr || '').split(',').map(s => s.trim()).filter(Boolean).join(', ');
+    if (!text || !navigator.clipboard || !navigator.clipboard.writeText) return;
+    navigator.clipboard.writeText(text).then(() => {
+      if (!btn) return;
+      const old = btn.textContent;
+      btn.textContent = this.tt('copied');
+      setTimeout(() => { btn.textContent = old; }, 1200);
+    }).catch(() => {});
   }
 
   /** Load one or more "surah:ayah" refs into the Reading tab via deep-link hash. */
@@ -485,7 +538,9 @@ TopicsBrowser.L = {
   topics_recent:      { en: 'Recently viewed', bn: 'সম্প্রতি দেখা' },
   topics_az_index:    { en: 'A–Z index', bn: 'বর্ণানুক্রমিক তালিকা' },
   topics_fav:         { en: 'Add to favourites', bn: 'পছন্দে যোগ করুন' },
-  topics_unfav:       { en: 'Remove from favourites', bn: 'পছন্দ থেকে সরান' }
+  topics_unfav:       { en: 'Remove from favourites', bn: 'পছন্দ থেকে সরান' },
+  topics_sort_az:     { en: 'A–Z', bn: 'ক-হ' },
+  topics_sort_count:  { en: 'Verses', bn: 'আয়াত' }
 };
 
 let topicsBrowser;

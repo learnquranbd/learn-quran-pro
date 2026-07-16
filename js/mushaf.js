@@ -56,6 +56,10 @@ class MushafView {
 
     // Keyboard paging — only while the mushaf tab is active
     document.addEventListener('keydown', (e) => this.handleKey(e));
+
+    // Keep the fullscreen button + container styling in sync with browser state
+    // (covers Esc-to-exit and the OS-level fullscreen controls too)
+    document.addEventListener('fullscreenchange', () => this.syncFullscreenButton());
   }
 
   clampPage(page) {
@@ -192,6 +196,8 @@ class MushafView {
                     class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"></button>
             <button id="mushaf-filter" title="${t('mushaf_filter', lang)}" aria-label="${t('mushaf_filter', lang)}"
                     class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"></button>
+            <button id="mushaf-fullscreen" title="${t('mushaf_fullscreen', lang)}" aria-label="${t('mushaf_fullscreen', lang)}"
+                    class="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">⛶</button>
           </div>
 
           <!-- Page bookmarks -->
@@ -256,6 +262,7 @@ class MushafView {
     this.hdrPrevBtn = this.container.querySelector('#mushaf-hdr-prev');
     this.fitBtn = this.container.querySelector('#mushaf-fit');
     this.filterBtn = this.container.querySelector('#mushaf-filter');
+    this.fullscreenBtn = this.container.querySelector('#mushaf-fullscreen');
     this.bookmarkBtn = this.container.querySelector('#mushaf-bookmark');
     this.bookmarksPanel = this.container.querySelector('#mushaf-bookmarks-panel');
     this.bookmarksList = this.container.querySelector('#mushaf-bookmarks-list');
@@ -277,8 +284,10 @@ class MushafView {
     // View comfort controls
     this.fitBtn.addEventListener('click', () => this.setFit(this.fit() === 'height' ? 'width' : 'height'));
     this.filterBtn.addEventListener('click', () => this.cycleFilter());
+    if (this.fullscreenBtn) this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
     this.syncFitButton();
     this.syncFilterButton();
+    this.syncFullscreenButton();
 
     // Bookmark controls
     this.bookmarkBtn.addEventListener('click', () => this.toggleBookmark(this.page));
@@ -583,7 +592,44 @@ class MushafView {
     } else if (e.key === 'b' || e.key === 'B') { // bookmark current page
       e.preventDefault();
       this.toggleBookmark(this.page);
+    } else if (e.key === 'f' || e.key === 'F') { // fullscreen reading toggle
+      e.preventDefault();
+      this.toggleFullscreen();
     }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Fullscreen reading (distraction-free page view)
+   * ------------------------------------------------------------------ */
+
+  isFullscreen() {
+    return !!(document.fullscreenElement);
+  }
+
+  toggleFullscreen() {
+    try {
+      if (this.isFullscreen()) {
+        if (document.exitFullscreen) document.exitFullscreen();
+      } else if (this.container && this.container.requestFullscreen) {
+        this.container.requestFullscreen();
+      }
+    } catch (e) { /* fullscreen unsupported / blocked — no-op */ }
+  }
+
+  syncFullscreenButton() {
+    const fs = this.isFullscreen();
+    // Give the container breathing room + a neutral backdrop while fullscreen
+    if (this.container) {
+      this.container.classList.toggle('overflow-auto', fs);
+      this.container.classList.toggle('bg-gray-100', fs);
+      this.container.classList.toggle('dark:bg-gray-900', fs);
+      this.container.classList.toggle('p-2', fs);
+    }
+    if (!this.fullscreenBtn) return;
+    this.fullscreenBtn.textContent = fs ? '🡼' : '⛶';
+    const label = fs ? t('mushaf_exit_fullscreen', this.language) : t('mushaf_fullscreen', this.language);
+    this.fullscreenBtn.title = label;
+    this.fullscreenBtn.setAttribute('aria-label', label);
   }
 
   /* ------------------------------------------------------------------ *

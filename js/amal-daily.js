@@ -58,6 +58,18 @@ const AMAL_ITEMS = [
     src: '—', grade: 'common',
     en: 'Ar-Rahman — "the bride of the Quran" is a weak narration, but it is beloved to recite and ponder often.',
     bn: 'সূরা আর-রাহমান — "কুরআনের দুলহান" বর্ণনাটি দুর্বল, তবে প্রায়ই তিলাওয়াত ও তাদাব্বুর করা উত্তম।' },
+  { id: 'baqarah-house', refs: '2:1-286', surahs: [2], when: ['any'],
+    src: 'Muslim 780', grade: 'sahih',
+    en: 'Recite Al-Baqarah in your home — Shaytan flees the house in which it is read; do not turn your homes into graveyards.',
+    bn: 'ঘরে সূরা বাকারা পড়ুন — যে ঘরে তা পড়া হয় শয়তান সেখান থেকে পালায়; ঘরকে কবরস্থানে পরিণত করো না।' },
+  { id: 'ikhlas-third', refs: '112:1-4', surahs: [112], when: ['any'],
+    src: 'Bukhari 5013', grade: 'sahih',
+    en: 'Al-Ikhlas equals a third of the Quran — whoever recites it three times gains the reward of reciting the whole Quran.',
+    bn: 'সূরা ইখলাস কুরআনের এক-তৃতীয়াংশের সমান — যে তিনবার পড়ে সে পূর্ণ কুরআন পাঠের সওয়াব পায়।' },
+  { id: 'zilzal', refs: '99:1-8', surahs: [99], when: ['any'],
+    src: 'Tirmidhi 2894', grade: 'common',
+    en: 'Az-Zalzalah is said to equal half the Quran in reward; the chain is weak, but the surah powerfully stirs remembrance of the Day.',
+    bn: 'সূরা যিলযাল অর্ধেক কুরআনের সমান বলা হয়; সনদ দুর্বল, তবে সূরাটি কিয়ামতের স্মরণ জাগায়।' },
 ];
 
 /**
@@ -108,6 +120,18 @@ const MORNING_EVENING_ADHKAR = [
     src: 'Muslim 2709',
     en: '“I seek refuge in Allah’s perfect words from the evil of what He created” — three times in the evening; nothing will harm him that night.',
     bn: '“আউযু বিকালিমাতিল্লাহিত তাম্মাতি মিন শাররি মা খালাক্ব” — সন্ধ্যায় তিনবার; সে রাতে কিছুই তার ক্ষতি করবে না।' },
+  { id: 'radina', count: 3,
+    ar: 'رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا',
+    tr: 'Raditu billahi Rabban, wa bil-Islami dinan, wa bi-Muhammadin ﷺ nabiyya',
+    src: 'Abu Dawud 5072 · Tirmidhi 3389',
+    en: '“I am pleased with Allah as Lord, Islam as religion, and Muhammad ﷺ as Prophet” — three times; Allah takes it upon Himself to please him on the Day of Resurrection.',
+    bn: '“রাযিতু বিল্লাহি রাব্বান, ওয়া বিল-ইসলামি দীনান, ওয়া বিমুহাম্মাদিন ﷺ নাবিয়্যা” — তিনবার; আল্লাহ কিয়ামতের দিন তাকে সন্তুষ্ট করার দায়িত্ব নেন।' },
+  { id: 'salawat', count: 10,
+    ar: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَىٰ نَبِيِّنَا مُحَمَّدٍ',
+    tr: 'Allahumma salli wa sallim ‘ala nabiyyina Muhammad',
+    src: 'Tabarani (hasan)',
+    en: 'Send blessings upon the Prophet ﷺ — ten times morning and evening; whoever does so attains his intercession on the Day of Resurrection.',
+    bn: 'নবী ﷺ-এর উপর দরূদ পাঠ করুন — সকাল-সন্ধ্যায় দশবার; যে তা করে কিয়ামতের দিন তার শাফাআত লাভ করে।' },
 ];
 
 /** After-salah tasbih: SubhanAllah 33 · Alhamdulillah 33 · Allahu Akbar 34 = 100. Source: Muslim 596. */

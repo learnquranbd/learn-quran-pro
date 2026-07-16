@@ -70,6 +70,9 @@ class TafseerView {
     // Side-by-side source comparison (remembered across sessions)
     this.compare = false;
     try { this.compare = localStorage.getItem('tafsirCompare') === '1'; } catch (e) { /* ignore */ }
+    // Persisted per-ayah bookmarks: [{ key, sid }] (sid = tafsir source id)
+    this.BOOKMARKS_KEY = 'tafsirBookmarks_v1';
+    this.bookmarks = this.loadBookmarks();
 
     this.injectStyles();
     this.populateSources();
@@ -112,6 +115,66 @@ class TafseerView {
   rememberSource() {
     if (!this.select || !this.select.value) return;
     try { localStorage.setItem('tafsirSource:' + this.language, this.select.value); } catch (e) { /* ignore */ }
+  }
+
+  /* ---------- bookmarks (persist an ayah + its chosen source) ---------- */
+
+  loadBookmarks() {
+    try {
+      const v = JSON.parse(localStorage.getItem(this.BOOKMARKS_KEY));
+      return Array.isArray(v) ? v.filter(b => b && b.key) : [];
+    } catch (e) { return []; }
+  }
+
+  saveBookmarks() {
+    try { localStorage.setItem(this.BOOKMARKS_KEY, JSON.stringify(this.bookmarks)); }
+    catch (e) { /* quota / private mode */ }
+  }
+
+  isBookmarked(key) {
+    const sid = this.selectedTafsirId();
+    return this.bookmarks.some(b => b.key === key && b.sid === sid);
+  }
+
+  /** Toggle the current source's bookmark for an ayah, then refresh the view. */
+  toggleBookmark(key) {
+    if (!key) return;
+    const sid = this.selectedTafsirId();
+    const i = this.bookmarks.findIndex(b => b.key === key && b.sid === sid);
+    if (i === -1) this.bookmarks.unshift({ key, sid });
+    else this.bookmarks.splice(i, 1);
+    this.saveBookmarks();
+    this.rendered = false;
+    this.render();
+  }
+
+  /**
+   * Open a saved bookmark: restore its source, then ensure the ayah is loaded.
+   * If it is among the loaded ayahs, just jump to its card; otherwise deep-link
+   * it into Reading (same hash pattern the rest of the app uses) so the shared
+   * selection — and this tafsir view — reload around it.
+   */
+  loadBookmark(key, sid) {
+    if (this.select && Number.isFinite(sid) &&
+        [...this.select.options].some(o => o.value === String(sid))) {
+      this.select.value = String(sid);
+      this.rememberSource();
+    }
+    if (this.ayahs.some(a => a.key === key)) {
+      this.rendered = false;
+      this.render();
+      this.jumpToCard(key);
+      return;
+    }
+    if (typeof tabSystem !== 'undefined' && tabSystem) tabSystem.switchTab('reading');
+    if (decodeURIComponent(window.location.hash.slice(1)) === key) {
+      if (typeof quranApp !== 'undefined' && quranApp) {
+        quranApp._writingHash = null;
+        quranApp.handleHashChange();
+      }
+    } else {
+      window.location.hash = key;
+    }
   }
 
   isTabVisible() {
@@ -313,7 +376,25 @@ class TafseerView {
 
   /** Full in-pane header: outline strip (jump-to-ayah) + control toolbar. */
   headerHtml(lang) {
-    return this.outlineHtml(lang) + this.toolbarHtml(lang) + this.compareBarHtml(lang);
+    return this.bookmarksBarHtml(lang) + this.outlineHtml(lang) +
+           this.toolbarHtml(lang) + this.compareBarHtml(lang);
+  }
+
+  /** Saved-bookmark chips; a chip restores its source and reopens the ayah. */
+  bookmarksBarHtml(lang) {
+    if (!this.bookmarks.length) return '';
+    const chips = this.bookmarks.map(b => {
+      const name = TAFSIR_ID_NAME[b.sid] || '';
+      return `<button data-tafsir-bm-jump="${b.key}" data-sid="${b.sid}"
+          title="${b.key}${name ? ' · ' + name : ''}"
+          class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full border border-amber-300 dark:border-amber-500/40 text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-colors">
+          <span aria-hidden="true">🔖</span>${b.key}</button>`;
+    }).join('');
+    return `
+      <div class="mb-3">
+        <div class="text-xs text-gray-400 mb-1">${t('tafsir_bookmarks', lang)}</div>
+        <div class="flex gap-1.5 overflow-x-auto pb-1" dir="ltr">${chips}</div>
+      </div>`;
   }
 
   /** Control toolbar: font size, reading width, compare + expand/collapse all. */
@@ -410,8 +491,8 @@ class TafseerView {
     this.render();
   }
 
-  /** Copy an ayah's Arabic + its loaded tafsir text (both columns in compare). */
-  copyCard(key) {
+  /** Plain-text of an ayah's Arabic + its loaded tafsir (both columns in compare). */
+  getCardText(key) {
     const card = this.content.querySelector(`[data-tafseer-card="${key}"]`) ||
                  this.content.querySelector(`[data-key="${key}"]`)?.closest('div');
     const ayah = this.ayahs.find(a => a.key === key);
@@ -422,11 +503,36 @@ class TafseerView {
       const txt = b.innerText.trim();
       return this.compare && name ? `[${name}]\n${txt}` : txt;
     }).filter(Boolean);
-    const text = `${ayah ? ayah.arabic : ''}\n(${key})\n\n${parts.join('\n\n')}`.trim();
-    const done = (btn) => { if (btn) { const old = btn.textContent; btn.textContent = '✓'; setTimeout(() => { btn.textContent = old; }, 1200); } };
+    return `${ayah ? ayah.arabic : ''}\n(${key})\n\n${parts.join('\n\n')}`.trim();
+  }
+
+  flashBtn(btn, glyph) {
+    if (!btn) return;
+    const old = btn.textContent;
+    btn.textContent = glyph;
+    setTimeout(() => { btn.textContent = old; }, 1200);
+  }
+
+  /** Copy an ayah's Arabic + its loaded tafsir text (both columns in compare). */
+  copyCard(key) {
+    const text = this.getCardText(key);
     const btn = this.content.querySelector(`[data-tafsir-copy="${key}"]`);
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => done(btn)).catch(() => {});
+      navigator.clipboard.writeText(text).then(() => this.flashBtn(btn, '✓')).catch(() => {});
+    }
+  }
+
+  /** Share via the native share sheet, falling back to a clipboard copy. */
+  shareCard(key) {
+    const text = this.getCardText(key);
+    if (!text) return;
+    const btn = this.content.querySelector(`[data-tafsir-share="${key}"]`);
+    if (navigator.share) {
+      navigator.share({ text }).catch(() => { /* user dismissed / unsupported */ });
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => this.flashBtn(btn, '✓')).catch(() => {});
     }
   }
 
@@ -436,10 +542,22 @@ class TafseerView {
       <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 flex-1">
         <span class="ayah-number">${ayah.ayah}</span>
         <span>${ayah.surahName} ${ayah.key}</span>
-        ${withCopy ? `<button data-tafsir-copy="${ayah.key}" title="${t('copy', this.language)}" aria-label="${t('copy', this.language)}"
-                class="ml-auto px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button>` : ''}
+        ${withCopy ? `<span class="ml-auto flex items-center gap-1">${this.cardActionsHtml(ayah.key)}</span>` : ''}
       </div>
     `;
+  }
+
+  /** Copy / share / bookmark cluster, reused in expanded headers + accordions. */
+  cardActionsHtml(key) {
+    const lang = this.language;
+    const marked = this.isBookmarked(key);
+    const cls = 'px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700';
+    return `
+      <button data-tafsir-copy="${key}" title="${t('copy', lang)}" aria-label="${t('copy', lang)}" class="${cls}">📋</button>
+      <button data-tafsir-share="${key}" title="${t('share', lang)}" aria-label="${t('share', lang)}" class="${cls}">🔗</button>
+      <button data-tafsir-bookmark="${key}" aria-pressed="${marked}"
+              title="${t(marked ? 'remove_bookmark' : 'bookmark', lang)}" aria-label="${t(marked ? 'remove_bookmark' : 'bookmark', lang)}"
+              class="${cls} ${marked ? 'text-amber-500 border-amber-300 dark:border-amber-500/40' : ''}">${marked ? '🔖' : '🏷️'}</button>`;
   }
 
   ayahArabicHtml(ayah) {
@@ -526,8 +644,7 @@ class TafseerView {
           </svg>
         </button>
         <div class="tafseer-panel hidden px-4 pb-4">
-          <div class="text-end"><button data-tafsir-copy="${ayah.key}" title="${t('copy', this.language)}" aria-label="${t('copy', this.language)}"
-                class="px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">📋</button></div>
+          <div class="flex items-center justify-end gap-1">${this.cardActionsHtml(ayah.key)}</div>
           ${this.ayahArabicHtml(ayah)}
           ${this.bodiesHtml(tafsirId)}
           ${this.relatedToolsHtml(ayah)}
@@ -563,6 +680,19 @@ class TafseerView {
 
     const copy = e.target.closest('[data-tafsir-copy]');
     if (copy) { this.copyCard(copy.getAttribute('data-tafsir-copy')); return; }
+
+    const share = e.target.closest('[data-tafsir-share]');
+    if (share) { this.shareCard(share.getAttribute('data-tafsir-share')); return; }
+
+    const bm = e.target.closest('[data-tafsir-bookmark]');
+    if (bm) { this.toggleBookmark(bm.getAttribute('data-tafsir-bookmark')); return; }
+
+    const bmJump = e.target.closest('[data-tafsir-bm-jump]');
+    if (bmJump) {
+      this.loadBookmark(bmJump.getAttribute('data-tafsir-bm-jump'),
+                        parseInt(bmJump.getAttribute('data-sid'), 10));
+      return;
+    }
 
     const toggle = e.target.closest('.tafseer-toggle');
     if (!toggle || !this.content.contains(toggle)) return;
