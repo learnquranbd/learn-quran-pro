@@ -313,10 +313,49 @@ class TafseerView {
     return tpl.innerHTML;
   }
 
+  /**
+   * Lazily load a whole bundled tafsir (data/tafsir/<id>.json = { "s:a": html })
+   * once per source id, cached as a promise. Resolves to the dict, or null if the
+   * source isn't bundled offline (then fetchTafsir falls back to the live API).
+   */
+  getLocalTafsir(tafsirId) {
+    if (!this._localTafsir) this._localTafsir = {};
+    if (!(tafsirId in this._localTafsir)) {
+      this._localTafsir[tafsirId] = fetch(`data/tafsir/${tafsirId}.json`)
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+    }
+    return this._localTafsir[tafsirId];
+  }
+
   /** Fetch one tafsir entry, cached by "tafsirId:verseKey". Returns null if empty. */
   async fetchTafsir(tafsirId, verseKey) {
     const cacheKey = `${tafsirId}:${verseKey}`;
     if (this.cache.has(cacheKey)) return this.cache.get(cacheKey);
+
+    // Offline-first: use the bundled tafsir when this source is available locally.
+    // Files are stored compactly (commentary text once per group, keyed at the
+    // group's first verse), so for a mid-group verse we forward-fill: walk back
+    // within the same surah to the nearest preceding verse that carries text.
+    try {
+      const local = await this.getLocalTafsir(tafsirId);
+      if (local) {
+        let txt = local[verseKey];
+        if (!txt || !txt.trim()) {
+          const parts = verseKey.split(':');
+          const s = parts[0], a = parseInt(parts[1], 10);
+          for (let x = a - 1; x >= 1; x--) {
+            const t = local[s + ':' + x];
+            if (t && t.trim()) { txt = t; break; }
+          }
+        }
+        if (typeof txt === 'string' && txt.trim()) {
+          const result = { text: this.sanitizeHtml(txt), resourceName: TAFSIR_ID_NAME[tafsirId] || '' };
+          this.cache.set(cacheKey, result);
+          return result;
+        }
+      }
+    } catch (e) { /* fall through to API */ }
 
     const promise = fetch(`https://api.quran.com/api/v4/tafsirs/${tafsirId}/by_ayah/${verseKey}`)
       .then(r => {
