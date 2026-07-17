@@ -536,6 +536,86 @@ const WHY_ISLAM_DATA = [
     ],
   },
   {
+    id: 'signs-in-creation',
+    emoji: '🌠',
+    kind: 'article',
+    title: { en: 'Signs in Creation', bn: 'সৃষ্টির নিদর্শনসমূহ' },
+    summary: {
+      en: 'A reflection (tadabbur) on order, balance, conscience and the Quran’s invitation to ponder.',
+      bn: 'শৃঙ্খলা, ভারসাম্য, বিবেক ও কুরআনের অনুধ্যান-আমন্ত্রণ নিয়ে এক তাদাব্বুর।',
+    },
+    points: [
+      {
+        heading: { en: 'An invitation to reflect', bn: 'অনুধ্যানের আমন্ত্রণ' },
+        body: {
+          en: 'Again and again the Quran does not demand blind acceptance but invites careful thought about what we already see: "Indeed, in the creation of the heavens and the earth and the alternation of night and day are signs for those of understanding — who remember God standing, sitting and lying on their sides, and reflect upon the creation of the heavens and the earth" (Quran 3:190–191). This is offered as reasoned reflection (tadabbur), not as a scientific proof — an invitation to look at the world with an open and thoughtful heart.',
+          bn: 'কুরআন বারবার অন্ধ গ্রহণের দাবি করে না, বরং আমরা যা ইতিমধ্যে দেখি তা নিয়ে গভীর চিন্তায় আমন্ত্রণ জানায়: "নিশ্চয়ই আকাশমণ্ডলী ও পৃথিবীর সৃষ্টিতে এবং রাত ও দিনের পরিবর্তনে জ্ঞানীদের জন্য নিদর্শন রয়েছে—যারা দাঁড়িয়ে, বসে ও শায়িত অবস্থায় আল্লাহকে স্মরণ করে এবং আকাশমণ্ডলী ও পৃথিবীর সৃষ্টি নিয়ে চিন্তা করে" (কুরআন ৩:১৯০–১৯১)। এটি এক যুক্তিসংগত অনুধ্যান (তাদাব্বুর) হিসেবে উপস্থাপিত, কোনো বৈজ্ঞানিক প্রমাণ নয়—উন্মুক্ত ও চিন্তাশীল হৃদয়ে জগৎকে দেখার এক আমন্ত্রণ।',
+        },
+      },
+      {
+        heading: { en: 'Order and balance', bn: 'শৃঙ্খলা ও ভারসাম্য' },
+        body: {
+          en: 'The cosmos runs with a steadiness we depend on without noticing — a settled order that makes life and understanding possible at all. The Quran points to this poise as something to marvel at: "the sun and the moon [move] by precise calculation… and the sky He raised and imposed the balance" (Quran 55:5–7). Rather than making a technical claim, Islam asks us to notice how much depends on a fine, sustained equilibrium, and to read that reliability as a sign of a wise and deliberate Sustainer rather than sheer accident.',
+          bn: 'বিশ্বজগৎ এমন এক স্থিরতায় চলে যার উপর আমরা টের না পেয়েই নির্ভর করি—এক সুস্থিত শৃঙ্খলা যা আদৌ জীবন ও উপলব্ধি সম্ভব করে। কুরআন এই ভারসাম্যকে বিস্ময়ের বিষয় হিসেবে দেখায়: "সূর্য ও চন্দ্র সুনির্দিষ্ট হিসাবে চলে… আর আকাশকে তিনি উঁচু করেছেন এবং স্থাপন করেছেন ভারসাম্য" (কুরআন ৫৫:৫–৭)। কোনো কারিগরি দাবি না করে ইসলাম আমাদের বলে লক্ষ করতে যে কতকিছু নির্ভর করে এক সূক্ষ্ম, অব্যাহত সাম্যাবস্থার উপর, এবং সেই নির্ভরযোগ্যতাকে নিছক দুর্ঘটনা নয়, বরং এক প্রজ্ঞাময় ও উদ্দেশ্যপূর্ণ রক্ষণকর্তার নিদর্শন হিসেবে পড়তে।',
+        },
+      },
+      {
+        heading: { en: 'Signs within ourselves', bn: 'আমাদের নিজেদের ভেতরের নিদর্শন' },
+        body: {
+          en: 'The Quran turns our gaze inward as much as outward: "And on the earth are signs for the certain in faith, and in yourselves. Then will you not see?" (Quran 51:20–21). Islam points to the wonder of our own existence and to the moral voice we carry — the inner sense that justice, honesty and compassion are truly good and cruelty truly wrong. This conscience, felt across cultures, is offered as a quiet sign pointing beyond ourselves to the One who placed it there.',
+          bn: 'কুরআন বাইরের মতোই আমাদের দৃষ্টি ভেতরের দিকেও ফেরায়: "আর পৃথিবীতে নিশ্চিত বিশ্বাসীদের জন্য নিদর্শন রয়েছে, এবং তোমাদের নিজেদের মধ্যেও। তবু কি তোমরা দেখবে না?" (কুরআন ৫১:২০–২১)। ইসলাম ইঙ্গিত করে আমাদের নিজেদের অস্তিত্বের বিস্ময়ের দিকে এবং আমরা যে নৈতিক কণ্ঠস্বর বহন করি তার দিকে—সেই অন্তর্গত বোধ যে ন্যায়, সততা ও দয়া প্রকৃতই ভালো আর নিষ্ঠুরতা প্রকৃতই মন্দ। সংস্কৃতিভেদে অনুভূত এই বিবেককে উপস্থাপন করা হয় এক নীরব নিদর্শন হিসেবে, যা আমাদের নিজেদের ছাড়িয়ে সেই সত্তার দিকে ইঙ্গিত করে যিনি তা স্থাপন করেছেন।',
+        },
+      },
+      {
+        heading: { en: 'Reading the signs with humility', bn: 'বিনয়ের সাথে নিদর্শন পাঠ' },
+        body: {
+          en: 'The Quran promises that honest reflection will keep revealing meaning: "We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth" (Quran 41:53). Islam treats this as an ongoing invitation, not a closed argument or a set of specific scientific claims to defend. The signs are read with humility: they do not force belief, but they gently draw an open heart toward gratitude and toward the Source of it all.',
+          bn: 'কুরআন প্রতিশ্রুতি দেয় যে সৎ অনুধ্যান বারবার অর্থ উন্মোচন করতে থাকবে: "আমি তাদের দেখাব আমার নিদর্শনসমূহ দিগন্তে ও তাদের নিজেদের মধ্যে, যতক্ষণ না তাদের কাছে স্পষ্ট হয় যে এটিই সত্য" (কুরআন ৪১:৫৩)। ইসলাম একে দেখে এক চলমান আমন্ত্রণ হিসেবে, কোনো বদ্ধ যুক্তি বা রক্ষা করার মতো নির্দিষ্ট বৈজ্ঞানিক দাবির সমষ্টি হিসেবে নয়। নিদর্শনগুলো বিনয়ের সাথে পড়া হয়: এগুলো বিশ্বাস চাপিয়ে দেয় না, বরং কোমলভাবে উন্মুক্ত হৃদয়কে কৃতজ্ঞতার দিকে এবং সবকিছুর উৎসের দিকে টানে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'message-of-all-prophets',
+    emoji: '📜',
+    kind: 'article',
+    title: { en: 'The Message of All Prophets', bn: 'সকল নবীর বার্তা' },
+    summary: {
+      en: 'One call across every prophet from Adam to Muhammad ﷺ — worship God alone and live justly.',
+      bn: 'আদম থেকে মুহাম্মাদ ﷺ পর্যন্ত প্রত্যেক নবীর একই আহ্বান—কেবল আল্লাহর ইবাদত ও ন্যায়সংগত জীবন।',
+    },
+    points: [
+      {
+        heading: { en: 'One message, many messengers', bn: 'এক বার্তা, বহু রাসুল' },
+        body: {
+          en: 'Islam teaches that God did not leave any people without guidance, and that every prophet carried the same essential call: "And We certainly sent into every nation a messenger, [saying]: Worship God and avoid false gods" (Quran 16:36). From Adam to the final Prophet, the core was never a new religion each time but one continuous message — turn to the one true God, and reject worshipping anything besides Him.',
+          bn: 'ইসলাম শেখায় যে আল্লাহ কোনো জাতিকে হিদায়াত ছাড়া রাখেননি, এবং প্রত্যেক নবী একই মৌলিক আহ্বান বহন করেছেন: "আর আমি প্রত্যেক জাতির মধ্যে একজন রাসুল পাঠিয়েছি এই [বার্তাসহ]: তোমরা আল্লাহর ইবাদত করো এবং তাগুত (মিথ্যা উপাস্য) বর্জন করো" (কুরআন ১৬:৩৬)। আদম থেকে সর্বশেষ নবী পর্যন্ত মূল কথা প্রতিবার নতুন কোনো ধর্ম ছিল না, বরং এক অবিচ্ছিন্ন বার্তা—এক সত্য আল্লাহর দিকে ফেরা, এবং তাঁকে ছাড়া অন্য কিছুর ইবাদত প্রত্যাখ্যান।',
+        },
+      },
+      {
+        heading: { en: 'Worship God alone', bn: 'কেবল আল্লাহর ইবাদত' },
+        body: {
+          en: 'The Quran makes this unity of purpose explicit: "And We sent not before you any messenger except that We revealed to him that there is no deity except Me, so worship Me" (Quran 21:25). Whatever differences there were in law and practice suited to each time and people, the heart of every prophetic mission — Noah, Abraham, Moses, Jesus and Muhammad (peace be upon them all) — was pure devotion to the one God. Islam presents itself not as breaking from this line but as its completion.',
+          bn: 'কুরআন এই উদ্দেশ্যের অভিন্নতা স্পষ্ট করে: "আমি তোমার পূর্বে এমন কোনো রাসুল পাঠাইনি, যাঁর প্রতি আমি এই ওহি করিনি যে, আমি ছাড়া কোনো ইলাহ নেই, সুতরাং আমারই ইবাদত করো" (কুরআন ২১:২৫)। প্রতিটি সময় ও জাতির উপযোগী বিধান ও আমলে যত পার্থক্যই থাকুক, প্রত্যেক নবুয়তি মিশনের—নূহ, ইব্রাহিম, মূসা, ঈসা ও মুহাম্মাদ (তাঁদের সকলের প্রতি শান্তি)—হৃদয় ছিল এক আল্লাহর প্রতি বিশুদ্ধ নিষ্ঠা। ইসলাম নিজেকে উপস্থাপন করে এই ধারা থেকে বিচ্ছিন্নতা হিসেবে নয়, বরং এর পূর্ণতা হিসেবে।',
+        },
+      },
+      {
+        heading: { en: 'A brotherhood of prophets', bn: 'নবীদের ভ্রাতৃত্ব' },
+        body: {
+          en: 'Because the message is one, Islam honours all the prophets and asks believers to make no distinction between them (Quran 2:285). The Prophet Muhammad (peace be upon him) described the prophets as brothers of one family with a single faith. This is why loving and respecting Moses, Jesus and the others (peace be upon them) is not outside Islam but part of it — they are seen as fellow bearers of the same light, each confirming those before him.',
+          bn: 'যেহেতু বার্তা এক, ইসলাম সকল নবীকে সম্মান করে এবং বিশ্বাসীদের বলে তাঁদের মধ্যে কোনো পার্থক্য না করতে (কুরআন ২:২৮৫)। নবী মুহাম্মাদ (তাঁর প্রতি শান্তি) নবীদের বর্ণনা করেছেন এক পরিবারের ভাই হিসেবে, যাঁদের ঈমান অভিন্ন। এ কারণেই মূসা, ঈসা ও অন্যান্য নবী (তাঁদের প্রতি শান্তি)-কে ভালোবাসা ও শ্রদ্ধা করা ইসলামের বাইরে নয়, বরং এর অংশ—তাঁদের দেখা হয় একই আলোর সহবাহক হিসেবে, প্রত্যেকে তাঁর পূর্ববর্তীদের সত্যায়নকারী।',
+        },
+      },
+      {
+        heading: { en: 'Meeting the prophets', bn: 'নবীদের সাথে পরিচয়' },
+        body: {
+          en: 'This shared call comes alive in the individual stories of the prophets — their patience, trust and steadfast devotion to God through hardship. The Prophets module of this app introduces many of them and the one message they carried, so that the continuity described here can be seen in the lives that lived it.',
+          bn: 'এই অভিন্ন আহ্বান জীবন্ত হয়ে ওঠে নবীদের ব্যক্তিগত কাহিনিতে—কষ্টের মধ্য দিয়েও তাঁদের ধৈর্য, ভরসা ও আল্লাহর প্রতি অবিচল নিষ্ঠায়। এই অ্যাপের নবীগণ (Prophets) অংশটি তাঁদের অনেকের ও তাঁরা যে এক বার্তা বহন করেছেন তার পরিচয় দেয়, যাতে এখানে বর্ণিত ধারাবাহিকতা সেই জীবনগুলোতেই দেখা যায় যাঁরা তা যাপন করেছেন।',
+        },
+      },
+    ],
+  },
+  {
     id: 'questions',
     emoji: '💬',
     kind: 'qa',
@@ -662,6 +742,34 @@ const WHY_ISLAM_DATA = [
         a: {
           en: 'No. Belief in divine decree (qadar) is often mistaken for fatalism, but mainstream Islam explicitly rejects using destiny as an excuse for passivity. The Quran ties outcomes to striving — "man will only have that for which he strives" (Quran 53:39) — and a famous prophetic teaching counsels a man to tie his camel first and then trust in God. Work, learning, planning, excellence and honest ambition are praised in Islamic teaching; trust in God (tawakkul) comes after one’s best effort, not instead of it. What qadar adds is peace of mind: having genuinely tried, a believer is freed from crushing anxiety over results that were never in their hands.',
           bn: 'না। তাকদিরে (কদর) বিশ্বাসকে প্রায়ই নিয়তিবাদ ভাবা হয়, কিন্তু মূলধারার ইসলাম ভাগ্যকে নিষ্ক্রিয়তার অজুহাত বানানো স্পষ্টভাবে প্রত্যাখ্যান করে। কুরআন ফলাফলকে প্রচেষ্টার সাথে যুক্ত করে—"মানুষ কেবল তা-ই পায় যার জন্য সে চেষ্টা করে" (কুরআন ৫৩:৩৯)—এবং এক প্রসিদ্ধ নবীসুলভ শিক্ষা একজনকে পরামর্শ দেয় আগে উট বেঁধে তারপর আল্লাহর উপর ভরসা রাখতে। কাজ, শেখা, পরিকল্পনা, উৎকর্ষ ও সৎ উচ্চাকাঙ্ক্ষা ইসলামি শিক্ষায় প্রশংসিত; আল্লাহর উপর ভরসা (তাওয়াক্কুল) আসে সর্বোচ্চ প্রচেষ্টার পরে, তার বদলে নয়। কদর যা যোগ করে তা হলো মনের শান্তি: প্রকৃত চেষ্টার পর, বিশ্বাসী সেই ফলাফলের দুর্বিষহ দুশ্চিন্তা থেকে মুক্ত হয় যা কখনোই তার হাতে ছিল না।',
+        },
+      },
+      {
+        q: { en: 'If Islam is true, why are some Muslims bad examples?', bn: 'ইসলাম যদি সত্য হয়, তবে কিছু মুসলিম মন্দ উদাহরণ কেন?' },
+        a: {
+          en: 'This is a fair and painful observation, and Islam asks us to separate the message from the messenger. A teaching is not disproved by those who fail to live up to it, any more than medicine is discredited by a patient who ignores the prescription. The Quran holds each soul responsible for itself (Quran 53:38–39) and repeatedly rebukes those who preach good yet neglect it (Quran 2:44). Muslims are not taught that believers are sinless — only that the standard they fall short of is a true one. The honest test of Islam is what it actually teaches and the example of the Prophet (peace be upon him), not the worst behaviour of some who carry its name. It is also worth meeting the many Muslims whose faith makes them kinder, more just and more generous, before judging the whole by a few.',
+          bn: 'এটি এক ন্যায্য ও বেদনাদায়ক পর্যবেক্ষণ, এবং ইসলাম আমাদের বলে বার্তা ও বার্তাবাহককে আলাদা করতে। যে ওষুধের নির্দেশনা রোগী উপেক্ষা করে তাতে যেমন ওষুধ মিথ্যা হয় না, তেমনি যারা কোনো শিক্ষায় উঠতে ব্যর্থ হয় তাদের দিয়ে সেই শিক্ষা খণ্ডিত হয় না। কুরআন প্রত্যেক আত্মাকে নিজের জন্য দায়ী করে (কুরআন ৫৩:৩৮–৩৯) এবং বারবার তাদের ভর্ৎসনা করে যারা ভালোর উপদেশ দেয় অথচ নিজে তা অবহেলা করে (কুরআন ২:৪৪)। মুসলিমদের শেখানো হয় না যে বিশ্বাসীরা নিষ্পাপ—কেবল এটুকু যে তারা যে মানদণ্ডে ঘাটতি রাখে তা সত্য। ইসলামের সৎ পরীক্ষা হলো এটি প্রকৃতপক্ষে কী শেখায় ও নবী (তাঁর প্রতি শান্তি)-এর আদর্শ, কিছু নামধারীর নিকৃষ্টতম আচরণ নয়। গোটাকে অল্প কিছু দিয়ে বিচার করার আগে সেই বহু মুসলিমের সাথেও দেখা করা উচিত যাদের ঈমান তাদের অধিক দয়ালু, ন্যায়পরায়ণ ও উদার করে তোলে।',
+        },
+      },
+      {
+        q: { en: 'How do I know which religion — or which sect — is correct?', bn: 'আমি কীভাবে জানব কোন ধর্ম—বা কোন মাযহাব—সঠিক?' },
+        a: {
+          en: 'Islam invites you to sincerely seek, to reason, and to ask God for guidance rather than to choose blindly. For weighing between religions, it points to examinable questions: which account of God is coherent and free of contradiction, which scripture is preserved intact, and which message reasonably fits the world and the moral sense we find in ourselves. For questions within Islam, the mainstream Sunni approach is to hold to the Quran and the authentic teaching of the Prophet (peace be upon him) as understood by the broad body of Muslims across the generations, rather than to follow narrow or novel factions. Differences of scholarly opinion on the details of practice have long existed within accepted limits and are studied with qualified teachers. Above all, a sincere seeker is encouraged to keep learning, to ask honest questions, and to pray for truth — trusting that God guides the one who genuinely seeks Him.',
+          bn: 'ইসলাম আপনাকে আমন্ত্রণ জানায় আন্তরিকভাবে অন্বেষণ করতে, যুক্তি প্রয়োগ করতে, এবং অন্ধভাবে বেছে নেওয়ার বদলে আল্লাহর কাছে হিদায়াত চাইতে। ধর্মগুলোর মধ্যে বিচারের জন্য এটি পরীক্ষণযোগ্য প্রশ্নের দিকে ইঙ্গিত করে: ঈশ্বরের কোন বিবরণ সুসংগত ও দ্বন্দ্বমুক্ত, কোন কিতাব অটুটভাবে সংরক্ষিত, এবং কোন বার্তা জগৎ ও নিজেদের মধ্যে পাওয়া নৈতিক বোধের সাথে যুক্তিসংগতভাবে মেলে। ইসলামের অভ্যন্তরের প্রশ্নে, মূলধারার সুন্নি পন্থা হলো কুরআন এবং নবী (তাঁর প্রতি শান্তি)-এর বিশুদ্ধ শিক্ষাকে ধরে রাখা—প্রজন্ম-পরম্পরায় বিস্তৃত মুসলিম সমাজ যেভাবে তা বুঝেছে সেভাবে—সংকীর্ণ বা নবউদ্ভূত দলাদলির অনুসরণ নয়। আমল-বিষয়ক খুঁটিনাটিতে আলিমদের মতপার্থক্য গ্রহণযোগ্য সীমার মধ্যে বহুকাল ধরে বিদ্যমান এবং যোগ্য শিক্ষকের সাথে অধ্যয়ন করা হয়। সর্বোপরি, আন্তরিক অন্বেষীকে উৎসাহ দেওয়া হয় শেখা চালিয়ে যেতে, সৎ প্রশ্ন করতে, ও সত্যের জন্য প্রার্থনা করতে—এই ভরসায় যে আল্লাহ তাকেই পথ দেখান যে প্রকৃতভাবে তাঁকে অন্বেষণ করে।',
+        },
+      },
+      {
+        q: { en: 'Does Islam oppress women?', bn: 'ইসলাম কি নারীকে নিপীড়ন করে?' },
+        a: {
+          en: 'Islam distinguishes sharply between its teachings and the cultural practices sometimes carried out in its name, which it does not endorse. As teaching, Islam affirms that men and women are equal in their humanity, spiritual worth and accountability before God: "whoever does righteousness, whether male or female, while being a believer — We will surely cause them to live a good life" (Quran 16:97). In its own historical context it established rights that were far-reaching: a woman’s own right to own and inherit property and to keep her wealth after marriage, to consent to her marriage, to seek knowledge (the Prophet said seeking knowledge is an obligation on every Muslim, male and female), to run a business, and to be treated with kindness — "the best of you are the best to their women." Men and women share the same core duties of faith and worship. Islam assigns some complementary roles and responsibilities, which it frames as balanced rather than hierarchical in worth. Where women are genuinely wronged, the fair question is whether the culture or the individual is departing from these teachings — for Islam itself commands honour, justice and gentleness toward women.',
+          bn: 'ইসলাম তার শিক্ষা এবং তার নামে কখনো চালানো সাংস্কৃতিক প্রথার মধ্যে স্পষ্ট পার্থক্য করে, যে প্রথাগুলো সে অনুমোদন করে না। শিক্ষা হিসেবে ইসলাম নিশ্চিত করে যে নারী ও পুরুষ তাদের মানবতা, আধ্যাত্মিক মূল্য ও আল্লাহর কাছে জবাবদিহিতায় সমান: "যে সৎকর্ম করে, সে পুরুষ হোক বা নারী, আর সে মুমিন—আমি অবশ্যই তাকে উত্তম জীবন দান করব" (কুরআন ১৬:৯৭)। নিজ ঐতিহাসিক প্রেক্ষাপটে এটি সুদূরপ্রসারী অধিকার প্রতিষ্ঠা করেছিল: নারীর নিজের সম্পত্তির মালিকানা ও উত্তরাধিকারের অধিকার এবং বিবাহের পরও নিজ সম্পদ রাখার অধিকার, বিবাহে সম্মতি দেওয়ার অধিকার, জ্ঞান অন্বেষণের অধিকার (নবী বলেছেন জ্ঞান অন্বেষণ প্রত্যেক মুসলিম নারী-পুরুষের উপর ফরজ), ব্যবসা পরিচালনার অধিকার, এবং সদয় আচরণ পাওয়ার অধিকার—"তোমাদের মধ্যে সেই উত্তম যে তার নারীদের প্রতি উত্তম।" নারী ও পুরুষ ঈমান ও ইবাদতের একই মূল কর্তব্য ভাগ করে নেয়। ইসলাম কিছু পরিপূরক ভূমিকা ও দায়িত্ব নির্ধারণ করে, যা সে মূল্যের দিক থেকে শ্রেণিবিন্যাস নয়, বরং ভারসাম্য হিসেবে উপস্থাপন করে। যেখানে নারীরা প্রকৃতপক্ষে অন্যায়ের শিকার, সেখানে ন্যায্য প্রশ্ন হলো সংস্কৃতি বা ব্যক্তি এই শিক্ষা থেকে সরে যাচ্ছে কি না—কারণ ইসলাম নিজে নারীর প্রতি সম্মান, ন্যায় ও কোমলতার নির্দেশ দেয়।',
+        },
+      },
+      {
+        q: { en: 'What happens to someone who sincerely never heard of Islam?', bn: 'যে ব্যক্তি আন্তরিকভাবে কখনো ইসলামের কথা শোনেনি তার কী হবে?' },
+        a: {
+          en: 'Islam grounds its answer in the perfect justice of God, who "does not wrong anyone" (Quran 18:49) and does not hold people to account for a message that never genuinely reached them: "We would not punish until We had sent a messenger" (Quran 17:15). Scholars discuss such people under the category of ahl al-fatrah — those living without a clear prophetic message — and the widely held view is that their case rests entirely with God, who judges each person with complete fairness according to their sincerity and the light that actually reached them. A common scholarly position is that God will deal with them justly and mercifully, in a manner He knows best. Muslims are therefore taught not to pronounce the fate of any individual, but to trust that no sincere soul is ever wronged by a God who is both perfectly just and boundlessly merciful.',
+          bn: 'ইসলাম তার উত্তরের ভিত্তি রাখে আল্লাহর পরিপূর্ণ ন্যায়ের উপর, যিনি "কারও প্রতি অবিচার করেন না" (কুরআন ১৮:৪৯) এবং যে বার্তা প্রকৃতপক্ষে কারও কাছে পৌঁছায়নি তার জন্য তাকে দায়ী করেন না: "আমি রাসুল না পাঠানো পর্যন্ত শাস্তি দিই না" (কুরআন ১৭:১৫)। আলিমগণ এমন মানুষদের আলোচনা করেন আহলুল ফাতরাহ শ্রেণির অধীনে—যারা কোনো স্পষ্ট নবুয়তি বার্তা ছাড়াই জীবন কাটিয়েছে—এবং ব্যাপকভাবে গৃহীত মত হলো, তাদের বিষয়টি সম্পূর্ণ আল্লাহর হাতে ন্যস্ত, যিনি প্রত্যেককে তার আন্তরিকতা ও প্রকৃতপক্ষে তার কাছে পৌঁছানো আলো অনুযায়ী সম্পূর্ণ ন্যায্যতায় বিচার করেন। একটি সাধারণ শাস্ত্রীয় অবস্থান হলো, আল্লাহ তাদের সাথে ন্যায় ও দয়ার সাথে আচরণ করবেন, যেভাবে তিনি সর্বোত্তম জানেন। তাই মুসলিমদের শেখানো হয় কোনো ব্যক্তির পরিণতি ঘোষণা না করতে, বরং ভরসা রাখতে যে পরিপূর্ণ ন্যায়বান ও অসীম দয়াময় আল্লাহর কাছে কোনো আন্তরিক আত্মা কখনো অবিচারিত হয় না।',
         },
       },
     ],

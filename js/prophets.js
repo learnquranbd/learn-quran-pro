@@ -620,6 +620,16 @@ const PROPHETS_LINEAGE_QUIZ = [
  * override once wired) and falls back here so the module renders under ANY UI
  * language (English fallback for others; Bengali authored inline).
  */
+// Broad traditional eras, keyed by prophet `order` ranges (see PROPHETS_DATA).
+// Labels resolve through PROPHETS_UI so they stay localizable.
+const PROPHETS_ERAS = [
+  { id: 'early',    min: 1,  max: 2,  key: 'prophets_era_early',    emoji: '🌱' },
+  { id: 'nuh',      min: 3,  max: 5,  key: 'prophets_era_nuh',      emoji: '🌊' },
+  { id: 'ibrahim',  min: 6,  max: 13, key: 'prophets_era_ibrahim',  emoji: '🕋' },
+  { id: 'bani',     min: 14, max: 24, key: 'prophets_era_bani',     emoji: '📜' },
+  { id: 'final',    min: 25, max: 25, key: 'prophets_era_final',    emoji: '☪️' },
+];
+
 const PROPHETS_UI = {
   prophets_title: { en: 'Prophets & Messengers', bn: 'নবী ও রাসূলগণ' },
   prophets_subtitle: { en: 'The 25 prophets named in the Quran (Anbiya wa Rusul)', bn: 'কুরআনে নামোল্লেখিত ২৫ জন নবী (আম্বিয়া ওয়া রুসুল)' },
@@ -685,6 +695,15 @@ const PROPHETS_UI = {
   prophets_mentions_intro: { en: 'How often key prophets are mentioned by name in the Quran.', bn: 'কুরআনে প্রধান নবীদের নাম কতবার উল্লেখিত হয়েছে।' },
   prophets_mentions_note: { en: 'Counts are approximate — commonly cited figures for mentions by name; scholarly tallies vary slightly.', bn: 'সংখ্যাগুলো আনুমানিক — নামে উল্লেখের প্রচলিত হিসাব; আলেমদের গণনায় সামান্য তারতম্য আছে।' },
   prophets_mentions_times: { en: 'times', bn: 'বার' },
+  prophets_potd_title: { en: 'Prophet of the Day', bn: 'আজকের নবী' },
+  prophets_potd_open: { en: 'Read the story', bn: 'কাহিনি পড়ুন' },
+  prophets_group_toggle: { en: 'Group by era', bn: 'যুগ অনুসারে' },
+  prophets_ululazm_strip_title: { en: "Ulul-'Azm — the five resolute messengers", bn: 'উলুল-আযম — পাঁচ দৃঢ়প্রতিজ্ঞ রাসূল' },
+  prophets_era_early: { en: 'Early humanity', bn: 'মানবজাতির সূচনা' },
+  prophets_era_nuh: { en: "Age of Nuh & 'Aad–Thamud", bn: 'নূহ ও আদ–সামুদের যুগ' },
+  prophets_era_ibrahim: { en: 'Age of Ibrahim & his line', bn: 'ইবরাহিম ও তাঁর বংশধারার যুগ' },
+  prophets_era_bani: { en: 'Bani Israil', bn: 'বনী ইসরাঈল' },
+  prophets_era_final: { en: 'The Final Messenger', bn: 'সর্বশেষ রাসূল' },
 };
 
 class ProphetsView {
@@ -695,6 +714,7 @@ class ProphetsView {
     if (!this.language) this.language = 'en';
     this.rendered = false;
     this.view = 'timeline';   // 'timeline' | 'grid'
+    this.grouped = false;     // timeline view: group by traditional era
     this.filter = 'all';      // 'all' | 'rasul' | 'ululazm'
     this.query = '';
     this.selected = null;     // prophet id when in detail view
@@ -851,6 +871,8 @@ class ProphetsView {
         </div>
         <p class="text-xs text-gray-400 dark:text-gray-500 text-center mb-4" dir="auto">${this.esc(this.tt('prophets_intro'))}</p>
 
+        ${this.potdHtml()}
+
         <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 mb-4">
           <div class="flex items-center justify-between gap-2 mb-1.5">
             <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${this.esc(this.tt('prophets_progress'))}</span>
@@ -870,7 +892,16 @@ class ProphetsView {
             placeholder="${this.esc(this.tt('prophets_search_placeholder'))}"
             class="flex-1 px-3 py-2 rounded-lg text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none" dir="auto" />
         </div>
-        <div class="flex flex-wrap gap-2 mb-5">${filters}</div>
+        <div class="flex flex-wrap items-center gap-2 mb-5">
+          ${filters}
+          ${this.view === 'timeline' ? `<button type="button" data-prophets-group
+            class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap border transition-colors
+                   ${this.grouped ? 'bg-primary text-white border-primary'
+                                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-primary'}">
+            <span aria-hidden="true">${this.grouped ? '▣' : '▢'}</span> ${this.esc(this.tt('prophets_group_toggle'))}</button>` : ''}
+        </div>
+
+        ${this.ululStripHtml()}
 
         <div data-prophets-list></div>
 
@@ -924,7 +955,79 @@ class ProphetsView {
     return rankBadge + ululBadge + finalBadge;
   }
 
+  // ── Prophet of the Day (deterministic pick by day-of-year) ───────────
+  potd() {
+    try {
+      const arr = PROPHETS_DATA;
+      if (!Array.isArray(arr) || !arr.length) return null;
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const doy = Math.floor((now - start) / 86400000);
+      const idx = ((doy % arr.length) + arr.length) % arr.length;
+      return arr[idx] || null;
+    } catch (_) { return null; }
+  }
+
+  potdHtml() {
+    const p = this.potd();
+    if (!p) return '';
+    return `
+      <div class="rounded-2xl bg-gradient-to-br from-primary/15 to-transparent border border-primary/25 p-4 mb-4">
+        <div class="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-primary mb-2">
+          <span aria-hidden="true">✦</span> ${this.esc(this.tt('prophets_potd_title'))}
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-3xl font-arabic text-primary shrink-0" dir="rtl" lang="ar">${this.esc(p.ar)}</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-bold text-gray-800 dark:text-gray-100">${this.esc(p.translit)}</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">${this.esc(this.lc(p))}</span>
+            </div>
+            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1" dir="auto">${this.esc(this.loc(p, 'era'))}</p>
+            <button type="button" data-prophets-open="${this.esc(p.id)}"
+              class="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:opacity-90 transition-opacity">
+              📖 ${this.esc(this.tt('prophets_potd_open'))} ›
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── Ulul-'Azm spotlight strip (the five resolute messengers) ─────────
+  ululStripHtml() {
+    const five = PROPHETS_DATA.filter(p => p.ululAzm);
+    if (!five.length) return '';
+    const chips = five.map(p => `
+      <button type="button" data-prophets-open="${this.esc(p.id)}"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-amber-300/60 dark:border-amber-700/60 hover:border-amber-500 hover:shadow-sm transition-all whitespace-nowrap">
+        <span class="font-arabic text-amber-600 dark:text-amber-300" dir="rtl" lang="ar">${this.esc(p.ar)}</span>
+        <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">${this.esc(this.language === 'bn' && p.bn ? p.bn : p.translit)}</span>
+      </button>`).join('');
+    return `
+      <div class="rounded-xl bg-amber-500/5 border border-amber-300/40 dark:border-amber-800/40 p-3 mb-4">
+        <div class="flex items-center gap-1.5 text-[0.7rem] font-semibold text-amber-600 dark:text-amber-300 mb-2">
+          <span aria-hidden="true">★</span> ${this.esc(this.tt('prophets_ululazm_strip_title'))}
+        </div>
+        <div class="flex flex-wrap gap-2">${chips}</div>
+      </div>`;
+  }
+
   timelineHtml(items) {
+    if (!this.grouped) return this.timelineOl(items);
+    return PROPHETS_ERAS.map(era => {
+      const group = items.filter(p => p.order >= era.min && p.order <= era.max);
+      if (!group.length) return '';
+      return `
+        <div class="flex items-center gap-2 mt-5 mb-2 first:mt-0">
+          <span class="text-base" aria-hidden="true">${era.emoji}</span>
+          <h4 class="text-sm font-bold text-gray-700 dark:text-gray-200">${this.esc(this.tt(era.key))}</h4>
+          <span class="flex-1 h-px bg-gray-200 dark:bg-gray-700"></span>
+        </div>
+        ${this.timelineOl(group)}`;
+    }).join('');
+  }
+
+  timelineOl(items) {
     return `
       <ol class="relative border-s-2 border-gray-200 dark:border-gray-700 ms-4 space-y-4">
         ${items.map(p => {
@@ -1369,6 +1472,9 @@ class ProphetsView {
 
         const viewBtn = e.target.closest('[data-prophets-view]');
         if (viewBtn) { this.view = viewBtn.getAttribute('data-prophets-view'); this.render(); return; }
+
+        const groupBtn = e.target.closest('[data-prophets-group]');
+        if (groupBtn) { this.grouped = !this.grouped; this.render(); return; }
 
         const filterBtn = e.target.closest('[data-prophets-filter]');
         if (filterBtn) { this.filter = filterBtn.getAttribute('data-prophets-filter'); this.render(); return; }

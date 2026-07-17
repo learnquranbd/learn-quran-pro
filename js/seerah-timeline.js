@@ -487,6 +487,8 @@ const SEERAH_TOPICS_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria
 const SEERAH_QUIZ_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 12.5 L11 15.5 L16.5 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 // Abstract location-pin accent for the places gazetteer (geometric only).
 const SEERAH_PIN_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 2 a7 7 0 0 1 7 7 c0 5 -7 13 -7 13 s-7 -8 -7 -13 a7 7 0 0 1 7 -7 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.4" fill="currentColor"/></svg>';
+// Abstract open-book / flowing-lines motif for Story mode (geometric only — no figures).
+const SEERAH_STORY_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5 C9 3 5 3 3 4 V19 C5 18 9 18 12 20 C15 18 19 18 21 19 V4 C19 3 15 3 12 5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="5" x2="12" y2="20" stroke="currentColor" stroke-width="1.2"/></svg>';
 
 /**
  * MAJOR TOPICS — browsable thematic cards (bilingual, tap-to-expand). Content is
@@ -787,6 +789,22 @@ const SEERAH_UI = {
   seerah_view_timeline: { en: 'Timeline', bn: 'টাইমলাইন' },
   seerah_view_topics: { en: 'Topics', bn: 'বিষয়সমূহ' },
   seerah_view_quiz: { en: 'Quiz', bn: 'কুইজ' },
+  seerah_view_story: { en: 'Story', bn: 'গল্প' },
+  seerah_story_title: { en: 'Story Mode — Continuous Read', bn: 'গল্প মোড — ধারাবাহিক পাঠ' },
+  seerah_story_intro: { en: 'Read the Prophet’s life ﷺ as one flowing narrative, era by era.', bn: 'নবী ﷺ-এর জীবন যুগ ধরে ধরে একটানা বর্ণনায় পড়ুন।' },
+  seerah_story_prev: { en: 'Previous era', bn: 'পূর্ববর্তী যুগ' },
+  seerah_story_next: { en: 'Next era', bn: 'পরবর্তী যুগ' },
+  seerah_story_progress: { en: 'Reading', bn: 'পাঠ চলছে' },
+  seerah_story_finish: { en: 'You have reached the end of the Seerah.', bn: 'আপনি সিরাতের শেষ প্রান্তে পৌঁছেছেন।' },
+  seerah_share: { en: 'Share', bn: 'শেয়ার' },
+  seerah_copy: { en: 'Copy', bn: 'কপি' },
+  seerah_copied: { en: 'Copied!', bn: 'কপি হয়েছে!' },
+  seerah_glance_title: { en: 'Seerah at a Glance', bn: 'এক নজরে সিরাত' },
+  seerah_glance_prophethood: { en: 'Years of prophethood', bn: 'নবুয়তের বছর' },
+  seerah_glance_meccan: { en: 'Meccan period', bn: 'মক্কি যুগ' },
+  seerah_glance_medinan: { en: 'Medinan period', bn: 'মাদানি যুগ' },
+  seerah_glance_battles: { en: 'Major battles', bn: 'প্রধান যুদ্ধ' },
+  seerah_glance_years: { en: 'years', bn: 'বছর' },
   seerah_topics_title: { en: 'Major Topics', bn: 'প্রধান বিষয়সমূহ' },
   seerah_topics_intro: { en: "Explore key themes from the life and teachings of the Prophet ﷺ. Tap any topic to expand.", bn: 'নবী ﷺ-এর জীবন ও শিক্ষার গুরুত্বপূর্ণ বিষয়গুলো ঘুরে দেখুন। বিস্তারিত দেখতে যেকোনো বিষয়ে ট্যাপ করুন।' },
   seerah_key_points: { en: 'Key points', bn: 'মূল বিষয়' },
@@ -819,6 +837,7 @@ class SeerahView {
     this.quizSubmitted = false;
     this.quizScore = 0;
     this.quizBest = this.loadQuizBest();
+    this.storyPos = this.loadStoryPos();
 
     window.addEventListener('tabChanged', (e) => {
       try { if (e && e.detail && e.detail.tabId === 'seerah') this.render(); } catch (_) { /* ignore */ }
@@ -870,6 +889,17 @@ class SeerahView {
     try { localStorage.setItem('lq_seerah_quiz_best', String(this.quizBest)); } catch (_) { /* ignore */ }
   }
 
+  loadStoryPos() {
+    try {
+      const n = parseInt(localStorage.getItem('lq_seerah_story_pos'), 10);
+      if (isNaN(n) || n < 0) return 0;
+      return Math.min(n, SEERAH_ERAS.length - 1);
+    } catch (_) { return 0; }
+  }
+  saveStoryPos() {
+    try { localStorage.setItem('lq_seerah_story_pos', String(this.storyPos)); } catch (_) { /* ignore */ }
+  }
+
   matches(ev) {
     if (this.filter !== 'all' && ev.era !== this.filter) return false;
     const q = this.query.trim().toLowerCase();
@@ -911,12 +941,14 @@ class SeerahView {
       <div class="flex justify-center mb-4">
         <div class="inline-flex gap-1 p-1 rounded-xl bg-gray-100 dark:bg-gray-800">
           ${vbtn('timeline', SEERAH_TIMELINE_ICON, this.tt('seerah_view_timeline'))}
+          ${vbtn('story', SEERAH_STORY_ICON, this.tt('seerah_view_story'))}
           ${vbtn('topics', SEERAH_TOPICS_ICON, this.tt('seerah_view_topics'))}
           ${vbtn('quiz', SEERAH_QUIZ_ICON, this.tt('seerah_view_quiz'))}
         </div>
       </div>`;
 
     const timelineBody = `
+      ${this.glanceHtml()}
       <div class="mb-3">
         <div class="flex items-center justify-between gap-2 mb-1">
           <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${this.esc(this.tt('seerah_progress'))}</span>
@@ -957,11 +989,13 @@ class SeerahView {
 
     const subtitleLine = this.view === 'topics'
       ? this.tt('seerah_topics_title')
-      : (this.view === 'quiz' ? this.tt('seerah_quiz_title') : this.tt('seerah_intro'));
+      : (this.view === 'quiz' ? this.tt('seerah_quiz_title')
+        : (this.view === 'story' ? this.tt('seerah_story_title') : this.tt('seerah_intro')));
 
     let body = timelineBody;
     if (this.view === 'topics') body = topicsBody;
     else if (this.view === 'quiz') body = this.quizHtml();
+    else if (this.view === 'story') body = this.storyHtml();
 
     this.container.innerHTML = `
       <div class="w-full max-w-3xl mx-auto">
@@ -1059,6 +1093,96 @@ class SeerahView {
             </div>`).join('')}
         </div>
       </section>`;
+  }
+
+  /**
+   * "Seerah at a glance" — a compact bilingual stat strip derived from existing
+   * data. Prophethood ≈ 23 years (Meccan 13 + Medinan 10); the battle count is
+   * read from SEERAH_BATTLES so it stays in sync with the data.
+   */
+  glanceHtml() {
+    const battleCount = Object.keys(SEERAH_BATTLES).length;
+    const yr = this.esc(this.tt('seerah_glance_years'));
+    const tiles = [
+      { emoji: '📜', value: `~23 <span class="text-[0.6rem] font-normal opacity-70">${yr}</span>`, label: this.tt('seerah_glance_prophethood'), text: 'text-primary' },
+      { emoji: '🕋', value: `13 <span class="text-[0.6rem] font-normal opacity-70">${yr}</span>`, label: this.tt('seerah_glance_meccan'), text: 'text-rose-500' },
+      { emoji: '🌿', value: `10 <span class="text-[0.6rem] font-normal opacity-70">${yr}</span>`, label: this.tt('seerah_glance_medinan'), text: 'text-emerald-500' },
+      { emoji: '🛡️', value: String(battleCount), label: this.tt('seerah_glance_battles'), text: 'text-indigo-500' },
+    ];
+    return `
+      <section class="mb-4" aria-label="${this.esc(this.tt('seerah_glance_title'))}">
+        <h3 class="sr-only">${this.esc(this.tt('seerah_glance_title'))}</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          ${tiles.map(s => `
+            <div class="flex flex-col items-center text-center gap-0.5 p-2.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <span class="text-lg leading-none" aria-hidden="true">${s.emoji}</span>
+              <span class="text-base font-bold ${s.text}">${s.value}</span>
+              <span class="text-[0.65rem] leading-tight text-gray-500 dark:text-gray-400" dir="auto">${this.esc(s.label)}</span>
+            </div>`).join('')}
+        </div>
+      </section>`;
+  }
+
+  /**
+   * Story mode — a continuous read of every timeline event, one era at a time,
+   * reusing each event's existing title/description text (no new prose). Prev/next
+   * move between eras; the current era index is saved to localStorage so the
+   * reader can resume where they left off.
+   */
+  storyHtml() {
+    const eras = SEERAH_ERAS;
+    if (this.storyPos >= eras.length) this.storyPos = eras.length - 1;
+    if (this.storyPos < 0) this.storyPos = 0;
+    const era = eras[this.storyPos];
+    const em = ERA_META[era.id] || {};
+    const events = SEERAH_EVENTS.filter(ev => ev.era === era.id);
+    const pct = eras.length ? Math.round(((this.storyPos + 1) / eras.length) * 100) : 0;
+
+    const passages = events.map(ev => {
+      const year = [ev.yearCE, ev.yearAH].filter(Boolean).join(' · ');
+      return `
+        <div class="mb-5">
+          <h4 class="flex items-baseline gap-2 flex-wrap font-semibold text-gray-800 dark:text-gray-100 leading-snug" dir="auto">
+            <span>${this.esc(this.pick(ev, 'title'))}</span>
+            <span class="text-[0.7rem] font-medium text-gray-400 dark:text-gray-500 whitespace-nowrap">${this.esc(year)}</span>
+          </h4>
+          <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.pick(ev, 'desc'))}</p>
+        </div>`;
+    }).join('');
+
+    const atStart = this.storyPos <= 0;
+    const atEnd = this.storyPos >= eras.length - 1;
+    const navBtn = (dir, label, disabled) =>
+      `<button type="button" data-seerah-story-nav="${dir}" ${disabled ? 'disabled' : ''}
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors ${disabled
+          ? 'bg-gray-100 dark:bg-gray-800 text-gray-300 dark:text-gray-600 cursor-not-allowed'
+          : 'bg-primary text-white hover:opacity-90'}">${this.esc(label)}</button>`;
+
+    return `
+      <div class="text-center mb-4">
+        <p class="text-xs text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('seerah_story_intro'))}</p>
+      </div>
+      <div class="mb-3">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${this.esc(this.tt('seerah_story_progress'))}</span>
+          <span class="text-xs font-semibold text-primary">${this.storyPos + 1} / ${eras.length}</span>
+        </div>
+        <div class="w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div class="h-full bg-primary transition-all" style="width:${pct}%"></div>
+        </div>
+      </div>
+      <article class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm p-4 sm:p-5">
+        <h3 class="flex items-center gap-2 text-base font-bold text-gray-700 dark:text-gray-200 mb-4">
+          <span class="${em.text || ''}" aria-hidden="true">${em.icon || '<span>' + this.esc(era.emoji) + '</span>'}</span>
+          <span dir="auto">${this.esc(this.tt(era.key))}</span>
+        </h3>
+        ${passages}
+        ${atEnd ? `<p class="mt-2 text-xs italic text-gray-400 dark:text-gray-500" dir="auto">🤲 ${this.esc(this.tt('seerah_story_finish'))}</p>` : ''}
+      </article>
+      <div class="flex items-center justify-between gap-2 mt-4 mb-8">
+        ${navBtn('prev', '‹ ' + this.tt('seerah_story_prev'), atStart)}
+        ${navBtn('next', this.tt('seerah_story_next') + ' ›', atEnd)}
+      </div>`;
   }
 
   quizHtml() {
@@ -1233,7 +1357,7 @@ class SeerahView {
           ${ayahBtn}
           ${ev.id === 'hijra' ? this.hijraMapHtml() : ''}
           ${battle ? this.battleHtml(ev, battle) : ''}
-          <div class="mt-3">
+          <div class="mt-3 flex flex-wrap items-center gap-2">
             <button type="button" data-seerah-read="${this.esc(ev.id)}"
               class="text-xs px-3 py-1.5 rounded-lg font-medium transition-colors
                      ${isRead
@@ -1241,9 +1365,76 @@ class SeerahView {
                        : 'bg-primary text-white hover:opacity-90'}">
               ${isRead ? '✓ ' + this.esc(this.tt('seerah_marked_read')) : this.esc(this.tt('seerah_mark_read'))}
             </button>
+            <button type="button" data-seerah-share="${this.esc(ev.id)}"
+              class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:border-primary border border-transparent transition-colors">
+              🔗 ${this.esc(this.tt('seerah_share'))}
+            </button>
+            <button type="button" data-seerah-copy="${this.esc(ev.id)}"
+              class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:border-primary border border-transparent transition-colors">
+              📋 ${this.esc(this.tt('seerah_copy'))}
+            </button>
           </div>
         </div>
       </article>`;
+  }
+
+  // Build a short shareable text from an event's existing title/desc/year.
+  buildShareText(ev) {
+    if (!ev) return '';
+    const year = [ev.yearCE, ev.yearAH].filter(Boolean).join(' · ');
+    const title = this.pick(ev, 'title');
+    const desc = this.pick(ev, 'desc');
+    return [title + (year ? ` (${year})` : ''), desc].filter(Boolean).join('\n\n');
+  }
+
+  shareEvent(id) {
+    const ev = SEERAH_EVENTS.find(x => x.id === id);
+    if (!ev) return;
+    const text = this.buildShareText(ev);
+    const title = this.pick(ev, 'title');
+    try {
+      if (navigator && typeof navigator.share === 'function') {
+        navigator.share({ title: title, text: text }).catch(() => {});
+        return;
+      }
+    } catch (_) { /* fall through to clipboard */ }
+    this.copyEvent(id);
+  }
+
+  copyEvent(id) {
+    const ev = SEERAH_EVENTS.find(x => x.id === id);
+    if (!ev) return;
+    const text = this.buildShareText(ev);
+    const done = () => this.flashCopied(id);
+    try {
+      if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(text).then(done).catch(() => this.legacyCopy(text, done));
+        return;
+      }
+    } catch (_) { /* fall through */ }
+    this.legacyCopy(text, done);
+  }
+
+  legacyCopy(text, done) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (typeof done === 'function') done();
+    } catch (_) { /* ignore */ }
+  }
+
+  // Briefly show "Copied!" on the copy button for this event.
+  flashCopied(id) {
+    try {
+      const btn = this.container.querySelector(`[data-seerah-copy="${CSS && CSS.escape ? CSS.escape(id) : id}"]`);
+      if (!btn) return;
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ ' + this.esc(this.tt('seerah_copied'));
+      setTimeout(() => { try { btn.innerHTML = orig; } catch (_) { /* ignore */ } }, 1500);
+    } catch (_) { /* ignore */ }
   }
 
   // ── battlefield block ────────────────────────────────────────────────
@@ -1444,6 +1635,24 @@ class SeerahView {
 
         const ayahBtn = e.target.closest('[data-seerah-ayah]');
         if (ayahBtn) { this.openAyah(ayahBtn.getAttribute('data-seerah-ayah')); return; }
+
+        const shareBtn = e.target.closest('[data-seerah-share]');
+        if (shareBtn) { this.shareEvent(shareBtn.getAttribute('data-seerah-share')); return; }
+
+        const copyBtn = e.target.closest('[data-seerah-copy]');
+        if (copyBtn) { this.copyEvent(copyBtn.getAttribute('data-seerah-copy')); return; }
+
+        const storyNav = e.target.closest('[data-seerah-story-nav]');
+        if (storyNav) {
+          const dir = storyNav.getAttribute('data-seerah-story-nav');
+          const max = SEERAH_ERAS.length - 1;
+          if (dir === 'next') this.storyPos = Math.min(max, this.storyPos + 1);
+          else if (dir === 'prev') this.storyPos = Math.max(0, this.storyPos - 1);
+          this.saveStoryPos();
+          this.render();
+          try { this.container.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) { /* ignore */ }
+          return;
+        }
 
         const reset = e.target.closest('[data-seerah-reset]');
         if (reset) { this.resetProgress(); return; }

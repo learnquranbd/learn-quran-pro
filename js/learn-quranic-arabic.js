@@ -1378,6 +1378,27 @@ const QA_UI = {
   qa_vocab_words:   { en: 'Words in this group', bn: 'এই গ্রুপের শব্দসমূহ' },
   qa_vocab_hint:    { en: 'Tap any word to see it inside its verse', bn: 'আয়াতের ভেতরে দেখতে যেকোনো শব্দে ট্যাপ করুন' },
   qa_continue_title:{ en: 'How to continue studying', bn: 'কীভাবে পড়া চালিয়ে যাবেন' },
+  qa_listen:        { en: 'Listen', bn: 'শুনুন' },
+  /* progress dashboard */
+  qa_dashboard:     { en: 'Your progress', bn: 'আপনার অগ্রগতি' },
+  qa_dash_lessons:  { en: 'Lessons learned', bn: 'পাঠ শেখা' },
+  qa_dash_glossary: { en: 'Glossary terms seen', bn: 'পরিভাষা দেখা' },
+  qa_dash_cards:    { en: 'Flashcards mastered', bn: 'ফ্ল্যাশকার্ড আয়ত্ত' },
+  qa_dash_irab:     { en: 'Iʿrāb best', bn: 'এ‘রাব সেরা' },
+  qa_dash_units:    { en: 'Units aced', bn: 'ইউনিট শতভাগ' },
+  /* vocabulary flashcards */
+  qa_flashcards:    { en: 'Flashcards', bn: 'ফ্ল্যাশকার্ড' },
+  qa_flash_title:   { en: 'Vocabulary flashcards', bn: 'শব্দভাণ্ডার ফ্ল্যাশকার্ড' },
+  qa_flash_sub:     { en: 'Tap a card to reveal its meaning, then rate how well you knew it. Cards you miss come back sooner.', bn: 'অর্থ দেখতে কার্ডে ট্যাপ করুন, তারপর কতটা জানতেন রেট করুন। ভুল করা কার্ড আগে ফিরে আসে।' },
+  qa_flash_start:   { en: 'Practice the frequency vocabulary with spaced-repetition flashcards.', bn: 'বহুল ব্যবহৃত শব্দ স্পেসড-রিপিটিশন ফ্ল্যাশকার্ডে অনুশীলন করুন।' },
+  qa_flash_reveal:  { en: 'Tap to reveal', bn: 'দেখতে ট্যাপ করুন' },
+  qa_flash_known:   { en: 'I knew it', bn: 'জানতাম' },
+  qa_flash_again:   { en: 'Review again', bn: 'আবার দেখব' },
+  qa_flash_box:     { en: 'Box', bn: 'বক্স' },
+  qa_flash_done:    { en: 'Review session complete!', bn: 'রিভিউ সেশন সম্পন্ন!' },
+  qa_flash_restart: { en: 'Start over', bn: 'আবার শুরু' },
+  qa_flash_card:    { en: 'Card', bn: 'কার্ড' },
+  qa_flash_empty:   { en: 'No vocabulary available.', bn: 'কোনো শব্দভাণ্ডার নেই।' },
 };
 
 /* ------------------------------------------------------------------ *
@@ -1393,7 +1414,9 @@ class QuranicArabicView {
     this.answer = null;         // { selected, correct } for the current practice
     this.quiz = null;           // active quiz state
     this.glossaryQuery = '';    // glossary search text
+    this.cards = null;          // active flashcard session state
     this._ordered = null;       // cached ordered lesson list
+    this._vocab = null;         // cached unique vocab deck
     this.progress = this.loadProgress();
 
     window.addEventListener('tabChanged', (e) => {
@@ -1462,8 +1485,9 @@ class QuranicArabicView {
       if (!p.learned || typeof p.learned !== 'object') p.learned = {};
       if (!p.quiz || typeof p.quiz !== 'object') p.quiz = {};
       if (!p.missed || typeof p.missed !== 'object') p.missed = {};
+      if (!p.cards || typeof p.cards !== 'object') p.cards = {};   // Leitner box per Arabic word
       return p;
-    } catch (e) { return { learned: {}, quiz: {}, missed: {} }; }
+    } catch (e) { return { learned: {}, quiz: {}, missed: {}, cards: {} }; }
   }
   saveProgress() {
     try { localStorage.setItem('lq_qarabic_progress', JSON.stringify(this.progress)); } catch (e) { /* ignore */ }
@@ -1485,9 +1509,69 @@ class QuranicArabicView {
     } catch (e) { /* ignore */ }
   }
 
+  /* ---------- glossary-seen (read-only dashboard signal) ---------- */
+  markGlossarySeen() {
+    try {
+      const n = (typeof QA_GLOSSARY !== 'undefined' && Array.isArray(QA_GLOSSARY)) ? QA_GLOSSARY.length : 0;
+      if (this.progress.glossarySeen !== n) { this.progress.glossarySeen = n; this.saveProgress(); }
+    } catch (e) { /* ignore */ }
+  }
+  glossarySeenCount() {
+    try { const total = (typeof QA_GLOSSARY !== 'undefined' && Array.isArray(QA_GLOSSARY)) ? QA_GLOSSARY.length : 0; return Math.min(this.progress.glossarySeen || 0, total); } catch (e) { return 0; }
+  }
+
+  /* ---------- audio (guarded browser TTS; omitted entirely if unavailable) ---------- */
+  ttsAvailable() {
+    try { return typeof window !== 'undefined' && !!window.speechSynthesis && typeof window.SpeechSynthesisUtterance !== 'undefined'; } catch (e) { return false; }
+  }
+  speakArabic(text) {
+    if (!text || !this.ttsAvailable()) return;
+    try {
+      const synth = window.speechSynthesis;
+      const voices = synth.getVoices ? synth.getVoices() : [];
+      const arVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ar'));
+      const utter = new SpeechSynthesisUtterance(text);
+      if (arVoice) utter.voice = arVoice;
+      utter.lang = arVoice ? arVoice.lang : 'ar-SA';
+      utter.rate = 0.8;
+      synth.cancel();
+      synth.speak(utter);
+    } catch (e) { /* ignore */ }
+  }
+
+  /* ---------- flashcards: unique verified vocab deck + Leitner boxes ---------- */
+  allVocab() {
+    if (this._vocab) return this._vocab;
+    const seen = {}; const out = [];
+    try {
+      (typeof QA_LESSONS !== 'undefined' && Array.isArray(QA_LESSONS) ? QA_LESSONS : []).forEach(l => {
+        if (l && Array.isArray(l.vocab)) l.vocab.forEach(w => {
+          if (w && w.ar && !seen[w.ar]) { seen[w.ar] = true; out.push(w); }
+        });
+      });
+    } catch (e) { /* ignore */ }
+    this._vocab = out;
+    return out;
+  }
+  cardBox(ar) { try { const v = this.progress.cards && this.progress.cards[ar]; return (typeof v === 'number' && isFinite(v)) ? v : 0; } catch (e) { return 0; } }
+  markCard(ar, known) {
+    try {
+      if (!ar) return;
+      if (!this.progress.cards) this.progress.cards = {};
+      const cur = this.cardBox(ar) || 1;             // treat a brand-new card as box 1
+      this.progress.cards[ar] = known ? Math.min(cur + 1, 5) : 1;
+      this.saveProgress();
+    } catch (e) { /* ignore */ }
+  }
+  cardsSeenCount() { try { return Object.keys(this.progress.cards || {}).length; } catch (e) { return 0; } }
+  cardsMasteredCount() { try { const c = this.progress.cards || {}; return Object.keys(c).filter(k => c[k] >= 5).length; } catch (e) { return 0; } }
+
   /* ---------- events ---------- */
   onClick(e) {
     const t0 = e.target;
+    // Audio: guarded browser TTS for a single Arabic word (sibling of ref buttons).
+    const sayEl = t0.closest ? t0.closest('[data-qa-say]') : null;
+    if (sayEl) { e.stopPropagation(); this.speakArabic(sayEl.getAttribute('data-qa-say')); return; }
     const refEl = t0.closest ? t0.closest('[data-qa-ref]') : null;
     if (refEl) {
       const ref = refEl.getAttribute('data-qa-ref');
@@ -1507,9 +1591,16 @@ class QuranicArabicView {
     // Syllabus / navigation
     const unitEl = t0.closest ? t0.closest('[data-qa-unit]') : null;
     if (unitEl) { this.scrollToUnit(unitEl.getAttribute('data-qa-unit')); return; }
-    if (t0.closest && t0.closest('[data-qa-glossary]')) { this.view = 'glossary'; this.render(); return; }
+    if (t0.closest && t0.closest('[data-qa-glossary]')) { this.markGlossarySeen(); this.view = 'glossary'; this.render(); return; }
+    if (t0.closest && t0.closest('[data-qa-flash]')) { this.startFlashcards(); return; }
     const quizEl = t0.closest ? t0.closest('[data-qa-quiz]') : null;
     if (quizEl) { this.startQuiz(quizEl.getAttribute('data-qa-quiz')); return; }
+
+    // Flashcard runner
+    if (t0.closest && t0.closest('[data-qa-reveal]')) { if (this.cards) { this.cards.revealed = true; this.render(); } return; }
+    const cardAns = t0.closest ? t0.closest('[data-qa-card]') : null;
+    if (cardAns) { this.answerCard(cardAns.getAttribute('data-qa-card') === 'known'); return; }
+    if (t0.closest && t0.closest('[data-qa-flash-restart]')) { this.startFlashcards(); return; }
 
     // Quiz runner
     const qoptEl = t0.closest ? t0.closest('[data-qa-qopt]') : null;
@@ -1525,7 +1616,7 @@ class QuranicArabicView {
     } catch (err) { /* ignore */ }
   }
 
-  toSyllabus() { this.view = 'syllabus'; this.answer = null; this.quiz = null; this.render(); }
+  toSyllabus() { this.view = 'syllabus'; this.answer = null; this.quiz = null; this.cards = null; this.render(); }
 
   openLesson(idx) {
     const list = this.lessons();
@@ -1610,6 +1701,34 @@ class QuranicArabicView {
     this.render();
   }
 
+  /* ---------- flashcards ---------- */
+  startFlashcards() {
+    try {
+      const deck = this.allVocab();
+      if (!deck.length) { this.toSyllabus(); return; }
+      // Leitner order: lowest box (new + missed) first, shuffled within each box.
+      const byBox = {};
+      deck.forEach(w => { const b = this.cardBox(w.ar); (byBox[b] = byBox[b] || []).push(w); });
+      let order = [];
+      Object.keys(byBox).map(Number).sort((a, b) => a - b).forEach(b => { order = order.concat(this.shuffle(byBox[b])); });
+      this.cards = { deck: order, idx: 0, revealed: false, done: false, known: 0, again: 0, total: order.length };
+      this.view = 'flashcards';
+      this.render();
+      try { if (this.container && this.container.scrollIntoView) this.container.scrollIntoView({ block: 'start' }); } catch (e) { /* ignore */ }
+    } catch (e) { this.toSyllabus(); }
+  }
+  answerCard(known) {
+    const c = this.cards;
+    if (!c || c.done) return;
+    const w = c.deck[c.idx];
+    if (!w) return;
+    this.markCard(w.ar, known);
+    if (known) c.known++; else c.again++;
+    if (c.idx + 1 < c.deck.length) { c.idx++; c.revealed = false; }
+    else c.done = true;
+    this.render();
+  }
+
   /* ---------- render ---------- */
   render() {
     if (!this.container) return;
@@ -1623,6 +1742,7 @@ class QuranicArabicView {
       if (this.view === 'lesson') html = this.renderLesson();
       else if (this.view === 'quiz') html = this.renderQuiz();
       else if (this.view === 'glossary') html = this.renderGlossary();
+      else if (this.view === 'flashcards') html = this.renderFlashcards();
       else html = this.renderSyllabus();
       this.container.innerHTML = html;
     } catch (e) {
@@ -1694,6 +1814,33 @@ class QuranicArabicView {
     const irabBest = this.bestQuiz('irab');
     const missed = this.missedCount();
 
+    // ---------- read-only progress dashboard (degrades silently if keys absent) ----------
+    const glossTotal = (typeof QA_GLOSSARY !== 'undefined' && Array.isArray(QA_GLOSSARY)) ? QA_GLOSSARY.length : 0;
+    const glossSeen = this.glossarySeenCount();
+    const vocabTotal = this.allVocab().length;
+    const cardsMastered = this.cardsMasteredCount();
+    const unitsAced = QA_UNITS.filter(u => { const ut = this.unitLessons(u.id).length; return ut > 0 && this.unitLearnedCount(u.id) >= ut; }).length;
+    const unitsWithLessons = QA_UNITS.filter(u => this.unitLessons(u.id).length > 0).length;
+    const dashTile = (icon, label, value, tone) => `
+      <div class="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="text-lg" aria-hidden="true">${icon}</div>
+        <div class="text-lg font-extrabold ${tone}">${value}</div>
+        <div class="text-[0.68rem] text-gray-400 dark:text-gray-500 leading-tight" dir="auto">${this.esc(label)}</div>
+      </div>`;
+    const dashboard = `
+      <div class="mb-6 p-4 rounded-2xl bg-white/60 dark:bg-gray-800/40 border border-gray-100 dark:border-gray-700">
+        <h3 class="flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">
+          <span aria-hidden="true">📊</span><span dir="auto">${this.esc(this.tt('qa_dashboard'))}</span>
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          ${dashTile('📚', this.tt('qa_dash_lessons'), `${done}/${total}`, 'text-emerald-600 dark:text-emerald-400')}
+          ${dashTile('🏅', this.tt('qa_dash_units'), `${unitsAced}/${unitsWithLessons}`, 'text-sky-600 dark:text-sky-400')}
+          ${dashTile('📖', this.tt('qa_dash_glossary'), `${glossSeen}/${glossTotal}`, 'text-amber-600 dark:text-amber-400')}
+          ${dashTile('🃏', this.tt('qa_dash_cards'), `${cardsMastered}/${vocabTotal}`, 'text-indigo-600 dark:text-indigo-400')}
+          ${dashTile('🧩', this.tt('qa_dash_irab'), irabBest != null ? irabBest + '%' : '—', 'text-violet-600 dark:text-violet-400')}
+        </div>
+      </div>`;
+
     return `
       <div class="w-full max-w-4xl mx-auto">
         <div class="text-center mb-5">
@@ -1711,13 +1858,21 @@ class QuranicArabicView {
           ${allDone ? `<p class="text-center text-sm font-semibold text-emerald-700 dark:text-emerald-400 mt-3">${this.esc(this.tt('qa_finish_title'))}</p>` : ''}
         </div>
 
+        ${dashboard}
+
         <div class="mb-6">
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="text-xs font-bold uppercase tracking-wide text-gray-400 dark:text-gray-500">${this.esc(this.tt('qa_units'))}</span>
-            <button type="button" data-qa-glossary
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition-colors">
-              📖 ${this.esc(this.tt('qa_glossary'))}
-            </button>
+            <div class="flex items-center gap-2">
+              <button type="button" data-qa-flash
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-900/60 transition-colors">
+                🃏 ${this.esc(this.tt('qa_flashcards'))}
+              </button>
+              <button type="button" data-qa-glossary
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition-colors">
+                📖 ${this.esc(this.tt('qa_glossary'))}
+              </button>
+            </div>
           </div>
           <div class="flex flex-wrap gap-2">${overview}</div>
         </div>
@@ -1840,6 +1995,7 @@ class QuranicArabicView {
     const unit = QA_UNITS.find(u => u.id === lesson.unit);
     const learned = this.isLearned(lesson.id);
     const examples = (lesson.examples || []).map(ex => this.renderExample(ex)).join('');
+    const tts = this.ttsAvailable();
 
     return `
       <div class="w-full max-w-3xl mx-auto">
@@ -1872,13 +2028,17 @@ class QuranicArabicView {
         <p class="text-[0.68rem] text-gray-400 dark:text-gray-500 mb-3">${this.esc(this.tt('qa_vocab_hint'))}</p>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 mb-6">
           ${lesson.vocab.map(w => `
-          <button type="button" data-qa-ref="${this.esc(w.ref)}" data-qa-word="${this.esc(w.ar)}"
-            class="group flex flex-col items-center gap-1 p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary hover:shadow-md transition-all">
-            <span class="text-2xl leading-snug text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors" dir="rtl" lang="ar">${this.esc(w.ar)}</span>
-            <span class="text-xs text-gray-600 dark:text-gray-300 text-center leading-tight" dir="auto">${this.esc(this.lc(w))}</span>
-            <span class="text-[0.6rem] px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400" dir="auto">${this.esc(this.lc(w.pos))}</span>
-            <span class="text-[0.6rem] text-primary/70">📖 ${this.esc(w.ref)}</span>
-          </button>`).join('')}
+          <div class="relative">
+            <button type="button" data-qa-ref="${this.esc(w.ref)}" data-qa-word="${this.esc(w.ar)}"
+              class="group w-full flex flex-col items-center gap-1 p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary hover:shadow-md transition-all">
+              <span class="text-2xl leading-snug text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors" dir="rtl" lang="ar">${this.esc(w.ar)}</span>
+              <span class="text-xs text-gray-600 dark:text-gray-300 text-center leading-tight" dir="auto">${this.esc(this.lc(w))}</span>
+              <span class="text-[0.6rem] px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400" dir="auto">${this.esc(this.lc(w.pos))}</span>
+              <span class="text-[0.6rem] text-primary/70">📖 ${this.esc(w.ref)}</span>
+            </button>
+            ${tts ? `<button type="button" data-qa-say="${this.esc(w.ar)}" title="${this.esc(this.tt('qa_listen'))}" aria-label="${this.esc(this.tt('qa_listen'))}"
+              class="absolute top-1.5 right-1.5 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-sm text-gray-500 dark:text-gray-300 hover:bg-primary/15 hover:text-primary transition-colors">🔊</button>` : ''}
+          </div>`).join('')}
         </div>` : ''}
 
         ${examples ? `
@@ -1966,6 +2126,83 @@ class QuranicArabicView {
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${rows}</div>
         <p id="qa-gloss-empty" class="hidden text-center text-gray-400 dark:text-gray-500 py-8 text-sm">${this.esc(this.tt('qa_no_results'))}</p>
+      </div>`;
+  }
+
+  /* ---------- flashcards view ---------- */
+  renderFlashcards() {
+    const c = this.cards;
+    if (!c || !Array.isArray(c.deck) || !c.deck.length) { this.view = 'syllabus'; return this.renderSyllabus(); }
+    const tts = this.ttsAvailable();
+    const header = `
+      <div class="flex items-center justify-between mb-4">
+        <button type="button" data-qa-back class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">‹ ${this.esc(this.tt('qa_back'))}</button>
+        <span class="text-xs text-gray-400 dark:text-gray-500">${this.esc(this.tt('qa_flash_card'))} ${Math.min(c.idx + 1, c.total)} / ${c.total}</span>
+      </div>`;
+
+    if (c.done) {
+      return `
+        <div class="w-full max-w-xl mx-auto">
+          ${header}
+          <div class="pt-8 p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center">
+            <div class="text-5xl mb-3">🃏</div>
+            <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-100 mb-2">${this.esc(this.tt('qa_flash_done'))}</h2>
+            <div class="flex items-center justify-center gap-4 my-4">
+              <div><div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">${c.known}</div><div class="text-[0.68rem] text-gray-400">${this.esc(this.tt('qa_flash_known'))}</div></div>
+              <div><div class="text-2xl font-extrabold text-amber-600 dark:text-amber-400">${c.again}</div><div class="text-[0.68rem] text-gray-400">${this.esc(this.tt('qa_flash_again'))}</div></div>
+            </div>
+            <div class="flex items-center justify-center gap-3 mt-4">
+              <button type="button" data-qa-flash-restart class="px-4 py-2 rounded-xl text-sm font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">↺ ${this.esc(this.tt('qa_flash_restart'))}</button>
+              <button type="button" data-qa-back class="px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-white hover:opacity-90 transition-opacity">${this.esc(this.tt('qa_close'))}</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    const w = c.deck[c.idx];
+    const box = this.cardBox(w.ar) || 1;
+    const prog = c.total ? Math.round((c.idx / c.total) * 100) : 0;
+    const listenBtn = tts ? `<button type="button" data-qa-say="${this.esc(w.ar)}" title="${this.esc(this.tt('qa_listen'))}" aria-label="${this.esc(this.tt('qa_listen'))}"
+        class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-primary/15 hover:text-primary transition-colors">🔊 ${this.esc(this.tt('qa_listen'))}</button>` : '';
+
+    const front = `
+      <div class="text-4xl sm:text-5xl leading-loose text-gray-800 dark:text-gray-100 mb-2" dir="rtl" lang="ar">${this.esc(w.ar)}</div>
+      ${listenBtn}
+      <p class="mt-4 text-xs text-gray-400 dark:text-gray-500">${this.esc(this.tt('qa_flash_reveal'))} 👆</p>`;
+
+    const back = `
+      <div class="text-4xl sm:text-5xl leading-loose text-gray-800 dark:text-gray-100 mb-2" dir="rtl" lang="ar">${this.esc(w.ar)}</div>
+      ${listenBtn}
+      <p class="mt-3 text-lg font-bold text-emerald-700 dark:text-emerald-300" dir="auto">${this.esc(this.lc(w))}</p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400" dir="auto">${this.esc(this.lc(w.pos))}</p>
+      <button type="button" data-qa-ref="${this.esc(w.ref)}" data-qa-word="${this.esc(w.ar)}"
+        class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors">📖 ${this.esc(w.ref)} <span class="text-[0.65rem] opacity-70">↗</span></button>`;
+
+    const controls = c.revealed ? `
+      <div class="grid grid-cols-2 gap-3 mt-4">
+        <button type="button" data-qa-card="again" class="px-4 py-3 rounded-xl text-sm font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition-colors">🔁 ${this.esc(this.tt('qa_flash_again'))}</button>
+        <button type="button" data-qa-card="known" class="px-4 py-3 rounded-xl text-sm font-bold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 transition-colors">✓ ${this.esc(this.tt('qa_flash_known'))}</button>
+      </div>` : `
+      <button type="button" data-qa-reveal class="w-full mt-4 px-4 py-3 rounded-xl text-sm font-bold bg-primary text-white hover:opacity-90 transition-opacity">${this.esc(this.tt('qa_flash_reveal'))}</button>`;
+
+    return `
+      <div class="w-full max-w-xl mx-auto">
+        ${header}
+        <div class="text-center mb-3">
+          <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-100">🃏 ${this.esc(this.tt('qa_flash_title'))}</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 max-w-md mx-auto" dir="auto">${this.esc(this.tt('qa_flash_sub'))}</p>
+        </div>
+        <div class="mb-3 w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div class="h-full rounded-full bg-gradient-to-r from-indigo-400 to-sky-500 transition-all" style="width:${prog}%"></div>
+        </div>
+        ${c.revealed ? '' : `<div data-qa-reveal role="button" tabindex="0"
+          class="block w-full text-center p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors cursor-pointer">${front}</div>`}
+        ${c.revealed ? `<div class="text-center p-8 rounded-2xl bg-white dark:bg-gray-800 border border-emerald-300 dark:border-emerald-700">${back}</div>` : ''}
+        <div class="flex items-center justify-between mt-3 text-[0.68rem] text-gray-400 dark:text-gray-500">
+          <span>${this.esc(this.tt('qa_flash_box'))} ${box}/5</span>
+          <span>✓ ${c.known} · 🔁 ${c.again}</span>
+        </div>
+        ${controls}
       </div>`;
   }
 

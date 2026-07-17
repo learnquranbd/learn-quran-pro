@@ -40,15 +40,37 @@ class MushafView {
       madani: {
         label: { en: 'Madani Mushaf (KFGQPC)', bn: 'মাদানি মুসহাফ (কিং ফাহাদ)' },
         url: (page) => `https://files.quran.app/hafs/madani/width_${madaniWidth}/page${String(page).padStart(3, '0')}.png`
+      },
+      // --- QuranHub 604-page scans via jsDelivr (page token = plain integer,
+      // no zero-padding). Warsh entries are a DIFFERENT qiraah (riwayah). ---
+      kfgqpc_hafs: {
+        label: { en: 'Madani Hafs — KFGQPC (hi-res)', bn: 'মাদানি হাফস — কিং ফাহাদ (উচ্চ রেজ.)' },
+        url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/kfgqpc/hafs-wasat/${page}.jpg`
+      },
+      ayat_hafs: {
+        label: { en: 'Hafs (plain Uthmani)', bn: 'হাফস (সাধারণ উসমানি)' },
+        url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/ayat/hafs/${page}.png`
+      },
+      warsh: {
+        // Warsh ʿan Nāfiʿ — a distinct riwayah (differs in recitation & some spellings)
+        label: { en: 'Warsh (Warsh ʿan Nāfiʿ)', bn: 'ওয়ারশ (রেওয়ায়েত)' },
+        url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/ayat/warsh/${page}.png`
+      },
+      kfgqpc_warsh: {
+        label: { en: 'Warsh — KFGQPC (hi-res)', bn: 'ওয়ারশ — কিং ফাহাদ (উচ্চ রেজ.)' },
+        url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/kfgqpc/warsh/${page}.jpg`
       }
     };
 
     // Local fallback for NEW i18n keys not yet merged into translations.js;
     // t() falls back to the raw key when missing, fb() substitutes these.
     this.FB = {
-      en: { mushaf_edition: 'Mushaf edition' },
-      bn: { mushaf_edition: 'মুসহাফ সংস্করণ' }
+      en: { mushaf_edition: 'Mushaf edition', mushaf_warsh_note: 'Warsh riwayah — a different qiraah' },
+      bn: { mushaf_edition: 'মুসহাফ সংস্করণ', mushaf_warsh_note: 'ওয়ারশ রেওয়ায়েত — ভিন্ন কিরাআত' }
     };
+
+    // Editions that are a different qiraah/riwayah (flagged with a small note)
+    this.WARSH_EDITIONS = { warsh: true, kfgqpc_warsh: true };
 
     // Remember last page across sessions
     let saved = 1;
@@ -281,6 +303,7 @@ class MushafView {
           <div class="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
             <span id="mushaf-progress-text"></span>
             <span id="mushaf-session-count"></span>
+            <span id="mushaf-edition-note" class="hidden italic text-amber-600 dark:text-amber-400"></span>
             <span class="hidden sm:inline">${t('mushaf_shortcuts', lang)}</span>
           </div>
         </div>
@@ -333,6 +356,7 @@ class MushafView {
     this.progressBar = this.container.querySelector('#mushaf-progress-bar');
     this.progressText = this.container.querySelector('#mushaf-progress-text');
     this.sessionCountEl = this.container.querySelector('#mushaf-session-count');
+    this.editionNoteEl = this.container.querySelector('#mushaf-edition-note');
 
     // NEXT page is the LEFT one in a right-to-left book; step by 2 in spread view
     this.nextBtn.addEventListener('click', () => this.goTo(this.page + this.step()));
@@ -600,6 +624,7 @@ class MushafView {
     this.sessionPages.add(page);
     this.updateProgress(page);
     this.syncBookmarkButton(page);
+    this.syncEditionNote();
 
     // Which pages to show: current, plus the next one on wide screens (RTL: current on the right)
     const pages = (this.isSpread() && page + 1 <= this.TOTAL_PAGES) ? [page, page + 1] : [page];
@@ -829,6 +854,14 @@ class MushafView {
       this.sessionCountEl.textContent =
         `${t('mushaf_read_session', lang)}: ${this.sessionPages.size}`;
     }
+  }
+
+  /** Show a small note when the active edition is a different qiraah (Warsh). */
+  syncEditionNote() {
+    if (!this.editionNoteEl) return;
+    const isWarsh = !!this.WARSH_EDITIONS[this.edition()];
+    this.editionNoteEl.textContent = isWarsh ? this.fb('mushaf_warsh_note') : '';
+    this.editionNoteEl.classList.toggle('hidden', !isWarsh);
   }
 
   /* ------------------------------------------------------------------ *
