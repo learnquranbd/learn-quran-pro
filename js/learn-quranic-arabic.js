@@ -32,6 +32,7 @@ const QA_UNITS = [
   { id: 'sentences',   icon: '🔗', en: 'Sentences',     bn: 'বাক্য' },
   { id: 'particles',   icon: '📎', en: 'Particles & Structures', bn: 'অব্যয় ও গঠন' },
   { id: 'advanced',    icon: '📐', en: 'Advanced Grammar', bn: 'উচ্চতর ব্যাকরণ' },
+  { id: 'reading',     icon: '📖', en: 'Reading Real Ayat', bn: 'বাস্তব আয়াত পড়া' },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -69,7 +70,7 @@ const QA_LESSONS = [
     ],
     practice: {
       q: { en: 'Which word is a fiʿl (verb)?', bn: 'কোন শব্দটি ফি‘ল (ক্রিয়া)?' },
-      options: ['ٱلْحَمْدُ', 'نَعْبُدُ', 'رَبِّ', 'ٱللَّهِ'], answer: 1,
+      options: ['ٱلْحَمْدُ', 'نَعْبُدُ', 'رَبِّ', 'ٱللَّهِ'], answer: 1,
       explain: { en: 'نَعْبُدُ ("we worship") is an action tied to time, so it is a verb. The others are nouns (ism).', bn: 'نَعْبُدُ ("আমরা ইবাদত করি") সময়-সম্পর্কিত কাজ, তাই এটি ক্রিয়া। বাকিগুলো বিশেষ্য (ইসম)।' },
     },
   },
@@ -87,8 +88,8 @@ const QA_LESSONS = [
       { ref: '1:3', trans: { en: 'the Most Merciful, the Bestower of Mercy ("ar-raḥmān") — sun letter', bn: 'পরম করুণাময়, অসীম দয়ালু ("আর-রাহমান") — সূর্য অক্ষর' },
         note: { en: 'ر is a sun letter, so the ل is silent and ر is doubled: "ar-raḥmān".', bn: 'ر একটি সূর্য অক্ষর, তাই ل নীরব ও ر-তে শাদ্দা: "আর-রাহমান"।' },
         words: [
-          { ar: 'ٱلرَّحْمَٰنِ', en: 'the Most Merciful', bn: 'পরম করুণাময়', hl: true },
-          { ar: 'ٱلرَّحِيمِ', en: 'the Bestower of Mercy', bn: 'অসীম দয়ালু' },
+          { ar: 'ٱلرَّحْمَٰنِ', en: 'the Most Merciful', bn: 'পরম করুণাময়', hl: true },
+          { ar: 'ٱلرَّحِيمِ', en: 'the Bestower of Mercy', bn: 'অসীম দয়ালু' },
         ] },
     ],
     practice: {
@@ -110,7 +111,7 @@ const QA_LESSONS = [
         words: [
           { ar: 'وَمَآ', en: 'And not', bn: 'আর না' },
           { ar: 'أَرْسَلْنَٰكَ', en: 'We sent you', bn: 'আমরা তোমাকে পাঠিয়েছি' },
-          { ar: 'إِلَّا', en: 'except', bn: 'কেবল' },
+          { ar: 'إِلَّا', en: 'except', bn: 'কেবল' },
           { ar: 'رَحْمَةً', en: 'a mercy', bn: 'রহমতস্বরূপ', hl: true },
           { ar: 'لِّلْعَٰلَمِينَ', en: 'to the worlds', bn: 'জগতসমূহের জন্য' },
         ] },
@@ -140,7 +141,7 @@ const QA_LESSONS = [
         words: [
           { ar: 'قُلْ', en: 'Say', bn: 'বলো' },
           { ar: 'هُوَ', en: 'He (is)', bn: 'তিনি', hl: true },
-          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
           { ar: 'أَحَدٌ', en: 'One', bn: 'একক' },
         ] },
     ],
@@ -209,7 +210,7 @@ const QA_LESSONS = [
         note: { en: 'بِـ ("with/in") makes ٱسْم genitive → بِسْمِ.', bn: 'بِـ ("দিয়ে") ٱسْم-কে জর করে → بِسْمِ।' },
         words: [
           { ar: 'بِسْمِ', en: 'In the name of', bn: 'নামে', hl: true },
-          { ar: 'ٱللَّهِ', en: 'Allah', bn: 'আল্লাহর' },
+          { ar: 'ٱللَّهِ', en: 'Allah', bn: 'আল্লাহর' },
         ] },
       { ref: '2:2', trans: { en: '…there is no doubt in it…', bn: '…এতে কোনো সন্দেহ নেই…' },
         note: { en: 'فِي ("in") merges with the pronoun ‑هِ → فِيهِ ("in it").', bn: 'فِي ("মধ্যে") সর্বনাম ‑هِ-এর সাথে মিশে → فِيهِ ("এতে")।' },
@@ -263,14 +264,14 @@ const QA_LESSONS = [
         note: { en: 'أَنْعَمْتَ = past verb أَنْعَمَ + ‑تَ ("you"): "You bestowed favour".', bn: 'أَنْعَمْتَ = অতীত ক্রিয়া أَنْعَمَ + ‑تَ ("তুমি"): "তুমি অনুগ্রহ করেছ"।' },
         words: [
           { ar: 'صِرَٰطَ', en: 'the path of', bn: 'পথ' },
-          { ar: 'ٱلَّذِينَ', en: 'those whom', bn: 'যাদের' },
+          { ar: 'ٱلَّذِينَ', en: 'those whom', bn: 'যাদের' },
           { ar: 'أَنْعَمْتَ', en: 'You bestowed favour', bn: 'তুমি অনুগ্রহ করেছ', hl: true },
           { ar: 'عَلَيْهِمْ', en: 'upon them', bn: 'তাদের প্রতি' },
         ] },
       { ref: '108:1', trans: { en: 'Indeed, We have given you al-Kawthar.', bn: 'নিশ্চয় আমরা তোমাকে কাউসার দিয়েছি।' },
         note: { en: 'أَعْطَيْنَا = past verb أَعْطَىٰ + ‑نَا ("we"): "We gave" (the ‑كَ is the object "you").', bn: 'أَعْطَيْنَا = অতীত ক্রিয়া أَعْطَىٰ + ‑نَا ("আমরা"): "আমরা দিয়েছি" (‑كَ কর্ম "তোমাকে")।' },
         words: [
-          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা' },
+          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা' },
           { ar: 'أَعْطَيْنَٰكَ', en: 'We gave you', bn: 'আমরা তোমাকে দিয়েছি', hl: true },
           { ar: 'ٱلْكَوْثَرَ', en: 'al-Kawthar', bn: 'কাউসার' },
         ] },
@@ -322,8 +323,8 @@ const QA_LESSONS = [
       { ref: '108:2', trans: { en: 'So pray to your Lord and sacrifice.', bn: 'অতএব তোমার রবের উদ্দেশ্যে সালাত পড়ো ও কুরবানি করো।' },
         note: { en: 'صَلِّ ("pray!") and ٱنْحَرْ ("sacrifice!") are both commands.', bn: 'صَلِّ ("সালাত পড়ো!") ও ٱنْحَرْ ("কুরবানি করো!") দুটোই আদেশ।' },
         words: [
-          { ar: 'فَصَلِّ', en: 'So pray', bn: 'অতএব সালাত পড়ো', hl: true },
-          { ar: 'لِرَبِّكَ', en: 'to your Lord', bn: 'তোমার রবের জন্য' },
+          { ar: 'فَصَلِّ', en: 'So pray', bn: 'অতএব সালাত পড়ো', hl: true },
+          { ar: 'لِرَبِّكَ', en: 'to your Lord', bn: 'তোমার রবের জন্য' },
           { ar: 'وَٱنْحَرْ', en: 'and sacrifice', bn: 'ও কুরবানি করো' },
         ] },
     ],
@@ -344,7 +345,7 @@ const QA_LESSONS = [
       { ref: '108:1', trans: { en: 'Indeed, We have given you al-Kawthar.', bn: 'নিশ্চয় আমরা তোমাকে কাউসার দিয়েছি।' },
         note: { en: 'The final ‑كَ on أَعْطَيْنَٰكَ is the object "you".', bn: 'أَعْطَيْنَٰكَ-এর শেষ ‑كَ কর্ম "তোমাকে"।' },
         words: [
-          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা' },
+          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা' },
           { ar: 'أَعْطَيْنَٰكَ', en: 'We gave you', bn: 'আমরা তোমাকে দিয়েছি', hl: true },
           { ar: 'ٱلْكَوْثَرَ', en: 'al-Kawthar', bn: 'কাউসার' },
         ] },
@@ -395,16 +396,16 @@ const QA_LESSONS = [
     id: 'sentence-types', unit: 'sentences', icon: '🧱',
     title: { en: 'Nominal vs verbal sentences', bn: 'নামবাচক বনাম ক্রিয়াবাচক বাক্য' },
     concept: {
-      en: 'Arabic has two sentence types. A <b>nominal sentence</b> (jumla ismiyya) starts with a noun and often has no verb — "X is Y": ٱللَّهُ أَحَدٌ = "Allah is One". A <b>verbal sentence</b> (jumla fiʿliyya) starts with a verb: ٱهْدِنَا ٱلصِّرَٰطَ = "Guide us to the path".',
-      bn: 'আরবিতে দুই ধরনের বাক্য। <b>নামবাচক বাক্য</b> (জুমলা ইসমিয়া) বিশেষ্য দিয়ে শুরু হয় ও প্রায়ই ক্রিয়াহীন — "X হলো Y": ٱللَّهُ أَحَدٌ = "আল্লাহ একক"। <b>ক্রিয়াবাচক বাক্য</b> (জুমলা ফি‘লিয়া) ক্রিয়া দিয়ে শুরু: ٱهْدِنَا ٱلصِّرَٰطَ = "আমাদের পথ দেখাও"।',
+      en: 'Arabic has two sentence types. A <b>nominal sentence</b> (jumla ismiyya) starts with a noun and often has no verb — "X is Y": ٱللَّهُ أَحَدٌ = "Allah is One". A <b>verbal sentence</b> (jumla fiʿliyya) starts with a verb: ٱهْدِنَا ٱلصِّرَٰطَ = "Guide us to the path".',
+      bn: 'আরবিতে দুই ধরনের বাক্য। <b>নামবাচক বাক্য</b> (জুমলা ইসমিয়া) বিশেষ্য দিয়ে শুরু হয় ও প্রায়ই ক্রিয়াহীন — "X হলো Y": ٱللَّهُ أَحَدٌ = "আল্লাহ একক"। <b>ক্রিয়াবাচক বাক্য</b> (জুমলা ফি‘লিয়া) ক্রিয়া দিয়ে শুরু: ٱهْدِنَا ٱلصِّرَٰطَ = "আমাদের পথ দেখাও"।',
     },
     examples: [
       { ref: '112:1', trans: { en: 'He is Allah, One. — a nominal sentence (no verb).', bn: 'তিনি আল্লাহ, একক। — নামবাচক বাক্য (ক্রিয়াহীন)।' },
-        note: { en: 'هُوَ ٱللَّهُ أَحَدٌ has no verb — it links nouns: "He (is) Allah, One".', bn: 'هُوَ ٱللَّهُ أَحَدٌ-এ ক্রিয়া নেই — এটি বিশেষ্য জোড়ে: "তিনি (হলেন) আল্লাহ, একক"।' },
+        note: { en: 'هُوَ ٱللَّهُ أَحَدٌ has no verb — it links nouns: "He (is) Allah, One".', bn: 'هُوَ ٱللَّهُ أَحَدٌ-এ ক্রিয়া নেই — এটি বিশেষ্য জোড়ে: "তিনি (হলেন) আল্লাহ, একক"।' },
         words: [
           { ar: 'قُلْ', en: 'Say', bn: 'বলো' },
           { ar: 'هُوَ', en: 'He (is)', bn: 'তিনি', hl: true },
-          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ', hl: true },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ', hl: true },
           { ar: 'أَحَدٌ', en: 'One', bn: 'একক', hl: true },
         ] },
       { ref: '1:6', trans: { en: 'Guide us to the straight path. — a verbal sentence.', bn: 'আমাদের সরল পথ দেখাও। — ক্রিয়াবাচক বাক্য।' },
@@ -423,25 +424,25 @@ const QA_LESSONS = [
   },
   {
     id: 'relative-pronouns', unit: 'sentences', icon: '🪢',
-    title: { en: 'Relative pronouns (ٱلَّذِي، ٱلَّذِينَ)', bn: 'সম্বন্ধবাচক সর্বনাম (ٱلَّذِي، ٱلَّذِينَ)' },
+    title: { en: 'Relative pronouns (ٱلَّذِي، ٱلَّذِينَ)', bn: 'সম্বন্ধবাচক সর্বনাম (ٱلَّذِي، ٱلَّذِينَ)' },
     concept: {
-      en: 'Relative pronouns mean "who / which / that" and join a describing clause to a noun. ٱلَّذِي = "who" (masculine singular), ٱلَّتِي = "who" (feminine singular), ٱلَّذِينَ = "those who" (masculine plural). ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ = "those upon whom You bestowed favour".',
-      bn: 'সম্বন্ধবাচক সর্বনাম মানে "যে / যা / যাদের" এবং বর্ণনা-বাক্যকে বিশেষ্যের সাথে জোড়ে। ٱلَّذِي = "যে" (পুং. একবচন), ٱلَّتِي = "যে" (স্ত্রী. একবচন), ٱلَّذِينَ = "যারা" (পুং. বহুবচন)। ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ = "যাদের প্রতি তুমি অনুগ্রহ করেছ"।',
+      en: 'Relative pronouns mean "who / which / that" and join a describing clause to a noun. ٱلَّذِي = "who" (masculine singular), ٱلَّتِي = "who" (feminine singular), ٱلَّذِينَ = "those who" (masculine plural). ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ = "those upon whom You bestowed favour".',
+      bn: 'সম্বন্ধবাচক সর্বনাম মানে "যে / যা / যাদের" এবং বর্ণনা-বাক্যকে বিশেষ্যের সাথে জোড়ে। ٱلَّذِي = "যে" (পুং. একবচন), ٱلَّتِي = "যে" (স্ত্রী. একবচন), ٱلَّذِينَ = "যারা" (পুং. বহুবচন)। ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ = "যাদের প্রতি তুমি অনুগ্রহ করেছ"।',
     },
     examples: [
       { ref: '1:7', trans: { en: 'the path of those whom You have favoured…', bn: 'তাদের পথ, যাদের প্রতি তুমি অনুগ্রহ করেছ…' },
-        note: { en: 'ٱلَّذِينَ ("those who") joins the clause أَنْعَمْتَ عَلَيْهِمْ to صِرَٰط.', bn: 'ٱلَّذِينَ ("যারা") أَنْعَمْتَ عَلَيْهِمْ বাক্যকে صِرَٰط-এর সাথে জোড়ে।' },
+        note: { en: 'ٱلَّذِينَ ("those who") joins the clause أَنْعَمْتَ عَلَيْهِمْ to صِرَٰط.', bn: 'ٱلَّذِينَ ("যারা") أَنْعَمْتَ عَلَيْهِمْ বাক্যকে صِرَٰط-এর সাথে জোড়ে।' },
         words: [
           { ar: 'صِرَٰطَ', en: 'the path of', bn: 'পথ' },
-          { ar: 'ٱلَّذِينَ', en: 'those whom', bn: 'যাদের', hl: true },
+          { ar: 'ٱلَّذِينَ', en: 'those whom', bn: 'যাদের', hl: true },
           { ar: 'أَنْعَمْتَ', en: 'You favoured', bn: 'তুমি অনুগ্রহ করেছ' },
           { ar: 'عَلَيْهِمْ', en: 'upon them', bn: 'তাদের প্রতি' },
         ] },
     ],
     practice: {
-      q: { en: 'ٱلَّذِينَ is used for…', bn: 'ٱلَّذِينَ ব্যবহৃত হয়…' },
+      q: { en: 'ٱلَّذِينَ is used for…', bn: 'ٱلَّذِينَ ব্যবহৃত হয়…' },
       options: [{ en: 'one man', bn: 'একজন পুরুষ' }, { en: 'one woman', bn: 'একজন নারী' }, { en: 'a plural group (masc.)', bn: 'বহুবচন দল (পুং.)' }], answer: 2,
-      explain: { en: 'ٱلَّذِينَ = "those who" (masculine plural). ٱلَّذِي is the singular "who".', bn: 'ٱلَّذِينَ = "যারা" (পুং. বহুবচন)। ٱلَّذِي একবচন "যে"।' },
+      explain: { en: 'ٱلَّذِينَ = "those who" (masculine plural). ٱلَّذِي is the singular "who".', bn: 'ٱلَّذِينَ = "যারা" (পুং. বহুবচন)। ٱلَّذِي একবচন "যে"।' },
     },
   },
   {
@@ -513,7 +514,7 @@ const QA_LESSONS = [
         note: { en: 'قُلُوب ("hearts") is the broken plural of قَلْب ("heart").', bn: 'قُلُوب ("হৃদয়সমূহ") হলো قَلْب ("হৃদয়")-এর ভাঙা বহুবচন।' },
         words: [
           { ar: 'خَتَمَ', en: 'has sealed', bn: 'মোহর দিয়েছেন' },
-          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
           { ar: 'عَلَىٰ', en: 'upon', bn: 'উপর' },
           { ar: 'قُلُوبِهِمْ', en: 'their hearts', bn: 'তাদের হৃদয়', hl: true },
         ] },
@@ -634,7 +635,7 @@ const QA_LESSONS = [
       { ref: '103:2', trans: { en: 'Indeed mankind is in loss.', bn: 'নিশ্চয় মানুষ ক্ষতির মধ্যে।' },
         note: { en: 'خُسْر ("loss") is a maṣdar — the act/state of losing.', bn: 'خُسْر ("ক্ষতি") একটি মাসদার — হারানোর কাজ/অবস্থা।' },
         words: [
-          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়' },
+          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়' },
           { ar: 'ٱلْإِنسَٰنَ', en: 'mankind', bn: 'মানুষ' },
           { ar: 'لَفِى', en: 'is surely in', bn: 'নিশ্চিতভাবে মধ্যে' },
           { ar: 'خُسْرٍ', en: 'loss', bn: 'ক্ষতি', hl: true },
@@ -674,15 +675,15 @@ const QA_LESSONS = [
     id: 'mubtada-khabar', unit: 'sentences', icon: '🧩',
     title: { en: 'Subject & predicate (mubtadaʾ & khabar)', bn: 'উদ্দেশ্য ও বিধেয় (মুবতাদা ও খবর)' },
     concept: {
-      en: 'A nominal sentence has two pillars: the <b>mubtadaʾ</b> (the subject we speak about) and the <b>khabar</b> (the information about it). Both are usually in the rafʿ (‑u) case, and there is no separate word for "is" — it is understood. ٱللَّهُ ٱلصَّمَدُ = "Allah (mubtadaʾ) is the Eternal Refuge (khabar)".',
-      bn: 'নাম-বাক্যের দুটি স্তম্ভ: <b>মুবতাদা</b> (যাকে নিয়ে বলা হয়, উদ্দেশ্য) ও <b>খবর</b> (তার সম্পর্কে তথ্য, বিধেয়)। দুটোই সাধারণত রফ‘ (‑u) অবস্থায় থাকে, এবং "is/হলো" এর আলাদা শব্দ নেই — তা উহ্য। ٱللَّهُ ٱلصَّمَدُ = "আল্লাহ (মুবতাদা) অমুখাপেক্ষী (খবর)"।',
+      en: 'A nominal sentence has two pillars: the <b>mubtadaʾ</b> (the subject we speak about) and the <b>khabar</b> (the information about it). Both are usually in the rafʿ (‑u) case, and there is no separate word for "is" — it is understood. ٱللَّهُ ٱلصَّمَدُ = "Allah (mubtadaʾ) is the Eternal Refuge (khabar)".',
+      bn: 'নাম-বাক্যের দুটি স্তম্ভ: <b>মুবতাদা</b> (যাকে নিয়ে বলা হয়, উদ্দেশ্য) ও <b>খবর</b> (তার সম্পর্কে তথ্য, বিধেয়)। দুটোই সাধারণত রফ‘ (‑u) অবস্থায় থাকে, এবং "is/হলো" এর আলাদা শব্দ নেই — তা উহ্য। ٱللَّهُ ٱلصَّمَدُ = "আল্লাহ (মুবতাদা) অমুখাপেক্ষী (খবর)"।',
     },
     examples: [
       { ref: '112:2', trans: { en: 'Allah is the Eternal Refuge.', bn: 'আল্লাহ অমুখাপেক্ষী।' },
-        note: { en: 'ٱللَّهُ is the mubtadaʾ (subject); ٱلصَّمَدُ is the khabar (predicate). No "is" is written.', bn: 'ٱللَّهُ মুবতাদা (উদ্দেশ্য); ٱلصَّمَدُ খবর (বিধেয়)। কোনো "is" লেখা হয় না।' },
+        note: { en: 'ٱللَّهُ is the mubtadaʾ (subject); ٱلصَّمَدُ is the khabar (predicate). No "is" is written.', bn: 'ٱللَّهُ মুবতাদা (উদ্দেশ্য); ٱلصَّمَدُ খবর (বিধেয়)। কোনো "is" লেখা হয় না।' },
         words: [
-          { ar: 'ٱللَّهُ', en: 'Allah (subject)', bn: 'আল্লাহ (উদ্দেশ্য)', hl: true },
-          { ar: 'ٱلصَّمَدُ', en: 'the Eternal Refuge (predicate)', bn: 'অমুখাপেক্ষী (বিধেয়)', hl: true },
+          { ar: 'ٱللَّهُ', en: 'Allah (subject)', bn: 'আল্লাহ (উদ্দেশ্য)', hl: true },
+          { ar: 'ٱلصَّمَدُ', en: 'the Eternal Refuge (predicate)', bn: 'অমুখাপেক্ষী (বিধেয়)', hl: true },
         ] },
       { ref: '2:163', trans: { en: 'And your God is One God…', bn: 'আর তোমাদের ইলাহ এক ইলাহ…' },
         note: { en: 'إِلَٰهُكُمْ is the mubtadaʾ; إِلَٰهٌ (وَٰحِدٌ) is the khabar.', bn: 'إِلَٰهُكُمْ মুবতাদা; إِلَٰهٌ (وَٰحِدٌ) খবর।' },
@@ -693,9 +694,9 @@ const QA_LESSONS = [
         ] },
     ],
     practice: {
-      q: { en: 'In ٱللَّهُ ٱلصَّمَدُ, which word is the mubtadaʾ (the subject we speak about)?', bn: 'ٱللَّهُ ٱلصَّمَدُ-তে কোন শব্দটি মুবতাদা (উদ্দেশ্য)?' },
-      options: ['ٱللَّهُ', 'ٱلصَّمَدُ'], answer: 0,
-      explain: { en: 'ٱللَّهُ is the mubtadaʾ; ٱلصَّمَدُ is the khabar telling us about it.', bn: 'ٱللَّهُ মুবতাদা; ٱلصَّمَدُ খবর, যা তার সম্পর্কে জানায়।' },
+      q: { en: 'In ٱللَّهُ ٱلصَّمَدُ, which word is the mubtadaʾ (the subject we speak about)?', bn: 'ٱللَّهُ ٱلصَّمَدُ-তে কোন শব্দটি মুবতাদা (উদ্দেশ্য)?' },
+      options: ['ٱللَّهُ', 'ٱلصَّمَدُ'], answer: 0,
+      explain: { en: 'ٱللَّهُ is the mubtadaʾ; ٱلصَّمَدُ is the khabar telling us about it.', bn: 'ٱللَّهُ মুবতাদা; ٱلصَّمَدُ খবর, যা তার সম্পর্কে জানায়।' },
     },
   },
   {
@@ -727,32 +728,32 @@ const QA_LESSONS = [
   },
   {
     id: 'inna-sisters', unit: 'particles', icon: '❕',
-    title: { en: 'إِنَّ and her sisters', bn: 'إِنَّ ও তার বোনেরা' },
+    title: { en: 'إِنَّ and her sisters', bn: 'إِنَّ ও তার বোনেরা' },
     concept: {
-      en: '<b>إِنَّ</b> ("indeed / truly") and similar particles (أَنَّ, كَأَنَّ, لَٰكِنَّ, لَعَلَّ) enter a nominal sentence and put the subject into the naṣb (‑a) case, while the predicate stays rafʿ. إِنَّ adds strong emphasis: "truly…".',
-      bn: '<b>إِنَّ</b> ("নিশ্চয়/সত্যিই") ও অনুরূপ অব্যয় (أَنَّ, كَأَنَّ, لَٰكِنَّ, لَعَلَّ) নাম-বাক্যে প্রবেশ করে উদ্দেশ্যকে নসব (‑a) করে, আর বিধেয় রফ‘ থাকে। إِنَّ জোরালো তাগিদ যোগ করে: "সত্যিই…"।',
+      en: '<b>إِنَّ</b> ("indeed / truly") and similar particles (أَنَّ, كَأَنَّ, لَٰكِنَّ, لَعَلَّ) enter a nominal sentence and put the subject into the naṣb (‑a) case, while the predicate stays rafʿ. إِنَّ adds strong emphasis: "truly…".',
+      bn: '<b>إِنَّ</b> ("নিশ্চয়/সত্যিই") ও অনুরূপ অব্যয় (أَنَّ, كَأَنَّ, لَٰكِنَّ, لَعَلَّ) নাম-বাক্যে প্রবেশ করে উদ্দেশ্যকে নসব (‑a) করে, আর বিধেয় রফ‘ থাকে। إِنَّ জোরালো তাগিদ যোগ করে: "সত্যিই…"।',
     },
     examples: [
       { ref: '103:2', trans: { en: 'Indeed, mankind is in loss.', bn: 'নিশ্চয় মানুষ ক্ষতির মধ্যে।' },
-        note: { en: 'After إِنَّ, the subject ٱلْإِنسَٰنَ takes ‑a (naṣb).', bn: 'إِنَّ-এর পরে উদ্দেশ্য ٱلْإِنسَٰنَ ‑a (নসব) নেয়।' },
+        note: { en: 'After إِنَّ, the subject ٱلْإِنسَٰنَ takes ‑a (naṣb).', bn: 'إِنَّ-এর পরে উদ্দেশ্য ٱلْإِنسَٰنَ ‑a (নসব) নেয়।' },
         words: [
-          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়', hl: true },
+          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়', hl: true },
           { ar: 'ٱلْإِنسَٰنَ', en: 'mankind (naṣb)', bn: 'মানুষ (নসব)', hl: true },
           { ar: 'لَفِى', en: 'is surely in', bn: 'নিশ্চিতভাবে মধ্যে' },
           { ar: 'خُسْرٍ', en: 'loss', bn: 'ক্ষতি' },
         ] },
       { ref: '108:1', trans: { en: 'Indeed, We have given you al-Kawthar.', bn: 'নিশ্চয় আমরা তোমাকে কাউসার দিয়েছি।' },
-        note: { en: 'إِنَّآ = إِنَّ + نَا ("we") — the same emphatic particle with an attached pronoun.', bn: 'إِنَّآ = إِنَّ + نَا ("আমরা") — একই তাগিদ-অব্যয়ে যুক্ত সর্বনাম।' },
+        note: { en: 'إِنَّآ = إِنَّ + نَا ("we") — the same emphatic particle with an attached pronoun.', bn: 'إِنَّآ = إِنَّ + نَا ("আমরা") — একই তাগিদ-অব্যয়ে যুক্ত সর্বনাম।' },
         words: [
-          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা', hl: true },
+          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা', hl: true },
           { ar: 'أَعْطَيْنَٰكَ', en: 'have given you', bn: 'তোমাকে দিয়েছি' },
           { ar: 'ٱلْكَوْثَرَ', en: 'al-Kawthar', bn: 'কাউসার' },
         ] },
     ],
     practice: {
-      q: { en: 'After إِنَّ, the subject noun (like ٱلْإِنسَٰنَ) changes to which case?', bn: 'إِنَّ-এর পরে উদ্দেশ্য বিশেষ্য (যেমন ٱلْإِنسَٰنَ) কোন অবস্থায় বদলায়?' },
+      q: { en: 'After إِنَّ, the subject noun (like ٱلْإِنسَٰنَ) changes to which case?', bn: 'إِنَّ-এর পরে উদ্দেশ্য বিশেষ্য (যেমন ٱلْإِنسَٰنَ) কোন অবস্থায় বদলায়?' },
       options: [{ en: 'rafʿ', bn: 'রফ‘' }, { en: 'naṣb (accusative)', bn: 'নসব' }, { en: 'jarr', bn: 'জর' }], answer: 1,
-      explain: { en: 'إِنَّ and her sisters make the subject naṣb while the predicate stays rafʿ.', bn: 'إِنَّ ও তার বোনেরা উদ্দেশ্যকে নসব করে, বিধেয় রফ‘ থাকে।' },
+      explain: { en: 'إِنَّ and her sisters make the subject naṣb while the predicate stays rafʿ.', bn: 'إِنَّ ও তার বোনেরা উদ্দেশ্যকে নসব করে, বিধেয় রফ‘ থাকে।' },
     },
   },
   {
@@ -776,7 +777,7 @@ const QA_LESSONS = [
         words: [
           { ar: 'وَلَمْ', en: 'And not', bn: 'আর নেই' },
           { ar: 'يَكُن', en: 'is', bn: 'হয়' },
-          { ar: 'لَّهُۥ', en: 'for Him', bn: 'তাঁর' },
+          { ar: 'لَّهُۥ', en: 'for Him', bn: 'তাঁর' },
           { ar: 'كُفُوًا', en: 'comparable (naṣb)', bn: 'সমতুল্য (নসব)', hl: true },
           { ar: 'أَحَدٌۢ', en: 'anyone', bn: 'কেউ' },
         ] },
@@ -791,8 +792,8 @@ const QA_LESSONS = [
     id: 'vocative', unit: 'particles', icon: '📣',
     title: { en: 'Calling out — the vocative (yā an-nidāʾ)', bn: 'সম্বোধন — নিদা (يا)' },
     concept: {
-      en: 'To address or call someone, Arabic places <b>يَا</b> ("O…") before the name: يَا رَبِّ ("O my Lord"). For a definite noun ("the…") the longer form يَٰأَيُّهَا is used: يَٰأَيُّهَا ٱلَّذِينَ ءَامَنُوا ("O you who believe").',
-      bn: 'কাউকে সম্বোধন বা ডাকতে আরবি নামের আগে <b>يَا</b> ("হে…") বসায়: يَا رَبِّ ("হে আমার রব")। নির্দিষ্ট বিশেষ্যের ("the…") জন্য দীর্ঘ রূপ يَٰأَيُّهَا ব্যবহৃত হয়: يَٰأَيُّهَا ٱلَّذِينَ ءَامَنُوا ("হে ঈমানদারগণ")।',
+      en: 'To address or call someone, Arabic places <b>يَا</b> ("O…") before the name: يَا رَبِّ ("O my Lord"). For a definite noun ("the…") the longer form يَٰأَيُّهَا is used: يَٰأَيُّهَا ٱلَّذِينَ ءَامَنُوا ("O you who believe").',
+      bn: 'কাউকে সম্বোধন বা ডাকতে আরবি নামের আগে <b>يَا</b> ("হে…") বসায়: يَا رَبِّ ("হে আমার রব")। নির্দিষ্ট বিশেষ্যের ("the…") জন্য দীর্ঘ রূপ يَٰأَيُّهَا ব্যবহৃত হয়: يَٰأَيُّهَا ٱلَّذِينَ ءَامَنُوا ("হে ঈমানদারগণ")।',
     },
     examples: [
       { ref: '109:1', trans: { en: 'Say, "O disbelievers!"', bn: 'বলো, "হে কাফিরগণ!"' },
@@ -818,10 +819,10 @@ const QA_LESSONS = [
     },
     examples: [
       { ref: '108:2', trans: { en: 'So pray to your Lord and sacrifice.', bn: 'অতএব তোমার রবের উদ্দেশ্যে সালাত পড়ো ও কুরবানি করো।' },
-        note: { en: 'فَ ("so") on فَصَلِّ shows result; وَ ("and") on وَٱنْحَرْ joins the second command.', bn: 'فَصَلِّ-এর فَ ("অতএব") ফল দেখায়; وَٱنْحَرْ-এর وَ ("ও") দ্বিতীয় আদেশ জোড়ে।' },
+        note: { en: 'فَ ("so") on فَصَلِّ shows result; وَ ("and") on وَٱنْحَرْ joins the second command.', bn: 'فَصَلِّ-এর فَ ("অতএব") ফল দেখায়; وَٱنْحَرْ-এর وَ ("ও") দ্বিতীয় আদেশ জোড়ে।' },
         words: [
-          { ar: 'فَصَلِّ', en: 'So pray', bn: 'অতএব সালাত পড়ো', hl: true },
-          { ar: 'لِرَبِّكَ', en: 'to your Lord', bn: 'তোমার রবের জন্য' },
+          { ar: 'فَصَلِّ', en: 'So pray', bn: 'অতএব সালাত পড়ো', hl: true },
+          { ar: 'لِرَبِّكَ', en: 'to your Lord', bn: 'তোমার রবের জন্য' },
           { ar: 'وَٱنْحَرْ', en: 'and sacrifice', bn: 'ও কুরবানি করো', hl: true },
         ] },
       { ref: '95:1', trans: { en: 'By the fig and the olive.', bn: 'শপথ ডুমুর ও জলপাইয়ের।' },
@@ -832,7 +833,7 @@ const QA_LESSONS = [
         ] },
     ],
     practice: {
-      q: { en: 'The connector فَ (as in فَصَلِّ) adds the sense of…', bn: 'সংযোজক فَ (যেমন فَصَلِّ) কোন অর্থ যোগ করে…' },
+      q: { en: 'The connector فَ (as in فَصَلِّ) adds the sense of…', bn: 'সংযোজক فَ (যেমন فَصَلِّ) কোন অর্থ যোগ করে…' },
       options: [{ en: 'and so / then (result)', bn: 'অতঃপর / তখন (ফল)' }, { en: 'or', bn: 'অথবা' }, { en: 'not', bn: 'না' }], answer: 0,
       explain: { en: 'فَ links with a sense of immediate result or sequence: "and so…".', bn: 'فَ তাৎক্ষণিক ফল বা ধারাবাহিকতা বোঝায়: "অতঃপর…"।' },
     },
@@ -976,34 +977,34 @@ const QA_LESSONS = [
   },
   {
     id: 'istithna', unit: 'advanced', icon: '➖',
-    title: { en: 'Exception with إِلَّا (al-istithnāʾ)', bn: 'إِلَّا দিয়ে ব্যতিক্রম (আল-ইস্তিসনা)' },
+    title: { en: 'Exception with إِلَّا (al-istithnāʾ)', bn: 'إِلَّا দিয়ে ব্যতিক্রম (আল-ইস্তিসনা)' },
     concept: {
-      en: '<b>إِلَّا</b> ("except / but") carves an exception out of a general statement: "all… except X". After a negation it means "none… except", giving powerful affirmation: لَآ إِلَٰهَ إِلَّا هُوَ = "there is no god EXCEPT Him".',
-      bn: '<b>إِلَّا</b> ("ছাড়া / কিন্তু") সাধারণ বক্তব্য থেকে ব্যতিক্রম বের করে: "সব… ছাড়া X"। নেতিবাচকের পরে এর অর্থ "কেউ নয়… ছাড়া", যা জোরালো নিশ্চয়তা দেয়: لَآ إِلَٰهَ إِلَّا هُوَ = "তিনি ছাড়া কোনো ইলাহ নেই"।',
+      en: '<b>إِلَّا</b> ("except / but") carves an exception out of a general statement: "all… except X". After a negation it means "none… except", giving powerful affirmation: لَآ إِلَٰهَ إِلَّا هُوَ = "there is no god EXCEPT Him".',
+      bn: '<b>إِلَّا</b> ("ছাড়া / কিন্তু") সাধারণ বক্তব্য থেকে ব্যতিক্রম বের করে: "সব… ছাড়া X"। নেতিবাচকের পরে এর অর্থ "কেউ নয়… ছাড়া", যা জোরালো নিশ্চয়তা দেয়: لَآ إِلَٰهَ إِلَّا هُوَ = "তিনি ছাড়া কোনো ইলাহ নেই"।',
     },
     examples: [
       { ref: '2:255', trans: { en: 'Allah — there is no god except Him…', bn: 'আল্লাহ — তিনি ছাড়া কোনো ইলাহ নেই…' },
-        note: { en: 'إِلَّا excepts هُوَ from the negation لَآ إِلَٰهَ — "none except He".', bn: 'إِلَّا نেতিবাচক لَآ إِلَٰهَ থেকে هُوَ-কে ব্যতিক্রম করে — "তিনি ছাড়া কেউ নয়"।' },
+        note: { en: 'إِلَّا excepts هُوَ from the negation لَآ إِلَٰهَ — "none except He".', bn: 'إِلَّا نেতিবাচক لَآ إِلَٰهَ থেকে هُوَ-কে ব্যতিক্রম করে — "তিনি ছাড়া কেউ নয়"।' },
         words: [
           { ar: 'لَآ', en: 'no', bn: 'নেই' },
           { ar: 'إِلَٰهَ', en: 'god', bn: 'ইলাহ' },
-          { ar: 'إِلَّا', en: 'except', bn: 'ছাড়া', hl: true },
+          { ar: 'إِلَّا', en: 'except', bn: 'ছাড়া', hl: true },
           { ar: 'هُوَ', en: 'Him', bn: 'তিনি' },
         ] },
       { ref: '103:3', trans: { en: 'Except those who believe and do righteous deeds…', bn: 'তারা ছাড়া যারা ঈমান আনে ও সৎকর্ম করে…' },
-        note: { en: 'إِلَّا excepts the believers from the loss of "all mankind".', bn: 'إِلَّا "সব মানুষ"-এর ক্ষতি থেকে ঈমানদারদের ব্যতিক্রম করে।' },
+        note: { en: 'إِلَّا excepts the believers from the loss of "all mankind".', bn: 'إِلَّا "সব মানুষ"-এর ক্ষতি থেকে ঈমানদারদের ব্যতিক্রম করে।' },
         words: [
-          { ar: 'إِلَّا', en: 'Except', bn: 'ছাড়া', hl: true },
-          { ar: 'ٱلَّذِينَ', en: 'those who', bn: 'যারা' },
+          { ar: 'إِلَّا', en: 'Except', bn: 'ছাড়া', hl: true },
+          { ar: 'ٱلَّذِينَ', en: 'those who', bn: 'যারা' },
           { ar: 'ءَامَنُوا۟', en: 'believe', bn: 'ঈমান আনে' },
           { ar: 'وَعَمِلُوا۟', en: 'and do', bn: 'ও করে' },
-          { ar: 'ٱلصَّٰلِحَٰتِ', en: 'righteous deeds', bn: 'সৎকর্ম' },
+          { ar: 'ٱلصَّٰلِحَٰتِ', en: 'righteous deeds', bn: 'সৎকর্ম' },
         ] },
     ],
     practice: {
-      q: { en: 'In لَآ إِلَٰهَ إِلَّا هُوَ, the word إِلَّا means…', bn: 'لَآ إِلَٰهَ إِلَّا هُوَ-তে إِلَّا শব্দের অর্থ…' },
+      q: { en: 'In لَآ إِلَٰهَ إِلَّا هُوَ, the word إِلَّا means…', bn: 'لَآ إِلَٰهَ إِلَّا هُوَ-তে إِلَّا শব্দের অর্থ…' },
       options: [{ en: 'and', bn: 'এবং' }, { en: 'except / but', bn: 'ছাড়া / কিন্তু' }, { en: 'in', bn: 'মধ্যে' }], answer: 1,
-      explain: { en: 'إِلَّا is the particle of exception: "no god EXCEPT Him".', bn: 'إِلَّا ব্যতিক্রমের অব্যয়: "তিনি ছাড়া কোনো ইলাহ নেই"।' },
+      explain: { en: 'إِلَّا is the particle of exception: "no god EXCEPT Him".', bn: 'إِلَّا ব্যতিক্রমের অব্যয়: "তিনি ছাড়া কোনো ইলাহ নেই"।' },
     },
   },
   {
@@ -1067,14 +1068,14 @@ const QA_LESSONS = [
   },
   {
     id: 'inna-kana-applied', unit: 'advanced', icon: '🧠',
-    title: { en: 'Sisters of إِنَّ & كَانَ in action (لَعَلَّ، لَيْسَ)', bn: 'إِنَّ ও كَانَ-এর বোনেরা প্রয়োগে (لَعَلَّ، لَيْسَ)' },
+    title: { en: 'Sisters of إِنَّ & كَانَ in action (لَعَلَّ، لَيْسَ)', bn: 'إِنَّ ও كَانَ-এর বোনেরা প্রয়োগে (لَعَلَّ، لَيْسَ)' },
     concept: {
-      en: 'The sisters of إِنَّ and كَانَ appear constantly in the Quran. <b>لَعَلَّ</b> ("so that perhaps / that you may") is a sister of إِنَّ — it makes the subject naṣb and expresses hope. <b>لَيْسَ</b> ("is not") is a sister of كَانَ — it negates a nominal sentence and makes the predicate naṣb.',
-      bn: 'إِنَّ ও كَانَ-এর বোনেরা কুরআনে অহরহ আসে। <b>لَعَلَّ</b> ("যাতে সম্ভবত / যেন তোমরা") إِنَّ-এর বোন — উদ্দেশ্যকে নসব করে ও আশা প্রকাশ করে। <b>لَيْسَ</b> ("নয়") كَانَ-এর বোন — নাম-বাক্য নাকচ করে ও বিধেয়কে নসব করে।',
+      en: 'The sisters of إِنَّ and كَانَ appear constantly in the Quran. <b>لَعَلَّ</b> ("so that perhaps / that you may") is a sister of إِنَّ — it makes the subject naṣb and expresses hope. <b>لَيْسَ</b> ("is not") is a sister of كَانَ — it negates a nominal sentence and makes the predicate naṣb.',
+      bn: 'إِنَّ ও كَانَ-এর বোনেরা কুরআনে অহরহ আসে। <b>لَعَلَّ</b> ("যাতে সম্ভবত / যেন তোমরা") إِنَّ-এর বোন — উদ্দেশ্যকে নসব করে ও আশা প্রকাশ করে। <b>لَيْسَ</b> ("নয়") كَانَ-এর বোন — নাম-বাক্য নাকচ করে ও বিধেয়কে নসব করে।',
     },
     examples: [
       { ref: '2:21', trans: { en: '…worship your Lord… so that you may become mindful.', bn: '…তোমাদের রবের ইবাদত করো… যেন তোমরা মুত্তাকী হও।' },
-        note: { en: 'لَعَلَّكُمْ = لَعَلَّ ("so that perhaps") + كُمْ ("you") — a sister of إِنَّ expressing hope.', bn: 'لَعَلَّكُمْ = لَعَلَّ ("যাতে সম্ভবত") + كُمْ ("তোমরা") — إِنَّ-এর বোন, আশা প্রকাশক।' },
+        note: { en: 'لَعَلَّكُمْ = لَعَلَّ ("so that perhaps") + كُمْ ("you") — a sister of إِنَّ expressing hope.', bn: 'لَعَلَّكُمْ = لَعَلَّ ("যাতে সম্ভবত") + كُمْ ("তোমরা") — إِنَّ-এর বোন, আশা প্রকাশক।' },
         words: [
           { ar: 'ٱعْبُدُوا۟', en: 'worship', bn: 'ইবাদত করো' },
           { ar: 'رَبَّكُمُ', en: 'your Lord', bn: 'তোমাদের রব' },
@@ -1085,13 +1086,13 @@ const QA_LESSONS = [
         note: { en: 'أَلَيْسَ = the hamza of question + لَيْسَ ("is not"), a sister of كَانَ.', bn: 'أَلَيْسَ = প্রশ্নের হামযা + لَيْسَ ("নয়"), كَانَ-এর বোন।' },
         words: [
           { ar: 'أَلَيْسَ', en: 'Is not', bn: 'নন কি' },
-          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
           { ar: 'بِأَحْكَمِ', en: 'the most just of', bn: 'সর্বাধিক ন্যায়পরায়ণ' },
           { ar: 'ٱلْحَٰكِمِينَ', en: 'the judges', bn: 'বিচারকদের' },
         ] },
     ],
     practice: {
-      q: { en: 'لَعَلَّ (as in لَعَلَّكُمْ تَتَّقُونَ) is a sister of إِنَّ that expresses…', bn: 'لَعَلَّ (যেমন لَعَلَّكُمْ تَتَّقُونَ) إِنَّ-এর বোন, যা প্রকাশ করে…' },
+      q: { en: 'لَعَلَّ (as in لَعَلَّكُمْ تَتَّقُونَ) is a sister of إِنَّ that expresses…', bn: 'لَعَلَّ (যেমন لَعَلَّكُمْ تَتَّقُونَ) إِنَّ-এর বোন, যা প্রকাশ করে…' },
       options: [{ en: 'hope / purpose ("so that")', bn: 'আশা / উদ্দেশ্য ("যেন")' }, { en: 'the past', bn: 'অতীত' }, { en: 'an oath', bn: 'শপথ' }], answer: 0,
       explain: { en: 'لَعَلَّ conveys hope or purpose: "so that you may…", and makes the subject naṣb.', bn: 'لَعَلَّ আশা বা উদ্দেশ্য বোঝায়: "যেন তোমরা…", এবং উদ্দেশ্যকে নসব করে।' },
     },
@@ -1111,7 +1112,7 @@ const QA_LESSONS = [
           { ar: 'خَلَقْتُ', en: 'I created', bn: 'আমি সৃষ্টি করেছি' },
           { ar: 'ٱلْجِنَّ', en: 'the jinn', bn: 'জিন' },
           { ar: 'وَٱلْإِنسَ', en: 'and mankind', bn: 'ও মানুষ' },
-          { ar: 'إِلَّا', en: 'except', bn: 'কেবল' },
+          { ar: 'إِلَّا', en: 'except', bn: 'কেবল' },
           { ar: 'لِيَعْبُدُونِ', en: 'to worship Me', bn: 'আমার ইবাদতের জন্য', hl: true },
         ] },
     ],
@@ -1131,7 +1132,7 @@ const QA_LESSONS = [
       bn: 'অল্প কিছু বিশেষ্যই কুরআনের পাঠের বিরাট অংশ জুড়ে আছে। এগুলো আগে শিখলে একসাথে পুরো আয়াত খুলে যায়। নিচের প্রতিটি কার্ড একটি বাস্তব ব্যবহার — আয়াতের ভেতরে শব্দটি দেখতে ট্যাপ করুন।',
     },
     vocab: [
-      { ar: 'ٱللَّهُ', ref: '112:1', en: 'Allah', bn: 'আল্লাহ', pos: { en: 'proper noun', bn: 'বিশেষ নাম' } },
+      { ar: 'ٱللَّهُ', ref: '112:1', en: 'Allah', bn: 'আল্লাহ', pos: { en: 'proper noun', bn: 'বিশেষ নাম' } },
       { ar: 'رَبِّ', ref: '1:2', en: 'Lord (of)', bn: 'রব / পালনকর্তা', pos: { en: 'noun', bn: 'বিশেষ্য' } },
       { ar: 'يَوْمِ', ref: '1:4', en: 'day (of)', bn: 'দিন', pos: { en: 'noun', bn: 'বিশেষ্য' } },
       { ar: 'ٱلنَّاسِ', ref: '114:1', en: 'mankind, the people', bn: 'মানুষ', pos: { en: 'noun', bn: 'বিশেষ্য' } },
@@ -1151,38 +1152,38 @@ const QA_LESSONS = [
     id: 'freq-pronouns', unit: 'vocabulary', icon: '🫵',
     title: { en: 'Top pronouns & pointers', bn: 'শীর্ষ সর্বনাম ও নির্দেশক' },
     concept: {
-      en: 'Pronouns and pointing words appear in nearly every ayah. Master هُوَ، هُمْ، ذَٰلِكَ، ٱلَّذِي/ٱلَّذِينَ and the flexible مَا and مَنْ, and sentences start to parse themselves.',
-      bn: 'সর্বনাম ও নির্দেশক শব্দ প্রায় প্রতিটি আয়াতে আসে। هُوَ، هُمْ، ذَٰلِكَ، ٱلَّذِي/ٱلَّذِينَ এবং বহুমুখী مَا ও مَنْ আয়ত্ত করলে বাক্য নিজে নিজেই বোঝা যেতে থাকে।',
+      en: 'Pronouns and pointing words appear in nearly every ayah. Master هُوَ، هُمْ، ذَٰلِكَ، ٱلَّذِي/ٱلَّذِينَ and the flexible مَا and مَنْ, and sentences start to parse themselves.',
+      bn: 'সর্বনাম ও নির্দেশক শব্দ প্রায় প্রতিটি আয়াতে আসে। هُوَ، هُمْ، ذَٰلِكَ، ٱلَّذِي/ٱلَّذِينَ এবং বহুমুখী مَا ও مَنْ আয়ত্ত করলে বাক্য নিজে নিজেই বোঝা যেতে থাকে।',
     },
     vocab: [
       { ar: 'هُوَ', ref: '112:1', en: 'he / it', bn: 'সে / তিনি', pos: { en: 'pronoun', bn: 'সর্বনাম' } },
       { ar: 'هُمْ', ref: '2:4', en: 'they', bn: 'তারা', pos: { en: 'pronoun', bn: 'সর্বনাম' } },
       { ar: 'ذَٰلِكَ', ref: '2:2', en: 'that', bn: 'সেই / ঐ', pos: { en: 'demonstrative', bn: 'নির্দেশক' } },
-      { ar: 'ٱلَّذِينَ', ref: '1:7', en: 'those who', bn: 'যারা', pos: { en: 'relative pronoun', bn: 'সম্বন্ধবাচক' } },
+      { ar: 'ٱلَّذِينَ', ref: '1:7', en: 'those who', bn: 'যারা', pos: { en: 'relative pronoun', bn: 'সম্বন্ধবাচক' } },
       { ar: 'ٱلَّذِى', ref: '107:1', en: 'who / which (sing.)', bn: 'যে / যা', pos: { en: 'relative pronoun', bn: 'সম্বন্ধবাচক' } },
       { ar: 'مَا', ref: '2:255', en: 'what / that which', bn: 'যা / কী', pos: { en: 'pronoun / particle', bn: 'সর্বনাম / অব্যয়' } },
       { ar: 'مَن', ref: '2:255', en: 'who / whoever', bn: 'যে / কে', pos: { en: 'pronoun', bn: 'সর্বনাম' } },
     ],
     examples: [],
     practice: {
-      q: { en: 'ٱلَّذِينَ means…', bn: 'ٱلَّذِينَ মানে…' },
+      q: { en: 'ٱلَّذِينَ means…', bn: 'ٱلَّذِينَ মানে…' },
       options: [{ en: 'those who', bn: 'যারা' }, { en: 'in', bn: 'মধ্যে' }, { en: 'say!', bn: 'বলো!' }], answer: 0,
-      explain: { en: 'ٱلَّذِينَ = "those who" (masculine plural relative pronoun).', bn: 'ٱلَّذِينَ = "যারা" (পুংলিঙ্গ বহুবচন সম্বন্ধবাচক সর্বনাম)।' },
+      explain: { en: 'ٱلَّذِينَ = "those who" (masculine plural relative pronoun).', bn: 'ٱلَّذِينَ = "যারা" (পুংলিঙ্গ বহুবচন সম্বন্ধবাচক সর্বনাম)।' },
     },
   },
   {
     id: 'freq-particles', unit: 'vocabulary', icon: '🧲',
     title: { en: 'Top particles that glue the Quran', bn: 'কুরআন জোড়ার শীর্ষ অব্যয়সমূহ' },
     concept: {
-      en: 'Particles are tiny but everywhere: prepositions (فِي، عَلَىٰ، مِنْ), the emphasiser إِنَّ, the exceptor إِلَّا, and the negators لَا، لَمْ، لَنْ. Knowing this handful lets you follow the skeleton of almost any verse.',
-      bn: 'অব্যয় ছোট কিন্তু সর্বত্র: অব্যয়পদ (فِي، عَلَىٰ، مِنْ), তাগিদের إِنَّ, ব্যতিক্রমের إِلَّا, এবং নেতিবাচক لَا، لَمْ، لَنْ। এই কয়টি জানলেই প্রায় যেকোনো আয়াতের কাঠামো অনুসরণ করা যায়।',
+      en: 'Particles are tiny but everywhere: prepositions (فِي، عَلَىٰ، مِنْ), the emphasiser إِنَّ, the exceptor إِلَّا, and the negators لَا، لَمْ، لَنْ. Knowing this handful lets you follow the skeleton of almost any verse.',
+      bn: 'অব্যয় ছোট কিন্তু সর্বত্র: অব্যয়পদ (فِي، عَلَىٰ، مِنْ), তাগিদের إِنَّ, ব্যতিক্রমের إِلَّا, এবং নেতিবাচক لَا، لَمْ، لَنْ। এই কয়টি জানলেই প্রায় যেকোনো আয়াতের কাঠামো অনুসরণ করা যায়।',
     },
     vocab: [
       { ar: 'فِى', ref: '104:4', en: 'in', bn: 'মধ্যে', pos: { en: 'preposition', bn: 'অব্যয়পদ' } },
       { ar: 'عَلَىٰ', ref: '2:7', en: 'on / upon', bn: 'উপর', pos: { en: 'preposition', bn: 'অব্যয়পদ' } },
       { ar: 'مِن', ref: '2:4', en: 'from / of', bn: 'থেকে', pos: { en: 'preposition', bn: 'অব্যয়পদ' } },
-      { ar: 'إِنَّ', ref: '103:2', en: 'indeed, truly', bn: 'নিশ্চয়', pos: { en: 'emphasis particle', bn: 'তাগিদ-অব্যয়' } },
-      { ar: 'إِلَّا', ref: '103:3', en: 'except', bn: 'ছাড়া', pos: { en: 'exception particle', bn: 'ব্যতিক্রম-অব্যয়' } },
+      { ar: 'إِنَّ', ref: '103:2', en: 'indeed, truly', bn: 'নিশ্চয়', pos: { en: 'emphasis particle', bn: 'তাগিদ-অব্যয়' } },
+      { ar: 'إِلَّا', ref: '103:3', en: 'except', bn: 'ছাড়া', pos: { en: 'exception particle', bn: 'ব্যতিক্রম-অব্যয়' } },
       { ar: 'لَا', ref: '2:2', en: 'no / not', bn: 'না / নেই', pos: { en: 'negation particle', bn: 'নেতিবাচক অব্যয়' } },
       { ar: 'لَمْ', ref: '112:3', en: 'did not', bn: 'নি (অতীত নাকচ)', pos: { en: 'negation particle', bn: 'নেতিবাচক অব্যয়' } },
       { ar: 'لَن', ref: '2:80', en: 'will never', bn: 'কখনো না', pos: { en: 'negation particle', bn: 'নেতিবাচক অব্যয়' } },
@@ -1190,8 +1191,8 @@ const QA_LESSONS = [
     examples: [],
     practice: {
       q: { en: 'Which particle means "except"?', bn: 'কোন অব্যয়ের অর্থ "ছাড়া"?' },
-      options: ['إِلَّا', 'إِنَّ', 'لَمْ'], answer: 0,
-      explain: { en: 'إِلَّا is the particle of exception ("except"); إِنَّ = "indeed", لَمْ = "did not".', bn: 'إِلَّا ব্যতিক্রমের অব্যয় ("ছাড়া"); إِنَّ = "নিশ্চয়", لَمْ = "নি"।' },
+      options: ['إِلَّا', 'إِنَّ', 'لَمْ'], answer: 0,
+      explain: { en: 'إِلَّا is the particle of exception ("except"); إِنَّ = "indeed", لَمْ = "did not".', bn: 'إِلَّا ব্যতিক্রমের অব্যয় ("ছাড়া"); إِنَّ = "নিশ্চয়", لَمْ = "নি"।' },
     },
   },
   {
@@ -1218,6 +1219,159 @@ const QA_LESSONS = [
       explain: { en: 'قَالَ is the past verb "he said" — one of the most frequent words in the Quran.', bn: 'قَالَ অতীত ক্রিয়া "সে বলল" — কুরআনের অন্যতম বেশি ব্যবহৃত শব্দ।' },
     },
   },
+
+  /* ===================== UNIT 9 — READING REAL AYAT ===================== *
+   * Full word-by-word parse of complete short verses. Every token below is *
+   * verified against data/quran-words.json, and every "role" tag only      *
+   * re-applies grammar already taught in Units 1–8 (reinforcement, not new  *
+   * claims). Each example word may carry an optional role{en,bn} tag.       */
+  {
+    id: 'read-bismillah', unit: 'reading', icon: '🌸',
+    title: { en: 'Reading 1:1 — Bismillah, word by word', bn: '১:১ পড়া — বিসমিল্লাহ, শব্দে শব্দে' },
+    concept: {
+      en: 'Now we read a COMPLETE verse and label every single word with the grammar you already learned. The Basmala is a <b>phrase</b> (not a full sentence): a preposition, a chain of possession (iḍāfah), and two adjectives — all in the genitive (jarr). Read each word, then its role tag.',
+      bn: 'এবার আমরা একটি সম্পূর্ণ আয়াত পড়ব এবং প্রতিটি শব্দকে আগে শেখা ব্যাকরণ দিয়ে চিহ্নিত করব। বিসমিল্লাহ একটি <b>বাক্যাংশ</b> (পূর্ণ বাক্য নয়): একটি অব্যয়, একটি সম্বন্ধ-শৃঙ্খল (ইদাফা), ও দুটি বিশেষণ — সবই জর অবস্থায়। প্রতিটি শব্দ পড়ো, তারপর তার ভূমিকা-চিহ্ন দেখো।',
+    },
+    examples: [
+      { ref: '1:1', trans: { en: 'In the name of Allah, the Most Merciful, the Bestower of Mercy.', bn: 'পরম করুণাময় অসীম দয়ালু আল্লাহর নামে।' },
+        note: { en: 'بِـ (a preposition, ḥarf jarr) makes ٱسْم genitive → بِسْمِ. ٱسْم then owns ٱللَّهِ (iḍāfah, so ٱللَّهِ is jarr). ٱلرَّحْمَٰنِ and ٱلرَّحِيمِ are adjectives (ṣifa) of ٱللَّهِ, matching it in the genitive.', bn: 'بِـ (একটি অব্যয়, হারফ জর) ٱسْم-কে জর করে → بِسْمِ। এরপর ٱسْم-এর সাথে ٱللَّهِ যুক্ত (ইদাফা, তাই ٱللَّهِ জর)। ٱلرَّحْمَٰنِ ও ٱلرَّحِيمِ হলো ٱللَّهِ-এর বিশেষণ (সিফা), জর অবস্থায় মিলে যায়।' },
+        words: [
+          { ar: 'بِسْمِ', en: 'In the name of', bn: 'নামে', hl: true, role: { en: 'preposition + noun (jarr)', bn: 'অব্যয় + বিশেষ্য (জর)' } },
+          { ar: 'ٱللَّهِ', en: 'of Allah', bn: 'আল্লাহর', role: { en: 'proper noun — muḍāf ilayh (jarr)', bn: 'বিশেষ নাম — মুদাফ ইলাইহি (জর)' } },
+          { ar: 'ٱلرَّحْمَٰنِ', en: 'the Most Merciful', bn: 'পরম করুণাময়', role: { en: 'adjective (ṣifa, jarr)', bn: 'বিশেষণ (সিফা, জর)' } },
+          { ar: 'ٱلرَّحِيمِ', en: 'the Bestower of Mercy', bn: 'অসীম দয়ালু', role: { en: 'adjective (ṣifa, jarr)', bn: 'বিশেষণ (সিফা, জর)' } },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In بِسْمِ, the letter بِـ is a…', bn: 'بِسْمِ-এ بِـ অক্ষরটি একটি…' },
+      options: [{ en: 'preposition (ḥarf jarr)', bn: 'অব্যয় (হারফ জর)' }, { en: 'verb (fiʿl)', bn: 'ক্রিয়া (ফি‘ল)' }, { en: 'noun (ism)', bn: 'বিশেষ্য (ইসম)' }], answer: 0,
+      explain: { en: 'بِـ ("in/with") is a preposition, so the noun ٱسْم after it becomes genitive: بِسْمِ.', bn: 'بِـ ("নামে/দিয়ে") একটি অব্যয়, তাই এর পরের বিশেষ্য ٱسْم জর হয়: بِسْمِ।' },
+    },
+  },
+  {
+    id: 'read-ikhlas', unit: 'reading', icon: '💎',
+    title: { en: 'Reading 112:1–4 — Al-Ikhlas', bn: '১১২:১–৪ পড়া — সূরা ইখলাস' },
+    concept: {
+      en: 'Al-Ikhlas is four short verses that use nominal sentences, negation and a sister of كَانَ — all from earlier units. Walk each word: a command, a subject-and-predicate, two negated verbs (one passive), then كَانَ negated with its subject and predicate.',
+      bn: 'সূরা ইখলাস চারটি ছোট আয়াত, যেখানে নাম-বাক্য, নেতিবাচকতা ও كَانَ-এর একটি বোন ব্যবহৃত — সবই আগের ইউনিট থেকে। প্রতিটি শব্দ ঘুরে দেখো: একটি আদেশ, একটি উদ্দেশ্য-ও-বিধেয়, দুটি নেতিবাচক ক্রিয়া (একটি কর্মবাচ্য), তারপর كَانَ নেতিবাচক তার উদ্দেশ্য ও বিধেয়সহ।',
+    },
+    examples: [
+      { ref: '112:1', trans: { en: 'Say, "He is Allah, One."', bn: 'বলো, "তিনি আল্লাহ, একক।"' },
+        note: { en: 'قُلْ is a command. What follows is a nominal sentence with NO verb: هُوَ is the subject (mubtadaʾ), and ٱللَّهُ … أَحَدٌ is the predicate — all in rafʿ.', bn: 'قُلْ একটি আদেশ। এরপর একটি ক্রিয়াহীন নাম-বাক্য: هُوَ উদ্দেশ্য (মুবতাদা), আর ٱللَّهُ … أَحَدٌ বিধেয় — সবই রফ‘।' },
+        words: [
+          { ar: 'قُلْ', en: 'Say', bn: 'বলো', role: { en: 'command verb (amr)', bn: 'আদেশ ক্রিয়া (আমর)' } },
+          { ar: 'هُوَ', en: 'He (is)', bn: 'তিনি', hl: true, role: { en: 'detached pronoun — mubtadaʾ (rafʿ)', bn: 'বিচ্ছিন্ন সর্বনাম — মুবতাদা (রফ‘)' } },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ', role: { en: 'proper noun — khabar (rafʿ)', bn: 'বিশেষ নাম — খবর (রফ‘)' } },
+          { ar: 'أَحَدٌ', en: 'One', bn: 'একক', role: { en: 'noun — khabar (rafʿ, tanwīn)', bn: 'বিশেষ্য — খবর (রফ‘, তানভীন)' } },
+        ] },
+      { ref: '112:2', trans: { en: 'Allah, the Eternal Refuge.', bn: 'আল্লাহ, অমুখাপেক্ষী চিরসত্তা।' },
+        note: { en: 'A second nominal sentence: ٱللَّهُ is the mubtadaʾ (subject) and ٱلصَّمَدُ is the khabar (predicate) — both in rafʿ.', bn: 'আরেকটি নাম-বাক্য: ٱللَّهُ মুবতাদা (উদ্দেশ্য) ও ٱلصَّمَدُ খবর (বিধেয়) — দুটোই রফ‘।' },
+        words: [
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ', role: { en: 'mubtadaʾ (rafʿ)', bn: 'মুবতাদা (রফ‘)' } },
+          { ar: 'ٱلصَّمَدُ', en: 'the Eternal Refuge', bn: 'অমুখাপেক্ষী', hl: true, role: { en: 'khabar / predicate (rafʿ)', bn: 'খবর / বিধেয় (রফ‘)' } },
+        ] },
+      { ref: '112:3', trans: { en: 'He neither begets nor is born.', bn: 'তিনি জন্ম দেননি এবং জন্মগ্রহণ করেননি।' },
+        note: { en: 'لَمْ + a present verb gives a PAST negation. يَلِدْ is active ("beget"); يُولَدْ is the passive ("is born") — the doer is unnamed.', bn: 'لَمْ + বর্তমান ক্রিয়া অতীত নেতিবাচক দেয়। يَلِدْ কর্তৃবাচ্য ("জন্ম দেওয়া"); يُولَدْ কর্মবাচ্য ("জন্মগ্রহণ") — কর্তা অনুক্ত।' },
+        words: [
+          { ar: 'لَمْ', en: 'not (did)', bn: 'নি', role: { en: 'negation particle (ḥarf)', bn: 'নেতিবাচক অব্যয় (হারফ)' } },
+          { ar: 'يَلِدْ', en: 'He begets', bn: 'তিনি জন্ম দেন', hl: true, role: { en: 'present verb, jazm (past negation)', bn: 'বর্তমান ক্রিয়া, জযম (অতীত নাকচ)' } },
+          { ar: 'وَلَمْ', en: 'and not', bn: 'এবং নি', role: { en: 'and + negation particle', bn: 'ও + নেতিবাচক অব্যয়' } },
+          { ar: 'يُولَدْ', en: 'is He born', bn: 'তিনি জন্মগ্রহণ করেন', role: { en: 'passive present verb (majhūl)', bn: 'কর্মবাচ্য বর্তমান ক্রিয়া (মাজহূল)' } },
+        ] },
+      { ref: '112:4', trans: { en: 'Nor is there to Him any equivalent.', bn: 'আর তাঁর সমতুল্য কেউ নেই।' },
+        note: { en: 'يَكُن is from كَانَ (a sister of كَانَ). Its subject (ism) is أَحَدٌۢ ("anyone", rafʿ) and its predicate (khabar) is كُفُوًا ("an equal", naṣb, brought forward). لَّهُۥ = the preposition لِ + "him".', bn: 'يَكُن হলো كَانَ থেকে (كَانَ-এর বোন)। এর উদ্দেশ্য (ইসম) أَحَدٌۢ ("কেউ", রফ‘) ও বিধেয় (খবর) كُفُوًا ("সমতুল্য", নসব, আগে আনা)। لَّهُۥ = অব্যয় لِ + "তাঁর"।' },
+        words: [
+          { ar: 'وَلَمْ', en: 'And not', bn: 'আর নি', role: { en: 'and + negation particle', bn: 'ও + নেতিবাচক অব্যয়' } },
+          { ar: 'يَكُن', en: 'there is', bn: 'আছে', hl: true, role: { en: 'verb كَانَ, jazm', bn: 'ক্রিয়া كَانَ, জযম' } },
+          { ar: 'لَّهُۥ', en: 'to Him', bn: 'তাঁর জন্য', role: { en: 'preposition + pronoun', bn: 'অব্যয় + সর্বনাম' } },
+          { ar: 'كُفُوًا', en: 'equivalent', bn: 'সমতুল্য', role: { en: 'khabar of كَانَ (naṣb)', bn: 'كَانَ-এর খবর (নসব)' } },
+          { ar: 'أَحَدٌۢ', en: 'any one', bn: 'কেউ', role: { en: 'ism of كَانَ (rafʿ)', bn: 'كَانَ-এর ইসম (রফ‘)' } },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In 112:3, why does يُولَدْ mean "is born" rather than "gives birth"?', bn: '১১২:৩-এ يُولَدْ মানে "জন্মগ্রহণ করেন", "জন্ম দেন" নয় কেন?' },
+      options: [{ en: 'it is a passive verb (majhūl)', bn: 'এটি কর্মবাচ্য ক্রিয়া (মাজহূল)' }, { en: 'it is a command', bn: 'এটি আদেশ' }, { en: 'it is a noun', bn: 'এটি বিশেষ্য' }], answer: 0,
+      explain: { en: 'يُولَدْ is the passive of "to beget": the action falls ON the subject, so "is born". The doer is left unnamed.', bn: 'يُولَدْ হলো "জন্ম দেওয়া"-র কর্মবাচ্য: কাজটি উদ্দেশ্যের উপর পড়ে, তাই "জন্মগ্রহণ"। কর্তা অনুক্ত থাকে।' },
+    },
+  },
+  {
+    id: 'read-kawthar', unit: 'reading', icon: '🏞️',
+    title: { en: 'Reading 108:1–3 — Al-Kawthar', bn: '১০৮:১–৩ পড়া — সূরা কাউসার' },
+    concept: {
+      en: 'The shortest surah, in three verses: an emphatic إِنَّ with an attached pronoun and a past verb carrying an object, two commands, and a final إِنَّ sentence. Every piece appeared in earlier lessons — here we read them together.',
+      bn: 'সবচেয়ে ছোট সূরা, তিন আয়াতে: একটি তাগিদপূর্ণ إِنَّ যুক্ত সর্বনাম ও কর্মবাহী অতীত ক্রিয়াসহ, দুটি আদেশ, এবং শেষে একটি إِنَّ বাক্য। প্রতিটি অংশ আগের পাঠে এসেছে — এখানে একসাথে পড়ি।',
+    },
+    examples: [
+      { ref: '108:1', trans: { en: 'Indeed, We have given you al-Kawthar.', bn: 'নিশ্চয় আমরা তোমাকে কাউসার দিয়েছি।' },
+        note: { en: 'إِنَّآ = إِنَّ ("indeed") + نَا ("we"). أَعْطَيْنَٰكَ = the past verb أَعْطَيْنَا ("We gave") + the object ‑كَ ("you"). ٱلْكَوْثَرَ is the object (mafʿūl bihi) in naṣb.', bn: 'إِنَّآ = إِنَّ ("নিশ্চয়") + نَا ("আমরা")। أَعْطَيْنَٰكَ = অতীত ক্রিয়া أَعْطَيْنَا ("আমরা দিলাম") + কর্ম ‑كَ ("তোমাকে")। ٱلْكَوْثَرَ কর্ম (মাফ‘ূল বিহি) নসব-এ।' },
+        words: [
+          { ar: 'إِنَّآ', en: 'Indeed We', bn: 'নিশ্চয় আমরা', role: { en: 'emphasis particle + pronoun', bn: 'তাগিদ-অব্যয় + সর্বনাম' } },
+          { ar: 'أَعْطَيْنَٰكَ', en: 'We gave you', bn: 'আমরা তোমাকে দিয়েছি', hl: true, role: { en: 'past verb + object pronoun', bn: 'অতীত ক্রিয়া + কর্ম সর্বনাম' } },
+          { ar: 'ٱلْكَوْثَرَ', en: 'al-Kawthar', bn: 'কাউসার', role: { en: 'object — mafʿūl bihi (naṣb)', bn: 'কর্ম — মাফ‘ূল বিহি (নসব)' } },
+        ] },
+      { ref: '108:2', trans: { en: 'So pray to your Lord and sacrifice.', bn: 'অতএব তোমার রবের উদ্দেশ্যে সালাত পড়ো ও কুরবানি করো।' },
+        note: { en: 'Two commands joined by فَـ and وَ. لِرَبِّكَ = the preposition لِ + رَبّ (jarr) + ‑كَ ("your") — a possessive pronoun on a genitive noun.', bn: 'فَـ ও وَ দিয়ে জোড়া দুটি আদেশ। لِرَبِّكَ = অব্যয় لِ + رَبّ (জর) + ‑كَ ("তোমার") — জর বিশেষ্যে সম্বন্ধ-সর্বনাম।' },
+        words: [
+          { ar: 'فَصَلِّ', en: 'So pray', bn: 'অতএব সালাত পড়ো', hl: true, role: { en: 'connector + command verb (amr)', bn: 'সংযোজক + আদেশ ক্রিয়া (আমর)' } },
+          { ar: 'لِرَبِّكَ', en: 'to your Lord', bn: 'তোমার রবের জন্য', role: { en: 'preposition + noun (jarr) + pronoun', bn: 'অব্যয় + বিশেষ্য (জর) + সর্বনাম' } },
+          { ar: 'وَٱنْحَرْ', en: 'and sacrifice', bn: 'ও কুরবানি করো', role: { en: 'and + command verb (amr)', bn: 'ও + আদেশ ক্রিয়া (আমর)' } },
+        ] },
+      { ref: '108:3', trans: { en: 'Indeed, your enemy is the one cut off.', bn: 'নিশ্চয় তোমার শত্রুই নির্বংশ।' },
+        note: { en: 'إِنَّ puts its subject شَانِئَكَ ("your hater") into naṣb. Then هُوَ ٱلْأَبْتَرُ is a nominal predicate: "he (is) the cut-off one" (rafʿ).', bn: 'إِنَّ তার উদ্দেশ্য شَانِئَكَ ("তোমার বিদ্বেষী")-কে নসব করে। এরপর هُوَ ٱلْأَبْتَرُ একটি নাম-বিধেয়: "সে (হলো) নির্বংশ" (রফ‘)।' },
+        words: [
+          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়', role: { en: 'emphasis particle (ḥarf)', bn: 'তাগিদ-অব্যয় (হারফ)' } },
+          { ar: 'شَانِئَكَ', en: 'your enemy', bn: 'তোমার শত্রু', hl: true, role: { en: 'ism of إِنَّ (naṣb) + pronoun', bn: 'إِنَّ-এর ইসম (নসব) + সর্বনাম' } },
+          { ar: 'هُوَ', en: 'he (is)', bn: 'সে', role: { en: 'detached pronoun', bn: 'বিচ্ছিন্ন সর্বনাম' } },
+          { ar: 'ٱلْأَبْتَرُ', en: 'the one cut off', bn: 'নির্বংশ', role: { en: 'khabar / predicate (rafʿ)', bn: 'খবর / বিধেয় (রফ‘)' } },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In 108:3, the word شَانِئَكَ is in naṣb because it is the subject of…', bn: '১০৮:৩-এ شَانِئَكَ শব্দটি নসব-এ কারণ এটি কার উদ্দেশ্য…' },
+      options: [{ en: 'إِنَّ ("indeed")', bn: 'إِنَّ ("নিশ্চয়")' }, { en: 'a preposition', bn: 'একটি অব্যয়' }, { en: 'a command verb', bn: 'একটি আদেশ ক্রিয়া' }], answer: 0,
+      explain: { en: 'إِنَّ makes its following subject (its ism) accusative (naṣb) — here شَانِئَكَ.', bn: 'إِنَّ তার পরের উদ্দেশ্য (তার ইসম)-কে নসব করে — এখানে شَانِئَكَ।' },
+    },
+  },
+  {
+    id: 'read-asr', unit: 'reading', icon: '⏳',
+    title: { en: 'Reading 103:1–3 — Al-‘Asr', bn: '১০৩:১–৩ পড়া — সূরা আসর' },
+    concept: {
+      en: 'Al-‘Asr opens with an oath, states a sweeping claim with إِنَّ, then carves out an exception with إِلَّا followed by a relative clause of four verbs. Reading it end to end ties together oaths, إِنَّ, exception and relative pronouns.',
+      bn: 'সূরা আসর শুরু হয় শপথ দিয়ে, إِنَّ দিয়ে একটি ব্যাপক দাবি করে, তারপর إِلَّا দিয়ে একটি ব্যতিক্রম বের করে যার পরে চারটি ক্রিয়ার সম্বন্ধ-বাক্য। পুরোটা পড়লে শপথ, إِنَّ, ব্যতিক্রম ও সম্বন্ধবাচক সর্বনাম একসাথে জোড়া লাগে।',
+    },
+    examples: [
+      { ref: '103:1', trans: { en: 'By time.', bn: 'সময়ের শপথ।' },
+        note: { en: 'The وَ here is the wāw of oath (qasam); it puts ٱلْعَصْر into the genitive (jarr): وَٱلْعَصْرِ.', bn: 'এখানকার وَ হলো শপথের ওয়াও (কসম); এটি ٱلْعَصْر-কে জর করে: وَٱلْعَصْرِ।' },
+        words: [
+          { ar: 'وَٱلْعَصْرِ', en: 'By time', bn: 'সময়ের শপথ', hl: true, role: { en: 'oath particle + noun (jarr)', bn: 'শপথ-অব্যয় + বিশেষ্য (জর)' } },
+        ] },
+      { ref: '103:2', trans: { en: 'Indeed, mankind is in loss.', bn: 'নিশ্চয় মানুষ ক্ষতির মধ্যে।' },
+        note: { en: 'إِنَّ makes ٱلْإِنسَٰنَ its subject in naṣb. لَفِى = the emphatic لَـ ("surely") + the preposition فِى, which puts خُسْرٍ into jarr.', bn: 'إِنَّ ٱلْإِنسَٰنَ-কে তার উদ্দেশ্য হিসেবে নসব করে। لَفِى = তাগিদের لَـ ("অবশ্যই") + অব্যয় فِى, যা خُسْرٍ-কে জর করে।' },
+        words: [
+          { ar: 'إِنَّ', en: 'Indeed', bn: 'নিশ্চয়', role: { en: 'emphasis particle (ḥarf)', bn: 'তাগিদ-অব্যয় (হারফ)' } },
+          { ar: 'ٱلْإِنسَٰنَ', en: 'mankind', bn: 'মানুষ', hl: true, role: { en: 'ism of إِنَّ (naṣb)', bn: 'إِنَّ-এর ইসম (নসব)' } },
+          { ar: 'لَفِى', en: 'is surely in', bn: 'অবশ্যই মধ্যে', role: { en: 'emphatic lām + preposition', bn: 'তাগিদের লাম + অব্যয়' } },
+          { ar: 'خُسْرٍ', en: 'loss', bn: 'ক্ষতি', role: { en: 'noun (jarr, tanwīn)', bn: 'বিশেষ্য (জর, তানভীন)' } },
+        ] },
+      { ref: '103:3', trans: { en: 'Except those who believe, do righteous deeds, and urge one another to truth and to patience.', bn: 'তারা ছাড়া যারা ঈমান আনে, সৎকর্ম করে, এবং পরস্পরকে সত্য ও ধৈর্যের উপদেশ দেয়।' },
+        note: { en: 'إِلَّا ("except") carves out the saved group. ٱلَّذِينَ ("those who") opens a relative clause of past verbs: ءَامَنُوا۟, عَمِلُوا۟, تَوَاصَوْا۟. بِـ makes ٱلْحَقِّ and ٱلصَّبْرِ genitive.', bn: 'إِلَّا ("ছাড়া") রক্ষাপ্রাপ্ত দলটিকে আলাদা করে। ٱلَّذِينَ ("যারা") অতীত ক্রিয়ার সম্বন্ধ-বাক্য খোলে: ءَامَنُوا۟, عَمِلُوا۟, تَوَاصَوْا۟। بِـ ٱلْحَقِّ ও ٱلصَّبْرِ-কে জর করে।' },
+        words: [
+          { ar: 'إِلَّا', en: 'except', bn: 'ছাড়া', hl: true, role: { en: 'exception particle (ḥarf)', bn: 'ব্যতিক্রম-অব্যয় (হারফ)' } },
+          { ar: 'ٱلَّذِينَ', en: 'those who', bn: 'যারা', role: { en: 'relative pronoun', bn: 'সম্বন্ধবাচক সর্বনাম' } },
+          { ar: 'ءَامَنُوا۟', en: 'believe', bn: 'ঈমান আনে', role: { en: 'past verb', bn: 'অতীত ক্রিয়া' } },
+          { ar: 'وَعَمِلُوا۟', en: 'and do', bn: 'ও করে', role: { en: 'and + past verb', bn: 'ও + অতীত ক্রিয়া' } },
+          { ar: 'ٱلصَّٰلِحَٰتِ', en: 'righteous deeds', bn: 'সৎকর্ম', role: { en: 'object — mafʿūl bihi', bn: 'কর্ম — মাফ‘ূল বিহি' } },
+          { ar: 'وَتَوَاصَوْا۟', en: 'and urge one another', bn: 'ও পরস্পরকে উপদেশ দেয়', role: { en: 'and + past verb', bn: 'ও + অতীত ক্রিয়া' } },
+          { ar: 'بِٱلْحَقِّ', en: 'to truth', bn: 'সত্যের', role: { en: 'preposition + noun (jarr)', bn: 'অব্যয় + বিশেষ্য (জর)' } },
+          { ar: 'وَتَوَاصَوْا۟', en: 'and urge one another', bn: 'ও পরস্পরকে উপদেশ দেয়', role: { en: 'and + past verb', bn: 'ও + অতীত ক্রিয়া' } },
+          { ar: 'بِٱلصَّبْرِ', en: 'to patience', bn: 'ধৈর্যের', role: { en: 'preposition + noun (jarr)', bn: 'অব্যয় + বিশেষ্য (জর)' } },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In 103:3, إِلَّا is a particle of…', bn: '১০৩:৩-এ إِلَّا কোন ধরনের অব্যয়…' },
+      options: [{ en: 'exception (istithnāʾ)', bn: 'ব্যতিক্রম (ইসতিসনা)' }, { en: 'negation', bn: 'নেতিবাচকতা' }, { en: 'oath', bn: 'শপথ' }], answer: 0,
+      explain: { en: 'إِلَّا ("except") is the particle of exception; it excludes the believers from the loss just mentioned.', bn: 'إِلَّا ("ছাড়া") ব্যতিক্রমের অব্যয়; এটি মাত্র উল্লেখিত ক্ষতি থেকে মুমিনদের বাদ দেয়।' },
+    },
+  },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -1234,9 +1388,9 @@ const QA_GLOSSARY = [
   { ar: 'جَرّ', translit: 'jarr', en: 'Genitive case (‑i), after prepositions or in possession.', bn: 'জর (‑i), অব্যয়ের পরে বা সম্বন্ধে।', ex: { ar: 'ٱلْعَٰلَمِينَ', ref: '1:2' } },
   { ar: 'جَزْم', translit: 'jazm', en: 'Jussive — a present verb "cut short" (sukūn) after لَمْ, لا, etc.', bn: 'জযম — لَمْ, لا ইত্যাদির পরে বর্তমান ক্রিয়া সংক্ষিপ্ত (সুকূন)।', ex: { ar: 'يَلِدْ', ref: '112:3' } },
   { ar: 'إِضَافَة', translit: 'iḍāfah', en: 'Possessive construction: "X of Y".', bn: 'সম্বন্ধ গঠন: "X-এর Y"।', ex: { ar: 'يَوْمِ', ref: '1:4' } },
-  { ar: 'مُبْتَدَأ', translit: 'mubtadaʾ', en: 'The subject of a nominal sentence (what we speak about).', bn: 'নাম-বাক্যের উদ্দেশ্য (যাকে নিয়ে বলা হয়)।', ex: { ar: 'ٱللَّهُ', ref: '112:2' } },
-  { ar: 'خَبَر', translit: 'khabar', en: 'The predicate — the information about the subject.', bn: 'বিধেয় — উদ্দেশ্য সম্পর্কে তথ্য।', ex: { ar: 'ٱلصَّمَدُ', ref: '112:2' } },
-  { ar: 'فَاعِل', translit: 'fāʿil', en: 'The doer / subject of a verb.', bn: 'কর্তা — ক্রিয়ার কর্তা।', ex: { ar: 'ٱللَّهُ', ref: '2:7' } },
+  { ar: 'مُبْتَدَأ', translit: 'mubtadaʾ', en: 'The subject of a nominal sentence (what we speak about).', bn: 'নাম-বাক্যের উদ্দেশ্য (যাকে নিয়ে বলা হয়)।', ex: { ar: 'ٱللَّهُ', ref: '112:2' } },
+  { ar: 'خَبَر', translit: 'khabar', en: 'The predicate — the information about the subject.', bn: 'বিধেয় — উদ্দেশ্য সম্পর্কে তথ্য।', ex: { ar: 'ٱلصَّمَدُ', ref: '112:2' } },
+  { ar: 'فَاعِل', translit: 'fāʿil', en: 'The doer / subject of a verb.', bn: 'কর্তা — ক্রিয়ার কর্তা।', ex: { ar: 'ٱللَّهُ', ref: '2:7' } },
   { ar: 'مَفْعُول بِهِ', translit: 'mafʿūl bihi', en: 'The direct object of a verb (naṣb).', bn: 'ক্রিয়ার সরাসরি কর্ম (নসব)।', ex: { ar: 'ٱلْقُرْءَانَ', ref: '55:2' } },
   { ar: 'مَصْدَر', translit: 'maṣdar', en: 'Verbal noun — the name of an action itself.', bn: 'মাসদার — কাজের নাম নিজেই।', ex: { ar: 'ٱلْحَمْدُ', ref: '1:2' } },
   { ar: 'وَزْن', translit: 'wazn', en: 'Pattern / form into which a root is cast.', bn: 'ওজন — যে ছাঁচে মূল ঢালা হয়।', ex: { ar: 'عَلَّمَ', ref: '55:2' } },
@@ -1244,22 +1398,22 @@ const QA_GLOSSARY = [
   { ar: 'اِسْم الْفَاعِل', translit: 'ism al-fāʿil', en: 'Active participle (فَاعِل) — names the doer.', bn: 'কর্তৃবাচক বিশেষণ (فَاعِل) — কর্তাকে বোঝায়।', ex: { ar: 'مَٰلِكِ', ref: '1:4' } },
   { ar: 'اِسْم الْمَفْعُول', translit: 'ism al-mafʿūl', en: 'Passive participle (مَفْعُول) — names the receiver.', bn: 'কর্মবাচক বিশেষণ (مَفْعُول) — গ্রহীতাকে বোঝায়।', ex: { ar: 'ٱلْمَغْضُوبِ', ref: '1:7' } },
   { ar: 'اِسْم التَّفْضِيل', translit: 'ism at-tafḍīl', en: 'Comparative/superlative (أَفْعَل): "more / most".', bn: 'তুলনা/শ্রেষ্ঠত্ব (أَفْعَل): "অধিক / সর্বাধিক"।', ex: { ar: 'أَحْسَنِ', ref: '95:4' } },
-  { ar: 'جُمْلَة اِسْمِيَّة', translit: 'jumla ismiyya', en: 'Nominal sentence — begins with a noun.', bn: 'নাম-বাক্য — বিশেষ্য দিয়ে শুরু।', ex: { ar: 'ٱللَّهُ', ref: '112:2' } },
+  { ar: 'جُمْلَة اِسْمِيَّة', translit: 'jumla ismiyya', en: 'Nominal sentence — begins with a noun.', bn: 'নাম-বাক্য — বিশেষ্য দিয়ে শুরু।', ex: { ar: 'ٱللَّهُ', ref: '112:2' } },
   { ar: 'جُمْلَة فِعْلِيَّة', translit: 'jumla fiʿliyya', en: 'Verbal sentence — begins with a verb.', bn: 'ক্রিয়া-বাক্য — ক্রিয়া দিয়ে শুরু।', ex: { ar: 'ٱهْدِنَا', ref: '1:6' } },
   { ar: 'مَاضٍ', translit: 'māḍī', en: 'Past-tense verb (completed action).', bn: 'অতীত ক্রিয়া (সম্পন্ন কাজ)।', ex: { ar: 'أَنْعَمْتَ', ref: '1:7' } },
   { ar: 'مُضَارِع', translit: 'muḍāriʿ', en: 'Present/future-tense verb (ongoing action).', bn: 'বর্তমান/ভবিষ্যৎ ক্রিয়া (চলমান কাজ)।', ex: { ar: 'نَعْبُدُ', ref: '1:5' } },
   { ar: 'أَمْر', translit: 'amr', en: 'Command / imperative verb.', bn: 'আদেশ / অনুজ্ঞা ক্রিয়া।', ex: { ar: 'ٱهْدِنَا', ref: '1:6' } },
   { ar: 'تَاء مَرْبُوطَة', translit: 'tāʾ marbūṭa', en: 'The ة ending — the usual mark of a feminine noun.', bn: 'ة শেষ — স্ত্রীলিঙ্গ বিশেষ্যের সাধারণ চিহ্ন।', ex: { ar: 'رَحْمَةً', ref: '21:107' } },
-  { ar: 'إِنَّ', translit: 'inna', en: 'Emphasis particle ("indeed"); makes the subject naṣb.', bn: 'তাগিদ-অব্যয় ("নিশ্চয়"); উদ্দেশ্যকে নসব করে।', ex: { ar: 'إِنَّ', ref: '103:2' } },
+  { ar: 'إِنَّ', translit: 'inna', en: 'Emphasis particle ("indeed"); makes the subject naṣb.', bn: 'তাগিদ-অব্যয় ("নিশ্চয়"); উদ্দেশ্যকে নসব করে।', ex: { ar: 'إِنَّ', ref: '103:2' } },
   { ar: 'جَمْع التَّكْسِير', translit: 'jamʿ at-taksīr', en: 'Broken plural — formed by reshaping the word.', bn: 'ভাঙা বহুবচন — শব্দ পুনর্গঠনে গঠিত।', ex: { ar: 'قُلُوبِهِمْ', ref: '2:7' } },
   { ar: 'حَال', translit: 'ḥāl', en: 'Circumstantial noun (naṣb) — describes the state during an action.', bn: 'হাল — কাজের সময়কার অবস্থা বর্ণনাকারী বিশেষ্য (নসব)।', ex: { ar: 'هَوْنًا', ref: '25:63' } },
   { ar: 'تَمْيِيز', translit: 'tamyīz', en: 'Specification (naṣb) — clarifies "in respect of what".', bn: 'তাময়ীয — "কোন দিক থেকে" তা স্পষ্টকারী বিশেষ্য (নসব)।', ex: { ar: 'شَيْبًا', ref: '19:4' } },
   { ar: 'فِعْل مَجْهُول', translit: 'fiʿl majhūl', en: 'Passive verb — "was/is done", the doer unnamed.', bn: 'কর্মবাচ্য ক্রিয়া — "করা হলো/হয়", কর্তা অনুক্ত।', ex: { ar: 'خُلِقَ', ref: '86:5' } },
-  { ar: 'اِسْتِثْنَاء', translit: 'istithnāʾ', en: 'Exception with إِلَّا ("except").', bn: 'إِلَّا ("ছাড়া") দিয়ে ব্যতিক্রম।', ex: { ar: 'إِلَّا', ref: '103:3' } },
+  { ar: 'اِسْتِثْنَاء', translit: 'istithnāʾ', en: 'Exception with إِلَّا ("except").', bn: 'إِلَّا ("ছাড়া") দিয়ে ব্যতিক্রম।', ex: { ar: 'إِلَّا', ref: '103:3' } },
   { ar: 'نُون التَّوْكِيد', translit: 'nūn at-tawkīd', en: 'Emphatic nūn ending — "will surely…".', bn: 'তাগিদের নূন প্রত্যয় — "অবশ্যই…"।', ex: { ar: 'لَيُنۢبَذَنَّ', ref: '104:4' } },
   { ar: 'الأَسْمَاء الخَمْسَة', translit: 'al-asmāʾ al-khamsa', en: 'The five nouns (أَب, أَخ, ذُو…) — case shown by و/ا/ي.', bn: 'পাঁচ বিশেষ্য (أَب, أَخ, ذُو…) — এ‘রাব و/ا/ي দিয়ে।', ex: { ar: 'ذُو', ref: '85:15' } },
   { ar: 'لَام التَّعْلِيل', translit: 'lām at-taʿlīl', en: 'Lām of purpose ("so that") + subjunctive verb.', bn: 'উদ্দেশ্যের লাম ("যাতে") + নসব-রূপ ক্রিয়া।', ex: { ar: 'لِيَعْبُدُونِ', ref: '51:56' } },
-  { ar: 'لَعَلَّ', translit: 'laʿalla', en: 'Sister of إِنَّ expressing hope/purpose ("so that perhaps").', bn: 'إِنَّ-এর বোন, আশা/উদ্দেশ্য প্রকাশক ("যাতে সম্ভবত")।', ex: { ar: 'لَعَلَّكُمْ', ref: '2:21' } },
+  { ar: 'لَعَلَّ', translit: 'laʿalla', en: 'Sister of إِنَّ expressing hope/purpose ("so that perhaps").', bn: 'إِنَّ-এর বোন, আশা/উদ্দেশ্য প্রকাশক ("যাতে সম্ভবত")।', ex: { ar: 'لَعَلَّكُمْ', ref: '2:21' } },
   { ar: 'لَيْسَ', translit: 'laysa', en: 'Sister of كَانَ meaning "is not"; makes the predicate naṣb.', bn: 'كَانَ-এর বোন, অর্থ "নয়"; বিধেয়কে নসব করে।', ex: { ar: 'أَلَيْسَ', ref: '95:8' } },
   { ar: 'تَنْوِين', translit: 'tanwīn', en: 'Nunation — the doubled ‑un/‑an/‑in ending of an indefinite noun.', bn: 'তানভীন — অনির্দিষ্ট বিশেষ্যের দ্বিগুণ ‑un/‑an/‑in শেষ।', ex: { ar: 'أَحَدٌ', ref: '112:1' } },
 ];
@@ -1277,13 +1431,13 @@ const QA_IRAB = [
     options: [{ en: 'mubtadaʾ (subject of a nominal sentence)', bn: 'মুবতাদা (নাম-বাক্যের উদ্দেশ্য)' }, { en: 'mafʿūl bihi (object)', bn: 'মাফ‘ূল বিহি (কর্ম)' }, { en: 'harf jarr (preposition)', bn: 'হারফ জর (অব্যয়পদ)' }, { en: 'ḥāl (state)', bn: 'হাল (অবস্থা)' }], answer: 0,
     explain: { en: 'ٱلْحَمْدُ opens a nominal sentence in rafʿ (‑u): it is the mubtadaʾ; لِلَّهِ is its khabar.', bn: 'ٱلْحَمْدُ রফ‘ (‑u) নিয়ে নাম-বাক্য শুরু করে: এটি মুবতাদা; لِلَّهِ তার খবর।' } },
   { ref: '112:2', q: QA_IRAB_Q,
-    words: [ { ar: 'ٱللَّهُ' }, { ar: 'ٱلصَّمَدُ', hl: true } ],
+    words: [ { ar: 'ٱللَّهُ' }, { ar: 'ٱلصَّمَدُ', hl: true } ],
     options: [{ en: 'khabar (predicate)', bn: 'খবর (বিধেয়)' }, { en: 'mubtadaʾ (subject)', bn: 'মুবতাদা (উদ্দেশ্য)' }, { en: 'fāʿil (doer)', bn: 'ফা‘িল (কর্তা)' }, { en: 'tamyīz (specification)', bn: 'তাময়ীয (নির্দিষ্টকরণ)' }], answer: 0,
-    explain: { en: 'ٱللَّهُ is the mubtadaʾ; ٱلصَّمَدُ is the khabar — the information given about Him.', bn: 'ٱللَّهُ মুবতাদা; ٱلصَّمَدُ খবর — তাঁর সম্পর্কে প্রদত্ত তথ্য।' } },
+    explain: { en: 'ٱللَّهُ is the mubtadaʾ; ٱلصَّمَدُ is the khabar — the information given about Him.', bn: 'ٱللَّهُ মুবতাদা; ٱلصَّمَدُ খবর — তাঁর সম্পর্কে প্রদত্ত তথ্য।' } },
   { ref: '2:7', q: QA_IRAB_Q,
-    words: [ { ar: 'خَتَمَ' }, { ar: 'ٱللَّهُ', hl: true }, { ar: 'عَلَىٰ' }, { ar: 'قُلُوبِهِمْ' } ],
+    words: [ { ar: 'خَتَمَ' }, { ar: 'ٱللَّهُ', hl: true }, { ar: 'عَلَىٰ' }, { ar: 'قُلُوبِهِمْ' } ],
     options: [{ en: 'fāʿil (doer of the verb)', bn: 'ফা‘িল (ক্রিয়ার কর্তা)' }, { en: 'mafʿūl bihi (object)', bn: 'মাফ‘ূল বিহি (কর্ম)' }, { en: 'khabar (predicate)', bn: 'খবর (বিধেয়)' }, { en: 'harf jarr (preposition)', bn: 'হারফ জর (অব্যয়পদ)' }], answer: 0,
-    explain: { en: 'The sentence starts with the verb خَتَمَ, so ٱللَّهُ (rafʿ) is its fāʿil — the doer.', bn: 'বাক্যটি خَتَمَ ক্রিয়া দিয়ে শুরু, তাই ٱللَّهُ (রফ‘) তার ফা‘িল — কর্তা।' } },
+    explain: { en: 'The sentence starts with the verb خَتَمَ, so ٱللَّهُ (rafʿ) is its fāʿil — the doer.', bn: 'বাক্যটি خَتَمَ ক্রিয়া দিয়ে শুরু, তাই ٱللَّهُ (রফ‘) তার ফা‘িল — কর্তা।' } },
   { ref: '55:2', q: QA_IRAB_Q,
     words: [ { ar: 'عَلَّمَ' }, { ar: 'ٱلْقُرْءَانَ', hl: true } ],
     options: [{ en: 'mafʿūl bihi (object)', bn: 'মাফ‘ূল বিহি (কর্ম)' }, { en: 'fāʿil (doer)', bn: 'ফা‘িল (কর্তা)' }, { en: 'mubtadaʾ (subject)', bn: 'মুবতাদা (উদ্দেশ্য)' }, { en: 'ḥāl (state)', bn: 'হাল (অবস্থা)' }], answer: 0,
@@ -1305,9 +1459,9 @@ const QA_IRAB = [
     options: [{ en: 'tamyīz (specification)', bn: 'তাময়ীয (নির্দিষ্টকরণ)' }, { en: 'khabar (predicate)', bn: 'খবর (বিধেয়)' }, { en: 'mafʿūl bihi (object)', bn: 'মাফ‘ূল বিহি (কর্ম)' }, { en: 'mubtadaʾ (subject)', bn: 'মুবতাদা (উদ্দেশ্য)' }], answer: 0,
     explain: { en: 'شَيْبًا (naṣb) specifies in what respect the head "flared up" — the tamyīz.', bn: 'شَيْبًا (নসব) নির্দিষ্ট করে মাথা কোন দিক থেকে "জ্বলল" — তাময়ীয।' } },
   { ref: '103:2', q: QA_IRAB_Q,
-    words: [ { ar: 'إِنَّ' }, { ar: 'ٱلْإِنسَٰنَ', hl: true }, { ar: 'لَفِى' }, { ar: 'خُسْرٍ' } ],
-    options: [{ en: 'ism inna (subject of إِنَّ, naṣb)', bn: 'ইসমু ইন্না (إِنَّ-এর উদ্দেশ্য, নসব)' }, { en: 'fāʿil (doer)', bn: 'ফা‘িল (কর্তা)' }, { en: 'harf jarr (preposition)', bn: 'হারফ জর (অব্যয়পদ)' }, { en: 'tamyīz (specification)', bn: 'তাময়ীয (নির্দিষ্টকরণ)' }], answer: 0,
-    explain: { en: 'After إِنَّ the subject takes naṣb: ٱلْإِنسَٰنَ is the ism of إِنَّ.', bn: 'إِنَّ-এর পরে উদ্দেশ্য নসব নেয়: ٱلْإِنسَٰنَ হলো إِنَّ-এর ইসম।' } },
+    words: [ { ar: 'إِنَّ' }, { ar: 'ٱلْإِنسَٰنَ', hl: true }, { ar: 'لَفِى' }, { ar: 'خُسْرٍ' } ],
+    options: [{ en: 'ism inna (subject of إِنَّ, naṣb)', bn: 'ইসমু ইন্না (إِنَّ-এর উদ্দেশ্য, নসব)' }, { en: 'fāʿil (doer)', bn: 'ফা‘িল (কর্তা)' }, { en: 'harf jarr (preposition)', bn: 'হারফ জর (অব্যয়পদ)' }, { en: 'tamyīz (specification)', bn: 'তাময়ীয (নির্দিষ্টকরণ)' }], answer: 0,
+    explain: { en: 'After إِنَّ the subject takes naṣb: ٱلْإِنسَٰنَ is the ism of إِنَّ.', bn: 'إِنَّ-এর পরে উদ্দেশ্য নসব নেয়: ٱلْإِنسَٰنَ হলো إِنَّ-এর ইসম।' } },
   { ref: '1:6', q: QA_IRAB_Q,
     words: [ { ar: 'ٱهْدِنَا' }, { ar: 'ٱلصِّرَٰطَ' }, { ar: 'ٱلْمُسْتَقِيمَ', hl: true } ],
     options: [{ en: 'ṣifa (adjective describing the path)', bn: 'সিফা (পথের বিশেষণ)' }, { en: 'fāʿil (doer)', bn: 'ফা‘িল (কর্তা)' }, { en: 'mubtadaʾ (subject)', bn: 'মুবতাদা (উদ্দেশ্য)' }, { en: 'harf jarr (preposition)', bn: 'হারফ জর (অব্যয়পদ)' }], answer: 0,
@@ -1399,6 +1553,22 @@ const QA_UI = {
   qa_flash_restart: { en: 'Start over', bn: 'আবার শুরু' },
   qa_flash_card:    { en: 'Card', bn: 'কার্ড' },
   qa_flash_empty:   { en: 'No vocabulary available.', bn: 'কোনো শব্দভাণ্ডার নেই।' },
+  /* resume affordance */
+  qa_resume:        { en: 'Resume', bn: 'চালিয়ে যান' },
+  qa_resume_hint:   { en: 'Continue where you left off', bn: 'যেখানে থেমেছিলেন সেখান থেকে' },
+  /* word match / matching exercise */
+  qa_match:         { en: 'Word match', bn: 'শব্দ মেলানো' },
+  qa_match_title:   { en: 'Match words to meanings', bn: 'শব্দের সাথে অর্থ মেলাও' },
+  qa_match_sub:     { en: 'Tap an Arabic word, then tap its meaning. Match every pair with as few mistakes as possible.', bn: 'একটি আরবি শব্দে ট্যাপ করো, তারপর তার অর্থে ট্যাপ করো। যত কম ভুলে সব জোড়া মেলাও।' },
+  qa_match_word:    { en: 'Words', bn: 'শব্দ' },
+  qa_match_meaning: { en: 'Meanings', bn: 'অর্থ' },
+  qa_match_pick:    { en: 'Selected — now tap its meaning', bn: 'নির্বাচিত — এবার এর অর্থে ট্যাপ করো' },
+  qa_match_done:    { en: 'All matched! 🎉', bn: 'সব মিলে গেছে! 🎉' },
+  qa_match_accuracy:{ en: 'Accuracy', bn: 'নির্ভুলতা' },
+  qa_match_mistakes:{ en: 'Mistakes', bn: 'ভুল' },
+  qa_match_restart: { en: 'Play again', bn: 'আবার খেলো' },
+  qa_match_empty:   { en: 'No vocabulary available.', bn: 'কোনো শব্দভাণ্ডার নেই।' },
+  qa_dash_match:    { en: 'Word-match best', bn: 'শব্দ-মেলানো সেরা' },
 };
 
 /* ------------------------------------------------------------------ *
@@ -1409,12 +1579,13 @@ class QuranicArabicView {
     this.container = document.getElementById('quranic-arabic-container');
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? (appSettings.get('language') || 'en') : 'en';
     this.rendered = false;
-    this.view = 'syllabus';      // 'syllabus' | 'lesson' | 'quiz' | 'glossary'
+    this.view = 'syllabus';      // 'syllabus' | 'lesson' | 'quiz' | 'glossary' | 'flashcards' | 'match'
     this.current = 0;            // current lesson index (into ordered list)
     this.answer = null;         // { selected, correct } for the current practice
     this.quiz = null;           // active quiz state
     this.glossaryQuery = '';    // glossary search text
     this.cards = null;          // active flashcard session state
+    this.match = null;          // active word-match session state
     this._ordered = null;       // cached ordered lesson list
     this._vocab = null;         // cached unique vocab deck
     this.progress = this.loadProgress();
@@ -1486,8 +1657,10 @@ class QuranicArabicView {
       if (!p.quiz || typeof p.quiz !== 'object') p.quiz = {};
       if (!p.missed || typeof p.missed !== 'object') p.missed = {};
       if (!p.cards || typeof p.cards !== 'object') p.cards = {};   // Leitner box per Arabic word
+      if (!p.match || typeof p.match !== 'object') p.match = {};   // { best: pct }
+      if (typeof p.lastLesson !== 'string') p.lastLesson = '';     // id of last lesson opened
       return p;
-    } catch (e) { return { learned: {}, quiz: {}, missed: {}, cards: {} }; }
+    } catch (e) { return { learned: {}, quiz: {}, missed: {}, cards: {}, match: {}, lastLesson: '' }; }
   }
   saveProgress() {
     try { localStorage.setItem('lq_qarabic_progress', JSON.stringify(this.progress)); } catch (e) { /* ignore */ }
@@ -1593,6 +1766,8 @@ class QuranicArabicView {
     if (unitEl) { this.scrollToUnit(unitEl.getAttribute('data-qa-unit')); return; }
     if (t0.closest && t0.closest('[data-qa-glossary]')) { this.markGlossarySeen(); this.view = 'glossary'; this.render(); return; }
     if (t0.closest && t0.closest('[data-qa-flash]')) { this.startFlashcards(); return; }
+    if (t0.closest && t0.closest('[data-qa-match]')) { this.startMatch(); return; }
+    if (t0.closest && t0.closest('[data-qa-resume]')) { this.resumeLesson(); return; }
     const quizEl = t0.closest ? t0.closest('[data-qa-quiz]') : null;
     if (quizEl) { this.startQuiz(quizEl.getAttribute('data-qa-quiz')); return; }
 
@@ -1601,6 +1776,13 @@ class QuranicArabicView {
     const cardAns = t0.closest ? t0.closest('[data-qa-card]') : null;
     if (cardAns) { this.answerCard(cardAns.getAttribute('data-qa-card') === 'known'); return; }
     if (t0.closest && t0.closest('[data-qa-flash-restart]')) { this.startFlashcards(); return; }
+
+    // Word-match runner
+    if (t0.closest && t0.closest('[data-qa-match-restart]')) { this.startMatch(); return; }
+    const mleftEl = t0.closest ? t0.closest('[data-qa-mleft]') : null;
+    if (mleftEl) { this.matchSelect(parseInt(mleftEl.getAttribute('data-qa-mleft'), 10)); return; }
+    const mrightEl = t0.closest ? t0.closest('[data-qa-mright]') : null;
+    if (mrightEl) { this.matchAnswer(parseInt(mrightEl.getAttribute('data-qa-mright'), 10)); return; }
 
     // Quiz runner
     const qoptEl = t0.closest ? t0.closest('[data-qa-qopt]') : null;
@@ -1616,7 +1798,7 @@ class QuranicArabicView {
     } catch (err) { /* ignore */ }
   }
 
-  toSyllabus() { this.view = 'syllabus'; this.answer = null; this.quiz = null; this.cards = null; this.render(); }
+  toSyllabus() { this.view = 'syllabus'; this.answer = null; this.quiz = null; this.cards = null; this.match = null; this.render(); }
 
   openLesson(idx) {
     const list = this.lessons();
@@ -1624,6 +1806,7 @@ class QuranicArabicView {
     this.current = idx;
     this.view = 'lesson';
     this.answer = null;
+    try { const l = list[idx]; if (l && l.id && this.progress.lastLesson !== l.id) { this.progress.lastLesson = l.id; this.saveProgress(); } } catch (e) { /* ignore */ }
     this.render();
     try { if (this.container && this.container.scrollIntoView) this.container.scrollIntoView({ block: 'start' }); } catch (e) { /* ignore */ }
   }
@@ -1729,6 +1912,79 @@ class QuranicArabicView {
     this.render();
   }
 
+  /* ---------- resume where you left off ---------- */
+  resumeIndex() {
+    try {
+      const id = this.progress && this.progress.lastLesson;
+      if (!id) return -1;
+      return this.lessons().findIndex(l => l && l.id === id);
+    } catch (e) { return -1; }
+  }
+  resumeLesson() {
+    const idx = this.resumeIndex();
+    if (idx >= 0) this.openLesson(idx);
+  }
+
+  /* ---------- word match: pair verified vocab to meanings (scored, persisted) ---------- */
+  matchBest() { try { const v = this.progress.match && this.progress.match.best; return (typeof v === 'number' && isFinite(v)) ? v : null; } catch (e) { return null; } }
+  saveMatchScore(pct) {
+    try {
+      if (!this.progress.match) this.progress.match = {};
+      const prev = this.matchBest();
+      if (prev == null || pct > prev) { this.progress.match.best = pct; this.saveProgress(); }
+    } catch (e) { /* ignore */ }
+  }
+  startMatch() {
+    try {
+      const deck = this.shuffle(this.allVocab()).slice(0, 5);
+      if (deck.length < 2) { this.toSyllabus(); return; }
+      // Each pair gets a stable id; the right column is a shuffled view of the same pairs.
+      const pairs = deck.map((w, i) => ({ id: i, ar: w.ar, meaning: this.lc(w) }));
+      this.match = {
+        left: pairs,
+        right: this.shuffle(pairs.slice()),
+        sel: null,          // selected pair id (from the left column)
+        wrongId: null,      // id briefly flagged wrong (cleared on next tap)
+        matched: {},        // id -> true
+        mistakes: 0,
+        total: pairs.length,
+        done: false,
+        saved: false,
+      };
+      this.view = 'match';
+      this.render();
+      try { if (this.container && this.container.scrollIntoView) this.container.scrollIntoView({ block: 'start' }); } catch (e) { /* ignore */ }
+    } catch (e) { this.toSyllabus(); }
+  }
+  matchSelect(id) {
+    const m = this.match;
+    if (!m || m.done || m.matched[id]) return;
+    m.sel = id; m.wrongId = null;
+    this.render();
+  }
+  matchAnswer(id) {
+    const m = this.match;
+    if (!m || m.done || m.matched[id]) return;
+    if (m.sel == null) { m.wrongId = null; this.render(); return; }
+    if (m.sel === id) {
+      m.matched[id] = true;
+      m.sel = null; m.wrongId = null;
+      if (Object.keys(m.matched).length >= m.total) {
+        m.done = true;
+        if (!m.saved) {
+          const pct = m.total ? Math.round((m.total / (m.total + m.mistakes)) * 100) : 0;
+          this.saveMatchScore(pct);
+          m.saved = true;
+        }
+      }
+    } else {
+      m.mistakes++;
+      m.wrongId = id;
+      m.sel = null;
+    }
+    this.render();
+  }
+
   /* ---------- render ---------- */
   render() {
     if (!this.container) return;
@@ -1743,6 +1999,7 @@ class QuranicArabicView {
       else if (this.view === 'quiz') html = this.renderQuiz();
       else if (this.view === 'glossary') html = this.renderGlossary();
       else if (this.view === 'flashcards') html = this.renderFlashcards();
+      else if (this.view === 'match') html = this.renderMatch();
       else html = this.renderSyllabus();
       this.container.innerHTML = html;
     } catch (e) {
@@ -1832,12 +2089,13 @@ class QuranicArabicView {
         <h3 class="flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">
           <span aria-hidden="true">📊</span><span dir="auto">${this.esc(this.tt('qa_dashboard'))}</span>
         </h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
           ${dashTile('📚', this.tt('qa_dash_lessons'), `${done}/${total}`, 'text-emerald-600 dark:text-emerald-400')}
           ${dashTile('🏅', this.tt('qa_dash_units'), `${unitsAced}/${unitsWithLessons}`, 'text-sky-600 dark:text-sky-400')}
           ${dashTile('📖', this.tt('qa_dash_glossary'), `${glossSeen}/${glossTotal}`, 'text-amber-600 dark:text-amber-400')}
           ${dashTile('🃏', this.tt('qa_dash_cards'), `${cardsMastered}/${vocabTotal}`, 'text-indigo-600 dark:text-indigo-400')}
           ${dashTile('🧩', this.tt('qa_dash_irab'), irabBest != null ? irabBest + '%' : '—', 'text-violet-600 dark:text-violet-400')}
+          ${dashTile('🎯', this.tt('qa_dash_match'), this.matchBest() != null ? this.matchBest() + '%' : '—', 'text-teal-600 dark:text-teal-400')}
         </div>
       </div>`;
 
@@ -1858,6 +2116,23 @@ class QuranicArabicView {
           ${allDone ? `<p class="text-center text-sm font-semibold text-emerald-700 dark:text-emerald-400 mt-3">${this.esc(this.tt('qa_finish_title'))}</p>` : ''}
         </div>
 
+        ${(() => {
+          const ri = this.resumeIndex();
+          if (ri < 0) return '';
+          const rl = this.lessons()[ri];
+          if (!rl) return '';
+          return `
+        <button type="button" data-qa-resume class="w-full mb-5 flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-gray-800 border border-primary/40 hover:border-primary hover:shadow-md transition-all text-left">
+          <span class="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl bg-primary/10 text-lg" aria-hidden="true">↩️</span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[0.7rem] font-semibold uppercase tracking-wide text-primary">${this.esc(this.tt('qa_resume'))}</span>
+            <span class="block font-semibold text-gray-800 dark:text-gray-100 truncate" dir="auto">${this.esc(this.lc(rl.title))}</span>
+            <span class="block text-xs text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('qa_resume_hint'))}</span>
+          </span>
+          <span class="text-primary text-lg" aria-hidden="true">›</span>
+        </button>`;
+        })()}
+
         ${dashboard}
 
         <div class="mb-6">
@@ -1867,6 +2142,10 @@ class QuranicArabicView {
               <button type="button" data-qa-flash
                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-900/60 transition-colors">
                 🃏 ${this.esc(this.tt('qa_flashcards'))}
+              </button>
+              <button type="button" data-qa-match
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 hover:bg-teal-200 dark:hover:bg-teal-900/60 transition-colors">
+                🧩 ${this.esc(this.tt('qa_match'))}${this.matchBest() != null ? ` <span class="opacity-80">${this.matchBest()}%</span>` : ''}
               </button>
               <button type="button" data-qa-glossary
                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition-colors">
@@ -1918,6 +2197,7 @@ class QuranicArabicView {
       <span class="inline-flex flex-col items-center px-1.5 py-1 rounded-lg ${w.hl ? 'bg-emerald-100 dark:bg-emerald-900/40' : ''}">
         <span class="text-xl leading-snug ${w.hl ? 'text-emerald-700 dark:text-emerald-300 font-bold' : 'text-gray-800 dark:text-gray-100'}" dir="rtl">${this.esc(w.ar)}</span>
         <span class="text-[0.68rem] ${w.hl ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-gray-400 dark:text-gray-500'}" dir="auto">${this.esc(this.lc(w))}</span>
+        ${w.role ? `<span class="mt-0.5 text-[0.58rem] leading-tight px-1 py-0.5 rounded bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-center" dir="auto">${this.esc(this.lc(w.role))}</span>` : ''}
       </span>`).join('');
   }
 
@@ -2203,6 +2483,95 @@ class QuranicArabicView {
           <span>✓ ${c.known} · 🔁 ${c.again}</span>
         </div>
         ${controls}
+      </div>`;
+  }
+
+  /* ---------- word match view ---------- */
+  renderMatch() {
+    const m = this.match;
+    if (!m || !Array.isArray(m.left) || !m.left.length) { this.view = 'syllabus'; return this.renderSyllabus(); }
+    const matchedN = Object.keys(m.matched).length;
+    const header = `
+      <div class="flex items-center justify-between mb-4">
+        <button type="button" data-qa-back class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">‹ ${this.esc(this.tt('qa_back'))}</button>
+        <span class="text-xs text-gray-400 dark:text-gray-500">${matchedN} / ${m.total}</span>
+      </div>`;
+
+    if (m.done) {
+      const pct = m.total ? Math.round((m.total / (m.total + m.mistakes)) * 100) : 0;
+      const best = this.matchBest();
+      const good = m.mistakes === 0;
+      return `
+        <div class="w-full max-w-xl mx-auto">
+          ${header}
+          <div class="pt-8 p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center">
+            <div class="text-5xl mb-3">${good ? '🎯' : '🧩'}</div>
+            <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-100 mb-2">${this.esc(this.tt('qa_match_done'))}</h2>
+            <div class="text-4xl font-extrabold text-teal-600 dark:text-teal-400 mb-1">${pct}%</div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">${this.esc(this.tt('qa_match_accuracy'))}</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mb-1">${this.esc(this.tt('qa_match_mistakes'))}: ${m.mistakes}</p>
+            ${best != null ? `<p class="text-xs text-gray-400 dark:text-gray-500 mb-4">${this.esc(this.tt('qa_best'))}: ${best}%</p>` : '<div class="mb-4"></div>'}
+            <div class="flex items-center justify-center gap-3">
+              <button type="button" data-qa-match-restart class="px-4 py-2 rounded-xl text-sm font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">↺ ${this.esc(this.tt('qa_match_restart'))}</button>
+              <button type="button" data-qa-back class="px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-white hover:opacity-90 transition-opacity">${this.esc(this.tt('qa_close'))}</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    const leftCol = m.left.map(p => {
+      const done = !!m.matched[p.id];
+      const sel = m.sel === p.id;
+      let cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary';
+      if (done) cls = 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 dark:border-emerald-600 opacity-70';
+      else if (sel) cls = 'bg-teal-50 dark:bg-teal-900/30 border-teal-400 dark:border-teal-500 ring-2 ring-teal-300 dark:ring-teal-700';
+      return `
+        <button type="button" ${done ? 'disabled' : `data-qa-mleft="${p.id}"`}
+          class="w-full flex items-center justify-center px-3 py-3 rounded-xl border ${cls} transition-all">
+          <span class="text-2xl leading-snug text-gray-800 dark:text-gray-100" dir="rtl" lang="ar">${this.esc(p.ar)}</span>
+          ${done ? '<span class="ml-2 text-emerald-600 dark:text-emerald-400 text-sm">✓</span>' : ''}
+        </button>`;
+    }).join('');
+
+    const rightCol = m.right.map(p => {
+      const done = !!m.matched[p.id];
+      const wrong = m.wrongId === p.id;
+      let cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary';
+      if (done) cls = 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 dark:border-emerald-600 opacity-70';
+      else if (wrong) cls = 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-700';
+      return `
+        <button type="button" ${done ? 'disabled' : `data-qa-mright="${p.id}"`}
+          class="w-full flex items-center justify-between gap-2 px-3 py-3 rounded-xl border ${cls} transition-all text-left">
+          <span class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(p.meaning)}</span>
+          ${done ? '<span class="text-emerald-600 dark:text-emerald-400 text-sm">✓</span>' : (wrong ? '<span class="text-rose-500 text-sm">✕</span>' : '')}
+        </button>`;
+    }).join('');
+
+    const prog = m.total ? Math.round((matchedN / m.total) * 100) : 0;
+    return `
+      <div class="w-full max-w-2xl mx-auto">
+        ${header}
+        <div class="text-center mb-3">
+          <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-100">🧩 ${this.esc(this.tt('qa_match_title'))}</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 max-w-md mx-auto" dir="auto">${this.esc(this.tt('qa_match_sub'))}</p>
+        </div>
+        <div class="mb-3 w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div class="h-full rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 transition-all" style="width:${prog}%"></div>
+        </div>
+        <div class="flex items-center justify-between mb-2 text-[0.68rem] text-gray-400 dark:text-gray-500">
+          <span>${m.sel != null ? this.esc(this.tt('qa_match_pick')) : ''}</span>
+          <span>${this.esc(this.tt('qa_match_mistakes'))}: ${m.mistakes}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <p class="text-[0.7rem] font-bold uppercase tracking-wide text-gray-400 dark:text-gray-500 mb-1.5 text-center">${this.esc(this.tt('qa_match_word'))}</p>
+            <div class="space-y-2">${leftCol}</div>
+          </div>
+          <div>
+            <p class="text-[0.7rem] font-bold uppercase tracking-wide text-gray-400 dark:text-gray-500 mb-1.5 text-center">${this.esc(this.tt('qa_match_meaning'))}</p>
+            <div class="space-y-2">${rightCol}</div>
+          </div>
+        </div>
       </div>`;
   }
 

@@ -722,6 +722,95 @@ const SEERAH_COMPANIONS = [
 ];
 
 /**
+ * The Ten Promised Paradise (al-‘Ashara al-Mubashshara, RA) — the ten companions
+ * given the glad tidings of Paradise in a single authentic narration. One
+ * respectful line each (mainstream Sunni). The first four are also the Rightly-
+ * Guided Caliphs and appear as full cards above; here they anchor the group of
+ * ten. No figurative image — initials only, per the aniconic tradition.
+ */
+const SEERAH_ASHARA = [
+  { nameEn: 'Abu Bakr as-Siddiq (RA)', nameBn: 'আবু বকর সিদ্দিক (রাঃ)',
+    descEn: 'The closest friend of the Prophet ﷺ and the first caliph.', descBn: 'নবী ﷺ-এর ঘনিষ্ঠতম বন্ধু ও প্রথম খলিফা।' },
+  { nameEn: 'Umar ibn al-Khattab (RA)', nameBn: 'উমর ইবনুল খাত্তাব (রাঃ)',
+    descEn: 'The second caliph, renowned for his justice and strength.', descBn: 'দ্বিতীয় খলিফা, ন্যায়বিচার ও দৃঢ়তার জন্য প্রসিদ্ধ।' },
+  { nameEn: 'Uthman ibn Affan (RA)', nameBn: 'উসমান ইবনে আফফান (রাঃ)',
+    descEn: 'The third caliph, known for his modesty and great generosity.', descBn: 'তৃতীয় খলিফা, লজ্জাশীলতা ও অকুণ্ঠ দানশীলতার জন্য খ্যাত।' },
+  { nameEn: 'Ali ibn Abi Talib (RA)', nameBn: 'আলী ইবনে আবি তালিব (রাঃ)',
+    descEn: 'The fourth caliph, cousin of the Prophet ﷺ, noted for knowledge and courage.', descBn: 'চতুর্থ খলিফা, নবী ﷺ-এর চাচাতো ভাই, জ্ঞান ও সাহসের জন্য খ্যাত।' },
+  { nameEn: 'Talhah ibn Ubaydillah (RA)', nameBn: 'তালহা ইবনে উবায়দুল্লাহ (রাঃ)',
+    descEn: 'An early believer who shielded the Prophet ﷺ with his own body at Uhud.', descBn: 'একজন প্রথম যুগের ঈমানদার, যিনি উহুদে নিজ দেহ দিয়ে নবী ﷺ-কে রক্ষা করেন।' },
+  { nameEn: 'Az-Zubayr ibn al-Awwam (RA)', nameBn: 'যুবায়ের ইবনুল আওয়াম (রাঃ)',
+    descEn: 'The Prophet’s ﷺ cousin and a devoted early Muslim, called his “disciple” (hawari).', descBn: 'নবী ﷺ-এর চাচাতো ভাই ও নিবেদিত প্রথম মুসলিম, যাঁকে তাঁর "হাওয়ারি" বলা হয়।' },
+  { nameEn: 'Abdur-Rahman ibn Awf (RA)', nameBn: 'আবদুর রহমান ইবনে আওফ (রাঃ)',
+    descEn: 'An early Muslim and successful merchant famed for his abundant charity.', descBn: 'একজন প্রথম যুগের মুসলিম ও সফল ব্যবসায়ী, প্রচুর দানের জন্য প্রসিদ্ধ।' },
+  { nameEn: 'Sa‘d ibn Abi Waqqas (RA)', nameBn: 'সাদ ইবনে আবি ওয়াক্কাস (রাঃ)',
+    descEn: 'An early believer and skilled archer among the first to defend Islam.', descBn: 'একজন প্রথম যুগের ঈমানদার ও দক্ষ তীরন্দাজ, ইসলামের প্রথম রক্ষকদের একজন।' },
+  { nameEn: 'Sa‘id ibn Zayd (RA)', nameBn: 'সাঈদ ইবনে যায়েদ (রাঃ)',
+    descEn: 'An early Muslim whose household’s faith helped lead Umar (RA) to Islam.', descBn: 'একজন প্রথম যুগের মুসলিম, যাঁর পরিবারের ঈমান উমর (রাঃ)-কে ইসলামের পথে আনতে সহায়ক হয়।' },
+  { nameEn: 'Abu Ubaydah ibn al-Jarrah (RA)', nameBn: 'আবু উবায়দা ইবনুল জাররাহ (রাঃ)',
+    descEn: 'A trusted companion whom the Prophet ﷺ called “the trustworthy one (amin) of this Ummah.”', descBn: 'একজন বিশ্বস্ত সাহাবি, যাঁকে নবী ﷺ "এই উম্মাহর আমিন (বিশ্বস্ত)" বলে অভিহিত করেন।' },
+];
+
+/**
+ * Lessons from the Seerah — concise thematic lessons distilled from the timeline.
+ * Each links to a timeline event (by id) and, where clean, a verified verse.
+ * Content is bilingual inline and routed through lc(); mainstream Sunni only.
+ */
+const SEERAH_LESSONS = [
+  { id: 'ls_patience', emoji: '🕯️', event: 'persecution', ayah: '2:153',
+    textEn: 'The early believers bore torture and boycott without abandoning faith. Patience (sabr) and prayer are the believer’s support under trial.',
+    textBn: 'প্রথম যুগের ঈমানদারগণ ঈমান না ছেড়ে নির্যাতন ও বয়কট সহ্য করেছেন। পরীক্ষার মুখে ধৈর্য (সবর) ও সালাত মুমিনের অবলম্বন।' },
+  { id: 'ls_trust', emoji: '🤲', event: 'hijra', ayah: '9:40',
+    textEn: 'Hiding in the Cave of Thawr as enemies passed, the Prophet ﷺ told Abu Bakr (RA), “Do not grieve, Allah is with us.” True safety lies in reliance on Allah.',
+    textBn: 'শত্রুরা পাশ দিয়ে যাওয়ার সময় সাওর গুহায় নবী ﷺ আবু বকর (রাঃ)-কে বলেন, "চিন্তা করো না, আল্লাহ আমাদের সাথে আছেন।" প্রকৃত নিরাপত্তা আল্লাহর উপর ভরসায়।' },
+  { id: 'ls_mercy', emoji: '💚', event: 'conquest', ayah: '21:107',
+    textEn: 'Entering Mecca in triumph, the Prophet ﷺ forgave those who had persecuted him for years. In the hour of power he chose mercy over revenge.',
+    textBn: 'বিজয়ীবেশে মক্কায় প্রবেশ করে নবী ﷺ বছরের পর বছর নির্যাতনকারীদের ক্ষমা করে দেন। ক্ষমতার মুহূর্তে তিনি প্রতিশোধের বদলে দয়া বেছে নেন।' },
+  { id: 'ls_covenant', emoji: '📜', event: 'hudaybiyyah', ayah: '16:91',
+    textEn: 'At Hudaybiyyah the Prophet ﷺ accepted hard terms and held firmly to the truce. Honouring agreements, even costly ones, is a mark of faith.',
+    textBn: 'হুদায়বিয়ায় নবী ﷺ কঠিন শর্ত মেনে সন্ধিতে অবিচল থাকেন। ব্যয়বহুল হলেও চুক্তি রক্ষা করা ঈমানের নিদর্শন।' },
+  { id: 'ls_shura', emoji: '🧭', event: 'trench', ayah: '3:159',
+    textEn: 'At the Trench he adopted Salman al-Farsi’s (RA) plan, and at Uhud he followed the counsel of the many. Consultation (shura) strengthens a community.',
+    textBn: 'খন্দকে তিনি সালমান ফারসি (রাঃ)-এর পরিকল্পনা গ্রহণ করেন এবং উহুদে বহুজনের পরামর্শ মানেন। পরামর্শ (শূরা) সমাজকে দৃঢ় করে।' },
+  { id: 'ls_steadfast', emoji: '⛰️', event: 'taif', ayah: '46:35',
+    textEn: 'Rejected and injured at Ta’if, the Prophet ﷺ prayed for his people’s guidance rather than their ruin. Steadfastness meets hardship with hope, not despair.',
+    textBn: 'তায়েফে প্রত্যাখ্যাত ও আহত হয়েও নবী ﷺ তাদের ধ্বংস নয়, হেদায়েতের দোয়া করেন। অবিচলতা কষ্টের মোকাবিলা করে হতাশা নয়, আশা দিয়ে।' },
+  { id: 'ls_gradual', emoji: '🌱', event: 'public', ayah: '25:32',
+    textEn: 'The call began in private for three years before going public, and revelation came gradually. Lasting change is built step by step with wisdom.',
+    textBn: 'দাওয়াত তিন বছর গোপনে চলে অতঃপর প্রকাশ্য হয়, আর ওহি ধাপে ধাপে আসে। স্থায়ী পরিবর্তন প্রজ্ঞার সাথে ধাপে ধাপে গড়ে ওঠে।' },
+  { id: 'ls_brotherhood', emoji: '🤝', event: 'mosque', ayah: '49:10',
+    textEn: 'In Medina the Prophet ﷺ paired each migrant with a helper in bonds of brotherhood. Faith unites believers above tribe, wealth, and origin.',
+    textBn: 'মদিনায় নবী ﷺ প্রত্যেক মুহাজিরকে এক আনসারের সাথে ভ্রাতৃত্বের বন্ধনে বাঁধেন। ঈমান গোত্র, সম্পদ ও বংশের ঊর্ধ্বে মুমিনদের এক করে।' },
+];
+
+/**
+ * Meccan vs Medinan — a short reference contrasting the two phases of revelation.
+ * Introductory and uncontroversial; example surahs are shown as tappable pills.
+ */
+const SEERAH_MECCAN_MEDINAN = {
+  meccan: {
+    emoji: '🕋',
+    descEn: 'Revealed before the Hijra, mostly at Mecca. These surahs build creed (tawhid), the Hereafter and resurrection, and patience under persecution — often in shorter, rhythmic passages.',
+    descBn: 'হিজরতের পূর্বে, অধিকাংশ মক্কায় অবতীর্ণ। এসব সূরা আকিদা (তাওহিদ), আখিরাত ও পুনরুত্থান এবং নির্যাতনের মধ্যে ধৈর্য গড়ে তোলে — প্রায়ই সংক্ষিপ্ত, ছন্দময় বাক্যে।',
+    examples: [
+      { ref: '96:1', nameEn: 'al-‘Alaq (96)', nameBn: 'আলাক (৯৬)' },
+      { ref: '112:1', nameEn: 'al-Ikhlas (112)', nameBn: 'ইখলাস (১১২)' },
+      { ref: '74:1', nameEn: 'al-Muddaththir (74)', nameBn: 'মুদ্দাসসির (৭৪)' },
+    ],
+  },
+  medinan: {
+    emoji: '🌿',
+    descEn: 'Revealed after the Hijra, at or around Medina. These surahs add law and worship, family and social order, treaties and community life — often in longer passages.',
+    descBn: 'হিজরতের পর, মদিনায় বা এর আশপাশে অবতীর্ণ। এসব সূরা যোগ করে বিধান ও ইবাদত, পরিবার ও সমাজব্যবস্থা, চুক্তি ও সমাজজীবন — প্রায়ই দীর্ঘ বাক্যে।',
+    examples: [
+      { ref: '2:1', nameEn: 'al-Baqarah (2)', nameBn: 'বাকারা (২)' },
+      { ref: '4:1', nameEn: 'an-Nisa (4)', nameBn: 'নিসা (৪)' },
+      { ref: '5:1', nameEn: 'al-Ma’idah (5)', nameBn: 'মায়িদা (৫)' },
+    ],
+  },
+};
+
+/**
  * Quick self-test quiz drawn from the timeline/topics. Answers are unambiguous
  * mainstream facts. Best score is saved to localStorage (lq_seerah_quiz_best).
  */
@@ -809,6 +898,15 @@ const SEERAH_UI = {
   seerah_topics_intro: { en: "Explore key themes from the life and teachings of the Prophet ﷺ. Tap any topic to expand.", bn: 'নবী ﷺ-এর জীবন ও শিক্ষার গুরুত্বপূর্ণ বিষয়গুলো ঘুরে দেখুন। বিস্তারিত দেখতে যেকোনো বিষয়ে ট্যাপ করুন।' },
   seerah_key_points: { en: 'Key points', bn: 'মূল বিষয়' },
   seerah_companions_title: { en: 'Key Companions', bn: 'উল্লেখযোগ্য সাহাবিগণ' },
+  seerah_ashara_title: { en: 'The Ten Promised Paradise', bn: 'জান্নাতের সুসংবাদপ্রাপ্ত দশজন' },
+  seerah_ashara_sub: { en: 'al-‘Ashara al-Mubashshara (RA)', bn: 'আল-আশারাতুল মুবাশশারা (রাঃ)' },
+  seerah_lessons_title: { en: 'Lessons from the Seerah', bn: 'সিরাত থেকে শিক্ষা' },
+  seerah_lessons_intro: { en: 'Thematic lessons drawn from the timeline, each linked to its event and a verse.', bn: 'টাইমলাইন থেকে নেওয়া বিষয়ভিত্তিক শিক্ষা, প্রতিটি এর ঘটনা ও একটি আয়াতের সাথে যুক্ত।' },
+  seerah_mm_title: { en: 'Meccan vs Medinan Revelation', bn: 'মক্কি বনাম মাদানি ওহি' },
+  seerah_mm_intro: { en: 'How revelation differed across the two great phases of the Prophet’s life ﷺ.', bn: 'নবী ﷺ-এর জীবনের দুই মহান পর্বে ওহি কীভাবে ভিন্ন ছিল।' },
+  seerah_mm_meccan: { en: 'Meccan Revelation', bn: 'মক্কি ওহি' },
+  seerah_mm_medinan: { en: 'Medinan Revelation', bn: 'মাদানি ওহি' },
+  seerah_mm_examples: { en: 'Example surahs', bn: 'উদাহরণ সূরা' },
   seerah_quiz_title: { en: 'Test Your Knowledge', bn: 'আপনার জ্ঞান যাচাই করুন' },
   seerah_quiz_intro: { en: 'Answer the questions, then check your score.', bn: 'প্রশ্নগুলোর উত্তর দিন, অতঃপর আপনার স্কোর দেখুন।' },
   seerah_quiz_submit: { en: 'Check answers', bn: 'উত্তর যাচাই করুন' },
@@ -984,6 +1082,8 @@ class SeerahView {
       <div class="space-y-3 mb-6">
         ${SEERAH_TOPICS.map(tp => this.topicCardHtml(tp)).join('')}
       </div>
+      ${this.lessonsHtml()}
+      ${this.meccanMedinanHtml()}
       ${this.companionsHtml()}
       ${this.placesHtml()}`;
 
@@ -1091,6 +1191,105 @@ class SeerahView {
                 <span class="block text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5" dir="auto">${this.esc(this.pick(c, 'desc'))}</span>
               </span>
             </div>`).join('')}
+        </div>
+        ${this.asharaHtml()}
+      </section>`;
+  }
+
+  /**
+   * The Ten Promised Paradise (al-‘Ashara al-Mubashshara, RA) — a compact,
+   * labelled sub-list rendered inside the Key Companions section. Numbered chips
+   * only (no figurative imagery); content routed through lc().
+   */
+  asharaHtml() {
+    return `
+      <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <h4 class="flex items-baseline gap-2 flex-wrap text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">
+          <span aria-hidden="true">🌟</span>
+          <span dir="auto">${this.esc(this.tt('seerah_ashara_title'))}</span>
+          <span class="text-[0.7rem] font-medium text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('seerah_ashara_sub'))}</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          ${SEERAH_ASHARA.map((c, i) => `
+            <div class="flex gap-2.5 items-start p-2.5 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+              <span class="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold flex items-center justify-center" aria-hidden="true">${i + 1}</span>
+              <span class="flex-1 min-w-0">
+                <span class="block font-semibold text-[0.8rem] text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.pick(c, 'name'))}</span>
+                <span class="block text-[0.72rem] text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5" dir="auto">${this.esc(this.pick(c, 'desc'))}</span>
+              </span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  /**
+   * Lessons from the Seerah — thematic lessons distilled from the timeline. Each
+   * links to its source event (scrolls/filters not needed; shown as a label) and,
+   * where clean, a tappable verse pill (reusing the shared data-seerah-ayah click).
+   */
+  lessonsHtml() {
+    const eventTitle = (id) => {
+      const ev = SEERAH_EVENTS.find(e => e.id === id);
+      return ev ? this.pick(ev, 'title') : '';
+    };
+    return `
+      <section class="mb-8">
+        <h3 class="flex items-center gap-2 text-base font-bold text-gray-700 dark:text-gray-200 mb-1">
+          <span class="text-primary" aria-hidden="true">💡</span><span>${this.esc(this.tt('seerah_lessons_title'))}</span>
+        </h3>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('seerah_lessons_intro'))}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          ${SEERAH_LESSONS.map(ls => {
+            const evTitle = eventTitle(ls.event);
+            const evPill = evTitle
+              ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-[0.68rem]" dir="auto">📍 ${this.esc(evTitle)}</span>`
+              : '';
+            const ayahPill = ls.ayah
+              ? `<button type="button" data-seerah-ayah="${this.esc(ls.ayah)}"
+                   class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[0.68rem] font-medium hover:bg-primary hover:text-white transition-colors">📖 ${this.esc(ls.ayah)}</button>`
+              : '';
+            return `
+              <div class="flex flex-col gap-2 p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <div class="flex gap-2.5 items-start">
+                  <span class="shrink-0 text-lg leading-none mt-0.5" aria-hidden="true">${this.esc(ls.emoji)}</span>
+                  <span class="flex-1 text-sm text-gray-700 dark:text-gray-200 leading-relaxed" dir="auto">${this.esc(this.lc({ en: ls.textEn, bn: ls.textBn }))}</span>
+                </div>
+                <div class="flex flex-wrap gap-1.5 pl-8">${evPill}${ayahPill}</div>
+              </div>`;
+          }).join('')}
+        </div>
+      </section>`;
+  }
+
+  /**
+   * Meccan vs Medinan mini-reference — a two-column card contrasting the two
+   * phases of revelation, each with a short description and example-surah pills
+   * (tappable, reusing the shared data-seerah-ayah click). Introductory only.
+   */
+  meccanMedinanHtml() {
+    const col = (labelKey, data) => `
+      <div class="flex-1 min-w-0 p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+        <h4 class="flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-200 mb-1.5">
+          <span aria-hidden="true">${this.esc(data.emoji)}</span><span dir="auto">${this.esc(this.tt(labelKey))}</span>
+        </h4>
+        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(this.lc({ en: data.descEn, bn: data.descBn }))}</p>
+        <div class="mt-2">
+          <span class="text-[0.68rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">${this.esc(this.tt('seerah_mm_examples'))}</span>
+          <div class="flex flex-wrap gap-1.5 mt-1">
+            ${(data.examples || []).map(x => `<button type="button" data-seerah-ayah="${this.esc(x.ref)}"
+              class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium hover:bg-primary hover:text-white transition-colors" dir="auto">📖 ${this.esc(this.pick(x, 'name'))}</button>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    return `
+      <section class="mb-8">
+        <h3 class="flex items-center gap-2 text-base font-bold text-gray-700 dark:text-gray-200 mb-1">
+          <span class="text-primary" aria-hidden="true">📖</span><span>${this.esc(this.tt('seerah_mm_title'))}</span>
+        </h3>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('seerah_mm_intro'))}</p>
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          ${col('seerah_mm_meccan', SEERAH_MECCAN_MEDINAN.meccan)}
+          ${col('seerah_mm_medinan', SEERAH_MECCAN_MEDINAN.medinan)}
         </div>
       </section>`;
   }

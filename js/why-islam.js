@@ -66,6 +66,14 @@ const WHY_ISLAM_I18N = {
     en: 'A general note, shared respectfully — journeys of faith are personal, and no pressure is intended.',
     bn: 'একটি সাধারণ নোট, শ্রদ্ধার সাথে উপস্থাপিত—ঈমানের যাত্রা ব্যক্তিগত, এবং কোনো চাপ উদ্দিষ্ট নয়।',
   },
+  whyislam_misconceptions_note: {
+    en: 'Each item states a sincere misconception fairly, then clarifies it. The aim is honest understanding — never to mock or blame anyone who holds it.',
+    bn: 'প্রতিটি অংশে একটি আন্তরিক ভুল ধারণা প্রথমে ন্যায্যভাবে উপস্থাপন করা হয়েছে, তারপর তা স্পষ্ট করা হয়েছে। উদ্দেশ্য সৎ বোঝাপড়া—যিনি এমন ধারণা রাখেন তাঁকে উপহাস বা দোষারোপ করা কখনোই নয়।',
+  },
+  whyislam_next_note: {
+    en: 'These are gentle suggestions only, offered without any pressure. Go at your own pace, and follow whichever step feels right for you.',
+    bn: 'এগুলো কেবল কোমল পরামর্শ, কোনো চাপ ছাড়াই উপস্থাপিত। নিজের গতিতে এগোন, এবং যে পদক্ষেপ আপনার কাছে উপযুক্ত মনে হয় তা-ই অনুসরণ করুন।',
+  },
 };
 
 const WHY_ISLAM_DATA = [
@@ -831,6 +839,55 @@ const WHY_ISLAM_DATA = [
     ],
   },
   {
+    id: 'misconceptions',
+    emoji: '💡',
+    kind: 'qa',
+    noteKey: 'whyislam_misconceptions_note',
+    qaLabel: { en: 'Misconception', bn: 'ভুল ধারণা' },
+    title: { en: 'Common Misconceptions', bn: 'সাধারণ ভুল ধারণা' },
+    summary: {
+      en: 'Sincere misconceptions clarified fairly and respectfully — with historical nuance, not attacks.',
+      bn: 'আন্তরিক ভুল ধারণাগুলো ন্যায্য ও শ্রদ্ধার সাথে স্পষ্টীকরণ—ঐতিহাসিক প্রেক্ষাপটসহ, আক্রমণ নয়।',
+    },
+    qa: [
+      {
+        q: { en: '“Islam was spread by the sword.”', bn: '"ইসলাম তরবারির জোরে ছড়িয়েছে।"' },
+        a: {
+          en: 'The image of Islam forced on people at swordpoint is widespread, but it sits uneasily with both the Quran and the historical record. The Quran states plainly, "There shall be no compulsion in religion" (Quran 2:256), and a faith imposed by force would be hollow in a religion that prizes sincere conviction of the heart. Historians note that in many lands Islam became the majority faith only gradually, over centuries — often long after those regions came under Muslim rule — and some of the largest Muslim populations today, such as in Indonesia and much of South and West Africa, were never conquered by Arab armies at all, but came to Islam largely through trade, scholarship and example. Empires of that era, Muslim and non-Muslim alike, did expand by conquest; but a change of ruler is not a change of heart, and Islam locates real faith in free choice, never coercion.',
+          bn: 'তরবারির মুখে মানুষের উপর ইসলাম চাপিয়ে দেওয়ার চিত্র ব্যাপকভাবে প্রচলিত, কিন্তু তা কুরআন ও ঐতিহাসিক নথি—উভয়ের সাথেই খাপ খায় না। কুরআন স্পষ্ট বলে, "দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই" (কুরআন ২:২৫৬), আর হৃদয়ের আন্তরিক প্রত্যয়কে মূল্য দেয় এমন এক ধর্মে জোর করে চাপানো বিশ্বাস অন্তঃসারশূন্য। ঐতিহাসিকরা লক্ষ করেন যে বহু অঞ্চলে ইসলাম কেবল ধীরে ধীরে, শতাব্দীর পর শতাব্দী ধরে সংখ্যাগরিষ্ঠ ধর্মে পরিণত হয়েছে—প্রায়ই সেই অঞ্চল মুসলিম শাসনে আসার বহু পরে—এবং আজকের কিছু বৃহত্তম মুসলিম জনগোষ্ঠী, যেমন ইন্দোনেশিয়া এবং দক্ষিণ ও পশ্চিম আফ্রিকার বড় অংশ, আরব বাহিনীর দ্বারা কখনো বিজিতই হয়নি, বরং মূলত বাণিজ্য, পাণ্ডিত্য ও আদর্শের মাধ্যমে ইসলামে এসেছে। সেই যুগের সাম্রাজ্যগুলো—মুসলিম ও অমুসলিম উভয়ই—বিজয়ের মাধ্যমে বিস্তৃত হয়েছে; কিন্তু শাসক বদল হৃদয়ের বদল নয়, আর ইসলাম প্রকৃত ঈমানকে রাখে স্বাধীন পছন্দে, কখনোই জবরদস্তিতে নয়।',
+        },
+      },
+      {
+        q: { en: '“Muslims worship a different god — even a ‘moon god.’”', bn: '"মুসলিমরা ভিন্ন এক ঈশ্বরের—এমনকি এক ‘চাঁদ-দেবতার’—উপাসনা করে।"' },
+        a: {
+          en: 'Some believe Muslims worship a separate deity, occasionally even a "moon god." In truth, "Allah" is simply the Arabic word for God — the very word Arabic-speaking Jews and Christians use for the God of Abraham. Islam worships the one Creator of Adam, Noah, Abraham, Moses and Jesus (peace be upon them), affirming pure monotheism: "Say, He is Allah, [who is] One" (Quran 112:1). The crescent sometimes seen on mosques is a later cultural emblem, not an object of worship; Islam explicitly forbids worshipping the sun, moon or any created thing: "Do not prostrate to the sun or to the moon, but prostrate to Allah, who created them" (Quran 41:37). The God of Islam is the same one God of the earlier prophets — described without any partner, image or likeness.',
+          bn: 'কেউ কেউ মনে করে মুসলিমরা এক পৃথক দেবতার, কখনো এমনকি এক "চাঁদ-দেবতার" উপাসনা করে। প্রকৃতপক্ষে "আল্লাহ" আরবিতে ঈশ্বরেরই শব্দ—আরবিভাষী ইহুদি ও খ্রিষ্টানরাও ইব্রাহিমের ঈশ্বরের জন্য ঠিক এই শব্দই ব্যবহার করেন। ইসলাম আদম, নূহ, ইব্রাহিম, মূসা ও ঈসা (তাঁদের প্রতি শান্তি)-এর সেই এক স্রষ্টার ইবাদত করে, বিশুদ্ধ একত্ববাদ নিশ্চিত করে: "বলো, তিনিই আল্লাহ, এক" (কুরআন ১১২:১)। মসজিদে কখনো দেখা যাওয়া অর্ধচন্দ্র একটি পরবর্তীকালের সাংস্কৃতিক প্রতীক, উপাসনার বস্তু নয়; ইসলাম সূর্য, চাঁদ বা কোনো সৃষ্ট বস্তুর উপাসনা স্পষ্টভাবে নিষেধ করে: "সূর্য ও চাঁদকে সিজদা কোরো না, বরং সিজদা করো আল্লাহকে, যিনি এদের সৃষ্টি করেছেন" (কুরআন ৪১:৩৭)। ইসলামের আল্লাহ পূর্ববর্তী নবীদের সেই একই এক ঈশ্বর—কোনো অংশীদার, প্রতিমা বা সদৃশ ছাড়াই বর্ণিত।',
+        },
+      },
+      {
+        q: { en: '“Islam is anti-science and hostile to reason.”', bn: '"ইসলাম বিজ্ঞানবিরোধী ও যুক্তির প্রতি বৈরী।"' },
+        a: {
+          en: 'Islam is sometimes imagined as opposed to reason and science, yet its scripture repeatedly urges observation and thought, and its history tells a different story. The Quran calls people again and again to reflect on the natural world, and the early Muslim world became a major centre of learning — advancing mathematics, medicine, astronomy and philosophy, and preserving and building upon the knowledge of earlier peoples, in a period often described as a golden age of scholarship. Muslims are cautioned only against two things: treating scripture as a science textbook, and imagining that describing how the world works removes the deeper question of why it exists at all. Islam sees the book of revelation and the book of nature as coming from the same Author, so honest inquiry is welcomed rather than feared.',
+          bn: 'ইসলামকে কখনো যুক্তি ও বিজ্ঞানের বিরোধী বলে কল্পনা করা হয়, অথচ এর শাস্ত্র বারবার পর্যবেক্ষণ ও চিন্তার তাগিদ দেয়, আর এর ইতিহাস ভিন্ন কথা বলে। কুরআন মানুষকে বারবার প্রকৃতি নিয়ে অনুধ্যানে ডাকে, এবং প্রাথমিক মুসলিম বিশ্ব হয়ে উঠেছিল জ্ঞানচর্চার এক প্রধান কেন্দ্র—গণিত, চিকিৎসা, জ্যোতির্বিজ্ঞান ও দর্শনে অগ্রগতি এনে এবং পূর্ববর্তী জাতিসমূহের জ্ঞান সংরক্ষণ ও তার উপর গড়ে তুলে, এমন এক যুগে যাকে প্রায়ই পাণ্ডিত্যের স্বর্ণযুগ বলা হয়। মুসলিমদের কেবল দুটি বিষয়ে সতর্ক করা হয়: শাস্ত্রকে বিজ্ঞানের পাঠ্যবই হিসেবে গণ্য করা, এবং জগৎ কীভাবে কাজ করে তা বর্ণনা করলেই তা কেন আদৌ বিদ্যমান—এই গভীরতর প্রশ্নটি মুছে যায় বলে ভাবা। ইসলাম ওহির গ্রন্থ ও প্রকৃতির গ্রন্থকে একই রচয়িতা থেকে আগত হিসেবে দেখে, তাই সৎ অনুসন্ধানকে ভয় নয়, স্বাগত জানানো হয়।',
+        },
+      },
+      {
+        q: { en: '“Jihad just means holy war.”', bn: '"জিহাদ মানেই ধর্মযুদ্ধ।"' },
+        a: {
+          en: 'In popular usage "jihad" is often equated with "holy war," but the Arabic word simply means striving or struggle in the path of God, and its meaning is far broader. It includes the daily inner struggle against one’s own selfishness and wrongdoing — which the tradition stresses as the most important struggle of all — as well as striving through knowledge, patience, charity and just, truthful speech. It does encompass the ethics of legitimate self-defence, but hedged about with strict limits: non-combatants, women, children and the elderly are protected, even crops and trees are not to be needlessly destroyed, treaties must be honoured, and aggression is forbidden — "and do not transgress. Indeed, Allah does not like transgressors" (Quran 2:190). Reducing jihad to "holy war" — still less to terrorism, which Islam condemns — misses both the word’s primary spiritual meaning and the restraint its ethics demand.',
+          bn: 'প্রচলিত ব্যবহারে "জিহাদ"-কে প্রায়ই "ধর্মযুদ্ধের" সমার্থক ধরা হয়, কিন্তু আরবি শব্দটির অর্থ কেবল আল্লাহর পথে সাধনা বা সংগ্রাম, আর এর অর্থ অনেক বিস্তৃত। এতে অন্তর্ভুক্ত নিজের স্বার্থপরতা ও পাপের বিরুদ্ধে দৈনন্দিন অন্তর্গত সংগ্রাম—যাকে ঐতিহ্য সবচেয়ে গুরুত্বপূর্ণ সংগ্রাম হিসেবে জোর দেয়—এবং জ্ঞান, ধৈর্য, দান ও ন্যায্য, সত্যনিষ্ঠ কথার মাধ্যমে সাধনা। এতে বৈধ আত্মরক্ষার নীতিও অন্তর্ভুক্ত, তবে কঠোর সীমায় বেষ্টিত: যোদ্ধা-নয় এমন ব্যক্তি, নারী, শিশু ও বৃদ্ধরা সুরক্ষিত, এমনকি ফসল ও গাছ অকারণে ধ্বংস করা যাবে না, চুক্তি রক্ষা করতে হবে, এবং আগ্রাসন নিষিদ্ধ—"এবং সীমা লঙ্ঘন কোরো না। নিশ্চয়ই আল্লাহ সীমালঙ্ঘনকারীদের পছন্দ করেন না" (কুরআন ২:১৯০)। জিহাদকে "ধর্মযুদ্ধে"—আর সন্ত্রাসে তো আরও নয়, যাকে ইসলাম নিন্দা করে—সংকুচিত করলে শব্দটির মূল আধ্যাত্মিক অর্থ এবং এর নীতিমালার আরোপিত সংযম—দুটোই হারিয়ে যায়।',
+        },
+      },
+      {
+        q: { en: '“Islam is a monolithic, foreign religion.”', bn: '"ইসলাম একটি অভিন্ন-একরূপ, বিদেশি ধর্ম।"' },
+        a: {
+          en: 'Islam is sometimes pictured as a single uniform bloc, or as belonging to one region or people. In reality Muslims are extraordinarily diverse — the large majority are not Arab — and the faith is lived across almost every nation, language and culture on earth, from West Africa to Southeast Asia. Within an agreed core of belief there has always been a rich internal tradition of scholarship and reasoned difference over the details of practice, studied with qualified teachers. And far from being foreign to any place, Islam teaches that it is the original message of all the prophets from Adam onward, addressed to all people: "And We have not sent you except as a mercy to the worlds" (Quran 21:107). It is best understood not as one culture’s possession but as a universal message that many cultures have made their own.',
+          bn: 'ইসলামকে কখনো একটি অভিন্ন-একরূপ গোষ্ঠী হিসেবে, কিংবা এক অঞ্চল বা এক জাতির সম্পত্তি হিসেবে কল্পনা করা হয়। প্রকৃতপক্ষে মুসলিমরা অসাধারণভাবে বৈচিত্র্যময়—বড় সংখ্যাগরিষ্ঠই আরব নন—এবং এই ধর্ম পশ্চিম আফ্রিকা থেকে দক্ষিণ-পূর্ব এশিয়া পর্যন্ত পৃথিবীর প্রায় প্রতিটি জাতি, ভাষা ও সংস্কৃতিতে যাপিত। বিশ্বাসের একটি স্বীকৃত মূলকেন্দ্রের ভেতরে আমল-বিষয়ক খুঁটিনাটিতে পাণ্ডিত্য ও যুক্তিসংগত মতপার্থক্যের এক সমৃদ্ধ অভ্যন্তরীণ ঐতিহ্য সবসময়ই ছিল, যা যোগ্য শিক্ষকের সাথে অধ্যয়ন করা হয়। আর কোনো স্থানের কাছে বিদেশি হওয়া তো দূরে থাক, ইসলাম শেখায় যে এটি আদম থেকে শুরু করে সকল নবীর মূল বার্তা, সব মানুষের উদ্দেশে: "আমি আপনাকে কেবল বিশ্বজগতের জন্য রহমতরূপেই পাঠিয়েছি" (কুরআন ২১:১০৭)। একে এক সংস্কৃতির সম্পত্তি নয়, বরং এক সর্বজনীন বার্তা হিসেবে বোঝাই শ্রেয়, যাকে বহু সংস্কৃতি নিজের করে নিয়েছে।',
+        },
+      },
+    ],
+  },
+  {
     id: 'comparative',
     emoji: '🪟',
     kind: 'article',
@@ -960,8 +1017,8 @@ const WHY_ISLAM_DATA = [
     noteKey: 'whyislam_glossary_note',
     title: { en: 'Glossary of Key Terms', bn: 'মূল পরিভাষার শব্দকোষ' },
     summary: {
-      en: 'One-line introductions to fifteen key terms of Islamic belief and practice.',
-      bn: 'ইসলামি বিশ্বাস ও আমলের পনেরোটি মূল পরিভাষার এক-লাইনের পরিচিতি।',
+      en: 'One-line introductions to twenty-three key terms of Islamic belief and practice.',
+      bn: 'ইসলামি বিশ্বাস ও আমলের তেইশটি মূল পরিভাষার এক-লাইনের পরিচিতি।',
     },
     terms: [
       { term: 'Tawhid', bnTerm: 'তাওহিদ',
@@ -1009,6 +1066,30 @@ const WHY_ISLAM_DATA = [
       { term: 'Da‘wah', bnTerm: 'দাওয়াহ',
         en: 'Inviting to God’s way — sharing and explaining Islam with wisdom, good speech and no compulsion.',
         bn: 'আল্লাহর পথে আহ্বান—প্রজ্ঞা, উত্তম কথা ও জবরদস্তিহীনতায় ইসলাম ভাগ করা ও ব্যাখ্যা করা।' },
+      { term: 'Halal', bnTerm: 'হালাল',
+        en: 'Permissible — that which God has allowed in food, earnings and conduct.',
+        bn: 'বৈধ—খাদ্য, উপার্জন ও আচরণে আল্লাহ যা অনুমোদন করেছেন।' },
+      { term: 'Haram', bnTerm: 'হারাম',
+        en: 'Forbidden — that which God has prohibited, avoided out of obedience and care.',
+        bn: 'নিষিদ্ধ—আল্লাহ যা নিষেধ করেছেন, আনুগত্য ও সতর্কতাবশত যা বর্জিত।' },
+      { term: 'Sabr', bnTerm: 'সবর',
+        en: 'Patient perseverance — steadfastness in hardship, in obedience, and against temptation.',
+        bn: 'ধৈর্যশীল অবিচলতা—কষ্টে, আনুগত্যে ও প্রলোভনের বিরুদ্ধে দৃঢ়তা।' },
+      { term: 'Shukr', bnTerm: 'শুকর',
+        en: 'Gratitude — recognising God’s blessings and responding with thanks in heart, word and deed.',
+        bn: 'কৃতজ্ঞতা—আল্লাহর নিয়ামত অনুধাবন এবং হৃদয়, কথা ও কর্মে কৃতজ্ঞতা প্রকাশ।' },
+      { term: 'Tazkiyah', bnTerm: 'তাযকিয়াহ',
+        en: 'Purification of the soul — cultivating good character and cleansing the heart of harmful traits.',
+        bn: 'আত্মার পরিশুদ্ধি—উত্তম চরিত্র গঠন ও হৃদয়কে ক্ষতিকর স্বভাব থেকে পরিচ্ছন্ন করা।' },
+      { term: 'Barakah', bnTerm: 'বরকত',
+        en: 'Divine blessing — a God-given increase and benefit in something, often beyond its outward measure.',
+        bn: 'ঐশী কল্যাণ—কোনো কিছুতে আল্লাহ-প্রদত্ত বৃদ্ধি ও উপকার, প্রায়ই তার বাহ্যিক পরিমাণের বাইরে।' },
+      { term: 'Rizq', bnTerm: 'রিজিক',
+        en: 'Provision — all sustenance that God provides, including wealth, food, knowledge and wellbeing.',
+        bn: 'রিজিক—আল্লাহ প্রদত্ত সকল জীবিকা, সম্পদ, খাদ্য, জ্ঞান ও কল্যাণসহ।' },
+      { term: 'Amanah', bnTerm: 'আমানত',
+        en: 'Trust — a responsibility placed in one’s care, to be honoured faithfully toward God and people.',
+        bn: 'আমানত—কারও তত্ত্বাবধানে ন্যস্ত দায়িত্ব, আল্লাহ ও মানুষের প্রতি বিশ্বস্ততার সাথে যা রক্ষণীয়।' },
     ],
   },
   {
@@ -1053,6 +1134,61 @@ const WHY_ISLAM_DATA = [
         body: {
           en: 'Islam is clear that faith cannot be forced or rushed: "There shall be no compulsion in religion" (Quran 2:256). This explanation is offered purely for information and reflection. Anyone genuinely exploring these ideas is encouraged to keep learning, ask sincere questions, and consult knowledgeable, trustworthy people — and to decide freely, in their own time.',
           bn: 'ইসলাম স্পষ্ট যে ঈমান চাপিয়ে দেওয়া বা তাড়াহুড়ো করা যায় না: "দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই" (কুরআন ২:২৫৬)। এই ব্যাখ্যা কেবল তথ্য ও চিন্তার জন্য উপস্থাপিত। যিনি আন্তরিকভাবে এই ধারণাগুলো অন্বেষণ করছেন, তাঁকে উৎসাহ দেওয়া হয় শেখা চালিয়ে যেতে, সৎ প্রশ্ন করতে, জ্ঞানী ও বিশ্বস্ত মানুষের পরামর্শ নিতে—এবং নিজের সময়ে, স্বাধীনভাবে সিদ্ধান্ত নিতে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'next-steps',
+    emoji: '🚶',
+    kind: 'article',
+    noteKey: 'whyislam_next_note',
+    title: { en: 'Where to Go From Here', bn: 'এখান থেকে কোথায় যাবেন' },
+    summary: {
+      en: 'Gentle, pressure-free next steps for anyone who would like to keep exploring.',
+      bn: 'অন্বেষণ চালিয়ে যেতে চাইলে—কোমল, চাপহীন কিছু পরবর্তী পদক্ষেপ।',
+    },
+    points: [
+      {
+        heading: { en: 'Keep learning at your own pace', bn: 'নিজের গতিতে শেখা চালিয়ে যান' },
+        body: {
+          en: 'There is no hurry and no pressure. Faith, in Islam, is a free and personal matter — "There shall be no compulsion in religion" (Quran 2:256). Take whatever time you need to read, reflect and ask questions, and let understanding grow gently rather than all at once.',
+          bn: 'কোনো তাড়া নেই, কোনো চাপ নেই। ইসলামে ঈমান এক স্বাধীন ও ব্যক্তিগত বিষয়—"দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই" (কুরআন ২:২৫৬)। পড়তে, ভাবতে ও প্রশ্ন করতে যতটুকু সময় দরকার নিন, আর বোঝাপড়াকে একবারে নয়, বরং ধীরে ধীরে বেড়ে উঠতে দিন।',
+        },
+      },
+      {
+        heading: { en: 'Read the Quran — its words and its meaning', bn: 'কুরআন পড়ুন—এর শব্দ ও অর্থ' },
+        body: {
+          en: 'A natural next step is to read the Quran itself. You can begin with a translation in your own language to meet its message directly, and, if you wish, gradually learn to read the Arabic script over time. This app’s Quran module lets you read word by word with translation, so you can start wherever feels comfortable.',
+          bn: 'একটি স্বাভাবিক পরবর্তী পদক্ষেপ হলো কুরআন নিজে পড়া। আপনি নিজের ভাষায় একটি অনুবাদ দিয়ে শুরু করতে পারেন যাতে সরাসরি এর বার্তার সাথে পরিচিত হন, এবং চাইলে সময়ের সাথে ধীরে ধীরে আরবি লিপি পড়তেও শিখতে পারেন। এই অ্যাপের কুরআন মডিউল আপনাকে অনুবাদসহ শব্দে-শব্দে পড়তে দেয়, তাই যেখানে স্বস্তি লাগে সেখান থেকেই শুরু করতে পারেন।',
+        },
+      },
+      {
+        heading: { en: 'Explore the Prophets and Seerah', bn: 'নবীগণ ও সিরাহ ঘুরে দেখুন' },
+        body: {
+          en: 'To understand the message, it helps to know the messengers. This app includes a Prophets module on the lives and lessons of the prophets, and a Seerah timeline of the life of Muhammad (peace be upon him). Reading these can bring the ideas in this section to life through real people and events.',
+          bn: 'বার্তাকে বুঝতে হলে বার্তাবাহকদের জানা সহায়ক। এই অ্যাপে আছে নবীগণের জীবন ও শিক্ষা নিয়ে একটি Prophets মডিউল, এবং মুহাম্মাদ (তাঁর প্রতি শান্তি)-এর জীবনের একটি সিরাহ টাইমলাইন। এগুলো পড়লে এই অংশের ধারণাগুলো প্রকৃত মানুষ ও ঘটনার মধ্য দিয়ে জীবন্ত হয়ে উঠতে পারে।',
+        },
+      },
+      {
+        heading: { en: 'Visit a mosque or meet Muslims', bn: 'মসজিদে যান বা মুসলিমদের সাথে দেখা করুন' },
+        body: {
+          en: 'Ideas are best met alongside people. Many mosques and Islamic centres warmly welcome visitors and sincere questions, and simply getting to know Muslims in your own community can offer a fuller, kinder picture than reading alone. There is no obligation involved — just an open door if you would like to learn more.',
+          bn: 'ধারণাকে সবচেয়ে ভালোভাবে বোঝা যায় মানুষের সাথে মিলিয়ে। বহু মসজিদ ও ইসলামিক সেন্টার দর্শনার্থী ও আন্তরিক প্রশ্নকে সাদরে স্বাগত জানায়, আর নিজের এলাকার মুসলিমদের সাথে পরিচিত হওয়াই কেবল পড়ার চেয়ে অধিক পূর্ণ ও কোমল একটি চিত্র দিতে পারে। এতে কোনো বাধ্যবাধকতা নেই—আরও জানতে চাইলে কেবল একটি খোলা দরজা।',
+        },
+      },
+      {
+        heading: { en: 'Ask questions — sincerely and respectfully', bn: 'প্রশ্ন করুন—আন্তরিকভাবে ও শ্রদ্ধার সাথে' },
+        body: {
+          en: 'Honest questions are welcome, not unwelcome. If something is unclear or troubling, seek it out rather than setting it aside — the Common Questions and Common Objections sections here are a good place to start, and knowledgeable, trustworthy people are glad to help. Sincere seeking, in the Islamic view, is itself part of the path.',
+          bn: 'সৎ প্রশ্ন অনাহূত নয়, বরং স্বাগত। কিছু অস্পষ্ট বা পীড়াদায়ক মনে হলে তা সরিয়ে না রেখে খুঁজে দেখুন—এখানকার সাধারণ প্রশ্নাবলি ও সাধারণ আপত্তি অংশগুলো শুরুর ভালো জায়গা, আর জ্ঞানী ও বিশ্বস্ত মানুষ সাহায্য করতে আনন্দিত। ইসলামের দৃষ্টিতে আন্তরিক অন্বেষণ নিজেই পথের অংশ।',
+        },
+      },
+      {
+        heading: { en: 'Go deeper with Further Study', bn: 'আরও অধ্যয়নে গভীরে যান' },
+        body: {
+          en: 'When you are ready for more, the Further Study section of this module lists reputable, mainstream resources — articles, courses, lectures and Q&A from qualified teachers — where you can explore any topic in greater depth, in your own time and on your own terms.',
+          bn: 'আরও জানার জন্য প্রস্তুত হলে, এই মডিউলের আরও অধ্যয়ন অংশে নির্ভরযোগ্য মূলধারার উৎস তালিকাভুক্ত আছে—যোগ্য শিক্ষকদের প্রবন্ধ, কোর্স, বক্তৃতা ও প্রশ্নোত্তর—যেখানে আপনি নিজের সময়ে ও নিজের শর্তে যেকোনো বিষয় আরও গভীরে অন্বেষণ করতে পারেন।',
         },
       },
     ],

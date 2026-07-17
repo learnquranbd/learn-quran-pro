@@ -691,6 +691,15 @@ const PROPHETS_UI = {
   prophets_lineage_bani: { en: 'Prophets of Bani Israil', bn: 'বনী ইসরাঈলের নবীগণ' },
   prophets_lineage_israel: { en: 'Israel', bn: 'ইসরাঈল' },
   prophets_lineage_note: { en: 'A simplified overview of the well-known traditional lines — many generations and other prophets lie between these names.', bn: 'সুপরিচিত ঐতিহ্যগত ধারার একটি সরলীকৃত চিত্র — এই নামগুলোর মাঝে বহু প্রজন্ম ও অন্যান্য নবী রয়েছেন।' },
+  prophets_lineage_view_list: { en: 'List', bn: 'তালিকা' },
+  prophets_lineage_view_tree: { en: 'Tree', bn: 'বৃক্ষ' },
+  prophets_where_title: { en: 'Where in the Quran', bn: 'কুরআনে কোথায়' },
+  prophets_where_hint: { en: 'Surahs most associated with this prophet — tap to open.', bn: 'এই নবীর সাথে সর্বাধিক সম্পর্কিত সূরা — খুলতে ট্যাপ করুন।' },
+  prophets_where_passages: { en: 'passages', bn: 'অংশ' },
+  prophets_compare_title: { en: 'Compare two prophets', bn: 'দুই নবীর তুলনা' },
+  prophets_compare_intro: { en: 'Pick any two prophets to compare their rank, people, and era side by side.', bn: 'যেকোনো দুই নবী বেছে নিয়ে তাঁদের মর্যাদা, সম্প্রদায় ও যুগ পাশাপাশি তুলনা করুন।' },
+  prophets_compare_rank: { en: 'Rank', bn: 'মর্যাদা' },
+  prophets_compare_swap: { en: 'Swap', bn: 'অদলবদল' },
   prophets_mentions_title: { en: 'The prophets in the Quran by mention', bn: 'কুরআনে নবীদের নাম উল্লেখের সংখ্যা' },
   prophets_mentions_intro: { en: 'How often key prophets are mentioned by name in the Quran.', bn: 'কুরআনে প্রধান নবীদের নাম কতবার উল্লেখিত হয়েছে।' },
   prophets_mentions_note: { en: 'Counts are approximate — commonly cited figures for mentions by name; scholarly tallies vary slightly.', bn: 'সংখ্যাগুলো আনুমানিক — নামে উল্লেখের প্রচলিত হিসাব; আলেমদের গণনায় সামান্য তারতম্য আছে।' },
@@ -721,6 +730,9 @@ class ProphetsView {
     this.read = this.loadRead();
     this.quizState = null;    // active quiz session, or null
     this.quizBest = this.loadQuizBest();
+    this.treeView = 'list';   // lineage panel: 'list' | 'tree' (aniconic box tree)
+    this.cmpA = 'musa';       // compare mini-view: left prophet id
+    this.cmpB = 'ibrahim';    // compare mini-view: right prophet id
 
     window.addEventListener('tabChanged', (e) => {
       try { if (e && e.detail && e.detail.tabId === 'prophets') this.render(); } catch (_) { /* ignore */ }
@@ -908,6 +920,7 @@ class ProphetsView {
         ${this.threadsHtml()}
         ${this.duasHtml()}
         ${this.lineageHtml()}
+        ${this.compareHtml()}
         ${this.mentionsHtml()}
 
         <div class="mt-6 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 p-5 text-center">
@@ -1126,8 +1139,53 @@ class ProphetsView {
       </div>`;
   }
 
+  // Localized rank label (Nabi / Rasul, plus Ulul-'Azm) from existing data.
+  rankLabel(p) {
+    const base = p.rank === 'rasul' ? this.tt('prophets_badge_rasul') : this.tt('prophets_badge_nabi');
+    return p.ululAzm ? base + ' · ' + this.tt('prophets_badge_ululazm') : base;
+  }
+
+  // Compare two prophets side by side — rank, people, era — all from existing
+  // data. Reuses the two <select> dropdowns; no new content strings.
+  compareHtml() {
+    const opts = (sel) => PROPHETS_DATA.map(p =>
+      `<option value="${this.esc(p.id)}" ${p.id === sel ? 'selected' : ''}>${this.esc(this.pname(p.id))}</option>`).join('');
+    const a = PROPHETS_DATA.find(x => x.id === this.cmpA) || PROPHETS_DATA[0];
+    const b = PROPHETS_DATA.find(x => x.id === this.cmpB) || PROPHETS_DATA[1];
+    const rowLabel = (txt) => `<div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold text-center py-1">${this.esc(txt)}</div>`;
+    const cellPair = (va, vb) => `
+      <div class="text-sm text-gray-700 dark:text-gray-200 text-center px-2 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-900/40" dir="auto">${this.esc(va)}</div>
+      <div class="text-sm text-gray-700 dark:text-gray-200 text-center px-2 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-900/40" dir="auto">${this.esc(vb)}</div>`;
+    const head = (p) => `
+      <div class="text-center">
+        <div class="text-2xl font-arabic text-primary" dir="rtl" lang="ar">${this.esc(p.ar)}</div>
+        <div class="font-bold text-gray-800 dark:text-gray-100 text-sm">${this.esc(this.pname(p.id))}</div>
+      </div>`;
+    return `
+      <div class="mt-8">
+        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">⚖️ ${this.esc(this.tt('prophets_compare_title'))}</h3>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('prophets_compare_intro'))}</p>
+        <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4">
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <select data-prophets-cmp="a" class="w-full text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 px-2 py-2">${opts(this.cmpA)}</select>
+            <select data-prophets-cmp="b" class="w-full text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 px-2 py-2">${opts(this.cmpB)}</select>
+          </div>
+          <div class="flex justify-center mb-3">
+            <button type="button" data-prophets-cmp-swap class="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-primary transition-colors">⇄ ${this.esc(this.tt('prophets_compare_swap'))}</button>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mb-2">${head(a)}${head(b)}</div>
+          ${rowLabel(this.tt('prophets_compare_rank'))}
+          <div class="grid grid-cols-2 gap-2 mb-1">${cellPair(this.rankLabel(a), this.rankLabel(b))}</div>
+          ${rowLabel(this.tt('prophets_label_nation'))}
+          <div class="grid grid-cols-2 gap-2 mb-1">${cellPair(this.loc(a, 'nation'), this.loc(b, 'nation'))}</div>
+          ${rowLabel(this.tt('prophets_label_era'))}
+          <div class="grid grid-cols-2 gap-2">${cellPair(this.loc(a, 'era'), this.loc(b, 'era'))}</div>
+        </div>
+      </div>`;
+  }
+
   // Abstract, text-only lineage tree (names + connective lines; no figures).
-  lineageHtml() {
+  lineageListHtml() {
     const node = (label, extra) => `
       <div class="flex items-center gap-2">
         <span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold whitespace-nowrap">${this.esc(label)}</span>
@@ -1138,28 +1196,94 @@ class ProphetsView {
     const baniList = ['yusuf', 'musa', 'harun', 'dawud', 'sulayman', 'zakariya', 'yahya', 'isa']
       .map(id => this.pname(id)).join(' · ');
     return `
-      <div class="mt-8">
-        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">🌿 ${this.esc(this.tt('prophets_lineage_title'))}</h3>
-        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('prophets_lineage_intro'))}</p>
-        <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 overflow-x-auto">
-          <div class="space-y-2 min-w-[16rem]">
-            ${node(this.pname('adam') + ' (AS)')}
+      <div class="space-y-2 min-w-[16rem]">
+        ${node(this.pname('adam') + ' (AS)')}
+        ${branch(`
+          ${node(this.pname('nuh') + ' (AS)')}
+          ${branch(`
+            ${node(this.pname('ibrahim') + ' (AS)')}
             ${branch(`
-              ${node(this.pname('nuh') + ' (AS)')}
+              ${node(this.pname('ismail') + ' (AS)', '→ ' + this.tt('prophets_lineage_arabs') + ' → ' + this.pname('muhammad') + ' ﷺ')}
+              ${node(this.pname('ishaq') + ' (AS)', '→ ' + this.pname('yaqub') + ' (' + this.tt('prophets_lineage_israel') + ') (AS)')}
               ${branch(`
-                ${node(this.pname('ibrahim') + ' (AS)')}
-                ${branch(`
-                  ${node(this.pname('ismail') + ' (AS)', '→ ' + this.tt('prophets_lineage_arabs') + ' → ' + this.pname('muhammad') + ' ﷺ')}
-                  ${node(this.pname('ishaq') + ' (AS)', '→ ' + this.pname('yaqub') + ' (' + this.tt('prophets_lineage_israel') + ') (AS)')}
-                  ${branch(`
-                    <div>
-                      <div class="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500 mb-1">${this.esc(this.tt('prophets_lineage_bani'))}</div>
-                      <div class="text-xs text-gray-600 dark:text-gray-300" dir="auto">${this.esc(baniList)} (AS)</div>
-                    </div>`)}
-                `)}
-              `)}
+                <div>
+                  <div class="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500 mb-1">${this.esc(this.tt('prophets_lineage_bani'))}</div>
+                  <div class="text-xs text-gray-600 dark:text-gray-300" dir="auto">${this.esc(baniList)} (AS)</div>
+                </div>`)}
+            `)}
+          `)}
+        `)}
+      </div>`;
+  }
+
+  // Aniconic geometric family tree: boxes + connector lines only, NO figures.
+  // Adam → Nuh → Ibrahim → (Isma'il → the Arabs → Muhammad ﷺ | Ishaq → Ya'qub
+  // → the Bani-Israil prophets). Pure text/box/line — reuses existing name data.
+  lineageTreeHtml() {
+    const box = (label, tone) => {
+      const cls = tone === 'final'
+        ? 'border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300'
+        : tone === 'muted'
+          ? 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/40 text-gray-500 dark:text-gray-400'
+          : 'border-primary/40 bg-primary/5 text-primary';
+      return `<div class="inline-flex items-center px-3 py-1.5 rounded-lg border-2 ${cls} text-xs font-semibold whitespace-nowrap" dir="auto">${this.esc(label)}</div>`;
+    };
+    const vline = () => `<div class="w-0.5 h-4 bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>`;
+    const branchCol = (inner) => `<div class="flex flex-col items-center gap-1">${inner}</div>`;
+    const baniIds = ['yusuf', 'musa', 'harun', 'dawud', 'sulayman', 'zakariya', 'yahya', 'isa'];
+    const baniBoxes = baniIds.map(id => `<div class="inline-flex items-center px-2 py-1 rounded-md border border-primary/30 bg-white dark:bg-gray-800 text-primary text-[0.7rem] font-medium whitespace-nowrap" dir="auto">${this.esc(this.pname(id))}</div>`).join('');
+    return `
+      <div class="flex flex-col items-center gap-1 text-center min-w-[20rem] py-2">
+        ${box(this.pname('adam') + ' (AS)')}
+        ${vline()}
+        ${box(this.pname('nuh') + ' (AS)')}
+        ${vline()}
+        ${box(this.pname('ibrahim') + ' (AS)')}
+        <div class="relative w-full pt-4 mt-1">
+          <div class="absolute top-0 left-1/4 right-1/4 h-0.5 bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+          <div class="absolute top-0 left-1/4 -ml-px w-0.5 h-4 bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+          <div class="absolute top-0 right-1/4 -mr-px w-0.5 h-4 bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+          <div class="grid grid-cols-2 gap-3">
+            ${branchCol(`
+              ${box(this.pname('ismail') + ' (AS)')}
+              ${vline()}
+              ${box(this.tt('prophets_lineage_arabs'), 'muted')}
+              ${vline()}
+              ${box(this.pname('muhammad') + ' ﷺ', 'final')}
+            `)}
+            ${branchCol(`
+              ${box(this.pname('ishaq') + ' (AS)')}
+              ${vline()}
+              ${box(this.pname('yaqub') + ' · ' + this.tt('prophets_lineage_israel') + ' (AS)')}
+              ${vline()}
+              <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">${this.esc(this.tt('prophets_lineage_bani'))}</div>
+              <div class="flex flex-wrap justify-center gap-1">${baniBoxes}</div>
             `)}
           </div>
+        </div>
+      </div>`;
+  }
+
+  lineageHtml() {
+    const toggle = ['list', 'tree'].map(v => {
+      const active = this.treeView === v;
+      const label = v === 'list' ? this.tt('prophets_lineage_view_list') : this.tt('prophets_lineage_view_tree');
+      const icon = v === 'list' ? '☰' : '🌳';
+      return `<button type="button" data-prophets-tree="${v}"
+        class="px-3 py-1 rounded-lg text-xs font-medium transition-colors ${active
+          ? 'bg-primary text-white'
+          : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-primary'}">
+        <span aria-hidden="true">${icon}</span> ${this.esc(label)}</button>`;
+    }).join('');
+    return `
+      <div class="mt-8">
+        <div class="flex items-center justify-between gap-2 flex-wrap mb-1">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">🌿 ${this.esc(this.tt('prophets_lineage_title'))}</h3>
+          <div class="flex items-center gap-1">${toggle}</div>
+        </div>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('prophets_lineage_intro'))}</p>
+        <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 overflow-x-auto">
+          ${this.treeView === 'tree' ? this.lineageTreeHtml() : this.lineageListHtml()}
         </div>
         <p class="text-[0.7rem] text-gray-400 dark:text-gray-500 leading-relaxed mt-2" dir="auto">ℹ️ ${this.esc(this.tt('prophets_lineage_note'))}</p>
       </div>`;
@@ -1350,6 +1474,38 @@ class ProphetsView {
     }
   }
 
+  // "Where in the Quran" — group a prophet's EXISTING verified refs by surah,
+  // show the surah name + how many of his passages fall there, as tappable pills
+  // that open the first ayah. No new refs — reuses p.refs only.
+  whereHtml(p) {
+    const refs = Array.isArray(p.refs) ? p.refs : [];
+    if (!refs.length) return '';
+    const bySurah = [];
+    const idx = {};
+    refs.forEach(r => {
+      const surah = parseInt(String(r).split(':')[0], 10);
+      if (!Number.isFinite(surah)) return;
+      if (idx[surah] == null) {
+        idx[surah] = bySurah.length;
+        bySurah.push({ surah, count: 0, firstRef: r });
+      }
+      bySurah[idx[surah]].count++;
+    });
+    if (!bySurah.length) return '';
+    // Most-associated first (by passage count), keeping stable order otherwise.
+    bySurah.sort((a, b) => b.count - a.count);
+    const pills = bySurah.map(g => `<button type="button" data-prophets-ayah="${this.esc(this.openRef(g.firstRef))}"
+        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-xs font-medium hover:bg-indigo-500 hover:text-white transition-colors" dir="auto">
+        📍 ${this.esc(this.surahName(g.surah))} <span class="opacity-70">(${g.surah})</span>
+        <span class="px-1 rounded bg-indigo-500/15 text-[0.65rem]">${g.count} ${this.esc(this.tt('prophets_where_passages'))}</span></button>`).join('');
+    return `
+      <div class="mb-4">
+        <h3 class="text-sm font-bold text-gray-700 dark:text-gray-200 mb-1 flex items-center gap-1.5">📍 ${this.esc(this.tt('prophets_where_title'))}</h3>
+        <p class="text-[0.7rem] text-gray-400 dark:text-gray-500 mb-2" dir="auto">${this.esc(this.tt('prophets_where_hint'))}</p>
+        <div class="flex flex-wrap gap-1.5">${pills}</div>
+      </div>`;
+  }
+
   renderDetail() {
     const p = PROPHETS_DATA.find(x => x.id === this.selected);
     if (!p) { this.selected = null; this.render(); return; }
@@ -1439,6 +1595,7 @@ class ProphetsView {
             ${eventsHtml}
             ${signHtml}
             ${refsHtml}
+            ${this.whereHtml(p)}
 
             <div class="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/40">
               <div class="text-xs font-bold text-amber-700 dark:text-amber-300 mb-1">💡 ${this.esc(this.tt('prophets_label_lesson'))}</div>
@@ -1476,6 +1633,12 @@ class ProphetsView {
         const groupBtn = e.target.closest('[data-prophets-group]');
         if (groupBtn) { this.grouped = !this.grouped; this.render(); return; }
 
+        const treeBtn = e.target.closest('[data-prophets-tree]');
+        if (treeBtn) { this.treeView = treeBtn.getAttribute('data-prophets-tree'); this.render(); return; }
+
+        const cmpSwap = e.target.closest('[data-prophets-cmp-swap]');
+        if (cmpSwap) { const tmp = this.cmpA; this.cmpA = this.cmpB; this.cmpB = tmp; this.render(); return; }
+
         const filterBtn = e.target.closest('[data-prophets-filter]');
         if (filterBtn) { this.filter = filterBtn.getAttribute('data-prophets-filter'); this.render(); return; }
 
@@ -1509,6 +1672,17 @@ class ProphetsView {
       try {
         const search = e.target.closest ? e.target.closest('[data-prophets-search]') : null;
         if (search) { this.query = search.value || ''; this.renderList(); }
+      } catch (_) { /* ignore */ }
+    });
+
+    this.container.addEventListener('change', (e) => {
+      try {
+        const cmp = e.target.closest ? e.target.closest('[data-prophets-cmp]') : null;
+        if (cmp) {
+          const which = cmp.getAttribute('data-prophets-cmp');
+          if (which === 'a') this.cmpA = cmp.value; else this.cmpB = cmp.value;
+          this.render();
+        }
       } catch (_) { /* ignore */ }
     });
   }

@@ -5,7 +5,15 @@
  */
 
 /**
- * Verified tafsir resource IDs on api.quran.com, grouped by content language.
+ * Tafsir sources grouped by content language. Two kinds of source:
+ *   • `id`   → a numeric quran.com v4 resource (offline-first: bundled JSON in
+ *              data/tafsir/<id>.json, else GET /tafsirs/<id>/by_ayah/<key>).
+ *   • `slug` → a spa5k/tafsir_api edition served from the jsdelivr CDN
+ *              (GET .../tafsir/<slug>/<surah>/<ayah>.json → { "text": … }).
+ * The slug editions bring per-verse tafsir to the UI languages that quran.com
+ * has none for (fa/id/tr/hi/fr/es/ja/zh) — primarily al-Mukhtasar ("Abridged
+ * Explanation of the Quran", Tafsir Center), plus As-Saadi where published.
+ * Every slug below was verified to return HTTP 200 for a sample verse.
  * Names are proper titles of published works — intentionally not translated.
  */
 const TAFSIR_SOURCES = {
@@ -17,7 +25,8 @@ const TAFSIR_SOURCES = {
   bn: [
     { id: 165, name: 'Tafsir Ahsanul Bayaan' },
     { id: 166, name: 'Tafsir Abu Bakr Zakaria' },
-    { id: 164, name: 'Tafseer ibn Kathir' }
+    { id: 164, name: 'Tafseer ibn Kathir' },
+    { slug: 'bengali-mokhtasar', name: 'Al-Mukhtasar (সংক্ষিপ্ত তাফসীর)' }
   ],
   ar: [
     { id: 16, name: 'Tafsir Muyassar' },
@@ -32,11 +41,48 @@ const TAFSIR_SOURCES = {
     { id: 159, name: 'Bayan ul Quran' }
   ],
   ru: [
-    { id: 170, name: "Al-Sa'di" }
+    { id: 170, name: "Al-Sa'di" },
+    { slug: 'russian-mokhtasar', name: 'Al-Mukhtasar (Толкование)' }
+  ],
+  fa: [
+    { slug: 'persian-mokhtasar', name: 'المختصر (Al-Mukhtasar)' },
+    { slug: 'fr-tafsir-as-saadi', name: 'تفسیر سعدی (As-Saadi)' }
+  ],
+  id: [
+    { slug: 'indonesian-mokhtasar', name: 'Al-Mukhtasar (Tafsir Ringkas)' },
+    { slug: 'id-tafsir-as-saadi', name: 'Tafsir As-Saadi' }
+  ],
+  tr: [
+    { slug: 'turkish-mokhtasar', name: 'El-Muhtasar (Özet Tefsir)' },
+    { slug: 'turkish-tafsir-as-saadi-turkish', name: 'Tefsir es-Sa\'dî' }
+  ],
+  hi: [
+    { slug: 'hindi-mokhtasar', name: 'अल-मुख़्तसर (Al-Mukhtasar)' }
+  ],
+  fr: [
+    { slug: 'french-mokhtasar', name: 'Al-Mukhtasar (Explication abrégée)' }
+  ],
+  es: [
+    { slug: 'spanish-mokhtasar', name: 'Al-Mujtasar (Explicación abreviada)' }
+  ],
+  ja: [
+    { slug: 'japanese-mokhtasar', name: 'Al-Mukhtasar (要約された解説)' }
+  ],
+  zh: [
+    { slug: 'chinese-mokhtasar', name: '古兰经简明注释 (Al-Mukhtasar)' }
   ]
-  // es/fa/hi/de/ms/zh have no native tafsir on quran.com → fall back to the
-  // English list plus the Arabic classics (see sourcesFor / populateSources).
+  // ms/de have no published al-Mukhtasar edition → fall back to the English
+  // list plus the Arabic classics (see sourcesFor / populateSources).
 };
+
+/** Stable string key for a source: the slug, or the quran.com id as text. */
+function tafsirKey(src) {
+  return src.slug || String(src.id);
+}
+/** True when a tafsir key is a tafsir_api slug (vs. a numeric quran.com id). */
+function isTafsirSlug(key) {
+  return typeof key === 'string' && !/^\d+$/.test(key);
+}
 
 // Content language of every tafsir resource (drives RTL rendering of the body)
 const TAFSIR_ID_LANG = {};
@@ -44,12 +90,13 @@ const TAFSIR_ID_LANG = {};
 const TAFSIR_ID_NAME = {};
 Object.keys(TAFSIR_SOURCES).forEach(lang => {
   TAFSIR_SOURCES[lang].forEach(src => {
-    TAFSIR_ID_LANG[src.id] = lang;
-    TAFSIR_ID_NAME[src.id] = src.name;
+    const key = tafsirKey(src);
+    TAFSIR_ID_LANG[key] = lang;
+    TAFSIR_ID_NAME[key] = src.name;
   });
 });
 
-const TAFSIR_RTL_LANGS = ['ar', 'ur'];
+const TAFSIR_RTL_LANGS = ['ar', 'ur', 'fa'];
 
 // Above this many loaded ayahs, render collapsed accordions and fetch lazily
 const TAFSIR_ACCORDION_THRESHOLD = 8;
@@ -122,7 +169,11 @@ class TafseerView {
   loadBookmarks() {
     try {
       const v = JSON.parse(localStorage.getItem(this.BOOKMARKS_KEY));
-      return Array.isArray(v) ? v.filter(b => b && b.key) : [];
+      // sid may be a legacy number or a tafsir_api slug — normalise to a string
+      // so it round-trips against the string-keyed source maps.
+      return Array.isArray(v)
+        ? v.filter(b => b && b.key).map(b => ({ key: b.key, sid: b.sid == null ? '' : String(b.sid) }))
+        : [];
     } catch (e) { return []; }
   }
 
@@ -155,9 +206,9 @@ class TafseerView {
    * selection — and this tafsir view — reload around it.
    */
   loadBookmark(key, sid) {
-    if (this.select && Number.isFinite(sid) &&
-        [...this.select.options].some(o => o.value === String(sid))) {
-      this.select.value = String(sid);
+    if (this.select && sid &&
+        [...this.select.options].some(o => o.value === sid)) {
+      this.select.value = sid;
       this.rememberSource();
     }
     if (this.ayahs.some(a => a.key === key)) {
@@ -238,7 +289,7 @@ class TafseerView {
 
     this.sourcesFor(lang).forEach(src => {
       const opt = document.createElement('option');
-      opt.value = String(src.id);
+      opt.value = tafsirKey(src);
       opt.textContent = src.name;
       this.select.appendChild(opt);
     });
@@ -249,7 +300,7 @@ class TafseerView {
       group.label = t('arabic_classics', lang);
       TAFSIR_SOURCES.ar.forEach(src => {
         const opt = document.createElement('option');
-        opt.value = String(src.id);
+        opt.value = tafsirKey(src);
         opt.textContent = src.name;
         group.appendChild(opt);
       });
@@ -267,8 +318,10 @@ class TafseerView {
 
   /** Shared <option>/<optgroup> markup for the primary + compare selects. */
   sourceOptionsHtml(selectedId) {
-    const opt = (src) =>
-      `<option value="${src.id}"${src.id === selectedId ? ' selected' : ''}>${src.name}</option>`;
+    const opt = (src) => {
+      const key = tafsirKey(src);
+      return `<option value="${key}"${key === selectedId ? ' selected' : ''}>${src.name}</option>`;
+    };
     let html = this.sourcesFor(this.language).map(opt).join('');
     if (this.language !== 'ar') {
       html += `<optgroup label="${t('arabic_classics', this.language)}">` +
@@ -277,21 +330,25 @@ class TafseerView {
     return html;
   }
 
-  /** Resolve the secondary source for compare mode (never equal to primary). */
+  /**
+   * Resolve the secondary source for compare mode (never equal to primary).
+   * Keys are strings (numeric quran.com id or a tafsir_api slug).
+   */
   compareTafsirId() {
     const primary = this.selectedTafsirId();
-    let stored = NaN;
-    try { stored = parseInt(localStorage.getItem('tafsirCompareId'), 10); } catch (e) { /* ignore */ }
-    if (Number.isFinite(stored) && stored !== primary) return stored;
+    let stored = null;
+    try { stored = localStorage.getItem('tafsirCompareId'); } catch (e) { /* ignore */ }
+    if (stored && stored !== primary) return stored;
     const list = this.sourcesFor(this.language).concat(TAFSIR_SOURCES.ar);
-    const alt = list.find(s => s.id !== primary);
-    return alt ? alt.id : primary;
+    const alt = list.find(s => tafsirKey(s) !== primary);
+    return alt ? tafsirKey(alt) : primary;
   }
 
+  /** The chosen primary source key (numeric-id string or tafsir_api slug). */
   selectedTafsirId() {
     const val = this.select && this.select.value;
-    const id = parseInt(val, 10);
-    return Number.isFinite(id) ? id : this.sourcesFor(this.language)[0].id;
+    if (val) return val;
+    return tafsirKey(this.sourcesFor(this.language)[0]);
   }
 
   /** Strip scripts, styles, iframes and inline event handlers from API HTML. */
@@ -332,6 +389,32 @@ class TafseerView {
   async fetchTafsir(tafsirId, verseKey) {
     const cacheKey = `${tafsirId}:${verseKey}`;
     if (this.cache.has(cacheKey)) return this.cache.get(cacheKey);
+
+    // spa5k/tafsir_api sources (slug-keyed): fetch the per-verse JSON off the
+    // jsdelivr CDN. The service worker caches cross-origin GETs, so this becomes
+    // available offline after the first successful view — no SW change needed.
+    if (isTafsirSlug(tafsirId)) {
+      const [s, a] = verseKey.split(':');
+      const url = `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirId}/${s}/${a}.json`;
+      const promise = fetch(url)
+        .then(r => {
+          if (!r.ok) throw new Error(`Tafsir request failed (${r.status})`);
+          return r.json();
+        })
+        .then(data => {
+          const txt = data && data.text;
+          if (typeof txt !== 'string' || !txt.trim()) return null;
+          return {
+            text: this.sanitizeHtml(txt),
+            resourceName: TAFSIR_ID_NAME[tafsirId] || ''
+          };
+        })
+        .catch(err => { this.cache.delete(cacheKey); throw err; });
+      this.cache.set(cacheKey, promise);
+      const slugResult = await promise;
+      this.cache.set(cacheKey, slugResult);
+      return slugResult;
+    }
 
     // Offline-first: use the bundled tafsir when this source is available locally.
     // Files are stored compactly (commentary text once per group, keyed at the
@@ -537,7 +620,7 @@ class TafseerView {
     const ayah = this.ayahs.find(a => a.key === key);
     const bodies = card ? [...card.querySelectorAll('.tafseer-body')] : [];
     const parts = bodies.map(b => {
-      const id = parseInt(b.getAttribute('data-tafsir'), 10);
+      const id = b.getAttribute('data-tafsir');
       const name = TAFSIR_ID_NAME[id] || '';
       const txt = b.innerText.trim();
       return this.compare && name ? `[${name}]\n${txt}` : txt;
@@ -711,7 +794,7 @@ class TafseerView {
       const body = retry.closest('.tafseer-body');
       const card = retry.closest('[data-tafseer-card]');
       if (body && card) {
-        this.loadInto(body, parseInt(body.getAttribute('data-tafsir'), 10),
+        this.loadInto(body, body.getAttribute('data-tafsir'),
                       card.getAttribute('data-tafseer-card'), this.renderToken);
       }
       return;
@@ -729,7 +812,7 @@ class TafseerView {
     const bmJump = e.target.closest('[data-tafsir-bm-jump]');
     if (bmJump) {
       this.loadBookmark(bmJump.getAttribute('data-tafsir-bm-jump'),
-                        parseInt(bmJump.getAttribute('data-sid'), 10));
+                        bmJump.getAttribute('data-sid'));
       return;
     }
 
@@ -796,7 +879,7 @@ class TafseerView {
     const bodies = [...card.querySelectorAll('.tafseer-body[data-tafsir]')];
     if (!bodies.length) return false;
     const results = await Promise.all(bodies.map(b =>
-      this.loadInto(b, parseInt(b.getAttribute('data-tafsir'), 10), ayah.key, token)));
+      this.loadInto(b, b.getAttribute('data-tafsir'), ayah.key, token)));
     return results.every(r => r === true);
   }
 
