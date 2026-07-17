@@ -213,6 +213,28 @@ class AyahModal {
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
+  /**
+   * Locate a shared phrase (space-joined string or array of words) inside this
+   * verse's word list, tolerant of diacritic differences. Returns the best
+   * contiguous run {start, len} (aligned on the phrase's first word), or null.
+   */
+  matchPhrase(words, phrase) {
+    if (!phrase || !words || !words.length) return null;
+    const p = (Array.isArray(phrase) ? phrase : String(phrase).split(/\s+/))
+      .map(x => this.normW(x)).filter(Boolean);
+    if (!p.length) return null;
+    const t = words.map(w => this.normW(w.arabic));
+    let best = { start: -1, len: 0 };
+    for (let off = 0; off < t.length; off++) {
+      if (t[off] !== p[0]) continue;
+      let len = 0;
+      while (off + len < t.length && len < p.length && t[off + len] === p[len]) len++;
+      if (len > best.len) best = { start: off, len };
+      if (best.len === p.length) break;
+    }
+    return best.len >= Math.min(2, p.length) ? best : null;
+  }
+
   async open(ref, opts) {
     opts = opts || {};
     this._req = ref;
@@ -237,7 +259,12 @@ class AyahModal {
         curIdx = (v.words || []).findIndex(w => this.normW(w.arabic) === target || (w.arabic || '').indexOf(opts.word) >= 0);
       }
 
-      this._st = { ref, s, a, v, lang, surahName, ayahCount, curIdx };
+      // Optional shared-phrase highlight (e.g. from Similar Verses): a contiguous
+      // run of words to mark in both the full-ayah line and the word-by-word grid.
+      let hl = { start: -1, len: 0 };
+      if (opts.phrase) hl = this.matchPhrase(v.words || [], opts.phrase) || hl;
+
+      this._st = { ref, s, a, v, lang, surahName, ayahCount, curIdx, hlStart: hl.start, hlLen: hl.len };
       this.titleEl.textContent = `${surahName} ${v.key}`;
       this.renderBody();
       try { this.dialogEl.focus(); } catch (e) { /* ignore */ }
@@ -285,16 +312,27 @@ class AyahModal {
     const pad = n => String(n).padStart(3, '0');
     const ayahSrc = `https://everyayah.com/data/Alafasy_128kbps/${pad(s)}${pad(a)}.mp3`;
 
+    const hlStart = st.hlStart, hlLen = st.hlLen || 0;
+    const inPhrase = i => hlLen > 0 && i >= hlStart && i < hlStart + hlLen;
+
     const wbw = words.map((w, i) => {
       const hit = i === curIdx;
       const canPlay = !!w.audio;
       return `<button data-word-idx="${i}" ${canPlay ? `data-word-audio="${this.esc(w.audio)}"` : ''}
-                class="inline-flex flex-col items-center px-2 py-1 my-1 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700 ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}">
+                class="inline-flex flex-col items-center px-2 py-1 my-1 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700 ${inPhrase(i) ? 'bg-amber-100 dark:bg-amber-500/20' : ''} ${hit ? 'ring-2 ring-amber-400 bg-amber-50 dark:bg-amber-500/10' : ''}">
                 <span class="ayah-arabic !text-2xl !mb-0 !pb-0 !border-b-0 block">${w.arabic}</span>
                 ${w.translit ? `<span class="text-[0.6875rem] text-gray-400 dark:text-gray-500 block" dir="ltr">${this.esc(w.translit)}</span>` : ''}
                 <span class="text-[0.6875rem] text-gray-500 dark:text-gray-400 block" dir="auto">${w.meaning || ''}</span>
               </button>`;
     }).join('');
+
+    // Full-ayah line: when a shared phrase is active and we have word tokens,
+    // rebuild it from words so the matching run can be wrapped/highlighted.
+    const topArabic = (hlLen > 0 && words.length)
+      ? words.map((w, i) => inPhrase(i)
+          ? `<span class="rounded px-1 bg-amber-200/70 dark:bg-amber-500/25">${w.arabic}</span>`
+          : w.arabic).join(' ')
+      : v.arabic;
 
     const navBtn = (toRef, label, sym) => toRef
       ? `<button data-nav-ayah="${toRef}" aria-label="${this.esc(label)}" title="${this.esc(label)}"
@@ -311,7 +349,8 @@ class AyahModal {
     const bmOn = this._isBookmarked(v.key);
 
     this.bodyEl.innerHTML = `
-      <div id="sam-arabic" class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${v.arabic}</div>
+      <div id="sam-arabic" class="ayah-arabic !text-3xl !leading-loose text-center mb-3" dir="rtl">${topArabic}</div>
+      ${hlLen > 0 ? `<p class="text-xs text-center text-amber-600 dark:text-amber-400 mb-1">${this.tt('mt_shared_highlighted')}</p>` : ''}
       <p class="text-xs text-center text-gray-400 mb-2">${this.tt('tap_word_to_hear')}</p>
       <div class="flex flex-wrap justify-center gap-x-1 mb-2" dir="rtl">${wbw}</div>
       ${words.length ? `

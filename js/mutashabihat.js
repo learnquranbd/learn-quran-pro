@@ -100,7 +100,11 @@ class Mutashabihat {
     });
     this.container.addEventListener('click', (e) => {
       const chip = e.target.closest('[data-mt-ref]');
-      if (chip && typeof ayahModal !== 'undefined' && ayahModal) { ayahModal.open(chip.getAttribute('data-mt-ref')); return; }
+      if (chip && typeof ayahModal !== 'undefined' && ayahModal) {
+        const phrase = chip.getAttribute('data-mt-phrase');
+        ayahModal.open(chip.getAttribute('data-mt-ref'), phrase ? { phrase } : undefined);
+        return;
+      }
       const open = e.target.closest('[data-mt-open]');
       if (open) { window.location.hash = open.getAttribute('data-mt-open'); return; }
 
@@ -360,9 +364,11 @@ class Mutashabihat {
     const [sNum, ayah] = key.split(':');
     const [, topLen, topStart] = sims[0];
     const tricky = this.isTricky(key);
-    const chips = sims.map(([ref, len]) => {
+    const chips = sims.map(([ref, len, start]) => {
       const [s] = ref.split(':');
-      return `<button data-mt-ref="${ref}" title="${this.tt('mutashabihat_shared')}: ${len} ${this.tt('mt_words')}"
+      const st = start || 0;
+      const phrase = (this.words[key] || []).slice(st, st + len).join(' ');
+      return `<button data-mt-ref="${ref}" data-mt-phrase="${this.esc(phrase)}" title="${this.tt('mutashabihat_shared')}: ${len} ${this.tt('mt_words')}"
                 class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                 <span class="ayah-arabic !text-sm !mb-0 !pb-0 !border-b-0 !leading-none">${this.esc(this.shortName(s))}</span>
                 <span class="text-gray-500 dark:text-gray-400">${ref}</span>
