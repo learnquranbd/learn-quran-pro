@@ -45,52 +45,88 @@ const KIDS_GRADIENTS = [
 // array. Rendered as m[lang] || m.en, mirroring VOCAB_WORDS.meanings.
 const KIDS_DUA_L10N = [
   { // Bismillah
-    meaning: { en: 'In the name of Allah.', bn: 'আল্লাহর নামে।', zh: '奉真主之名。', ja: 'アッラーの御名において。' },
-    when:    { en: 'Before eating', bn: 'খাওয়ার আগে', zh: '吃饭前', ja: '食事の前' }
+    meaning: { en: 'In the name of Allah.', bn: 'আল্লাহর নামে।', zh: '奉真主之名。', ja: 'アッラーの御名において。', ar: 'باسم الله.', ur: 'اللہ کے نام سے۔' },
+    when:    { en: 'Before eating', bn: 'খাওয়ার আগে', zh: '吃饭前', ja: '食事の前', ar: 'قبل الأكل', ur: 'کھانے سے پہلے' }
   },
   { // Alhamdulillah
-    meaning: { en: 'All praise is for Allah.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য।', zh: '一切赞颂全归真主。', ja: '全ての称賛はアッラーに。' },
-    when:    { en: 'After eating', bn: 'খাওয়ার পরে', zh: '吃饭后', ja: '食事の後' }
+    meaning: { en: 'All praise is for Allah.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য।', zh: '一切赞颂全归真主。', ja: '全ての称賛はアッラーに。', ar: 'الحمد لله على نعمه.', ur: 'تمام تعریف اللہ کے لیے ہے۔' },
+    when:    { en: 'After eating', bn: 'খাওয়ার পরে', zh: '吃饭后', ja: '食事の後', ar: 'بعد الأكل', ur: 'کھانے کے بعد' }
   },
   { // Bismika-llahumma amutu wa ahya
-    meaning: { en: 'In Your name, O Allah, I die and I live.', bn: 'হে আল্লাহ, আপনার নামেই আমি মরি ও বাঁচি।', zh: '真主啊，我以你的名义死，以你的名义活。', ja: 'アッラーよ、あなたの御名において私は死に、そして生きます。' },
-    when:    { en: 'Before sleeping', bn: 'ঘুমানোর আগে', zh: '睡觉前', ja: '就寝前' }
+    meaning: { en: 'In Your name, O Allah, I die and I live.', bn: 'হে আল্লাহ, আপনার নামেই আমি মরি ও বাঁচি।', zh: '真主啊，我以你的名义死，以你的名义活。', ja: 'アッラーよ、あなたの御名において私は死に、そして生きます。', ar: 'اللهم باسمك أموت وأحيا.', ur: 'اے اللہ! تیرے نام پر مرتا اور جیتا ہوں۔' },
+    when:    { en: 'Before sleeping', bn: 'ঘুমানোর আগে', zh: '睡觉前', ja: '就寝前', ar: 'قبل النوم', ur: 'سونے سے پہلے' }
   },
   { // Alhamdu lillahil-ladhi ahyana
-    meaning: { en: 'All praise is for Allah who gave us life.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য, যিনি আমাদের জীবিত করেছেন।', zh: '一切赞颂全归真主，他使我们复活。', ja: '私たちを生かして下さったアッラーに全ての称賛を。' },
-    when:    { en: 'When waking up', bn: 'ঘুম থেকে উঠে', zh: '醒来时', ja: '起床時' }
+    meaning: { en: 'All praise is for Allah who gave us life.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য, যিনি আমাদের জীবিত করেছেন।', zh: '一切赞颂全归真主，他使我们复活。', ja: '私たちを生かして下さったアッラーに全ての称賛を。', ar: 'الحمد لله الذي أحيانا بعد ما أماتنا.', ur: 'تمام تعریف اس اللہ کے لیے جس نے ہمیں زندگی دی۔' },
+    when:    { en: 'When waking up', bn: 'ঘুম থেকে উঠে', zh: '醒来时', ja: '起床時', ar: 'عند الاستيقاظ', ur: 'جاگنے پر' }
   },
   { // Rabbi zidni 'ilma
-    meaning: { en: 'My Lord, increase me in knowledge.', bn: 'হে আমার রব, আমার জ্ঞান বাড়িয়ে দিন।', zh: '我的主啊，求你增加我的知识。', ja: '我が主よ、私の知識を増やして下さい。' },
-    when:    { en: 'Before studying', bn: 'পড়াশোনার আগে', zh: '学习前', ja: '勉強の前' }
+    meaning: { en: 'My Lord, increase me in knowledge.', bn: 'হে আমার রব, আমার জ্ঞান বাড়িয়ে দিন।', zh: '我的主啊，求你增加我的知识。', ja: '我が主よ、私の知識を増やして下さい。', ar: 'ربي زدني علمًا.', ur: 'میرے رب! میرا علم بڑھا۔' },
+    when:    { en: 'Before studying', bn: 'পড়াশোনার আগে', zh: '学习前', ja: '勉強の前', ar: 'قبل الدراسة', ur: 'پڑھائی سے پہلے' }
   },
   { // Bismillahi tawakkaltu 'ala-llah
-    meaning: { en: 'In the name of Allah, I place my trust in Allah.', bn: 'আল্লাহর নামে, আমি আল্লাহর উপর ভরসা করলাম।', zh: '奉真主之名，我信赖真主。', ja: 'アッラーの御名において、私はアッラーに信頼します。' },
-    when:    { en: 'When leaving home', bn: 'ঘর থেকে বের হওয়ার সময়', zh: '出门时', ja: '外出時' }
+    meaning: { en: 'In the name of Allah, I place my trust in Allah.', bn: 'আল্লাহর নামে, আমি আল্লাহর উপর ভরসা করলাম।', zh: '奉真主之名，我信赖真主。', ja: 'アッラーの御名において、私はアッラーに信頼します。', ar: 'بسم الله، توكلت على الله.', ur: 'اللہ کے نام پر، اللہ پر بھروسہ کیا۔' },
+    when:    { en: 'When leaving home', bn: 'ঘর থেকে বের হওয়ার সময়', zh: '出门时', ja: '外出時', ar: 'عند الخروج من المنزل', ur: 'گھر سے نکلتے وقت' }
   },
   { // Allahumma inni a'udhu bika minal-khubuthi wal-khaba'ith
-    meaning: { en: 'O Allah, I seek Your protection from all evil and impure things.', bn: 'হে আল্লাহ, আমি সব অপবিত্র ও ক্ষতিকর জিনিস থেকে আপনার আশ্রয় চাই।', zh: '真主啊，我求你保护免遭一切邪恶和不洁之物。', ja: 'アッラーよ、全ての悪と不浄なものからあなたの保護を求めます。' },
-    when:    { en: 'Before entering the toilet', bn: 'টয়লেটে ঢোকার আগে', zh: '进厕所前', ja: 'トイレに入る前' }
+    meaning: { en: 'O Allah, I seek Your protection from all evil and impure things.', bn: 'হে আল্লাহ, আমি সব অপবিত্র ও ক্ষতিকর জিনিস থেকে আপনার আশ্রয় চাই।', zh: '真主啊，我求你保护免遭一切邪恶和不洁之物。', ja: 'アッラーよ、全ての悪と不浄なものからあなたの保護を求めます。', ar: 'اللهم إني أعوذ بك من الخبث والخبائث.', ur: 'اے اللہ! میں تمام برائیوں اور ناپاکیوں سے تیری پناہ مانگتا ہوں۔' },
+    when:    { en: 'Before entering the toilet', bn: 'টয়লেটে ঢোকার আগে', zh: '进厕所前', ja: 'トイレに入る前', ar: 'قبل دخول الخلاء', ur: 'بیت الخلاء میں داخل ہونے سے پہلے' }
   },
   { // Ghufranak
-    meaning: { en: 'I ask for Your forgiveness.', bn: 'আপনার কাছে ক্ষমা চাই।', zh: '我求你饶恕。', ja: 'あなたの赦しを求めます。' },
-    when:    { en: 'After leaving the toilet', bn: 'টয়লেট থেকে বের হয়ে', zh: '出厕所后', ja: 'トイレを出た後' }
+    meaning: { en: 'I ask for Your forgiveness.', bn: 'আপনার কাছে ক্ষমা চাই।', zh: '我求你饶恕。', ja: 'あなたの赦しを求めます。', ar: 'أستغفرك يا ربي.', ur: 'میں تیری مغفرت مانگتا ہوں۔' },
+    when:    { en: 'After leaving the toilet', bn: 'টয়লেট থেকে বের হয়ে', zh: '出厕所后', ja: 'トイレを出た後', ar: 'بعد الخروج من الخلاء', ur: 'بیت الخلاء سے نکلنے کے بعد' }
   },
   { // Alhamdulillah (sneezing)
-    meaning: { en: 'All praise is for Allah.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য।', zh: '一切赞颂全归真主。', ja: '全ての称賛はアッラーに。' },
-    when:    { en: 'After sneezing', bn: 'হাঁচি দেওয়ার পরে', zh: '打喷嚏后', ja: 'くしゃみの後' }
+    meaning: { en: 'All praise is for Allah.', bn: 'সমস্ত প্রশংসা আল্লাহর জন্য।', zh: '一切赞颂全归真主。', ja: '全ての称賛はアッラーに。', ar: 'الحمد لله على نعمة الصحة.', ur: 'تمام تعریف اللہ کے لیے ہے۔' },
+    when:    { en: 'After sneezing', bn: 'হাঁচি দেওয়ার পরে', zh: '打喷嚏后', ja: 'くしゃみの後', ar: 'بعد العطاس', ur: 'چھینک کے بعد' }
   },
   { // Subhanal-ladhi sakhkhara lana hadha
-    meaning: { en: 'Glory to Him who has placed this at our service; we could never have done it by ourselves.', bn: 'পবিত্র-মহান তিনি, যিনি এটিকে আমাদের বশ করে দিয়েছেন; আমরা নিজেরা এটি বশ করতে পারতাম না।', zh: '赞颂他使这为我们服务，我们原本不能做到。', ja: 'これを私たちの奉仕に供して下さった彼に栄光あれ；私たちだけでは決してできなかったであろう。' },
-    when:    { en: 'When riding a car or bus', bn: 'গাড়ি বা বাসে চড়ার সময়', zh: '乘车时', ja: '車やバスに乗る時' }
+    meaning: { en: 'Glory to Him who has placed this at our service; we could never have done it by ourselves.', bn: 'পবিত্র-মহান তিনি, যিনি এটিকে আমাদের বশ করে দিয়েছেন; আমরা নিজেরা এটি বশ করতে পারতাম না।', zh: '赞颂他使这为我们服务，我们原本不能做到。', ja: 'これを私たちの奉仕に供して下さった彼に栄光あれ；私たちだけでは決してできなかったであろう。', ar: 'سبحان الذي سخَّر لنا هذا وما كنا له مقرنين.', ur: 'پاک ہے وہ ذات جس نے اسے ہمارے لیے مسخر کیا۔' },
+    when:    { en: 'When riding a car or bus', bn: 'গাড়ি বা বাসে চড়ার সময়', zh: '乘车时', ja: '車やバスに乗る時', ar: 'عند ركوب السيارة أو الحافلة', ur: 'گاڑی یا بس میں سوار ہوتے وقت' }
   },
   { // Rabbi-rhamhuma
-    meaning: { en: 'My Lord, have mercy on my parents as they raised me when I was little.', bn: 'হে আমার রব, তাঁদের (বাবা-মায়ের) প্রতি রহম করুন, যেমন তাঁরা ছোটবেলায় আমাকে লালন-পালন করেছেন।', zh: '我的主啊，求你怜悯我的父母，如同他们在我小时候养育我一样。', ja: '我が主よ、私が幼かった時に私を養育したように、私の両親を憐れんで下さい。' },
-    when:    { en: 'Praying for parents', bn: 'বাবা-মায়ের জন্য দোয়া', zh: '为父母祈祷', ja: '両親のための祈り' }
+    meaning: { en: 'My Lord, have mercy on my parents as they raised me when I was little.', bn: 'হে আমার রব, তাঁদের (বাবা-মায়ের) প্রতি রহম করুন, যেমন তাঁরা ছোটবেলায় আমাকে লালন-পালন করেছেন।', zh: '我的主啊，求你怜悯我的父母，如同他们在我小时候养育我一样。', ja: '我が主よ、私が幼かった時に私を養育したように、私の両親を憐れんで下さい。', ar: 'ربي ارحمهما كما ربياني صغيرًا.', ur: 'میرے رب! ان پر رحم فرما جیسے انہوں نے بچپن میں میری پرورش کی۔' },
+    when:    { en: 'Praying for parents', bn: 'বাবা-মায়ের জন্য দোয়া', zh: '为父母祈祷', ja: '両親のための祈り', ar: 'الدعاء للوالدين', ur: 'والدین کے لیے دعا' }
   },
   { // Rabbana atina fid-dunya hasanah
-    meaning: { en: 'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.', bn: 'হে আমাদের রব, আমাদের দুনিয়াতে কল্যাণ দিন, আখিরাতেও কল্যাণ দিন, আর জাহান্নামের আজাব থেকে আমাদের রক্ষা করুন।', zh: '我们的主啊，求你赐予我们今世的美好和后世的美好，并保护我们免受火狱的刑罚。', ja: '我々の主よ、この世で善と来世で善を授け、火獄の罰から守って下さい。' },
-    when:    { en: 'Any time — a complete dua', bn: 'যেকোনো সময় — একটি পূর্ণাঙ্গ দোয়া', zh: '任何时候——一个全面的祈祷', ja: 'いつでも——完全なドゥアー' }
+    meaning: { en: 'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.', bn: 'হে আমাদের রব, আমাদের দুনিয়াতে কল্যাণ দিন, আখিরাতেও কল্যাণ দিন, আর জাহান্নামের আজাব থেকে আমাদের রক্ষা করুন।', zh: '我们的主啊，求你赐予我们今世的美好和后世的美好，并保护我们免受火狱的刑罚。', ja: '我々の主よ、この世で善と来世で善を授け、火獄の罰から守って下さい。', ar: 'ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار.', ur: 'اے ہمارے رب! ہمیں دنیا میں بھلائی اور آخرت میں بھلائی دے اور ہمیں جہنم کے عذاب سے بچا۔' },
+    when:    { en: 'Any time — a complete dua', bn: 'যেকোনো সময় — একটি পূর্ণাঙ্গ দোয়া', zh: '任何时候——一个全面的祈祷', ja: 'いつでも——完全なドゥアー', ar: 'في أي وقت — دعاء جامع', ur: 'کسی بھی وقت — ایک جامع دعا' }
+  },
+  { // Allahumma barik lana fima razaqtana
+    meaning: { en: 'O Allah, bless what You have provided for us and protect us from the punishment of the Fire.', bn: 'হে আল্লাহ, আপনি আমাদের যা রিযিক দিয়েছেন তাতে বরকত দিন এবং জাহান্নামের শাস্তি থেকে আমাদের রক্ষা করুন।', zh: '真主啊，请为您赐予我们的给养降福，并保护我们免受火狱的刑罚。', ja: 'アッラーよ、あなたが私たちに授けた糧に祝福を、そして火獄の罰から守って下さい。', ar: 'اللهم بارك لنا فيما رزقتنا وقنا عذاب النار.', ur: 'اے اللہ! جو رزق تو نے ہمیں دیا اس میں برکت دے اور ہمیں جہنم کے عذاب سے بچا۔' },
+    when:    { en: 'A blessing du\'a at meals', bn: 'খাবারের সময় বরকতের দোয়া', zh: '用餐时的祝福祈祷', ja: '食事時の祝福の祈り', ar: 'دعاء البركة عند الطعام', ur: 'کھانے کے وقت برکت کی دعا' }
+  },
+  { // Allahumma innaka 'Afuwwun tuhibbul-'afwa
+    meaning: { en: 'O Allah, You are the Most Forgiving, You love forgiveness — so forgive me.', bn: 'হে আল্লাহ, আপনি ক্ষমাশীল, ক্ষমা করতে ভালোবাসেন — তাই আমাকে ক্ষমা করুন।', zh: '真主啊，你是至恕的，你喜爱宽恕——所以饶恕我吧。', ja: 'アッラーよ、あなたは最も赦し深く、赦しを愛される方——どうか私を赦して下さい。', ar: 'اللهم إنك عفو تحب العفو فاعف عني.', ur: 'اے اللہ! تو معاف کرنے والا ہے، معافی کو پسند کرتا ہے، پس مجھے معاف فرما۔' },
+    when:    { en: 'Night of Power (Laylatul Qadr) and any night', bn: 'লাইলাতুল কদর এবং যেকোনো রাতে', zh: '大能之夜（Laylatul Qadr）和任何夜晚', ja: 'ライラトゥル・カドル（御定めの夜）とあらゆる夜', ar: 'ليلة القدر وكل ليلة', ur: 'لیلۃ القدر اور ہر رات' }
+  },
+  { // Rabbi-shrah li sadri
+    meaning: { en: 'My Lord, expand my chest, ease my task, and remove the impediment from my speech so they may understand me.', bn: 'হে আমার রব, আমার বুক প্রশস্ত করুন, আমার কাজ সহজ করুন, আমার জিহবার বাঁধন খুলে দিন যেন তারা আমার কথা বুঝতে পারে।', zh: '我的主啊，请开阔我的心胸，让我的任务变得容易，解开我舌头上的束缚，使他们能理解我的话。', ja: '我が主よ、私の胸を広げ、私の務めを容易にし、私の舌のもつれを解いて、彼らが私の言葉を理解できるようにして下さい。', ar: 'رب اشرح لي صدري ويسر لي أمري واحلل عقدة من لساني يفقهوا قولي.', ur: 'میرے رب! میرا سینہ کھول دے، میرا کام آسان فرما، میری زبان کی گرہ کھول دے تاکہ لوگ میری بات سمجھیں۔' },
+    when:    { en: 'Before speaking or presenting', bn: 'কথা বলার বা উপস্থাপনার আগে', zh: '发言或演讲前', ja: '話す前や発表前', ar: 'قبل الكلام أو الإلقاء', ur: 'بولنے یا پیش کرنے سے پہلے' }
+  },
+  { // Allahumma inni a'udhu bika minal-hammi wal-hazan
+    meaning: { en: 'O Allah, I seek Your protection from anxiety and sadness.', bn: 'হে আল্লাহ, আমি আপনার কাছে দুশ্চিন্তা ও দুঃখ থেকে আশ্রয় চাই।', zh: '真主啊，我求你保护我免遭焦虑与悲伤。', ja: 'アッラーよ、私は不安と悲しみからあなたの保護を求めます。', ar: 'اللهم إني أعوذ بك من الهم والحزن.', ur: 'اے اللہ! میں فکر اور غم سے تیری پناہ مانگتا ہوں۔' },
+    when:    { en: 'When feeling worried', bn: 'চিন্তিত অনুভব করলে', zh: '感到担忧时', ja: '心配な気持ちになった時', ar: 'عند الشعور بالقلق', ur: 'پریشانی محسوس ہونے پر' }
+  },
+  { // Allahumma inni as'aluka 'ilman nafi'an
+    meaning: { en: 'O Allah, I ask You for beneficial knowledge, pure sustenance, and accepted deeds.', bn: 'হে আল্লাহ, আমি আপনার কাছে উপকারী জ্ঞান, পবিত্র রিযিক এবং কবুল হওয়া আমল চাই।', zh: '真主啊，我求你赐予有益的知识、纯洁的给养和被接受的善功。', ja: 'アッラーよ、私は有益な知識、清らかな糧、そして受け入れられる行いをあなたに求めます。', ar: 'اللهم إني أسألك علمًا نافعًا ورزقًا طيبًا وعملًا متقبلًا.', ur: 'اے اللہ! میں تجھ سے نفع بخش علم، پاکیزہ رزق اور مقبول عمل مانگتا ہوں۔' },
+    when:    { en: 'After Fajr prayer', bn: 'ফজরের নামাজের পরে', zh: '晨礼后', ja: 'ファジュル礼拝の後', ar: 'بعد صلاة الفجر', ur: 'فجر کی نماز کے بعد' }
+  },
+  { // Hasbunallahu wa ni'mal-wakil
+    meaning: { en: 'Allah is sufficient for us, and He is the best Disposer of affairs.', bn: 'আল্লাহই আমাদের জন্য যথেষ্ট এবং তিনিই উত্তম কর্মবিধায়ক।', zh: '真主是我们的至足，他是最好的托靠者。', ja: 'アッラーは私たちにとって十分であり、最善の管理者である。', ar: 'حسبنا الله ونعم الوكيل.', ur: 'اللہ ہمارے لیے کافی ہے اور وہ بہترین کارساز ہے۔' },
+    when:    { en: 'When facing difficulty or opposition', bn: 'কঠিনতা বা বিরোধিতার মুখে', zh: '面对困难或反对时', ja: '困難や反対に直面した時', ar: 'عند مواجهة الصعوبات', ur: 'مشکل یا مخالفت کے وقت' }
+  },
+  { // Allahumma Rabban-nas, adh-hibil-bas
+    meaning: { en: 'O Allah, Lord of mankind, remove the harm and heal — You are the Healer. There is no cure except Your cure — a cure that leaves no illness behind.', bn: 'হে আল্লাহ, মানুষের রব, ক্ষতি দূর করে দিন ও আরোগ্য দান করুন — আপনিই আরোগ্যদাতা। আপনার আরোগ্য ছাড়া অন্য কোনো আরোগ্য নেই — এমন আরোগ্য যা কোনো রোগ অবশিষ্ট রাখে না।', zh: '真主啊，人类的主，请除去伤害并治愈——你是医治者。除你的治愈之外别无良药——一种不留下任何疾病的治愈。', ja: 'アッラーよ、人類の主よ、害を取り除いて癒して下さい——あなたは癒し主です。あなたの治癒以外に治癒はありません——病を残さない治癒を。', ar: 'اللهم رب الناس أذهب الباس اشفِ أنت الشافي لا شفاء إلا شفاؤك شفاءً لا يغادر سقمًا.', ur: 'اے اللہ! لوگوں کے رب! تکلیف دور کر، شفا دے — تو ہی شفا دینے والا ہے، تیری شفا کے سوا شفا نہیں۔' },
+    when:    { en: 'Visiting the sick or when feeling ill', bn: 'অসুস্থ ব্যক্তিকে দেখতে গিয়ে বা নিজে অসুস্থ হলে', zh: '探病或感到不适时', ja: '病人を見舞う時、または自分が病気の時', ar: 'عند زيارة المريض أو عند المرض', ur: 'بیمار کی عیادت یا خود بیمار ہونے پر' }
+  },
+  { // Allahumma-hdini fi man hadayt
+    meaning: { en: 'O Allah, guide me among those You have guided.', bn: 'হে আল্লাহ, আপনি যাদের হেদায়েত দিয়েছেন তাদের মধ্যে আমাকেও হেদায়েত দিন।', zh: '真主啊，请将我引入你所引导之人。', ja: 'アッラーよ、あなたが導かれた者の中に私を導いて下さい。', ar: 'اللهم اهدني فيمن هديت.', ur: 'اے اللہ! مجھے ان لوگوں میں ہدایت دے جنہیں تو نے ہدایت دی۔' },
+    when:    { en: 'Qunut in Witr and any time seeking guidance', bn: 'বিতরে কুনূত এবং হেদায়েত চাওয়ার যেকোনো সময়', zh: '维特尔祈祷中的Qunut及任何求引导时', ja: 'ウィトルのクヌートおよび導きを求めるあらゆる時', ar: 'القنوت في الوتر وعند طلب الهداية', ur: 'وتر کی قنوت اور ہدایت مانگنے کے وقت' }
+  },
+  { // Rabbana hab lana min azwajina
+    meaning: { en: 'Our Lord, grant us from our spouses and children comfort to our eyes, and make us leaders for the righteous.', bn: 'হে আমাদের রব, আমাদের স্ত্রী ও সন্তান-সন্ততিদের মাধ্যমে আমাদের চোখের শীতলতা দান করুন, আর আমাদেরকে মুত্তাকীদের নেতা বানিয়ে দিন।', zh: '我们的主啊，请从我们的配偶和后代中赐予我们心灵的慰藉，并使我们成为敬畏者的领袖。', ja: '我々の主よ、私たちの配偶者と子孫の中に目の慰めを授け、私たちを敬虔な者の導き手として下さい。', ar: 'ربنا هب لنا من أزواجنا وذرياتنا قرة أعين واجعلنا للمتقين إمامًا.', ur: 'ہمارے رب! ہمیں ہماری ازواج اور اولاد سے آنکھوں کی ٹھنڈک عطا فرما اور ہمیں متقیوں کا امام بنا۔' },
+    when:    { en: 'Praying for family', bn: 'পরিবারের জন্য দোয়া', zh: '为家人祈祷', ja: '家族のための祈り', ar: 'الدعاء للأسرة', ur: 'خاندان کے لیے دعا' }
   }
 ];
 
@@ -99,27 +135,27 @@ const KIDS_DUA_L10N = [
 const KIDS_KALIMA_L10N = [
   {
     name:    { en: '1st Kalima — Tayyibah (Purity)', bn: '১ম কালিমা — তাইয়্যিবাহ', zh: '第一凯里麦——清真言（纯洁）', ja: '第一カリマ——タイイバ（清純）' },
-    meaning: { en: 'There is no god but Allah; Muhammad is the Messenger of Allah.', bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।', zh: 'There is no god but Allah; Muhammad is the Messenger of Allah.', ja: 'There is no god but Allah; Muhammad is the Messenger of Allah.' }
+    meaning: { en: 'There is no god but Allah; Muhammad is the Messenger of Allah.', bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।' }
   },
   {
     name:    { en: '2nd Kalima — Shahadat (Testimony)', bn: '২য় কালিমা — শাহাদাত', zh: '第二凯里麦——作证言', ja: '第二カリマ——シャハーダ（証言）' },
-    meaning: { en: 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and His Messenger.', bn: 'আমি সাক্ষ্য দিচ্ছি, আল্লাহ ছাড়া কোনো উপাস্য নেই, আর আমি সাক্ষ্য দিচ্ছি, মুহাম্মাদ ﷺ তাঁর বান্দা ও রাসূল।', zh: 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and His Messenger.', ja: 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and His Messenger.' }
+    meaning: { en: 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and His Messenger.', bn: 'আমি সাক্ষ্য দিচ্ছি, আল্লাহ ছাড়া কোনো উপাস্য নেই, আর আমি সাক্ষ্য দিচ্ছি, মুহাম্মাদ ﷺ তাঁর বান্দা ও রাসূল।' }
   },
   {
     name:    { en: '3rd Kalima — Tamjeed (Glorification)', bn: '৩য় কালিমা — তামজীদ', zh: '第三凯里麦——赞美言', ja: '第三カリマ——タムジード（称賛）' },
-    meaning: { en: 'Glory be to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest. There is no power and no strength except with Allah, the Most High, the Most Great.', bn: 'আল্লাহ পবিত্র-মহান, সমস্ত প্রশংসা আল্লাহর, আল্লাহ ছাড়া কোনো উপাস্য নেই, আল্লাহ সবচেয়ে বড়। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।', zh: 'Glory be to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest. There is no power and no strength except with Allah, the Most High, the Most Great.', ja: 'Glory be to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest. There is no power and no strength except with Allah, the Most High, the Most Great.' }
+    meaning: { en: 'Glory be to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest. There is no power and no strength except with Allah, the Most High, the Most Great.', bn: 'আল্লাহ পবিত্র-মহান, সমস্ত প্রশংসা আল্লাহর, আল্লাহ ছাড়া কোনো উপাস্য নেই, আল্লাহ সবচেয়ে বড়। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।' }
   },
   {
     name:    { en: '4th Kalima — Tawheed (Oneness)', bn: '৪র্থ কালিমা — তাওহীদ', zh: '第四凯里麦——认主独一言', ja: '第四カリマ——タウヒード（唯一性）' },
-    meaning: { en: 'There is no god but Allah, alone, without partner. His is the kingdom and His is all praise, and He has power over everything.', bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, তিনি একক, তাঁর কোনো শরিক নেই। রাজত্ব তাঁরই, সমস্ত প্রশংসা তাঁরই, আর তিনি সব কিছুর উপর ক্ষমতাবান।', zh: 'There is no god but Allah, alone, without partner. His is the kingdom and His is all praise, and He has power over everything.', ja: 'There is no god but Allah, alone, without partner. His is the kingdom and His is all praise, and He has power over everything.' }
+    meaning: { en: 'There is no god but Allah, alone, without partner. His is the kingdom and His is all praise, and He has power over everything.', bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, তিনি একক, তাঁর কোনো শরিক নেই। রাজত্ব তাঁরই, সমস্ত প্রশংসা তাঁরই, আর তিনি সব কিছুর উপর ক্ষমতাবান।' }
   },
   {
     name:    { en: '5th Kalima — Astaghfar (Seeking Forgiveness)', bn: '৫ম কালিমা — ইস্তিগফার', zh: '第五凯里麦——求恕言', ja: '第五カリマ——イスティグファール（赦しの願い）' },
-    meaning: { en: 'I seek forgiveness from Allah, my Lord, for every sin I committed knowingly or by mistake, secretly or openly, and I turn to Him from the sin I know and the sin I do not know. Surely You are the Knower of the hidden, the Concealer of faults and the Forgiver of sins, and there is no power and no strength except with Allah, the Most High, the Most Great.', bn: 'আমি আমার রব আল্লাহর কাছে ক্ষমা চাই — ইচ্ছায় বা ভুলে, গোপনে বা প্রকাশ্যে করা প্রতিটি গুনাহ থেকে; যে গুনাহ আমি জানি আর যে গুনাহ জানি না, সব থেকে তাঁর কাছে তাওবা করছি। নিশ্চয়ই আপনি অদৃশ্যের জ্ঞানী, দোষ গোপনকারী ও গুনাহ ক্ষমাকারী। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।', zh: 'I seek forgiveness from Allah, my Lord, for every sin I committed knowingly or by mistake, secretly or openly, and I turn to Him from the sin I know and the sin I do not know. Surely You are the Knower of the hidden, the Concealer of faults and the Forgiver of sins, and there is no power and no strength except with Allah, the Most High, the Most Great.', ja: 'I seek forgiveness from Allah, my Lord, for every sin I committed knowingly or by mistake, secretly or openly, and I turn to Him from the sin I know and the sin I do not know. Surely You are the Knower of the hidden, the Concealer of faults and the Forgiver of sins, and there is no power and no strength except with Allah, the Most High, the Most Great.' }
+    meaning: { en: 'I seek forgiveness from Allah, my Lord, for every sin I committed knowingly or by mistake, secretly or openly, and I turn to Him from the sin I know and the sin I do not know. Surely You are the Knower of the hidden, the Concealer of faults and the Forgiver of sins, and there is no power and no strength except with Allah, the Most High, the Most Great.', bn: 'আমি আমার রব আল্লাহর কাছে ক্ষমা চাই — ইচ্ছায় বা ভুলে, গোপনে বা প্রকাশ্যে করা প্রতিটি গুনাহ থেকে; যে গুনাহ আমি জানি আর যে গুনাহ জানি না, সব থেকে তাঁর কাছে তাওবা করছি। নিশ্চয়ই আপনি অদৃশ্যের জ্ঞানী, দোষ গোপনকারী ও গুনাহ ক্ষমাকারী। সর্বোচ্চ ও মহান আল্লাহর সাহায্য ছাড়া কোনো ক্ষমতা ও শক্তি নেই।' }
   },
   {
     name:    { en: '6th Kalima — Radd-e-Kufr (Rejecting Disbelief)', bn: '৬ষ্ঠ কালিমা — রাদ্দে কুফর', zh: '第六凯里麦——拒否言', ja: '第六カリマ——ラッデ・クフル（不信仰の拒否）' },
-    meaning: { en: 'O Allah, I seek refuge in You from knowingly associating anything with You, and I ask Your forgiveness for what I do not know. I repent from it and free myself from disbelief, from associating partners with Allah, from lying, backbiting, innovation, tale-carrying, shameful deeds, false accusation and all sins. I submit, and I say: there is no god but Allah; Muhammad is the Messenger of Allah.', bn: 'হে আল্লাহ! জেনে-শুনে আপনার সাথে কোনো কিছু শরিক করা থেকে আপনার কাছে আশ্রয় চাই, আর যা জানি না তার জন্য ক্ষমা চাই। আমি তাওবা করলাম এবং কুফর, শিরক, মিথ্যা, গীবত, বিদআত, চোগলখুরি, অশ্লীলতা, অপবাদ ও সকল গুনাহ থেকে মুক্ত হলাম। আমি ইসলাম গ্রহণ করলাম এবং বলছি — আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।', zh: 'O Allah, I seek refuge in You from knowingly associating anything with You, and I ask Your forgiveness for what I do not know. I repent from it and free myself from disbelief, from associating partners with Allah, from lying, backbiting, innovation, tale-carrying, shameful deeds, false accusation and all sins. I submit, and I say: there is no god but Allah; Muhammad is the Messenger of Allah.', ja: 'O Allah, I seek refuge in You from knowingly associating anything with You, and I ask Your forgiveness for what I do not know. I repent from it and free myself from disbelief, from associating partners with Allah, from lying, backbiting, innovation, tale-carrying, shameful deeds, false accusation and all sins. I submit, and I say: there is no god but Allah; Muhammad is the Messenger of Allah.' }
+    meaning: { en: 'O Allah, I seek refuge in You from knowingly associating anything with You, and I ask Your forgiveness for what I do not know. I repent from it and free myself from disbelief, from associating partners with Allah, from lying, backbiting, innovation, tale-carrying, shameful deeds, false accusation and all sins. I submit, and I say: there is no god but Allah; Muhammad is the Messenger of Allah.', bn: 'হে আল্লাহ! জেনে-শুনে আপনার সাথে কোনো কিছু শরিক করা থেকে আপনার কাছে আশ্রয় চাই, আর যা জানি না তার জন্য ক্ষমা চাই। আমি তাওবা করলাম এবং কুফর, শিরক, মিথ্যা, গীবত, বিদআত, চোগলখুরি, অশ্লীলতা, অপবাদ ও সকল গুনাহ থেকে মুক্ত হলাম। আমি ইসলাম গ্রহণ করলাম এবং বলছি — আল্লাহ ছাড়া কোনো উপাস্য নেই, মুহাম্মাদ ﷺ আল্লাহর রাসূল।' }
   }
 ];
 
@@ -300,6 +336,8 @@ class KidsQaida {
       { id: 'surahs',  emoji: '📖', label: t('kids_surahs', lang) },
       { id: 'duas',    emoji: '🤲', label: t('kids_duas', lang) },
       { id: 'kalimas', emoji: '🕋', label: t('kids_kalimas', lang) },
+      { id: 'stories', emoji: '📚', label: t('kids_stories', lang) },
+      { id: 'adab',    emoji: '🌸', label: t('kids_adab', lang) },
       { id: 'quiz',    emoji: '🎮', label: t('kids_quiz', lang) },
       { id: 'stars',   emoji: '⭐', label: t('kids_stars', lang) }
     ];
@@ -347,6 +385,8 @@ class KidsQaida {
       case 'surahs':  return this.renderSurahs(lang);
       case 'duas':    return this.renderDuas(lang);
       case 'kalimas': return this.renderKalimas(lang);
+      case 'stories': return this.renderStories(lang);
+      case 'adab':    return this.renderAdab(lang);
       case 'quiz':    return this.renderQuiz(lang);
       case 'stars':   return this.renderStars(lang);
       default:        return this.renderLetters(lang);
@@ -1216,6 +1256,60 @@ class KidsQaida {
             </span>
             ${k.src ? `<span class="text-[10px] text-gray-500/80 dark:text-gray-400/80">📜 ${k.src}</span>` : ''}
           </button>
+        `;}).join('')}
+      </div>
+    `;
+  }
+
+  /* ----------------------------------------------------------- Stories */
+
+  renderStories(lang) {
+    const src = (typeof KIDS_STORIES !== 'undefined') ? KIDS_STORIES : [];
+    const moralLabel = t('kids_story_moral', lang);
+    const refLabel   = t('kids_story_ref', lang);
+    return `
+      <p class="text-center text-gray-500 dark:text-gray-400 mb-4">📚 ${lang === 'bn' ? 'একটি গল্প বেছে নাও — পড়ো ও শিখো!' : "Pick a story — read and learn!"}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${src.map((s, i) => {
+          const title   = s.title   ? (s.title[lang]   || s.title.en)   : s.id;
+          const summary = s.summary ? (s.summary[lang] || s.summary.en) : '';
+          const moral   = s.moral   ? (s.moral[lang]   || s.moral.en)   : '';
+          const refs    = (s.refs || []).join(', ');
+          return `
+          <div class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
+                      shadow hover:shadow-lg transition-all p-5 sm:p-6 flex flex-col gap-3">
+            <h3 class="text-base font-extrabold text-gray-800 dark:text-gray-100" dir="auto">${title}</h3>
+            <p class="text-sm text-gray-700 dark:text-gray-200 leading-relaxed" dir="auto">${summary}</p>
+            ${moral ? `
+            <div class="rounded-xl bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm" dir="auto">
+              <span class="font-bold text-indigo-700 dark:text-indigo-300">${moralLabel}</span>
+              <span class="text-gray-700 dark:text-gray-200"> ${moral}</span>
+            </div>` : ''}
+            ${refs ? `<span class="text-[11px] text-gray-500 dark:text-gray-400 font-mono">📖 ${refLabel} ${refs}${s.src ? ' · ' + s.src : ''}</span>` : ''}
+          </div>
+        `;}).join('')}
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------- Adab */
+
+  renderAdab(lang) {
+    const src = (typeof KIDS_ADAB !== 'undefined') ? KIDS_ADAB : [];
+    return `
+      <p class="text-center text-gray-500 dark:text-gray-400 mb-4">🌸 ${lang === 'bn' ? 'ইসলামি আদব — ছোটদের জন্য' : 'Islamic manners for children'}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        ${src.map((a, i) => {
+          const title = a.title ? (a.title[lang] || a.title.en) : a.id;
+          const body  = a.body  ? (a.body[lang]  || a.body.en)  : '';
+          return `
+          <div class="rounded-2xl bg-gradient-to-br ${KIDS_GRADIENTS[i % KIDS_GRADIENTS.length]}
+                      shadow hover:shadow-lg transition-all p-5 sm:p-6 flex flex-col gap-3">
+            <h3 class="text-base font-extrabold text-gray-800 dark:text-gray-100" dir="auto">${title}</h3>
+            ${a.arabic ? `<span class="ayah-arabic !text-2xl sm:!text-3xl !leading-[2.2] text-center" dir="rtl">${a.arabic}</span>` : ''}
+            <p class="text-sm text-gray-700 dark:text-gray-200 leading-relaxed" dir="auto">${body}</p>
+            ${a.ref ? `<span class="text-[11px] text-gray-500 dark:text-gray-400 font-mono self-end">📜 ${a.ref}</span>` : ''}
+          </div>
         `;}).join('')}
       </div>
     `;

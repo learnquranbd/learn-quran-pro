@@ -1193,6 +1193,842 @@ const WHY_ISLAM_DATA = [
       },
     ],
   },
+  /* ── NEW: Misconceptions & Comparative Topics ─────────────────────────── */
+  {
+    id: 'misconceptions-women',
+    emoji: '👩',
+    kind: 'article',
+    noteKey: 'whyislam_misconceptions_note',
+    title: { en: 'Misconceptions: Women in Islam', bn: 'ভুল ধারণা: ইসলামে নারী' },
+    summary: {
+      en: 'Four common misconceptions about women\'s status, rights and role in Islam — stated fairly, then clarified.',
+      bn: 'ইসলামে নারীর মর্যাদা, অধিকার ও ভূমিকা সম্পর্কে চারটি সাধারণ ভুল ধারণা—ন্যায্যভাবে উপস্থাপন, তারপর স্পষ্টীকরণ।',
+    },
+    points: [
+      {
+        heading: { en: '"Islam forbids women from education or work"', bn: '"ইসলাম নারীকে শিক্ষা বা কাজ থেকে নিষেধ করে"' },
+        body: {
+          en: 'The misconception: women in Islam are confined to domesticity, barred from learning and public life. The clarification: the Prophet (peace be upon him) stated explicitly, "Seeking knowledge is an obligation upon every Muslim" — a hadith applying equally to women and men. Early Islamic history is filled with women scholars; Aisha (may God be pleased with her) was among the foremost scholars of her generation, from whom thousands of hadith were transmitted and to whom senior companions referred their questions. Nothing in the primary sources prohibits women from education, scholarship, running a business, or professional work. Restrictions on women found in various Muslim-majority societies are cultural practices, not Quranic obligations.',
+          bn: 'ভুল ধারণা: ইসলামে নারীরা গৃহজীবনে আবদ্ধ, শিক্ষা ও সার্বজনীন জীবন থেকে বঞ্চিত। স্পষ্টীকরণ: নবী (তাঁর প্রতি শান্তি) স্পষ্টভাবে বলেছেন, "জ্ঞান অন্বেষণ প্রত্যেক মুসলিমের উপর ফরজ"—এই হাদিস নারী ও পুরুষ উভয়ের ক্ষেত্রেই সমানভাবে প্রযোজ্য। ইসলামের প্রাথমিক ইতিহাস নারী আলিমদের দ্বারা পরিপূর্ণ; নবীর স্ত্রী আয়িশা (আল্লাহ তাঁর প্রতি সন্তুষ্ট হোন) তাঁর প্রজন্মের শীর্ষ আলিমদের একজন ছিলেন, যাঁর কাছ থেকে হাজার হাদিস বর্ণিত হয়েছে এবং যাঁর কাছে জ্যেষ্ঠ সাহাবিরাও প্রশ্ন নিয়ে আসতেন। প্রাথমিক উৎসে এমন কিছু নেই যা নারীকে শিক্ষা, গবেষণা, ব্যবসা বা পেশাদার কাজ থেকে বিরত রাখে। মুসলিম-সংখ্যাগরিষ্ঠ সমাজে নারীর উপর নানা বিধিনিষেধ সাংস্কৃতিক প্রথা, কুরআনিক বাধ্যবাধকতা নয়।',
+        },
+      },
+      {
+        heading: { en: '"The hijab is forced oppression"', bn: '"হিজাব জবরদস্তিমূলক নিপীড়ন"' },
+        body: {
+          en: 'The misconception: modesty covering in Islam is an imposition that oppresses women and denies them identity. The clarification: Muslim women who practice hijab overwhelmingly describe it as an expression of faith and identity — a personal choice from conviction, not coercion. Islam teaches that a person\'s worth lies in character and piety, not physical appearance (Quran 49:13), and modesty is an ideal commended to both men and women. The Quran first instructs men to lower their gaze (Quran 24:30) before addressing women\'s dress (Quran 24:31). Compulsion in faith is forbidden (Quran 2:256). Where covering is physically forced upon a woman against her will, that is a cultural or political imposition that Islamic ethics itself does not sanction.',
+          bn: 'ভুল ধারণা: ইসলামে শালীনতার পোশাক এমন এক চাপিয়ে দেওয়া বিষয় যা নারীকে নিপীড়িত করে এবং তার পরিচয় অস্বীকার করে। স্পষ্টীকরণ: যে মুসলিম নারীরা হিজাব পালন করেন তাঁদের অধিকাংশই এটিকে বর্ণনা করেন ঈমান ও পরিচয়ের প্রকাশ হিসেবে—জবরদস্তি নয়, প্রত্যয় থেকে নেওয়া ব্যক্তিগত সিদ্ধান্ত। ইসলাম শেখায় মানুষের মূল্য নিহিত তার চরিত্র ও তাকওয়ায়, শারীরিক চেহারায় নয় (কুরআন ৪৯:১৩), এবং শালীনতা নারী ও পুরুষ উভয়ের জন্যই প্রশংসিত আদর্শ। কুরআন প্রথমে পুরুষদের দৃষ্টি নিচু রাখার নির্দেশ দেয় (কুরআন ২৪:৩০), তারপর নারীর পোশাকের বিষয়ে (কুরআন ২৪:৩১)। ঈমানে জবরদস্তি নিষিদ্ধ (কুরআন ২:২৫৬)। যেখানে কোনো নারীকে শারীরিকভাবে তার ইচ্ছার বিরুদ্ধে পোশাক পরতে বাধ্য করা হয়, তা একটি সাংস্কৃতিক বা রাজনৈতিক আরোপণ যা ইসলামি নৈতিকতা নিজেও অনুমোদন করে না।',
+        },
+      },
+      {
+        heading: { en: '"Women\'s testimony counts half of a man\'s"', bn: '"নারীর সাক্ষ্য পুরুষের অর্ধেক মাত্র"' },
+        body: {
+          en: 'The misconception: a Quranic instruction about two female witnesses in one financial contract proves Islam regards women as half as reliable or intelligent as men. The clarification: the verse (Quran 2:282) addresses one specific type of written commercial contract. Classical scholars explain the context as a practical arrangement for a society where women were less frequently involved in certain financial dealings — so that one could remind the other if needed. Elsewhere the Quran uses "witnesses" without gender qualification (Quran 65:2). Women\'s testimony is accepted without restriction in numerous legal contexts; Aisha\'s narrations alone form a large part of the entire hadith corpus. The verse describes a context-specific arrangement, not a statement about women\'s general worth or intellectual capacity.',
+          bn: 'ভুল ধারণা: এক বিশেষ আর্থিক লেনদেনে দুই নারী সাক্ষীর বিষয়ে কুরআনের একটি নির্দেশ প্রমাণ করে যে নারীকে পুরুষের অর্ধেক বিশ্বাসযোগ্য বা বুদ্ধিমান গণ্য করা হয়। স্পষ্টীকরণ: সংশ্লিষ্ট আয়াতটি (কুরআন ২:২৮২) এক বিশেষ ধরনের লিখিত বাণিজ্যিক চুক্তির কথা বলে। ধ্রুপদী আলিমগণ প্রসঙ্গটি ব্যাখ্যা করেন এমন এক সমাজের ব্যবহারিক ব্যবস্থা হিসেবে যেখানে নারীরা কিছু আর্থিক লেনদেনে কম যুক্ত ছিল—যাতে প্রয়োজনে একজন অন্যজনকে স্মরণ করিয়ে দিতে পারে। অন্যত্র কুরআন "সাক্ষী" শব্দ লিঙ্গ-উল্লেখ ছাড়াই ব্যবহার করে (কুরআন ৬৫:২)। অসংখ্য বিচারিক প্রেক্ষাপটে নারীর সাক্ষ্য বিনা বিধিনিষেধে গৃহীত হয়; আয়িশার বর্ণনাসমূহ একাই সমগ্র হাদিস সংকলনের এক বড় অংশ। আয়াতটি প্রসঙ্গ-নির্দিষ্ট একটি ব্যবস্থার বর্ণনা দেয়, নারীর সাধারণ মূল্য বা বৌদ্ধিক সামর্থ্য সম্পর্কে কোনো বিবৃতি নয়।',
+        },
+      },
+      {
+        heading: { en: '"Islamic inheritance is unfair to women"', bn: '"ইসলামি উত্তরাধিকার আইন নারীর প্রতি অন্যায্য"' },
+        body: {
+          en: 'The misconception: because the Quran in many cases gives a daughter half the share of a son, Islam treats women as lesser. The clarification: Islamic inheritance law cannot be read in isolation. A man carries the full financial obligation to maintain his wife and children; a woman has no such mandatory obligation — her inheritance remains entirely her own. When these complementary duties are factored in, scholars note the total financial provision for a woman in an Islamic family system can be greater than her male counterpart\'s once all obligations are calculated. The system is designed as complementary in function, not hierarchical in worth. Muslim scholars continue to discuss how these principles apply in modern contexts where economic roles have changed.',
+          bn: 'ভুল ধারণা: কুরআন যেহেতু অনেক ক্ষেত্রে কন্যাকে পুত্রের অর্ধেক অংশ দেয়, তাই ইসলাম নারীকে হীনতর মনে করে। স্পষ্টীকরণ: ইসলামি উত্তরাধিকার আইন বিচ্ছিন্নভাবে পড়া যায় না। স্ত্রী ও সন্তান ভরণ-পোষণের সম্পূর্ণ আর্থিক দায়িত্ব পুরুষের; নারীর এমন কোনো বাধ্যতামূলক আর্থিক দায়িত্ব নেই—তার উত্তরাধিকার সম্পূর্ণ তার নিজের। এই পরিপূরক বাধ্যবাধকতাগুলো হিসাব করলে আলিমগণ উল্লেখ করেন যে ইসলামি পারিবারিক ব্যবস্থায় নারীর মোট আর্থিক সংস্থান প্রায়ই পুরুষ সমকক্ষের চেয়ে বেশি হয়। ব্যবস্থাটি কার্যক্ষেত্রে পরিপূরক হিসেবে পরিকল্পিত, মূল্যের দিক থেকে শ্রেণিবিন্যাসগত নয়। মুসলিম আলিমগণ আধুনিক প্রেক্ষাপটে—যেখানে অর্থনৈতিক ভূমিকা পরিবর্তিত হয়েছে—এই নীতিগুলোর প্রয়োগ নিয়ে আলোচনা অব্যাহত রাখেন।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'misconceptions-jihad',
+    emoji: '⚔️',
+    kind: 'article',
+    noteKey: 'whyislam_misconceptions_note',
+    title: { en: 'Misconceptions: The Meaning of Jihad', bn: 'ভুল ধারণা: জিহাদের প্রকৃত অর্থ' },
+    summary: {
+      en: 'What jihad actually means in Islamic teaching — internal, communal and defensive — and what it does not mean.',
+      bn: 'ইসলামি শিক্ষায় জিহাদ প্রকৃতপক্ষে কী অর্থ রাখে—আধ্যাত্মিক, সামাজিক ও প্রতিরক্ষামূলক—এবং কী অর্থ রাখে না।',
+    },
+    points: [
+      {
+        heading: { en: 'The word "jihad" means striving, not "holy war"', bn: '"জিহাদ" শব্দের অর্থ প্রচেষ্টা, "ধর্মযুদ্ধ" নয়' },
+        body: {
+          en: 'The Arabic word jihad means earnest striving or exertion toward a good goal. In Islamic literature it encompasses the internal struggle against sin and moral failure (called the "greater jihad" in a widely cited hadith tradition), the effort to be a just and upright person, the work of building a just community, and — in very specific regulated circumstances — lawful defense. The common reduction of jihad to "holy war" represents one narrow historical application while overlooking its broad and primary meanings in Islamic teaching.',
+          bn: 'আরবি শব্দ জিহাদ মানে একটি ভালো লক্ষ্যের দিকে আন্তরিক সংগ্রাম বা প্রচেষ্টা। ইসলামি সাহিত্যে এটি অন্তর্ভুক্ত করে পাপ ও নৈতিক ব্যর্থতার বিরুদ্ধে অভ্যন্তরীণ সংগ্রাম (বহুল-উদ্ধৃত হাদিস ঐতিহ্যে "বৃহত্তর জিহাদ"), একজন ন্যায়নিষ্ঠ ও সৎ মানুষ হওয়ার প্রচেষ্টা, একটি ন্যায়সংগত সমাজ গড়ার কাজ, এবং—অত্যন্ত নির্দিষ্ট, নিয়ন্ত্রিত পরিস্থিতিতে—বৈধ প্রতিরক্ষা। জিহাদকে "ধর্মযুদ্ধ"-এ পরিণত করার প্রচলিত ধারা একটি সংকীর্ণ ঐতিহাসিক প্রয়োগকে প্রতিনিধিত্ব করে, ইসলামি শিক্ষায় এর ব্যাপক ও প্রাথমিক অর্থগুলো উপেক্ষা করে।',
+        },
+      },
+      {
+        heading: { en: 'Islam forbids targeting civilians and aggression', bn: 'ইসলাম বেসামরিক নাগরিকদের লক্ষ্যবস্তু বানানো ও আগ্রাসন নিষিদ্ধ করে' },
+        body: {
+          en: 'The Quran places strict limits on any use of force: "Fight in the way of God those who fight you, but do not transgress — indeed, God does not love transgressors" (Quran 2:190). Islamic law forbids killing civilians, destroying crops and places of worship, or harming those who seek peace. Targeting non-combatants is explicitly prohibited in the primary sources. Those who invoke Islam to justify terrorism are condemned by the overwhelming majority of mainstream Muslim scholars worldwide, who affirm that such acts violate the foundational principles of Islamic law. The religion\'s own sources do not support what violent extremists claim in its name.',
+          bn: 'কুরআন শক্তি প্রয়োগে কঠোর সীমা আরোপ করে: "আল্লাহর পথে তাদের বিরুদ্ধে লড়াই করো যারা তোমাদের বিরুদ্ধে লড়াই করে, কিন্তু সীমা অতিক্রম করো না—নিশ্চয়ই আল্লাহ সীমা লঙ্ঘনকারীদের ভালোবাসেন না" (কুরআন ২:১৯০)। ইসলামি আইন বেসামরিক মানুষ হত্যা, ফসল ও উপাসনালয় ধ্বংস করা বা শান্তিপ্রত্যাশীদের ক্ষতি করা নিষিদ্ধ করে। অযোদ্ধাদের লক্ষ্য বানানো মূল উৎসে সুস্পষ্টভাবে নিষিদ্ধ। সন্ত্রাসকে ন্যায্যতা দিতে ইসলামের নাম নেওয়া ব্যক্তিদের বিশ্বব্যাপী মূলধারার মুসলিম আলিমদের বিপুল সংখ্যাগরিষ্ঠতা নিন্দা করে এবং নিশ্চিত করে যে এই কাজগুলো ইসলামি আইনের মূলনীতি লঙ্ঘন করে।',
+        },
+      },
+      {
+        heading: { en: 'Defensive military jihad has precise conditions', bn: 'প্রতিরক্ষামূলক সামরিক জিহাদের সুনির্দিষ্ট শর্ত রয়েছে' },
+        body: {
+          en: 'Classical Islamic scholars set strict conditions for armed defense: it must be authorised by a legitimate authority, pursued only against active combatants, and conducted within clear ethical limits. Extensive rules in classical fiqh (jurisprudence) protect civilians, prisoners and the environment. The early Makkan period — when the Prophet and companions endured severe persecution without fighting back — shows that even grave injustice was met first with patience, migration and dialogue.',
+          bn: 'ধ্রুপদী ইসলামি আলিমগণ সশস্ত্র প্রতিরক্ষায় কঠোর শর্ত নির্ধারণ করেছেন: এটি অবশ্যই বৈধ কর্তৃপক্ষের অনুমোদনে হতে হবে, কেবল সক্রিয় যোদ্ধাদের বিরুদ্ধে পরিচালিত হবে, এবং স্পষ্ট নৈতিক সীমার মধ্যে পরিচালিত হবে। ধ্রুপদী ফিকহে (আইনশাস্ত্র) বিস্তারিত বিধি বেসামরিক, বন্দী ও পরিবেশের সুরক্ষা নিশ্চিত করে। প্রাথমিক মক্কার কাল—যে সময় নবী ও সাহাবিরা পাল্টা না লড়েই নির্যাতন সহ্য করেছিলেন—দেখায় যে তীব্র অন্যায়কেও প্রথমে মোকাবেলা করা হয়েছিল ধৈর্য, হিজরত ও সংলাপের মাধ্যমে।',
+        },
+      },
+      {
+        heading: { en: 'The greater jihad is the inner struggle', bn: 'বৃহত্তর জিহাদ হলো অভ্যন্তরীণ সংগ্রাম' },
+        body: {
+          en: 'A hadith attributed to the Prophet on returning from a battle spoke of moving from the "lesser jihad" of armed defense to the "greater jihad" — the struggle against one\'s own lower self (nafs). This internal jihad — against arrogance, dishonesty, anger and selfishness — sits at the heart of Islam\'s spiritual tradition. Persisting in worship when it is hard, resisting temptation, standing against injustice with calm words, or working honestly for knowledge — all of this is jihad in the Islamic sense.',
+          bn: 'একটি যুদ্ধ থেকে ফেরার পর নবীর কাছে আরোপিত এক হাদিস "ক্ষুদ্রতর জিহাদ" (সশস্ত্র প্রতিরক্ষা) থেকে "বৃহত্তর জিহাদে" যাওয়ার কথা বলে—নিজের নফসের বিরুদ্ধে সংগ্রাম। এই অভ্যন্তরীণ জিহাদ—অহংকার, অসততা, ক্রোধ ও স্বার্থপরতার বিরুদ্ধে—ইসলামের আধ্যাত্মিক ঐতিহ্যের মর্মকেন্দ্রে বিদ্যমান। কঠিন হলেও ইবাদতে অবিচল থাকা, প্রলোভন প্রতিরোধ করা, শান্ত কথায় অন্যায়ের বিরুদ্ধে দাঁড়ানো, বা সৎভাবে জ্ঞানের জন্য পরিশ্রম করা—এই সবই ইসলামি অর্থে জিহাদ।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'misconceptions-apostasy-slavery',
+    emoji: '🔓',
+    kind: 'article',
+    noteKey: 'whyislam_misconceptions_note',
+    title: { en: 'Misconceptions: Apostasy & Slavery in Islamic History', bn: 'ভুল ধারণা: ধর্মত্যাগ ও ইসলামের ইতিহাসে দাসপ্রথা' },
+    summary: {
+      en: 'Careful, honest engagement with two frequently raised issues — presented with nuance and mainstream scholarly context.',
+      bn: 'দুটি সাধারণ উত্থাপিত বিষয়ে সতর্ক, সৎ আলোচনা—সূক্ষ্মতা ও মূলধারার শাস্ত্রীয় প্রেক্ষাপটসহ।',
+    },
+    points: [
+      {
+        heading: { en: 'Does the Quran prescribe death for leaving Islam?', bn: 'কুরআন কি ইসলাম ছেড়ে যাওয়ার জন্য মৃত্যুদণ্ড নির্ধারণ করে?' },
+        body: {
+          en: 'This is genuinely contested within Islamic jurisprudence and deserves honest engagement. The Quran itself does not prescribe a worldly death penalty for apostasy; its treatment focuses on spiritual accountability and divine judgment: "Whoever disbelieves in God after having believed… upon them is wrath from God" (Quran 16:106). The verse speaks of divine consequence, not a court sentence. The hadith often cited for a death penalty was understood by many classical scholars in its historical context as addressing treasonous rebellion against the Muslim state — not private change of belief. A respected body of contemporary scholars argues there is no Quranic basis for executing someone solely for peacefully leaving the faith. The foundational Quranic principle stands: "There is no compulsion in religion" (Quran 2:256). This is presented honestly as an area of genuine scholarly discussion.',
+          bn: 'এটি ইসলামি ফিকহের মধ্যে প্রকৃতপক্ষেই বিতর্কিত একটি বিষয় এবং সৎ আলোচনার দাবি রাখে। কুরআন নিজে ধর্মত্যাগের জন্য পার্থিব মৃত্যুদণ্ড নির্ধারণ করে না; এর আলোচনা আধ্যাত্মিক জবাবদিহিতা ও ঐশী বিচারের উপর কেন্দ্রীভূত: "যে কেউ বিশ্বাসী হওয়ার পর আল্লাহকে অস্বীকার করে… তাদের উপর আল্লাহর ক্রোধ" (কুরআন ১৬:১০৬)। আয়াতটি ঐশী পরিণতির কথা বলে, আদালতের দণ্ডাদেশ নয়। প্রায়ই উদ্ধৃত হাদিসটিকে বহু ধ্রুপদী আলিম তার ঐতিহাসিক প্রেক্ষাপটে বুঝেছেন মুসলিম রাষ্ট্রের বিরুদ্ধে বিশ্বাসঘাতকতামূলক বিদ্রোহ হিসেবে—নিছক ব্যক্তিগত বিশ্বাস পরিবর্তন নয়। সম্মানিত সমকালীন আলিমদের একটি উল্লেখযোগ্য দল যুক্তি দেন যে শান্তিপূর্ণভাবে ধর্ম ত্যাগের জন্য মৃত্যুদণ্ডের কোনো কুরআনিক ভিত্তি নেই। মৌলিক কুরআনিক নীতি অপরিবর্তিত: "দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই" (কুরআন ২:২৫৬)।',
+        },
+      },
+      {
+        heading: { en: 'Freedom of conscience in Islamic teaching', bn: 'ইসলামি শিক্ষায় বিবেকের স্বাধীনতা' },
+        body: {
+          en: 'The Quran is unambiguous: "There shall be no compulsion in religion — the right course has become distinct from wrong" (Quran 2:256). Scholars universally interpret this as affirming that faith must be freely chosen, not forced. The Prophet\'s mission is described as conveying, not compelling: "Your duty is only to convey the message" (Quran 3:20). In Medina the Prophet signed agreements guaranteeing religious freedom for different communities. The Quran explicitly accepts that some will not believe despite the message, and that God alone judges hearts (Quran 10:99). Islam holds that God values genuine faith born of free conviction — which by definition cannot be coerced.',
+          bn: 'কুরআন দ্ব্যর্থহীন: "দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই—সঠিক পথ ভুল পথ থেকে স্পষ্ট হয়ে গেছে" (কুরআন ২:২৫৬)। আলিমগণ সর্বসম্মতভাবে এটিকে ব্যাখ্যা করেন যে ঈমান অবশ্যই স্বাধীনভাবে বেছে নিতে হবে, জোর করা যাবে না। নবীর মিশনকে পৌঁছানো হিসেবে বর্ণনা করা হয়, চাপিয়ে দেওয়া নয়: "তোমার কর্তব্য কেবল বার্তা পৌঁছানো" (কুরআন ৩:২০)। মদিনায় নবী বিভিন্ন সম্প্রদায়ের জন্য ধর্মীয় স্বাধীনতার নিশ্চয়তাসহ চুক্তি স্বাক্ষর করেছিলেন। কুরআন স্বীকার করে যে কেউ কেউ বার্তা সত্ত্বেও বিশ্বাস করবে না, এবং কেবল আল্লাহই হৃদয় বিচার করেন (কুরআন ১০:৯৯)।',
+        },
+      },
+      {
+        heading: { en: 'Slavery in Islamic history: the honest picture', bn: 'ইসলামের ইতিহাসে দাসপ্রথা: সৎ চিত্র' },
+        body: {
+          en: 'Islam did not abolish slavery by immediate decree in 7th-century Arabia — a fact sometimes raised as an objection. The honest response is that Islam took a structured approach to a practice that was universal and deeply embedded. It imposed strict moral obligations on how enslaved people must be treated; declared freeing enslaved persons one of the highest acts and an expiation for sins; placed legal limits on enslavement; and gave enslaved people rights and dignity unknown in contemporaneous societies. The Prophet (peace be upon him) freed enslaved people and commended their freedom repeatedly. The direction of Islamic teaching pointed strongly toward abolition. Historical Muslim societies often fell short of these ideals — and that failure is criticised from within Islamic ethics itself. The institution was wrong; Islam\'s contribution was to push conditions toward justice within its historical constraints and create the moral principles that later Muslim abolitionists drew upon.',
+          bn: 'ইসলাম ৭ম শতকের আরবে তাৎক্ষণিক ডিক্রি দিয়ে দাসপ্রথা বিলুপ্ত করেনি—এই সত্য কখনো কখনো আপত্তি হিসেবে উত্থাপিত হয়। সৎ উত্তর হলো, ইসলাম সে সমাজে সার্বজনীন ও গভীরভাবে গেঁথে থাকা এক প্রথার সাথে কাঠামোবদ্ধ উপায়ে আচরণ করেছিল। এটি দাসকৃত মানুষদের সাথে আচরণে কঠোর নৈতিক বাধ্যবাধকতা আরোপ করেছিল; দাসমুক্তিকে সর্বোচ্চ নৈতিক কাজ ও পাপের কাফফারা ঘোষণা করেছিল; দাসত্বে আইনগত সীমা নির্ধারণ করেছিল; এবং সমকালীন সমাজে অজানা অধিকার ও মর্যাদা দিয়েছিল। নবী (তাঁর প্রতি শান্তি) দাস মুক্ত করেছেন এবং বারবার মুক্তির সুপারিশ করেছেন। ইসলামি শিক্ষার গতিমুখ দৃঢ়ভাবে বিলুপ্তির দিকে ছিল। ঐতিহাসিক মুসলিম সমাজ প্রায়ই এই আদর্শের নিচে পড়ে গেছে—আর সেই ব্যর্থতার সমালোচনা ইসলামি নৈতিকতার ভেতর থেকেই হয়।',
+        },
+      },
+      {
+        heading: { en: 'The Islamic abolition case', bn: 'ইসলামের বিলোপ-যুক্তি' },
+        body: {
+          en: 'Within Islamic thought, the strongest arguments against slavery draw from its own principles: all human beings are created equal in dignity (Quran 49:13); the Quran praises freeing enslaved people as one of the highest acts of charity (Quran 90:13); the Prophet warned that God will be the adversary of anyone who wrongs those in their authority; and the maqasid al-shari\'a (objectives of Islamic law) include the protection of human dignity and life. When 19th-century Muslim reformers argued for abolition, they drew on these very principles. Today, the overwhelming global consensus among Muslim scholars is that all forms of slavery and human trafficking are absolutely prohibited in Islam.',
+          bn: 'ইসলামি চিন্তায় দাসপ্রথার বিরুদ্ধে সবচেয়ে শক্তিশালী যুক্তিগুলো নিজস্ব নীতি থেকে আসে: সমস্ত মানুষ মর্যাদায় সমানভাবে সৃষ্ট (কুরআন ৪৯:১৩); কুরআন দাস মুক্তিকে সর্বোচ্চ দাতব্য কাজের একটি হিসেবে প্রশংসা করে (কুরআন ৯০:১৩); নবী সতর্ক করেছেন যে আল্লাহ তার প্রতিপক্ষ হবেন যে তার অধীনস্থদের সাথে অন্যায় করে; এবং মাকাসিদ আল-শরিয়া (ইসলামি আইনের উদ্দেশ্য) মানব মর্যাদা ও জীবন রক্ষা অন্তর্ভুক্ত করে। ১৯শ শতকের মুসলিম সংস্কারকরা বিলুপ্তির পক্ষে এই নীতিগুলোই ব্যবহার করেছিলেন। আজ বিশ্বব্যাপী মুসলিম আলিমদের মধ্যে অপ্রতিরোধ্য ঐকমত্য হলো, সমস্ত ধরনের দাসত্ব ও মানব পাচার ইসলামে সম্পূর্ণ নিষিদ্ধ।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'misconceptions-science',
+    emoji: '🔭',
+    kind: 'article',
+    noteKey: 'whyislam_misconceptions_note',
+    title: { en: 'Misconceptions: Islam and Science', bn: 'ভুল ধারণা: ইসলাম ও বিজ্ঞান' },
+    summary: {
+      en: 'Does Islam oppose science? What is the Islamic view of rational inquiry — and what occurred in the Islamic Golden Age?',
+      bn: 'ইসলাম কি বিজ্ঞানের বিরোধী? যুক্তিসংগত অনুসন্ধান সম্পর্কে ইসলামের দৃষ্টিভঙ্গি কী—এবং ইসলামের স্বর্ণযুগে কী ঘটেছিল?',
+    },
+    points: [
+      {
+        heading: { en: 'The Quran commands knowledge-seeking', bn: 'কুরআন জ্ঞান-অন্বেষণের নির্দেশ দেয়' },
+        body: {
+          en: 'The very first word of revelation was "Read" (Quran 96:1). The Quran invites investigation of the natural world repeatedly: "Do they not look into the realm of the heavens and the earth and everything that God has created?" (Quran 7:185). The Prophet declared seeking knowledge an obligation on every Muslim and taught "wisdom is the lost property of the believer — wherever they find it, they take it." In Islamic epistemology, the book of nature and the Book of God are complementary: studying creation is an act of recognising the Creator\'s signs.',
+          bn: 'ওহির প্রথম শব্দই ছিল "পড়ো" (কুরআন ৯৬:১)। কুরআন বারবার প্রাকৃতিক জগৎ অনুসন্ধানে আমন্ত্রণ জানায়: "তারা কি আকাশ ও পৃথিবীর রাজত্বে এবং আল্লাহর সৃষ্ট সব কিছুতে দৃষ্টি দেয় না?" (কুরআন ৭:১৮৫)। নবী জ্ঞান অন্বেষণকে প্রত্যেক মুসলিমের উপর ফরজ ঘোষণা করেছেন এবং শিক্ষা দিয়েছেন "জ্ঞান হলো মুমিনের হারানো সম্পদ—যেখানেই পায়, তুলে নেয়।" ইসলামি জ্ঞানতত্ত্বে প্রকৃতির গ্রন্থ ও আল্লাহর কিতাব পরিপূরক: সৃষ্টি অধ্যয়ন স্রষ্টার নিদর্শন চেনার এক কাজ।',
+        },
+      },
+      {
+        heading: { en: 'The Islamic Golden Age of science', bn: 'বিজ্ঞানের ইসলামিক স্বর্ণযুগ' },
+        body: {
+          en: 'Between approximately the 8th and 13th centuries, Muslim scholars produced foundational contributions across mathematics, astronomy, optics, medicine, chemistry and geography. Al-Khwarizmi gave algebra to the world (the word "algorithm" derives from his name). Ibn al-Haytham developed experimental optics and early forms of the scientific method. Ibn Sina (Avicenna) wrote the Canon of Medicine, used in European universities for centuries. Al-Biruni calculated the Earth\'s circumference with remarkable accuracy. These scholars worked explicitly within an Islamic framework that considered knowledge of the natural world an act of worship — refuting any claim that Islamic faith is inherently anti-intellectual.',
+          bn: 'প্রায় ৮ম থেকে ১৩শ শতকের মধ্যে, মুসলিম আলিমগণ গণিত, জ্যোতির্বিদ্যা, আলোকবিজ্ঞান, চিকিৎসা, রসায়ন ও ভূগোলে মৌলিক অবদান রেখেছেন। আল-খোয়ারিজমি বিশ্বকে বীজগণিত উপহার দিয়েছেন ("অ্যালগরিদম" শব্দটি তাঁর নাম থেকে উদ্ভূত)। ইবনুল হাইসাম পরীক্ষামূলক আলোকবিজ্ঞান ও বৈজ্ঞানিক পদ্ধতির প্রাথমিক রূপ বিকশিত করেছেন। ইবনে সিনা "আল-কানুন" রচনা করেছেন, যা শতাব্দীর পর শতাব্দী ইউরোপীয় বিশ্ববিদ্যালয়ে ব্যবহৃত হয়েছে। আল-বিরুনি অসাধারণ নির্ভুলতায় পৃথিবীর পরিধি গণনা করেছিলেন। এই আলিমগণ কাজ করেছেন সুস্পষ্টভাবে এমন ইসলামি কাঠামোর মধ্যে যা প্রাকৃতিক জগতের জ্ঞানকে ইবাদতের কাজ বলে মনে করত।',
+        },
+      },
+      {
+        heading: { en: 'Islam does not conflict with established science', bn: 'ইসলাম প্রতিষ্ঠিত বিজ্ঞানের সাথে দ্বন্দ্ব করে না' },
+        body: {
+          en: 'Islam has no institutional history of opposing scientific investigation — no equivalent of the Galileo affair. The Quran does not claim to be a science textbook; it is guidance for moral and spiritual life. When science establishes findings about the natural world, the mainstream scholarly position in Islam is that empirical investigation belongs to the domain the Quran encourages. Apparent tensions between Quranic verses and science usually dissolve on careful reading, since the Quran is primarily addressing spiritual and ethical matters, not technical cosmology. Where a scholar finds a specific passage challenging, the tradition has extensive tools: context, metaphor, and apparent vs. intended meaning.',
+          bn: 'ইসলামে বৈজ্ঞানিক অনুসন্ধানে বিরোধিতার কোনো প্রাতিষ্ঠানিক ইতিহাস নেই—গ্যালিলিও-ঘটনার সমতুল্য কিছু নেই। কুরআন বিজ্ঞানের পাঠ্যপুস্তক হওয়ার দাবি করে না; এটি নৈতিক ও আধ্যাত্মিক জীবনের জন্য হিদায়াত। বিজ্ঞান যখন প্রাকৃতিক জগৎ সম্পর্কে ফলাফল প্রতিষ্ঠা করে, ইসলামের মূলধারার শাস্ত্রীয় অবস্থান হলো অভিজ্ঞতামূলক অনুসন্ধান সেই ক্ষেত্রের অন্তর্ভুক্ত যা কুরআন উৎসাহিত করে। কুরআনের আয়াত ও বিজ্ঞানের মধ্যে বাহ্যিক দ্বন্দ্বগুলো সাধারণত সতর্ক পাঠে গলে যায়, যেহেতু কুরআন প্রাথমিকভাবে আধ্যাত্মিক ও নৈতিক বিষয় সম্বোধন করছে। একজন আলিম কোনো নির্দিষ্ট অনুচ্ছেদ চ্যালেঞ্জিং মনে করলে, ঐতিহ্যে ব্যাখ্যার ব্যাপক সরঞ্জাম আছে: প্রসঙ্গ, রূপক এবং আপাত বনাম অভিপ্রেত অর্থ।',
+        },
+      },
+      {
+        heading: { en: 'A caution on "Quran and science" claims', bn: '"কুরআন ও বিজ্ঞান" দাবি সম্পর্কে একটি সতর্কতা' },
+        body: {
+          en: 'Some popular presentations claim the Quran predicted specific modern scientific discoveries. These claims warrant care. The Quran does use rich descriptions of creation that resonate with a thoughtful reader. However, responsible Muslim scholarship cautions against forcing modern scientific terminology onto Quranic verses that the first audience understood differently, or making claims dependent entirely on a particular modern translation. The stronger argument is not "the Quran predicted science X" but that the Quran consistently commends observation, reflection on creation, and the pursuit of knowledge — and that this orientation produced a civilisation that led global science for centuries.',
+          bn: 'কিছু জনপ্রিয় উপস্থাপনা দাবি করে যে কুরআন নির্দিষ্ট আধুনিক বৈজ্ঞানিক আবিষ্কার পূর্বাভাস দিয়েছে। এই দাবিগুলো সতর্কতার দাবি রাখে। কুরআন সত্যিই সৃষ্টির সমৃদ্ধ বর্ণনা ব্যবহার করে যা চিন্তাশীল পাঠকের সাথে অনুরণিত হয়। তবে দায়িত্বশীল মুসলিম বৃত্তি সতর্ক করে আধুনিক বৈজ্ঞানিক পরিভাষা এমন আয়াতে জোরপূর্বক না চাপাতে যা প্রথম দর্শকরা ভিন্নভাবে বুঝেছিলেন। আরও শক্তিশালী যুক্তি হলো কুরআন ধারাবাহিকভাবে পর্যবেক্ষণ, সৃষ্টিতে প্রতিফলন ও জ্ঞান-অনুসন্ধানের প্রশংসা করে—এবং এই অভিমুখীতাই এমন এক সভ্যতা তৈরি করেছিল যা শতাব্দীর পর শতাব্দী বৈশ্বিক বিজ্ঞানে নেতৃত্ব দিয়েছে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'rational-tawhid',
+    emoji: '🧠',
+    kind: 'article',
+    title: { en: 'Rational Arguments for Tawhid', bn: 'তাওহিদের যুক্তিসংগত প্রমাণ' },
+    summary: {
+      en: 'The kalam cosmological argument, fine-tuning, the moral argument, and the unity of natural law — each a reasoned pointer, not a coercive proof.',
+      bn: 'কালাম সৃষ্টিতাত্ত্বিক যুক্তি, সূক্ষ্ম-সমন্বয়, নৈতিক যুক্তি এবং প্রাকৃতিক নিয়মের ঐক্য—প্রতিটি একটি যুক্তিসংগত ইঙ্গিত, বাধ্যকারী প্রমাণ নয়।',
+    },
+    points: [
+      {
+        heading: { en: 'The Kalam cosmological argument', bn: 'কালাম সৃষ্টিতাত্ত্বিক যুক্তি' },
+        body: {
+          en: 'Formulated by Muslim theologians (mutakallimun) such as al-Ghazali: (1) Whatever begins to exist has a cause; (2) the universe began to exist; (3) therefore the universe has a cause. That cause must itself be uncaused (to avoid an infinite regress that explains nothing), immensely powerful, and timeless and spaceless — existing outside the universe it produced. The Quran voices the same reflection: "Were they created by nothing? Or were they themselves the creators?" (Quran 52:35). The argument points toward a first cause; tawhid makes the further claim that this cause is one and unique, on the grounds of coherence and the unity of natural law.',
+          bn: 'ইমাম গাজ্জালির মতো মুসলিম ধর্মতাত্ত্বিকদের (মুতাকাল্লিমুন) দ্বারা প্রণীত: (১) যার অস্তিত্বের সূচনা আছে তার একটি কারণ আছে; (২) মহাবিশ্বের সূচনা আছে; (৩) সুতরাং মহাবিশ্বের একটি কারণ আছে। সেই কারণটি নিজে অকারণ (কিছুই ব্যাখ্যা না করা অসীম পশ্চাদ্গামিতা এড়াতে), অপরিসীম ক্ষমতাসম্পন্ন, এবং কাল ও স্থানের বাইরে হতে হবে। কুরআন একই প্রতিফলন ব্যক্ত করে: "তারা কি স্রষ্টা ছাড়াই সৃষ্টি হয়েছে? নাকি তারাই স্রষ্টা?" (কুরআন ৫২:৩৫)। যুক্তিটি একটি প্রথম কারণের দিকে ইঙ্গিত করে; তাওহিদ আরও দাবি করে এই কারণ এক ও অনন্য, সংগতি ও প্রাকৃতিক নিয়মের ঐক্যের ভিত্তিতে।',
+        },
+      },
+      {
+        heading: { en: 'Fine-tuning and the teleological argument', bn: 'সূক্ষ্ম-সমন্বয় ও উদ্দেশ্যমূলক যুক্তি' },
+        body: {
+          en: 'The universe shows remarkable fine-tuning: the values of fundamental constants — gravitational force, the strong nuclear force, the cosmological constant — are set within a narrow range within which stars, chemistry and life are possible. A tiny change in any of them would produce a universe in which atoms cannot form or stars cannot burn. Muslim scholars point to this as a sign of intentional precision rather than blind chance. The Quran invites this reflection: "And on the earth are signs for those who are certain — and in yourselves. Do you not see?" (Quran 51:20–21). This is a philosophical pointer, not a substitute for scientific inquiry; careful thinkers treat it as raising the prior probability of a Designer.',
+          bn: 'মহাবিশ্ব আশ্চর্যজনক সূক্ষ্ম-সমন্বয় দেখায়: মৌলিক ধ্রুবকগুলোর মান—মহাকর্ষ বল, শক্তিশালী নিউক্লিয়ার বল, মহাজাগতিক ধ্রুবক—এমন সংকীর্ণ পরিসরে নির্ধারিত যেখানে তারা, রসায়ন ও জীবন সম্ভব। যেকোনো একটিতে সামান্য পরিবর্তন এমন মহাবিশ্ব তৈরি করত যেখানে পরমাণু গঠিত হতে পারে না। মুসলিম আলিমগণ এটিকে অন্ধ সুযোগ নয়, ইচ্ছাকৃত নির্ভুলতার নিদর্শন হিসেবে উল্লেখ করেন। কুরআন এই প্রতিফলনে আমন্ত্রণ জানায়: "পৃথিবীতে নিশ্চিত বিশ্বাসীদের জন্য নিদর্শন আছে—এবং তোমাদের নিজেদের মধ্যেও। তবে কি তোমরা দেখবে না?" (কুরআন ৫১:২০–২১)।',
+        },
+      },
+      {
+        heading: { en: 'The moral argument', bn: 'নৈতিক যুক্তি' },
+        body: {
+          en: 'Most people share the deep conviction that some acts — cruelty to innocents, betrayal, injustice — are not merely disliked but genuinely wrong, independent of what any society decides. If objective moral facts exist, they seem to require grounding: a universe of purely physical processes has no mechanism to generate binding moral obligations. Islamic thought holds that objective moral truths are grounded in the character and will of the one God, who is perfectly just, and who embedded this moral knowledge in the fitrah (human nature). This argument does not deny that non-believers can be moral; it asks where the binding force of "you ought not" ultimately comes from.',
+          bn: 'অধিকাংশ মানুষ গভীর প্রত্যয় ধারণ করে যে কিছু কাজ—নিরীহদের প্রতি নিষ্ঠুরতা, বিশ্বাসঘাতকতা, অন্যায়—কেবল অপছন্দের নয়, প্রকৃতপক্ষেই ভুল, যেকোনো সমাজ যা সিদ্ধান্ত নেয় তার নিরপেক্ষে। বস্তুনিষ্ঠ নৈতিক তথ্য যদি বিদ্যমান থাকে, তাহলে মনে হয় তার একটি ভিত্তি দরকার: সম্পূর্ণ ভৌত প্রক্রিয়ার একটি মহাবিশ্বে বাধ্যকারী নৈতিক বাধ্যবাধকতা তৈরির কোনো প্রক্রিয়া নেই। ইসলামি চিন্তা মনে করে বস্তুনিষ্ঠ নৈতিক সত্য ভিত্তিপ্রাপ্ত এক আল্লাহর চরিত্র ও ইচ্ছায়, এবং এই নৈতিক জ্ঞান ফিতরাহ (মানব প্রকৃতি)-তে গেঁথে দেওয়া হয়েছে। এই যুক্তি অস্বীকার করে না যে অবিশ্বাসীরা নৈতিক হতে পারে; এটি জিজ্ঞেস করে নৈতিকতার বাধ্যকারী শক্তি চূড়ান্তভাবে কোথা থেকে আসে।',
+        },
+      },
+      {
+        heading: { en: 'The unity of natural law points to one Lawgiver', bn: 'প্রাকৃতিক নিয়মের ঐক্য এক বিধানদাতার দিকে ইঙ্গিত করে' },
+        body: {
+          en: 'Scientists work on the verified assumption that the universe obeys a single consistent set of laws from one galaxy to the next, from a particle to a star. This mathematical unity of nature is, philosophically, remarkable: why should the universe be comprehensible at all? Einstein expressed wonder at "the comprehensibility of the universe." Islamic theology offers an answer: "Had there been within the heavens and the earth gods besides God, they both would have been corrupted" (Quran 21:22). One lawgiver produces one consistent law-system. The remarkable coherence of nature is precisely what one would expect under a single omnipotent Creator, and not what one would expect from competing powers or from pure chance.',
+          bn: 'বিজ্ঞানীরা যাচাইকৃত এই অনুমানের ভিত্তিতে কাজ করেন যে মহাবিশ্ব এক গ্যালাক্সি থেকে অন্যটিতে, একটি কণা থেকে একটি তারা পর্যন্ত একটি একক, সামঞ্জস্যপূর্ণ নিয়মের সেট মেনে চলে। প্রকৃতির এই গাণিতিক ঐক্য দার্শনিকভাবে উল্লেখযোগ্য: মহাবিশ্ব আদৌ বোধগম্য কেন হবে? আইনস্টাইন "মহাবিশ্বের বোধগম্যতা" নিয়ে বিস্ময় প্রকাশ করেছিলেন। ইসলামি ধর্মতত্ত্ব একটি উত্তর দেয়: "আকাশ ও পৃথিবীতে যদি আল্লাহ ছাড়া আরও উপাস্য থাকত, তবে উভয়ই বিশৃঙ্খল হয়ে যেত" (কুরআন ২১:২২)। এক বিধানদাতা এক সামঞ্জস্যপূর্ণ বিধি-ব্যবস্থা তৈরি করেন। প্রকৃতির অসাধারণ সংগতি ঠিক তা-ই যা এক সর্বশক্তিমান স্রষ্টার কাছ থেকে প্রত্যাশিত।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'proofs-prophethood',
+    emoji: '📣',
+    kind: 'article',
+    title: { en: 'Evidences of Prophethood', bn: 'নবুয়তের প্রমাণসমূহ' },
+    summary: {
+      en: 'Fulfilled prophecies, the unlettered messenger, the civilisational transformation, and why the Prophet sought no worldly gain.',
+      bn: 'পূর্ণ হওয়া ভবিষ্যদ্বাণী, নিরক্ষর রাসুল, সভ্যতার রূপান্তর এবং কেন নবী কোনো পার্থিব স্বার্থ চাননি।',
+    },
+    points: [
+      {
+        heading: { en: 'Fulfilled prophecies in the Quran and Sunnah', bn: 'কুরআন ও সুন্নাহতে পূর্ণ হওয়া ভবিষ্যদ্বাণী' },
+        body: {
+          en: 'Several statements made during the Prophet\'s lifetime can be historically verified. The Quran predicted that the Byzantine Empire, which had just suffered a major defeat by the Persians, would recover and be victorious within a few years (Quran 30:2–4) — which occurred within the stated timeframe. The Quran declared that the body of Pharaoh would be preserved as a sign for later generations (Quran 10:92); mummified Egyptian rulers are indeed preserved today. The Prophet foretold the conquest of Persia and Byzantine territories, and specific social developments that companions witnessed and recorded. Muslim scholars present these as evidence alongside the honest caveat that historical claims require careful scholarship and not every popular prophecy claim carries equal weight.',
+          bn: 'নবীর জীবদ্দশায় করা বেশ কিছু বক্তব্য ঐতিহাসিকভাবে যাচাইযোগ্য। কুরআন ভবিষ্যদ্বাণী করেছিল যে বাইজেন্টাইন সাম্রাজ্য, যা পারসিকদের হাতে বড় পরাজয়ের সম্মুখীন হয়েছিল, কয়েক বছরের মধ্যে পুনরুদ্ধার হবে ও জয়ী হবে (কুরআন ৩০:২–৪)—যা নির্ধারিত সময়সীমার মধ্যে ঘটেছিল। কুরআন ঘোষণা করেছিল যে ফেরাউনের শরীর পরবর্তী প্রজন্মের নিদর্শন হিসেবে সংরক্ষিত থাকবে (কুরআন ১০:৯২); মিশরীয় মমিকৃত শাসকরা আজও সংরক্ষিত। নবী পারস্য ও বাইজেন্টাইন ভূখণ্ড জয় এবং নির্দিষ্ট সামাজিক উন্নয়নের ভবিষ্যদ্বাণী করেছিলেন যা সাহাবিরা প্রত্যক্ষ করেছিলেন ও নথিভুক্ত করেছিলেন।',
+        },
+      },
+      {
+        heading: { en: 'The unlettered prophet and an inimitable text', bn: 'নিরক্ষর নবী ও অতুলনীয় গ্রন্থ' },
+        body: {
+          en: 'The Prophet (peace be upon him) is described as ummi — unable to read or write (Quran 7:157). He had no access to earlier scripture and received no rabbinical or scholarly education, yet he conveyed a text of remarkable literary mastery, thematic depth and internal coherence. His Arab contemporaries — master poets who had every reason to want to disprove it — acknowledged that the Quran did not fit any existing literary category. Their response was not "this is ordinary" but "this is either sorcery or divine." The Islamic argument: the content of the Quran cannot be explained by its carrier\'s natural resources.',
+          bn: 'নবী (তাঁর প্রতি শান্তি) উম্মি হিসেবে বর্ণিত—পড়তে বা লিখতে অসমর্থ (কুরআন ৭:১৫৭)। পূর্ববর্তী কিতাবে তাঁর প্রবেশাধিকার ছিল না এবং তিনি কোনো রব্বানিক বা শাস্ত্রীয় শিক্ষা পাননি, তবুও তিনি অসাধারণ সাহিত্যিক পাণ্ডিত্য, বিষয়গত গভীরতা ও অভ্যন্তরীণ সংগতির এক গ্রন্থ পৌঁছে দিয়েছেন। তাঁর আরবি সমসাময়িকরা—শীর্ষ কবি যাদের দাবিটি খণ্ডন করার প্রতিটি কারণ ছিল—স্বীকার করেছেন যে কুরআন বিদ্যমান কোনো সাহিত্যিক শ্রেণিতে পড়ে না। ইসলামি যুক্তি: কুরআনের বিষয়বস্তু তার বাহকের প্রাকৃতিক সম্পদ দিয়ে ব্যাখ্যা করা যায় না।',
+        },
+      },
+      {
+        heading: { en: 'The transformation of a civilisation', bn: 'এক সভ্যতার রূপান্তর' },
+        body: {
+          en: 'In approximately twenty-three years, beginning from a single person declaring his message, the Arabian peninsula was transformed: from fragmented warring tribes practising infanticide and extreme inequality, into a unified community whose legal and ethical system placed justice, knowledge and mercy at its centre. His earliest followers — educated, self-aware and entirely free to reject the message — gave up wealth, status and safety for a conviction they found compelling. Non-Muslim historians and modern academics alike acknowledge this social transformation as historically extraordinary. The scale and speed of this change are part of the Islamic case for the authenticity of his mission.',
+          bn: 'প্রায় তেইশ বছরে, একক ব্যক্তির বার্তা ঘোষণা থেকে শুরু করে, আরব উপদ্বীপ রূপান্তরিত হয়েছিল: খণ্ডবিখণ্ড, যুদ্ধরত গোত্র এবং কন্যাশিশু হত্যার সমাজ থেকে এমন এক ঐক্যবদ্ধ সম্প্রদায়ে যার আইনি ও নৈতিক ব্যবস্থায় ন্যায়, জ্ঞান ও দয়া কেন্দ্রীয় স্থান পেয়েছিল। তাঁর প্রথম অনুসারীরা—শিক্ষিত, আত্মসচেতন ও বার্তা প্রত্যাখ্যানে সম্পূর্ণ স্বাধীন—সম্পদ, মর্যাদা ও নিরাপত্তা ত্যাগ করেছিলেন এমন এক প্রত্যয়ের জন্য যা তাদের কাছে বাধ্যকারী মনে হয়েছিল। অমুসলিম ঐতিহাসিক ও আধুনিক একাডেমিক উভয়েই এই সামাজিক রূপান্তরকে ঐতিহাসিকভাবে অসাধারণ হিসেবে স্বীকার করেন।',
+        },
+      },
+      {
+        heading: { en: 'He sought no worldly gain', bn: 'তিনি কোনো পার্থিব স্বার্থ চাননি' },
+        body: {
+          en: 'A sincere question when evaluating any claim is: what did the claimant gain from it? The Prophet (peace be upon him) endured thirteen years of persecution, boycott, exile and the deaths of loved ones before any worldly success arrived. When tribal leaders offered him wealth, kingship and status in exchange for withdrawing his message, he refused: "By God, if they placed the sun in my right hand and the moon in my left to make me abandon this matter, I would not abandon it until God makes it prevail or I perish in seeking it." The Quran also corrects the Prophet when needed (Quran 80:1–4, Quran 9:43) — something a self-serving author would not include. A person pursuing deception for personal gain does not typically sustain it at this cost.',
+          bn: 'যেকোনো দাবি মূল্যায়নের সময় একটি আন্তরিক প্রশ্ন: দাবিকারী এ থেকে কী অর্জন করেছেন? নবী (তাঁর প্রতি শান্তি) কোনো পার্থিব সাফল্য আসার আগে তেরো বছর নির্যাতন, বয়কট, নির্বাসন ও প্রিয়জনদের মৃত্যু সহ্য করেছিলেন। গোত্রীয় নেতারা যখন বার্তা প্রত্যাহারের বিনিময়ে তাঁকে সম্পদ ও রাজত্বের প্রস্তাব দিয়েছিল, তিনি প্রত্যাখ্যান করেছিলেন: "আল্লাহর শপথ, তারা যদি আমার ডান হাতে সূর্য ও বাম হাতে চাঁদ রাখে এই বিষয় ছেড়ে দিতে, আমি ছেড়ে দেব না যতক্ষণ না আল্লাহ এটি বিজয়ী করেন বা আমি এতে মারা যাই।" কুরআন নিজেই প্রয়োজনে নবীকে সংশোধন করে (কুরআন ৮০:১–৪, কুরআন ৯:৪৩)—যা কোনো স্বার্থান্বেষী রচয়িতা অন্তর্ভুক্ত করতেন না।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'quran-divine-origin',
+    emoji: '✨',
+    kind: 'article',
+    title: { en: "Evidences of the Quran's Divine Origin", bn: 'কুরআনের ঐশী উৎসের প্রমাণসমূহ' },
+    summary: {
+      en: 'Four mutually reinforcing evidences: linguistic inimitability (i\'jaz), preservation, internal consistency, and the standing challenge.',
+      bn: 'পরস্পর-পরিপূরক চারটি প্রমাণ: ভাষাগত অতুলনীয়তা (ইজাজ), সংরক্ষণ, অভ্যন্তরীণ সামঞ্জস্য এবং উন্মুক্ত চ্যালেঞ্জ।',
+    },
+    points: [
+      {
+        heading: { en: "Linguistic inimitability (i'jaz al-Quran)", bn: 'ভাষাগত অতুলনীয়তা (ইজাজুল কুরআন)' },
+        body: {
+          en: 'The Quran\'s Arabic occupies a unique place in Arabic literary tradition. Classical Arab critics and poets — many of whom were not Muslim and had every reason to want to disprove it — acknowledged its singular quality: it does not fit the known categories of poetry (it lacks the metrical patterns of Arab verse), nor of ordinary prose, nor of rhymed prose — its structural depth exceeds all these. The theologian al-Baqillani devoted substantial scholarly analysis to this; Ibn Khaldun noted it in his Muqaddimah. The term i\'jaz al-Quran refers to this inimitability — a level of expression not equalled in fourteen centuries despite many motivated attempts. This argument is offered to scholars of Arabic; translation-readers can appreciate its reputation but cannot fully assess the claim firsthand.',
+          bn: 'কুরআনের আরবি ভাষা আরবি সাহিত্য ঐতিহ্যে এক অনন্য স্থান অধিকার করে। ধ্রুপদী আরবি সমালোচক ও কবিগণ—যাদের অনেকে মুসলিম ছিলেন না এবং এটি খণ্ডন করার যথেষ্ট কারণ ছিল—এর অসাধারণ গুণ স্বীকার করেছেন: এটি আরবি কবিতার শ্রেণিতে পড়ে না (এতে আরবি কাব্যের ছন্দমাত্রিক ধরন নেই), না সাধারণ গদ্যে, না তুকবন্দী গদ্যে—এর কাঠামোগত গভীরতা সব ধারা ছাড়িয়ে যায়। ধর্মতাত্ত্বিক আল-বাকিল্লানি এ বিষয়ে গভীর শাস্ত্রীয় বিশ্লেষণ করেছেন; ইবনে খালদুন তাঁর মুকাদ্দিমায় এর উল্লেখ করেছেন। "ইজাজুল কুরআন" পরিভাষাটি এই অতুলনীয়তাকে নির্দেশ করে—চৌদ্দ শতাব্দীতে অনেক প্রেরণাযুক্ত প্রচেষ্টা সত্ত্বেও যে অভিব্যক্তির স্তর তুলনীয় হয়নি।',
+        },
+      },
+      {
+        heading: { en: 'Internal consistency across twenty-three years', bn: 'তেইশ বছর জুড়ে অভ্যন্তরীণ সামঞ্জস্য' },
+        body: {
+          en: 'The Quran was revealed over approximately twenty-three years in widely varying circumstances — times of hardship and ease, war and peace, personal joy and grief. Despite this, it forms a thematically coherent whole: its theology, ethical commands, accounts of earlier prophets and legal principles are internally consistent. The Quran itself invites this test: "Do they not reflect upon the Quran? If it had been from other than God, they would have found within it much contradiction" (Quran 4:82). For a text produced under such varied human conditions to exhibit this level of coherence is offered as evidence of unified authorship beyond ordinary human capacity.',
+          bn: 'কুরআন প্রায় তেইশ বছর ধরে ব্যাপকভাবে ভিন্ন পরিস্থিতিতে অবতীর্ণ হয়েছে—কষ্ট ও স্বাচ্ছন্দ্য, যুদ্ধ ও শান্তি, ব্যক্তিগত আনন্দ ও দুঃখের সময়ে। তবুও এটি বিষয়গতভাবে একটি সুসংগত পূর্ণতা তৈরি করে: এর ধর্মতত্ত্ব, নৈতিক আদেশ, পূর্ববর্তী নবীদের বিবরণ ও বিধিগত নীতিগুলো অভ্যন্তরীণভাবে সামঞ্জস্যপূর্ণ। কুরআন নিজেই এই পরীক্ষায় আমন্ত্রণ জানায়: "তারা কি কুরআন নিয়ে গভীরভাবে চিন্তা করে না? যদি এটি আল্লাহ ছাড়া কারো কাছ থেকে হতো, তবে তারা এতে অনেক বৈপরীত্য খুঁজে পেত" (কুরআন ৪:৮২)। এত বৈচিত্র্যময় মানবিক পরিস্থিতিতে উৎপাদিত একটি গ্রন্থ এই মাত্রার সংগতি দেখায়—এটি সাধারণ মানবিক সামর্থ্যের বাইরে ঐক্যবদ্ধ রচয়িতার প্রমাণ হিসেবে উপস্থাপিত।',
+        },
+      },
+      {
+        heading: { en: 'Dual preservation: memorisation and manuscript', bn: 'দ্বৈত সংরক্ষণ: মুখস্থকরণ ও পাণ্ডুলিপি' },
+        body: {
+          en: 'No other scripture in history has been preserved simultaneously in two independent ways: a continuous unbroken chain of memorisation by millions in every generation, and a written manuscript tradition. The two methods check each other — a single forger cannot corrupt both simultaneously across a worldwide, unconnected community. Early manuscripts — the Sana\'a parchments, the Topkapi codex, the Birmingham leaf — correspond closely to the text recited worldwide today. The Quran treats this as a divine guarantee: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian" (Quran 15:9) — offered as an examinable claim, not mere assertion.',
+          bn: 'ইতিহাসে অন্য কোনো কিতাব দুটি স্বাধীন উপায়ে একই সাথে সংরক্ষিত হয়নি: প্রতিটি প্রজন্মে লক্ষ লক্ষ মানুষের অবিচ্ছিন্ন মুখস্থকরণের ধারা, এবং লিখিত পাণ্ডুলিপি ঐতিহ্য। দুটি পদ্ধতি একে অপরকে যাচাই করে—একজন জালিয়াৎ বিশ্বব্যাপী, বিচ্ছিন্ন সম্প্রদায়জুড়ে একই সাথে উভয়কে বিকৃত করতে পারে না। প্রাথমিক পাণ্ডুলিপি—সানআর চর্মপত্র, তোপকাপি কোডেক্স, বার্মিংহাম পাতা—আজ বিশ্বব্যাপী পঠিত টেক্সটের সাথে ঘনিষ্ঠভাবে মেলে। কুরআন এটিকে ঐশী গ্যারান্টি হিসেবে বিবেচনা করে: "নিশ্চয়ই আমিই এই উপদেশ অবতীর্ণ করেছি এবং আমিই এর সংরক্ষক" (কুরআন ১৫:৯)—এটি নিছক দাবি নয়, পরীক্ষণযোগ্য দাবি হিসেবে উপস্থাপিত।',
+        },
+      },
+      {
+        heading: { en: 'The open challenge and fourteen centuries of silence', bn: 'উন্মুক্ত চ্যালেঞ্জ ও চৌদ্দ শতাব্দীর নীরবতা' },
+        body: {
+          en: 'The Quran issues a unique, open and unretracted challenge to produce a surah comparable in quality: "And if you are in doubt about what We have sent down upon Our Servant, then produce a surah the like thereof and call upon your witnesses other than God, if you should be truthful" (Quran 2:23). This challenge was issued to master poets and orators who had every motive to answer it. It was not met in the Prophet\'s lifetime. It has not been credibly met in fourteen centuries, despite many attempts. The challenge remains open. No one is compelled to accept this reasoning — but the absence of a successful response after fourteen centuries of motivated effort forms part of the cumulative case for the Quran\'s divine origin.',
+          bn: 'কুরআন তুলনীয় মানের একটি সুরা তৈরির এক অনন্য, উন্মুক্ত ও প্রত্যাহার না করা চ্যালেঞ্জ করে: "আমি আমার বান্দার প্রতি যা অবতীর্ণ করেছি তাতে যদি তোমরা সন্দেহে থাকো, তবে এর মতো একটি সুরা নিয়ে এসো এবং আল্লাহ ছাড়া তোমাদের সাক্ষীদের ডাকো" (কুরআন ২:২৩)। এই চ্যালেঞ্জ শীর্ষ কবি ও বক্তাদের সামনে করা হয়েছিল যাদের এর উত্তর দেওয়ার প্রতিটি প্রেরণা ছিল। নবীর জীবদ্দশায় এটি পূরণ হয়নি। চৌদ্দ শতাব্দীতে অনেক প্রচেষ্টা সত্ত্বেও বিশ্বাসযোগ্যভাবে পূরণ হয়নি। চ্যালেঞ্জটি উন্মুক্ত থাকে। কাউকে এই যুক্তি মানতে বাধ্য করা হচ্ছে না—তবে চৌদ্দ শতাব্দীর প্রেরণাযুক্ত প্রচেষ্টার পরেও সফল সাড়ার অনুপস্থিতি কুরআনের ঐশী উৎসের পক্ষে ক্রমযোজিত যুক্তির অংশ।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'knowledge-check',
+    emoji: '📝',
+    kind: 'qa',
+    qaLabel: { en: 'Q', bn: 'প্র' },
+    title: { en: 'Knowledge Check: Aqidah & Misconceptions', bn: 'জ্ঞান যাচাই: আকিদা ও ভুল ধারণা' },
+    summary: {
+      en: 'Eight questions reviewing key points from this module — expand each to reveal the answer.',
+      bn: 'এই মডিউলের মূল বিষয় পর্যালোচনার জন্য আটটি প্রশ্ন—উত্তর দেখতে প্রতিটি প্রশ্ন প্রসারিত করুন।',
+    },
+    qa: [
+      {
+        q: { en: 'What are the three dimensions of tawhid?', bn: 'তাওহিদের তিনটি দিক কী কী?' },
+        a: {
+          en: 'The three dimensions are: (1) Rububiyyah — God alone creates, sustains and governs all things; (2) Uluhiyyah — God alone deserves worship and devotion; and (3) Asma wa Sifat — God\'s names and attributes are affirmed exactly as He described Himself, without likening Him to any created being. Together they mean there is no partner, rival or equal to God in any respect.',
+          bn: 'তিনটি দিক হলো: (১) রুবুবিয়্যাহ—কেবল আল্লাহই সৃষ্টি করেন, পালন করেন ও পরিচালনা করেন; (২) উলুহিয়্যাহ—কেবল আল্লাহই ইবাদত ও আনুগত্যের যোগ্য; এবং (৩) আসমা ওয়া সিফাত—আল্লাহর নাম ও গুণাবলি সেভাবেই নিশ্চিত করা হয় যেভাবে তিনি নিজেকে বর্ণনা করেছেন, সৃষ্টির সাথে তুলনা ছাড়াই। একত্রে এর অর্থ, কোনো দিক থেকেই আল্লাহর কোনো অংশীদার, প্রতিদ্বন্দ্বী বা সমতুল্য নেই।',
+        },
+      },
+      {
+        q: { en: 'What does the word "jihad" primarily mean in Islamic teaching — and what does it not mean?', bn: 'ইসলামি শিক্ষায় "জিহাদ" শব্দটি প্রাথমিকভাবে কী অর্থ বহন করে—এবং কী অর্থ বহন করে না?' },
+        a: {
+          en: 'Jihad means earnest striving toward a good goal. In its broadest sense it includes the internal struggle against moral failings (the "greater jihad"), effort to be an upright person, and work to build a just community. It does not primarily mean "holy war." Any use of defensive force in Islam is tightly conditioned, requires legitimate authority, and absolutely forbids targeting civilians. The overwhelming majority of Muslim scholars worldwide condemn terrorism as a violation of Islamic law.',
+          bn: 'জিহাদ মানে একটি ভালো লক্ষ্যের দিকে আন্তরিক সংগ্রাম। বৃহত্তম অর্থে এটি নৈতিক ব্যর্থতার বিরুদ্ধে অভ্যন্তরীণ সংগ্রাম ("বৃহত্তর জিহাদ"), সৎ মানুষ হওয়ার প্রচেষ্টা এবং ন্যায়সংগত সম্প্রদায় গড়ার কাজ অন্তর্ভুক্ত করে। এর প্রাথমিক অর্থ "ধর্মযুদ্ধ" নয়। ইসলামে যেকোনো প্রতিরক্ষামূলক শক্তি প্রয়োগ কঠোরভাবে শর্তযুক্ত, বৈধ কর্তৃপক্ষ প্রয়োজন এবং বেসামরিকদের লক্ষ্য বানানো সম্পূর্ণ নিষিদ্ধ।',
+        },
+      },
+      {
+        q: { en: 'What is the Kalam cosmological argument and how does the Quran relate to it?', bn: 'কালাম সৃষ্টিতাত্ত্বিক যুক্তি কী এবং কুরআন এর সাথে কীভাবে সম্পর্কিত?' },
+        a: {
+          en: 'The Kalam argument: (1) Whatever begins to exist has a cause; (2) the universe began to exist; (3) therefore the universe has a cause — one that is itself uncaused, immensely powerful, and beyond time and space. The Quran voices the same reflection conversationally: "Were they created by nothing? Or were they themselves the creators?" (Quran 52:35). The argument points toward a first cause outside the universe; tawhid adds that this cause is one, not many.',
+          bn: 'কালাম যুক্তি: (১) যার অস্তিত্বের সূচনা আছে তার একটি কারণ আছে; (২) মহাবিশ্বের সূচনা আছে; (৩) সুতরাং মহাবিশ্বের একটি কারণ আছে—যা নিজে অকারণ, অপরিসীম ক্ষমতাসম্পন্ন, কাল ও স্থানের বাইরে। কুরআন একই প্রতিফলন কথ্য ভাষায় ব্যক্ত করে: "তারা কি স্রষ্টা ছাড়াই সৃষ্টি হয়েছে? নাকি তারাই স্রষ্টা?" (কুরআন ৫২:৩৫)। যুক্তিটি মহাবিশ্বের বাইরে একটি প্রথম কারণের দিকে ইঙ্গিত করে; তাওহিদ যোগ করে এই কারণ এক, একাধিক নয়।',
+        },
+      },
+      {
+        q: { en: 'Does the Quran conflict with modern science? What is the mainstream Islamic scholarly position?', bn: 'কুরআন কি আধুনিক বিজ্ঞানের সাথে দ্বন্দ্ব করে? মূলধারার ইসলামি শাস্ত্রীয় অবস্থান কী?' },
+        a: {
+          en: 'The mainstream Islamic scholarly position is that the Quran and science address different domains: the Quran is guidance for moral and spiritual life, not a science textbook. Islam has no institutional history of opposing scientific inquiry — the Islamic Golden Age produced foundational advances across multiple sciences. Apparent tensions usually dissolve on careful reading since the Quran addresses spiritual matters, not technical cosmology. Responsible scholarship also cautions against overclaiming specific "scientific predictions" in the Quran.',
+          bn: 'মূলধারার ইসলামি শাস্ত্রীয় অবস্থান হলো কুরআন ও বিজ্ঞান ভিন্ন ক্ষেত্র সম্বোধন করে: কুরআন নৈতিক ও আধ্যাত্মিক জীবনের হিদায়াত, বিজ্ঞানের পাঠ্যপুস্তক নয়। বৈজ্ঞানিক অনুসন্ধানে বিরোধিতার ইসলামের কোনো প্রাতিষ্ঠানিক ইতিহাস নেই—ইসলামের স্বর্ণযুগ একাধিক বিজ্ঞানে মৌলিক অগ্রগতি উৎপাদন করেছিল। কুরআন আধ্যাত্মিক বিষয় সম্বোধন করে বলে বাহ্যিক দ্বন্দ্বগুলো সতর্ক পাঠে সাধারণত গলে যায়। দায়িত্বশীল বৃত্তি কুরআনে নির্দিষ্ট "বৈজ্ঞানিক ভবিষ্যদ্বাণী"র অতিরিক্ত দাবি থেকেও সতর্ক করে।',
+        },
+      },
+      {
+        q: { en: 'What does i\'jaz al-Quran mean and why is it significant?', bn: '"ইজাজুল কুরআন" কী অর্থ বহন করে এবং এটি কেন গুরুত্বপূর্ণ?' },
+        a: {
+          en: 'I\'jaz al-Quran means the inimitability of the Quran — the claim that its Arabic is linguistically unique and has never been equalled. The Quran issues an open challenge to produce a comparable surah (Quran 2:23). Classical Arab literary experts, who had every reason to disprove it, acknowledged that the Quran does not fit existing literary categories. This challenge has not been credibly met in fourteen centuries. It forms one line of evidence for the Quran\'s divine origin, directed particularly to scholars of the Arabic language.',
+          bn: '"ইজাজুল কুরআন" মানে কুরআনের অতুলনীয়তা—এই দাবি যে এর আরবি ভাষাগতভাবে অনন্য এবং কখনো তুলনীয় হয়নি। কুরআন তুলনীয় একটি সুরা তৈরির উন্মুক্ত চ্যালেঞ্জ করে (কুরআন ২:২৩)। ধ্রুপদী আরবি সাহিত্য-বিশেষজ্ঞরা, যাদের দাবিটি খণ্ডন করার প্রতিটি কারণ ছিল, স্বীকার করেছেন যে কুরআন বিদ্যমান সাহিত্যিক শ্রেণিতে পড়ে না। চৌদ্দ শতাব্দীতে এই চ্যালেঞ্জ বিশ্বাসযোগ্যভাবে পূরণ হয়নি। এটি কুরআনের ঐশী উৎসের প্রমাণের একটি ধারা গঠন করে।',
+        },
+      },
+      {
+        q: { en: 'What is the Islamic teaching on freedom of belief and conscience?', bn: 'বিশ্বাস ও বিবেকের স্বাধীনতা নিয়ে ইসলামের শিক্ষা কী?' },
+        a: {
+          en: 'The Quran is unambiguous: "There is no compulsion in religion" (Quran 2:256). The Prophet\'s role is described as conveying the message, not compelling belief: "Your duty is only to convey" (Quran 3:20). The Quran accepts that some will not believe and that God alone judges hearts (Quran 10:99). In Medina the Prophet signed agreements guaranteeing religious freedom for different communities. Islam holds that genuine faith must be freely chosen — by its very nature it cannot be coerced.',
+          bn: 'কুরআন দ্ব্যর্থহীন: "দ্বীনের ব্যাপারে কোনো জবরদস্তি নেই" (কুরআন ২:২৫৬)। নবীর ভূমিকাকে বার্তা পৌঁছানো হিসেবে বর্ণনা করা হয়েছে, বিশ্বাস চাপিয়ে দেওয়া নয়: "তোমার কর্তব্য কেবল পৌঁছানো" (কুরআন ৩:২০)। কুরআন স্বীকার করে যে কেউ কেউ বিশ্বাস করবে না এবং কেবল আল্লাহই হৃদয় বিচার করেন (কুরআন ১০:৯৯)। মদিনায় নবী বিভিন্ন সম্প্রদায়ের ধর্মীয় স্বাধীনতা নিশ্চিতকারী চুক্তি স্বাক্ষর করেছিলেন। ইসলাম মনে করে প্রকৃত ঈমান অবশ্যই স্বাধীনভাবে বেছে নিতে হবে—তার স্বভাবেই তা জবরদস্তিমূলক হতে পারে না।',
+        },
+      },
+      {
+        q: { en: 'Why did the Islamic Golden Age produce so much scientific progress?', bn: 'কেন ইসলামের স্বর্ণযুগে এত বৈজ্ঞানিক অগ্রগতি হয়েছিল?' },
+        a: {
+          en: 'Because the Islamic intellectual tradition treated the study of the natural world as a religious obligation. The Quran repeatedly commands observation and reflection on creation. The Prophet declared seeking knowledge a duty on every Muslim. This produced a civilisation of scholars — al-Khwarizmi (algebra), Ibn al-Haytham (optics), Ibn Sina (medicine), al-Biruni (geography) — who worked explicitly within a faith framework that regarded understanding God\'s creation as an act of worship. The Golden Age demonstrates that Islam and rigorous intellectual inquiry are not only compatible but historically produced each other.',
+          bn: 'কারণ ইসলামি বুদ্ধিবৃত্তিক ঐতিহ্য প্রাকৃতিক জগতের অধ্যয়নকে ধর্মীয় বাধ্যবাধকতা হিসেবে বিবেচনা করেছিল। কুরআন বারবার সৃষ্টিতে পর্যবেক্ষণ ও প্রতিফলনের নির্দেশ দেয়। নবী জ্ঞান অন্বেষণকে প্রত্যেক মুসলিমের কর্তব্য ঘোষণা করেছেন। এটি এমন এক আলিম সভ্যতা তৈরি করেছিল—আল-খোয়ারিজমি (বীজগণিত), ইবনুল হাইসাম (আলোকবিজ্ঞান), ইবনে সিনা (চিকিৎসা), আল-বিরুনি (ভূগোল)—যাঁরা কাজ করেছেন এমন ঈমানি কাঠামোর মধ্যে যা আল্লাহর সৃষ্টি বোঝাকে ইবাদতের কাজ গণ্য করত।',
+        },
+      },
+      {
+        q: { en: 'What does Islam teach about the status of slavery today?', bn: 'আজকের দিনে দাসপ্রথার বিষয়ে ইসলাম কী শেখায়?' },
+        a: {
+          en: 'The overwhelming global consensus among Muslim scholars today is that all forms of slavery and human trafficking are absolutely prohibited in Islam. This conclusion is drawn from core Islamic principles: the Quran affirms the equal dignity of all human beings (Quran 49:13), praises freeing enslaved people as among the highest acts of charity (Quran 90:13), and the objectives of Islamic law (maqasid al-shari\'a) include the protection of human life and dignity. Though Islamic law in 7th-century Arabia did not abolish slavery by immediate decree, its moral trajectory pointed clearly toward abolition — and that trajectory is what modern Muslim scholars invoke.',
+          bn: 'আজ বিশ্বব্যাপী মুসলিম আলিমদের মধ্যে অপ্রতিরোধ্য ঐকমত্য হলো, সমস্ত ধরনের দাসত্ব ও মানব পাচার ইসলামে সম্পূর্ণ নিষিদ্ধ। এই সিদ্ধান্ত ইসলামের মূল নীতি থেকে আসে: কুরআন সমস্ত মানুষের সমান মর্যাদা নিশ্চিত করে (কুরআন ৪৯:১৩), দাস মুক্তিকে সর্বোচ্চ দাতব্য কাজের একটি হিসেবে প্রশংসা করে (কুরআন ৯০:১৩), এবং মাকাসিদ আল-শরিয়া (ইসলামি আইনের উদ্দেশ্য) মানব জীবন ও মর্যাদা রক্ষা অন্তর্ভুক্ত করে।',
+        },
+      },
+    ],
+  },
+  /* ── WAVE 2: Deeper Topics ──────────────────────────────────────────────── */
+  {
+    id: 'meaning-of-life',
+    emoji: '🌱',
+    kind: 'article',
+    title: { en: 'The Meaning and Purpose of Life', bn: 'জীবনের অর্থ ও উদ্দেশ্য' },
+    summary: {
+      en: 'What Islam teaches about why we exist — rooted in the Quran and contrasted with secular alternatives.',
+      bn: 'কেন আমরা বিদ্যমান — কুরআনের ভিত্তিতে ইসলাম কী শেখায় এবং ধর্মনিরপেক্ষ বিকল্পের সাথে তুলনা।',
+    },
+    points: [
+      {
+        heading: { en: 'The Quranic answer: worship and stewardship', bn: 'কুরআনের উত্তর: ইবাদত ও খিলাফত' },
+        body: {
+          en: 'The Quran states the purpose plainly: "I did not create jinn and humankind except to worship Me" (51:56). In Arabic, \'ibadah (worship) is far broader than the English word — it encompasses every conscious action done with awareness of God, not merely rituals. Alongside this, humans are called God\'s khalifah (vicegerent) on earth (2:30), entrusted with building it justly. Purpose is therefore both devotional and ethical: to orient the self toward God and to serve creation well.',
+          bn: 'কুরআন উদ্দেশ্য সরাসরি বলে দেয়: "আমি জিন ও মানবজাতিকে কেবল আমার ইবাদতের জন্যই সৃষ্টি করেছি" (৫১:৫৬)। আরবিতে \'ইবাদাহ\' ইংরেজি \'worship\'-এর চেয়ে অনেক ব্যাপক — এটি আল্লাহর সচেতনতায় করা প্রতিটি কাজকে অন্তর্ভুক্ত করে, কেবল আচার নয়। পাশাপাশি, মানুষকে পৃথিবীতে আল্লাহর খলিফা (প্রতিনিধি) বলা হয়েছে (২:৩০)। উদ্দেশ্য তাই উভয়ই — আধ্যাত্মিক ও নৈতিক।',
+        },
+      },
+      {
+        heading: { en: 'A test with moral weight', bn: 'নৈতিক গুরুত্বসম্পন্ন পরীক্ষা' },
+        body: {
+          en: 'The Quran frames worldly life as a purposeful examination: "He who created death and life to test you as to which of you is best in deed" (67:2). Choices matter; actions carry weight. Surah al-Insan (76:2) describes humanity as created from a mixed drop and placed in trial — difficulty is not accidental but woven into the human story. This gives moral seriousness to every decision, however small.',
+          bn: 'কুরআন পার্থিব জীবনকে উদ্দেশ্যমূলক পরীক্ষা হিসেবে বর্ণনা করে: "যিনি মৃত্যু ও জীবন সৃষ্টি করেছেন তোমাদের পরীক্ষা করতে — তোমাদের মধ্যে কর্মে কে উত্তম" (৬৭:২)। পছন্দ গুরুত্বপূর্ণ; কর্মের ওজন আছে। সূরা আল-ইনসান (৭৬:২) মানুষকে পরীক্ষায় স্থাপিত হিসেবে বর্ণনা করে — কষ্ট আকস্মিক নয়, মানব কাহিনিতে বোনা।',
+        },
+      },
+      {
+        heading: { en: 'Contrasting the nihilist answer', bn: 'শূন্যবাদী উত্তরের সাথে তুলনা' },
+        body: {
+          en: 'Some secular philosophies conclude that life has no inherent meaning — we are products of blind evolutionary processes, and any purpose we adopt is self-constructed. Islam engages this honestly: on a purely materialist premise, meaninglessness does follow logically. Its counter is a theistic argument: if a wise Creator made the universe and human consciousness, then meaning is built into existence, not invented. The Quran invites reflection rather than mere assertion: "Will you not then reason?" (67:10).',
+          bn: 'কিছু ধর্মনিরপেক্ষ দর্শন সিদ্ধান্তে পৌঁছায় যে জীবনের কোনো অন্তর্নিহিত অর্থ নেই। ইসলাম এটি সৎভাবে মোকাবেলা করে: বিশুদ্ধ বস্তুবাদী ভিত্তিতে অর্থহীনতার উপসংহার যৌক্তিকভাবে অনুসরণ করে। এর পাল্টা যুক্তি: যদি একজন জ্ঞানী স্রষ্টা মহাবিশ্ব ও মানব চেতনা তৈরি করেন, তাহলে অর্থ আবিষ্কৃত নয়, বরং অস্তিত্বের মধ্যেই নির্মিত। কুরআন জিজ্ঞেস করে: "তোমরা কি তবু চিন্তা করবে না?" (৬৭:১০)।',
+        },
+      },
+      {
+        heading: { en: 'Purpose made practical', bn: 'উদ্দেশ্যকে বাস্তবে রূপান্তর' },
+        body: {
+          en: 'Islamic purpose is not abstract — it is expressed in daily life: prayer that anchors the self five times a day, honest work done as worship, kindness to neighbours as religious duty, and the pursuit of knowledge as an obligation. The Prophet ﷺ said: "A good word is charity." Purpose is not found by searching elsewhere but by acting well wherever one already stands.',
+          bn: 'ইসলামের উদ্দেশ্য বিমূর্ত নয় — এটি দৈনন্দিন জীবনে প্রকাশ পায়: দিনে পাঁচবার নামাজ, সৎ কাজ যা ইবাদত, প্রতিবেশীর প্রতি দয়া যা ধর্মীয় কর্তব্য, এবং জ্ঞান অন্বেষণ যা বাধ্যতামূলক। নবী ﷺ বলেছেন: "একটি ভালো কথা সদকা।" উদ্দেশ্য অন্য কোথাও খোঁজার বিষয় নয়, যেখানে আছেন সেখানে ভালো করার মধ্যেই।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'morality-without-god',
+    emoji: '⚖️',
+    kind: 'article',
+    title: { en: 'Morality and Its Foundation', bn: 'নৈতিকতা ও তার ভিত্তি' },
+    summary: {
+      en: 'Can objective morality exist without God? Islam\'s answer and how tawhid grounds ethical life.',
+      bn: 'আল্লাহ ছাড়া কি বস্তুনিষ্ঠ নৈতিকতা থাকতে পারে? ইসলামের উত্তর এবং তাওহিদ কীভাবে নৈতিক জীবনের ভিত্তি।',
+    },
+    points: [
+      {
+        heading: { en: 'The grounding problem', bn: 'ভিত্তির সমস্যা' },
+        body: {
+          en: 'Moral philosophy has long wrestled with a key question: if there is no God, what makes any action objectively right or wrong rather than merely preferred by custom? Secular answers — evolutionary pressure, social contract, utilitarian calculation — explain why humans develop moral codes, but face difficulty grounding those codes as genuinely binding beyond convention. Islam does not deny that non-believers can act with integrity; it raises the philosophical question of where, ultimately, the obligation to do so comes from.',
+          bn: 'নৈতিক দর্শন দীর্ঘদিন ধরে একটি মূল প্রশ্নের সাথে লড়াই করছে: আল্লাহ না থাকলে, কোনো কাজকে বস্তুনিষ্ঠভাবে সঠিক বা ভুল কী করে? ধর্মনিরপেক্ষ উত্তরগুলো — বিবর্তনীয় চাপ, সামাজিক চুক্তি, উপযোগবাদী গণনা — ব্যাখ্যা করে কেন মানুষ নৈতিক বিধি তৈরি করে, কিন্তু সেই বিধিগুলোকে প্রথার বাইরে বাধ্যকর হিসেবে প্রতিষ্ঠিত করতে অসুবিধায় পড়ে।',
+        },
+      },
+      {
+        heading: { en: 'Tawhid as the moral foundation', bn: 'তাওহিদ নৈতিক ভিত্তি হিসেবে' },
+        body: {
+          en: 'Islam grounds morality in tawhid: God is one, and He is just, merciful and wise by nature — not arbitrarily. Because moral qualities are attributes of the one Creator, they are not cultural inventions but realities woven into existence. Humans were created with a fitra (natural constitution) that recognises justice and kindness as good, and cruelty and deception as wrong. This is why, Islamic thinkers note, moral intuitions tend to converge across cultures — they reflect a shared human nature made by one Maker.',
+          bn: 'ইসলাম নৈতিকতার ভিত্তি তাওহিদে স্থাপন করে: আল্লাহ এক, এবং তিনি স্বভাবতই ন্যায়বান, দয়ালু ও জ্ঞানী। যেহেতু নৈতিক গুণাবলি এক স্রষ্টার বৈশিষ্ট্য, সেগুলো সাংস্কৃতিক আবিষ্কার নয়, বরং অস্তিত্বের মধ্যে বোনা বাস্তবতা। মানুষ ফিতরা সহ সৃষ্ট যা ন্যায় ও দয়াকে ভালো এবং নিষ্ঠুরতাকে ভুল বলে চেনে। এ কারণেই নৈতিক অন্তর্দৃষ্টি সংস্কৃতিজুড়ে একত্রিত হতে থাকে।',
+        },
+      },
+      {
+        heading: { en: 'Akhlaq: character as worship', bn: 'আখলাক: চরিত্র ইবাদত হিসেবে' },
+        body: {
+          en: 'In Islamic ethics, akhlaq (noble character) is inseparable from iman (faith). The Prophet ﷺ said: "The most complete of believers in faith are those with the best character." Generosity, honesty, patience and compassion are not merely social duties but expressions of one\'s inner relationship with God. One who truly internalises tawhid is naturally moved toward humility, gratitude and fair treatment of others — ethics becomes an expression of theology, not a separate compartment.',
+          bn: 'ইসলামি নীতিশাস্ত্রে আখলাক (মহৎ চরিত্র) ঈমান থেকে অবিচ্ছেদ্য। নবী ﷺ বলেছেন: "সবচেয়ে পরিপূর্ণ মুমিন সেই যার চরিত্র সর্বোত্তম।" উদারতা, সততা, ধৈর্য ও সহানুভূতি বাহ্যিক দায়িত্ব নয়, বরং আল্লাহর সাথে ব্যক্তির অভ্যন্তরীণ সম্পর্কের প্রকাশ। যে ব্যক্তি সত্যিকারে তাওহিদ আত্মস্থ করেছে সে স্বাভাবিকভাবেই বিনম্রতা ও ন্যায়ের দিকে পরিচালিত হয়।',
+        },
+      },
+      {
+        heading: { en: 'Accountability gives morality its teeth', bn: 'জবাবদিহিতা নৈতিকতাকে কার্যকর করে' },
+        body: {
+          en: 'A distinctive feature of Islamic ethics is the link between morality and accountability before God. It is not only that one should be honest — it is that one will be asked about one\'s honesty. In a world where the powerful often escape human consequences, Islam teaches that no action, however hidden, escapes divine record (99:7-8). This is not a fearful ethic but a deeply motivating one: integrity matters absolutely, not merely when others are watching.',
+          bn: 'ইসলামি নীতিশাস্ত্রের একটি বৈশিষ্ট্য হলো নৈতিকতা ও আল্লাহর কাছে জবাবদিহিতার সংযোগ। কেবল সৎ হওয়া উচিত নয় — সততা সম্পর্কে জিজ্ঞাসা করা হবে। ক্ষমতাবানরা প্রায়ই মানবিক পরিণতি এড়িয়ে যায়, কিন্তু ইসলাম শেখায় কোনো কাজ, যতই লুকানো হোক, ঐশী নথি থেকে পালাতে পারে না (৯৯:৭-৮)। সততা নিরঙ্কুশভাবে গুরুত্বপূর্ণ, কেবল অন্যরা দেখছে তখন নয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'comparative-religion',
+    emoji: '🕊️',
+    kind: 'article',
+    title: { en: 'Islam Among the Abrahamic Traditions', bn: 'আব্রাহামিক ঐতিহ্যগুলোর মধ্যে ইসলাম' },
+    summary: {
+      en: 'Shared roots with Judaism and Christianity, where Islam agrees, where it diverges, and why — respectfully presented.',
+      bn: 'ইহুদি ধর্ম ও খ্রিস্টানিটির সাথে ভাগ করা মূল, ইসলাম কোথায় একমত, কোথায় ভিন্ন এবং কেন — শ্রদ্ধার সাথে।',
+    },
+    points: [
+      {
+        heading: { en: 'Shared Abrahamic ground', bn: 'অভিন্ন আব্রাহামিক ভিত্তি' },
+        body: {
+          en: 'Islam, Judaism and Christianity share foundational commitments: monotheism, the authority of divine revelation, moral accountability, the reality of an afterlife, and the importance of Abraham (Ibrahim) as a patriarch of faith. The Quran honours the Torah and Gospel as divine guidance sent for their times and treats Moses and Jesus as major prophets worthy of deep respect. Islam regards itself as the restoration and completion of the same message these traditions preserve — a claim it offers openly for examination.',
+          bn: 'ইসলাম, ইহুদি ধর্ম ও খ্রিস্টানিটি মৌলিক প্রতিশ্রুতির একটি পরিবার ভাগ করে: একেশ্বরবাদ, ঐশী প্রকাশের কর্তৃত্ব, নৈতিক জবাবদিহিতা, পরকালের বাস্তবতা, এবং ইব্রাহিম (আ.) কে বিশ্বাসের পিতৃপুরুষ হিসেবে গুরুত্ব। কুরআন তাওরাত ও ইঞ্জিলকে তাদের সময়ের জন্য প্রেরিত ঐশী হিদায়াত হিসেবে সম্মান করে এবং মূসা ও ঈসা (আ.) কে শ্রদ্ধার যোগ্য প্রধান নবী হিসেবে বিবেচনা করে।',
+        },
+      },
+      {
+        heading: { en: 'Islam and Judaism: significant alignment', bn: 'ইসলাম ও ইহুদি ধর্ম: উল্লেখযোগ্য মিল' },
+        body: {
+          en: 'Of the three traditions, Islam and Judaism share some of the closest theological ground. Both affirm an undivided, non-incarnate God; both have a framework of religious law governing daily life (halakha and sharia); both observe ritual purity and dietary rules; and both emphasise direct, personal repentance to God without a priestly intermediary. Classical Muslim scholars regularly noted these convergences as evidence that both traditions drew from the same prophetic wellspring.',
+          bn: 'তিনটি ঐতিহ্যের মধ্যে ইসলাম ও ইহুদি ধর্ম নিকটতম ধর্মতাত্ত্বিক ভূমি ভাগ করে। উভয়ই অবিভক্ত, অ-অবতার আল্লাহকে নিশ্চিত করে; উভয়েরই দৈনন্দিন জীবন নিয়ন্ত্রণকারী ধর্মীয় আইনের কাঠামো রয়েছে; উভয়ই আচারগত পবিত্রতা ও খাদ্যবিধি মেনে চলে; এবং উভয়ই পুরোহিত মধ্যস্থতাকারী ছাড়াই আল্লাহর কাছে সরাসরি তওবার উপর জোর দেয়।',
+        },
+      },
+      {
+        heading: { en: 'Islam and Christianity: shared love, key divergences', bn: 'ইসলাম ও খ্রিস্টানিটি: ভাগ করা ভালোবাসা, মূল পার্থক্য' },
+        body: {
+          en: 'Both Islam and Christianity revere Jesus (peace be upon him) deeply. The Quran affirms his virgin birth (3:47), his miracles, and his titles "Spirit of God" and "Word of God" (4:171). The divergence is on his nature: Christianity developed the doctrines of the Trinity and divine incarnation; Islam affirms Jesus as one of the greatest prophets but maintains that God does not become human and has no partners (112:1-4). Islamic scholarship sees this not as a rejection of Jesus but as preserving strict tawhid — the consistent message of all prophets including Jesus himself.',
+          bn: 'ইসলাম ও খ্রিস্টানিটি উভয়ই ঈসা (আ.) কে গভীরভাবে সম্মান করে। কুরআন তাঁর কুমারী জন্ম (৩:৪৭), তাঁর মু\'জিজা, এবং "রূহুল্লাহ" ও "কালিমাতুল্লাহ" উপাধি (৪:১৭১) নিশ্চিত করে। পার্থক্য তাঁর প্রকৃতিতে: খ্রিস্টানিটি ত্রিত্ব ও ঐশী অবতার মতবাদ বিকশিত করেছে; ইসলাম ঈসা (আ.) কে সর্বশ্রেষ্ঠ নবীদের একজন বলে এবং মনে করে আল্লাহর কোনো অংশীদার নেই (১১২:১-৪)।',
+        },
+      },
+      {
+        heading: { en: 'Continuation, not rejection', bn: 'প্রত্যাখ্যান নয়, ধারাবাহিকতা' },
+        body: {
+          en: 'Islam\'s self-understanding is that it does not abolish earlier revelation but fulfils and completes it: "confirming that which preceded it" (5:48). Muslims are asked to hold the prophets of the Torah and Gospels in honour — "We make no distinction between any of His messengers" (2:285). An encounter with Islam need not feel like a repudiation of one\'s entire religious heritage, but a deepening of it — following Abraham\'s path of pure monotheism wherever it leads.',
+          bn: 'ইসলামের আত্ম-বোধ হলো এটি পূর্ববর্তী প্রকাশকে বিলুপ্ত করে না, বরং পরিপূর্ণ ও সম্পূর্ণ করে: "পূর্ববর্তী কিতাবের সত্যায়নকারী" (৫:৪৮)। মুসলিমদের তাওরাত ও ইঞ্জিলের নবীদের সম্মানে ধারণ করতে বলা হয় — "আমরা তাঁর রাসূলদের মধ্যে কোনো পার্থক্য করি না" (২:২৮৫)। ইসলামের সাথে সাক্ষাৎ নিজের সম্পূর্ণ ধর্মীয় ঐতিহ্যের প্রত্যাখ্যান নয়, বরং তার গভীরতা।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'spread-of-islam',
+    emoji: '🌍',
+    kind: 'article',
+    title: { en: 'How and Why Islam Spread', bn: 'ইসলাম কীভাবে ও কেন ছড়িয়েছিল' },
+    summary: {
+      en: 'A balanced account of the theological, social and historical factors behind Islam\'s rapid and sustained spread.',
+      bn: 'ইসলামের দ্রুত ও টেকসই বিস্তারের পেছনে ধর্মতাত্ত্বিক, সামাজিক ও ঐতিহাসিক কারণগুলোর একটি ভারসাম্যপূর্ণ বিবরণ।',
+    },
+    points: [
+      {
+        heading: { en: 'The theological appeal of clarity', bn: 'স্পষ্টতার ধর্মতাত্ত্বিক আকর্ষণ' },
+        body: {
+          en: 'Islam offered a theology of unusual clarity: one God, no intermediaries, no complex doctrinal hierarchy required for salvation, and a direct relationship between the worshipper and the Divine. In the 7th century this was striking in a region where polytheism offered little comfort and where Christianity\'s councils had produced sharp internal debates about the nature of Christ. Many early converts in Arabia, Persia, Syria and Egypt noted the simplicity and directness of the message as decisive in their acceptance.',
+          bn: 'ইসলাম অসাধারণ স্পষ্টতার ধর্মতত্ত্ব উপস্থাপন করেছিল: এক আল্লাহ, কোনো মধ্যস্থতাকারী নেই, মুক্তির জন্য কোনো জটিল মতবাদগত শ্রেণিবিন্যাস নেই। ৭ম শতাব্দীতে এটি বিশেষভাবে আকর্ষণীয় ছিল এমন একটি অঞ্চলে যেখানে বহুদেবতাবাদ সামান্য সান্ত্বনা দিত এবং যেখানে খ্রিস্টানিটির কাউন্সিলগুলো তীব্র অভ্যন্তরীণ বিতর্ক তৈরি করেছিল।',
+        },
+      },
+      {
+        heading: { en: 'Social justice and radical egalitarianism', bn: 'সামাজিক ন্যায়বিচার ও মৌলিক সাম্যবাদ' },
+        body: {
+          en: 'Islam\'s insistence on human equality was revolutionary in stratified societies. The Quran declared that no Arab has superiority over a non-Arab except in God-consciousness (49:13). Bilal, an Ethiopian former slave, became the first muezzin — a position of profound honour. Zakat institutionalised wealth redistribution as a pillar of faith, not optional charity. Freed slaves, poor merchants and tribal outcasts were among the earliest converts precisely because Islam offered them genuine equality, not merely the promise of it.',
+          bn: 'স্তরবিভক্ত সমাজে মানব সমতার উপর ইসলামের জোর ছিল বৈপ্লবিক। কুরআন ঘোষণা করেছিল কোনো আরবের অনারবের উপর শ্রেষ্ঠত্ব নেই তাকওয়া ছাড়া (৪৯:১৩)। ইথিওপিয়ান প্রাক্তন দাস বিলাল ইসলামের প্রথম মুয়াজ্জিন হয়েছিলেন। যাকাত সম্পদ পুনর্বণ্টন প্রাতিষ্ঠানিক করেছিল। মুক্তিপ্রাপ্ত দাস ও দরিদ্র বণিকরা প্রথম দিকের অনেক ধর্মান্তরিতের মধ্যে ছিলেন কারণ ইসলাম তাদের প্রকৃত সমতার সম্প্রদায় দিয়েছিল।',
+        },
+      },
+      {
+        heading: { en: 'Trade, scholarship and cultural vitality', bn: 'বাণিজ্য, পাণ্ডিত্য ও সাংস্কৃতিক প্রাণশক্তি' },
+        body: {
+          en: 'Islam spread along trade routes as much as through military campaigns — merchants from Mecca and Yemen carried the faith to East Africa, South and Southeast Asia, and sub-Saharan Africa centuries before any armies arrived there. The Islamic Golden Age (roughly 8th–13th centuries) produced breakthroughs in mathematics, medicine, astronomy and philosophy. The faith\'s emphasis on reading and intellectual inquiry made its centres of learning attractive to converts who valued scholarship.',
+          bn: 'ইসলাম সামরিক প্রচারণার মতো বাণিজ্য পথ ধরেও ছড়িয়েছিল — মক্কা ও ইয়েমেনের বণিকরা পূর্ব আফ্রিকা, দক্ষিণ ও দক্ষিণ-পূর্ব এশিয়ায় কোনো সেনাবাহিনী পৌঁছানোর শতাব্দী আগে বিশ্বাস বহন করেছিলেন। ইসলামিক স্বর্ণযুগ (৮ম-১৩শ শতাব্দী) গণিত, চিকিৎসা ও জ্যোতির্বিদ্যায় অগ্রগতি তৈরি করেছিল এবং বিশ্বাসের পাঠ ও বুদ্ধিবৃত্তিক অনুসন্ধানের জোর শিক্ষার কেন্দ্রগুলোকে আকর্ষণীয় করেছিল।',
+        },
+      },
+      {
+        heading: { en: 'A balanced assessment', bn: 'একটি ভারসাম্যপূর্ণ মূল্যায়ন' },
+        body: {
+          en: 'Honest scholarship acknowledges that military conquest played a role in expanding early Islamic state frontiers, and that conversion under political rule was not always purely voluntary. At the same time, the historical record shows large-scale conversion happening over generations in places where no Islamic government existed — Indonesia, sub-Saharan West Africa, parts of China. The persistence of large non-Muslim communities within historic Islamic empires demonstrates that mass forced conversion was not the primary mechanism. Islam\'s spread was driven by a combination of spiritual appeal, social justice, intellectual culture and political conditions.',
+          bn: 'সৎ পাণ্ডিত্য স্বীকার করে যে সামরিক বিজয় প্রাথমিক ইসলামি রাষ্ট্রের সীমানা সম্প্রসারণে ভূমিকা পালন করেছিল। একই সময়ে, ঐতিহাসিক নথি দেখায় বড় আকারের ধর্মান্তর ইন্দোনেশিয়া, পশ্চিম আফ্রিকা, চীনের কিছু অংশে — যেখানে কোনো ইসলামি সরকার ছিল না। ঐতিহাসিক ইসলামি সাম্রাজ্যের মধ্যে বড় অমুসলিম সম্প্রদায়ের অব্যাহততা প্রমাণ করে গণ জোরপূর্বক ধর্মান্তর প্রাথমিক প্রক্রিয়া ছিল না।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'first-muslims',
+    emoji: '⭐',
+    kind: 'article',
+    title: { en: 'The First Muslims: Diversity from the Start', bn: 'প্রথম মুসলিমরা: শুরু থেকে বৈচিত্র্য' },
+    summary: {
+      en: 'The stories of Bilal, Sumayyah, Suhayb and Salman — a freed slave, a martyred woman, a Byzantine merchant and a Persian seeker.',
+      bn: 'বিলাল, সুমাইয়া, সুহাইব ও সালমানের গল্প — একজন মুক্তিপ্রাপ্ত দাস, একজন শহীদ নারী, একজন বাইজান্টাইন বণিক ও একজন পার্সিয়ান সন্ধানকারী।',
+    },
+    points: [
+      {
+        heading: { en: 'Bilal ibn Rabah: dignity beyond origin', bn: 'বিলাল ইবন রাবাহ: উৎপত্তির বাইরে মর্যাদা' },
+        body: {
+          en: 'Bilal was an enslaved Abyssinian man whose master tortured him publicly — placing a boulder on his chest in the desert heat — to force him to recant Islam. His response, "Ahad, Ahad" (One, One), became one of the most celebrated testimonies of faith in Islamic history. Abu Bakr purchased and freed him. After the conquest of Mecca, the Prophet ﷺ personally asked Bilal to climb the Ka\'bah and give the call to prayer — a man once enslaved, now standing on Islam\'s holiest site calling all humanity to God. His story embodies Islam\'s claim that faith transcends origin.',
+          bn: 'বিলাল ছিলেন একজন ক্রীতদাস আবিসিনিয়ান মানুষ যাঁর মালিক তাঁকে ত্যাগ করাতে প্রকাশ্যে নির্যাতন করত। তাঁর প্রতিক্রিয়া — "আহাদ, আহাদ" — ইসলামি ইতিহাসে বিশ্বাসের সবচেয়ে উদযাপিত সাক্ষ্য। আবু বকর (রা.) তাঁকে কিনে মুক্ত করেছিলেন। মক্কা বিজয়ের পর নবী ﷺ ব্যক্তিগতভাবে বিলালকে কা\'বার উপরে উঠে আজান দিতে বলেছিলেন — একসময়ে দাস, এখন ইসলামের পবিত্রতম স্থানে দাঁড়িয়ে সমস্ত মানবজাতিকে আল্লাহর দিকে ডাকছেন।',
+        },
+      },
+      {
+        heading: { en: 'Sumayyah bint Khayyat: the first martyr', bn: 'সুমাইয়া বিনত খাব্বাত: প্রথম শহীদ' },
+        body: {
+          en: 'Sumayyah was an elderly enslaved woman among the earliest converts in Mecca. Along with her husband Yasir and son Ammar, she endured severe torture at the hands of Abu Jahl for refusing to recant her faith. Traditional accounts record that she became Islam\'s first martyr. Her name was preserved with honour by the companions and has been invoked across fourteen centuries as a symbol of steadfastness — a reminder that the foundations of Islam were laid not only by nobles and scholars but by those whom society had most marginalised.',
+          bn: 'সুমাইয়া ছিলেন মক্কায় ইসলামের প্রথম দিকের ধর্মান্তরিতদের মধ্যে একজন বৃদ্ধ দাসী। তাঁর স্বামী ইয়াসির ও পুত্র আম্মারের সাথে তিনি বিশ্বাস ত্যাগ করতে অস্বীকার করার কারণে আবু জাহলের হাতে তীব্র নির্যাতন সহ্য করেছিলেন। ঐতিহ্যগত বিবরণ নথিভুক্ত করে তিনি ইসলামের প্রথম শহীদ হয়েছিলেন। চৌদ্দ শতাব্দী ধরে তাঁর নাম অবিচলতার প্রতীক হিসেবে উদ্ধৃত হয়েছে।',
+        },
+      },
+      {
+        heading: { en: 'Suhayb ar-Rumi: the Roman who gave everything', bn: 'সুহাইব আর-রুমি: যিনি সবকিছু দিয়েছিলেন' },
+        body: {
+          en: 'Suhayb ibn Sinan, called "ar-Rumi" (the Roman/Byzantine), was enslaved as a child in Byzantine territory, later gained freedom and became a wealthy merchant in Mecca. When he sought to emigrate to Medina, the Quraysh demanded he leave behind all his earned wealth. He offered them everything in exchange for his freedom to follow his faith. When the Prophet ﷺ heard this, he greeted Suhayb warmly, expressing that his exchange was most profitable. His story illustrates that from the very beginning, Islam attracted converts from across ethnic and geographic boundaries.',
+          bn: 'সুহাইব ইবন সিনান, যাঁকে "আর-রুমি" বলা হত, বাইজান্টাইন অঞ্চলে শিশু বয়সে দাসত্বে পড়েছিলেন, পরে স্বাধীনতা অর্জন করেন এবং মক্কায় ধনী বণিক হয়ে ওঠেন। মদিনায় হিজরত করতে চাইলে কুরাইশরা তাঁর সম্পদ দাবি করে। তিনি বিশ্বাস অনুসরণের স্বাধীনতার বিনিময়ে সবকিছু দিতে রাজি হন। নবী ﷺ শুনে উষ্ণভাবে তাঁকে অভ্যর্থনা জানালেন এবং বললেন তাঁর বিনিময় লাভজনক।',
+        },
+      },
+      {
+        heading: { en: 'Salman al-Farisi: the long journey to truth', bn: 'সালমান আল-ফারিসি: সত্যের দীর্ঘ যাত্রা' },
+        body: {
+          en: 'Salman was born in Persia to a Zoroastrian family. His spiritual restlessness led him first to Christianity, where he served various priests and bishops across Persia, Iraq and Syria seeking the signs of the final prophet. A dying bishop directed him toward Arabia. He eventually reached Medina, recognised Muhammad ﷺ as the prophet he had been seeking, and became a close companion. He is credited with the strategic suggestion to dig a trench at the Battle of the Trench, drawing on Persian military tradition. The Prophet ﷺ described him as belonging to his own household — the deepest mark of spiritual kinship. Salman\'s journey is a timeless account of sincere seeking finding its destination.',
+          bn: 'সালমান পারস্যে একটি জরথুস্ট্রীয় পরিবারে জন্মগ্রহণ করেছিলেন। তাঁর আধ্যাত্মিক অস্থিরতা তাঁকে খ্রিস্টানিটিতে নিয়ে যায়, যেখানে তিনি চূড়ান্ত নবীর নিদর্শন খুঁজে পারস্য, ইরাক ও সিরিয়া জুড়ে বিভিন্ন পাদরির সেবা করেছিলেন। একজন মৃত্যুপথযাত্রী বিশপ তাঁকে আরবের দিকে ইঙ্গিত করেছিলেন। তিনি মদিনায় পৌঁছান, মুহাম্মাদ ﷺ কে চিহ্নিত করেন এবং ঘনিষ্ঠ সাহাবি হন। নবী ﷺ তাঁকে নিজের পরিবারের অন্তর্ভুক্ত বলে বর্ণনা করেছিলেন — গভীরতম আধ্যাত্মিক আত্মীয়তার চিহ্ন।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'slavery-in-islamic-history',
+    emoji: '⛓️',
+    kind: 'article',
+    title: { en: 'Slavery in Islamic History: Context and Reform', bn: 'ইসলামি ইতিহাসে দাসত্ব: প্রেক্ষাপট ও সংস্কার' },
+    summary: {
+      en: 'The 7th-century context, the legal paths Islam created toward freedom, its dignity provisions, and the modern scholarly consensus.',
+      bn: '৭ম শতাব্দীর প্রেক্ষাপট, ইসলাম মুক্তির জন্য যে আইনি পথ তৈরি করেছিল, মর্যাদার বিধান এবং আধুনিক পণ্ডিত ঐকমত্য।',
+    },
+    points: [
+      {
+        heading: { en: 'The world Islam was born into', bn: 'ইসলামের জন্মের বিশ্ব' },
+        body: {
+          en: 'When the Quran was revealed in the 7th century, slavery was a global institution embedded in the economies of every major civilisation — Roman, Persian, Byzantine, Indian and Chinese. Immediate total abolition would have been unenforceable and would have left enslaved people without economic infrastructure to survive. This context does not excuse every feature of the historical practice, but it explains why Islam worked through the institution rather than instantly outlawing it — using law, incentive and moral re-framing to dismantle it systematically.',
+          bn: '৭ম শতাব্দীতে কুরআন নাজিল হওয়ার সময় দাসত্ব ছিল একটি বৈশ্বিক প্রতিষ্ঠান যা রোমান, পার্সিয়ান, বাইজান্টাইন সহ প্রতিটি প্রধান সভ্যতার অর্থনীতিতে প্রোথিত ছিল। তাৎক্ষণিক সম্পূর্ণ বিলুপ্তি প্রয়োগযোগ্য হত না। এই প্রেক্ষাপট ঐতিহাসিক অনুশীলনের প্রতিটি বৈশিষ্ট্যকে ক্ষমা করে না, কিন্তু ব্যাখ্যা করে কেন ইসলাম তাৎক্ষণিক নিষিদ্ধের পরিবর্তে আইন, প্রণোদনা ও নৈতিক পুনর্বিন্যাস ব্যবহার করে পদ্ধতিগতভাবে ভেঙে দিতে কাজ করেছিল।',
+        },
+      },
+      {
+        heading: { en: 'Legal paths to freedom: kaffarah and mukataba', bn: 'মুক্তির আইনি পথ: কাফফারা ও মুকাতাবা' },
+        body: {
+          en: 'Islam created multiple legal mechanisms to reduce slavery. Kaffarah (expiation for sins such as breaking oaths or fasts) frequently required the freeing of a slave — making liberation a form of worship. Mukataba allowed an enslaved person to negotiate a written contract with their owner to purchase their own freedom in instalments, with the Quran directing owners not to withhold this opportunity (24:33). The Quran itself ranked freeing a slave among the highest acts of charity (90:13), and the Prophet ﷺ strongly encouraged manumission and practised it himself.',
+          bn: 'ইসলাম দাসত্ব হ্রাসের জন্য একাধিক আইনি প্রক্রিয়া তৈরি করেছিল। কাফফারা (পাপের প্রায়শ্চিত্ত) প্রায়ই একজন দাসকে মুক্ত করতে হত — মুক্তিকে ইবাদতের রূপ করে তুলল। মুকাতাবা একজন দাসকে কিস্তিতে নিজেদের স্বাধীনতা কেনার জন্য মালিকের সাথে লিখিত চুক্তি করার অনুমতি দিত, কুরআন মালিকদের এই সুযোগ না দেওয়ার নির্দেশ দিয়েছিল (২৪:৩৩)। কুরআন দাস মুক্তিকে সর্বোচ্চ দাতব্য কাজের মধ্যে স্থান দিয়েছে (৯০:১৩)।',
+        },
+      },
+      {
+        heading: { en: 'Dignity provisions within the law', bn: 'আইনের মধ্যে মর্যাদার বিধান' },
+        body: {
+          en: 'Islamic law placed significant restrictions on the treatment of enslaved people. An owner who physically harmed a slave was required to free that person. Enslaved persons had legal rights — their marriages were valid, their children free, their testimony heard in certain cases. The Quran and hadith repeatedly framed the enslaved as full human beings equal before God, entitled to food, clothing and rest comparable to their owner\'s. This was a marked departure from Roman law which classified slaves as property with no rights at all.',
+          bn: 'ইসলামি আইন দাস ব্যক্তিদের সাথে আচরণের উপর উল্লেখযোগ্য বিধিনিষেধ আরোপ করেছিল। যে মালিক শারীরিকভাবে দাসকে আঘাত করতেন তাঁকে সেই ব্যক্তিকে মুক্ত করতে হত। দাস ব্যক্তিদের আইনি অধিকার ছিল — তাদের বিবাহ বৈধ, সন্তানরা মুক্ত। কুরআন ও হাদিস বারবার দাসকে আল্লাহর সামনে সমান মর্যাদাসম্পন্ন পূর্ণ মানুষ হিসেবে বর্ণনা করেছে। এটি রোমান আইনের অবস্থান থেকে উল্লেখযোগ্যভাবে আলাদা যেখানে দাসরা কোনো অধিকারহীন সম্পত্তি।',
+        },
+      },
+      {
+        heading: { en: 'The modern consensus: absolute prohibition', bn: 'আধুনিক ঐকমত্য: সম্পূর্ণ নিষেধ' },
+        body: {
+          en: 'Contemporary Muslim scholars and institutions — from Al-Azhar to independent researchers — have reached a consensus that slavery in all its forms is impermissible in Islam today. The reasoning draws on maqasid al-shariah (the higher objectives of Islamic law): protecting human life, dignity, intellect and lineage. The internal Quranic and Prophetic trajectory of restricting and incentivising abolition is treated as pointing unambiguously to full prohibition. Major Islamic bodies have issued formal statements to this effect. This is not a revision of Islam but the fulfilment of its own internal logic.',
+          bn: 'আল-আজহার থেকে স্বাধীন গবেষকরা — সমসাময়িক মুসলিম পণ্ডিত ও প্রতিষ্ঠানগুলো ঐকমত্যে পৌঁছেছে যে সমস্ত রূপে দাসত্ব আজ ইসলামে অপ্রচলিত। যুক্তি মাকাসিদ আল-শরিয়া থেকে আসে: মানব জীবন, মর্যাদা, বুদ্ধি ও বংশ রক্ষা। ইসলামের অভ্যন্তরীণ কুরআনিক ও নবীসুলভ গতিপথ সম্পূর্ণ নিষেধের দিকে নির্দেশ করে। এটি ইসলামের সংশোধন নয়, বরং এর অভ্যন্তরীণ যুক্তির পরিপূর্ণতা।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'treatment-of-women',
+    emoji: '🌸',
+    kind: 'article',
+    title: { en: 'Women in Islam: Elevation, Rights and Legacy', bn: 'ইসলামে নারী: উন্নতি, অধিকার ও উত্তরাধিকার' },
+    summary: {
+      en: 'The Quranic elevation of women, their legal and spiritual rights, and the scholarly legacy of companions like Aisha and Umm Salamah.',
+      bn: 'নারীদের কুরআনিক উন্নতি, তাদের আইনি ও আধ্যাত্মিক অধিকার, এবং আইশা ও উম্মে সালামার মতো সাহাবিদের পাণ্ডিত্যপূর্ণ উত্তরাধিকার।',
+    },
+    points: [
+      {
+        heading: { en: 'Spiritual equality and full personhood', bn: 'আধ্যাত্মিক সমতা ও পূর্ণ ব্যক্তিত্ব' },
+        body: {
+          en: 'The Quran affirmed women\'s full spiritual equality at a time when this was contested across cultures. "Muslim men and Muslim women, believing men and believing women… for them God has prepared forgiveness and a mighty reward" (33:35) — identical spiritual categories for both sexes. The Quran also states that each soul is accountable individually (6:164), that there is no inherited guilt by gender, and that Paradise is attained by deeds and sincerity. This was a significant doctrinal departure from traditions that placed women\'s spiritual status beneath men\'s.',
+          bn: 'কুরআন এমন একটি সময়ে নারীদের পুরুষের সাথে পূর্ণ আধ্যাত্মিক সমতা নিশ্চিত করেছিল যখন এটি সংস্কৃতিজুড়ে বিতর্কিত ছিল। "মুসলমান পুরুষ ও মুসলমান নারী... তাদের জন্য আল্লাহ ক্ষমা ও মহান পুরস্কার প্রস্তুত করেছেন" (৩৩:৩৫) — উভয় লিঙ্গের জন্য অভিন্ন আধ্যাত্মিক বিভাগ। কুরআন আরো বলে প্রতিটি আত্মা স্বতন্ত্রভাবে জবাবদিহি করে (৬:১৬৪) এবং জান্নাত কর্ম ও আন্তরিকতা দ্বারা অর্জিত হয়, লিঙ্গ দ্বারা নয়।',
+        },
+      },
+      {
+        heading: { en: 'Legal and economic rights established early', bn: 'প্রাথমিকভাবে প্রতিষ্ঠিত আইনি ও অর্থনৈতিক অধিকার' },
+        body: {
+          en: 'The Quran established women\'s rights to own property independently (4:32), to inherit (4:11-12), to retain their full mahr (dower) as personal property with no obligation to spend it on household expenses, and to initiate divorce through khul\' (4:128-130). These were legally codified rights at a time when European women would not have comparable property rights for over a millennium. The Prophet ﷺ said: "The best of you are those who are best to their wives."',
+          bn: 'কুরআন নারীদের স্বাধীনভাবে সম্পত্তির মালিক হওয়ার অধিকার (৪:৩২), উত্তরাধিকার (৪:১১-১২), গৃহস্থালি ব্যয়ে খরচ করার বাধ্যবাধকতা ছাড়া তাদের সম্পূর্ণ মহর ব্যক্তিগত সম্পত্তি হিসেবে রাখার অধিকার, এবং খুল\' এর মাধ্যমে তালাক শুরু করার অধিকার (৪:১২৮-১৩০) প্রতিষ্ঠা করেছিল। এগুলো আইনত কোডিফাইড অধিকার যখন ইউরোপীয় নারীদের তুলনীয় অধিকার ছিল না। নবী ﷺ বলেছেন: "তোমাদের মধ্যে সর্বোত্তম যে তার স্ত্রীর কাছে সর্বোত্তম।"',
+        },
+      },
+      {
+        heading: { en: 'Aisha and Umm Salamah: scholarship from the start', bn: 'আইশা ও উম্মে সালামা: শুরু থেকে পাণ্ডিত্য' },
+        body: {
+          en: 'Aisha bint Abi Bakr is among the most prolific transmitters of hadith in Islamic history — thousands of narrations trace to her, and she corrected senior male companions on points of jurisprudence. After the Prophet\'s death ﷺ she was sought from across the Islamic world as an authority on his practice. Umm Salamah challenged the Prophet ﷺ directly on whether Quranic address included women — her concern contributed to the revelation of 33:35, which explicitly names women. Both demonstrate that scholarship, critical inquiry and religious authority were available to Muslim women at the very origins of the tradition.',
+          bn: 'আইশা বিনত আবি বকর ইসলামি ইতিহাসে হাদিসের অন্যতম বিপুল বর্ণনাকারী — হাজার হাজার বর্ণনা তাঁর কাছে সনদযুক্ত, এবং তিনি প্রবীণ পুরুষ সাহাবিদের ফিকহের বিষয়ে সংশোধন করেছিলেন। উম্মে সালামা কুরআনিক সম্বোধন নারীদের অন্তর্ভুক্ত করে কিনা তা নিয়ে নবী ﷺ কে সরাসরি প্রশ্ন করেছিলেন — তাঁর উদ্বেগ ৩৩:৩৫ এর ওহির দিকে অবদান রেখেছিল। উভয়েই দেখান ঐতিহ্যের উৎসেই মুসলিম নারীদের পাণ্ডিত্য ও ধর্মীয় কর্তৃত্ব ছিল।',
+        },
+      },
+      {
+        heading: { en: 'Contextualising witness and inheritance', bn: 'সাক্ষ্য ও উত্তরাধিকারের প্রেক্ষাপট' },
+        body: {
+          en: 'Verses on financial witness (2:282) and inheritance differentials (4:11) are frequently cited without context. On witness: the verse addresses commercial contracts in a society where most women did not participate in financial transactions; scholars note it permits a single woman\'s testimony as sufficient in contexts where she has relevant expertise. On inheritance: Islamic law grants women full personal ownership of their share while the male heir in the same scenario typically bears legal financial obligations to the family — the differential reflects assigned duties, not assigned worth. These remain areas of ongoing scholarly discussion.',
+          bn: 'আর্থিক সাক্ষ্য (২:২৮২) ও উত্তরাধিকার পার্থক্যের (৪:১১) আয়াতগুলো প্রায়ই প্রেক্ষাপটের বাইরে উদ্ধৃত হয়। সাক্ষ্যের বিষয়ে: আয়াতটি এমন সমাজে বাণিজ্যিক চুক্তি নিয়ে আলোচনা করে যেখানে বেশিরভাগ নারী আর্থিক লেনদেনে অংশ নিত না। উত্তরাধিকারের বিষয়ে: ইসলামি আইন নারীদের তাদের অংশের সম্পূর্ণ ব্যক্তিগত মালিকানা দেয় যখন পুরুষ উত্তরাধিকারী পরিবারের প্রতি আইনগত আর্থিক বাধ্যবাধকতা বহন করে — পার্থক্য মূল্য নয়, নির্ধারিত দায়িত্ব প্রতিফলিত করে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'treatment-of-children',
+    emoji: '👶',
+    kind: 'article',
+    title: { en: 'Children\'s Rights in Islam', bn: 'ইসলামে শিশু অধিকার' },
+    summary: {
+      en: 'From the prohibition of infanticide to Islamic duties of care, naming, education and equal treatment of all children.',
+      bn: 'শিশুহত্যা নিষেধ থেকে যত্ন, নামকরণ, শিক্ষা ও সকল শিশুর প্রতি সমান আচরণের ইসলামি কর্তব্য পর্যন্ত।',
+    },
+    points: [
+      {
+        heading: { en: 'The abolition of infanticide', bn: 'শিশুহত্যা বিলুপ্তি' },
+        body: {
+          en: 'Pre-Islamic Arabia practised the burial of infant girls alive — a custom rooted in economic fear and tribal shame. The Quran addressed this with stark directness: "And when the girl [who was] buried alive is asked — for what sin she was killed" (81:8-9) and "Do not kill your children out of fear of poverty" (17:31). This was among Islam\'s earliest moral reforms — a civilisational declaration that a child\'s life has absolute value regardless of sex. The same principle extends to a general prohibition of taking innocent life for economic reasons.',
+          bn: 'ইসলাম-পূর্ব আরবে শিশু কন্যাদের জীবন্ত সমাহিত করার প্রথা ছিল। কুরআন এটি তীক্ষ্ণভাবে সম্বোধন করেছিল: "এবং যখন জীবন্ত সমাহিত কন্যাকে জিজ্ঞাসা করা হবে — কোন পাপে সে নিহত হয়েছিল" (৮১:৮-৯) এবং "দারিদ্র্যের ভয়ে তোমার সন্তানকে হত্যা করো না" (১৭:৩১)। এটি ইসলামের প্রথম নৈতিক সংস্কারগুলোর মধ্যে অন্যতম — একটি সভ্যতামূলক ঘোষণা যে একটি শিশুর জীবনের লিঙ্গ নির্বিশেষে পরম মূল্য রয়েছে।',
+        },
+      },
+      {
+        heading: { en: 'Rights at birth and in childhood', bn: 'জন্মে ও শৈশবে অধিকার' },
+        body: {
+          en: 'Islamic fiqh recognises rights that attach to a child from birth: the right to a good name (the Prophet ﷺ encouraged names of good meaning and discouraged names of poor association), the right to adequate nutrition and care, and the right to have their lineage acknowledged. The adhan is traditionally whispered in a newborn\'s ear — symbolically introducing the child to the divine presence from their first moments. These practices reflect a theology in which childhood is not a lesser state to be managed but a sacred stage of human development.',
+          bn: 'ইসলামি ফিকহ জন্ম থেকে শিশুর অধিকার স্বীকার করে: একটি ভালো নামের অধিকার (নবী ﷺ ভালো অর্থের নাম রাখার পরামর্শ দিতেন), পর্যাপ্ত পুষ্টি ও যত্নের অধিকার, এবং বংশ স্বীকৃত হওয়ার অধিকার। আজান ঐতিহ্যগতভাবে নবজাতকের কানে ফিসফিস করে বলা হয় — শিশুকে তাদের প্রথম মুহূর্ত থেকে ঐশী উপস্থিতির সাথে পরিচয় করিয়ে দেওয়ার প্রতীকী অর্থে।',
+        },
+      },
+      {
+        heading: { en: 'Education and nurture as obligations', bn: 'শিক্ষা ও লালনপালন দায়িত্ব হিসেবে' },
+        body: {
+          en: 'Providing children with education is an Islamic obligation, not an option. The first word revealed to the Prophet ﷺ was "Read" (Iqra — 96:1). Classical scholars emphasised that this obligation extended to daughters as much as sons — a historically significant stance. The Prophet ﷺ said: "It is obligatory for every Muslim to seek knowledge." Hadith literature also records the importance of play in childhood and warns against overburdening children. Good parenting is treated as an amanah (trust) for which the parent is accountable.',
+          bn: 'শিশুদের শিক্ষা প্রদান ইসলামি বাধ্যবাধকতা, ঐচ্ছিক নয়। নবী ﷺ এর কাছে প্রথম প্রকাশিত শব্দ ছিল "পড়ো" (ইকরা — ৯৬:১)। ক্লাসিক্যাল পণ্ডিতরা জোর দিয়েছিলেন এই বাধ্যবাধকতা পুত্রের মতো কন্যাদের ক্ষেত্রেও প্রযোজ্য। নবী ﷺ বলেছেন: "প্রতিটি মুসলমানের জন্য জ্ঞান অন্বেষণ করা ফরজ।" হাদিস সাহিত্য শৈশবে খেলার গুরুত্বও নথিভুক্ত করে। ভালো পিতামাতা হওয়া একটি আমানত যার জন্য জবাবদিহি করতে হবে।',
+        },
+      },
+      {
+        heading: { en: 'Fairness among children', bn: 'শিশুদের মধ্যে ন্যায্যতা' },
+        body: {
+          en: 'The Prophet ﷺ instructed parents to treat all their children with fairness and equal affection. A hadith records a companion who gifted one son a sum of money and sought the Prophet\'s witness to the act. The Prophet ﷺ refused to witness it unless the same was given to all the children — a direct ruling against financial favouritism. The Prophet ﷺ is also recorded as kissing and showing tenderness to children publicly, demonstrating that warmth toward children is a prophetic virtue, not a weakness.',
+          bn: 'নবী ﷺ পিতামাতাকে সন্তানদের সাথে ন্যায্যতা ও সমান স্নেহ দিয়ে আচরণ করার নির্দেশ দিয়েছিলেন। একটি হাদিস নথিভুক্ত করে একজন সাহাবি এক পুত্রকে অর্থ উপহার দিয়ে নবীর সাক্ষ্য চেয়েছিলেন। নবী ﷺ তা না দিলে সাক্ষী হতে অস্বীকার করেছিলেন — বস্তুগত পক্ষপাতিত্বের বিরুদ্ধে সরাসরি রুলিং। নবী ﷺ প্রকাশ্যে শিশুদের চুম্বন ও স্নেহ দেখাতেন, প্রমাণ করে শিশুদের প্রতি উষ্ণতা নবীসুলভ গুণ।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'treatment-of-non-muslims',
+    emoji: '🤝',
+    kind: 'article',
+    title: { en: 'Non-Muslims in Islamic Society', bn: 'ইসলামি সমাজে অমুসলিমরা' },
+    summary: {
+      en: 'Quranic commands of justice for all, the Medina Constitution, the dhimmi framework in context, and modern scholarly positions.',
+      bn: 'সকলের জন্য ন্যায়বিচারের কুরআনিক আদেশ, মদিনা সনদ, প্রেক্ষাপটে জিম্মি কাঠামো এবং আধুনিক পাণ্ডিত্যপূর্ণ অবস্থান।',
+    },
+    points: [
+      {
+        heading: { en: 'Quranic justice without exception', bn: 'ব্যতিক্রম ছাড়া কুরআনিক ন্যায়বিচার' },
+        body: {
+          en: 'The Quran commands justice toward all people without qualification: "Let not the hatred of a people prevent you from being just. Be just — that is nearer to righteousness" (5:8). It explicitly permits friendship and kindness toward those who do not fight Muslims (60:8) and declares belief a matter of free conscience: "There is no compulsion in religion" (2:256). The Prophet ﷺ warned that he would argue against any Muslim who mistreated a non-Muslim under his protection on the Day of Judgement.',
+          bn: 'কুরআন সমস্ত মানুষের প্রতি যোগ্যতা ছাড়াই ন্যায়বিচারের আদেশ দেয়: "কোনো জাতির প্রতি শত্রুতা তোমাদের ন্যায়বিচার থেকে বিরত না রাখুক। ন্যায়বিচার করো — এটি তাকওয়ার নিকটতর" (৫:৮)। এটি মুসলিমদের সাথে যুদ্ধ না করে এমনদের প্রতি বন্ধুত্ব ও সদয়তার অনুমতি দেয় (৬০:৮) এবং ঘোষণা করে "ধর্মে কোনো জবরদস্তি নেই" (২:২৫৬)।',
+        },
+      },
+      {
+        heading: { en: 'The Medina Constitution: a founding document', bn: 'মদিনা সনদ: একটি প্রতিষ্ঠাতা দলিল' },
+        body: {
+          en: 'Shortly after the Prophet\'s ﷺ migration to Medina, he established a written agreement — the "Constitution of Medina" — among Muslims, pagan Arabs and the Jewish tribes of the city. It recognised them all as one community for purposes of mutual defence, affirmed each group\'s right to its own religious practice and laws, and established that disputes would be resolved through justice and without favouritism. Historians regard this as one of the earliest written constitutional agreements in recorded history and evidence that the Prophetic model of governance was principled pluralism.',
+          bn: 'নবী ﷺ এর মদিনায় হিজরতের কিছু পরে তিনি মুসলিম, পৌত্তলিক আরব ও শহরের ইহুদি উপজাতিগুলোর মধ্যে "মদিনার সংবিধান" প্রতিষ্ঠা করেছিলেন। এটি তাদের সকলকে পারস্পরিক প্রতিরক্ষার জন্য একটি সম্প্রদায় হিসেবে স্বীকার করেছিল, প্রতিটি গোষ্ঠীর নিজস্ব ধর্মীয় অনুশীলনের অধিকার নিশ্চিত করেছিল। ঐতিহাসিকরা এটিকে নথিভুক্ত ইতিহাসের প্রাচীনতম লিখিত সাংবিধানিক চুক্তিগুলোর একটি হিসেবে বিবেচনা করেন।',
+        },
+      },
+      {
+        heading: { en: 'The dhimmi framework: historical and contextual', bn: 'জিম্মি কাঠামো: ঐতিহাসিক ও প্রাসঙ্গিক' },
+        body: {
+          en: 'In pre-modern Islamic states, non-Muslim permanent residents (dhimmis) paid a jizya (protection tax) in exchange for exemption from military service and the right to govern their own communities by their own religious law. Evaluated in historical context, this offered Jews and Christians protections and legal autonomy they typically lacked in contemporaneous European kingdoms. Medieval fiqh did impose some public limitations that modern scholarship critiques, and many contemporary scholars hold that those conditions no longer apply in modern states with constitutional equality.',
+          bn: 'প্রাক-আধুনিক ইসলামি রাষ্ট্রগুলোতে অমুসলিম স্থায়ী বাসিন্দারা (জিম্মি) সামরিক সেবা থেকে অব্যাহতি ও নিজেদের ধর্মীয় আইন দ্বারা নিজেদের সম্প্রদায় পরিচালনার বিনিময়ে জিজিয়া প্রদান করত। ঐতিহাসিক প্রেক্ষাপটে এটি ইহুদি ও খ্রিস্টানদের সুরক্ষা ও আইনি স্বায়ত্তশাসন দিয়েছিল যা তারা সাধারণত সমসাময়িক ইউরোপীয় রাজ্যগুলোতে পাত না। অনেক সমসাময়িক পণ্ডিত মনে করেন সেই শর্তগুলো আধুনিক সাংবিধানিক রাষ্ট্রগুলোতে আর প্রযোজ্য নয়।',
+        },
+      },
+      {
+        heading: { en: 'The guest and the covenant of protection', bn: 'অতিথি ও সুরক্ষার অঙ্গীকার' },
+        body: {
+          en: 'The Prophet ﷺ said: "Whoever harms a person under treaty has harmed me." Islamic hospitality traditions emphasise welcoming guests without religious precondition, and Islamic law recognises that a non-Muslim under guarantee of safety is owed full protection of life, property and honour. The mistreatment of religious minorities is not a minor offence in Islamic ethics but a grave violation of prophetic instruction — the honour of the Muslim community is bound to how it treats its non-Muslim neighbours and guests.',
+          bn: 'নবী ﷺ বলেছেন: "যে চুক্তিবদ্ধ কাউকে কষ্ট দেয় সে আমাকে কষ্ট দেয়।" ইসলামি আতিথেয়তার ঐতিহ্য ধর্মীয় শর্ত ছাড়াই অতিথিদের স্বাগত জানানোর উপর জোর দেয়। ইসলামি আইন স্বীকার করে নিরাপত্তার নিশ্চয়তার অধীনে অমুসলিমকে জীবন, সম্পত্তি ও সম্মানের সম্পূর্ণ সুরক্ষা দেওয়া হয়। ধর্মীয় সংখ্যালঘুদের দুর্ব্যবহার ইসলামি নীতিশাস্ত্রে নবীসুলভ নির্দেশের গুরুতর লঙ্ঘন।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'wisdom-of-tests',
+    emoji: '🌊',
+    kind: 'article',
+    title: { en: 'The Wisdom Behind Trials and Hardship', bn: 'পরীক্ষা ও কষ্টের পেছনের প্রজ্ঞা' },
+    summary: {
+      en: 'How Islam understands suffering — as purposeful test, as growth and as mercy — drawing on key Quranic verses and prophetic tradition.',
+      bn: 'ইসলাম কীভাবে কষ্টকে বোঝে — উদ্দেশ্যমূলক পরীক্ষা, বিকাশ ও রহমত হিসেবে — মূল কুরআনিক আয়াত ও নবীসুলভ ঐতিহ্য থেকে।',
+    },
+    points: [
+      {
+        heading: { en: 'Trials are part of the design', bn: 'পরীক্ষা নকশার অংশ' },
+        body: {
+          en: 'The Quran presents trials not as accidents but as a constitutive element of existence: "He who created death and life to test you as to which of you is best in deed" (67:2). Human moral quality cannot be revealed without real choices under real conditions — ease without difficulty reveals neither character nor resolve. Surah al-Ankabut opens: "Do people think they will be left to say \'we believe\' without being tested?" (29:2-3), and 21:35 states: "We test you with evil and good as trial." Hardship is built into the human story.',
+          bn: 'কুরআন পরীক্ষাকে দুর্ঘটনা নয়, বরং অস্তিত্বের মূল উপাদান হিসেবে উপস্থাপন করে: "যিনি মৃত্যু ও জীবন সৃষ্টি করেছেন তোমাদের পরীক্ষা করতে — তোমাদের মধ্যে কর্মে কে উত্তম" (৬৭:২)। অসুবিধা ছাড়া সহজতা চরিত্র বা দৃঢ়তা প্রকাশ করে না। সূরা আল-আনকাবুত শুরু হয়: "মানুষ কি মনে করে \'আমরা বিশ্বাস করি\' বললেই পরীক্ষা ছাড়া ছেড়ে দেওয়া হবে?" (২৯:২-৩), এবং ২১:৩৫ বলে: "আমরা তোমাদের মন্দ ও ভালো দিয়ে পরীক্ষা করি।"',
+        },
+      },
+      {
+        heading: { en: 'The response: sabr and gratitude', bn: 'প্রতিক্রিয়া: সবর ও কৃতজ্ঞতা' },
+        body: {
+          en: 'Islam prescribes a specific response to trials: sabr (patient perseverance) combined with trust in God\'s wisdom. "And give good news to the patient — those who, when disaster strikes them, say: Indeed, we belong to God and to Him we shall return. Those are the ones upon whom are blessings from their Lord and mercy" (2:155-157). Sabr is not passive resignation but an active, spiritually engaged endurance. The Prophet ﷺ said that the entire affair of the believer is remarkable — if good comes, they are grateful; if hardship, they are patient — and both are good for them.',
+          bn: 'ইসলাম পরীক্ষার জন্য একটি নির্দিষ্ট প্রতিক্রিয়া নির্ধারণ করে: সবর (ধৈর্যশীল অধ্যবসায়) আল্লাহর প্রজ্ঞায় বিশ্বাসের সাথে মিলিত। "এবং ধৈর্যশীলদের সুসংবাদ দাও — যারা বিপদ আঘাত করলে বলে: নিশ্চয়ই আমরা আল্লাহর এবং তাঁর কাছে ফিরব। এরাই তারা যাদের উপর তাদের রবের পক্ষ থেকে রহমত ও দয়া আছে" (২:১৫৫-১৫৭)। সবর নিষ্ক্রিয় পদত্যাগ নয়, সক্রিয় আধ্যাত্মিক সহ্য।',
+        },
+      },
+      {
+        heading: { en: 'Hardship as purification and elevation', bn: 'পবিত্রতা ও উন্নতি হিসেবে কষ্ট' },
+        body: {
+          en: 'The Prophet ﷺ taught that suffering can be a means of expiation and spiritual elevation. He is reported to have said that even the prick of a thorn can occasion forgiveness of sins for a patient believer, and that the most severely tested were the prophets, then those nearest to them in faith. This contextualises the apparent disparity of who suffers: righteous people enduring intense hardship is not evidence of God\'s absence but of their elevated rank. The hereafter provides the full accounting where every grief finds its compensation.',
+          bn: 'নবী ﷺ শিখিয়েছিলেন কষ্ট প্রায়শ্চিত্ত ও আধ্যাত্মিক উন্নতির মাধ্যম হতে পারে। তিনি বলেছিলেন কাঁটার ফোঁড়াও ধৈর্যশীল বিশ্বাসীর পাপ ক্ষমার উপলক্ষ হতে পারে, এবং সবচেয়ে তীব্রভাবে পরীক্ষিত হয়েছিলেন নবীরা, তারপর তাদের নিকটতম। ন্যায়বান মানুষদের তীব্র কষ্ট আল্লাহর অনুপস্থিতির প্রমাণ নয়, তাদের উন্নত মর্যাদার প্রমাণ। পরকালে প্রতিটি দুঃখের ক্ষতিপূরণ হবে।',
+        },
+      },
+      {
+        heading: { en: 'The promise of ease with every hardship', bn: 'প্রতিটি কষ্টের সাথে সহজতার প্রতিশ্রুতি' },
+        body: {
+          en: 'Surah al-Insan (76:2) describes humanity as placed in trial from its very origins — difficulty is not an anomaly. But Islamic theology pairs this with robust hope: "With hardship comes ease — indeed, with hardship comes ease" (94:5-6). Classical scholars noted that in Arabic, the word for "hardship" appears with the definite article both times, referring to the same hardship, while "ease" appears in indefinite form twice — meaning one hardship carries at least two eases alongside it. Difficulty is not the last word.',
+          bn: 'সূরা আল-ইনসান (৭৬:২) মানুষকে পরীক্ষায় স্থাপিত হিসেবে বর্ণনা করে — কষ্ট অসঙ্গতি নয়। কিন্তু ইসলামি ধর্মতত্ত্ব এটিকে শক্তিশালী আশার সাথে যুক্ত করে: "কষ্টের সাথে সহজতা আছে — নিশ্চয়ই কষ্টের সাথে সহজতা আছে" (৯৪:৫-৬)। ক্লাসিক্যাল পণ্ডিতরা লক্ষ্য করেছিলেন আরবিতে "কষ্ট" সুনির্দিষ্ট নিবন্ধসহ উভয়বার একই কষ্ট বোঝায়, যখন "সহজতা" দুবার অনির্দিষ্ট — মানে এক কষ্টের সাথে কমপক্ষে দুটি সহজতা আসে। কষ্ট শেষ কথা নয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'preservation-of-quran',
+    emoji: '📜',
+    kind: 'article',
+    title: { en: 'How the Quran Was Preserved: A Deeper Look', bn: 'কুরআন কীভাবে সংরক্ষিত হয়েছিল: গভীর দৃষ্টি' },
+    summary: {
+      en: 'The mechanics of hafiz transmission, the Uthmanic compilation, how oral and written traditions checked each other, and what comparative manuscript evidence shows.',
+      bn: 'হাফিজ ধারার কার্যপদ্ধতি, উসমানি সংকলন, মৌখিক ও লিখিত ঐতিহ্য কীভাবে পরস্পর যাচাই করেছে এবং তুলনামূলক পাণ্ডুলিপির প্রমাণ কী দেখায়।',
+    },
+    points: [
+      {
+        heading: { en: 'The hafiz chain: controlled oral transmission', bn: 'হাফিজ ধারা: নিয়ন্ত্রিত মৌখিক সংক্রমণ' },
+        body: {
+          en: 'Memorisation of the Quran was systematised from the Prophet\'s ﷺ own lifetime. He received revelation, taught it to companions, and verified each person\'s recitation under his direct correction. After his death, the tradition of recitation with an unbroken authorisation chain (ijazah) developed rigorously: no student could recite the Quran in a formal teaching context without having memorised it under a certified teacher, who had in turn memorised it under one, ultimately tracing back to the Prophet ﷺ. This is not oral tradition in the folk sense — it is a precisely documented transmission chain.',
+          bn: 'কুরআন মুখস্থকরণ নবী ﷺ এর জীবদ্দশায় পদ্ধতিগত করা হয়েছিল। তিনি ওহি পেতেন, সাহাবিদের শেখাতেন এবং প্রতিটি ব্যক্তির তিলাওয়াত তাঁর সরাসরি সংশোধনের অধীনে যাচাই করতেন। তাঁর মৃত্যুর পর অনুমোদনের ধারা সহ তিলাওয়াতের ঐতিহ্য (ইজাজাহ) কঠোরভাবে বিকশিত হয়: কোনো ছাত্র একজন প্রত্যয়িত শিক্ষকের অধীনে মুখস্থ না করে আনুষ্ঠানিকভাবে কুরআন তিলাওয়াত করতে পারত না, শেষ পর্যন্ত নবী ﷺ পর্যন্ত সনদযুক্ত। এটি লোক অর্থে মৌখিক ঐতিহ্য নয় — নির্ভুলভাবে নথিভুক্ত সংক্রমণ ধারা।',
+        },
+      },
+      {
+        heading: { en: 'The Uthmanic compilation: method and care', bn: 'উসমানি সংকলন: পদ্ধতি ও যত্ন' },
+        body: {
+          en: 'The first complete written compilation was ordered by Caliph Abu Bakr (r.a.) after the Battle of Yamama (633 CE), when many huffaz were martyred. Zayd ibn Thabit — the Prophet\'s ﷺ chief scribe — led the task with rigorous standards: he accepted no written piece without two independent witnesses who had heard it directly from the Prophet ﷺ, and cross-checked everything against the living memory of companions. The compiled manuscript was later held by Hafsa bint Umar. Caliph Uthman (r.a.) commissioned standardised copies from this manuscript and asked that differing private copies be retired to prevent regional variation — a process documented in multiple hadith chains with named participants.',
+          bn: 'প্রথম সম্পূর্ণ লিখিত সংকলন খলিফা আবু বকর (রা.) কর্তৃক ইয়ামামার যুদ্ধের (৬৩৩ খ্রি.) পর আদেশ করা হয়েছিল যখন অনেক হাফিজ শহীদ হয়েছিলেন। যায়িদ ইবন সাবিত — নবী ﷺ এর প্রধান লেখক — কঠোর মান নিয়ে এই কাজ পরিচালনা করেছিলেন: নবী ﷺ থেকে সরাসরি শোনার দুজন স্বাধীন সাক্ষী ছাড়া কোনো লিখিত অংশ গ্রহণ করেননি। সংকলিত পাণ্ডুলিপি পরে হাফসা বিনত উমরের কাছে রাখা হয়েছিল। খলিফা উসমান (রা.) এই পাণ্ডুলিপি থেকে প্রমিত অনুলিপি তৈরি করিয়েছিলেন।',
+        },
+      },
+      {
+        heading: { en: 'Oral and written as mutual checks', bn: 'পরস্পর যাচাই হিসেবে মৌখিক ও লিখিত' },
+        body: {
+          en: 'The dual preservation system — oral hafiz tradition alongside written manuscripts — provided cross-verification unique in the ancient world. If a manuscript was corrupted or destroyed, the living hafiz tradition would expose the discrepancy. If a memoriser\'s recitation deviated, the written record and other hafiz would correct it. Each medium constrained the other. Today, millions of people have memorised the Quran, and their unanimous agreement across every dialect and nationality is itself a form of evidence for textual stability.',
+          bn: 'দ্বৈত সংরক্ষণ ব্যবস্থা — মৌখিক হাফিজ ঐতিহ্য ও লিখিত পাণ্ডুলিপি — প্রাচীন বিশ্বে অনন্য পারস্পরিক যাচাই প্রদান করেছিল। যদি পাণ্ডুলিপি নষ্ট হত, জীবন্ত হাফিজ ঐতিহ্য অসঙ্গতি প্রকাশ করত। যদি কোনো হাফিজের তিলাওয়াত বিচ্যুত হত, লিখিত নথি ও অন্য হাফিজরা সংশোধন করত। আজ লক্ষ লক্ষ মানুষ কুরআন মুখস্থ করেছেন এবং প্রতিটি উপভাষা ও জাতীয়তা জুড়ে তাদের সর্বসম্মত চুক্তি নিজেই পাঠ্য স্থিতিশীলতার প্রমাণ।',
+        },
+      },
+      {
+        heading: { en: 'Manuscript evidence and comparative context', bn: 'পাণ্ডুলিপির প্রমাণ ও তুলনামূলক প্রেক্ষাপট' },
+        body: {
+          en: 'Early Quran manuscripts — including the Sana\'a manuscripts discovered in Yemen in 1972 and the Birmingham Quran manuscript carbon-dated to within the Prophet\'s lifetime — show a text that corresponds closely to the Quran recited today. This stands in contrast to the textual history of other major scriptures, where manuscript traditions show more variation over time and the original oral transmitters are less clearly documented. Muslims point to this combination of unbroken hafiz chain and early manuscript agreement as the fulfilment of the Quran\'s own promise: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian" (15:9).',
+          bn: 'প্রাচীন কুরআন পাণ্ডুলিপি — ১৯৭২ সালে ইয়েমেনে আবিষ্কৃত সানআ পাণ্ডুলিপি এবং নবীর জীবদ্দশায় কার্বন-ডেটিংকৃত বার্মিংহাম কুরআন পাণ্ডুলিপি সহ — আজ পঠিত কুরআনের সাথে ঘনিষ্ঠভাবে মিলে যায়। এটি অন্যান্য প্রধান ধর্মগ্রন্থের পাণ্ডুলিপির ইতিহাসের বিপরীতে দাঁড়ায়, যেখানে বেশি পরিবর্তন দেখা যায়। মুসলিমরা অবিচ্ছিন্ন হাফিজ ধারা ও প্রাচীন পাণ্ডুলিপির মিলকে কুরআনের নিজস্ব প্রতিশ্রুতির পূরণ হিসেবে নির্দেশ করেন: "নিশ্চয়ই আমিই এই উপদেশ অবতীর্ণ করেছি এবং আমিই এর সংরক্ষক" (১৫:৯)।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'hadith-methodology',
+    emoji: '🔍',
+    kind: 'article',
+    title: { en: 'Hadith: Methodology and Scholarship', bn: 'হাদিস: পদ্ধতি ও পাণ্ডিত্য' },
+    summary: {
+      en: 'What hadith are, how the isnad system works, the grading scale (sahih to mawdu\'), and the science of rijal criticism.',
+      bn: 'হাদিস কী, ইসনাদ পদ্ধতি কীভাবে কাজ করে, গ্রেডিং স্কেল (সহিহ থেকে মওজু) এবং রিজাল সমালোচনার বিজ্ঞান।',
+    },
+    points: [
+      {
+        heading: { en: 'What is hadith?', bn: 'হাদিস কী?' },
+        body: {
+          en: 'Hadith (plural: ahadith) are recorded reports of the words, actions, approvals and characteristics of the Prophet Muhammad ﷺ. They form the second major source of Islamic guidance after the Quran and are essential for understanding how the Quran\'s principles were applied in practice. A hadith typically has two parts: the isnad (chain of narrators tracing the report back to its source) and the matn (the actual content of the report). The science of hadith developed to evaluate these two parts rigorously and independently.',
+          bn: 'হাদিস (বহুবচন: আহাদিস) হলো নবী মুহাম্মাদ ﷺ এর বাণী, কার্যাবলি, অনুমোদন ও বৈশিষ্ট্যের নথিভুক্ত বিবরণ। এগুলো কুরআনের পরে ইসলামি হিদায়াতের দ্বিতীয় প্রধান উৎস এবং কুরআনের নীতিগুলো ব্যবহারিক জীবনে কীভাবে প্রয়োগ হয়েছিল তা বোঝার জন্য অপরিহার্য। একটি হাদিসের সাধারণত দুটি অংশ থাকে: ইসনাদ (বর্ণনাকারীদের ধারা যা রিপোর্টটিকে উৎসে ফিরিয়ে নিয়ে যায়) এবং মতন (রিপোর্টের প্রকৃত বিষয়বস্তু)।',
+        },
+      },
+      {
+        heading: { en: 'The isnad: a chain of named witnesses', bn: 'ইসনাদ: নামধারী সাক্ষীদের ধারা' },
+        body: {
+          en: 'Every classical hadith is transmitted through a named chain: "A told me that B told him that C said he heard the Prophet ﷺ say…" Each link in the chain is a historically identified individual whose biography was studied. Muslim scholars developed the science of \'ilm al-rijal (knowledge of narrators) — examining each narrator\'s memory, character, consistency, and whether they could have met the person they claimed to transmit from. This created one of the most extensive biographical databases in pre-modern scholarship, documenting tens of thousands of narrators.',
+          bn: 'প্রতিটি ক্লাসিক্যাল হাদিস একটি নামধারী ধারার মাধ্যমে সংক্রমিত হয়: "আমাকে ক বলেছেন যে খ তাঁকে বলেছেন যে গ বলেছেন তিনি নবী ﷺ কে বলতে শুনেছেন..." ধারার প্রতিটি সংযোগ ঐতিহাসিকভাবে চিহ্নিত ব্যক্তি যার জীবনী অধ্যয়ন করা হয়েছিল। মুসলিম পণ্ডিতরা \'ইলমুল রিজাল (বর্ণনাকারীদের জ্ঞান) বিজ্ঞান বিকশিত করেছিলেন — প্রতিটি বর্ণনাকারীর স্মৃতি, চরিত্র, সামঞ্জস্য পরীক্ষা করে। এটি প্রাক-আধুনিক পাণ্ডিত্যে সবচেয়ে বিস্তৃত জীবনীগত ডেটাবেসগুলোর একটি তৈরি করেছিল।',
+        },
+      },
+      {
+        heading: { en: 'Grading: sahih, hasan, da\'if and mawdu\'', bn: 'গ্রেডিং: সহিহ, হাসান, দঈফ ও মওজু' },
+        body: {
+          en: 'After evaluating the isnad and cross-checking the matn, scholars assigned grades. Sahih (sound): every narrator in the chain is reliable and met the next, the chain is unbroken, and the content does not contradict stronger reports. Hasan (good): slightly weaker in chain but still acceptable. Da\'if (weak): one or more narrators are problematic, and the report requires corroboration before action. Mawdu\' (fabricated): the report is assessed as invented — sometimes this was done to settle political disputes or promote sectarian views, and identifying forgeries was a major task of hadith scholars. A hadith\'s grade is not concealed but documented openly for scholars to assess.',
+          bn: 'ইসনাদ মূল্যায়ন ও মতন যাচাইয়ের পর পণ্ডিতরা গ্রেড নির্ধারণ করতেন। সহিহ (সুষ্ঠু): ধারার প্রতিটি বর্ণনাকারী নির্ভরযোগ্য, ধারা অবিচ্ছিন্ন, এবং বিষয়বস্তু শক্তিশালী রিপোর্টের বিরুদ্ধে নয়। হাসান (ভালো): ধারায় সামান্য দুর্বল কিন্তু গ্রহণযোগ্য। দঈফ (দুর্বল): এক বা একাধিক বর্ণনাকারী সমস্যাযুক্ত; সমর্থন প্রয়োজন। মওজু (বানোয়াট): আবিষ্কৃত বলে মূল্যায়িত — কখনো রাজনৈতিক বিরোধ মীমাংসা বা সাম্প্রদায়িক দৃষ্টিভঙ্গি প্রচারের জন্য তৈরি। জালিয়াতি চিহ্নিত করা হাদিস পণ্ডিতদের প্রধান কাজ ছিল।',
+        },
+      },
+      {
+        heading: { en: 'The great hadith scholars', bn: 'মহান হাদিস পণ্ডিতরা' },
+        body: {
+          en: 'The primary hadith collections recognised by Sunni scholarship were compiled in the 9th century. Imam al-Bukhari (d. 870 CE) is reported to have examined over 600,000 narrations and accepted roughly 7,275 as meeting his strict sahih criteria — including his habit of performing ablution and praying before assessing each narrator. Imam Muslim (d. 875 CE) produced a complementary collection. These two — together known as the Sahihayn — along with four other major collections (the Sunan of Abu Dawud, al-Tirmidhi, al-Nasa\'i and Ibn Majah) form the core reference corpus. The rigour these scholars applied represents a systematic approach to historical criticism that has no direct parallel in ancient scholarship.',
+          bn: 'সুন্নি পাণ্ডিত্যে স্বীকৃত প্রাথমিক হাদিস সংকলনগুলো ৯ম শতাব্দীতে সংকলিত হয়েছিল। ইমাম আল-বুখারি (৮৭০ খ্রি.) ৬ লক্ষেরও বেশি বর্ণনা পরীক্ষা করেছেন বলে জানা যায় এবং প্রায় ৭,২৭৫টি তাঁর কঠোর সহিহ মানদণ্ড পূরণ করেছে বলে গ্রহণ করেছেন। ইমাম মুসলিম (৮৭৫ খ্রি.) একটি পরিপূরক সংকলন তৈরি করেছিলেন। এই দুটি — সহীহাইন নামে পরিচিত — আবু দাউদ, আল-তিরমিযি, আল-নাসাই ও ইবনে মাজার সুনানসহ মূল রেফারেন্স কর্পাস গঠন করে।',
+        },
+      },
+    ],
+  },
+  /* ─────────────────────────────────────────────────────────────────────── */
   {
     id: 'study',
     emoji: '🎓',
@@ -1267,13 +2103,26 @@ class WhyIslamView {
       }
     } catch (_) { /* ignore */ }
     const fb = WHY_ISLAM_I18N[key];
-    if (fb) return this.language === 'bn' ? (fb.bn || fb.en) : fb.en;
+    if (fb) {
+      if (this.language && fb[this.language]) return fb[this.language];
+      if (this.language === 'bn') return fb.bn || fb.en;
+      if (this.language && this.language !== 'en' && typeof CI18N !== 'undefined' && fb.en) {
+        const tr = CI18N.tr(this.language, fb.en); if (tr) return tr;
+      }
+      return fb.en;
+    }
     return key;
   }
 
   L(obj) {
     if (!obj) return '';
-    return this.language === 'bn' ? (obj.bn || obj.en || '') : (obj.en || '');
+    const lang = this.language;
+    if (lang && obj[lang]) return obj[lang];
+    if (lang === 'bn') return obj.bn || obj.en || '';
+    if (lang && lang !== 'en' && typeof CI18N !== 'undefined' && obj.en) {
+      const tr = CI18N.tr(lang, obj.en); if (tr) return tr;
+    }
+    return obj.en || '';
   }
 
   /* Content-language resolver: bn from inline data, other non-English

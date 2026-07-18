@@ -43,6 +43,13 @@ const SALAH_I18N_FALLBACK = {
   salah_resources_intro:   { en: 'Books, websites, videos and apps to deepen your understanding of salah.', bn: 'নামাজ সম্পর্কে গভীর জ্ঞানের জন্য বই, ওয়েবসাইট, ভিডিও ও অ্যাপ।', zh: '书籍、网站、视频和应用，加深对礼拜的理解。', ja: '礼拝の理解を深めるための本、ウェブサイト、動画、アプリ。', ur: 'نماز کے بارے میں گہرائی سے سمجھنے کے لیے کتابیں، ویب سائٹس، ویڈیوز اور ایپس۔', hi: 'नमाज़ की गहरी समझ के लिए किताबें, वेबसाइटें, वीडियो और ऐप्स।', tr: 'Namazı daha iyi anlamak için kitaplar, web siteleri, videolar ve uygulamalar.', fr: 'Livres, sites web, vidéos et applications pour approfondir votre compréhension de la prière.', es: 'Libros, sitios web, videos y aplicaciones para profundizar tu comprensión de la oración.'},
   salah_wudu_quiz_title:   { en: 'Wudu Quiz', bn: 'অজু কুইজ', zh: '小净测验', ja: 'ウドゥークイズ', ur: 'وضو کوئز', hi: 'वुज़ू क्विज़', tr: 'Abdest Testi', fr: 'Quiz sur le wudu', es: 'Cuestionario de wudu'},
   salah_tasbeeh_counter:   { en: 'Tasbeeh Counter', bn: 'তাসবিহ কাউন্টার', zh: '赞念计数器', ja: 'タスビーフカウンター', ur: 'تسبیح کاؤنٹر', hi: 'तस्बीह काउंटर', tr: 'Tesbih Sayacı', fr: 'Compteur de tasbih', es: 'Contador de tasbih'},
+  salah_special_title:     { en: 'Other Prayers (Jumu\'ah, Tahajjud, Janazah…)', bn: 'অন্যান্য নামাজ (জুমা, তাহাজ্জুদ, জানাযা…)', zh: '其他礼拜（主麻、夜功、殡礼等）', ja: 'その他の礼拝（ジュムア、タハッジュド、ジャナーザなど）', ur: 'دیگر نمازیں (جمعہ، تہجد، جنازہ…)', hi: 'अन्य नमाज़ें (जुमा, तहज्जुद, जनाज़ा…)', tr: 'Diğer Namazlar (Cuma, Teheccüd, Cenaze…)', fr: 'Autres prières (Jumu\'ah, Tahajjud, Janazah…)', es: 'Otras oraciones (Yumu\'ah, Tahayyud, Yanazah…)'},
+  salah_special_intro:     { en: 'Beyond the five daily prayers, Islam prescribes special prayers for various occasions. Tap any card to expand.', bn: 'পাঁচ ওয়াক্ত নামাজের বাইরে বিভিন্ন উপলক্ষে বিশেষ নামাজ আছে। বিস্তারিত দেখতে ট্যাপ করুন।', zh: '除了五次日常礼拜之外，伊斯兰还为不同场合规定了特殊礼拜。点击卡片展开。', ja: '毎日の五回の礼拝以外にも、イスラームは様々な機会のための特別な礼拝を定めています。カードをタップして展開。', ur: 'پانچ فرض نمازوں کے علاوہ اسلام میں مختلف مواقع کے لیے خاص نمازیں مقرر ہیں۔ تفصیل کے لیے ٹیپ کریں۔', hi: 'पाँच फ़र्ज़ नमाज़ों के अलावा इस्लाम में विभिन्न अवसरों के लिए विशेष नमाज़ें निर्धारित हैं। कार्ड पर टैप करें।', tr: 'Beş vakit farz namazın ötesinde, İslam çeşitli durumlar için özel namazlar öngörür. Genişletmek için karta dokunun.', fr: 'Au-delà des cinq prières quotidiennes, l\'Islam prescrit des prières spéciales pour diverses occasions. Touchez une carte pour l\'agrandir.', es: 'Además de las cinco oraciones diarias, el Islam prescribe oraciones especiales para diversas ocasiones. Toca una tarjeta para ampliar.'},
+  salah_special_when:      { en: 'When', bn: 'কখন', zh: '时间', ja: 'いつ', ur: 'کب', hi: 'कब', tr: 'Ne zaman', fr: 'Quand', es: 'Cuándo'},
+  salah_special_rakat:     { en: 'Rakats', bn: 'রাকাত', zh: '拜数', ja: 'ラカアト', ur: 'رکعات', hi: 'रकात', tr: 'Rekat', fr: 'Rak\'ahs', es: 'Rak\'ahs'},
+  salah_special_note:      { en: 'Note', bn: 'দ্রষ্টব্য', zh: '注意', ja: '備考', ur: 'نوٹ', hi: 'नोट', tr: 'Not', fr: 'Note', es: 'Nota'},
+  salah_hadith_title:      { en: 'Hadith on Salah', bn: 'নামাজ সংক্রান্ত হাদিস', zh: '关于礼拜的圣训', ja: 'サラーに関するハディース', ur: 'نماز کے احادیث', hi: 'नमाज़ पर हदीस', tr: 'Namaz Hakkında Hadisler', fr: 'Hadiths sur la prière', es: 'Hadices sobre la oración'},
+  salah_conditions_hadith_title: { en: 'Hadith on the Conditions of Prayer', bn: 'নামাজের শর্ত সম্পর্কিত হাদিস', zh: '关于礼拜条件的圣训', ja: '礼拝の条件に関するハディース', ur: 'نماز کی شرائط کے احادیث', hi: 'नमाज़ की शर्तों पर हदीस', tr: 'Namazın Şartları Hakkında Hadisler', fr: 'Hadiths sur les conditions de la prière', es: 'Hadices sobre las condiciones de la oración'},
 };
 
 const SALAH_STEPS = [
@@ -460,6 +467,30 @@ const SALAH_QUIZ = [
     optsEn: ['Dhuhr and Asr', 'Fajr, Maghrib and Isha', 'Only Fajr', 'All prayers silently'], optsBn: ['যোহর ও আসরে', 'ফজর, মাগরিব ও ইশায়', 'শুধু ফজরে', 'সব নামাজে নীরবে'], correct: 1 },
   { qEn: 'What is the minimum number of rak\'ahs for Witr prayer?', qBn: 'বিতর নামাজের সর্বনিম্ন রাকাত কত?',
     optsEn: ['1', '3', '5', '7'], optsBn: ['১', '৩', '৫', '৭'], correct: 0 },
+  { qEn: 'Which of the following is makruh (disliked) during salah?', qBn: 'নিচের কোনটি নামাজের মধ্যে মাকরুহ?',
+    optsEn: ['Facing the qibla', 'Looking upward toward the sky', 'Reciting al-Fatiha aloud', 'Standing straight'], optsBn: ['কিবলামুখী হওয়া', 'আকাশের দিকে তাকানো', 'সূরা ফাতিহা সশব্দে পড়া', 'সোজা দাঁড়ানো'], correct: 1 },
+  { qEn: 'Which action nullifies (completely breaks) the salah?', qBn: 'কোন কাজটি নামাজ সম্পূর্ণ বাতিল করে দেয়?',
+    optsEn: ['Sneezing quietly', 'Speaking intentionally during prayer', 'Moving one foot slightly', 'Clearing the throat once'], optsBn: ['চুপে হাঁচি দেওয়া', 'ইচ্ছাকৃতভাবে কথা বলা', 'এক পা সামান্য নাড়ানো', 'একবার গলা পরিষ্কার করা'], correct: 1 },
+  { qEn: 'Sujud al-Sahw (prostration of forgetfulness) becomes necessary when:', qBn: 'সিজদায়ে সাহু কখন আবশ্যক হয়?',
+    optsEn: ['Any mistake in recitation occurs', 'A wajib act is omitted or delayed by mistake', 'A sunnah act is missed', 'The imam makes a mistake'], optsBn: ['তিলাওয়াতে যেকোনো ভুল হলে', 'ভুলে কোনো ওয়াজিব ছুটলে বা বিলম্ব হলে', 'কোনো সুন্নাত ছুটে গেলে', 'ইমাম ভুল করলে'], correct: 1 },
+  { qEn: 'How is Sujud al-Sahw correctly performed?', qBn: 'সিজদায়ে সাহু কীভাবে করতে হয়?',
+    optsEn: ['One extra prostration before salam', 'Two prostrations after the first salam, then another salam', 'Repeat the entire prayer', 'Only after the imam reminds you'], optsBn: ['সালামের আগে একটি অতিরিক্ত সিজদা', 'প্রথম সালামের পর দুটি সিজদা, তারপর আবার সালাম', 'পুরো নামাজ পুনরায় পড়া', 'শুধু ইমাম মনে করিয়ে দিলে'], correct: 1 },
+  { qEn: 'Sajdat al-Tilawah (prostration of recitation) is required when:', qBn: 'সিজদায়ে তিলাওয়াত কখন ওয়াজিব হয়?',
+    optsEn: ['After completing any surah', 'Upon reciting or hearing one of the 15 sajdah-verses in the Quran', 'Before beginning salah', 'At the end of a complete Quran recitation'], optsBn: ['যেকোনো সূরা শেষ করলে', 'কুরআনের ১৫টি সিজদার আয়াত পড়লে বা শুনলে', 'নামাজ শুরুর আগে', 'কুরআন খতমের শেষে'], correct: 1 },
+  { qEn: 'How many prostration (sajdah) verses are there in the Quran?', qBn: 'কুরআনে সিজদার আয়াত কতটি?',
+    optsEn: ['7', '10', '14', '15'], optsBn: ['৭', '১০', '১৪', '১৫'], correct: 3 },
+  { qEn: 'A traveler may continue shortening prayers as long as they do not intend to stay more than:', qBn: 'একজন মুসাফির কত দিনের বেশি থাকার নিয়ত না করলে নামাজ সংক্ষিপ্ত করতে পারবেন? (হানাফি মত)',
+    optsEn: ['3 days', '7 days', '15 days', '30 days'], optsBn: ['৩ দিন', '৭ দিন', '১৫ দিন', '৩০ দিন'], correct: 2 },
+  { qEn: 'If a traveler (Hanafi view) intends to stay more than 15 days at a destination, they:', qBn: 'হানাফি মতে মুসাফির ১৫ দিনের বেশি থাকার নিয়ত করলে:',
+    optsEn: ['Continue shortening', 'Become a resident (muqim) and must pray full prayers', 'May combine prayers only', 'Must return home first'], optsBn: ['সংক্ষিপ্ত পড়তে থাকবেন', 'মুকিম হয়ে যান এবং পূর্ণ নামাজ পড়তে হবে', 'শুধু জমা করতে পারবেন', 'আগে বাড়ি ফিরতে হবে'], correct: 1 },
+  { qEn: 'Where should women\'s rows be positioned relative to men in a mixed congregation?', qBn: 'মিশ্র জামাতে মহিলাদের কাতার কোথায় হবে?',
+    optsEn: ['In front of the men', 'Alongside the men in the same row', 'Behind all the men\'s rows', 'In a completely separate room always'], optsBn: ['পুরুষদের সামনে', 'পুরুষদের সাথে একই কাতারে', 'পুরুষদের কাতারের পিছনে', 'সর্বদা সম্পূর্ণ আলাদা কক্ষে'], correct: 2 },
+  { qEn: 'According to the Prophet ﷺ, which is more virtuous for a woman\'s prayer?', qBn: 'নবী ﷺ-এর হাদিস অনুযায়ী মহিলাদের কোন নামাজ বেশি সওয়াবের?',
+    optsEn: ['The mosque always', 'Her innermost room at home', 'Both are equal', 'The mosque only on Fridays'], optsBn: ['মসজিদ সর্বদা', 'ঘরের সবচেয়ে অভ্যন্তরীণ কক্ষ', 'উভয় সমান', 'শুধু শুক্রবার মসজিদ'], correct: 1 },
+  { qEn: 'Eating raw onion or garlic before visiting the mosque is:', qBn: 'মসজিদে যাওয়ার আগে কাঁচা পেঁয়াজ বা রসুন খাওয়া:',
+    optsEn: ['Forbidden (haram)', 'Disliked (makruh) — one should not enter the mosque with its smell', 'Recommended', 'Permissible without restriction'], optsBn: ['হারাম', 'মাকরুহ — এর গন্ধ নিয়ে মসজিদে প্রবেশ করা উচিত নয়', 'মুস্তাহাব', 'বিনা শর্তে জায়েজ'], correct: 1 },
+  { qEn: 'Laughing loudly during salah (Hanafi view):', qBn: 'নামাজের মধ্যে জোরে হাসলে (হানাফি মতে):',
+    optsEn: ['Is only makruh', 'Breaks the prayer but not the wudu', 'Breaks both the prayer and the wudu', 'Has no legal effect'], optsBn: ['শুধু মাকরুহ', 'নামাজ ভাঙে কিন্তু অজু ভাঙে না', 'নামাজ ও অজু উভয় ভেঙে যায়', 'কোনো শরীয়ত সম্মত প্রভাব নেই'], correct: 2 },
 ];
 
 const WUDU_QUIZ = [
@@ -483,6 +514,271 @@ const WUDU_QUIZ = [
     optsEn: ['Allahu Akbar', 'Ashhadu alla ilaha illallah...', 'Subhanallah', 'Alhamdulillah'], optsBn: ['আল্লাহু আকবার', 'আশহাদু আল্লা ইলাহা ইল্লাল্লাহ...', 'সুবহানাল্লাহ', 'আলহামদুলিল্লাহ'], correct: 1 },
   { qEn: 'How do you wipe the ears during wudu?', qBn: 'অজুতে কান কীভাবে মাসেহ করবেন?',
     optsEn: ['With new water', 'With the same water used for the head', 'Just touch them', 'Rub with fingers dry'], optsBn: ['নতুন পানি দিয়ে', 'মাথার অবশিষ্ট পানি দিয়ে', 'শুধু স্পর্শ করুন', 'শুকনা আঙ্গুল ঘষুন'], correct: 1 },
+  { qEn: 'How long may a resident (muqim) wipe over leather socks (khuffs) before the right expires?', qBn: 'মুকিম ব্যক্তি চামড়ার মোজার উপর কতক্ষণ মাসেহ করার অধিকার থাকে?',
+    optsEn: ['12 hours', '24 hours (1 day and night)', '48 hours', '72 hours'], optsBn: ['১২ ঘণ্টা', '২৪ ঘণ্টা (১ দিন ও রাত)', '৪৮ ঘণ্টা', '৭২ ঘণ্টা'], correct: 1 },
+  { qEn: 'How long may a traveler wipe over khuffs?', qBn: 'মুসাফির ব্যক্তি মোজার উপর কতক্ষণ মাসেহ করতে পারবেন?',
+    optsEn: ['24 hours', '48 hours', '72 hours (3 days and nights)', '7 days'], optsBn: ['২৪ ঘণ্টা', '৪৮ ঘণ্টা', '৭২ ঘণ্টা (৩ দিন ও রাত)', '৭ দিন'], correct: 2 },
+  { qEn: 'Which part of the leather sock (khuff) is wiped during masah?', qBn: 'মাসেহর সময় মোজার কোন অংশে মাসেহ করতে হয়?',
+    optsEn: ['The sole (bottom only)', 'The top (upper surface of the foot area)', 'Equally all around', 'Only the heel'], optsBn: ['তলার অংশ', 'উপরের অংশ (পায়ের পাতার উপরিভাগ)', 'সমানভাবে চারদিক', 'শুধু গোড়ালি'], correct: 1 },
+  { qEn: 'What invalidates the right to continue wiping over khuffs?', qBn: 'মোজার মাসেহর অধিকার কোন কারণে বাতিল হয়?',
+    optsEn: ['Performing wudu normally without wiping', 'Janabah (requiring ghusl) or expiry of the time limit', 'Praying five times in a row', 'Washing the face three times'], optsBn: ['স্বাভাবিকভাবে অজু করা', 'জানাবাত (গোসল আবশ্যক) বা মেয়াদ শেষ হয়ে যাওয়া', 'পরপর পাঁচ ওয়াক্ত নামাজ পড়া', 'তিনবার মুখ ধোয়া'], correct: 1 },
+  { qEn: 'Is it permissible to wipe over a bandage or plaster cast (jabeerah) during wudu?', qBn: 'অজুতে পট্টি বা প্লাস্টার কাস্টের উপর মাসেহ করা কি বৈধ?',
+    optsEn: ['No, must remove it first', 'Yes, wipe over it with no time limit, as long as it is medically needed', 'Only if a doctor permits', 'Only in tayammum, not wudu'], optsBn: ['না, আগে খুলতে হবে', 'হ্যাঁ, যতদিন চিকিৎসার প্রয়োজন ততদিন কোনো মেয়াদ ছাড়াই', 'শুধু ডাক্তার অনুমতি দিলে', 'শুধু তায়াম্মুমে, অজুতে নয়'], correct: 1 },
+  { qEn: 'From when does the time limit for wiping over khuffs begin?', qBn: 'মোজার মাসেহর সময়সীমা কখন থেকে শুরু হয়?',
+    optsEn: ['From when the khuffs are put on', 'From the first time one wipes over them after putting them on', 'From the first prayer after putting them on', 'From midnight of that day'], optsBn: ['মোজা পরার মুহূর্ত থেকে', 'মোজা পরার পর প্রথমবার মাসেহ করার সময় থেকে', 'মোজা পরার পরে প্রথম নামাজ থেকে', 'সেই দিনের মধ্যরাত থেকে'], correct: 1 },
+  { qEn: 'For masah over khuffs to be valid, the socks must at minimum:', qBn: 'মোজার মাসেহ বৈধ হওয়ার জন্য মোজাকে অন্তত:',
+    optsEn: ['Be made of pure leather only', 'Cover the ankle and be durable enough to walk in without tearing quickly', 'Be white in colour', 'Have been purchased new'], optsBn: ['শুধু খাঁটি চামড়া দিয়ে তৈরি হতে হবে', 'গোড়ালি ঢাকতে হবে এবং দ্রুত না ছিঁড়ে হেঁটে চলার যোগ্য হতে হবে', 'সাদা রঙের হতে হবে', 'নতুন কেনা হতে হবে'], correct: 1 },
+];
+
+const SALAH_SPECIAL = [
+  { id: 'jumuah', emoji: '🕌',
+    nameEn: 'Jumu\'ah (Friday Prayer)', nameBn: 'জুমার নামাজ',
+    whenEn: 'Weekly, in place of Dhuhr on Fridays', whenBn: 'সাপ্তাহিক, শুক্রবার যোহরের পরিবর্তে',
+    rakatEn: '2 fard (in congregation) + preceded by 2 khutbahs. Sunnah: 4 rak\'ahs before, 4 or 2 after.', rakatBn: '২ ফরজ (জামাতে) + এর আগে ২টি খুতবা। সুন্নাত: আগে ৪ রাকাত, পরে ৪ বা ২ রাকাত।',
+    noteEn: 'Obligatory on every free, adult, resident, sane male Muslim (62:9). Recommended: ghusl, best clothes, perfume, walking early, reciting Surah al-Kahf.',
+    noteBn: 'প্রত্যেক স্বাধীন, প্রাপ্তবয়স্ক, মুকিম, সুস্থ পুরুষ মুসলিমের জন্য ফরয (৬২:৯)। সুন্নাত: গোসল, উত্তম পোশাক, সুগন্ধি, আগেভাগে যাওয়া, সূরা কাহাফ তিলাওয়াত।' },
+  { id: 'eidayn', emoji: '🎉',
+    nameEn: 'Eid Prayer (al-Eidayn)', nameBn: 'ঈদের নামাজ',
+    whenEn: 'Twice a year — Eid al-Fitr (1 Shawwal) and Eid al-Adha (10 Dhul-Hijjah)', whenBn: 'বছরে দুইবার — ঈদুল ফিতর (১ শাওয়াল) ও ঈদুল আযহা (১০ জিলহজ)',
+    rakatEn: '2 rak\'ahs with 7 extra takbirs in the 1st and 5 in the 2nd, followed by two khutbahs. No adhan or iqamah.', rakatBn: '২ রাকাত — প্রথম রাকাতে অতিরিক্ত ৭টি ও দ্বিতীয় রাকাতে ৫টি তাকবির, তারপর দু\'টি খুতবা। আজান বা ইকামত নেই।',
+    noteEn: 'Sunnah mu\'akkadah (some say wajib). Performed in an open place preferably, in congregation, after sunrise until Dhuhr.',
+    noteBn: 'সুন্নাতে মুয়াক্কাদা (কেউ কেউ ওয়াজিব বলেছেন)। সূর্যোদয়ের পর থেকে যোহরের আগ পর্যন্ত, উত্তম হলো জামাতে খোলা মাঠে।' },
+  { id: 'janazah', emoji: '⚰️',
+    nameEn: 'Janazah (Funeral Prayer)', nameBn: 'জানাযার নামাজ',
+    whenEn: 'When a Muslim dies, before burial', whenBn: 'কোনো মুসলিম মারা গেলে, দাফনের আগে',
+    rakatEn: '4 takbirs standing (no ruku or sujud). After 1st: al-Fatiha; 2nd: durood on the Prophet ﷺ; 3rd: du\'a for the deceased; 4th: brief du\'a and salam.', rakatBn: 'দাঁড়িয়ে ৪টি তাকবির (রুকু-সিজদা নেই)। ১ম-এর পর: ফাতিহা; ২য়: দরূদ; ৩য়: মৃত ব্যক্তির জন্য দোয়া; ৪র্থ: সংক্ষিপ্ত দোয়া ও সালাম।',
+    noteEn: 'Fard kifayah — if some perform it, the obligation is lifted from all. A great right of the deceased Muslim.',
+    noteBn: 'ফরযে কিফায়া — কতিপয় লোক আদায় করলে সবার পক্ষ থেকে আদায় হয়। মৃত মুসলিমের অন্যতম বড় অধিকার।' },
+  { id: 'witr', emoji: '🌌',
+    nameEn: 'Witr', nameBn: 'বিতর',
+    whenEn: 'After Isha until Fajr; best in the last third of the night', whenBn: 'ইশার পর থেকে ফজরের আগ পর্যন্ত; সর্বোত্তম রাতের শেষ তৃতীয়াংশে',
+    rakatEn: '1, 3, 5, 7, 9, or 11 rak\'ahs (odd number). Commonly 3 with Qunut du\'a in the last rak\'ah.', rakatBn: '১, ৩, ৫, ৭, ৯ বা ১১ রাকাত (বিজোড়)। সাধারণত ৩ রাকাত — শেষ রাকাতে দোয়ায়ে কুনুত।',
+    noteEn: 'Wajib in the Hanafi school, sunnah mu\'akkadah in the Shafi\'i/Maliki/Hanbali. The Prophet ﷺ never omitted it, even in travel.',
+    noteBn: 'হানাফি মাযহাবে ওয়াজিব, শাফিয়ী/মালিকী/হাম্বলী মাযহাবে সুন্নাতে মুয়াক্কাদা। নবী ﷺ সফরেও তা ছাড়েননি।' },
+  { id: 'tahajjud', emoji: '🌙',
+    nameEn: 'Tahajjud (Night Prayer / Qiyam al-Layl)', nameBn: 'তাহাজ্জুদ (রাতের নামাজ / কিয়ামুল লাইল)',
+    whenEn: 'After sleeping some part of the night, before Fajr; best in the last third', whenBn: 'রাতে কিছু সময় ঘুমানোর পর, ফজরের আগে; সর্বোত্তম শেষ তৃতীয়াংশে',
+    rakatEn: '2 rak\'ah units, up to 8 (or more), ending with Witr.', rakatBn: '২ রাকাত করে, ৮ রাকাত (বা বেশি) পর্যন্ত, বিতর দিয়ে শেষ।',
+    noteEn: 'Highly recommended — "the best prayer after the obligatory ones is the night prayer" (Muslim). Allah descends to the lowest heaven in the last third of the night (Bukhari & Muslim).',
+    noteBn: 'অত্যন্ত মুস্তাহাব — "ফরযের পর সর্বোত্তম নামাজ রাতের নামাজ" (মুসলিম)। রাতের শেষ তৃতীয়াংশে আল্লাহ নিকটবর্তী আসমানে অবতরণ করেন (বুখারি ও মুসলিম)।' },
+  { id: 'duha', emoji: '🌤️',
+    nameEn: 'Duha (Forenoon / Ishraq)', nameBn: 'দুহা (চাশত / ইশরাক)',
+    whenEn: 'From ~20 min after sunrise until ~15 min before Dhuhr', whenBn: 'সূর্যোদয়ের প্রায় ২০ মিনিট পর থেকে যোহরের ১৫ মিনিট আগ পর্যন্ত',
+    rakatEn: '2 to 12 rak\'ahs in units of 2. Ishraq is the earliest (~2 rak\'ahs); Duha proper is later, best time around mid-morning.', rakatBn: '২ থেকে ১২ রাকাত — ২ রাকাত করে। ইশরাক সর্বপ্রথম (~২ রাকাত); মূল দুহা পরে, সর্বোত্তম সময় সকাল-দুপুরের মাঝামাঝি।',
+    noteEn: 'Praying Duha suffices as sadaqah for all 360 joints of the body (Muslim). The reward equals an accepted Hajj and Umrah when combined with Fajr in congregation and dhikr until sunrise (Tirmidhi).',
+    noteBn: 'দুহা আদায় শরীরের ৩৬০টি জোড়ার সদকা হিসেবে যথেষ্ট (মুসলিম)। ফজরের জামাত ও যিকিরের সাথে মিলিয়ে সূর্যোদয় পর্যন্ত অপেক্ষা করলে সওয়াব হজ-উমরার সমতুল্য (তিরমিযি)।' },
+  { id: 'traveler', emoji: '🧳',
+    nameEn: 'Traveler\'s Prayer (Salat al-Musafir)', nameBn: 'মুসাফিরের নামাজ',
+    whenEn: 'When traveling ≥ ~85 km beyond one\'s city; while journey continues', whenBn: 'নিজ শহরের বাইরে ~৮৫ কিমি বা বেশি সফরে; সফর চলাকালে',
+    rakatEn: 'Shorten 4-rak\'ah prayers (Dhuhr, Asr, Isha) to 2 rak\'ahs. Fajr and Maghrib are not shortened. Dhuhr+Asr and Maghrib+Isha may be combined (jam\').', rakatBn: 'চার রাকাত নামাজ (যোহর, আসর, ইশা) ২ রাকাতে সংক্ষিপ্ত। ফজর ও মাগরিব সংক্ষিপ্ত হয় না। যোহর+আসর এবং মাগরিব+ইশা একত্র (জামা\') করা যায়।',
+    noteEn: 'A concession (rukhsah) from Allah (4:101). Combining is permissible in genuine need — heavy rain, illness, danger, or continuous travel.',
+    noteBn: 'আল্লাহর পক্ষ থেকে ছাড় (৪:১০১)। প্রকৃত প্রয়োজনে — অতিবৃষ্টি, রোগ, বিপদ বা একটানা সফরে — একত্র করা বৈধ।' },
+  { id: 'istikhara', emoji: '❓',
+    nameEn: 'Istikhara (Seeking Guidance)', nameBn: 'ইস্তিখারা (উত্তম পথ প্রার্থনা)',
+    whenEn: 'Any time — before making a permissible decision (except forbidden or already-obligatory ones)', whenBn: 'যেকোনো সময় — কোনো বৈধ সিদ্ধান্তের আগে (হারাম বা পূর্বনির্ধারিত ফরযের জন্য নয়)',
+    rakatEn: '2 rak\'ahs (nafl), followed by the Istikhara du\'a mentioning the specific matter.', rakatBn: '২ রাকাত (নফল), এরপর বিষয় উল্লেখ করে ইস্তিখারার দোয়া।',
+    noteEn: 'The Prophet ﷺ taught Istikhara as he taught the Quran (Bukhari). It does not guarantee dreams — proceed with what your heart feels contented with after praying.',
+    noteBn: 'নবী ﷺ কুরআনের মতোই ইস্তিখারা শিখিয়েছেন (বুখারি)। এতে স্বপ্ন দেখার নিশ্চয়তা নেই — নামাজের পর যেদিকে হৃদয় সন্তুষ্ট হয় সেদিকে এগিয়ে যান।' },
+  { id: 'tarawih', emoji: '🌙',
+    nameEn: 'Tarawih (Ramadan Night Prayer)', nameBn: 'তারাবিহ (রমজানের রাতের নামাজ)',
+    whenEn: 'After Isha, every night during Ramadan', whenBn: 'রমজানে প্রতিরাতে ইশার পর',
+    rakatEn: '8 or 20 rak\'ahs in units of 2, ending with Witr. Best in congregation, with recitation of the entire Quran across the month.', rakatBn: '৮ বা ২০ রাকাত ২ রাকাত করে, বিতর দিয়ে শেষ। সর্বোত্তম জামাতে, সারা মাসে পুরো কুরআন খতম।',
+    noteEn: 'A confirmed sunnah of the Prophet ﷺ. He said: "Whoever stands in prayer during Ramadan with faith and hoping for reward, his previous sins are forgiven." (Bukhari)',
+    noteBn: 'নবী ﷺ-এর সুন্নাতে মুয়াক্কাদা। তিনি বলেছেন: "যে ঈমান ও সওয়াবের আশায় রমজানে কিয়াম করবে, তার পূর্ববর্তী গুনাহ মাফ হবে।" (বুখারি)' },
+  { id: 'ishraq', emoji: '🌅',
+    nameEn: 'Ishraq (Post-Sunrise Prayer)', nameBn: 'ইশরাক (সূর্যোদয়-পরবর্তী নামাজ)',
+    whenEn: 'About 15-20 minutes after sunrise, when the sun is a spear\'s height above the horizon', whenBn: 'সূর্যোদয়ের প্রায় ১৫-২০ মিনিট পরে, যখন সূর্য দিগন্তের উপরে উঠে আসে',
+    rakatEn: '2 rak\'ahs (minimum); best prayed after remaining seated in dhikr from Fajr until sunrise.', rakatBn: '২ রাকাত (সর্বনিম্ন); ফজরের পর বসে যিকিরে সময় কাটিয়ে সূর্যোদয়ের পর পড়া সর্বোত্তম।',
+    noteEn: 'Whoever prays Fajr in congregation, then remains in dhikr until sunrise, then prays 2 rak\'ahs, earns the reward of a complete Hajj and Umrah (Tirmidhi, hasan). Ishraq is the earliest portion of Duha time; its spirit is unbroken remembrance from Fajr to sunrise.',
+    noteBn: 'যে ব্যক্তি জামাতে ফজর পড়ে সূর্যোদয় পর্যন্ত যিকিরে বসে থাকে, তারপর ২ রাকাত পড়ে — সে পূর্ণ হজ ও উমরার সওয়াব পাবে (তিরমিযি, হাসান)। ইশরাক হলো দুহার সবচেয়ে প্রথম অংশ; ফজর থেকে সূর্যোদয় পর্যন্ত অবিচ্ছিন্ন যিকিরই এর মূল মর্ম।' },
+  { id: 'tawbah', emoji: '🙏',
+    nameEn: 'Salat al-Tawbah (Prayer of Repentance)', nameBn: 'সালাতুত তাওবাহ (তওবার নামাজ)',
+    whenEn: 'After committing a sin, as part of sincere repentance to Allah', whenBn: 'যখনই কোনো গুনাহ হয়, আন্তরিক তওবার অংশ হিসেবে',
+    rakatEn: '2 rak\'ahs (nafl), followed by sincere istighfar and du\'a for forgiveness.', rakatBn: '২ রাকাত (নফল), তারপর আন্তরিক ইস্তিগফার ও ক্ষমার দোয়া।',
+    noteEn: 'Abu Bakr (RA) reported the Prophet ﷺ: "No person commits a sin, makes wudu, prays two rak\'ahs, then seeks forgiveness, but Allah forgives them." (Abu Dawud, Tirmidhi — sahih). This prayer purifies the heart and deepens remorse before turning back to Allah.',
+    noteBn: 'আবু বকর (রা.) বর্ণিত: নবী ﷺ বলেছেন — যে গুনাহ করে, অজু করে, ২ রাকাত পড়ে, তারপর ক্ষমা চায় — আল্লাহ তাকে ক্ষমা করেন (আবু দাউদ, তিরমিযি — সহিহ)। এ নামাজ হৃদয় পরিশুদ্ধ করে এবং আল্লাহর দিকে ফিরে আসার পথ খুলে দেয়।' },
+  { id: 'shukr', emoji: '😊',
+    nameEn: 'Sujud al-Shukr (Prostration of Gratitude)', nameBn: 'সিজদায়ে শোকর (কৃতজ্ঞতার সিজদা)',
+    whenEn: 'Upon receiving a blessing, hearing good news, or relief from hardship', whenBn: 'কোনো নেয়ামত পেলে, সুসংবাদ শুনলে বা বিপদ দূর হলে',
+    rakatEn: 'A single prostration — not a full prayer. Face the qibla, say Allahu Akbar, prostrate saying "Subhana Rabbiyal A\'la". No tashahhud, no salaam required.', rakatBn: 'একটি মাত্র সিজদা — পূর্ণ নামাজ নয়। কিবলামুখী হয়ে "আল্লাহু আকবার" বলে সিজদা করুন, "সুবহানা রাব্বিয়াল আলা" পড়ুন। তাশাহহুদ বা সালাম নেই।',
+    noteEn: 'The Prophet ﷺ would prostrate in gratitude when good news reached him (Abu Dawud, Tirmidhi). Some scholars require wudu; others consider it recommended. It is a Sunnah act expressing physical thankfulness to Allah.',
+    noteBn: 'সুসংবাদ পেলে নবী ﷺ সিজদায় লুটিয়ে পড়তেন (আবু দাউদ, তিরমিযি)। কেউ অজু শর্ত মনে করেন, অন্যরা মুস্তাহাব বলেন। শরীর দিয়ে আল্লাহর কৃতজ্ঞতা প্রকাশের এটি একটি সুন্নাত আমল।' },
+  { id: 'hajah', emoji: '🤲',
+    nameEn: 'Salat al-Hajah (Prayer of Need)', nameBn: 'সালাতুল হাজাহ (প্রয়োজনের নামাজ)',
+    whenEn: 'When one has a genuine need — worldly or religious — and turns to Allah for help', whenBn: 'কোনো দুনিয়াবি বা দ্বীনি প্রয়োজনে আল্লাহর সাহায্য প্রার্থনায়',
+    rakatEn: '2 rak\'ahs, then praise Allah, send salawat on the Prophet ﷺ, and recite the specific du\'a of hajah mentioning the need.', rakatBn: '২ রাকাত, তারপর আল্লাহর প্রশংসা, নবী ﷺ-এর উপর দরূদ, এবং হাজাহর বিশেষ দোয়ায় প্রয়োজন উল্লেখ।',
+    noteEn: 'A man came to the Prophet ﷺ repeatedly for a need; the Prophet ﷺ taught him to make wudu, pray 2 rak\'ahs, then recite the specific du\'a (Ibn Majah, Tirmidhi — hasan). This prayer trains tawakkul — placing reliance on Allah before all else.',
+    noteBn: 'এক সাহাবী বারবার নবী ﷺ-এর কাছে প্রয়োজনের কথা জানান; নবী ﷺ শেখালেন — অজু করো, ২ রাকাত পড়ো, তারপর হাজাহর দোয়া করো (ইবন মাজাহ, তিরমিযি — হাসান)। এ নামাজ তাওয়াক্কুল শেখায়।' },
+  { id: 'tasbeeh', emoji: '📿',
+    nameEn: 'Salat al-Tasbeeh (Prayer of Glorification)', nameBn: 'সালাতুত তাসবিহ',
+    whenEn: 'Any time except the three forbidden times; ideally daily, weekly, monthly, or at least once in a lifetime', whenBn: 'তিনটি নিষিদ্ধ সময় ছাড়া যেকোনো সময়; উত্তম: প্রতিদিন, সাপ্তাহিক, মাসিক বা জীবনে অন্তত একবার',
+    rakatEn: '4 rak\'ahs. In each rak\'ah the tasbeeh "Subhanallahi wal-hamdu lillahi wa la ilaha illallahu wallahu akbar" is recited 75 times at fixed positions (15 after opening du\'a + 10 at each of the 6 remaining positions). Total: 300 per prayer.',
+    rakatBn: '৪ রাকাত। প্রতি রাকাতে নির্দিষ্ট স্থানে ৭৫ বার তাসবিহ: সানার পর ১৫+, বাকি ৬ স্থানে ১০ করে। মোট ৩০০। তাসবিহ: "সুবহানাল্লাহি ওয়ালহামদু লিল্লাহি ওয়া লা ইলাহা ইল্লাল্লাহু ওয়াল্লাহু আকবার।"',
+    noteEn: 'Ibn Abbas (RA) narrated that the Prophet ﷺ taught this prayer to his uncle Abbas (RA), saying it would expiate all sins — earlier and later, great and small (Abu Dawud, Ibn Majah). Authenticity is debated but accepted by Ibn Mubarak, Ibn Khuzaymah and many scholars.',
+    noteBn: 'ইবন আব্বাস (রা.) বর্ণিত: নবী ﷺ চাচা আব্বাস (রা.)-কে শেখান — এতে অতীত-ভবিষ্যৎ, ছোট-বড় সব গুনাহ মাফ হবে (আবু দাউদ, ইবন মাজাহ)। সনদে মতভেদ থাকলেও ইবন মুবারক, ইবন খুযাইমাহ ও বহু ইমাম এটি গ্রহণ করেছেন।' },
+  { id: 'kusuf', emoji: '🌑',
+    nameEn: 'Salat al-Kusuf (Solar Eclipse Prayer)', nameBn: 'সালাতুল কুসুফ (সূর্যগ্রহণের নামাজ)',
+    whenEn: 'When a solar eclipse occurs', whenBn: 'সূর্যগ্রহণ শুরু হলে',
+    rakatEn: '2 rak\'ahs, each containing 2 long qiyams and 2 rukus. Recitation is very long. Prayed in congregation; imam delivers a khutbah afterwards.', rakatBn: '২ রাকাত, প্রতিটিতে ২টি দীর্ঘ কিয়াম ও ২টি রুকু। তিলাওয়াত দীর্ঘ। জামাতে পড়া হয়; ইমাম পরে খুতবা দেন।',
+    noteEn: 'The Prophet ﷺ said: "The sun and moon do not eclipse for anyone\'s death. When you see an eclipse, pray and make du\'a until it clears." (Bukhari & Muslim). He ﷺ led this prayer and mentioned the torments of the grave during the khutbah.',
+    noteBn: 'নবী ﷺ বলেছেন: "সূর্য-চাঁদ কারো মৃত্যুর কারণে গ্রহণ লাগে না। গ্রহণ দেখলে নামাজ পড়ো ও দোয়া করো যতক্ষণ না শেষ হয়।" (বুখারি ও মুসলিম)।' },
+  { id: 'khusuf', emoji: '🌕',
+    nameEn: 'Salat al-Khusuf (Lunar Eclipse Prayer)', nameBn: 'সালাতুল খুসুফ (চন্দ্রগ্রহণের নামাজ)',
+    whenEn: 'When a lunar eclipse occurs', whenBn: 'চন্দ্রগ্রহণ হলে',
+    rakatEn: 'Same structure as Kusuf: 2 rak\'ahs each with 2 qiyams and 2 rukus. The Hanafi school permits individual 2-rak\'ah nafl for Khusuf as sufficient.', rakatBn: 'কুসুফের মতো: ২ রাকাত, প্রতিটিতে ২ কিয়াম ও ২ রুকু। হানাফি মাযহাবে ব্যক্তিগত ২ রাকাত নফলও যথেষ্ট।',
+    noteEn: 'The majority of scholars apply the Kusuf ruling to Khusuf. Pray, make du\'a and engage in dhikr throughout the eclipse. The Prophet ﷺ commanded prayer upon seeing either eclipse (Bukhari & Muslim).',
+    noteBn: 'অধিকাংশ আলেম চন্দ্রগ্রহণেও কুসুফের বিধান প্রযোজ্য মনে করেন। গ্রহণকালে নামাজ, দোয়া ও যিকিরে মশগুল থাকুন। উভয় গ্রহণেই নবী ﷺ নামাজের নির্দেশ দিয়েছেন (বুখারি ও মুসলিম)।' },
+  { id: 'istisqa', emoji: '🌧️',
+    nameEn: 'Salat al-Istisqa\' (Prayer for Rain)', nameBn: 'সালাতুল ইস্তিসকা (বৃষ্টির নামাজ)',
+    whenEn: 'During drought or prolonged lack of rain, after communal repentance and turning to Allah', whenBn: 'খরা বা দীর্ঘ বৃষ্টিহীনতায়, সম্প্রদায়ের তওবা ও আল্লাহমুখী হওয়ার পরে',
+    rakatEn: '2 rak\'ahs in congregation in an open space, like Eid prayer. Imam delivers 2 khutbahs; mid-khutbah he faces the qibla and turns his cloak inside-out (talwiyat al-rida\'), raising hands in earnest du\'a.', rakatBn: '২ রাকাত জামাতে খোলা মাঠে — ঈদের নামাজের মতো। ইমাম ২ খুতবা দেন; খুতবার মাঝে কিবলামুখী হয়ে চাদর উল্টে পরেন এবং হাত তুলে তীব্র দোয়া করেন।',
+    noteEn: 'The Prophet ﷺ performed Istisqa during severe drought and rain came (Bukhari & Muslim). The turning of the cloak is mutawatir Sunnah. This prayer embodies communal humility and complete dependence on Allah.',
+    noteBn: 'নবী ﷺ তীব্র খরায় ইস্তিসকা পড়েছেন এবং বৃষ্টি এসেছে (বুখারি ও মুসলিম)। চাদর উল্টানোর আমল মুতাওয়াতির সুন্নাত। এ নামাজ সমাজের বিনয় ও আল্লাহর উপর পূর্ণ নির্ভরতার প্রতীক।' },
+  { id: 'awwabin', emoji: '🌆',
+    nameEn: 'Salat al-Awwabin (Prayer of the Oft-Returning)', nameBn: 'সালাতুল আওয়াবীন',
+    whenEn: 'Between Maghrib and Isha', whenBn: 'মাগরিব ও ইশার মধ্যবর্তী সময়ে',
+    rakatEn: '6 rak\'ahs (3 pairs of 2) after Maghrib\'s sunnah. Some scholars include the Maghrib sunnah itself among these six.', rakatBn: 'মাগরিবের সুন্নাতের পর ৬ রাকাত (৩ জোড়া)। কেউ কেউ মাগরিবের সুন্নাতকেও এর অন্তর্ভুক্ত করেন।',
+    noteEn: 'The Prophet ﷺ said: "Whoever prays 6 rak\'ahs after Maghrib without saying anything bad in between, it is equivalent to 12 years of worship." (Ibn Majah, Tirmidhi). Al-Awwabin means "those who frequently return to Allah" — a mark of sincerity and nearness.',
+    noteBn: 'নবী ﷺ বলেছেন: "যে মাগরিবের পর ৬ রাকাত পড়ে মাঝে কোনো মন্দ কথা না বলে, এটি ১২ বছরের ইবাদতের সমতুল্য।" (ইবন মাজাহ, তিরমিযি)। "আওয়াবীন" অর্থ "যারা বারবার আল্লাহর দিকে ফিরে আসে"।' },
+  { id: 'layl', emoji: '⭐',
+    nameEn: 'Salat al-Layl — Variants & Details', nameBn: 'সালাতুল লাইল — প্রকারভেদ ও বিস্তারিত',
+    whenEn: 'Any time after Isha until before Fajr; best in the last third of the night', whenBn: 'ইশার পর থেকে ফজরের আগ পর্যন্ত; সর্বোত্তম রাতের শেষ তৃতীয়াংশে',
+    rakatEn: 'Minimum 2 rak\'ahs; commonly 8-11 total (8 Qiyam + 3 Witr). Variants: (1) Tahajjud — strictly after sleeping; (2) Qiyam al-Layl — any night prayer; (3) Tarawih — Ramadan congregation. Always close with an odd-number Witr.', rakatBn: 'সর্বনিম্ন ২ রাকাত; সাধারণত ৮-১১ মোট (৮ কিয়াম + ৩ বিতর)। প্রকার: (১) তাহাজ্জুদ — ঘুমের পরে; (২) কিয়ামুল লাইল — সাধারণ রাতের নামাজ; (৩) তারাবিহ — রমজানে জামাতে। বিতর দিয়ে শেষ করুন।',
+    noteEn: 'Allah says: "In parts of the night, prostrate to Him and glorify Him for long stretches." (76:26). The Prophet ﷺ never abandoned Qiyam al-Layl even in illness — he prayed seated when he could not stand. Long, unhurried recitation with reflection on the Quran\'s meaning is its spirit.',
+    noteBn: 'আল্লাহ বলেন: "রাতের কিছু অংশে তাঁকে সিজদা করো এবং দীর্ঘ সময় তাঁর তাসবিহ পড়ো।" (৭৬:২৬)। নবী ﷺ অসুস্থ অবস্থায়ও কিয়াম ছাড়েননি — বসে পড়তেন। কুরআনের অর্থ নিয়ে গভীর ও ধীর তিলাওয়াত হলো এর মূল স্পিরিট।' },
+];
+
+const SALAH_HADITH = [
+  {
+    textEn: 'The first thing the servant will be called to account for on the Day of Resurrection from his deeds will be prayer. If it is sound, all his other deeds will be sound; if it is corrupt, all his other deeds will be corrupt.',
+    textBn: 'কিয়ামতের দিন বান্দার আমলসমূহের মধ্যে সর্বপ্রথম নামাজের হিসাব নেওয়া হবে। নামাজ সঠিক হলে সে সফলকাম হবে; নামাজ নষ্ট হলে সে ব্যর্থ ও ক্ষতিগ্রস্ত হবে।',
+    srcEn: 'Sunan al-Tirmidhi & Sunan al-Nasa\'i — reported by Abu Hurairah (RA)',
+    srcBn: 'তিরমিযি ও নাসায়ী — আবু হুরায়রা (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Between a man and shirk (polytheism) and kufr (disbelief) is the abandonment of prayer.',
+    textBn: 'বান্দা ও শিরক-কুফরের মাঝে পার্থক্য হলো নামাজ ছেড়ে দেওয়া।',
+    srcEn: 'Sahih Muslim — reported by Jabir ibn Abdullah (RA)',
+    srcBn: 'সহিহ মুসলিম — জাবির ইবন আবদুল্লাহ (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'The key to Paradise is prayer, and the key to prayer is purification (wudu).',
+    textBn: 'জান্নাতের চাবি নামাজ, আর নামাজের চাবি হলো পবিত্রতা।',
+    srcEn: 'Musnad Ahmad, Sunan al-Tirmidhi — reported by Jabir (RA)',
+    srcBn: 'মুসনাদ আহমাদ, তিরমিযি — জাবির (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Prayer in congregation is twenty-seven times more excellent than prayer offered alone.',
+    textBn: 'জামাতে নামাজ একাকী নামাজের চেয়ে সাতাশ গুণ শ্রেষ্ঠ।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Ibn Umar (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — ইবন উমর (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Three things have been made beloved to me in this world of yours: women, perfume — and the cool comfort of my eyes has been placed in prayer.',
+    textBn: 'তোমাদের দুনিয়া থেকে তিনটি জিনিস আমার কাছে প্রিয় করা হয়েছে: নারী, সুগন্ধি — আর নামাজকে আমার চোখের শীতলতা বানানো হয়েছে।',
+    srcEn: 'Musnad Ahmad, Sunan al-Nasa\'i — reported by Anas ibn Malik (RA)',
+    srcBn: 'মুসনাদ আহমাদ, নাসায়ী — আনাস ইবন মালিক (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Pray as you have seen me pray.',
+    textBn: 'নামাজ পড়ো যেভাবে আমাকে নামাজ পড়তে দেখছ।',
+    srcEn: 'Sahih al-Bukhari — reported by Malik ibn al-Huwairith (RA)',
+    srcBn: 'সহিহ বুখারি — মালিক ইবনুল হুওয়াইরিস (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'There is no prayer for the one who does not recite the Opening of the Book (Surah al-Fatiha).',
+    textBn: 'যে ব্যক্তি সূরা ফাতিহা পড়ে না তার নামাজ হয় না।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Ubadah ibn al-Samit (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — উবাদা ইবনুস সামিত (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Whoever forgets a prayer, let him pray it when he remembers it. There is no expiation for it other than that.',
+    textBn: 'যে ব্যক্তি নামাজ ভুলে যায়, স্মরণ হলে তখনই পড়ে নিক। এর কোনো কাফফারা নেই এটি ছাড়া।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Anas ibn Malik (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — আনাস ইবন মালিক (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'The closest a servant comes to his Lord is when he is in prostration, so increase your supplication in it.',
+    textBn: 'বান্দা তার রবের সবচেয়ে নিকটে থাকে সিজদার সময়। তাই সিজদায় বেশি বেশি দোয়া করো।',
+    srcEn: 'Sahih Muslim — reported by Abu Hurairah (RA)',
+    srcBn: 'সহিহ মুসলিম — আবু হুরায়রা (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Verily, prayer prohibits indecency and wrongdoing. And the remembrance of Allah is greater.',
+    textBn: 'নিশ্চয়ই নামাজ অশ্লীলতা ও মন্দ কাজ থেকে বিরত রাখে। আল্লাহর স্মরণ সর্বশ্রেষ্ঠ।',
+    srcEn: 'Quran 29:45',
+    srcBn: 'কুরআন ২৯:৪৫'
+  },
+  {
+    textEn: 'The best of deeds is prayer performed at its proper time, then kindness to parents, then jihad in the path of Allah.',
+    textBn: 'সর্বোত্তম আমল হলো নামাজ তার নির্ধারিত সময়ে পড়া, তারপর পিতামাতার সাথে সদ্ব্যবহার, তারপর আল্লাহর পথে জিহাদ।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Ibn Masud (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — ইবন মাসউদ (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'The best prayer after the obligatory prayers is the night prayer (salah al-layl).',
+    textBn: 'ফরয নামাজের পর সর্বোত্তম নামাজ হলো রাতের নামাজ।',
+    srcEn: 'Sahih Muslim — reported by Abu Hurairah (RA)',
+    srcBn: 'সহিহ মুসলিম — আবু হুরায়রা (রা.) বর্ণিত'
+  },
+  {
+    textEn: 'Straighten your rows, for the straightening of rows is part of the perfection of prayer.',
+    textBn: 'তোমরা কাতার সোজা করো; কারণ কাতার সোজা করা নামাজ পরিপূর্ণ করার অংশ।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Anas ibn Malik (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — আনাস ইবন মালিক (রা.) বর্ণিত'
+  },
+];
+
+const SALAH_CONDITIONS_HADITH = [
+  {
+    condition: { en: 'Intention (Niyyah)', bn: 'নিয়ত' },
+    textEn: 'Actions are (judged) by intentions, and every person will have only what they intended.',
+    textBn: 'আমলের ফলাফল নিয়তের উপর নির্ভর করে এবং প্রত্যেক ব্যক্তি তাই পাবে যা সে নিয়ত করেছে।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Umar ibn al-Khattab (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — উমর ইবনুল খাত্তাব (রা.) বর্ণিত'
+  },
+  {
+    condition: { en: 'Purity (Taharah)', bn: 'পবিত্রতা (তাহারাত)' },
+    textEn: 'Allah does not accept a prayer without purification (wudu).',
+    textBn: 'আল্লাহ পবিত্রতা ছাড়া নামাজ কবুল করেন না।',
+    srcEn: 'Sahih Muslim — reported by Ibn Umar (RA)',
+    srcBn: 'সহিহ মুসলিম — ইবন উমর (রা.) বর্ণিত'
+  },
+  {
+    condition: { en: 'Facing the Qiblah', bn: 'কিবলামুখী হওয়া' },
+    textEn: 'When you stand for prayer, complete the wudu, then face the qibla, then say Allahu Akbar.',
+    textBn: 'যখন নামাজের জন্য দাঁড়াও, ভালোভাবে অজু করো, তারপর কিবলামুখী হও, তারপর আল্লাহু আকবার বলো।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — from the hadith of the man who prayed incorrectly',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — ভুলভাবে নামাজ পড়া ব্যক্তির হাদিস থেকে'
+  },
+  {
+    condition: { en: 'Prayer Time (Waqt)', bn: 'নামাজের সময় (ওয়াক্ত)' },
+    textEn: 'The best of deeds is prayer performed at its proper time.',
+    textBn: 'সর্বোত্তম আমল হলো নামাজ তার নির্ধারিত সময়ে আদায় করা।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Ibn Masud (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — ইবন মাসউদ (রা.) বর্ণিত'
+  },
+  {
+    condition: { en: 'Covering Awrah (Satr al-Awrah)', bn: 'সতর আবরণ' },
+    textEn: 'Allah does not accept the prayer of a woman who has reached puberty except with a headscarf.',
+    textBn: 'বালিগা মহিলার ওড়না ছাড়া আল্লাহ নামাজ কবুল করেন না।',
+    srcEn: 'Sunan Abu Dawud, Sunan al-Tirmidhi — reported by Aishah (RA)',
+    srcBn: 'আবু দাউদ, তিরমিযি — আইশা (রা.) বর্ণিত'
+  },
+  {
+    condition: { en: 'Purity of Place', bn: 'স্থানের পবিত্রতা' },
+    textEn: 'The earth has been made a masjid (place of prostration) and a purifier for me.',
+    textBn: 'আমার জন্য সমগ্র পৃথিবীকে মসজিদ ও পবিত্রতার মাধ্যম করা হয়েছে।',
+    srcEn: 'Sahih al-Bukhari & Sahih Muslim — reported by Jabir ibn Abdullah (RA)',
+    srcBn: 'সহিহ বুখারি ও সহিহ মুসলিম — জাবির ইবন আবদুল্লাহ (রা.) বর্ণিত'
+  },
+  {
+    condition: { en: 'Prayer Times — Jibreel\'s Teaching', bn: 'নামাজের সময় — জিবরীলের শিক্ষা' },
+    textEn: 'Jibreel led me in prayer at the Ka\'bah twice, showing me the beginning and end time of each prayer.',
+    textBn: 'জিবরীল (আ.) বাইতুল্লাহর নিকট দুইবার আমার ইমামতি করেন এবং প্রতিটি নামাজের শুরু ও শেষ সময় দেখিয়ে দেন।',
+    srcEn: 'Sunan Abu Dawud, Sunan al-Tirmidhi — reported by Ibn Abbas (RA)',
+    srcBn: 'আবু দাউদ, তিরমিযি — ইবন আব্বাস (রা.) বর্ণিত'
+  },
 ];
 
 class SalahModule {
@@ -677,9 +973,79 @@ class SalahModule {
   guideHtml() {
     return `
       ${this.infoHtml()}
+      ${this.conditionsHadithHtml()}
       ${this.stepsHtml()}
       ${this.duasHtml()}
-      ${this.tasbeehHtml()}`;
+      ${this.tasbeehHtml()}
+      ${this.hadithHtml()}
+      ${this.specialPrayersHtml()}`;
+  }
+
+  hadithHtml() {
+    return `
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-2">
+          <span class="text-xl">📜</span>${this.esc(this.tt('salah_hadith_title'))}
+        </h3>
+        <div class="space-y-2">
+          ${SALAH_HADITH.map(h => `
+            <div class="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <p class="text-sm text-gray-800 dark:text-gray-100 leading-relaxed mb-1" dir="auto">"${this.esc(this.lc({ en: h.textEn, bn: h.textBn }))}"</p>
+              <span class="text-xs text-gray-400 dark:text-gray-500 italic">— ${this.esc(this.lc({ en: h.srcEn, bn: h.srcBn }))}</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  conditionsHadithHtml() {
+    return `
+      <div class="mb-4 p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h4 class="text-sm font-bold text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-1">
+          <span>📜</span>${this.esc(this.tt('salah_conditions_hadith_title'))}
+        </h4>
+        <div class="space-y-2">
+          ${SALAH_CONDITIONS_HADITH.map(h => `
+            <div class="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-100 dark:border-gray-600">
+              <span class="inline-flex px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[0.65rem] font-semibold mb-1">${this.esc(this.lc(h.condition))}</span>
+              <p class="text-xs text-gray-700 dark:text-gray-200 leading-relaxed mt-1 mb-1" dir="auto">"${this.esc(this.lc({ en: h.textEn, bn: h.textBn }))}"</p>
+              <span class="text-[0.65rem] text-gray-400 dark:text-gray-500 italic">— ${this.esc(this.lc({ en: h.srcEn, bn: h.srcBn }))}</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  specialPrayersHtml() {
+    return `
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-2">
+          <span class="text-xl">⭐</span>${this.esc(this.tt('salah_special_title'))}
+        </h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">${this.esc(this.tt('salah_special_intro'))}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          ${SALAH_SPECIAL.map(s => `
+            <details class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <summary class="flex items-center gap-2 p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors list-none">
+                <span class="text-lg">${s.emoji}</span>
+                <span class="flex-1 font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.lc({ en: s.nameEn, bn: s.nameBn }))}</span>
+                <span class="text-gray-400 text-xs">▼</span>
+              </summary>
+              <div class="px-4 pb-4 space-y-2 text-xs">
+                <div class="p-2 rounded-lg bg-primary/5">
+                  <span class="block font-semibold text-primary uppercase tracking-wide text-[0.65rem]">${this.esc(this.tt('salah_special_when'))}</span>
+                  <p class="text-gray-700 dark:text-gray-200 mt-1 leading-relaxed" dir="auto">${this.esc(this.lc({ en: s.whenEn, bn: s.whenBn }))}</p>
+                </div>
+                <div class="p-2 rounded-lg bg-emerald-500/5">
+                  <span class="block font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide text-[0.65rem]">${this.esc(this.tt('salah_special_rakat'))}</span>
+                  <p class="text-gray-700 dark:text-gray-200 mt-1 leading-relaxed" dir="auto">${this.esc(this.lc({ en: s.rakatEn, bn: s.rakatBn }))}</p>
+                </div>
+                <div class="p-2 rounded-lg bg-amber-500/5">
+                  <span class="block font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wide text-[0.65rem]">${this.esc(this.tt('salah_special_note'))}</span>
+                  <p class="text-gray-700 dark:text-gray-200 mt-1 leading-relaxed" dir="auto">${this.esc(this.lc({ en: s.noteEn, bn: s.noteBn }))}</p>
+                </div>
+              </div>
+            </details>`).join('')}
+        </div>
+      </div>`;
   }
 
   infoHtml() {
@@ -856,7 +1222,21 @@ class SalahModule {
     this.tcCounts = {};
   }
 
+  // Repository policy (user-scoped memory): never surface a book / video /
+  // website reference to end users unless its link is verified working. Items
+  // in SALAH_RESOURCES without a valid r.url are kept in the data array for
+  // future enrichment but are NOT rendered.
   resourcesHtml() {
+    const items = (SALAH_RESOURCES || []).filter(r => r && typeof r.url === 'string' && /^https?:\/\//i.test(r.url));
+    if (!items.length) {
+      return `
+        <div class="mb-6 text-center py-10 px-4">
+          <div class="text-4xl mb-3" aria-hidden="true">🔖</div>
+          <h3 class="text-base font-bold text-gray-700 dark:text-gray-200 mb-1">${this.esc(this.tt('salah_resources_title'))}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400" dir="auto">${this.esc(this.tt('salah_resources_intro'))}</p>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" dir="auto">${this.esc(this.lc({ en: 'A curated list with verified links is being prepared. Only items with working URLs are shown here.', bn: 'যাচাইকৃত লিঙ্কসহ একটি নির্বাচিত তালিকা প্রস্তুত করা হচ্ছে। শুধু কার্যকরী URL সহ আইটেম এখানে দেখানো হবে।' }))}</p>
+        </div>`;
+    }
     return `
       <div class="mb-6">
         <h3 class="text-base font-bold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
@@ -864,8 +1244,9 @@ class SalahModule {
         </h3>
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-4" dir="auto">${this.esc(this.tt('salah_resources_intro'))}</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          ${SALAH_RESOURCES.map(r => `
-            <div class="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          ${items.map(r => `
+            <a href="${this.esc(r.url)}" target="_blank" rel="noopener noreferrer"
+               class="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/60 hover:shadow-sm transition-shadow no-underline block">
               <div class="flex items-center gap-2 mb-1">
                 <span aria-hidden="true">${r.emoji}</span>
                 <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">${this.esc(this.lc({ en: r.nameEn, bn: r.nameBn }))}</span>
@@ -877,7 +1258,7 @@ class SalahModule {
                   r.type === 'web' ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300' :
                   r.type === 'video' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300' :
                   'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300'}">${this.esc(r.type)}</span>
-            </div>`).join('')}
+            </a>`).join('')}
         </div>
       </div>`;
   }

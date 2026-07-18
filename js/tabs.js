@@ -29,8 +29,14 @@ const TAB_META = {
   quranicarabic: { emoji: '🔤', key: 'qa_title' },
   seerah:       { emoji: '🌙', key: 'seerah_title' },
   whyislam:     { emoji: '💡', key: 'whyislam_title' },
+  fard:         { emoji: '⭐', key: 'islam_fard_title' },
+  wajib:        { emoji: '🔷', key: 'islam_wajib_title' },
+  nafl:         { emoji: '✨', key: 'islam_nafl_title' },
   prophets:     { emoji: '📜', key: 'prophets_title' },
   nuzul:        { emoji: '🌅', key: 'nuzul_title' },
+  sawm:         { emoji: '🌅', key: 'learn_sawm_title' },
+  hajj:         { emoji: '🕋', key: 'learn_hajj_title' },
+  zakat:        { emoji: '💰', key: 'learn_zakat_title' },
   namaz:        { emoji: '🕌', key: 'learn_salah_title' },
   names:        { emoji: '✨', key: 'learn_names_title' }
 };

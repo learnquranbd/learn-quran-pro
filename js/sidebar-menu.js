@@ -57,7 +57,14 @@ class SidebarMenu {
   }
 
   itemLabel(item) {
-    return this.language === 'bn' ? item.bn : (item.en || item.bn);
+    if (!item) return '';
+    const lang = this.language;
+    if (lang && item[lang]) return item[lang];
+    if (lang === 'bn') return item.bn || item.en || '';
+    if (lang && lang !== 'en' && typeof CI18N !== 'undefined' && item.en) {
+      const tr = CI18N.tr(lang, item.en); if (tr) return tr;
+    }
+    return item.en || item.bn || '';
   }
 
   switchTab(tabId) {
@@ -200,7 +207,7 @@ class SidebarMenu {
 
   groupHtml(group) {
     const open = this.openGroups.has(group.id);
-    const label = this.language === 'bn' ? group.bn : (group.en || group.bn);
+    const label = this.itemLabel(group);
     return `
       <details class="nav-group" data-group="${this.esc(group.id)}" ${open ? 'open' : ''}>
         <summary class="flex items-center gap-2 px-3 py-2 text-sm font-medium select-none

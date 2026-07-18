@@ -9,6 +9,14 @@ const NUZUL_I18N = {
   nuzul_quiz_submit:    { en: 'Check answers', bn: 'উত্তর দেখুন', zh: '检查答案', ja: '回答を確認' },
   nuzul_quiz_retake:    { en: 'Try again', bn: 'আবার চেষ্টা করুন', zh: '再试一次', ja: 'もう一度挑戦' },
   nuzul_quiz_hint:      { en: 'Answer all questions to submit', bn: 'জমা দিতে সব প্রশ্নের উত্তর দিন', zh: '回答所有问题后提交', ja: 'すべての質問に答えて提出' },
+  nuzul_view_themes:    { en: 'Themes', bn: 'বিষয়ভিত্তিক', zh: '主题', ja: 'テーマ' },
+  nuzul_view_timeline:  { en: 'Timeline', bn: 'কালরেখা', zh: '时间轴', ja: 'タイムライン' },
+  nuzul_themes_intro:   { en: 'Browse sūrahs grouped by dominant theme. A sūrah may appear under more than one theme.', bn: 'প্রধান বিষয় অনুযায়ী সূরাসমূহ দেখুন। একটি সূরা একাধিক বিষয়ের অন্তর্ভুক্ত হতে পারে।', zh: '按主题浏览章节，一章可能出现在多个主题下。', ja: 'テーマ別にスーラを閲覧します。一つのスーラが複数のテーマに登場することがあります。' },
+  nuzul_timeline_intro: { en: 'Six revelation phases from the first waḥy in Ḥirāʾ to the completion of the Qurʾānic message.', bn: 'হেরা গুহায় প্রথম ওয়াহী থেকে কুরআনের বার্তা পূর্ণ হওয়া পর্যন্ত ছয়টি অবতীর্ণ পর্যায়।', zh: '从希拉山的第一次启示到古兰经信息完成的六个阶段。', ja: 'ヒラーの洞窟の最初のワヒーからクルアーンのメッセージ完成までの6つの段階。' },
+  nuzul_rev_neighbors:  { en: 'Neighbors in Revelation Order', bn: 'অবতীর্ণ ক্রমে প্রতিবেশী সূরা', zh: '启示顺序中的相邻章节', ja: '啓示順序の隣接スーラ' },
+  nuzul_first_last_rev: { en: 'Revelation Position', bn: 'অবতীর্ণ অবস্থান', zh: '启示位置', ja: '啓示の位置' },
+  nuzul_asbab_count:    { en: 'asbāb entries', bn: 'আসবাব', zh: '启示背景条目', ja: 'アスバーブ記録' },
+  nuzul_key_events:     { en: 'Key events', bn: 'প্রধান ঘটনাসমূহ', zh: '主要事件', ja: '主要な出来事' },
 };
 
 const NUZUL_QUIZ = [
@@ -44,6 +52,72 @@ const NUZUL_QUIZ = [
     optsEn: ['Sūrahs revealed before the Hijra', 'Sūrahs revealed in Mecca only', 'Sūrahs about Mecca', 'Short sūrahs'], optsBn: ['হিজরতের পূর্বে অবতীর্ণ সূরা', 'শুধু মক্কায় অবতীর্ণ সূরা', 'মক্কা সম্পর্কিত সূরা', 'ছোট সূরা'], correct: 0 },
   { qEn: 'What does "Madani" refer to?', qBn: '"মাদানী" বলতে কী বোঝায়?',
     optsEn: ['Sūrahs about Medina', 'Sūrahs revealed after the Hijra', 'Long sūrahs', 'Medinan Arabic dialect'], optsBn: ['মদিনা সম্পর্কিত সূরা', 'হিজরতের পর অবতীর্ণ সূরা', 'দীর্ঘ সূরা', 'মাদানী আরবি উপভাষা'], correct: 1 },
+];
+
+const NUZUL_THEMES = [
+  {
+    id: 'identity', emoji: '🕌',
+    titleEn: "Believers' Identity", titleBn: 'মুমিনের পরিচয়',
+    descEn: 'Sūrahs that define the Muslim community — their qualities, their role as a united ummah, and the essence of sincere faith.',
+    descBn: 'যেসব সূরায় মুসলিম সমাজের পরিচয় — তাদের গুণাবলী, ঐক্যবদ্ধ উম্মাহ হিসেবে ভূমিকা এবং খাঁটি ঈমানের সারমর্ম নির্ধারণ করা হয়েছে।',
+    surahs: [2, 3, 4, 9, 22, 49, 57, 61, 103]
+  },
+  {
+    id: 'prophethood', emoji: '📜',
+    titleEn: 'Prophethood', titleBn: 'নবুওয়াত',
+    descEn: 'Sūrahs addressing the reality of messengership, the sending of prophets to every nation, and the mission of the final Messenger ﷺ.',
+    descBn: 'রাসূলের বাস্তবতা, প্রতিটি জাতিতে নবী প্রেরণ এবং শেষ রাসূল ﷺ-এর মিশন নিয়ে সূরাসমূহ।',
+    surahs: [10, 11, 16, 21, 25, 36, 40, 43]
+  },
+  {
+    id: 'divine', emoji: '✨',
+    titleEn: 'Divine Attributes', titleBn: 'আল্লাহর গুণাবলী',
+    descEn: 'Sūrahs centrally focused on the Names and Attributes of Allah — His majesty, mercy, power, and absolute uniqueness (tawḥīd).',
+    descBn: 'আল্লাহর নাম ও গুণাবলী — তাঁর মহিমা, রহমত, ক্ষমতা এবং একচ্ছত্র অদ্বিতীয়তা (তাওহীদ) কেন্দ্রিক সূরাসমূহ।',
+    surahs: [1, 55, 57, 59, 64, 67, 87, 112, 113, 114]
+  },
+  {
+    id: 'stories', emoji: '📖',
+    titleEn: 'Prophetic Stories', titleBn: 'নবীদের কাহিনী',
+    descEn: 'Sūrahs rich with narratives of the prophets — Ādam, Ibrāhīm, Mūsā, Yūsuf, ʿĪsā and others — as timeless lessons and comfort.',
+    descBn: 'আদম, ইবরাহিম, মুসা, ইউসুফ, ঈসা ও অন্যান্য নবীদের কাহিনীসমৃদ্ধ সূরাসমূহ — চিরকালীন শিক্ষা ও সান্ত্বনা।',
+    surahs: [7, 11, 12, 18, 19, 20, 21, 26, 27, 28, 37, 38]
+  },
+  {
+    id: 'legal', emoji: '⚖️',
+    titleEn: 'Legal Rulings', titleBn: 'বিধিমালা',
+    descEn: 'Sūrahs containing detailed legislation — prayer, fasting, family law, inheritance, social contracts, and community governance.',
+    descBn: 'যেসব সূরায় বিস্তারিত বিধি-বিধান — নামাজ, রোজা, পারিবারিক আইন, উত্তরাধিকার, সামাজিক চুক্তি ও রাষ্ট্রপরিচালনা।',
+    surahs: [2, 4, 5, 24, 33, 58, 65, 66]
+  },
+  {
+    id: 'eschato', emoji: '🌅',
+    titleEn: 'Eschatology', titleBn: 'পরকালতত্ত্ব',
+    descEn: 'Sūrahs whose primary focus is the Day of Judgment, the Hereafter, scenes of Heaven and Hell, and the ultimate reckoning.',
+    descBn: 'যেসব সূরার মূল আলোচনা কিয়ামত, পরকাল, জান্নাত-জাহান্নামের দৃশ্য এবং চূড়ান্ত হিসাব।',
+    surahs: [36, 44, 50, 56, 69, 75, 78, 82, 84, 99, 101]
+  },
+  {
+    id: 'warnings', emoji: '⚡',
+    titleEn: 'Warnings', titleBn: 'সতর্কবার্তা',
+    descEn: 'Sūrahs whose dominant tone is a solemn warning to those who reject the truth, drawing on the fate of destroyed nations.',
+    descBn: 'যেসব সূরার প্রধান সুর হলো সত্যপ্রত্যাখ্যানকারীদের প্রতি গুরুতর সতর্কবার্তা এবং ধ্বংসপ্রাপ্ত জাতির পরিণতি।',
+    surahs: [14, 17, 54, 67, 71, 88, 102, 104, 111]
+  },
+  {
+    id: 'consolations', emoji: '💚',
+    titleEn: 'Consolations', titleBn: 'সান্ত্বনা',
+    descEn: 'Sūrahs of divine comfort — revealed to reassure the Prophet ﷺ and early believers during hardship, grief, and pressure.',
+    descBn: 'দিব্য সান্ত্বনার সূরাসমূহ — কঠিন সময়, দুঃখ ও চাপের মধ্যে নবী ﷺ এবং প্রথম মুমিনদের আশ্বস্ত করতে অবতীর্ণ।',
+    surahs: [6, 28, 40, 73, 93, 94, 97, 108, 110]
+  },
+  {
+    id: 'guidance', emoji: '🌟',
+    titleEn: 'Guidance for Believers', titleBn: 'মুমিনদের পথনির্দেশ',
+    descEn: 'Sūrahs delivering direct practical and moral guidance — etiquettes, virtues, self-purification, and conduct within society.',
+    descBn: 'যেসব সূরায় সরাসরি ব্যবহারিক ও নৈতিক নির্দেশনা — আদব, সদগুণ, আত্মশুদ্ধি ও সামাজিক আচরণ।',
+    surahs: [17, 23, 24, 29, 30, 31, 49, 60]
+  },
 ];
 
 class NuzulView {
@@ -192,6 +266,10 @@ class NuzulView {
       this.container.innerHTML = this.renderDetail(this.selected);
     } else if (this.subView === 'quiz') {
       this.container.innerHTML = this.renderQuiz();
+    } else if (this.subView === 'themes') {
+      this.container.innerHTML = this.renderThemes();
+    } else if (this.subView === 'timeline') {
+      this.container.innerHTML = this.renderTimeline();
     } else {
       this.container.innerHTML = this.renderOverview();
     }
@@ -216,6 +294,8 @@ class NuzulView {
       <div class="flex justify-center mb-4">
         <div class="inline-flex gap-1 p-1 rounded-xl bg-gray-100 dark:bg-gray-800">
           ${btn('surahs', this.tt('nuzul_view_overview'))}
+          ${btn('themes', this.tt('nuzul_view_themes'))}
+          ${btn('timeline', this.tt('nuzul_view_timeline'))}
           ${btn('quiz', this.tt('nuzul_view_quiz'))}
         </div>
       </div>`;
@@ -266,7 +346,98 @@ class NuzulView {
     }
     if (!body.trim()) body = `<p class="text-sm text-gray-500 dark:text-gray-400 py-8 text-center" dir="auto">${this.esc(this.lc({ en: 'No sūrah matches your search.', bn: 'আপনার অনুসন্ধানে কোনো সূরা মেলেনি।' }))}</p>`;
 
-    return `<div class="max-w-3xl mx-auto p-1">${this.header()}${this.subToggleHtml()}${landmarks}${toggle}${body}</div>`;
+    return `<div class="max-w-3xl mx-auto p-1">${this.header()}${this.subToggleHtml()}${this.renderFoundations()}${landmarks}${toggle}${body}</div>`;
+  }
+
+  /**
+   * "Foundations of Nuzūl" — a compact educational preamble that appears above
+   * the sūrah list in the overview. Explains the 23-year timeline, Makki vs
+   * Madani characteristics, first & last revelations, and the longest known
+   * pause in revelation (fatratul-wahy). All bilingual, CI18N-aware.
+   */
+  renderFoundations() {
+    const L = (o) => this.esc(this.lc(o));
+    return `
+      <details class="mb-5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
+        <summary class="flex items-center gap-2 p-4 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-700/40">
+          <span class="text-xl">📖</span>
+          <span class="flex-1 font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${L({ en: 'Foundations of Nuzūl — how the Quran was revealed', bn: 'নুযূলের মূলধারা — কুরআন যেভাবে অবতীর্ণ হয়েছে' })}</span>
+          <span class="text-gray-400 text-xs">▼</span>
+        </summary>
+        <div class="px-4 pb-4 space-y-4">
+
+          <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40">
+            <div class="text-sm font-semibold text-emerald-800 dark:text-emerald-200 mb-1">⏱️ ${L({ en: '23-year revelation span', bn: '২৩ বছরের অবতীর্ণকাল' })}</div>
+            <p class="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed" dir="auto">${L({ en: 'The Quran was revealed to the Prophet ﷺ gradually over approximately 23 years — ~13 years in Makkah (from age 40) and ~10 years in Madinah (after the Hijrah), ending shortly before his passing at age 63. It was NOT sent down all at once; verses came as circumstances demanded, guiding an emerging community.', bn: 'কুরআন নবী ﷺ-এর উপর প্রায় ২৩ বছর ধরে ক্রমান্বয়ে অবতীর্ণ হয় — মক্কায় প্রায় ১৩ বছর (৪০ বছর বয়সে শুরু) ও মদিনায় প্রায় ১০ বছর (হিজরতের পর), ৬৩ বছর বয়সে ইন্তেকালের কিছু আগে সমাপ্ত হয়। এটি একসাথে অবতীর্ণ হয়নি; পরিস্থিতি অনুযায়ী আয়াত এসেছে, উদীয়মান সমাজকে পথ দেখিয়েছে।' })}</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/40">
+              <div class="text-sm font-semibold text-amber-800 dark:text-amber-200 mb-1">🕋 ${L({ en: 'Makki sūrahs (~86)', bn: 'মক্কী সূরা (~৮৬)' })}</div>
+              <ul class="mt-1 space-y-1">
+                <li class="text-xs text-amber-700 dark:text-amber-300 flex gap-1"><span>•</span> ${L({ en: 'Generally shorter, powerful rhythm', bn: 'সাধারণত ছোট, শক্তিশালী ছন্দ' })}</li>
+                <li class="text-xs text-amber-700 dark:text-amber-300 flex gap-1"><span>•</span> ${L({ en: 'Focus on tawḥīd (Oneness of Allah), the Hereafter, prophethood, and stories of past nations', bn: 'তাওহীদ, আখিরাত, নবুওয়াত ও পূর্ববর্তী জাতির কাহিনী কেন্দ্রিক' })}</li>
+                <li class="text-xs text-amber-700 dark:text-amber-300 flex gap-1"><span>•</span> ${L({ en: 'Frequent oaths ("By the fig and the olive…") and vivid imagery of Judgment Day', bn: 'ঘন কসম ("তীন ও যায়তুনের কসম…") এবং কিয়ামতের প্রাণবন্ত বর্ণনা' })}</li>
+                <li class="text-xs text-amber-700 dark:text-amber-300 flex gap-1"><span>•</span> ${L({ en: 'Address "O mankind" (yā ayyuha-nnās) — the message is universal', bn: 'সম্বোধন "হে মানবজাতি" (يا أيها الناس) — বার্তা সর্বজনীন' })}</li>
+                <li class="text-xs text-amber-700 dark:text-amber-300 flex gap-1"><span>•</span> ${L({ en: 'Almost every sūrah with a prostration (sajdah) verse is Makki', bn: 'সিজদার আয়াতযুক্ত প্রায় প্রতিটি সূরা মক্কী' })}</li>
+              </ul>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-900/40">
+              <div class="text-sm font-semibold text-sky-800 dark:text-sky-200 mb-1">🌇 ${L({ en: 'Madani sūrahs (~28)', bn: 'মাদানী সূরা (~২৮)' })}</div>
+              <ul class="mt-1 space-y-1">
+                <li class="text-xs text-sky-700 dark:text-sky-300 flex gap-1"><span>•</span> ${L({ en: 'Generally longer, detailed rulings and legislation', bn: 'সাধারণত দীর্ঘ, বিস্তারিত বিধান ও আইন' })}</li>
+                <li class="text-xs text-sky-700 dark:text-sky-300 flex gap-1"><span>•</span> ${L({ en: 'Focus on family law, inheritance, ḥudūd, jihād, treaties, community governance', bn: 'পারিবারিক আইন, উত্তরাধিকার, হুদূদ, জিহাদ, চুক্তি ও রাষ্ট্রপরিচালনা কেন্দ্রিক' })}</li>
+                <li class="text-xs text-sky-700 dark:text-sky-300 flex gap-1"><span>•</span> ${L({ en: 'Address the People of the Book (Jews and Christians) and hypocrites', bn: 'আহলে কিতাব (ইহুদি ও খ্রিস্টান) ও মুনাফিকদের সম্বোধন' })}</li>
+                <li class="text-xs text-sky-700 dark:text-sky-300 flex gap-1"><span>•</span> ${L({ en: 'Address "O you who believe" (yā ayyuha-lladhīna āmanū)', bn: 'সম্বোধন "হে ঈমানদারগণ" (يا أيها الذين آمنوا)' })}</li>
+                <li class="text-xs text-sky-700 dark:text-sky-300 flex gap-1"><span>•</span> ${L({ en: 'All ribā, hijāb, munāfiqīn and jihād rulings are Madani', bn: 'সুদ, হিজাব, মুনাফিক ও জিহাদ সংক্রান্ত সব বিধান মাদানী' })}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-900/40">
+              <div class="text-sm font-semibold text-violet-800 dark:text-violet-200 mb-1">🌟 ${L({ en: 'First revelation', bn: 'প্রথম অবতীর্ণ' })}</div>
+              <p class="text-base text-violet-900 dark:text-violet-100 text-center leading-loose mt-1" dir="rtl">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</p>
+              <p class="text-xs text-violet-700 dark:text-violet-300 mt-1" dir="auto">${L({ en: 'The first five verses of Sūrat al-\'Alaq (96:1-5) were revealed by Jibrīl (AS) in the cave of Ḥirā\' when the Prophet ﷺ was 40. He returned home trembling and said "Cover me, cover me" (zammilūnī zammilūnī). Khadījah (RA) comforted him.', bn: 'নবী ﷺ-এর ৪০ বছর বয়সে হেরা গুহায় জিবরাঈল (আঃ) সূরা আলাক (৯৬:১-৫)-এর প্রথম পাঁচ আয়াত নিয়ে আসেন। তিনি কাঁপতে কাঁপতে ঘরে ফিরে "যাম্মিলূনী যাম্মিলূনী" (আমাকে ঢেকে দাও) বললে খাদীজা (রাঃ) তাঁকে সান্ত্বনা দেন।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-900/40">
+              <div class="text-sm font-semibold text-violet-800 dark:text-violet-200 mb-1">🕊️ ${L({ en: 'Among the last revelations', bn: 'সর্বশেষ অবতীর্ণগুলির অন্যতম' })}</div>
+              <p class="text-base text-violet-900 dark:text-violet-100 text-center leading-loose mt-1" dir="rtl">الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ</p>
+              <p class="text-xs text-violet-700 dark:text-violet-300 mt-1" dir="auto">${L({ en: 'Sūrat al-Māʾidah 5:3 was revealed on the Day of Arafah during the Farewell Pilgrimage (10 AH): "This day I have perfected for you your religion…" Scholars debate the very last verse — commonly cited: al-Baqarah 2:281 (about a Day when all return to Allah), revealed just days before the Prophet ﷺ passed away.', bn: 'সূরা মায়িদাহ ৫:৩ বিদায় হজের দিনে (১০ হিজরি আরাফা) অবতীর্ণ হয়: "আজ আমি তোমাদের জন্য তোমাদের দ্বীন পূর্ণাঙ্গ করেছি…" শেষ আয়াত সম্পর্কে মতভেদ আছে — জনপ্রিয় মত: আল-বাকারা ২:২৮১ (আল্লাহর দিকে ফিরে যাওয়ার দিন সম্পর্কে), যা নবী ﷺ-এর ইন্তেকালের কয়েকদিন আগে অবতীর্ণ হয়।' })}</p>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/40">
+            <div class="text-sm font-semibold text-rose-800 dark:text-rose-200 mb-1">🌑 ${L({ en: 'Fatrat al-Waḥy — the pause of revelation', bn: 'ফতরাতুল ওয়াহী — অবতীর্ণের বিরতি' })}</div>
+            <p class="text-xs text-rose-700 dark:text-rose-300 leading-relaxed" dir="auto">${L({ en: 'After the first revelation, wahy paused for a period (traditions differ: some say a few days, others longer). The Prophet ﷺ was so distressed that he feared abandonment. Then Sūrat al-Ḍuḥā (93) descended: "Your Lord has not forsaken you, nor is He displeased." — a comfort that reaffirmed the mission and continues to console every believer feeling distant from Allah.', bn: 'প্রথম ওয়াহীর পর কিছুকাল অবতীর্ণ থেমে ছিল (রেওয়ায়াতে মতভেদ: কেউ কয়েক দিন, কেউ দীর্ঘ)। নবী ﷺ এতটাই ব্যথিত হন যে তিনি পরিত্যক্ত হওয়ার ভয় করেন। তখন সূরা আদ-দুহা (৯৩) নাযিল হয়: "তোমার রব তোমাকে ত্যাগ করেননি, তিনি তোমার প্রতি অসন্তুষ্টও নন।" — একটি সান্ত্বনা যা মিশন পুনঃনিশ্চিত করে এবং আজও আল্লাহ থেকে দূরত্ব অনুভবকারী প্রতিটি ঈমানদারকে সান্ত্বনা দেয়।' })}</p>
+          </div>
+
+          <div class="p-3 rounded-xl bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-900/40">
+            <div class="text-sm font-semibold text-teal-800 dark:text-teal-200 mb-1">📚 ${L({ en: 'Two orders: revelation vs muṣḥaf', bn: 'দুই ধরনের ক্রম: অবতীর্ণ বনাম মুসহাফ' })}</div>
+            <p class="text-xs text-teal-700 dark:text-teal-300 leading-relaxed" dir="auto">${L({ en: 'The order verses were revealed differs from the order they appear in the muṣḥaf (the compiled Quran). The muṣḥaf order was fixed by the Prophet ﷺ himself, guided by Jibrīl (AS), and preserved by the Companions. The revelation order — reconstructed by scholars from hadith and asbāb an-nuzūl — helps us understand the historical context, why certain rulings came before others, and the pedagogical progression of the message.', bn: 'আয়াতসমূহ যে ক্রমে অবতীর্ণ হয়েছে তা মুসহাফের ক্রম (সংকলিত কুরআন) থেকে ভিন্ন। মুসহাফের ক্রম স্বয়ং নবী ﷺ জিবরাঈল (আঃ)-এর নির্দেশনায় নির্ধারণ করেছেন এবং সাহাবাগণ তা সংরক্ষণ করেছেন। অবতীর্ণের ক্রম — হাদিস ও আসবাবুন নুযূল থেকে আলিমগণ পুনর্গঠিত — আমাদের ঐতিহাসিক প্রেক্ষাপট, কেন কিছু বিধান অন্যগুলোর আগে এসেছে এবং বার্তার শিক্ষণীয় ক্রম বুঝতে সাহায্য করে।' })}</p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+            <div class="p-2 rounded-lg bg-white dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 text-center">
+              <div class="text-xl font-bold text-primary">114</div>
+              <div class="text-[0.65rem] text-gray-500 dark:text-gray-400" dir="auto">${L({ en: 'total sūrahs', bn: 'মোট সূরা' })}</div>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 text-center">
+              <div class="text-xl font-bold text-amber-600">86</div>
+              <div class="text-[0.65rem] text-gray-500 dark:text-gray-400" dir="auto">${L({ en: 'Makki', bn: 'মক্কী' })}</div>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 text-center">
+              <div class="text-xl font-bold text-sky-600">28</div>
+              <div class="text-[0.65rem] text-gray-500 dark:text-gray-400" dir="auto">${L({ en: 'Madani', bn: 'মাদানী' })}</div>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 text-center">
+              <div class="text-xl font-bold text-emerald-600">6236</div>
+              <div class="text-[0.65rem] text-gray-500 dark:text-gray-400" dir="auto">${L({ en: 'total āyāt', bn: 'মোট আয়াত' })}</div>
+            </div>
+          </div>
+
+        </div>
+      </details>`;
   }
 
   matchesSurah(n) {
@@ -329,6 +500,14 @@ class NuzulView {
     const r = this.revBySurah[n];
     const ph = r ? this.phaseById(r.phase) : null;
     const entries = (this.asbab[String(n)] || []).slice().sort((a, b) => this.ayahNum(a.ref) - this.ayahNum(b.ref));
+    let prevRevN = null, nextRevN = null;
+    if (r) {
+      for (let i = 1; i <= 114; i++) {
+        const ri = this.revBySurah[i];
+        if (ri && ri.order === r.order - 1) prevRevN = i;
+        if (ri && ri.order === r.order + 1) nextRevN = i;
+      }
+    }
 
     const back = `
       <button data-nuzul-back class="inline-flex items-center gap-1 text-sm text-emerald-700 dark:text-emerald-300 mb-3 hover:underline">
@@ -348,6 +527,7 @@ class NuzulView {
               <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${m.medinan ? 'bg-sky-500' : 'bg-amber-500'}"></span>${this.esc(place)}</span>
               <span>· ${m.ayahCount} ${this.esc(this.lc({ en: 'āyāt', bn: 'আয়াত' }))}</span>
               <span>· ${this.esc(this.lc({ en: 'Muṣḥaf #', bn: 'মুসহাফ #' }))}${n}</span>
+              ${entries.length ? `<span class="inline-block px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-medium">${entries.length} ${this.esc(this.tt('nuzul_asbab_count'))}</span>` : ''}
             </div>
           </div>
           ${r ? `<div class="flex-shrink-0 text-center">
@@ -363,6 +543,38 @@ class NuzulView {
           </div>
         </div>` : ''}
       </div>`;
+
+    const revInfoCard = r ? `
+      <div class="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 p-3 mb-4">
+        <div class="flex items-center gap-1.5 mb-2">
+          <span>🔢</span>
+          <span class="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">${this.esc(this.tt('nuzul_first_last_rev'))}</span>
+        </div>
+        <div class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-gray-700 dark:text-gray-200">
+          <span dir="auto">${this.esc(this.lc({ en: 'Revelation order', bn: 'অবতীর্ণ ক্রম' }))}: <strong class="text-emerald-700 dark:text-emerald-300">#${r.order}</strong> / 114</span>
+          ${ph ? `<span dir="auto">${this.esc(ph.emoji || '')} ${this.esc(this.pick(ph, 'title'))}</span>` : ''}
+          <span dir="auto">${this.esc(this.lc({ en: 'Spans', bn: 'বিস্তৃত' }))} ${this.esc(this.lc({ en: 'āyāt', bn: 'আয়াত' }))} 1–${m.ayahCount}</span>
+        </div>
+      </div>` : '';
+
+    const revNeighbors = (prevRevN || nextRevN) ? `
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3 mb-4">
+        <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">↔ ${this.esc(this.tt('nuzul_rev_neighbors'))}</div>
+        <div class="flex items-stretch gap-2">
+          ${prevRevN ? `
+            <button data-nuzul-surah="${prevRevN}" class="flex-1 text-start p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-emerald-400 dark:hover:border-emerald-500 transition-colors">
+              <div class="text-[0.65rem] text-gray-400 dark:text-gray-500 mb-0.5">← #${r.order - 1} ${this.esc(this.lc({ en: 'revealed before', bn: 'আগে অবতীর্ণ' }))}</div>
+              <div class="font-semibold text-sm text-emerald-700 dark:text-emerald-300 truncate" dir="auto">${this.esc(this.surahMeta(prevRevN).name)}</div>
+              <div class="text-[0.65rem] text-gray-400 dark:text-gray-500 truncate" dir="rtl">${this.esc(this.surahMeta(prevRevN).arabic)}</div>
+            </button>` : '<div class="flex-1"></div>'}
+          ${nextRevN ? `
+            <button data-nuzul-surah="${nextRevN}" class="flex-1 text-end p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-emerald-400 dark:hover:border-emerald-500 transition-colors">
+              <div class="text-[0.65rem] text-gray-400 dark:text-gray-500 mb-0.5">#${r.order + 1} ${this.esc(this.lc({ en: 'revealed after', bn: 'পরে অবতীর্ণ' }))} →</div>
+              <div class="font-semibold text-sm text-emerald-700 dark:text-emerald-300 truncate" dir="auto">${this.esc(this.surahMeta(nextRevN).name)}</div>
+              <div class="text-[0.65rem] text-gray-400 dark:text-gray-500 truncate" dir="rtl">${this.esc(this.surahMeta(nextRevN).arabic)}</div>
+            </button>` : '<div class="flex-1"></div>'}
+        </div>
+      </div>` : '';
 
     let timeline;
     if (entries.length) {
@@ -392,7 +604,7 @@ class NuzulView {
         <button data-nuzul-surah="${n < 114 ? n + 1 : 114}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 ${n >= 114 ? 'invisible' : ''}">${this.esc(this.surahMeta(n + 1 > 114 ? 114 : n + 1).name)} →</button>
       </div>`;
 
-    return `<div class="max-w-2xl mx-auto p-1">${back}${headCard}${timeline}${nav}</div>`;
+    return `<div class="max-w-2xl mx-auto p-1">${back}${headCard}${revInfoCard}${revNeighbors}${timeline}${nav}</div>`;
   }
 
   renderQuiz() {
@@ -452,6 +664,121 @@ class NuzulView {
         </div>
         <div class="space-y-3">${questions}</div>
         ${footer}
+      </div>`;
+  }
+
+  renderThemes() {
+    const themeCards = NUZUL_THEMES.map(th => {
+      const chips = th.surahs.map(sn => {
+        const sm = this.surahMeta(sn);
+        return `<button data-nuzul-surah="${sn}" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" dir="auto">${this.esc(sm.name)}<span class="opacity-50 ml-0.5">(${sn})</span></button>`;
+      }).join('');
+      return `
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">${this.esc(th.emoji)}</span>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-100 text-sm" dir="auto">${this.esc(this.lc({ en: th.titleEn, bn: th.titleBn }))}</h3>
+            <span class="ml-auto text-[0.65rem] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">${th.surahs.length}</span>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3 leading-relaxed" dir="auto">${this.esc(this.lc({ en: th.descEn, bn: th.descBn }))}</p>
+          <div class="flex flex-wrap gap-1.5">${chips}</div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="max-w-3xl mx-auto p-1">
+        ${this.header()}
+        ${this.subToggleHtml()}
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed" dir="auto">${this.esc(this.tt('nuzul_themes_intro'))}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${themeCards}</div>
+      </div>`;
+  }
+
+  renderTimeline() {
+    const L = (o) => this.esc(this.lc(o));
+    const phaseEvents = [
+      [
+        { en: 'First revelation in Cave Hira (610 CE)', bn: 'হেরা গুহায় প্রথম ওয়াহী (৬১০ খ্রি.)' },
+        { en: 'Fatrat al-Wahy — pause in revelation; Surah al-Duha revealed as comfort', bn: 'ফতরাতুল ওয়াহী — অবতীর্ণের বিরতি; সূরা আদ-দুহা সান্ত্বনাস্বরূপ অবতীর্ণ' },
+        { en: 'Secret preaching; first converts: Khadijah, Abu Bakr, Ali (RA)', bn: 'গোপন দাওয়াত শুরু; প্রথম মুসলমান: খাদীজা, আবু বকর, আলী (রাঃ)' },
+        { en: 'Public call at Mount Safa (613 CE) — open proclamation of Islam', bn: 'সাফা পাহাড়ে প্রকাশ্য আহ্বান (৬১৩ খ্রি.) — ইসলামের প্রকাশ্য ঘোষণা' },
+      ],
+      [
+        { en: 'Severe Quraysh persecution — Bilal, Khabbab (RA) tortured', bn: 'কুরাইশদের তীব্র নির্যাতন — বিলাল, খাব্বাব (রাঃ)-এর উপর' },
+        { en: 'First Hijra to Abyssinia under the Negus (615 CE)', bn: 'আবিসিনিয়ায় প্রথম হিজরত — নাজ্জাশীর কাছে (৬১৫ খ্রি.)' },
+        { en: 'Economic boycott of Banu Hashim (616–619 CE)', bn: 'বনু হাশিমের বিরুদ্ধে অর্থনৈতিক অবরোধ (৬১৬–৬১৯ খ্রি.)' },
+      ],
+      [
+        { en: 'Year of Grief — Khadijah (RA) and Abu Talib pass away (619 CE)', bn: 'দুঃখের বছর — খাদীজা (রাঃ) ও আবু তালিবের ইন্তেকাল (৬১৯ খ্রি.)' },
+        { en: 'Night Journey and Ascension — Isra and Miraj (621 CE)', bn: 'ইসরা ও মিরাজ (৬২১ খ্রি.)' },
+        { en: 'First and Second Pledges of Aqabah — Medinan delegation', bn: 'আকাবার প্রথম ও দ্বিতীয় শপথ — মদিনা প্রতিনিধিদল' },
+      ],
+      [
+        { en: 'The Hijra — migration to Madinah (622 CE / 1 AH)', bn: 'হিজরত — মদিনায় স্থানান্তর (৬২২ খ্রি. / ১ হিজরি)' },
+        { en: 'Constitution of Madinah established; first Islamic state formed', bn: 'মদিনার সনদ প্রতিষ্ঠা; প্রথম ইসলামি রাষ্ট্র গঠন' },
+        { en: 'Change of Qiblah from Jerusalem to Makkah (624 CE)', bn: 'কিবলা পরিবর্তন — জেরুসালেম থেকে মক্কায় (৬২৪ খ্রি.)' },
+        { en: 'Battle of Badr — decisive first major victory (2 AH)', bn: 'বদর যুদ্ধ — প্রথম বড় বিজয় (২ হিজরি)' },
+      ],
+      [
+        { en: 'Battle of Uhud (3 AH / 625 CE)', bn: 'উহুদ যুদ্ধ (৩ হিজরি / ৬২৫ খ্রি.)' },
+        { en: 'Battle of the Trench — Khandaq (5 AH / 627 CE)', bn: 'খন্দকের যুদ্ধ (৫ হিজরি / ৬২৭ খ্রি.)' },
+        { en: 'Treaty of Hudaybiyyah — the clear victory (6 AH / 628 CE)', bn: 'হুদায়বিয়ার সন্ধি — স্পষ্ট বিজয় (৬ হিজরি / ৬২৮ খ্রি.)' },
+        { en: 'Letters sent to Heraclius, Khosrow, and other heads of state', bn: 'হিরাক্লিয়াস, কিসরা ও অন্যান্য রাষ্ট্রপ্রধানদের পত্র প্রেরণ' },
+      ],
+      [
+        { en: 'Conquest of Makkah (8 AH / 630 CE) — mass acceptance of Islam', bn: 'মক্কা বিজয় (৮ হিজরি / ৬৩০ খ্রি.) — ব্যাপক ইসলাম গ্রহণ' },
+        { en: 'Battle of Hunayn (8 AH / 630 CE)', bn: 'হুনায়ন যুদ্ধ (৮ হিজরি / ৬৩০ খ্রি.)' },
+        { en: 'Farewell Pilgrimage — Hajjat al-Wada (10 AH / 632 CE)', bn: 'বিদায় হজ (১০ হিজরি / ৬৩২ খ্রি.)' },
+        { en: 'Surah al-Maidah 5:3 — religion perfected (10 AH)', bn: 'সূরা মায়িদাহ ৫:৩ — দ্বীন পূর্ণাঙ্গ (১০ হিজরি)' },
+        { en: 'Prophet ﷺ passes away (11 AH / 632 CE) — revelation complete', bn: 'নবী ﷺ-এর ইন্তেকাল (১১ হিজরি / ৬৩২ খ্রি.) — অবতীর্ণ সম্পূর্ণ' },
+      ],
+    ];
+
+    if (!this.phases.length) {
+      return `<div class="max-w-3xl mx-auto p-1">${this.header()}${this.subToggleHtml()}<p class="text-center text-sm text-gray-500 dark:text-gray-400 py-8" dir="auto">${L({ en: 'Loading phase data\u2026', bn: 'লোড হচ্ছে\u2026' })}</p></div>`;
+    }
+
+    const phaseCount = {};
+    for (let i = 1; i <= 114; i++) {
+      const ri = this.revBySurah[i];
+      if (ri && ri.phase) phaseCount[ri.phase] = (phaseCount[ri.phase] || 0) + 1;
+    }
+
+    const phaseHtml = this.phases.map((ph, idx) => {
+      const events = phaseEvents[idx] || [];
+      const count = phaseCount[ph.id] || 0;
+      const isFirst = idx === 0, isLast = idx === this.phases.length - 1;
+      const evHtml = events.map(ev => `
+        <li class="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
+          <span class="text-emerald-500 mt-0.5 flex-shrink-0">▸</span>
+          <span dir="auto">${L(ev)}</span>
+        </li>`).join('');
+      return `
+        <div class="relative pl-8 pb-6 ${isLast ? '' : 'border-s-2 border-emerald-200 dark:border-emerald-800'} ms-3">
+          <span class="absolute -start-[11px] top-1 w-5 h-5 rounded-full ${isFirst ? 'bg-emerald-600' : isLast ? 'bg-rose-500' : 'bg-emerald-400'} border-2 border-white dark:border-gray-900 flex items-center justify-center text-white text-[0.55rem] font-bold">${idx + 1}</span>
+          <details class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
+            <summary class="flex items-center gap-2 p-3 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-700/40">
+              <span class="text-xl flex-shrink-0">${this.esc(ph.emoji || '\u2022')}</span>
+              <span class="flex-1 min-w-0">
+                <span class="block font-semibold text-sm text-gray-800 dark:text-gray-100" dir="auto">${this.esc(this.pick(ph, 'title'))}</span>
+                <span class="block text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-snug" dir="auto">${this.esc(this.pick(ph, 'desc'))}</span>
+              </span>
+              <span class="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-medium whitespace-nowrap">${count} ${L({ en: 's\u016brahs', bn: '\u09b8\u09c2\u09b0\u09be' })}</span>
+              <span class="text-gray-400 text-xs ml-1">\u25bc</span>
+            </summary>
+            <div class="px-4 pb-3 border-t border-gray-100 dark:border-gray-700">
+              <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mt-3 mb-2 uppercase tracking-wide">${this.esc(this.tt('nuzul_key_events'))}</p>
+              <ul class="space-y-1.5">${evHtml}</ul>
+            </div>
+          </details>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="max-w-3xl mx-auto p-1">
+        ${this.header()}
+        ${this.subToggleHtml()}
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-5 text-center leading-relaxed" dir="auto">${this.esc(this.tt('nuzul_timeline_intro'))}</p>
+        <div class="mt-2">${phaseHtml}</div>
       </div>`;
   }
 

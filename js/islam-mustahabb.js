@@ -1,0 +1,207 @@
+/**
+ * Islam -> Mustahabb (Recommended Acts) module.
+ *
+ * Renders into #mustahabb-container (tab "mustahabb"). Content covers:
+ * definition, the principle of reward-without-sin-in-leaving, the sunnahs
+ * of the Prophet (dressing right, eating with three fingers, drinking
+ * sitting, sleeping on right side, greeting first, smiling), common
+ * examples with authentic hadith, Quranic references, and a self-check
+ * accordion. Uses the shared bilingual {en, bn} pattern with CI18N
+ * fallback for other languages.
+ */
+
+const MUSTAHABB_I18N = {
+  islam_mustahabb_title: { en: 'Mustahabb (Recommended)', bn: '\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac (\u0989\u09a4\u09cd\u09a4\u09ae)', zh: '\u5609\u884c (Mustahabb)', ja: '\u63a8\u5968\u884c\u70ba\uff08\u30e0\u30b9\u30bf\u30cf\u30d6\uff09', ar: '\u0627\u0644\u0645\u0633\u062a\u062d\u0628', ur: '\u0645\u0633\u062a\u062d\u0628', hi: '\u092e\u0941\u0938\u094d\u0924\u0939\u092c (\u0938\u0930\u093e\u0939\u0928\u0940\u092f)', fa: '\u0645\u0633\u062a\u062d\u0628', id: 'Mustahabb (Sunah)', ms: 'Sunat', tr: 'M\u00fcstehap', fr: 'Mustahabb (Recommand\u00e9)', es: 'Mustahabb (Recomendado)', de: 'Mustahabb (Empfohlen)', ru: '\u041c\u0443\u0441\u0442\u0430\u0445\u0430\u0431\u0431 (\u0436\u0435\u043b\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0435)' },
+  islam_mustahabb_subtitle: { en: 'Recommended acts — not obligatory, yet every performance earns reward and leaving them carries no sin. Following these sunnahs of the Prophet \ufdfa brings one closer to his blessed example.', bn: '\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u0986\u09ae\u09b2 \u09ab\u09b0\u099c \u09a8\u09af\u09bc, \u09a4\u09ac\u09c1 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09aa\u09be\u09b2\u09a8\u09c7 \u09b8\u0993\u09af\u09bc\u09be\u09ac \u0986\u099b\u09c7 \u098f\u09ac\u0982 \u099b\u09c7\u09a1\u09bc\u09c7 \u09a6\u09bf\u09b2\u09c7 \u0995\u09cb\u09a8\u09cb \u0997\u09c1\u09a8\u09be\u09b9 \u09a8\u09c7\u0987\u0964 \u098f\u0987 \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4\u0997\u09c1\u09b2\u09cb \u09aa\u09be\u09b2\u09a8 \u0995\u09b0\u09c7 \u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae-\u098f\u09b0 \u09ac\u09be\u09b0\u09be\u0995\u09be\u09ae\u09af\u09bc \u0986\u09a6\u09b0\u09cd\u09b6\u09c7\u09b0 \u09a8\u09bf\u0995\u099f\u09a4\u09b0 \u09b9\u0993\u09af\u09bc\u09be \u09af\u09be\u09af\u09bc\u0964' },
+  islam_mustahabb_grade: { en: 'Grade & Principle', bn: '\u09ae\u09be\u09a8 \u0993 \u09ae\u09c2\u09b2\u09a8\u09c0\u09a4\u09bf' },
+};
+
+const MUSTAHABB_ITEMS = [
+  { emoji: '\ud83d\udc57',
+    titleEn: 'Dress from the Right Side', titleBn: '\u09a1\u09be\u09a8 \u09a6\u09bf\u0995 \u09a5\u09c7\u0995\u09c7 \u09aa\u09cb\u09b6\u09be\u0995 \u09aa\u09b0\u09be',
+    descEn: 'The Prophet \ufdfa always began dressing from the right side: right shoe first, right arm through sleeve first. "When any of you puts on shoes let him start with the right foot." (Bukhari 5856)',
+    descBn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09b8\u09ac\u09b8\u09ae\u09af\u09bc \u09a1\u09be\u09a8 \u09a6\u09bf\u0995 \u09a5\u09c5\u0995\u09c7 \u09aa\u09cb\u09b6\u09be\u0995 \u09aa\u09b0\u09a4\u09c7\u09a8: \u09aa\u09cd\u09b0\u09a5\u09ae\u09c7 \u09a1\u09be\u09a8 \u099c\u09c1\u09a4\u09be, \u09b8\u09cd\u09b2\u09bf\u09ad\u09c7 \u09a1\u09be\u09a8 \u09b9\u09be\u09a4 \u0986\u0997\u09c7\u0964 \u201c\u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u0995\u09c7\u0989 \u099c\u09c1\u09a4\u09be \u09aa\u09b0\u09b2\u09c7 \u09a1\u09be\u09a8 \u09a6\u09bf\u0995 \u09a5\u09c5\u0995\u09c7 \u09b6\u09c1\u09b0\u09c1 \u0995\u09b0\u09c1\u0995\u0964\u201d (\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09eb\u09ee\u09eb\u09ec)',
+    ref: 'Bukhari 5856',
+  },
+  { emoji: '\ud83c\udf74',
+    titleEn: 'Eating with Three Fingers', titleBn: '\u09a4\u09bf\u09a8 \u0986\u0999\u09cd\u0997\u09c1\u09b2 \u09a6\u09bf\u09af\u09bc\u09c7 \u0996\u09be\u0993\u09af\u09bc\u09be',
+    descEn: 'The Prophet \ufdfa ate with three fingers (thumb, index, middle) and licked them after eating. "When any of you finishes eating let him lick his fingers, for he does not know in which part the blessing lies." (Muslim 2033)',
+    descBn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09a4\u09bf\u09a8 \u0986\u0999\u09cd\u0997\u09c1\u09b2 (\u09ac\u09c1\u09a1\u09bc\u09be\u0982\u0997\u09c1\u09b2, \u09a4\u09b0\u09cd\u099c\u09a8\u09c0, \u09ae\u09a7\u09cd\u09af\u09ae\u09be) \u09a6\u09bf\u09af\u09bc\u09c7 \u0996\u09c7\u09a4\u09c7\u09a8 \u098f\u09ac\u0982 \u0996\u09be\u0993\u09af\u09bc\u09be\u09b0 \u09aa\u09b0 \u099a\u09c7\u099f\u09c7 \u09a8\u09bf\u09a4\u09c7\u09a8\u0964 \u201c\u09af\u0996\u09a8 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u0995\u09c7\u0989 \u0996\u09be\u0993\u09af\u09bc\u09be \u09b6\u09c7\u09b7 \u0995\u09b0\u09c7 \u09b8\u09c7 \u09af\u09c7\u09a8 \u0986\u0999\u09cd\u0997\u09c1\u09b2 \u099a\u09c7\u099f\u09c7 \u09a8\u09c7\u09af\u09bc, \u0995\u09be\u09b0\u09a3 \u09b8\u09c7 \u099c\u09be\u09a8\u09c7 \u09a8\u09be \u0995\u09cb\u09a8 \u0985\u0982\u09b6\u09c7 \u09ac\u09b0\u0995\u09a4 \u09b0\u09af\u09bc\u09c7\u099b\u09c7\u0964\u201d (\u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e8\u09e6\u09e9\u09e9)',
+    ref: 'Muslim 2033',
+  },
+  { emoji: '\ud83e\udd64',
+    titleEn: 'Drinking While Sitting', titleBn: '\u09ac\u09b8\u09c7 \u09aa\u09be\u09a8 \u0995\u09b0\u09be',
+    descEn: 'The Prophet \ufdfa forbade drinking while standing. "None of you should drink while standing." (Muslim 2026) Drinking while sitting is therefore mustahabb (and avoiding while standing is strongly recommended).',
+    descBn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09a6\u09be\u0981\u09dc\u09bf\u09af\u09bc\u09c7 \u09aa\u09be\u09a8 \u0995\u09b0\u09a4\u09c7 \u09a8\u09bf\u09b7\u09c7\u09a7 \u0995\u09b0\u09c7\u099b\u09c7\u09a8\u0964 \u201c\u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u0995\u09c7\u0989 \u09af\u09c7\u09a8 \u09a6\u09be\u0981\u09dc\u09bf\u09af\u09bc\u09c7 \u09aa\u09be\u09a8 \u09a8\u09be \u0995\u09b0\u09c7\u0964\u201d (\u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e8\u09e6\u09e8\u09ec) \u0985\u09a4\u098f\u09ac \u09ac\u09b8\u09c7 \u09aa\u09be\u09a8 \u0995\u09b0\u09be \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac\u0964',
+    ref: 'Muslim 2026',
+  },
+  { emoji: '\ud83d\udecc',
+    titleEn: 'Sleeping on the Right Side', titleBn: '\u09a1\u09be\u09a8 \u0995\u09be\u09a4 \u09b9\u09af\u09bc\u09c7 \u0998\u09c1\u09ae\u09be\u09a8\u09cb',
+    descEn: '"When you go to bed, perform wudu as for prayer, then lie down on your right side." (Bukhari 247) The Prophet \ufdfa also recommended saying the bedtime du\'a and reciting Ayat al-Kursi for protection.',
+    descBn: '\u201c\u09af\u0996\u09a8 \u09a4\u09c1\u09ae\u09bf \u09ac\u09bf\u099b\u09be\u09a8\u09be\u09af\u09bc \u09af\u09be\u09ac\u09c7, \u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u09ae\u09a4\u09cb \u0993\u09af\u09c1 \u0995\u09b0\u09cb, \u09a4\u09be\u09b0\u09aa\u09b0 \u09a1\u09be\u09a8 \u0995\u09be\u09a4\u09c7 \u09b6\u09be\u0993\u0964\u201d (\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09e8\u09ea\u09ed) \u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u0998\u09c1\u09ae\u09be\u09a8\u09cb\u09b0 \u0986\u0997\u09c7 \u09a6\u09cb\u09af\u09bc\u09be \u09aa\u09dc\u09be \u0993 \u09b8\u09c1\u09b0\u0995\u09cd\u09b7\u09be\u09b0 \u099c\u09a8\u09cd\u09af \u0986\u09af\u09bc\u09be\u09a4\u09c1\u09b2 \u0995\u09c1\u09b0\u09b8\u09bf \u09aa\u09dc\u09be\u09b0 \u09aa\u09b0\u09be\u09ae\u09b0\u09cd\u09b6 \u09a6\u09bf\u09af\u09bc\u09c7\u099b\u09c7\u09a8\u0964',
+    ref: 'Bukhari 247',
+  },
+  { emoji: '\ud83d\udc4b',
+    titleEn: 'Saying Salaam First', titleBn: '\u0986\u0997\u09c7 \u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09c7\u0993\u09af\u09bc\u09be',
+    descEn: '"The one who gives salaam first is better." (Abu Dawud 5197) Spreading salaam is a sign of faith and love. "You will not enter Paradise until you believe, and you will not believe until you love one another. Spread salaam among yourselves." (Muslim 54)',
+    descBn: '\u201c\u09af\u09c7 \u0986\u0997\u09c7 \u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09c7\u09af\u09bc \u09b8\u09c7 \u0989\u09a4\u09cd\u09a4\u09ae\u0964\u201d (\u0986\u09ac\u09c1 \u09a6\u09be\u0989\u09a6 \u09eb\u09e7\u09ef\u09ed) \u09b8\u09be\u09b2\u09be\u09ae \u099b\u09dc\u09bf\u09af\u09bc\u09c7 \u09a6\u09c7\u0993\u09af\u09bc\u09be \u0987\u09ae\u09be\u09a8 \u0993 \u09ae\u09c1\u09b9\u09be\u09ac\u09cd\u09ac\u09a4\u09c7\u09b0 \u09b2\u0995\u09cd\u09b7\u09a3\u0964 \u201c\u09a4\u09cb\u09ae\u09b0\u09be \u099c\u09be\u09a8\u09cd\u09a8\u09be\u09a4\u09c7 \u09aa\u09cd\u09b0\u09ac\u09c7\u09b6 \u0995\u09b0\u09ac\u09c7 \u09a8\u09be \u09af\u09a4\u0995\u09cd\u09b7\u09a3 \u0987\u09ae\u09be\u09a8 \u0986\u09a8\u09be, \u0986\u09b0 \u0987\u09ae\u09be\u09a8 \u0986\u09a8\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7 \u09a8\u09be \u09af\u09a4\u0995\u09cd\u09b7\u09a3 \u09aa\u09b0\u09b8\u09cd\u09aa\u09b0 \u09ad\u09be\u09b2\u09cb\u09a8\u09be \u09ac\u09be\u09b8\u09cb\u0964 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u09ae\u09be\u099d\u09c7 \u09b8\u09be\u09b2\u09be\u09ae \u099b\u09dc\u09be\u0993\u0964\u201d (\u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09eb\u09ea)',
+    ref: 'Muslim 54',
+  },
+  { emoji: '\ud83d\ude0a',
+    titleEn: 'Smiling at a Fellow Muslim', titleBn: '\u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09ad\u09be\u0987\u09af\u09bc\u09c7\u09b0 \u09ae\u09c1\u0996\u09c7 \u09b9\u09be\u09b8\u09be',
+    descEn: '"Your smiling in the face of your brother is an act of charity." (Tirmidhi 1956) Even a simple smile when meeting a fellow Muslim counts as sadaqah and spreads goodwill.',
+    descBn: '\u201c\u09a4\u09cb\u09ae\u09be\u09b0 \u09ad\u09be\u0987\u09af\u09bc\u09c7\u09b0 \u09ae\u09c1\u0996\u09c7 \u09b9\u09be\u09b8\u09be\u09a4\u09c1\u09ae\u09bf \u09b8\u09a6\u0995\u09be\u0964\u201d (\u09a4\u09bf\u09b0\u09ae\u09bf\u09af\u09bf \u09e7\u09ef\u09eb\u09ec) \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae\u09a6\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u09a6\u09c7\u0996\u09be \u09b9\u09b2\u09c7 \u09b8\u09be\u09a7\u09be\u09b0\u09a3 \u09b9\u09be\u09b8\u09bf\u0993 \u09b8\u09a6\u0995\u09be \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09a8\u09be \u09b9\u09af\u09bc \u098f\u09ac\u0982 \u09b8\u09c1\u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995 \u099b\u09dc\u09be\u09af\u09bc\u0964',
+    ref: 'Tirmidhi 1956',
+  },
+  { emoji: '\ud83e\udd3e',
+    titleEn: 'Entering & Exiting with the Right Foot', titleBn: '\u09a1\u09be\u09a8 \u09aa\u09be \u09a6\u09bf\u09af\u09bc\u09c7 \u09aa\u09cd\u09b0\u09ac\u09c7\u09b6 \u0993 \u09ac\u09be\u09ae \u09aa\u09be \u09a6\u09bf\u09af\u09bc\u09c7 \u09ac\u09be\u09b9\u09bf\u09b0',
+    descEn: 'The Prophet \ufdfa entered the masjid with his right foot and exited with his left. Entering the home, beginning wudu, eating — all right-side first. Entering the toilet begins with the left foot.',
+    descBn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09a1\u09be\u09a8 \u09aa\u09be \u09a6\u09bf\u09af\u09bc\u09c7 \u09ae\u09b8\u099c\u09bf\u09a6\u09c7 \u09aa\u09cd\u09b0\u09ac\u09c7\u09b6 \u0995\u09b0\u09a4\u09c7\u09a8 \u0993 \u09ac\u09be\u09ae \u09aa\u09be \u09a6\u09bf\u09af\u09bc\u09c7 \u09ac\u09be\u09b9\u09bf\u09b0 \u09b9\u09a4\u09c7\u09a8\u0964 \u0998\u09b0\u09c7 \u09aa\u09cd\u09b0\u09ac\u09c7\u09b6, \u0993\u09af\u09c1 \u09b6\u09c1\u09b0\u09c1, \u0996\u09be\u0993\u09af\u09bc\u09be \u2014 \u09b8\u09ac\u0995\u09bf\u099b\u09c1 \u09a1\u09be\u09a8 \u09a6\u09bf\u0995 \u09a5\u09c5\u0995\u09c7\u0964 \u099f\u09af\u09bc\u09b2\u09c7\u099f\u09c7 \u09ac\u09be\u09ae \u09aa\u09be \u09a6\u09bf\u09af\u09bc\u09c7 \u09aa\u09cd\u09b0\u09ac\u09c7\u09b6 \u09b6\u09c1\u09b0\u09c1 \u0995\u09b0\u09a4\u09c7 \u09b9\u09af\u09bc\u0964',
+    ref: 'Bukhari 426',
+  },
+  { emoji: '\ud83e\udea5',
+    titleEn: 'Using the Miswak (Tooth-Stick)', titleBn: '\u09ae\u09bf\u09b8\u0993\u09af\u09bc\u09be\u0995 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0',
+    descEn: '"The miswak cleanses the mouth and is pleasing to the Lord." (Nasai 5, Bukhari 887) The Prophet \ufdfa emphasised it before every prayer and especially at the time of wudu.',
+    descBn: '\u201c\u09ae\u09bf\u09b8\u0993\u09af\u09bc\u09be\u0995 \u09ae\u09c1\u0996 \u09aa\u09b0\u09bf\u09b7\u09cd\u0995\u09be\u09b0 \u0995\u09b0\u09c7 \u0993 \u09b0\u09ac\u09c7\u09b0 \u09b8\u09a8\u09cd\u09a4\u09c1\u09b7\u09cd\u099f\u09bf \u0985\u09b0\u09cd\u099c\u09a8 \u0995\u09b0\u09be\u09af\u09bc\u0964\u201d (\u09a8\u09be\u09b8\u09be\u0987 \u09eb, \u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09ee\u09ee\u09ed) \u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u0986\u0997\u09c7 \u0993 \u0993\u09af\u09bc\u09c1\u09b0 \u09b8\u09ae\u09af\u09bc \u09b6\u09be\u09b0\u09cd\u09ac\u09ac\u09ad\u09be\u09ac\u09c7 \u098f\u09b0 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0\u09c7\u09b0 \u0989\u09aa\u09b0 \u0997\u09c1\u09b0\u09c1\u09a4\u09cd\u09ac \u09a6\u09bf\u09a4\u09c7\u09a8\u0964',
+    ref: 'Bukhari 887',
+  },
+];
+
+const MUSTAHABB_QUR = [
+  { ref: '3:31', en: '"Say [O Muhammad]: If you love Allah, then follow me; Allah will love you and forgive your sins."', bn: '\u201c\u09ac\u09b2\u09c1\u09a8: \u09af\u09a6\u09bf \u09a4\u09cb\u09ae\u09b0\u09be \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u0995\u09c7 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8, \u09a4\u09be\u09b9\u09b2\u09c7 \u0986\u09ae\u09be\u0995\u09c7 \u0985\u09a8\u09c1\u09b8\u09b0\u09a3 \u0995\u09b0\u09cb; \u0986\u09b2\u09cd\u09b2\u09be\u09b9 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09ac\u09c7\u09a8 \u0993 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u0997\u09c1\u09a8\u09be\u09b9 \u09ae\u09be\u09ab \u0995\u09b0\u09ac\u09c7\u09a8\u0964\u201d' },
+  { ref: '33:21', en: '"There has certainly been for you in the Messenger of Allah an excellent pattern for anyone whose hope is in Allah and the Last Day."', bn: '\u201c\u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09b0 \u09b0\u09be\u09b8\u09c2\u09b2\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u0989\u09a4\u09cd\u09a4\u09ae \u0986\u09a6\u09b0\u09cd\u09b6 \u09b0\u09af\u09bc\u09c7\u099b\u09c7 \u09a4\u09be\u09a6\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09af\u09be\u09a6\u09c7\u09b0 \u0986\u09b2\u09cd\u09b2\u09be\u09b9 \u0993 \u0986\u0996\u09c7\u09b0\u09be\u09a4\u09c7\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf \u0986\u09b6\u09be \u0986\u099b\u09c7\u0964\u201d' },
+  { ref: '4:80', en: '"Whoever obeys the Messenger has obeyed Allah; and whoever turns away — then We have not sent you, [O Muhammad], over them as a guardian."', bn: '\u201c\u09af\u09c7 \u09b0\u09be\u09b8\u09c2\u09b2\u09c7\u09b0 \u0986\u09a8\u09c1\u0997\u09a4\u09cd\u09af \u0995\u09b0\u09b2 \u09b8\u09c7 \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09b0\u0987 \u0986\u09a8\u09c1\u0997\u09a4\u09cd\u09af \u0995\u09b0\u09b2; \u0986\u09b0 \u09af\u09c7 \u09ae\u09c1\u0996 \u09ab\u09bf\u09b0\u09bf\u09af\u09bc\u09c7 \u09a8\u09bf\u09b2 \u2014 \u0986\u09ae\u09b0\u09be \u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u09a4\u09be\u09a6\u09c7\u09b0 \u0989\u09aa\u09b0 \u09aa\u09be\u09b9\u09be\u09b0\u09a6\u09be\u09b0 \u09a8\u09bf\u09af\u09bc\u09cb\u0997 \u0995\u09b0\u09bf\u09a8\u09bf\u0964\u201d' },
+  { ref: '59:7', en: '"And whatever the Messenger gives you — take it; and what he forbids you — refrain from it."', bn: '\u201c\u09b0\u09be\u09b8\u09c2\u09b2 \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0\u0995\u09c7 \u09af\u09be \u09a6\u09bf\u09af\u09bc\u09c7\u099b\u09c7\u09a8 \u09a4\u09be \u0997\u09cd\u09b0\u09b9\u09a3 \u0995\u09b0\u09cb, \u0986\u09b0 \u09af\u09be \u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0\u0995\u09c7 \u09a8\u09bf\u09b7\u09c7\u09a7 \u0995\u09b0\u09c7\u099b\u09c7\u09a8 \u09a4\u09be \u09a5\u09c5\u0995\u09c7 \u09ac\u09bf\u09b0\u09a4 \u09a5\u09be\u0995\u09cb\u0964\u201d' },
+  { ref: '2:195', en: '"And spend in the way of Allah and do not throw yourselves with your own hands into destruction [by refraining]. And do good; indeed Allah loves the doers of good."', bn: '\u201c\u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09b0 \u09aa\u09a5\u09c7 \u09ac\u09cd\u09af\u09af\u09bc \u0995\u09b0\u09cb \u0993 \u09a8\u09bf\u099c\u09c7\u09b0 \u09b9\u09be\u09a4\u09c7 \u09a8\u09bf\u099c\u09c7\u0995\u09c7 \u09a7\u09cd\u09ac\u0982\u09b8\u09c7 \u09a8\u09bf\u0995\u094d\u09b7\u09c7\u09aa \u0995\u09b0\u09cb \u09a8\u09be\u0964 \u09ad\u09be\u09b2\u09cb \u0995\u09be\u099c \u0995\u09b0\u09cb; \u09a8\u09bf\u09b6\u09cd\u099a\u09af\u09bc\u0987 \u0986\u09b2\u09cd\u09b2\u09be\u09b9 \u09b8\u09ce\u0995\u09b0\u09cd\u09ae\u09b6\u09c0\u09b2\u09a6\u09c7\u09b0 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09c7\u09a8\u0964\u201d' },
+  { ref: '9:119', en: '"O you who have believed, fear Allah and be with the truthful."', bn: '\u201c\u09b9\u09c7 \u0987\u09ae\u09be\u09a8\u09a6\u09be\u09b0\u0997\u09a3! \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u0995\u09c7 \u09ad\u09af\u09bc \u0995\u09b0\u09cb \u0993 \u09b8\u09a4\u09cd\u09af\u09ac\u09be\u09a6\u09c0\u09a6\u09c7\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09a5\u09be\u0995\u09cb\u0964\u201d' },
+];
+
+const MUSTAHABB_HADITH = [
+  { textEn: '"None of you truly believes until he loves for his brother what he loves for himself."', textBn: '\u201c\u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u0995\u09c7\u0989 \u09aa\u09cd\u09b0\u0995\u09c3\u09a4 \u09ae\u09c1\u09ae\u09bf\u09a8 \u09b9\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7 \u09a8\u09be \u09af\u09a4\u0995\u09cd\u09b7\u09a3 \u09a8\u09be \u09b8\u09c7 \u09a4\u09be\u09b0 \u09ad\u09be\u0987\u09af\u09bc\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09a4\u09be-\u0987 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09c7 \u09af\u09be \u09b8\u09c7 \u09a8\u09bf\u099c\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09c7\u0964\u201d', srcEn: 'Bukhari 13, Muslim 45', srcBn: '\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09e7\u09e9, \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09ea\u09eb' },
+  { textEn: '"The best of you in Islam are the best in character, once they gain understanding."', textBn: '\u201c\u09a4\u09cb\u09ae\u09be\u09a6\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u0987\u09b8\u09b2\u09be\u09ae\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cb\u09a4\u09cd\u09a4\u09ae \u09b8\u09c7\u0987 \u09af\u09be\u09b0 \u099a\u09b0\u09bf\u09a4\u09cd\u09b0 \u09b8\u09b0\u09cd\u09ac\u09cb\u09a4\u09cd\u09a4\u09ae \u2014 \u09af\u09a6\u09bf \u09b8\u09c7 \u09ac\u09cb\u09a7\u09b8\u09ae\u09cd\u09aa\u09a8\u09cd\u09a8 \u09b9\u09af\u09bc\u09c7 \u09a5\u09be\u0995\u09c7\u0964\u201d', srcEn: 'Bukhari 3559', srcBn: '\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09e9\u09eb\u09eb\u09ef' },
+  { textEn: '"Verily Allah is gentle and loves gentleness in all matters."', textBn: '\u201c\u09a8\u09bf\u09b6\u09cd\u099a\u09af\u09bc\u0987 \u0986\u09b2\u09cd\u09b2\u09be\u09b9 \u09ad\u09a6\u09cd\u09b0 \u0993 \u09b8\u09ac \u09ac\u09bf\u09b7\u09af\u09bc\u09c7 \u09ad\u09a6\u09cd\u09b0\u09a4\u09be\u0995\u09c7 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09c7\u09a8\u0964\u201d', srcEn: 'Bukhari 6927, Muslim 2593', srcBn: '\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09ec\u09ef\u09e8\u09ed, \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e8\u09eb\u09ef\u09e9' },
+  { textEn: '"Make things easy and do not make them hard; give glad tidings and do not create aversion."', textBn: '\u201c\u09b8\u09b9\u099c \u0995\u09b0\u09cb, \u0995\u09a0\u09bf\u09a8 \u0995\u09b0\u09cb \u09a8\u09be; \u09b8\u09c1\u09b8\u0982\u09ac\u09be\u09a6 \u09a6\u09be\u0993, \u09ac\u09bf\u09b0\u0995\u09cd\u09a4\u09bf \u09b8\u09c3\u09b7\u09cd\u099f\u09bf \u0995\u09b0\u09cb \u09a8\u09be\u0964\u201d', srcEn: 'Bukhari 69, Muslim 1734', srcBn: '\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09ec\u09ef, \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e7\u09ed\u09e9\u09ea' },
+  { textEn: '"A good word is charity."', textBn: '\u201c\u09ad\u09be\u09b2\u09cb \u0995\u09a5\u09be \u09b8\u09a6\u0995\u09be\u0964\u201d', srcEn: 'Bukhari 2989, Muslim 1009', srcBn: '\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09e8\u09ef\u09ee\u09ef, \u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e7\u09e6\u09e6\u09ef' },
+];
+
+class MustahabbModule {
+  constructor() {
+    this.root = document.getElementById('mustahabb-container');
+    this.rendered = false;
+    const s = (typeof appSettings !== 'undefined' && appSettings);
+    this.language = s ? (s.language || 'en') : 'en';
+    if (this.root) {
+      this.root.addEventListener('click', (e) => this.handleClick(e));
+      document.addEventListener('tabChange', (e) => {
+        if (e.detail && e.detail.tab === 'mustahabb' && !this.rendered) this.render();
+      });
+      if (document.querySelector('#tab-mustahabb:not(.hidden)')) this.render();
+    }
+  }
+  tt(key) {
+    const fb = MUSTAHABB_I18N[key];
+    if (!fb) return key;
+    const lang = this.language;
+    if (lang && fb[lang]) return fb[lang];
+    if (lang === 'bn') return fb.bn || fb.en || key;
+    if (lang && lang !== 'en' && typeof CI18N !== 'undefined' && fb.en) { const tr = CI18N.tr(lang, fb.en); if (tr) return tr; }
+    return fb.en || key;
+  }
+  lc(o) {
+    if (!o) return '';
+    const lang = this.language;
+    if (lang && o[lang]) return o[lang];
+    if (lang === 'bn') return o.bn || o.en || '';
+    if (lang && lang !== 'en' && typeof CI18N !== 'undefined' && o.en) { const tr = CI18N.tr(lang, o.en); if (tr) return tr; }
+    return o.en || o.bn || '';
+  }
+  esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  render() {
+    this.rendered = true;
+    const L = (o) => this.esc(this.lc(o));
+    this.root.innerHTML = `
+      <div class="max-w-3xl mx-auto space-y-6 py-4">
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div class="p-6 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/10">
+            <div class="text-4xl mb-2" aria-hidden="true">&#127775;</div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">${this.esc(this.tt('islam_mustahabb_title'))}</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm leading-relaxed" dir="auto">${this.esc(this.tt('islam_mustahabb_subtitle'))}</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-2 flex items-center gap-2">&#9989; ${L({ en: this.tt('islam_mustahabb_grade'), bn: '\u09ae\u09be\u09a8 \u0993 \u09ae\u09c2\u09b2\u09a8\u09c0\u09a4\u09bf' })}</h3>
+          <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40 text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed space-y-2" dir="auto">
+            <p>${L({ en: '<strong>Mustahabb</strong> (also called <em>mandub</em>, <em>sunnah</em> or <em>nadb</em>) is an act the Lawgiver encouraged without making it obligatory. The rule: <em>doing it earns reward; leaving it is not sinful.</em>', bn: '<strong>\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac</strong> (\u09ae\u09be\u09a8\u09a6\u09c2\u09ac, \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4 \u09ac\u09be \u09a8\u09be\u09a6\u09ac \u09a8\u09be\u09ae\u09c7\u0993 \u09aa\u09b0\u09bf\u099a\u09bf\u09a4) \u09b9\u09b2\u09cb \u09b8\u09c7\u0987 \u0986\u09ae\u09b2 \u09af\u09be \u09b6\u09be\u09b0\u09bf\u09af\u09bc\u09b0\u09a4 \u0989\u09ce\u09b8\u09be\u09b9\u09bf\u09a4 \u0995\u09b0\u09c7\u099b\u09c7 \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09ab\u09b0\u099c \u0995\u09b0\u09c7\u09a8\u09bf\u0964 \u09ae\u09c2\u09b2\u09a8\u09c0\u09a4\u09bf: <em>\u0995\u09b0\u09b2\u09c7 \u09b8\u0993\u09af\u09bc\u09be\u09ac, \u099b\u09be\u09dc\u09b2\u09c7 \u0997\u09c1\u09a8\u09be\u09b9 \u09a8\u09c7\u0987\u0964</em>' })}</p>
+            <p>${L({ en: 'Classical scholars distinguish: <em>sunnah mu\'akkadah</em> (strongly confirmed — habitual omission is blameworthy) and <em>sunnah ghayru mu\'akkadah</em> (light recommendation — no blame at all for omitting). Both fall under mustahabb.', bn: '\u0995\u09cd\u09b2\u09be\u09b8\u09bf\u0995\u09cd\u09af\u09be\u09b2 \u0986\u09b2\u09c7\u09ae\u09b0\u09be \u09ac\u09bf\u09ad\u09be\u099c\u09a8 \u0995\u09b0\u09c7\u09a8: <em>\u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4\u09c7 \u09ae\u09c1\u09af\u09bc\u09be\u0995\u09cd\u0995\u09be\u09a6\u09be</em> (\u09a6\u09c3\u09a2\u09bc\u09ad\u09be\u09ac\u09c7 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3\u09bf\u09a4 \u2014 \u0985\u09ad\u09cd\u09af\u09be\u09b8\u0997\u09a4\u09ad\u09be\u09ac\u09c7 \u099b\u09be\u09dc\u09b2\u09c7 \u09a8\u09bf\u09a8\u09cd\u09a6\u09a8\u09c0\u09af\u09bc) \u0993 <em>\u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4 \u0997\u09be\u09af\u09bc\u09b0\u09c7 \u09ae\u09c1\u09af\u09bc\u09be\u0995\u09cd\u0995\u09be\u09a6\u09be</em> (\u09b9\u09be\u09b2\u0995\u09be \u09b8\u09c1\u09aa\u09be\u09b0\u09bf\u09b6 \u2014 \u09ac\u09be\u09a6 \u09a6\u09bf\u09b2\u09c7 \u09a6\u09cb\u09b7 \u09a8\u09c7\u0987)\u0964 \u09a6\u09c1\u099f\u09cb\u0987 \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac\u09c7\u09b0 \u0985\u09a8\u09cd\u09a4\u09b0\u09cd\u09ad\u09c1\u0995\u09cd\u09a4\u0964' })}</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">&#127775; ${L({ en: 'Sunnahs of the Prophet', bn: '\u09a8\u09ac\u09c0\u09b0 \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4\u09b8\u09ae\u09c2\u09b9' })}</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${MUSTAHABB_ITEMS.map(n => `
+              <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40">
+                <div class="text-sm font-semibold text-emerald-800 dark:text-emerald-200"><span aria-hidden="true">${n.emoji}</span> ${L({ en: n.titleEn, bn: n.titleBn })}</div>
+                <p class="text-xs text-emerald-700 dark:text-emerald-300 mt-1 leading-relaxed" dir="auto">${L({ en: n.descEn, bn: n.descBn })}</p>
+                <button type="button" data-mustahabb-ayah="${this.esc(n.ref.split(',')[0].trim())}" class="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[0.65rem] font-medium hover:bg-emerald-500 hover:text-white transition-colors">&#128214; ${this.esc(n.ref)}</button>
+              </div>`).join('')}
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">&#128172; ${L({ en: 'Hadith on Mustahabb', bn: '\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995\u09c7 \u09b9\u09be\u09a6\u09bf\u09b8' })}</h3>
+          <div class="space-y-3">
+            ${MUSTAHABB_HADITH.map(h => `
+              <div class="p-3 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/40">
+                <p class="text-sm text-green-800 dark:text-green-200 leading-relaxed" dir="auto">${L({ en: h.textEn, bn: h.textBn })}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">&#8212; ${L({ en: h.srcEn, bn: h.srcBn })}</p>
+              </div>`).join('')}
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">&#128214; ${L({ en: 'Quranic References', bn: '\u0995\u09c1\u09b0\u0986\u09a8\u09bf \u09b0\u09c7\u09ab\u09be\u09b0\u09c7\u09a8\u09cd\u09b8' })}</h3>
+          <div class="space-y-3">
+            ${MUSTAHABB_QUR.map(q => `
+              <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40">
+                <p class="text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed" dir="auto">${L({ en: q.en, bn: q.bn })}</p>
+                <button type="button" data-mustahabb-ayah="${this.esc(q.ref)}" class="mt-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-medium hover:bg-emerald-500 hover:text-white transition-colors">&#128214; ${this.esc(q.ref)} ${L({ en: 'Read', bn: '\u09aa\u09dc\u09c1\u09a8' })}</button>
+              </div>`).join('')}
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-900/40 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">&#129504; ${L({ en: 'Self-check', bn: '\u09a8\u09bf\u099c\u09c7\u0987 \u09af\u09be\u099a\u09be\u0987' })}</h3>
+          <div class="space-y-2">
+            ${[
+              { q: { en: 'What is the ruling on a mustahabb act — is it sinful to leave it?', bn: '\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u0986\u09ae\u09b2\u09c7\u09b0 \u09b9\u09c1\u0995\u09c1\u09ae \u0995\u09c0 \u2014 \u099b\u09c7\u09dc\u09c7 \u09a6\u09bf\u09b2\u09c7 \u0995\u09bf \u0997\u09c1\u09a8\u09be\u09b9 \u09b9\u09ac\u09c7?' }, a: { en: 'No sin in leaving it. However, performing it earns reward and brings one closer to the Prophet\'s example. Habitual omission of a mu\'akkadah sunnah is blameworthy though not sinful.', bn: '\u099b\u09c7\u09dc\u09c7 \u09a6\u09bf\u09b2\u09c7 \u0997\u09c1\u09a8\u09be\u09b9 \u09a8\u09c7\u0987\u0964 \u09a4\u09ac\u09c7 \u0995\u09b0\u09b2\u09c7 \u09b8\u0993\u09af\u09bc\u09be\u09ac \u09aa\u09be\u0993\u09af\u09bc\u09be \u09af\u09be\u09af\u09bc \u0993 \u09a8\u09ac\u09c0\u09b0 \u0986\u09a6\u09b0\u09cd\u09b6\u09c7\u09b0 \u09a8\u09bf\u0995\u099f\u09ac\u09b0\u09cd\u09a4\u09c0 \u09b9\u0993\u09af\u09bc\u09be \u09af\u09be\u09af\u09bc\u0964 \u09ae\u09c1\u09af\u09bc\u09be\u0995\u09cd\u0995\u09be\u09a6\u09be \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4 \u0985\u09ad\u09cd\u09af\u09be\u09b8\u0997\u09a4\u09ad\u09be\u09ac\u09c7 \u09ac\u09be\u09a6 \u09a6\u09c7\u0993\u09af\u09bc\u09be \u09a8\u09bf\u09a8\u09cd\u09a6\u09a8\u09c0\u09af\u09bc, \u0997\u09c1\u09a8\u09be\u09b9 \u09a8\u09af\u09bc\u0964' } },
+              { q: { en: 'What is the difference between mustahabb and wajib?', bn: '\u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u0993 \u0993\u09af\u09bc\u09be\u099c\u09bf\u09ac\u09c7\u09b0 \u09aa\u09be\u09b0\u09cd\u09a5\u0995\u09cd\u09af \u0995\u09c0?' }, a: { en: 'Wajib (obligatory) — leaving it is sinful and requires making up (or expiation in some cases). Mustahabb — leaving it is not sinful; performing it is extra reward. Fard is the highest obligation; mustahabb is below wajib.', bn: '\u0993\u09af\u09bc\u09be\u099c\u09bf\u09ac (\u0986\u09ac\u09b6\u09cd\u09af\u0995) \u2014 \u099b\u09c7\u09dc\u09c7 \u09a6\u09bf\u09b2\u09c7 \u0997\u09c1\u09a8\u09be\u09b9, \u0995\u09be\u09af\u09bc\u09be \u09aa\u09cd\u09b0\u09af\u09bc\u09cb\u099c\u09a8\u0964 \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u2014 \u099b\u09c7\u09dc\u09c7 \u09a6\u09bf\u09b2\u09c7 \u0997\u09c1\u09a8\u09be\u09b9 \u09a8\u09c7\u0987; \u0995\u09b0\u09b2\u09c7 \u0985\u09a4\u09bf\u09b0\u09bf\u0995\u09cd\u09a4 \u09b8\u0993\u09af\u09bc\u09be\u09ac\u0964 \u09ab\u09b0\u099c \u09b8\u09b0\u09cd\u09ac\u09cb\u099a\u09cd\u099a \u09ac\u09be\u09a7\u09cd\u09af\u09a4\u09be; \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac \u0993\u09af\u09bc\u09be\u099c\u09bf\u09ac\u09c7\u09b0 \u09a8\u09bf\u099a\u09c7\u0964' } },
+              { q: { en: 'Why did the Prophet eat with three fingers?', bn: '\u09a8\u09ac\u09c0 \u09a4\u09bf\u09a8 \u0986\u0999\u09cd\u0997\u09c1\u09b2 \u09a6\u09bf\u09af\u09bc\u09c7 \u0996\u09c7\u09a4\u09c7\u09a8 \u0995\u09c7\u09a8?' }, a: { en: 'It is a sunnah expressing humility and mindfulness of food\'s blessing. Licking the fingers afterwards ensures no blessing is wasted. (Muslim 2033) Using fewer fingers also slows eating, aiding digestion.', bn: '\u098f\u099f\u09bf \u09ac\u09bf\u09a8\u09af\u09bc \u0993 \u0996\u09be\u09a6\u09cd\u09af\u09c7\u09b0 \u09ac\u09b0\u0995\u09a4\u09c7\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf \u09b8\u099a\u09c7\u09a4\u09a8\u09a4\u09be \u09aa\u09cd\u09b0\u0995\u09be\u09b6\u0995\u09be\u09b0\u09c0 \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4\u0964 \u0996\u09be\u0993\u09af\u09bc\u09be\u09b0 \u09aa\u09b0 \u0986\u0999\u09cd\u0997\u09c1\u09b2 \u099a\u09be\u099f\u09be \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09b0\u09c7 \u0995\u09cb\u09a8\u09cb \u09ac\u09b0\u0995\u09a4 \u09a8\u09b7\u09cd\u099f \u09a8\u09be \u09b9\u09af\u09bc\u0964 (\u09ae\u09c1\u09b8\u09b2\u09bf\u09ae \u09e8\u09e6\u09e9\u09e9) \u0995\u09ae \u0986\u0999\u09cd\u0997\u09c1\u09b2 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0996\u09be\u0993\u09af\u09bc\u09be\u0993 \u09a7\u09c0\u09b0 \u0995\u09b0\u09c7, \u09b9\u099c\u09ae\u09c7 \u09b8\u09be\u09b9\u09be\u09af\u09cd\u09af \u0995\u09b0\u09c7\u0964' } },
+              { q: { en: 'Is spreading the salaam obligatory or recommended?', bn: '\u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09c7\u0993\u09af\u09bc\u09be \u0995\u09bf \u09ab\u09b0\u099c \u09a8\u09be\u0995\u09bf \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac?' }, a: { en: 'Giving salaam is mustahabb (sunnah). However, replying to salaam is fard kifayah (communal obligation) — at least one person must respond. If no one replies, all are sinful.', bn: '\u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09c7\u0993\u09af\u09bc\u09be \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac (\u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4)\u0964 \u09a4\u09ac\u09c7 \u09b8\u09be\u09b2\u09be\u09ae\u09c7\u09b0 \u09a6\u09c7\u0993\u09af\u09bc\u09be \u09ab\u09b0\u099c\u09c7 \u0995\u09bf\u09ab\u09be\u09af\u09bc\u09be (\u09b8\u09be\u09ae\u09be\u099c\u09bf\u0995 \u09ab\u09b0\u099c) \u2014 \u0985\u09a8\u09cd\u09a4\u09a4 \u098f\u0995\u099c\u09a8\u0995\u09c7 \u09b8\u09be\u09dc\u09be \u09a6\u09bf\u09a4\u09c7 \u09b9\u09ac\u09c7\u0964 \u0995\u09c7\u0989 \u09b8\u09be\u09dc\u09be \u09a8\u09be \u09a6\u09bf\u09b2\u09c7 \u09b8\u09ac\u09be\u0987 \u0997\u09c1\u09a8\u09be\u09b9\u0997\u09be\u09b0\u0964' } },
+              { q: { en: 'Name three categories that fall under mustahabb according to classical scholars.', bn: '\u0995\u09cd\u09b2\u09be\u09b8\u09bf\u0995\u09cd\u09af\u09be\u09b2 \u0986\u09b2\u09c7\u09ae\u09a6\u09c7\u09b0 \u09ae\u09a4\u09c7 \u09ae\u09c1\u09b8\u09cd\u09a4\u09be\u09b9\u09be\u09ac\u09c7\u09b0 \u0985\u09a8\u09cd\u09a4\u09b0\u09cd\u0997\u09a4 \u09a4\u09bf\u09a8\u099f\u09bf \u09ac\u09bf\u09ad\u09be\u0997 \u09a8\u09be\u09ae \u0995\u09b0\u09c1\u09a8\u0964' }, a: { en: '(1) Sunnah mu\'akkadah — strongly confirmed sunnahs of the Prophet; (2) Sunnah ghayru mu\'akkadah — lighter recommendations; (3) Adab — refined etiquette of the Prophet not specifically commanded but exemplified.', bn: '(1) \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4\u09c7 \u09ae\u09c1\u09af\u09bc\u09be\u0995\u09cd\u0995\u09be\u09a6\u09be \u2014 \u09a6\u09c3\u09a2\u09bc\u09ad\u09be\u09ac\u09c7 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3\u09bf\u09a4 \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4; (2) \u09b8\u09c1\u09a8\u09cd\u09a8\u09be\u09a4 \u0997\u09be\u09af\u09bc\u09b0\u09c7 \u09ae\u09c1\u09af\u09bc\u09be\u0995\u09cd\u0995\u09be\u09a6\u09be \u2014 \u09b9\u09be\u09b2\u0995\u09be \u09b8\u09c1\u09aa\u09be\u09b0\u09bf\u09b6; (3) \u0986\u09a6\u09be\u09ac \u2014 \u09a8\u09ac\u09c0\u09b0 \u09ac\u09bf\u09b6\u09c7\u09b7\u09ad\u09be\u09ac\u09c7 \u09a8\u09bf\u09b0\u09cd\u09a6\u09c7\u09b6\u09bf\u09a4 \u09a8\u09af\u09bc \u09a4\u09ac\u09c7 \u09b8\u09cd\u09ac\u09be\u09ad\u09be\u09ac\u09bf\u0995\u09ad\u09be\u09ac\u09c7 \u0986\u099a\u09b0\u09a3\u0995\u09c3\u09a4 \u09b8\u09c1\u09b6\u09c0\u09b2 \u0986\u099a\u09b0\u09a3\u09c7\u09b0 \u09a8\u09bf\u09af\u09bc\u09ae\u0964' } },
+              { q: { en: 'What is the importance of using the miswak before prayer?', bn: '\u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u0986\u0997\u09c7 \u09ae\u09bf\u09b8\u0993\u09af\u09bc\u09be\u0995 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0\u09c7\u09b0 \u0997\u09c1\u09b0\u09c1\u09a4\u09cd\u09ac \u0995\u09c0?' }, a: { en: 'The Prophet \ufdfa said: "Were it not that I might overburden my community I would command them to use the miswak before every prayer." (Bukhari 887) It purifies the mouth, pleases Allah, and is a sign of respect before standing in front of Him.', bn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09ac\u09b2\u09c7\u099b\u09c7\u09a8: \u201c\u09af\u09a6\u09bf \u0989\u09ae\u09cd\u09ae\u09a4\u09c7\u09b0 \u0989\u09aa\u09b0 \u0995\u09b7\u09cd\u099f\u0995\u09b0 \u09a8\u09be \u09b9\u09a4 \u09a4\u09be\u09b9\u09b2\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u0986\u0997\u09c7 \u09ae\u09bf\u09b8\u0993\u09af\u09bc\u09be\u0995 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09a4\u09c7 \u0986\u09a6\u09c7\u09b6 \u0995\u09b0\u09a4\u09be\u09ae\u0964\u201d (\u09ac\u09c1\u0996\u09be\u09b0\u09bf \u09ee\u09ee\u09ed) \u098f\u099f\u09bf \u09ae\u09c1\u0996 \u09aa\u09b0\u09bf\u09b7\u09cd\u0995\u09be\u09b0 \u0995\u09b0\u09c7, \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09b0 \u09b8\u09a8\u09cd\u09a4\u09c1\u09b7\u09cd\u099f\u09bf \u0985\u09b0\u09cd\u099c\u09a8 \u0995\u09b0\u09c7 \u0993 \u09a4\u09be\u0981\u09b0 \u09b8\u09be\u09ae\u09a8\u09c7 \u09a6\u09be\u0981\u09dc\u09be\u09a8\u09cb\u09b0 \u0986\u0997\u09c7 \u09b8\u09ae\u09cd\u09ae\u09be\u09a8\u09c7\u09b0 \u09aa\u09cd\u09b0\u09a4\u09c0\u0995\u0964' } },
+              { q: { en: 'How does smiling become an act of worship?', bn: '\u09b9\u09be\u09b8\u09bf \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u0987\u09ac\u09be\u09a6\u09a4 \u09b9\u09af\u09bc?' }, a: { en: 'The Prophet \ufdfa defined charity (sadaqah) broadly to include a smile in the face of your brother (Tirmidhi 1956). Any good deed done seeking Allah\'s pleasure — even a smile — counts as worship because of the sincere intention (niyyah).', bn: '\u09a8\u09ac\u09c0 \u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09b2\u09cd\u09b2\u09be\u09b9\u09c1 \u0986\u09b2\u09be\u0987\u09b9\u09bf \u0993\u09af\u09bc\u09be\u09b8\u09be\u09b2\u09cd\u09b2\u09be\u09ae \u09b8\u09a6\u0995\u09be\u0995\u09c7 \u09ac\u09cd\u09af\u09be\u09aa\u0995\u09ad\u09be\u09ac\u09c7 \u09b8\u0982\u099c\u09cd\u099e\u09be\u09af\u09bc\u09bf\u09a4 \u0995\u09b0\u09c7\u099b\u09c7\u09a8, \u09af\u09be\u09a4\u09c7 \u09ad\u09be\u0987\u09af\u09bc\u09c7\u09b0 \u09ae\u09c1\u0996\u09c7 \u09b9\u09be\u09b8\u09bf\u0993 \u09b8\u09cd\u09a5\u09be\u09a8 \u09aa\u09c7\u09af\u09bc\u09c7\u099b\u09c7 (\u09a4\u09bf\u09b0\u09ae\u09bf\u09af\u09bf \u09e7\u09ef\u09eb\u09ec)\u0964 \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09b0 \u09b8\u09a8\u09cd\u09a4\u09c1\u09b7\u09cd\u099f\u09bf \u09b0\u09b9\u09b8\u09cd\u09af\u09c7 \u0995\u09b0\u09be \u09af\u09c7\u0995\u09cb\u09a8\u09cb \u09b8\u09ce\u0995\u09be\u099c \u2014 \u098f\u09a4\u099f\u09c1\u0995\u09c1 \u0995\u09cd\u09b7\u09c1\u09a6\u09cd\u09b0 \u09b9\u09be\u09b8\u09bf\u0993 \u2014 \u09a8\u09bf\u09af\u09bc\u09a4\u09c7\u09b0 \u0995\u09be\u09b0\u09a3\u09c7 \u0987\u09ac\u09be\u09a6\u09a4 \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09cd\u09af \u09b9\u09af\u09bc\u0964' } },
+            ].map(item => `
+              <details class="rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40 overflow-hidden">
+                <summary class="flex items-center gap-2 p-3 cursor-pointer list-none hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30">
+                  <span class="text-emerald-600 dark:text-emerald-400 text-sm">&#10067;</span>
+                  <span class="flex-1 text-sm font-medium text-gray-800 dark:text-gray-100" dir="auto">${L(item.q)}</span>
+                  <span class="text-emerald-500 text-xs">&#9660;</span>
+                </summary>
+                <div class="px-4 pb-3 pt-1 text-xs text-gray-700 dark:text-gray-200 leading-relaxed border-t border-emerald-100 dark:border-emerald-900/40" dir="auto">&#9989; ${L(item.a)}</div>
+              </details>`).join('')}
+          </div>
+        </div>
+
+      </div>`;
+  }
+  handleClick(e) {
+    const ayah = e.target.closest('[data-mustahabb-ayah]');
+    if (ayah) { try { if (typeof ayahModal !== 'undefined' && ayahModal && ayahModal.open) ayahModal.open(ayah.getAttribute('data-mustahabb-ayah')); } catch (_) {} }
+  }
+}
+
+let mustahabbModule;
+document.addEventListener('DOMContentLoaded', () => { mustahabbModule = new MustahabbModule(); });

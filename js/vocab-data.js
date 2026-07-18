@@ -224,6 +224,128 @@ const VOCAB_WORDS = [
   {
     arabic: 'صَلَاةٌ', translit: 'ṣalāh', count: 99,
     meanings: { en: 'prayer', bn: 'নামায, সালাত', fr: 'prière', id: 'salat', ur: 'نماز', tr: 'namaz', ar: 'دُعَاء / عِبَادَة' , zh: '拜功，礼拜', ja: '礼拝、サラート'}
+  },
+
+  // ---- High-frequency Quranic nouns and concepts ----
+  {
+    arabic: 'صَبْرٌ', translit: 'ṣabr', count: 103,
+    meanings: { en: 'patience, endurance', bn: 'ধৈর্য, সবর', fr: 'patience', id: 'sabar', ur: 'صبر', tr: 'sabır', ar: 'تَحَمُّل' , zh: '忍耐，坚忍', ja: '忍耐、サブル'}
+  },
+  {
+    arabic: 'ظُلْمٌ', translit: 'ẓulm', count: 315,
+    meanings: { en: 'wrongdoing, injustice', bn: 'অত্যাচার, যুলুম', fr: 'injustice, tort', id: 'kezaliman', ur: 'ظلم', tr: 'zulüm', ar: 'جَوْر' , zh: '不义，压迫', ja: '不正、暴虐'}
+  },
+  {
+    arabic: 'شُكْرٌ', translit: 'shukr', count: 75,
+    meanings: { en: 'gratitude, thankfulness', bn: 'কৃতজ্ঞতা, শোকর', fr: 'gratitude', id: 'syukur', ur: 'شکر', tr: 'şükür', ar: 'امْتِنَان' , zh: '感谢，感恩', ja: '感謝、シュクル'}
+  },
+  {
+    arabic: 'صِدْقٌ', translit: 'ṣidq', count: 155,
+    meanings: { en: 'truth, sincerity', bn: 'সততা, সত্যবাদিতা', fr: 'vérité, sincérité', id: 'kejujuran', ur: 'صدق، سچائی', tr: 'doğruluk', ar: 'ضِدُّ الْكَذِب' , zh: '诚实，真诚', ja: '誠実、真実'}
+  },
+  {
+    arabic: 'نَبِيٌّ', translit: 'nabiyy', count: 75,
+    meanings: { en: 'prophet', bn: 'নবী', fr: 'prophète', id: 'nabi', ur: 'نبی', tr: 'nebi, peygamber', ar: 'مُنْبِئٌ عَنِ اللَّه' , zh: '先知', ja: '預言者、ナビー'}
+  },
+  {
+    arabic: 'سَبِيلٌ', translit: 'sabīl', count: 176,
+    meanings: { en: 'way, path', bn: 'পথ, রাস্তা', fr: 'voie, chemin', id: 'jalan', ur: 'راستہ، سبیل', tr: 'yol, sebil', ar: 'طَرِيق' , zh: '道路，途径', ja: '道、方法'}
+  },
+  {
+    arabic: 'أُمَّةٌ', translit: 'ummah', count: 64,
+    meanings: { en: 'community, nation', bn: 'উম্মত, জাতি', fr: 'communauté, nation', id: 'umat', ur: 'امت', tr: 'ümmet', ar: 'جَمَاعَةٌ مُتَّحِدَة' , zh: '民族，社群', ja: 'ウンマ、共同体'}
+  },
+  {
+    arabic: 'رِزْقٌ', translit: 'rizq', count: 123,
+    meanings: { en: 'provision, sustenance', bn: 'রিযিক, জীবিকা', fr: 'provision, subsistance', id: 'rezeki', ur: 'رزق', tr: 'rızık', ar: 'قُوتٌ مِنَ اللَّه' , zh: '给养，赐予', ja: 'リズク、糧'}
+  },
+  {
+    arabic: 'سَلَامٌ', translit: 'salām', count: 140,
+    meanings: { en: 'peace, safety', bn: 'সালাম, শান্তি', fr: 'paix, salut', id: 'salam, kedamaian', ur: 'سلام، امن', tr: 'selam, barış', ar: 'أَمَان' , zh: '平安，和平', ja: '平和、サラーム'}
+  },
+  {
+    arabic: 'قُرْآنٌ', translit: 'qurʾān', count: 70,
+    meanings: { en: 'the Quran, recitation', bn: 'কুরআন, পাঠ', fr: 'le Coran', id: 'Al-Quran', ur: 'قرآن', tr: 'Kur\'an', ar: 'كَلَامُ اللَّه' , zh: '古兰经', ja: 'クルアーン'}
+  },
+  {
+    arabic: 'تَوْبَةٌ', translit: 'tawbah', count: 87,
+    meanings: { en: 'repentance, return to God', bn: 'তওবা, অনুতাপ', fr: 'repentance', id: 'taubat', ur: 'توبہ', tr: 'tövbe', ar: 'رُجُوعٌ إِلَى اللَّه' , zh: '悔过，回归', ja: '悔悟、タウバ'}
+  },
+  {
+    arabic: 'فِتْنَةٌ', translit: 'fitnah', count: 60,
+    meanings: { en: 'trial, temptation, affliction', bn: 'ফিতনা, পরীক্ষা', fr: 'épreuve, tentation', id: 'fitnah, cobaan', ur: 'فتنہ', tr: 'fitne', ar: 'ابْتِلَاء' , zh: '考验，迷乱', ja: 'フィトナ、試練'}
+  },
+  {
+    arabic: 'صِرَاطٌ', translit: 'ṣirāṭ', count: 45,
+    meanings: { en: 'path, road', bn: 'সিরাত, পথ', fr: 'voie, chemin', id: 'jalan lurus', ur: 'صراط', tr: 'sırat, yol', ar: 'طَرِيقٌ مُسْتَقِيم' , zh: '正路，道路', ja: 'スィラート、道'}
+  },
+  {
+    arabic: 'مَلَكٌ', translit: 'malak', count: 88,
+    meanings: { en: 'angel', bn: 'ফেরেশতা, মালাক', fr: 'ange', id: 'malaikat', ur: 'فرشتہ', tr: 'melek', ar: 'رَسُولٌ رُوحَانِيّ' , zh: '天使', ja: '天使、マラク'}
+  },
+  {
+    arabic: 'إِيمَانٌ', translit: 'īmān', count: 279,
+    meanings: { en: 'faith, belief', bn: 'ঈমান, বিশ্বাস', fr: 'foi, croyance', id: 'iman', ur: 'ایمان', tr: 'iman', ar: 'تَصْدِيقٌ وَإِذْعَان' , zh: '信仰，伊玛尼', ja: 'イーマン、信仰'}
+  },
+  {
+    arabic: 'حِكْمَةٌ', translit: 'ḥikmah', count: 210,
+    meanings: { en: 'wisdom', bn: 'হিকমত, প্রজ্ঞা', fr: 'sagesse', id: 'hikmah, kebijaksanaan', ur: 'حکمت', tr: 'hikmet', ar: 'صَوَابُ الرَّأْي' , zh: '智慧', ja: 'ヒクマ、知恵'}
+  },
+  {
+    arabic: 'فَضْلٌ', translit: 'faḍl', count: 90,
+    meanings: { en: 'grace, bounty, favor', bn: 'অনুগ্রহ, ফযল', fr: 'grâce, bienfait', id: 'karunia, keutamaan', ur: 'فضل، احسان', tr: 'lütuf, fazilet', ar: 'إِنْعَام' , zh: '恩典，恩惠', ja: '恩寵、ファドル'}
+  },
+  {
+    arabic: 'مَغْفِرَةٌ', translit: 'maghfirah', count: 234,
+    meanings: { en: 'forgiveness, pardon', bn: 'মাগফিরাত, ক্ষমা', fr: 'pardon', id: 'ampunan', ur: 'مغفرت، بخشش', tr: 'mağfiret', ar: 'عَفْو' , zh: '饶恕，宽恕', ja: '赦免、マグフィラ'}
+  },
+  {
+    arabic: 'بُشْرَىٰ', translit: 'bushrā', count: 122,
+    meanings: { en: 'glad tidings, good news', bn: 'সুসংবাদ, বুশরা', fr: 'bonne nouvelle', id: 'kabar gembira', ur: 'خوشخبری، بشارت', tr: 'müjde', ar: 'خَبَرٌ سَارّ' , zh: '好消息，喜讯', ja: '吉報、ブシュラー'}
+  },
+  {
+    arabic: 'نَذِيرٌ', translit: 'nadhīr', count: 60,
+    meanings: { en: 'warner, admonisher', bn: 'সতর্ককারী, নাযির', fr: 'avertisseur', id: 'pemberi peringatan', ur: 'ڈرانے والا', tr: 'uyarıcı, nezir', ar: 'مُحَذِّر' , zh: '警告者', ja: '警告者、ナザィール'}
+  },
+  {
+    arabic: 'نَعِيمٌ', translit: 'naʿīm', count: 21,
+    meanings: { en: 'bliss, comfort', bn: 'নেয়ামত, পরম সুখ', fr: 'délices, bonheur', id: 'kenikmatan', ur: 'نعمت، راحت', tr: 'nimet', ar: 'بَهْجَةٌ وَرَفَاهِيَة' , zh: '喜乐，安逸', ja: '至福、ナイーム'}
+  },
+  {
+    arabic: 'أَمَانَةٌ', translit: 'amānah', count: 6,
+    meanings: { en: 'trust, integrity', bn: 'আমানত, বিশ্বস্ততা', fr: 'confiance, honnêteté', id: 'amanah', ur: 'امانت', tr: 'emanet', ar: 'وَدِيعَة' , zh: '信托，诚信', ja: 'アマーナ、信託'}
+  },
+  {
+    arabic: 'مُؤْمِنٌ', translit: 'muʾmin', count: 230,
+    meanings: { en: 'believer, faithful', bn: 'মুমিন, বিশ্বাসী', fr: 'croyant', id: 'mukmin, orang beriman', ur: 'مومن', tr: 'mümin', ar: 'مُصَدِّقٌ بِاللَّه' , zh: '信士', ja: 'ムウミン、信者'}
+  },
+  {
+    arabic: 'بَاطِلٌ', translit: 'bāṭil', count: 36,
+    meanings: { en: 'falsehood, vain', bn: 'বাতিল, মিথ্যা', fr: 'faux, vain', id: 'batil', ur: 'باطل، جھوٹ', tr: 'bâtıl, yanlış', ar: 'ضِدُّ الْحَقّ' , zh: '虚伪，错误', ja: '虚偽、バーティル'}
+  },
+  {
+    arabic: 'عَهْدٌ', translit: 'ʿahd', count: 95,
+    meanings: { en: 'covenant, promise', bn: 'প্রতিশ্রুতি, চুক্তি', fr: 'pacte, promesse', id: 'janji, perjanjian', ur: 'عہد، وعدہ', tr: 'ahit, söz', ar: 'مِيثَاق' , zh: '契约，盟约', ja: '誓約、アフド'}
+  },
+  {
+    arabic: 'وَحْيٌ', translit: 'waḥy', count: 78,
+    meanings: { en: 'revelation, inspiration', bn: 'ওহী, প্রত্যাদেশ', fr: 'révélation', id: 'wahyu', ur: 'وحی', tr: 'vahiy', ar: 'إِلْهَامٌ إِلَهِيّ' , zh: '启示，天启', ja: 'ワヒー、啓示'}
+  },
+  {
+    arabic: 'نِعْمَةٌ', translit: 'niʿmah', count: 34,
+    meanings: { en: 'blessing, favor', bn: 'নিয়ামত, আশীর্বাদ', fr: 'bienfait, faveur', id: 'nikmat', ur: 'نعمت', tr: 'nimet, lütuf', ar: 'إِنْعَام' , zh: '恩赐，恩德', ja: '恩恵、ニウマ'}
+  },
+  {
+    arabic: 'حَمْدٌ', translit: 'ḥamd', count: 68,
+    meanings: { en: 'praise, thanksgiving', bn: 'প্রশংসা, হামদ', fr: 'louange', id: 'pujian, alhamdulillah', ur: 'حمد، تعریف', tr: 'hamd, şükür', ar: 'ثَنَاءٌ عَلَى اللَّه' , zh: '赞美，颂扬', ja: 'ハムド、賛美'}
+  },
+  {
+    arabic: 'حَسَنَةٌ', translit: 'ḥasanah', count: 167,
+    meanings: { en: 'good deed, blessing', bn: 'সৎকাজ, হাসানাহ', fr: 'bonne action, bénédiction', id: 'amal baik, kebaikan', ur: 'نیکی، بھلائی', tr: 'iyilik, hasene', ar: 'عَمَلٌ صَالِح' , zh: '善行，赐福', ja: '善行、ハサナ'}
+  },
+  {
+    arabic: 'فَوْزٌ', translit: 'fawz', count: 40,
+    meanings: { en: 'success, triumph', bn: 'সাফল্য, মুক্তি', fr: 'succès, triomphe', id: 'keberhasilan, kemenangan', ur: 'کامیابی، نجات', tr: 'kurtuluş, zafer', ar: 'نَجَاح' , zh: '成功，胜利', ja: '成功、ファウズ'}
   }
 ];
 
@@ -576,6 +698,236 @@ const VOCAB_THEMES = [
       {
         arabic: 'خَالِدِينَ', translit: 'khālidīn', count: 45, ref: '4:57',
         meanings: { en: 'abiding forever', bn: 'চিরস্থায়ীভাবে', fr: 'éternellement', id: 'kekal di dalamnya', ur: 'ہمیشہ رہنے والے', tr: 'ebedî kalıcılar', ar: 'مَاكِثِينَ أَبَدًا' , zh: '永居者', ja: '永遠に留まる者'}
+      }
+    ]
+  },
+
+  // ---- Root-family clusters ----
+  // Each cluster shows common Quranic derivatives of one trilateral root so
+  // students recognise morphological patterns. Base forms already present in
+  // VOCAB_WORDS (كِتَاب، عَلِمَ، رَحْمَة، خَلَقَ، كَفَرَ، حَمْد) are omitted here.
+
+  {
+    id: 'root-ktb', icon: '📖',
+    names: { en: 'Root: ك-ت-ب (write)', bn: 'মূল: ك-ت-ب (লেখা)' },
+    words: [
+      {
+        arabic: 'كَاتِبٌ', translit: 'kātib', count: 45, ref: '2:282',
+        meanings: { en: 'writer, scribe', bn: 'লেখক, কাতিব', fr: 'écrivain, scribe', id: 'penulis, juru tulis', ur: 'لکھنے والا، کاتب', tr: 'yazıcı, kâtip', ar: 'مَنْ يَكْتُب', zh: '书记员，抄写者', ja: '書記、筆記者' }
+      },
+      {
+        arabic: 'مَكْتُوبٌ', translit: 'maktūb', count: 4, ref: '4:103',
+        meanings: { en: 'written; prescribed', bn: 'লেখা, নির্ধারিত', fr: 'écrit; prescrit', id: 'tertulis; ditetapkan', ur: 'لکھا ہوا، مقدّر', tr: 'yazılmış; farz kılınmış', ar: 'مُقَرَّرٌ كِتَابَةً', zh: '已写的；注定的', ja: '記された；定められた' }
+      },
+      {
+        arabic: 'كِتَابَةٌ', translit: 'kitāba', count: 3, ref: '2:282',
+        meanings: { en: 'writing, inscription', bn: 'লেখা (কাজ), কিতাবাত', fr: 'écriture, rédaction', id: 'penulisan, kitabah', ur: 'لکھنا، کتابت', tr: 'yazı yazma', ar: 'فِعْلُ الْكِتَابَة', zh: '书写（行为）', ja: '書くこと、執筆' }
+      },
+      {
+        arabic: 'كُتُبٌ', translit: 'kutub', count: 20, ref: '2:177',
+        meanings: { en: 'books, scriptures (pl.)', bn: 'কিতাবসমূহ, গ্রন্থাবলি', fr: 'livres, Écritures (pl.)', id: 'kitab-kitab (jamak)', ur: 'کتابیں، کتب', tr: 'kitaplar (çoğul)', ar: 'جَمْعُ كِتَاب', zh: '诸经典，众书', ja: '諸書、聖典複数' }
+      }
+    ]
+  },
+  {
+    id: 'root-alm', icon: '🎓',
+    names: { en: 'Root: ع-ل-م (know)', bn: 'মূল: ع-ل-م (জানা)' },
+    words: [
+      {
+        arabic: 'عِلْمٌ', translit: 'ʿilm', count: 105, ref: '2:32',
+        meanings: { en: 'knowledge, learning', bn: 'জ্ঞান, ইলম', fr: 'savoir, science', id: 'ilmu, pengetahuan', ur: 'علم، جانکاری', tr: 'ilim, bilgi', ar: 'مَعْرِفَةٌ وَإِدْرَاك', zh: '知识，学问', ja: '知識、学問' }
+      },
+      {
+        arabic: 'عَالِمٌ', translit: 'ʿālim', count: 33, ref: '6:73',
+        meanings: { en: 'knowing; scholar', bn: 'জ্ঞানী, আলিম', fr: 'savant; érudit', id: 'mengetahui; ulama', ur: 'جاننے والا، عالم', tr: 'bilen; âlim', ar: 'مُدْرِكٌ عَارِف', zh: '全知的；学者', ja: '知る者；学者' }
+      },
+      {
+        arabic: 'مَعْلُومٌ', translit: 'maʿlūm', count: 13, ref: '15:38',
+        meanings: { en: 'known; determined', bn: 'জানা, নির্ধারিত', fr: 'connu; déterminé', id: 'diketahui; ditentukan', ur: 'معلوم، جانا ہوا', tr: 'bilinen; belirlenmiş', ar: 'مَنْ أُدْرِكَ عِلْمُهُ', zh: '已知的；确定的', ja: '知られた；確定した' }
+      },
+      {
+        arabic: 'أَعْلَمُ', translit: 'aʿlam', count: 46, ref: '2:216',
+        meanings: { en: 'more knowing; All-Knowing', bn: 'অধিক জ্ঞাত, সর্বজ্ঞ', fr: 'plus savant; omniscient', id: 'lebih mengetahui; Maha Mengetahui', ur: 'زیادہ جاننے والا', tr: 'daha iyi bilen; her şeyi bilen', ar: 'أَشَدُّ عِلْمًا', zh: '更知悉的；全知', ja: 'より知る者；全知' }
+      },
+      {
+        arabic: 'عَالَمِينَ', translit: 'ʿālamīn', count: 73, ref: '1:2',
+        meanings: { en: 'worlds, all creation', bn: 'জগতসমূহ, আলামিন', fr: 'mondes, univers', id: 'seluruh alam semesta', ur: 'تمام جہانوں کے', tr: 'âlemler, bütün varlıklar', ar: 'جَمِيعُ الْخَلَائِق', zh: '万世界，众世界', ja: '全世界、万物' }
+      }
+    ]
+  },
+  {
+    id: 'root-rhm', icon: '💚',
+    names: { en: 'Root: ر-ح-م (mercy)', bn: 'মূল: ر-ح-م (রহমত)' },
+    words: [
+      {
+        arabic: 'الرَّحْمَـٰنُ', translit: 'al-raḥmān', count: 57, ref: '1:3',
+        meanings: { en: 'the Most Gracious', bn: 'রহমান, পরম দয়ালু', fr: 'le Tout-Miséricordieux', id: 'Yang Maha Pengasih', ur: 'رحمان، بہت مہربان', tr: 'Rahman, çok merhametli', ar: 'كَثِيرُ الرَّحْمَة', zh: '至仁的', ja: '慈悲深き者' }
+      },
+      {
+        arabic: 'الرَّحِيمُ', translit: 'al-raḥīm', count: 114, ref: '1:3',
+        meanings: { en: 'the Most Merciful', bn: 'রাহীম, অতি দয়ালু', fr: 'le Très-Miséricordieux', id: 'Yang Maha Penyayang', ur: 'رحیم، بہت رحم کرنے والا', tr: 'Rahim, pek merhametli', ar: 'دَائِمُ الرَّحْمَة', zh: '至慈的', ja: '深く慈悲ある者' }
+      },
+      {
+        arabic: 'أَرْحَمُ', translit: 'arḥam', count: 3, ref: '12:64',
+        meanings: { en: 'most merciful (superlative)', bn: 'সর্বাধিক দয়ালু', fr: 'le plus miséricordieux', id: 'paling penyayang', ur: 'سب سے زیادہ رحم کرنے والا', tr: 'en merhametli', ar: 'أَكْثَرُ رَحْمَةً', zh: '最有慈悯者', ja: '最も慈悲深い' }
+      },
+      {
+        arabic: 'رَحِمٌ', translit: 'raḥim', count: 15, ref: '4:1',
+        meanings: { en: 'womb; ties of kinship', bn: 'গর্ভ; আত্মীয়তার বন্ধন', fr: 'ventre maternel; liens de parenté', id: 'rahim; silaturahmi', ur: 'رحم، کوکھ؛ رشتہ داری', tr: 'rahim; akrabalık bağları', ar: 'مَوْضِعُ الْجَنِين', zh: '子宫；亲属关系', ja: '子宮；血縁の絆' }
+      }
+    ]
+  },
+  {
+    id: 'root-slh', icon: '⚖️',
+    names: { en: 'Root: ص-ل-ح (righteous)', bn: 'মূল: ص-ل-ح (সৎ/সংস্কার)' },
+    words: [
+      {
+        arabic: 'صَالِحٌ', translit: 'ṣāliḥ', count: 190, ref: '4:69',
+        meanings: { en: 'righteous, good', bn: 'সৎ, নেক, সালিহ', fr: 'vertueux, bon', id: 'shalih, orang baik', ur: 'صالح، نیک', tr: 'salih, erdemli', ar: 'حَسَنُ الْعَمَل', zh: '善良的，正直的', ja: '義人、善き者' }
+      },
+      {
+        arabic: 'صَالِحَاتٌ', translit: 'ṣāliḥāt', count: 60, ref: '2:25',
+        meanings: { en: 'good deeds; righteous (women)', bn: 'সৎকাজ; সৎ নারীরা', fr: 'bonnes œuvres; femmes vertueuses', id: 'amal shalih; perempuan shalihah', ur: 'صالحات، نیک اعمال', tr: 'salih ameller; saliha kadınlar', ar: 'أَعْمَالٌ حَسَنَة', zh: '善行；善良的女性', ja: '善行；善い女性たち' }
+      },
+      {
+        arabic: 'إِصْلَاحٌ', translit: 'iṣlāḥ', count: 9, ref: '2:220',
+        meanings: { en: 'reform, reconciliation', bn: 'সংস্কার, সন্ধি', fr: 'réforme, réconciliation', id: 'perdamaian, reformasi', ur: 'اصلاح، سلح', tr: 'ıslah, uzlaşma', ar: 'إِزَالَةُ الْفَسَاد', zh: '改革，调解', ja: '改革、和解' }
+      },
+      {
+        arabic: 'مُصْلِحٌ', translit: 'muṣliḥ', count: 5, ref: '2:11',
+        meanings: { en: 'reformer, peacemaker', bn: 'সংস্কারক, শান্তিস্থাপক', fr: 'réformateur, médiateur', id: 'pembuat perdamaian, pereformasi', ur: 'اصلاح کرنے والا', tr: 'ıslah edici, barış yapıcı', ar: 'سَاعٍ إِلَى الصَّلَاح', zh: '改革者，调解人', ja: '改革者、平和をつくる者' }
+      },
+      {
+        arabic: 'صُلْحٌ', translit: 'ṣulḥ', count: 1, ref: '4:128',
+        meanings: { en: 'peace, reconciliation', bn: 'সন্ধি, মিটমাট', fr: 'paix, réconciliation', id: 'perdamaian, shulhu', ur: 'صلح، سلامتی', tr: 'sulh, barış', ar: 'إِنْهَاءُ النِّزَاع', zh: '和解，和约', ja: '和解、講和' }
+      }
+    ]
+  },
+  {
+    id: 'root-hmd', icon: '🌟',
+    names: { en: 'Root: ح-م-د (praise)', bn: 'মূল: ح-م-د (প্রশংসা)' },
+    words: [
+      {
+        arabic: 'حَمِيدٌ', translit: 'ḥamīd', count: 17, ref: '14:8',
+        meanings: { en: 'praiseworthy', bn: 'প্রশংসনীয়, হামীদ', fr: 'digne de louange', id: 'Maha Terpuji', ur: 'قابلِ تعریف، حمید', tr: 'övgüye layık, Hamid', ar: 'مُسْتَحِقُّ الْحَمْد', zh: '值得赞美的', ja: '讃えられるべき者' }
+      },
+      {
+        arabic: 'مُحَمَّدٌ', translit: 'muḥammad', count: 4, ref: '3:144',
+        meanings: { en: 'Muhammad; the praised one', bn: 'মুহাম্মদ; প্রশংসিত', fr: 'Muhammad; le Loué', id: 'Muhammad; orang yang terpuji', ur: 'محمد؛ قابل تعریف', tr: 'Muhammed; övülmüş', ar: 'اسْمُ النَّبِيّ ﷺ', zh: '穆罕默德；受赞颂的', ja: 'ムハンマド；称えられた者' }
+      },
+      {
+        arabic: 'أَحْمَدُ', translit: 'aḥmad', count: 1, ref: '61:6',
+        meanings: { en: 'more praiseworthy; Prophet\'s name', bn: 'অধিক প্রশংসনীয়; নবীর নাম', fr: 'plus digne de louange; nom du Prophète', id: 'lebih terpuji; nama Nabi', ur: 'زیادہ قابلِ تعریف؛ نبی کا نام', tr: 'daha övgüye değer; Peygamberin adı', ar: 'أَفْعَلُ التَّفْضِيلِ مِنَ الْحَمْد', zh: '更值得赞美；先知之名', ja: 'より称えられる者；預言者の名' }
+      },
+      {
+        arabic: 'مَحْمُودٌ', translit: 'maḥmūd', count: 1, ref: '17:79',
+        meanings: { en: 'praised, lauded', bn: 'প্রশংসিত, মাহমুদ', fr: 'loué, glorifié', id: 'yang dipuji, mahmud', ur: 'محمود، تعریف شدہ', tr: 'övülen, mahmut', ar: 'مَنْ أَثْنَى عَلَيْهِ النَّاس', zh: '受赞扬的', ja: '称えられた者' }
+      }
+    ]
+  },
+  {
+    id: 'root-khlq', icon: '🌐',
+    names: { en: 'Root: خ-ل-ق (create)', bn: 'মূল: خ-ل-ق (সৃষ্টি)' },
+    words: [
+      {
+        arabic: 'خَلْقٌ', translit: 'khalq', count: 15, ref: '31:11',
+        meanings: { en: 'creation; created beings', bn: 'সৃষ্টি; সৃষ্টিকুল', fr: 'création; créatures', id: 'penciptaan; makhluk', ur: 'خلق، پیدائش؛ مخلوق', tr: 'yaratma; yaratıklar', ar: 'إِيجَادُ الْأَشْيَاء', zh: '创造；受造物', ja: '創造；被造物' }
+      },
+      {
+        arabic: 'خَالِقٌ', translit: 'khāliq', count: 8, ref: '59:24',
+        meanings: { en: 'creator', bn: 'সৃষ্টিকর্তা, খালিক', fr: 'créateur', id: 'pencipta, khaliq', ur: 'خالق، پیدا کرنے والا', tr: 'yaratan, Hâlik', ar: 'مُوجِدُ الْكَوْن', zh: '造物主，创造者', ja: '創造者、ハーリク' }
+      },
+      {
+        arabic: 'مَخْلُوقٌ', translit: 'makhlūq', count: 2, ref: '36:71',
+        meanings: { en: 'created being, creature', bn: 'সৃষ্ট বস্তু, মাখলুক', fr: 'créature', id: 'makhluk, yang diciptakan', ur: 'مخلوق، پیدا کردہ', tr: 'yaratılmış varlık, mahlûk', ar: 'مَا أَوْجَدَهُ اللَّه', zh: '受造物，被造者', ja: '被造物、マフルーク' }
+      },
+      {
+        arabic: 'خُلُقٌ', translit: 'khuluq', count: 5, ref: '68:4',
+        meanings: { en: 'character, moral nature', bn: 'স্বভাব, চরিত্র, আখলাক', fr: 'caractère, mœurs', id: 'akhlak, budi pekerti', ur: 'اخلاق، خُلق، کردار', tr: 'ahlak, karakter', ar: 'طِبَاعُ النَّفْس', zh: '品德，道德本性', ja: '品性、道徳的性質' }
+      }
+    ]
+  },
+  {
+    id: 'root-kfr', icon: '⚡',
+    names: { en: 'Root: ك-ف-ر (disbelieve)', bn: 'মূল: ك-ف-ر (কুফর)' },
+    words: [
+      {
+        arabic: 'كُفْرٌ', translit: 'kufr', count: 25, ref: '2:108',
+        meanings: { en: 'disbelief, ingratitude', bn: 'কুফর, অবিশ্বাস', fr: 'mécréance, ingratitude', id: 'kekufuran', ur: 'کفر، ناشکری', tr: 'küfür, inkâr', ar: 'جُحُودُ الْحَقّ', zh: '不信，忘恩', ja: '不信仰、クフル' }
+      },
+      {
+        arabic: 'كَافِرٌ', translit: 'kāfir', count: 200, ref: '2:6',
+        meanings: { en: 'disbeliever, unbeliever', bn: 'কাফির, অবিশ্বাসী', fr: 'mécréant, incroyant', id: 'kafir, orang yang ingkar', ur: 'کافر، منکر', tr: 'kâfir, inkârcı', ar: 'مَنْ جَحَدَ الْحَقّ', zh: '不信者，卡菲尔', ja: '不信者、カーフィル' }
+      },
+      {
+        arabic: 'كَفَّارَةٌ', translit: 'kaffāra', count: 6, ref: '5:89',
+        meanings: { en: 'expiation, atonement', bn: 'কাফফারা, প্রায়শ্চিত্ত', fr: 'expiation, rachat', id: 'kafarat, penebusan dosa', ur: 'کفارہ، تلافی', tr: 'kefaret, fidye', ar: 'مَا يُكَفِّرُ الذَّنْب', zh: '赎罪，赎金', ja: '贖罪、カッファーラ' }
+      },
+      {
+        arabic: 'كَافُورٌ', translit: 'kāfūr', count: 1, ref: '76:5',
+        meanings: { en: 'camphor; fragrant drink of Paradise', bn: 'কাফূর, সুগন্ধিযুক্ত পানীয়', fr: 'camphre; breuvage parfumé du Paradis', id: 'kafur, minuman wangi surga', ur: 'کافور، خوشبو دار مشروب', tr: 'kâfur, cennet içeceği', ar: 'نَبَاتٌ طَيِّبُ الرَّائِحَة', zh: '樟脑；天园香饮', ja: 'カーフール；天国の飲み物' }
+      }
+    ]
+  },
+  {
+    id: 'root-hdy', icon: '🧭',
+    names: { en: 'Root: ه-د-ي (guide)', bn: 'মূল: ه-د-ي (হিদায়াত)' },
+    words: [
+      {
+        arabic: 'هَادٍ', translit: 'hādī', count: 11, ref: '13:7',
+        meanings: { en: 'guide, leader to truth', bn: 'পথপ্রদর্শক, হাদী', fr: 'guide, directeur', id: 'pemberi petunjuk, hadi', ur: 'ہادی، رہنما', tr: 'hidayete erdiren, Hâdi', ar: 'مَنْ يَدُلُّ عَلَى الصَّوَاب', zh: '引导者，向导', ja: '導く者、ハーディー' }
+      },
+      {
+        arabic: 'مُهْتَدٍ', translit: 'muhtadī', count: 14, ref: '17:97',
+        meanings: { en: 'guided, rightly guided', bn: 'হিদায়াতপ্রাপ্ত, পথপ্রদর্শিত', fr: 'bien guidé, qui a trouvé la voie', id: 'orang yang mendapat petunjuk', ur: 'ہدایت یافتہ', tr: 'hidayete ermiş', ar: 'مَنِ اهْتَدَى', zh: '得到引导者', ja: '導かれた者' }
+      },
+      {
+        arabic: 'اهْدِنَا', translit: 'ihdinā', count: 1, ref: '1:6',
+        meanings: { en: 'guide us (supplication)', bn: 'আমাদের পথ দেখাও', fr: 'guide-nous', id: 'tunjukilah kami', ur: 'ہمیں ہدایت دے', tr: 'bizi doğru yola ilet', ar: 'أَرْشِدْنَا', zh: '引导我们', ja: '私たちを導いてください' }
+      },
+      {
+        arabic: 'هِدَايَةٌ', translit: 'hidāya', count: 3, ref: '2:120',
+        meanings: { en: 'guidance, right path', bn: 'হিদায়াত, সঠিক পথ', fr: 'guidée, voie droite', id: 'hidayah, petunjuk yang benar', ur: 'ہدایت، صحیح راستہ', tr: 'hidayet, doğru yol', ar: 'إِرْشَادٌ إِلَى الصَّوَاب', zh: '正道引导', ja: 'ヒダーヤ、正しい導き' }
+      }
+    ]
+  },
+  {
+    id: 'root-dkr', icon: '🔔',
+    names: { en: 'Root: ذ-ك-ر (remember)', bn: 'মূল: ذ-ك-ر (যিকির/স্মরণ)' },
+    words: [
+      {
+        arabic: 'ذَاكِرٌ', translit: 'dhākir', count: 2, ref: '33:35',
+        meanings: { en: 'one who remembers Allah', bn: 'স্মরণকারী, জিকিরকারী', fr: 'celui qui fait dhikr', id: 'orang yang berdzikir', ur: 'ذاکر، ذکر کرنے والا', tr: 'zikreden, anan', ar: 'مَنْ يَذْكُرُ اللَّه', zh: '记念者', ja: '念唱する者' }
+      },
+      {
+        arabic: 'مَذْكُورٌ', translit: 'madhkūr', count: 3, ref: '76:1',
+        meanings: { en: 'mentioned, remembered', bn: 'উল্লিখিত, স্মরিত', fr: 'mentionné, rappelé', id: 'yang disebut, yang diingat', ur: 'مذکور، یاد کیا گیا', tr: 'zikredilen, bahsedilen', ar: 'مَنْ ذُكِرَ', zh: '被提及的', ja: '言及された者' }
+      },
+      {
+        arabic: 'تَذْكِرَةٌ', translit: 'tadhkira', count: 10, ref: '80:11',
+        meanings: { en: 'reminder, admonition', bn: 'তাযকিরা, সতর্কতা', fr: 'rappel, avertissement', id: 'peringatan, tadzkirah', ur: 'تذکرہ، یاد دہانی', tr: 'öğüt, hatırlatma', ar: 'مَا يُذَكِّرُ بِاللَّه', zh: '提醒，训诫', ja: '訓戒、タズキラ' }
+      },
+      {
+        arabic: 'ذِكْرَىٰ', translit: 'dhikrā', count: 35, ref: '6:90',
+        meanings: { en: 'reminder, exhortation', bn: 'স্মরণ, উপদেশ', fr: 'rappel, souvenance', id: 'pengingat, kenangan', ur: 'یاد دہانی، نصیحت', tr: 'anma, hatırlatma', ar: 'تَنْبِيهٌ وَتَذْكِير', zh: '劝谕，警示', ja: '思い起こし、忠告' }
+      }
+    ]
+  },
+  {
+    id: 'root-nwr', icon: '💡',
+    names: { en: 'Root: ن-و-ر (light)', bn: 'মূল: ن-و-ر (নূর/আলো)' },
+    words: [
+      {
+        arabic: 'مُنِيرٌ', translit: 'munīr', count: 7, ref: '33:46',
+        meanings: { en: 'illuminating, giving light', bn: 'আলো দানকারী, মুনীর', fr: 'illuminant, lumineux', id: 'pemberi cahaya, munir', ur: 'روشن کرنے والا، منیر', tr: 'aydınlatan, nurlu', ar: 'مُضِيءٌ كَالنُّور', zh: '发光的，照耀的', ja: '光を放つ者、ムニール' }
+      },
+      {
+        arabic: 'أَنْوَارٌ', translit: 'anwār', count: 1, ref: '24:40',
+        meanings: { en: 'lights (plural)', bn: 'আলোসমূহ, অনওয়ার', fr: 'lumières (pluriel)', id: 'cahaya-cahaya (jamak)', ur: 'انوار، روشنیاں', tr: 'nurlar (çoğul)', ar: 'جَمْعُ نُور', zh: '诸光，众光', ja: '光々、アンワール' }
+      },
+      {
+        arabic: 'تَنْوِيرٌ', translit: 'tanwīr', count: 2, ref: '24:35',
+        meanings: { en: 'enlightening, illuminating', bn: 'আলোকদান, প্রদীপন', fr: 'illumination, éclairage', id: 'penerangan, tanwir', ur: 'روشن کرنا، نور پھیلانا', tr: 'aydınlatma, nurlandırma', ar: 'إِضَاءَةٌ وَإِنَارَة', zh: '照明，启示', ja: '照らすこと、啓蒙' }
       }
     ]
   }

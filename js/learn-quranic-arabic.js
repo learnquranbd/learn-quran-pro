@@ -1596,6 +1596,306 @@ const QA_LESSONS = [
       explain: { en: 'ٱلْحَمْدُ is the mubtadaʾ (subject) of a nominal sentence, so it takes rafʿ (ـُ). Its khabar is لِلَّهِ.', bn: 'ٱلْحَمْدُ নাম-বাক্যের মুবতাদা (উদ্দেশ্য), তাই এটি রফ‘ (ـُ) নেয়। এর খবর হলো لِلَّهِ।' },
     },
   },
+  /* ===================== WAVE-1 NEW LESSONS ===================== */
+  {
+    id: 'pronoun-table', unit: 'foundations', icon: '👤',
+    title: { en: 'The 12 Arabic pronouns', bn: 'আরবির ১২টি সর্বনাম' },
+    concept: {
+      en: 'Arabic has 12 detached pronouns grouped by person, number and gender. 1st person: أَنَا (I) and نَحْنُ (we). 2nd person has five forms for m.sg, f.sg, m.dual, m.pl and f.pl. 3rd person likewise: هُوَ (he), هِيَ (she), two dual forms, هُمْ (they m.) and هُنَّ (they f.). These stand alone as subjects or for emphasis.',
+      bn: 'আরবিতে ১২টি স্বাধীন সর্বনাম রয়েছে — ব্যক্তি, সংখ্যা ও লিঙ্গ অনুযায়ী। ১ম পুরুষ: أَنَا (আমি) ও نَحْنُ (আমরা)। ২য় পুরুষে পাঁচটি রূপ। ৩য় পুরুষেও পাঁচটি রূপ: هُوَ (সে পুং.), هِيَ (সে স্ত্রী.), দুটি দ্বিবচন, هُمْ (তারা পুং.) এবং هُنَّ (তারা স্ত্রী.)।',
+    },
+    examples: [
+      { ref: '15:9', trans: { en: 'Indeed, it is We who sent down the Reminder, and indeed, We are its Guardian.', bn: 'নিশ্চয়ই আমরাই যিকর অবতীর্ণ করেছি, এবং আমরাই এর সংরক্ষক।' },
+        note: { en: 'نَحْنُ (naḥnu, "We") is the 1st-person plural pronoun — used twice here for divine emphasis.', bn: 'نَحْنُ (নাহনু, "আমরা") ১ম পুরুষ বহুবচন সর্বনাম — এখানে ঐশী জোরের জন্য দুবার।' },
+        words: [
+          { ar: 'إِنَّا', en: 'Indeed We', bn: 'নিশ্চয়ই আমরা', hl: true },
+          { ar: 'نَحْنُ', en: 'We (emphatic)', bn: 'আমরা (জোর)', hl: true },
+          { ar: 'نَزَّلْنَا', en: 'sent down', bn: 'অবতীর্ণ করেছি' },
+          { ar: 'ٱلذِّكْرَ', en: 'the Reminder', bn: 'যিকর' },
+        ] },
+      { ref: '20:14', trans: { en: 'Indeed, I am Allah — there is no deity except Me, so worship Me.', bn: 'নিশ্চয়ই আমি আল্লাহ — আমি ছাড়া কোনো ইলাহ নেই, তাই আমার ইবাদত করো।' },
+        note: { en: 'إِنَّنِي and أَنَا are both 1st-person singular pronouns used for divine self-declaration.', bn: 'إِنَّنِي ও أَنَا উভয়ই ১ম পুরুষ একবচন সর্বনাম — ঐশী আত্মঘোষণায়।' },
+        words: [
+          { ar: 'إِنَّنِي', en: 'Indeed I', bn: 'নিশ্চয়ই আমি', hl: true },
+          { ar: 'أَنَا', en: 'I (emphatic)', bn: 'আমি (জোর)', hl: true },
+          { ar: 'ٱللَّهُ', en: 'Allah', bn: 'আল্লাহ' },
+          { ar: 'لَآ إِلَٰهَ إِلَّآ أَنَا۠', en: 'no deity except Me', bn: 'আমি ছাড়া কোনো ইলাহ নেই' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'What is the 1st-person plural pronoun in Arabic?', bn: 'আরবিতে ১ম পুরুষ বহুবচন সর্বনাম কী?' },
+      options: [{ en: 'أَنَا', bn: 'আনা' }, { en: 'نَحْنُ', bn: 'নাহনু' }, { en: 'هُمْ', bn: 'হুম' }, { en: 'هِيَ', bn: 'হিয়া' }], answer: 1,
+      explain: { en: 'نَحْنُ (naḥnu) means "we" — the 1st-person plural. أَنَا means "I" (singular).', bn: 'نَحْنُ (নাহনু) মানে "আমরা" — ১ম পুরুষ বহুবচন। أَنَا মানে "আমি" (একবচন)।' },
+    },
+  },
+  {
+    id: 'ten-awzan', unit: 'forms', icon: '🔟',
+    title: { en: 'The ten verb forms (awzān I–X)', bn: 'দশটি ক্রিয়ার ছাঁচ (ওযান I–X)' },
+    concept: {
+      en: 'Arabic verbs derive from a 3-letter root via ten patterns (awzān). Form I (فَعَلَ) is the base. Form II (فَعَّلَ) often intensifies or causes. Form III (فَاعَلَ) implies mutuality. Form IV (أَفْعَلَ) is causative. Form V (تَفَعَّلَ) is reflexive of II. Form VI (تَفَاعَلَ) is reflexive of III. Form VII (انْفَعَلَ) is passive/intransitive. Form VIII (افْتَعَلَ) is reflexive. Form IX (افْعَلَّ) covers colours/defects. Form X (اسْتَفْعَلَ) means "to seek or consider".',
+      bn: 'আরবি ক্রিয়া তিন-অক্ষরের মূল থেকে দশটি ছাঁচের মাধ্যমে তৈরি হয়। রূপ I (فَعَلَ) ভিত্তি। রূপ II (فَعَّلَ) তীব্রতা বা কার্যকারণ। রূপ III (فَاعَلَ) পারস্পরিকতা। রূপ IV (أَفْعَلَ) কার্যকারণ। রূপ V (تَفَعَّلَ) II-এর প্রতিফলন। রূপ VI (تَفَاعَلَ) III-এর প্রতিফলন। রূপ VII (انْفَعَلَ) কর্মবাচ্য। রূপ VIII (افْتَعَلَ) প্রতিফলনমূলক। রূপ IX (افْعَلَّ) বর্ণ বা ত্রুটির জন্য। রূপ X (اسْتَفْعَلَ) চাওয়া বা মনে করার অর্থে।',
+    },
+    examples: [
+      { ref: '55:2', trans: { en: 'He taught the Quran.', bn: 'তিনি কুরআন শিক্ষা দিয়েছেন।' },
+        note: { en: 'عَلَّمَ is Form II (فَعَّلَ) of root ع-ل-م — "to teach" (intensive of "to know").', bn: 'عَلَّمَ হলো ع-ل-م মূলের রূপ II (فَعَّلَ) — "শিক্ষা দেওয়া"।' },
+        words: [
+          { ar: 'عَلَّمَ', en: 'He taught (Form II)', bn: 'তিনি শিক্ষা দিলেন (রূপ II)', hl: true },
+          { ar: 'ٱلْقُرْءَانَ', en: 'the Quran', bn: 'কুরআন' },
+        ] },
+      { ref: '5:2', trans: { en: 'Cooperate in righteousness and piety.', bn: 'সৎকার্য ও তাকওয়ায় পরস্পর সহযোগিতা করো।' },
+        note: { en: 'تَعَاوَنُوا is Form VI (تَفَاعَلَ) of ع-و-ن — "to cooperate with each other".', bn: 'تَعَاوَنُوا হলো ع-و-ن-এর রূপ VI (تَفَاعَلَ) — "পরস্পর সাহায্য করা"।' },
+        words: [
+          { ar: 'وَتَعَاوَنُوا۟', en: 'and cooperate (Form VI)', bn: 'এবং সহযোগিতা করো (রূপ VI)', hl: true },
+          { ar: 'عَلَى ٱلْبِرِّ', en: 'in righteousness', bn: 'সৎকার্যে' },
+          { ar: 'وَٱلتَّقْوَىٰ', en: 'and piety', bn: 'ও তাকওয়ায়' },
+        ] },
+      { ref: '1:5', trans: { en: 'You alone we ask for help.', bn: 'কেবল তোমারই সাহায্য চাই।' },
+        note: { en: 'نَسْتَعِينُ is Form X (اسْتَفْعَلَ) of ع-و-ن — "we seek help" (seeking pattern).', bn: 'نَسْتَعِينُ হলো ع-و-ن-এর রূপ X (اسْتَفْعَلَ) — "আমরা সাহায্য চাই"।' },
+        words: [
+          { ar: 'نَسْتَعِينُ', en: 'we seek help (Form X)', bn: 'আমরা সাহায্য চাই (রূপ X)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Form X (اسْتَفْعَلَ) typically means:', bn: 'রূপ X (اسْتَفْعَلَ) সাধারণত বোঝায়:' },
+      options: [{ en: 'to intensify the action', bn: 'কাজ তীব্র করা' }, { en: 'to do mutually', bn: 'পারস্পরিক করা' }, { en: 'to seek or consider', bn: 'চাওয়া বা মনে করা' }, { en: 'colour or defect', bn: 'বর্ণ বা ত্রুটি' }], answer: 2,
+      explain: { en: 'Form X conveys seeking, requesting or considering — e.g. نَسْتَعِينُ "we seek help".', bn: 'রূপ X চাওয়া বা অনুরোধের অর্থ বহন করে — যেমন نَسْتَعِينُ "আমরা সাহায্য চাই"।' },
+    },
+  },
+  {
+    id: 'sound-plural', unit: 'nouns', icon: '👥',
+    title: { en: 'Sound plurals (masculine & feminine)', bn: 'সহিহ বহুবচন (পুং ও স্ত্রীলিঙ্গ)' },
+    concept: {
+      en: 'The <b>sound masculine plural</b> adds <b>ونَ</b> (rafʿ) or <b>ينَ</b> (naṣb/jarr) to the singular: مُسْلِم → مُسْلِمُونَ / مُسْلِمِينَ. The <b>sound feminine plural</b> replaces ة with <b>ات</b>: مُسْلِمَة → مُسْلِمَاتٌ. These are "sound" because the root letters stay intact — unlike broken plurals.',
+      bn: '<b>সহিহ পুংলিঙ্গ বহুবচন</b> একবচনে <b>ونَ</b> (রফ) বা <b>ينَ</b> (নসব/জর) যোগ করে: مُسْلِم → مُسْلِمُونَ / مُسْلِمِينَ। <b>সহিহ স্ত্রীলিঙ্গ বহুবচন</b> ة-এর জায়গায় <b>ات</b> বসায়: مُسْلِمَة → مُسْلِمَاتٌ। এগুলোকে "সহিহ" বলা হয় কারণ মূল অক্ষর অপরিবর্তিত থাকে।',
+    },
+    examples: [
+      { ref: '33:35', trans: { en: 'Indeed the Muslim men and Muslim women…', bn: 'নিশ্চয়ই মুসলিম পুরুষ ও মুসলিম নারীরা…' },
+        note: { en: 'مُسْلِمِينَ is the sound masculine plural (naṣb/jarr, ينَ). وَٱلْمُسْلِمَاتِ is the sound feminine plural (ات).', bn: 'مُسْلِمِينَ হলো সহিহ পুংলিঙ্গ বহুবচন (নসব/জর, ينَ)। وَٱلْمُسْلِمَاتِ হলো সহিহ স্ত্রীলিঙ্গ বহুবচন (ات)।' },
+        words: [
+          { ar: 'ٱلْمُسْلِمِينَ', en: 'Muslim men (m.pl naṣb)', bn: 'মুসলিম পুরুষরা (পুং.বহু. নসব)', hl: true },
+          { ar: 'وَٱلْمُسْلِمَاتِ', en: 'and Muslim women (f.pl)', bn: 'এবং মুসলিম নারীরা (স্ত্রী.বহু.)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'What ending marks the sound masculine plural in naṣb/jarr?', bn: 'নসব/জর হালতে সহিহ পুংলিঙ্গ বহুবচনের শেষাংশ কী?' },
+      options: [{ en: 'ونَ', bn: 'ونَ' }, { en: 'ينَ', bn: 'ينَ' }, { en: 'ات', bn: 'ات' }, { en: 'ان', bn: 'ان' }], answer: 1,
+      explain: { en: 'The sound masculine plural takes ونَ in rafʿ and ينَ in naṣb/jarr. The و is replaced by ي in oblique cases.', bn: 'সহিহ পুংলিঙ্গ বহুবচন রফ-এ ونَ এবং নসব/জর-এ ينَ নেয়।' },
+    },
+  },
+  {
+    id: 'broken-plural', unit: 'nouns', icon: '🧩',
+    title: { en: 'Broken plural (jamʿ taksīr)', bn: 'ভগ্ন বহুবচন (জমউ তাকসির)' },
+    concept: {
+      en: 'A <b>broken plural</b> (jamʿ taksīr) reshapes the root letters into a new internal pattern rather than adding a suffix. Examples: كِتَاب → كُتُب, قَلْب → قُلُوب, رَجُل → رِجَال. There are over 30 such patterns; the most common is فُعُول (e.g. قُلُوب, بُيُوت). Readers must memorise common broken plurals since the pattern cannot always be predicted.',
+      bn: '<b>ভগ্ন বহুবচন</b> (জমউ তাকসির) সাফিক্স যোগের পরিবর্তে মূল অক্ষরগুলোকে নতুন ছাঁচে পুনর্বিন্যস্ত করে। উদাহরণ: كِتَاب → كُتُب, قَلْب → قُلُوب, رَجُل → رِجَال। ৩০-এরও বেশি ছাঁচ রয়েছে; সবচেয়ে সাধারণ هو فُعُول (যেমন قُلُوب, بُيُوت)। ছাঁচ অনুমান করা যায় না বলে সাধারণ রূপগুলো মুখস্থ করতে হয়।',
+    },
+    examples: [
+      { ref: '2:7', trans: { en: 'Allah has set a seal upon their hearts and upon their hearing.', bn: 'আল্লাহ তাদের অন্তরে ও কানে মোহর মেরে দিয়েছেন।' },
+        note: { en: 'قُلُوبِهِمْ (their hearts) is the broken plural of قَلْب using the فُعُول pattern.', bn: 'قُلُوبِهِمْ (তাদের অন্তরসমূহ) হলো قَلْب-এর ভগ্ন বহুবচন — ছাঁচ فُعُول।' },
+        words: [
+          { ar: 'خَتَمَ ٱللَّهُ', en: 'Allah has sealed', bn: 'আল্লাহ মোহর মেরেছেন' },
+          { ar: 'عَلَىٰ قُلُوبِهِمْ', en: 'upon their hearts (broken pl.)', bn: 'তাদের অন্তরে (ভগ্ন বহু.)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'What is the broken plural of قَلْب (heart)?', bn: 'قَلْب (অন্তর)-এর ভগ্ন বহুবচন কী?' },
+      options: ['قَلْبَات', 'قَلْبُونَ', 'قُلُوب', 'قَالِبَات'], answer: 2,
+      explain: { en: 'قُلُوب is the broken plural of قَلْب (فُعُول pattern), as in 2:7.', bn: 'قُلُوب হলো قَلْب-এর ভগ্ন বহুবচন (فُعُول ছাঁচ), যা ২:৭-এ দেখা যায়।' },
+    },
+  },
+  {
+    id: 'cases-deep', unit: 'nouns', icon: '🔄',
+    title: { en: 'Three cases in practice (rafʿ, naṣb, jarr)', bn: 'তিনটি এরাব বিস্তারিত (রফ, নসব, জর)' },
+    concept: {
+      en: 'Arabic has three cases: <b>Rafʿ</b> (nominative, ـُ/ـٌ) for subjects and predicates; <b>Naṣb</b> (accusative, ـَ/ـً) for objects, adverbs and complements; <b>Jarr</b> (genitive, ـِ/ـٍ) after prepositions and in iḍāfah. The diacritics ḍamma, fatḥa and kasra (and their tanwīn doubles) signal the case. Dual and sound plurals use special endings rather than short vowels.',
+      bn: 'আরবিতে তিনটি বিভক্তি (এরাব) শব্দের শেষ বদলায়: <b>রফ</b> (কর্তাকারক, ـُ/ـٌ) কর্তা ও বিধেয়ের জন্য; <b>নসব</b> (কর্মকারক, ـَ/ـً) কর্ম ও পরিপূরকের জন্য; <b>জর</b> (সম্পর্ককারক, ـِ/ـٍ) অব্যয়ের পর এবং ইযাফায়। যম্মা, ফাতহা ও কাসরা (এবং তাদের তানওয়িন রূপ) এরাব নির্দেশ করে।',
+    },
+    examples: [
+      { ref: '1:2', trans: { en: 'All praise is for Allah, Lord of the worlds.', bn: 'সকল প্রশংসা আল্লাহর, জগতসমূহের পালনকর্তার।' },
+        note: { en: 'ٱلْحَمْدُ (rafʿ, subject); لِلَّهِ has jarr; رَبِّ (jarr, muḍāf); ٱلْعَٰلَمِينَ (jarr, muḍāf ilayh).', bn: 'ٱلْحَمْدُ (রফ, কর্তা); رَبِّ (জর, মুযাফ); ٱلْعَٰلَمِينَ (জর, মুযাফ ইলাইহি)।' },
+        words: [
+          { ar: 'ٱلْحَمْدُ', en: 'praise (rafʿ, subject)', bn: 'প্রশংসা (রফ, কর্তা)', hl: true },
+          { ar: 'لِلَّهِ', en: 'for Allah (jarr)', bn: 'আল্লাহর জন্য (জর)' },
+          { ar: 'رَبِّ', en: 'Lord (jarr, muḍāf)', bn: 'পালনকর্তা (জর, মুযাফ)', hl: true },
+          { ar: 'ٱلْعَٰلَمِينَ', en: 'worlds (jarr, muḍāf ilayh)', bn: 'জগতসমূহ (জর, মুযাফ ইলাইহি)', hl: true },
+        ] },
+      { ref: '2:255', trans: { en: 'Allah — there is no deity except Him, the Ever-Living, the Sustainer.', bn: 'আল্লাহ — তিনি ছাড়া কোনো ইলাহ নেই, চিরজীবন্ত, মহাঅভিভাবক।' },
+        note: { en: 'ٱللَّهُ is rafʿ as mubtadaʾ; ٱلْحَيُّ ٱلْقَيُّومُ are rafʿ as khabar (predicate).', bn: 'ٱللَّهُ মুবতাদা হিসেবে রফ; ٱلْحَيُّ ٱلْقَيُّومُ রফ-এ খবর (বিধেয়) হিসেবে।' },
+        words: [
+          { ar: 'ٱللَّهُ', en: 'Allah (rafʿ, mubtadaʾ)', bn: 'আল্লাহ (রফ, মুবতাদা)', hl: true },
+          { ar: 'لَا إِلَٰهَ', en: 'no deity (naṣb)', bn: 'কোনো ইলাহ নেই (নসব)' },
+          { ar: 'ٱلْحَىُّ', en: 'Ever-Living (rafʿ, khabar)', bn: 'চিরজীবন্ত (রফ, খবর)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which case does a noun take after a preposition (like بِ, فِي, مِن)?', bn: 'অব্যয়ের (বি, ফি, মিন) পর বিশেষ্য কোন এরাব নেয়?' },
+      options: [{ en: 'Rafʿ', bn: 'রফ' }, { en: 'Naṣb', bn: 'নসব' }, { en: 'Jarr', bn: 'জর' }], answer: 2,
+      explain: { en: 'Prepositions always govern the jarr case, marked by kasra (ـِ) or its tanwīn.', bn: 'অব্যয় সবসময় জর এরাব নিয়ন্ত্রণ করে, কাসরা (ـِ) বা তানওয়িন দিয়ে চিহ্নিত।' },
+    },
+  },
+  {
+    id: 'nat', unit: 'nouns', icon: '🔗',
+    title: { en: 'Noun-adjective agreement (naʿt)', bn: 'বিশেষ্য-বিশেষণ সামঞ্জস্য (নাত)' },
+    concept: {
+      en: 'In Arabic, an adjective (<b>naʿt / ṣifa</b>) must agree with its noun (<b>manʿūt</b>) in four ways: (1) case (rafʿ/naṣb/jarr), (2) definiteness (with/without ٱلْ), (3) gender (m./f.), and (4) number (sg/dual/pl). Human plurals take a plural adjective; non-human plurals take a feminine singular adjective.',
+      bn: 'আরবিতে বিশেষণ (<b>নাত / সিফা</b>) তার বিশেষ্যের সাথে চারটি বিষয়ে সামঞ্জস্য রাখে: (১) এরাব, (২) নির্দিষ্টতা (ٱلْ সহ/ছাড়া), (৩) লিঙ্গ, (৪) সংখ্যা। মানুষের বহুবচনে বিশেষণের বহুবচন; অ-মানুষের বহুবচনে বিশেষণের স্ত্রীলিঙ্গ একবচন।',
+    },
+    examples: [
+      { ref: '1:6', trans: { en: 'Guide us to the straight path.', bn: 'আমাদের সরল পথ দেখাও।' },
+        note: { en: 'ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ: both m., definite, naṣb — four-way naʿt agreement.', bn: 'ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ: উভয়ই পুংলিঙ্গ, নির্দিষ্ট, নসব — চার-মাত্রার সামঞ্জস্য।' },
+        words: [
+          { ar: 'ٱلصِّرَٰطَ', en: 'the path (m.sg, naṣb)', bn: 'পথ (পুং.এক., নসব)', hl: true },
+          { ar: 'ٱلْمُسْتَقِيمَ', en: 'the straight (adj, naṣb)', bn: 'সরল (বিশেষণ, নসব)', hl: true },
+        ] },
+      { ref: '2:7', trans: { en: 'And for them is a great punishment.', bn: 'এবং তাদের জন্য রয়েছে বড় শাস্তি।' },
+        note: { en: 'عَذَابٌ عَظِيمٌ: both indefinite, rafʿ, masculine sg — four-way naʿt agreement.', bn: 'عَذَابٌ عَظِيمٌ: উভয়ই অনির্দিষ্ট, রফ, পুংলিঙ্গ একবচন — নিখুঁত নাত সামঞ্জস্য।' },
+        words: [
+          { ar: 'عَذَابٌ', en: 'punishment (m.sg, rafʿ)', bn: 'শাস্তি (পুং.এক., রফ)', hl: true },
+          { ar: 'عَظِيمٌ', en: 'great (adj, rafʿ)', bn: 'বড় (বিশেষণ, রফ)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'An adjective for a definite masculine noun in jarr must be:', bn: 'জর হালতে নির্দিষ্ট পুংলিঙ্গ বিশেষ্যের বিশেষণ হতে হবে:' },
+      options: [
+        { en: 'definite, masculine, jarr', bn: 'নির্দিষ্ট, পুংলিঙ্গ, জর' },
+        { en: 'indefinite, masculine, jarr', bn: 'অনির্দিষ্ট, পুংলিঙ্গ, জর' },
+        { en: 'definite, feminine, rafʿ', bn: 'নির্দিষ্ট, স্ত্রীলিঙ্গ, রফ' },
+      ], answer: 0,
+      explain: { en: 'The adjective must mirror the noun in definiteness (ٱلْ), gender, number and case (jarr).', bn: 'বিশেষণকে নির্দিষ্টতা (ٱلْ), লিঙ্গ, সংখ্যা ও এরাব (জর)-এ বিশেষ্যের অনুসরণ করতে হবে।' },
+    },
+  },
+  {
+    id: 'dual', unit: 'nouns', icon: '2️⃣',
+    title: { en: 'The dual form (muthannā)', bn: 'দ্বিবচন (মুসান্না)' },
+    concept: {
+      en: 'Arabic marks "exactly two" with a dual suffix: add <b>ـَانِ</b> (rafʿ) or <b>ـَيْنِ</b> (naṣb/jarr) to the singular. Feminine nouns change ة to ت first: جَنَّة → جَنَّتَانِ / جَنَّتَيْنِ. Verbs, pronouns and adjectives also have dual forms. The dual is very common in Sūrat ar-Raḥmān.',
+      bn: 'আরবিতে "ঠিক দুটি" বোঝাতে দ্বিবচন প্রত্যয় ব্যবহার হয়: একবচনে <b>ـَانِ</b> (রফ) বা <b>ـَيْنِ</b> (নসব/জর) যোগ। স্ত্রীলিঙ্গ বিশেষ্যে আগে ة → ت বদলায়: جَنَّة → جَنَّتَانِ / جَنَّتَيْنِ। ক্রিয়া, সর্বনাম ও বিশেষণেও দ্বিবচন রূপ আছে। সূরা আর-রাহমানে দ্বিবচন অত্যন্ত সাধারণ।',
+    },
+    examples: [
+      { ref: '55:46', trans: { en: 'And for whoever fears the standing before his Lord are two gardens.', bn: 'আর যে তার প্রভুর সামনে দাঁড়াতে ভয় পায়, তার জন্য দুটি বাগান।' },
+        note: { en: 'جَنَّتَانِ is the dual of جَنَّة in rafʿ — ة becomes ت before adding ـَانِ.', bn: 'جَنَّتَانِ হলো جَنَّة-এর রফ দ্বিবচন — ـَانِ যোগের আগে ة, ت হয়।' },
+        words: [
+          { ar: 'وَلِمَنْ خَافَ', en: 'And for whoever fears', bn: 'আর যে ভয় পায়' },
+          { ar: 'مَقَامَ رَبِّهِۦ', en: 'the station of his Lord', bn: 'তার প্রভুর সামনে দাঁড়ানো' },
+          { ar: 'جَنَّتَانِ', en: 'two gardens (dual, rafʿ)', bn: 'দুটি বাগান (দ্বিবচন, রফ)', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'What is the dual of كِتَاب (book) in naṣb/jarr?', bn: 'নসব/জর হালতে كِتَاب-এর দ্বিবচন কী?' },
+      options: ['كِتَابَانِ', 'كِتَابَيْنِ', 'كِتَابَات', 'كُتُب'], answer: 1,
+      explain: { en: 'Dual naṣb/jarr adds ـَيْنِ: كِتَابَيْنِ. The rafʿ form is كِتَابَانِ (ـَانِ).', bn: 'নসব/জর দ্বিবচনে ـَيْنِ যোগ হয়: كِتَابَيْنِ। রফ রূপ হলো كِتَابَانِ।' },
+    },
+  },
+  {
+    id: 'interrogatives', unit: 'particles', icon: '❓',
+    title: { en: 'Question words (interrogatives)', bn: 'প্রশ্নবোধক শব্দ' },
+    concept: {
+      en: 'Key Quranic question words: <b>هَلْ</b> (hal) — yes/no question; <b>أَ</b> (a-) — yes/no prefix; <b>مَن</b> (man) — who (persons); <b>مَا / مَاذَا</b> (mā/mādhā) — what; <b>أَيْنَ</b> (ayna) — where; <b>كَيْفَ</b> (kayfa) — how; <b>مَتَى</b> (matā) — when; <b>لِمَ</b> (lima) — why; <b>كَمْ</b> (kam) — how many. هَلْ and أَ are the two yes/no markers; أَ is prefixed directly to the first word.',
+      bn: 'প্রধান কুরআনি প্রশ্নবোধক শব্দ: <b>هَلْ</b> (হাল) — হ্যাঁ/না প্রশ্ন; <b>أَ</b> — হ্যাঁ/না উপসর্গ; <b>مَن</b> (মান) — কে; <b>مَا/مَاذَا</b> — কী; <b>أَيْنَ</b> (আইনা) — কোথায়; <b>كَيْفَ</b> (কাইফা) — কীভাবে; <b>مَتَى</b> (মাতা) — কখন; <b>لِمَ</b> (লিমা) — কেন; <b>كَمْ</b> (কাম) — কতটুকু।',
+    },
+    examples: [
+      { ref: '2:28', trans: { en: 'How can you disbelieve in Allah when you were lifeless and He brought you to life?', bn: 'তোমরা কীভাবে আল্লাহকে অস্বীকার করো, যখন তোমরা মৃত ছিলে এবং তিনি তোমাদের জীবন দিয়েছেন?' },
+        note: { en: 'كَيْفَ (kayfa) introduces a rhetorical "how?" — challenging disbelief with logic.', bn: 'كَيْفَ (কাইফা) একটি অলঙ্কারমূলক "কীভাবে?" শুরু করে — যুক্তি দিয়ে অবিশ্বাসকে চ্যালেঞ্জ করে।' },
+        words: [
+          { ar: 'كَيْفَ', en: 'How (kayfa)', bn: 'কীভাবে (কাইফা)', hl: true },
+          { ar: 'تَكْفُرُونَ بِٱللَّهِ', en: 'do you disbelieve in Allah', bn: 'তোমরা আল্লাহকে অস্বীকার করো' },
+        ] },
+      { ref: '75:10', trans: { en: 'Man will say on that Day: "Where is the escape?"', bn: 'সেদিন মানুষ বলবে: "পালানোর পথ কোথায়?"' },
+        note: { en: 'أَيْنَ (ayna, "where") — a desperate rhetorical question on the Day of Judgment.', bn: 'أَيْنَ (আইনা, "কোথায়") — কিয়ামতের দিনের আকুল অলঙ্কারমূলক প্রশ্ন।' },
+        words: [
+          { ar: 'أَيْنَ', en: 'Where (ayna)', bn: 'কোথায় (আইনা)', hl: true },
+          { ar: 'ٱلْمَفَرُّ', en: 'the escape', bn: 'পালানোর পথ' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which word asks "who?" for a person?', bn: 'কোন শব্দটি ব্যক্তি সম্পর্কে "কে?" জিজ্ঞেস করে?' },
+      options: ['كَيْفَ', 'أَيْنَ', 'مَن', 'مَا'], answer: 2,
+      explain: { en: 'مَن (man) is used for persons ("who?"). مَا / مَاذَا is used for things ("what?").', bn: 'مَن (মান) ব্যক্তির জন্য ("কে?")। مَا / مَاذَا বস্তুর জন্য ("কী?") ব্যবহৃত হয়।' },
+    },
+  },
+  {
+    id: 'relative-allati', unit: 'particles', icon: '🔍',
+    title: { en: 'Relative pronouns: alladhī / allatī table', bn: 'সম্বন্ধবাচক সর্বনাম: اَلَّذِي / اَلَّتِي সারণি' },
+    concept: {
+      en: 'The Arabic relative pronoun ("who/which/that") changes for gender and number: <b>اَلَّذِي</b> (m.sg), <b>اَلَّتِي</b> (f.sg), <b>اَللَّذَانِ/اَللَّذَيْنِ</b> (m.dual), <b>اَللَّتَانِ/اَللَّتَيْنِ</b> (f.dual), <b>اَلَّذِينَ</b> (m.pl), <b>اَللَّاتِي</b> (f.pl). Each is followed by a relative clause (ṣila) containing a back-reference pronoun matching the antecedent.',
+      bn: 'আরবি সম্বন্ধবাচক সর্বনাম ("যে/যিনি/যা") লিঙ্গ ও সংখ্যা অনুযায়ী বদলায়: <b>اَلَّذِي</b> (পুং.এক.), <b>اَلَّتِي</b> (স্ত্রী.এক.), <b>اَللَّذَانِ/اَللَّذَيْنِ</b> (পুং.দ্বি.), <b>اَللَّتَانِ/اَللَّتَيْنِ</b> (স্ত্রী.দ্বি.), <b>اَلَّذِينَ</b> (পুং.বহু.), <b>اَللَّاتِي</b> (স্ত্রী.বহু.)। প্রতিটির পর একটি আপেক্ষিক উপবাক্য (সিলা) আসে।',
+    },
+    examples: [
+      { ref: '2:40', trans: { en: 'O Children of Israel, remember My favour that I bestowed upon you.', bn: 'হে বনি ইসরাঈল, আমার সেই নিয়ামতের কথা স্মরণ করো যা আমি তোমাদের দিয়েছিলাম।' },
+        note: { en: 'اَلَّتِي (allatī, f.sg) agrees with نِعْمَتِيَ ("my favour") which is grammatically feminine.', bn: 'اَلَّتِي (আল্লাতি, স্ত্রী.এক.) স্ত্রীলিঙ্গ نِعْمَتِيَ (নিমাতি, "আমার নিয়ামত")-এর সাথে সামঞ্জস্যপূর্ণ।' },
+        words: [
+          { ar: 'نِعْمَتِيَ', en: 'My favour (f.)', bn: 'আমার নিয়ামত (স্ত্রী.)', hl: true },
+          { ar: 'ٱلَّتِىٓ', en: 'which (f.sg relative)', bn: 'যা (স্ত্রী.এক. সম্বন্ধ)', hl: true },
+          { ar: 'أَنْعَمْتُ عَلَيْكُمْ', en: 'I bestowed upon you', bn: 'আমি তোমাদের দিয়েছিলাম' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which relative pronoun is used for a masculine singular antecedent?', bn: 'পুংলিঙ্গ একবচন পূর্বনির্দেশকের জন্য কোন সম্বন্ধবাচক সর্বনাম ব্যবহার হয়?' },
+      options: ['اَلَّتِي', 'اَلَّذِينَ', 'اَلَّذِي', 'اَللَّاتِي'], answer: 2,
+      explain: { en: 'اَلَّذِي (alladhī) is the masculine singular relative pronoun. اَلَّتِي is its feminine counterpart.', bn: 'اَلَّذِي (আল্লাযি) পুংলিঙ্গ একবচন সম্বন্ধবাচক সর্বনাম। اَلَّتِي হলো এর স্ত্রীলিঙ্গ প্রতিরূপ।' },
+    },
+  },
+  {
+    id: 'conditional-in-fa', unit: 'sentences', icon: '🔀',
+    title: { en: 'Conditional sentences: in…fa (if…then)', bn: 'শর্তবাক্য: إِن...فَ (যদি...তাহলে)' },
+    concept: {
+      en: 'The most common conditional in the Quran uses <b>إِن</b> (if) + a past-tense verb as the condition (sharṭ), followed by <b>فَ</b> (then) + the consequence (jawāb). Both verbs can be past tense even when a future meaning is intended. <b>إِذَا</b> (idhā) is used for near-certain or temporal conditions.',
+      bn: 'কুরআনে সবচেয়ে সাধারণ শর্তবাক্যে <b>إِن</b> (যদি) + অতীত ক্রিয়া শর্ত (শার্ত) হিসেবে, তারপর <b>فَ</b> (তাহলে) + ফলাফল (জাওয়াব) থাকে। ভবিষ্যৎ অর্থ হলেও উভয় ক্রিয়া অতীতকালে হতে পারে। <b>إِذَا</b> (ইযা) অনুমানিক বা সময়-নির্ভর শর্তের জন্য।',
+    },
+    examples: [
+      { ref: '14:7', trans: { en: 'If you are grateful, I will surely increase you in favour.', bn: 'যদি তোমরা কৃতজ্ঞ হও, তাহলে আমি অবশ্যই তোমাদের আরও বাড়িয়ে দেব।' },
+        note: { en: 'لَئِن شَكَرْتُمْ (condition) → لَأَزِيدَنَّكُمْ (consequence with emphatic lam and nun).', bn: 'لَئِن شَكَرْتُمْ (শর্ত) → لَأَزِيدَنَّكُمْ (তাকিদের লাম ও নুন তাওকিদ সহ ফলাফল)।' },
+        words: [
+          { ar: 'لَئِن', en: 'If indeed', bn: 'যদি সত্যিই', hl: true },
+          { ar: 'شَكَرْتُمْ', en: 'you are grateful', bn: 'তোমরা কৃতজ্ঞ হও' },
+          { ar: 'لَأَزِيدَنَّكُمْ', en: 'I will surely increase you', bn: 'আমি অবশ্যই বাড়িয়ে দেব', hl: true },
+        ] },
+      { ref: '99:7', trans: { en: 'Whoever does an atom-weight of good will see it.', bn: 'যে বিন্দুমাত্র ভালো কাজ করবে সে তা দেখবে।' },
+        note: { en: 'فَمَن يَعْمَلْ: فَ + مَن (whoever) + jussive verb — مَن functions as a conditional particle.', bn: 'فَمَن يَعْمَلْ: فَ + مَن (যে) + মজযুম ক্রিয়া — مَن এখানে শর্তীয় অব্যয় হিসেবে।' },
+        words: [
+          { ar: 'فَمَن', en: 'So whoever', bn: 'তাই যে', hl: true },
+          { ar: 'يَعْمَلْ مِثْقَالَ ذَرَّةٍ', en: 'does an atom-weight', bn: 'বিন্দুমাত্র করে' },
+          { ar: 'خَيْرًا يَرَهُۥ', en: 'of good will see it', bn: 'ভালো সে তা দেখবে', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In an إِن conditional, what tense is typically used for the condition verb?', bn: 'إِن শর্তবাক্যে শর্ত ক্রিয়াটি সাধারণত কোন কালে হয়?' },
+      options: [{ en: 'Present (muḍāriʿ)', bn: 'বর্তমান (মুযারি)' }, { en: 'Past (māḍī)', bn: 'অতীত (মাযি)' }, { en: 'Command (amr)', bn: 'আদেশ (আমর)' }], answer: 1,
+      explain: { en: 'The إِن conditional typically uses a past-tense (māḍī) verb for the condition, even when the meaning is future.', bn: 'إِن শর্তবাক্যে সাধারণত অতীত (মাযি) ক্রিয়া শর্ত হিসেবে নেয়, এমনকি ভবিষ্যৎ অর্থ হলেও।' },
+    },
+  },
+  {
+    id: 'kull-quantifiers', unit: 'sentences', icon: '🌐',
+    title: { en: 'Quantifiers: kull, kilā, baʿḍ as muḍāf', bn: 'পরিমাণবাচক: كُلّ, كِلَا, بَعْض ইযাফায়' },
+    concept: {
+      en: '<b>كُلّ</b> (every/all), <b>كِلَا</b> (both) and <b>بَعْض</b> (some) function as the <b>muḍāf</b> (first noun in an iḍāfah). كُلُّ نَفْسٍ = "every soul" (نَفْس is muḍāf ilayh, indefinite jarr). كِلَا الرَّجُلَيْنِ = "both the two men". بَعْضُ النَّاسِ = "some people". All three take the case of their own syntactic position in the sentence.',
+      bn: '<b>كُلّ</b> (প্রতিটি/সব), <b>كِلَا</b> (উভয়) ও <b>بَعْض</b> (কিছু) ইযাফা শৃঙ্খলের প্রথম বিশেষ্য (মুযাফ) হিসেবে কাজ করে। كُلُّ نَفْسٍ মানে "প্রতিটি আত্মা" (نَفْس মুযাফ ইলাইহি, জর, অনির্দিষ্ট)। بَعْضُ النَّاسِ মানে "কিছু মানুষ"। তিনটিই বাক্যে নিজের অবস্থান অনুযায়ী এরাব নেয়।',
+    },
+    examples: [
+      { ref: '3:185', trans: { en: 'Every soul will taste death.', bn: 'প্রতিটি আত্মা মৃত্যুর স্বাদ গ্রহণ করবে।' },
+        note: { en: 'كُلُّ (muḍāf, rafʿ as mubtadaʾ) + نَفْسٍ (muḍāf ilayh, jarr, indefinite).', bn: 'كُلُّ (মুযাফ, মুবতাদা হিসেবে রফ) + نَفْسٍ (মুযাফ ইলাইহি, জর, অনির্দিষ্ট)।' },
+        words: [
+          { ar: 'كُلُّ', en: 'every (muḍāf, rafʿ)', bn: 'প্রতিটি (মুযাফ, রফ)', hl: true },
+          { ar: 'نَفْسٍ', en: 'soul (muḍāf ilayh, jarr)', bn: 'আত্মা (মুযাফ ইলাইহি, জর)', hl: true },
+          { ar: 'ذَآئِقَةُ ٱلْمَوْتِ', en: 'will taste death', bn: 'মৃত্যুর স্বাদ গ্রহণ করবে' },
+        ] },
+      { ref: '55:26', trans: { en: 'Everyone on it will perish.', bn: 'পৃথিবীতে যা কিছু আছে সব ফানা হয়ে যাবে।' },
+        note: { en: 'كُلُّ مَنْ: كُلُّ (muḍāf) + مَنْ (relative pronoun as muḍāf ilayh) — "everyone who".', bn: 'كُلُّ مَنْ: كُلُّ (মুযাফ) + مَنْ (মুযাফ ইলাইহি হিসেবে সম্বন্ধবাচক সর্বনাম) — "যে প্রত্যেকে"।' },
+        words: [
+          { ar: 'كُلُّ مَنْ', en: 'everyone who (muḍāf + muḍāf ilayh)', bn: 'যে প্রত্যেকে (মুযাফ + মুযাফ ইলাইহি)', hl: true },
+          { ar: 'عَلَيْهَا فَانٍ', en: 'on it will perish', bn: 'তার উপর ফানা হবে' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In كُلُّ نَفْسٍ, what case is نَفْسٍ and why?', bn: 'كُلُّ نَفْسٍ-এ نَفْسٍ কোন এরাবে এবং কেন?' },
+      options: [
+        { en: 'Rafʿ — it is the subject', bn: 'রফ — এটি কর্তা' },
+        { en: 'Jarr — it is the muḍāf ilayh after كُلُّ', bn: 'জর — كُلُّ-এর পরে মুযাফ ইলাইহি' },
+        { en: 'Naṣb — it is the object', bn: 'নসব — এটি কর্ম' },
+      ], answer: 1,
+      explain: { en: 'نَفْسٍ is the muḍāf ilayh (second member of the iḍāfah) so it takes jarr (ـٍ). كُلُّ is the muḍāf.', bn: 'نَفْسٍ হলো মুযাফ ইলাইহি (ইযাফার দ্বিতীয় সদস্য), তাই জর (ـٍ) নেয়। كُلُّ হলো মুযাফ।' },
+    },
+  },
 ];
 
 /* ------------------------------------------------------------------ *

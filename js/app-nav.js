@@ -39,12 +39,20 @@ const APP_NAV_PRIMARY = [
   { id: 'quranicarabic', emoji: '🔤', label: 'qa_title', tab: 'quranicarabic' },
   { id: 'names', emoji: '✨', label: 'learn_names_title', tab: 'names' },
   { id: 'amal', emoji: '📿', label: 'amal_title', tab: 'amal' },
+  { id: 'sawm', emoji: '🌅', label: 'learn_sawm_title', tab: 'sawm' },
+  { id: 'hajj', emoji: '🕋', label: 'learn_hajj_title', tab: 'hajj' },
+  { id: 'zakat', emoji: '💰', label: 'learn_zakat_title', tab: 'zakat' },
   { id: 'namaz', emoji: '🕌', label: 'learn_salah_title', tab: 'namaz' },
   { id: 'anbiya', emoji: '🕋', label: 'group_prophets', children: [
       { tab: 'prophets', emoji: '📜', label: 'prophets_title' },
       { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' }
     ] },
-  { id: 'whyislam', emoji: '💡', label: 'whyislam_title', tab: 'whyislam' },
+  { id: 'islam', emoji: '💡', label: 'islam_group_title', children: [
+      { tab: 'whyislam', emoji: '💡', label: 'whyislam_title' },
+      { tab: 'fard',     emoji: '⭐', label: 'islam_fard_title' },
+      { tab: 'wajib',    emoji: '🔷', label: 'islam_wajib_title' },
+      { tab: 'nafl',     emoji: '✨', label: 'islam_nafl_title' }
+    ] },
   { id: 'resources', emoji: '🔗', label: 'resources_title', tab: 'resources' }
 ];
 

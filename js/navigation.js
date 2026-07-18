@@ -263,7 +263,46 @@ class AppNavigation {
       </button>
     `).join('');
 
-    this.modalBody.innerHTML = featured;
+    // Curated additions from topics-data.js: 📜 Prophet du'as, 🛡️ Protection,
+    // 🌸 Gratitude. Same button shape as RABBANA_DUAS.
+    const chip = (dua, emoji) => `
+      <button data-refs="${dua.refs}"
+              data-ctx="${encodeURIComponent(JSON.stringify({ t: emoji + ' ' + (dua.names[lang] || dua.names.en) }))}"
+              class="w-full flex items-center justify-between gap-3 px-4 py-2 rounded-lg text-start
+                     hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+        <span class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${dua.names[lang] || dua.names.en}</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap" dir="ltr">${dua.refs}</span>
+      </button>`;
+    const prophetSection = (typeof PROPHET_DUAS !== 'undefined' && PROPHET_DUAS.length)
+      ? this.sectionHeading('📜 ' + (lang === 'bn' ? 'নবীদের দোয়া' : "Prophets' Du'ās")) +
+        PROPHET_DUAS.map(d => chip(d, '📜')).join('') : '';
+    const protectionSection = (typeof PROTECTION_DUAS !== 'undefined' && PROTECTION_DUAS.length)
+      ? this.sectionHeading('🛡️ ' + (lang === 'bn' ? 'সুরক্ষার দোয়া' : "Protection Du'ās")) +
+        PROTECTION_DUAS.map(d => chip(d, '🛡️')).join('') : '';
+    const gratitudeSection = (typeof GRATITUDE_DUAS !== 'undefined' && GRATITUDE_DUAS.length)
+      ? this.sectionHeading('🌸 ' + (lang === 'bn' ? 'শোকরের দোয়া' : "Gratitude Du'ās")) +
+        GRATITUDE_DUAS.map(d => chip(d, '🌸')).join('') : '';
+    const hardshipSection = (typeof HARDSHIP_DUAS !== 'undefined' && HARDSHIP_DUAS.length)
+      ? this.sectionHeading('🌧️ ' + (lang === 'bn' ? 'বিপদ ও কষ্টের দোয়া' : "Hardship Du'ās")) +
+        HARDSHIP_DUAS.map(d => chip(d, '🌧️')).join('') : '';
+    const travelSection = (typeof TRAVEL_DUAS !== 'undefined' && TRAVEL_DUAS.length)
+      ? this.sectionHeading('🗺️ ' + (lang === 'bn' ? 'সফরের দোয়া' : "Travel Du'ās")) +
+        TRAVEL_DUAS.map(d => chip(d, '🗺️')).join('') : '';
+    const familySection = (typeof FAMILY_DUAS !== 'undefined' && FAMILY_DUAS.length)
+      ? this.sectionHeading('🏡 ' + (lang === 'bn' ? 'পরিবার ও সন্তানের দোয়া' : "Family & Progeny Du'ās")) +
+        FAMILY_DUAS.map(d => chip(d, '🏡')).join('') : '';
+    const knowledgeSection = (typeof KNOWLEDGE_DUAS !== 'undefined' && KNOWLEDGE_DUAS.length)
+      ? this.sectionHeading('📚 ' + (lang === 'bn' ? 'জ্ঞানের দোয়া' : "Knowledge Du'ās")) +
+        KNOWLEDGE_DUAS.map(d => chip(d, '📚')).join('') : '';
+    const wealthSection = (typeof WEALTH_DUAS !== 'undefined' && WEALTH_DUAS.length)
+      ? this.sectionHeading('🌾 ' + (lang === 'bn' ? 'রিযিক ও সম্পদের দোয়া' : "Provision & Wealth Du'ās")) +
+        WEALTH_DUAS.map(d => chip(d, '🌾')).join('') : '';
+    const morningEveningSection = (typeof MORNING_EVENING_QURANIC_DUAS !== 'undefined' && MORNING_EVENING_QURANIC_DUAS.length)
+      ? this.sectionHeading('☀️ ' + (lang === 'bn' ? 'সকাল-সন্ধ্যার কুরআনি দোয়া' : "Morning & Evening Quranic Du'ās")) +
+        MORNING_EVENING_QURANIC_DUAS.map(d => chip(d, '☀️')).join('') : '';
+
+    this.modalBody.innerHTML = featured + prophetSection + protectionSection + gratitudeSection +
+      hardshipSection + travelSection + familySection + knowledgeSection + wealthSection + morningEveningSection;
     this.openModal(t('duas', lang));
 
     // Ported dua collections (data/duas.json)
@@ -273,7 +312,9 @@ class AppNavigation {
       this.sectionHeading(t('dua_collections', lang)) +
       collections.map(c => this.catalogButton(c, lang, c.emoji)).join('') +
       this.sectionHeading(t('rabbana_duas', lang)) +
-      featured;
+      featured +
+      prophetSection + protectionSection + gratitudeSection +
+      hardshipSection + travelSection + familySection + knowledgeSection + wealthSection + morningEveningSection;
   }
 
   async openTopicsModal() {

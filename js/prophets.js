@@ -496,6 +496,460 @@ const PROPHETS_DATA = [
 ];
 
 /**
+ * Per-prophet depth data: key trials, land/region, scripture (where given),
+ * and spotlight/sign content for prophets that lack it in PROPHETS_DATA.
+ * Keyed by prophet id.  Rendering in renderDetailInline() falls back here.
+ * Sources: Quran only + Sahih Bukhari/Muslim.  No Isra\u02beiliyyat.
+ */
+const PROPHETS_DEPTH = {
+  adam: {
+    spotlightEn: 'Adam (AS), the first human and first prophet, was fashioned by Allah\u2019s own hands and taught the names of all things \u2014 an honour shown when the angels could not answer and Adam could. Commanded to \u201cgo down\u201d after the test in the Garden, he and Hawwa called out with the du\u02bca that became the model of repentance: \u201cOur Lord, we have wronged ourselves; if You do not forgive us we shall be among the losers.\u201d Allah accepted it. His story sets the pattern for all humanity: sin, sincere return, and mercy.',
+    spotlightBn: '\u0986\u09a6\u09ae (আঃ), প্রথম মানুষ ও প্রথম নবী, আল্লাহর নিজ হাতে নির্মিত ও সব কিছুর নাম শেখানো — যা ফেরেশতারা পারেননি সেটি আদম পেরেছেন। বাগান থেকে নামানোর পর তিনি ও হাওয়া তওবার আদর্শ দোয়া করেন: "হে আমাদের প্রভু, আমরা নিজেদের ওপর জুলুম করেছি।" আল্লাহ তা কবুল করেন। তাঁর কাহিনি সমগ্র মানবজাতির প্যাটার্ন: পাপ, আন্তরিক প্রত্যাবর্তন ও রহমত।',
+    signEn: 'The sign of Adam was Allah\u2019s direct creation of him, the command to the angels to prostrate (which they obeyed), and Iblis\u2019s arrogant refusal — a lesson that Allah honours the human and that pride is the root of eternal ruin.',
+    signBn: 'আদমের নিদর্শন ছিল আল্লাহর সরাসরি সৃষ্টি, ফেরেশতাদের সিজদার আদেশ (যা তারা মানে) এবং ইবলিসের অহংকারী অস্বীকৃতি — শিক্ষা: আল্লাহ মানুষকে সম্মান দেন, আর অহংকার চিরন্তন ধ্বংসের মূল।',
+    signRefs: ['2:30-33', '7:11-12'],
+    trials: [
+      { en: 'The test of the forbidden tree — a single prohibition to teach obedience.', bn: 'নিষিদ্ধ গাছের পরীক্ষা — আনুগত্য শেখাতে একটি মাত্র নিষেধাজ্ঞা।' },
+      { en: 'Iblis declared as a sworn enemy — Adam was warned to beware.', bn: 'ইবলিস ঘোষিত শত্রু — আদমকে সতর্ক করা হয়।' },
+      { en: 'Being sent down to earth, bearing responsibility for himself and his children.', bn: 'পৃথিবীতে নামানো, নিজের ও সন্তানদের দায়িত্ব বহন।' },
+    ],
+    landEn: 'The Garden (al-Jannah), then earth broadly — father of all humanity',
+    landBn: 'জান্নাত, পরে পৃথিবী — সমগ্র মানবজাতির পিতা',
+  },
+  idris: {
+    spotlightEn: 'Idris (AS) is praised in the Quran for three qualities: truthfulness (siddiq), prophethood, and patient steadfastness. The greatest statement the Quran makes about him is that Allah \u201craised him to a high and exalted station.\u201d The Quran keeps his story brief, and that brevity is instructive: it is enough that Allah praises someone for truth, patience, and honour.',
+    spotlightBn: 'ইদরিস (আঃ)-কে কুরআনে তিনটি গুণে প্রশংসা করা হয়েছে: সত্যবাদিতা (সিদ্দীক), নবুয়ত ও ধৈর্যশীল অবিচলতা। কুরআনের সবচেয়ে বড় বক্তব্য হলো আল্লাহ তাঁকে "উচ্চ ও সম্মানিত স্থানে উন্নীত করেছেন।" সংক্ষিপ্ততাই শিক্ষণীয়: আল্লাহর প্রশংসাই যথেষ্ট।',
+    signEn: 'The sign of Idris was his elevation: Allah raised him to a high and exalted station (makan \u02bfaliyyan, 19:57). No detail of how is given — the dignity of the statement is itself the sign.',
+    signBn: 'ইদরিসের নিদর্শন ছিল তাঁর উন্নয়ন: আল্লাহ তাঁকে উচ্চ ও মহান স্থানে উন্নীত করেন (১৯:৫৭)। কীভাবে তা বলা হয়নি — বক্তব্যের মর্যাদাই নিদর্শন।',
+    signRefs: ['19:56-57'],
+    trials: [
+      { en: 'Calling to truth in the early generations after Adam.', bn: 'আদমের পরবর্তী প্রাথমিক প্রজন্মে সত্যের দিকে আহ্বান।' },
+      { en: 'Remaining patient and steadfast while most ignored the message.', bn: 'অধিকাংশ বার্তা উপেক্ষা করলেও ধৈর্যশীল ও অবিচল থাকা।' },
+    ],
+    landEn: 'Ancient land (early generations of humanity)',
+    landBn: 'প্রাচীন ভূমি (মানবজাতির প্রাথমিক প্রজন্ম)',
+  },
+  nuh: {
+    trials: [
+      { en: 'Nearly a thousand years of rejection by his own people.', bn: 'প্রায় হাজার বছর ধরে নিজ সম্প্রদায়ের প্রত্যাখ্যান।' },
+      { en: 'His own son\u2019s refusal to board the Ark and his drowning.', bn: 'নিজ পুত্রের নৌকায় ওঠতে অস্বীকার ও তার ডুবে মরা।' },
+      { en: 'Being mocked while building the Ark on dry land.', bn: 'শুকনো জমিতে নৌকা বানাতে গিয়ে উপহাসের শিকার হওয়া।' },
+    ],
+    landEn: 'Ancient Mesopotamia (Iraq region)',
+    landBn: 'প্রাচীন মেসোপটেমিয়া (ইরাক অঞ্চল)',
+  },
+  hud: {
+    spotlightEn: 'Hud (AS) stood alone before the most powerful nation of his time. The people of \u02bfAd boasted, \u201cWho is mightier than us?\u201d piling up lofty monuments as proof of their greatness. Hud reminded them of their true Benefactor and called them to gratitude and tawhid. They accused him of foolishness; he replied calmly: \u201cI call Allah to witness, and you witness, that I am free of what you associate with Him.\u201d When the wind came — what they mistook for rain — it left them like hollow palm-trunks. Hud and the believers were saved.',
+    spotlightBn: 'হুদ (আঃ) তাঁর সময়ের সবচেয়ে শক্তিশালী জাতির সামনে একা দাঁড়িয়েছিলেন। আদ জাতি অহংকার করত: "আমাদের চেয়ে শক্তিশালী কে?" তারা সুউচ্চ স্থাপনা গড়ে মহত্ত্ব প্রমাণ করতে চাইত। হুদ তাদের প্রকৃত অনুগ্রহকর্তার কথা স্মরণ করিয়ে দেন। তারা তাঁকে নির্বোধ বললে তিনি শান্তভাবে জবাব দেন: "আল্লাহকে সাক্ষী রাখছি, আমি তোমরা যা শরিক কর তা থেকে মুক্ত।" যখন ঝড় এলো — তারা ভেবেছিল বৃষ্টি — তা তাদের ফাঁপা খেজুরকাণ্ডের মতো ফেলে গেল।',
+    trials: [
+      { en: 'Standing alone against a physically superior, arrogant civilization.', bn: 'শারীরিকভাবে শ্রেষ্ঠ, অহংকারী সভ্যতার বিরুদ্ধে একা দাঁড়ানো।' },
+      { en: 'Being accused of foolishness and having no divine proof.', bn: 'নির্বোধ আখ্যায়িত করা ও কোনো দৈব প্রমাণ না থাকার অভিযোগ।' },
+    ],
+    landEn: 'Al-Ahqaf / southern Arabia (ancient Yemen region)',
+    landBn: 'আল-আহকাফ / দক্ষিণ আরব (প্রাচীন ইয়েমেন অঞ্চল)',
+  },
+  salih: {
+    spotlightEn: 'Salih (AS) was sent to Thamud, who carved homes from mountains and were given every blessing. The she-camel — brought forth as a divine sign — was their test: \u201cShe is Allah\u2019s she-camel; leave her to graze and harm her not, lest a painful punishment seize you.\u201d They were warned three days in advance. The most wicked among them hamstrung her in defiance, and Salih told them: \u201cEnjoy your lives three days; that is a promise not to be denied.\u201d On the fourth day, the mighty blast came.',
+    spotlightBn: 'সালিহ (আঃ)-কে সামুদ জাতির কাছে পাঠানো হয়, যারা পাহাড় কেটে ঘর বানাত ও প্রতিটি নিয়ামত ভোগ করত। উষ্ট্রী ছিল তাদের পরীক্ষা: "এটি আল্লাহর উষ্ট্রী; এটিকে অবাধে চরতে দাও, ক্ষতি করো না।" তাদের তিন দিন আগেই সতর্ক করা হয়। তাদের মধ্যে সবচেয়ে দুষ্ট ব্যক্তি সেটিকে হত্যা করে। সালিহ বললেন: "তিন দিন জীবন উপভোগ করো; এ প্রতিশ্রুতি অপ্রমাণ্য নয়।" চতুর্থ দিনে প্রচণ্ড বিস্ফোরণ এলো।',
+    trials: [
+      { en: 'Calling to tawhid a people convinced of their own civilizational superiority.', bn: 'নিজেদের সভ্যতার শ্রেষ্ঠত্বে বিশ্বাসী জাতিকে তাওহিদের দিকে ডাকা।' },
+      { en: 'Watching the divine test (the she-camel) be defied and destroyed.', bn: 'দৈব পরীক্ষা (উষ্ট্রী) অমান্য ও ধ্বংস করতে দেখা।' },
+    ],
+    landEn: 'Al-Hijr / Madain Salih (northwest Arabia)',
+    landBn: 'আল-হিজর / মাদাইন সালিহ (উত্তর-পশ্চিম আরব)',
+  },
+  ibrahim: {
+    trials: [
+      { en: 'Confronting idol-worshipping people including his own father.', bn: 'মূর্তিপূজারি সম্প্রদায় — এমনকি নিজের পিতার — মুখোমুখি হওয়া।' },
+      { en: 'Being cast into a blazing fire.', bn: 'জ্বলন্ত আগুনে নিক্ষিপ্ত হওয়া।' },
+      { en: 'Leaving his wife and infant son in a barren valley with nothing.', bn: 'স্ত্রী ও শিশুপুত্রকে শুষ্ক উপত্যকায় একা ছেড়ে যাওয়া।' },
+      { en: 'The command to sacrifice his son — the greatest test.', bn: 'পুত্র কুরবানির আদেশ — সর্বশ্রেষ্ঠ পরীক্ষা।' },
+    ],
+    landEn: 'Ur of Chaldees (Iraq), then Canaan and Mecca',
+    landBn: 'উর অফ চ্যালডিজ (ইরাক), পরে কেনান ও মক্কা',
+    bookEn: 'The Suhuf (Scrolls of Ibrahim) — given divine scriptures (87:18-19)',
+    bookBn: 'সুহুফ (ইবরাহীমের পাতা) — দৈব কিতাব প্রাপ্ত (৮৭:১৮-১৯)',
+  },
+  lut: {
+    spotlightEn: 'Lut (AS), nephew of Ibrahim, faced a community that had abandoned all restraint. He called them to purity and warned of punishment, but they threatened him with exile. When angels came to his home as guests in human form, his people rushed to his door demanding his guests. Lut was distressed: \u201cThese are my guests \u2014 do not shame me.\u201d The angels told him: \u201cDo not fear — we are messengers of your Lord.\u201d Lut left with his family at night, and at dawn the town was overturned, with baked-clay stones raining down. It remains a clear sign for those who look.',
+    spotlightBn: 'লূত (আঃ), ইবরাহীমের ভাতিজা, এমন এক সম্প্রদায়ের মুখোমুখি হন যারা সমস্ত সীমা অতিক্রম করেছিল। তিনি তাদের পবিত্রতার দিকে ডাকেন ও শাস্তির সতর্কতা দেন, কিন্তু তারা নির্বাসনের হুমকি দেয়। ফেরেশতারা মানব রূপে অতিথি হিসেবে আসলে সম্প্রদায় তাঁর দরজায় আসে। লূত বিচলিত হলে ফেরেশতারা বলেন: "ভয় পেয়ো না।" রাতে লূত পরিবারসহ চলে যান, আর ভোরে নগরী উল্টে যায়।',
+    signEn: 'The sign of Lut was the destruction of Sodom: the town was overturned by the angels, and stones of baked clay rained down on the people. Lut and his believing family were saved; his wife, who stayed behind, perished. The ruins remain a clear sign for those who pass by.',
+    signBn: 'লূতের নিদর্শন ছিল সদোম ধ্বংস: ফেরেশতারা নগরী উল্টে দেন ও পোড়া মাটির পাথর বর্ষণ হয়। লূত ও মুমিন পরিবার রক্ষা পান; পিছনে থাকা স্ত্রী ধ্বংস হন। ধ্বংসাবশেষ পথিকদের জন্য স্পষ্ট নিদর্শন।',
+    signRefs: ['11:81-82', '15:73-77'],
+    trials: [
+      { en: 'Calling to purity in a city committed to the worst of sins.', bn: 'সবচেয়ে জঘন্য পাপে আসক্ত নগরে পবিত্রতার আহ্বান।' },
+      { en: 'Protecting his guests from a mob.', bn: 'জনতার হাত থেকে অতিথিদের রক্ষা করা।' },
+      { en: 'His wife remaining behind and perishing.', bn: 'স্ত্রীর পিছনে থেকে ধ্বংস হওয়া।' },
+    ],
+    landEn: 'Sodom (Levant / Dead Sea region)',
+    landBn: 'সদোম (লেভান্ট / মৃত সাগর অঞ্চল)',
+  },
+  ismail: {
+    spotlightEn: 'Isma\u02beīl (AS), elder son of Ibrahim, is the Quran\u2019s supreme example of willing submission. When Ibrahim told him of the dream-command to sacrifice him, Isma\u02beīl replied: \u201cFather, do what you are commanded; you will find me, if Allah wills, among the patient.\u201d That single reply earned him the Quran\u2019s title \u201ctrue to his promise\u201d (sadiq al-wa\u02bfd). The Ka\u02bbah he raised with his father still stands; the Zamzam he was brought to still flows; and through his descendants came the Final Messenger ﷺ — the fulfilment of the very du\u02bca he and Ibrahim made.',
+    spotlightBn: 'ইসমাঈল (আঃ), ইবরাহীমের বড় পুত্র, স্বেচ্ছায় আত্মসমর্পণের কুরআনের সর্বোচ্চ উদাহরণ। ইবরাহীম স্বপ্নের আদেশ জানালে তিনি বললেন: "পিতা, আপনাকে যা আদেশ করা হয়েছে তা করুন; আল্লাহ চাইলে আমাকে ধৈর্যশীলদের মধ্যে পাবেন।" এই একটি বাক্যই তাঁকে "প্রতিশ্রুতিতে সত্যবাদী" (সাদিক আল-ওয়াদ) উপাধি দেয়। তিনি ও ইবরাহীমের নির্মিত কাবা এখনও দাঁড়িয়ে, যমযম এখনও প্রবাহিত এবং তাঁদের বংশ থেকেই এলেন সর্বশেষ রাসূল ﷺ।',
+    trials: [
+      { en: 'Left as an infant with his mother in a barren, waterless valley.', bn: 'শিশু বয়সে মায়ের সাথে শুষ্ক, জলহীন উপত্যকায় ছেড়ে যাওয়া।' },
+      { en: 'Commanded as a sacrifice — willingly submitted.', bn: 'কুরবানির আদেশ — স্বেচ্ছায় আত্মসমর্পণ।' },
+    ],
+    landEn: 'Mecca (Hijaz, Arabia)',
+    landBn: 'মক্কা (হিজায, আরব)',
+  },
+  ishaq: {
+    spotlightEn: 'Ishaq (AS) was the second son of Ibrahim, announced by angels to Ibrahim and his wife Sarah in their very old age. When Sarah heard the news, she said in astonishment: \u201cShall I give birth while I am an old woman and this my husband is an old man?\u201d They replied: \u201cSo has Allah willed; He is the All-Knowing, All-Wise.\u201d His birth was itself a sign. Through his son Ya\u02bfqub and Ya\u02bfqub\u2019s twelve sons, prophethood and scripture continued among the Children of Israel for centuries, fulfilling Allah\u2019s promise to Ibrahim.',
+    spotlightBn: 'ইসহাক (আঃ) ছিলেন ইবরাহীমের দ্বিতীয় পুত্র, ফেরেশতাদের মাধ্যমে ইবরাহীম ও বৃদ্ধা স্ত্রী সারাকে ঘোষণা করা হয়। সারা বিস্ময়ে বললেন: "আমি বৃদ্ধা হয়ে সন্তান জন্ম দেব?" ফেরেশতারা জবাব দেন: "এমনই আল্লাহর ইচ্ছা।" তাঁর জন্মই ছিল এক নিদর্শন। তাঁর পুত্র ইয়াকুব ও তাঁর বারো পুত্রের মাধ্যমে শতাব্দীর পর শতাব্দী বনী ইসরাঈলে নবুয়ত ও কিতাব অব্যাহত থাকে।',
+    signEn: 'The sign of Ishaq was his miraculous birth to very old Ibrahim and his barren wife Sarah — announced by angels, fulfilling the divine promise and proving that nothing is impossible for Allah.',
+    signBn: 'ইসহাকের নিদর্শন ছিল বৃদ্ধ ইবরাহীম ও বন্ধ্যা স্ত্রী সারার কাছে তাঁর অলৌকিক জন্ম — ফেরেশতাদের দ্বারা ঘোষিত, প্রমাণ করে যে আল্লাহর কাছে কিছুই অসম্ভব নয়।',
+    signRefs: ['11:71-73', '51:28-30'],
+    trials: [
+      { en: 'Being born as a divine sign — the weight of carrying prophetic lineage.', bn: 'দৈব নিদর্শন হিসেবে জন্ম — নবুয়তের বংশধারা বহনের ভার।' },
+    ],
+    landEn: 'Canaan (Levant / modern Israel-Palestine)',
+    landBn: 'কেনান (লেভান্ট / আধুনিক ইসরাইল-ফিলিস্তিন)',
+  },
+  yaqub: {
+    spotlightEn: 'Ya\u02bfqub (AS), also called Israel, is the patient father whose sons became the twelve tribes. When Yusuf was taken, he did not despair; he said: \u201cBeautiful patience \u2014 and Allah is the one whose help is sought.\u201d He kept his grief private, weeping until he lost his sight, yet told his sons: \u201cDo not despair of the mercy of Allah.\u201d On his deathbed, surrounded by his sons, he asked: \u201cWhat will you worship after me?\u201d They replied with the testimony of tawhid. This became the testament of the Children of Israel — passed on by a broken, patient father who never stopped trusting his Lord.',
+    spotlightBn: 'ইয়াকুব (আঃ), যাঁকে ইসরাঈলও বলা হয়, ছিলেন সেই ধৈর্যশীল পিতা যাঁর পুত্ররা বারো গোত্রে পরিণত হয়। ইউসুফ নেওয়া হলে তিনি হতাশ হননি; বললেন: "সুন্দর ধৈর্যই শ্রেয়।" দুঃখে অন্ধ হয়ে গেলেও পুত্রদের বললেন: "আল্লাহর রহমত থেকে নিরাশ হয়ো না।" মৃত্যুশয্যায় পুত্রদের জিজ্ঞেস করলেন: "আমার পরে কার ইবাদত করবে?" তারা তাওহিদের সাক্ষ্য দিল।',
+    signEn: 'The sign given through Ya\u02bfqub was the restoration of his sight: Yusuf sent his shirt from Egypt, and when it was cast over his blind father\u2019s face, his eyesight returned — confirming the dream of long ago and proving that Allah\u2019s promises are certain.',
+    signBn: 'ইয়াকুবের মাধ্যমে দেওয়া নিদর্শন ছিল তাঁর দৃষ্টিশক্তি ফিরে আসা: ইউসুফ মিশর থেকে জামা পাঠান, আর তা অন্ধ পিতার মুখে দেওয়া হলে দৃষ্টি ফিরে আসে — পুরনো স্বপ্ন সত্য হয়।',
+    signRefs: ['12:93-96'],
+    trials: [
+      { en: 'Years of separation from his beloved son Yusuf.', bn: 'প্রিয় পুত্র ইউসুফ থেকে দীর্ঘ বিচ্ছেদ।' },
+      { en: 'Grief so deep it blinded him — yet he never despaired of Allah\u2019s mercy.', bn: 'এত গভীর শোক যা তাঁকে অন্ধ করে দেয় — তবু আল্লাহর রহমত থেকে নিরাশ হননি।' },
+      { en: 'His sons\u2019 deception regarding Yusuf.', bn: 'পুত্রদের ইউসুফ সম্পর্কে প্রতারণা।' },
+    ],
+    landEn: 'Canaan (Levant), then Egypt',
+    landBn: 'কেনান (লেভান্ট), পরে মিশর',
+  },
+  yusuf: {
+    trials: [
+      { en: 'Betrayal by his own brothers — thrown into a well.', bn: 'সহোদর ভাইদের বিশ্বাসঘাতকতা — কূপে নিক্ষেপ।' },
+      { en: 'Sold into slavery in Egypt.', bn: 'মিশরে দাস হিসেবে বিক্রি।' },
+      { en: 'False accusation and years of unjust imprisonment.', bn: 'মিথ্যা অভিযোগ ও বছরের পর বছর অন্যায় কারাবাস।' },
+      { en: 'The temptation of the minister\u2019s wife — he chose Allah over desire.', bn: 'মন্ত্রীর স্ত্রীর প্রলোভন — তিনি কামনার বদলে আল্লাহকে বেছে নেন।' },
+    ],
+    landEn: 'Canaan (Levant) and Egypt',
+    landBn: 'কেনান (লেভান্ট) ও মিশর',
+  },
+  ayyub: {
+    spotlightEn: 'Ayyub (AS) is the Quran\u2019s supreme example of patient endurance under affliction. Stripped of wealth, children, and health over long years, he did not complain against his Lord — he only prayed: \u201cHarm has touched me, and You are the Most Merciful of the merciful.\u201d Allah declared him \u201can excellent servant \u2014 always returning\u201d to his Lord. The cool spring that gushed at his foot restored him completely; his family was returned and doubled in blessings. The Quran calls on every believer to remember him when patience is tested.',
+    spotlightBn: 'আইয়ুব (আঃ) যন্ত্রণার মধ্যে ধৈর্যশীল সহনশীলতার কুরআনের সর্বোচ্চ উদাহরণ। দীর্ঘ বছর ধরে সম্পদ, সন্তান ও স্বাস্থ্য হারিয়েও প্রভুর বিরুদ্ধে অভিযোগ করেননি — শুধু দোয়া করলেন: "আমাকে কষ্ট স্পর্শ করেছে, আর আপনি দয়ালুদের মধ্যে সর্বশ্রেষ্ঠ।" আল্লাহ তাঁকে "উত্তম বান্দা — সর্বদা প্রত্যাবর্তনকারী" বললেন। শীতল ঝর্ণায় আরোগ্য, পরিবার দ্বিগুণ হলো।',
+    trials: [
+      { en: 'Loss of wealth, children, and health over years of suffering.', bn: 'দীর্ঘ কষ্টের বছরে সম্পদ, সন্তান ও স্বাস্থ্য হারানো।' },
+      { en: 'Enduring severe illness without losing gratitude or faith.', bn: 'কৃতজ্ঞতা ও ঈমান না হারিয়ে গুরুতর অসুস্থতা সহ্য করা।' },
+    ],
+    landEn: 'Ancient Levant (al-Sham / Syria-Palestine region)',
+    landBn: 'প্রাচীন লেভান্ট (আল-শাম / সিরিয়া-ফিলিস্তিন অঞ্চল)',
+  },
+  shuayb: {
+    spotlightEn: 'Shu\u02beayb (AS) is sometimes called \u201cthe preacher of the prophets\u201d for the clarity of his arguments. Sent to Madyan — a mercantile people who gave short measures and spread corruption — he called for tawhid and honest dealing as a single message: \u201cGive full measure and weight in justice.\u201d His people said: \u201cYour prayer would have us abandon what our fathers worshipped.\u201d He replied: \u201cMy success is only through Allah; I have placed my trust in Him.\u201d The punishment of a dreadful day took those who refused.',
+    spotlightBn: 'শুআইব (আঃ)-কে কখনো "নবীদের বক্তা" বলা হয় তাঁর যুক্তির স্বচ্ছতার জন্য। মাদইয়ানের ব্যবসায়ী সম্প্রদায়কে — যারা মাপে কম দিত ও ফাসাদ ছড়াত — তাওহিদ ও সৎ ব্যবসার একই বার্তায় ডাকেন: "পূর্ণ মাপ ও ওজন দাও।" সম্প্রদায় বলল: "তোমার নামাজ কি আমাদের পূর্বপুরুষের পথ ছাড়তে বলে?" তিনি জবাব দিলেন: "আমার সাফল্য কেবল আল্লাহর মাধ্যমে।" ভয়াবহ দিনের শাস্তি অস্বীকারকারীদের নিল।',
+    signEn: 'Shu\u02beayb\u2019s sign was the compelling hujja (proof) of his clear argument — and, for those who rejected, the punishment of the loud cry (sayhah) on the day of the great shadow that came over them.',
+    signBn: 'শুআইবের নিদর্শন ছিল তাঁর স্পষ্ট হুজ্জাহ (প্রমাণ) — আর অস্বীকারকারীদের জন্য, ভয়াবহ ছায়া যেদিন ছেয়ে গেল সেদিনের প্রচণ্ড গর্জনের শাস্তি।',
+    signRefs: ['11:94', '26:189'],
+    trials: [
+      { en: 'Calling to honest trade when dishonesty was the norm.', bn: 'অসততা যখন স্বাভাবিক তখন সৎ ব্যবসার আহ্বান।' },
+      { en: 'Being mocked and threatened with exile by powerful merchants.', bn: 'ক্ষমতাবান ব্যবসায়ীদের উপহাস ও নির্বাসনের হুমকি।' },
+    ],
+    landEn: 'Madyan (northwest Arabia / Sinai region)',
+    landBn: 'মাদইয়ান (উত্তর-পশ্চিম আরব / সিনাই অঞ্চল)',
+  },
+  musa: {
+    trials: [
+      { en: 'Born when Pharaoh was killing Israelite boys; raised in the palace of the enemy.', bn: 'যখন ফেরাউন ইসরাঈলি পুত্রদের হত্যা করছিল তখন জন্ম; শত্রুর প্রাসাদে প্রতিপালন।' },
+      { en: 'Accidentally killing a man and fleeing to Madyan for years.', bn: 'অনিচ্ছায় এক ব্যক্তিকে হত্যা ও বছরের পর বছর মাদইয়ানে পালিয়ে থাকা।' },
+      { en: 'Standing before Pharaoh — the greatest tyrant of the age.', bn: 'ফেরাউনের সামনে দাঁড়ানো — যুগের সবচেয়ে বড় স্বৈরাচার।' },
+      { en: 'His people\u2019s hardness of heart in the wilderness for forty years.', bn: 'প্রান্তরে চল্লিশ বছর ধরে সম্প্রদায়ের হৃদয়ের কঠোরতা।' },
+    ],
+    landEn: 'Egypt and the Sinai / Levant',
+    landBn: 'মিশর ও সিনাই / লেভান্ট',
+    bookEn: 'The Tawrah (Torah) — given on Mount Sinai (5:44)',
+    bookBn: 'তাওরাত — সিনাই পর্বতে প্রদত্ত (৫:৪৪)',
+  },
+  harun: {
+    spotlightEn: 'Harun (AS), elder brother and companion of Musa, was given to him as a helper in response to Musa\u2019s heartfelt du\u02bca: \u201cAppoint for me a helper from my family \u2014 my brother Harun.\u201d Together they confronted Pharaoh and delivered the message. When Musa went to the mountain to receive the Tawrah, Harun was left in charge. He tried to hold the people back from the golden calf but feared that forcibly stopping them would cause division and bloodshed. He is a model of sincere brotherly support and loyalty to the truth.',
+    spotlightBn: 'হারুন (আঃ), মূসার বড় ভাই ও সঙ্গী, মূসার আন্তরিক দোয়ার জবাবে সহকারী হিসেবে দেওয়া হয়: "আমার পরিবার থেকে আমার ভাই হারুনকে সহকারী করুন।" একসাথে তারা ফেরাউনের মুখোমুখি হন। মূসা পাহাড়ে তাওরাত নিতে গেলে হারুন দায়িত্বপ্রাপ্ত হন। তিনি স্বর্ণবাছুর থেকে সম্প্রদায়কে ফেরাতে চেষ্টা করেন কিন্তু বিভাজনের ভয়ে শক্তি প্রয়োগ করেননি। তিনি সত্যের প্রতি আন্তরিক ভ্রাতৃত্ব ও আনুগত্যের আদর্শ।',
+    signEn: 'Harun\u2019s sign was his appointment as a prophet alongside Musa — his fluency of tongue granted as a direct answer to Musa\u2019s prayer — so that together they could carry the clear message to Pharaoh without hesitation.',
+    signBn: 'হারুনের নিদর্শন ছিল মূসার পাশে নবী হিসেবে নিয়োগ — মূসার দোয়ার সরাসরি জবাবে তাঁর বাগ্মিতা — যাতে একসাথে দ্বিধামুক্তভাবে ফেরাউনের কাছে বার্তা পৌঁছানো যায়।',
+    signRefs: ['20:29-36', '28:34-35'],
+    trials: [
+      { en: 'Jointly facing the greatest tyrant of his time alongside Musa.', bn: 'মূসার পাশে যুগের সবচেয়ে বড় স্বৈরাচারের মুখোমুখি হওয়া।' },
+      { en: 'Managing his people alone while Musa received the Tawrah.', bn: 'মূসা তাওরাত গ্রহণে থাকাকালীন একা সম্প্রদায় পরিচালনা।' },
+      { en: 'The trial of the golden calf — striving to prevent it without causing bloodshed.', bn: 'স্বর্ণবাছুরের পরীক্ষা — রক্তপাত ছাড়াই এটি প্রতিরোধের চেষ্টা।' },
+    ],
+    landEn: 'Egypt and the Sinai',
+    landBn: 'মিশর ও সিনাই',
+  },
+  dhulkifl: {
+    spotlightEn: 'Dhul-Kifl (AS) is named twice in the Quran — alongside Isma\u02beīl, Idris, and Ayyub — as one of \u201cthe patient\u201d and one of \u201cthe good.\u201d The Quran gives him no extended narrative beyond this profound praise. Scholars consistently advise caution about attributing unverified details to him. That restraint is itself a lesson: a prophet\u2019s honour before Allah is not measured by how much we know of their story, but by their true character.',
+    spotlightBn: 'যুলকিফল (আঃ)-এর নাম কুরআনে দুবার আসে — ইসমাঈল, ইদরিস ও আইয়ুবের সাথে — "ধৈর্যশীলদের" ও "উত্তমদের" মধ্যে। কুরআন এই গভীর প্রশংসার বাইরে তাঁর কোনো বিস্তারিত বিবরণ দেয়নি। আলেমগণ তাঁর সম্পর্কে যাচাই-না-করা বিবরণ আরোপে সতর্ক করেন। এই সংযম নিজেই শিক্ষণীয়।',
+    signEn: 'No specific miraculous sign is narrated for Dhul-Kifl in the Quran. His honour is the praise itself: named among \u201cthe good\u201d and \u201cthe patient,\u201d entered into Allah\u2019s mercy.',
+    signBn: 'কুরআনে যুলকিফলের কোনো নির্দিষ্ট অলৌকিক নিদর্শন বর্ণিত হয়নি। তাঁর সম্মানই প্রশংসা: "উত্তমদের" ও "ধৈর্যশীলদের" মধ্যে নামোল্লেখ, আল্লাহর রহমতে প্রবেশ।',
+    signRefs: ['21:85-86', '38:48'],
+    trials: [
+      { en: 'Steadfast patience in calling to the truth — praised specifically for this quality.', bn: 'সত্যের দিকে আহ্বানে অবিচল ধৈর্য — বিশেষভাবে এই গুণে প্রশংসিত।' },
+    ],
+    landEn: 'Ancient land (details brief in the Quran)',
+    landBn: 'প্রাচীন ভূমি (কুরআনে বিবরণ সংক্ষিপ্ত)',
+  },
+  dawud: {
+    spotlightEn: 'Dawud (AS) — shepherd, warrior, king, and prophet — was given talents that no one before him received together: a voice that caused mountains and birds to join in glorifying Allah, iron made soft in his hands to fashion armour, the gift of just judgment, and the Zabur. As a young man he killed the tyrant Jalut with a single stone from a sling, and Allah gave him kingship and wisdom. When he erred in a judgment and realised it, he fell prostrate and wept. The Quran says: \u201cWe forgave him that; and he has a high station with Us and a fine place of return.\u201d',
+    spotlightBn: 'দাউদ (আঃ) — রাখাল, যোদ্ধা, রাজা ও নবী — এমন প্রতিভা পেয়েছিলেন যা আগে কেউ একসাথে পায়নি: এমন কণ্ঠস্বর যাতে পাহাড় ও পাখিরা আল্লাহর তাসবিহে যোগ দিত, বর্ম গড়তে হাতে লোহা নরম, ন্যায়বিচারের মেধা ও যাবুর। তরুণ বয়সে তিনি একটি পাথরে জালুতকে বধ করেন, আল্লাহ তাঁকে রাজত্ব ও প্রজ্ঞা দেন। এক বিচারে ভুল করলে তিনি সাষ্টাঙ্গে পড়েন ও কাঁদেন। কুরআন বলে: "আমি তাঁকে ক্ষমা করি এবং তাঁর আমাদের কাছে উচ্চ মর্যাদা আছে।"',
+    trials: [
+      { en: 'Facing the tyrant Jalut as a young shepherd with only a sling.', bn: 'কেবল একটি গুলতি নিয়ে স্বৈরাচারী জালুতের মুখোমুখি হওয়া।' },
+      { en: 'The weight of just kingship — the heaviest trust Allah gives.', bn: 'ন্যায়বিচারের রাজত্বের ভার — আল্লাহর দেওয়া সবচেয়ে ভারী আমানত।' },
+      { en: 'An error in judgment and the deep repentance that followed.', bn: 'বিচারে একটি ভুল ও তার পরে গভীর তওবা।' },
+    ],
+    landEn: 'Kingdom of Israel (Jerusalem / Hebron, Levant)',
+    landBn: 'ইসরাঈল রাজ্য (জেরুজালেম / হেবরন, লেভান্ট)',
+    bookEn: 'The Zabur (Psalms) — given as scripture (4:163; 17:55)',
+    bookBn: 'যাবুর — কিতাব হিসেবে প্রদত্ত (৪:১৬৩; ১৭:৫৫)',
+  },
+  sulayman: {
+    spotlightEn: 'Sulayman (AS), son of Dawud, was given by Allah what no one before or after him received: command over the wind, the jinn, and the birds; understanding of animal speech; and the submission of distant kingdoms. When the hoopoe brought news of the Queen of Sheba\u2019s people worshipping the sun, Sulayman wrote her a letter opening with \u201cBismillah.\u201d She came, saw the mirrored palace floor she mistook for water, and submitted to Allah. Yet Sulayman\u2019s own prayer shows his inner life: \u201cMy Lord, enable me to be grateful for Your favour — and admit me by Your mercy among Your righteous servants.\u201d',
+    spotlightBn: 'সুলাইমান (আঃ), দাউদের পুত্র, আল্লাহর কাছ থেকে যা পেয়েছিলেন তা আগে কেউ পায়নি, পরেও পাবে না: বাতাস, জিন ও পাখিদের ওপর আধিপত্য; পশু-পাখির ভাষা বোঝা; দূর রাজ্যের আনুগত্য। হুদহুদ সাবার রানির খবর আনলে তিনি "বিসমিল্লাহ" দিয়ে শুরু করে চিঠি লেখেন। রানি এসে কাচের মেঝেকে পানি ভেবে কাপড় তুলে নেন, পরে আল্লাহর কাছে আত্মসমর্পণ করেন। তবু সুলাইমানের নিজের দোয়া তাঁর অন্তরের পরিচয় দেয়: "হে প্রভু, আপনার নিয়ামতে কৃতজ্ঞ রাখুন।"',
+    trials: [
+      { en: 'Managing the greatest kingdom given to any prophet with consistent humility.', bn: 'যেকোনো নবীকে দেওয়া সর্বশ্রেষ্ঠ রাজত্ব ধারাবাহিক বিনয়ের সাথে পরিচালনা।' },
+      { en: 'Remaining grateful and God-conscious despite unparalleled power.', bn: 'অতুলনীয় ক্ষমতা সত্ত্বেও কৃতজ্ঞ ও আল্লাহভীরু থাকা।' },
+    ],
+    landEn: 'Jerusalem and beyond (Levant, vast kingdom)',
+    landBn: 'জেরুজালেম ও তার বাইরে (লেভান্ট, বিশাল রাজত্ব)',
+  },
+  ilyas: {
+    spotlightEn: 'Ilyas (AS) was a prophet among the Children of Israel who called his people away from the worship of Ba\u02bfl — a false deity they had adopted. He confronted them: \u201cDo you call upon Ba\u02bfl and leave the Best of Creators, Allah, your Lord and the Lord of your forefathers?\u201d Most rejected him. Yet Allah declared: \u201cWe left for him a fine mention among later generations: peace upon Il-Yasin.\u201d His story is brief but the Quran\u2019s endorsement of him — preserving his name forever — is its own profound miracle.',
+    spotlightBn: 'ইলিয়াস (আঃ) ছিলেন বনী ইসরাঈলের একজন নবী যিনি তাঁর সম্প্রদায়কে বাল দেবতার পূজা থেকে ফেরাতে ডাকেন। তিনি চ্যালেঞ্জ করলেন: "তোমরা কি বালকে ডাকো আর সর্বশ্রেষ্ঠ স্রষ্টা আল্লাহকে ছেড়ে দাও?" বেশিরভাগ তাঁকে প্রত্যাখ্যান করে। তবু আল্লাহ ঘোষণা করেন: "পরবর্তীদের মধ্যে আমি তাঁর সুনাম রেখে দিয়েছি: ইল-ইয়াসিনের প্রতি শান্তি।"',
+    signEn: 'Ilyas\u2019s sign was the divine preservation of his remembrance: while the worshippers of Ba\u02bfl perished, Allah declared \u201cPeace upon Il-Yasin\u201d — keeping his name honoured among later generations. The survival of truth is the ultimate sign.',
+    signBn: 'ইলিয়াসের নিদর্শন ছিল তাঁর স্মৃতির দৈব সংরক্ষণ: বালের পূজারিরা ধ্বংস হলেও আল্লাহ "ইল-ইয়াসিনের প্রতি শান্তি" ঘোষণা করেন — পরবর্তীদের মধ্যে তাঁর নাম সম্মানিত রাখেন। সত্যের টিকে থাকাই চূড়ান্ত নিদর্শন।',
+    signRefs: ['37:129-130'],
+    trials: [
+      { en: 'Standing alone against idol-worship entrenched in his entire community.', bn: 'পুরো সম্প্রদায়ে শিকড় গেড়ে বসা মূর্তিপূজার বিরুদ্ধে একা দাঁড়ানো।' },
+      { en: 'Most of his people rejecting his message.', bn: 'অধিকাংশ সম্প্রদায় তাঁর বার্তা প্রত্যাখ্যান করা।' },
+    ],
+    landEn: 'Ancient Israel (Samaria region, Levant)',
+    landBn: 'প্রাচীন ইসরাঈল (সামারিয়া অঞ্চল, লেভান্ট)',
+  },
+  alyasa: {
+    spotlightEn: 'Al-Yasa\u02be (AS) is honoured in the Quran among the prophets \u201cfavoured above the worlds\u201d and counted among \u201cthe good.\u201d He continued the guidance after Ilyas. Though the Quran gives him no extended narrative, his placement in the company of the greatest prophets speaks for itself. Every true caller to Allah, whether their story fills volumes or a single line, is remembered and honoured before the One who misses nothing.',
+    spotlightBn: 'আল-ইয়াসা (আঃ) কুরআনে "সৃষ্টিকুলের ওপর মর্যাদাপ্রাপ্ত" নবীদের মধ্যে ও "উত্তমদের" মধ্যে সম্মানিত। ইলিয়াসের পরে তিনি পথনির্দেশ অব্যাহত রাখেন। কুরআন তাঁকে বিস্তারিত বিবরণ না দিলেও শ্রেষ্ঠ নবীদের সাথে তাঁর স্থানই সবকিছু বলে দেয়।',
+    signEn: 'No specific miraculous sign is narrated for Al-Yasa\u02be in the Quran. His sign is his honour: placed among the prophets favoured above all worlds (6:86) and counted among \u201cthe good\u201d (38:48) by Allah Himself.',
+    signBn: 'কুরআনে আল-ইয়াসার কোনো নির্দিষ্ট অলৌকিক নিদর্শন বর্ণিত হয়নি। তাঁর নিদর্শন তাঁর সম্মান: সৃষ্টিকুলের ওপর মর্যাদাপ্রাপ্ত নবীদের মধ্যে (৬:৮৬) ও "উত্তমদের" মধ্যে (৩৮:৪৮) আল্লাহর নিজের স্থানায়ন।',
+    signRefs: ['6:86', '38:48'],
+    trials: [
+      { en: 'Continuing the prophetic mission after Ilyas — carrying a heavy inheritance.', bn: 'ইলিয়াসের পরে নবুয়তি দায়িত্ব চালিয়ে যাওয়া — ভারী উত্তরাধিকার বহন।' },
+    ],
+    landEn: 'Ancient Israel (Levant)',
+    landBn: 'প্রাচীন ইসরাঈল (লেভান্ট)',
+  },
+  yunus: {
+    trials: [
+      { en: 'Leaving his people before Allah\u2019s command — impatience that led to the fish.', bn: 'আল্লাহর আদেশের আগে সম্প্রদায় ত্যাগ — অধৈর্য যা মাছের পেটে নিয়ে গেল।' },
+      { en: 'Being in the belly of the great fish in layered darkness.', bn: 'স্তরে স্তরে অন্ধকারে বিশাল মাছের পেটে থাকা।' },
+    ],
+    landEn: 'Nineveh (ancient Assyria / modern Iraq)',
+    landBn: 'নিনেভা (প্রাচীন অ্যাসিরিয়া / আধুনিক ইরাক)',
+  },
+  zakariya: {
+    spotlightEn: 'Zakariya (AS) was a devoted prophet, keeper of the sanctuary, and guardian of Maryam. Watching Allah provide for Maryam from beyond human means, he was moved to pray privately — old, with a wife who was barren — for a righteous heir. The Quran records his intimate prayer of hope: \u201cI have never been unblessed in my prayer to You, my Lord.\u201d Allah answered with Yahya — a name never before given — and confirmed it with a sign: three days of silence from speech to people while still able to glorify Allah. His life shows that du\u02bca reaches its fullness at exactly the moment Allah has chosen.',
+    spotlightBn: 'যাকারিয়া (আঃ) ছিলেন নিবেদিত নবী, পবিত্র স্থানের রক্ষক ও মারইয়ামের অভিভাবক। মারইয়ামের জন্য আল্লাহর অসাধারণ রিজিক দেখে বৃদ্ধ ও বন্ধ্যা স্ত্রীকে নিয়ে গোপনে দোয়া করলেন: "হে আমার প্রভু, আপনার কাছে দোয়া করে আমি কখনো বঞ্চিত হইনি।" আল্লাহ ইয়াহইয়া নামে সাড়া দিলেন — আগে কেউ এই নাম পায়নি — এবং তিন দিনের নীরবতার নিদর্শন দিলেন। তাঁর জীবন দেখায়: দোয়া ঠিক সেই মুহূর্তে পূর্ণ হয় যা আল্লাহ বেছে রাখেন।',
+    signEn: 'The sign given to Zakariya was three days of inability to speak to people — except by gesture — while retaining full ability to glorify Allah. This was the divine confirmation that Yahya would be born.',
+    signBn: 'যাকারিয়াকে দেওয়া নিদর্শন ছিল তিন দিন মানুষের সাথে কথা বলতে না পারা — কেবল ইশারায় — তবু আল্লাহর তাসবিহ পূর্ণভাবে করতে পারা। এটি ছিল ইয়াহইয়ার জন্মের ঐশ্বরিক নিশ্চিতকরণ।',
+    signRefs: ['3:41', '19:10'],
+    trials: [
+      { en: 'Old age and childlessness — a deep longing for a righteous heir.', bn: 'বার্ধক্য ও নিঃসন্তানতা — এক সৎ উত্তরাধিকারীর গভীর আকাঙ্ক্ষা।' },
+      { en: 'His wife was barren — a seemingly impossible prayer.', bn: 'স্ত্রী বন্ধ্যা — আপাতদৃষ্টে অসম্ভব দোয়া।' },
+    ],
+    landEn: 'Jerusalem (Levant)',
+    landBn: 'জেরুজালেম (লেভান্ট)',
+  },
+  yahya: {
+    spotlightEn: 'Yahya (AS), son of Zakariya, was given wisdom by Allah while still a child — the Quran states it simply: \u201cO Yahya, take the Scripture with determination.\u201d And so he did. He was pure, dutiful to his parents, never arrogant or disobedient. He confirmed the word of Allah — that is, he believed in Isa (AS) — and lived in devoted purity. The Quran\u2019s benediction for him is unique: \u201cPeace on him the day he was born, the day he will die, and the day he will be raised alive.\u201d Three stations — birth, death, resurrection — sealed with peace.',
+    spotlightBn: 'ইয়াহইয়া (আঃ), যাকারিয়ার পুত্র, শিশু অবস্থায় আল্লাহর দেওয়া প্রজ্ঞা পেলেন। কুরআন সরলভাবে বলে: "হে ইয়াহইয়া, কিতাব দৃঢ়ভাবে ধারণ করো।" তিনি তাই করলেন। পবিত্র, পিতামাতার অনুগত, কখনো অহংকারী বা অবাধ্য নন। তিনি আল্লাহর বাণী — অর্থাৎ ঈসা (আঃ) — সত্যায়ন করেন। কুরআনের তাঁর প্রতি বন্দনা অনন্য: "তাঁর জন্মে, মৃত্যুতে ও পুনরুত্থানে শান্তি।" তিনটি স্থান — শান্তিতে মুদ্রিত।',
+    signEn: 'The sign of Yahya was wisdom granted to him as a child (19:12) — a spiritual miracle: a child equipped by Allah with the knowledge, devotion, and maturity of a scholar-prophet, confirming that Allah\u2019s gifts are not bound by age.',
+    signBn: 'ইয়াহইয়ার নিদর্শন ছিল শিশু অবস্থায় তাঁকে দেওয়া প্রজ্ঞা (১৯:১২) — আধ্যাত্মিক মুজিযা: আল্লাহ একটি শিশুকে আলেম-নবীর জ্ঞান, নিষ্ঠা ও পরিপক্বতা দিলেন, প্রমাণ করে আল্লাহর দান বয়সে সীমাবদ্ধ নয়।',
+    signRefs: ['19:12', '3:39'],
+    trials: [
+      { en: 'Calling to righteousness in a corrupt society.', bn: 'দুর্নীতিগ্রস্ত সমাজে সততার দিকে আহ্বান।' },
+      { en: 'Ultimately martyred for standing firm on truth.', bn: 'সত্যে অবিচলের জন্য শেষ পর্যন্ত শাহাদাত।' },
+    ],
+    landEn: 'Jerusalem (Levant)',
+    landBn: 'জেরুজালেম (লেভান্ট)',
+  },
+  isa: {
+    trials: [
+      { en: 'Born without a father — his mother faced slander from her own people.', bn: 'পিতা ছাড়া জন্ম — মায়ের নিজ সম্প্রদায়ের কুৎসার শিকার।' },
+      { en: 'His people\u2019s persistent rejection and the plot to kill him.', bn: 'সম্প্রদায়ের অবিরাম প্রত্যাখ্যান ও তাঁকে হত্যার ষড়যন্ত্র।' },
+      { en: 'The Quran teaches he was raised to Allah — not killed — but misunderstood by many.', bn: 'কুরআন শেখায় তাঁকে হত্যা করা হয়নি, আল্লাহ তুলে নিয়েছেন — কিন্তু বহুজন ভুল বুঝেছে।' },
+    ],
+    landEn: 'Galilee, Jerusalem and the Levant',
+    landBn: 'গ্যালিলি, জেরুজালেম ও লেভান্ট',
+    bookEn: 'The Injil (Gospel) — revealed guidance (5:46)',
+    bookBn: 'ইঞ্জিল — ওহিকৃত পথনির্দেশ (৫:৪৬)',
+  },
+  muhammad: {
+    spotlightEn: 'Muhammad ﷺ — the Seal of the Prophets, mercy to all the worlds — was born an orphan in Mecca and raised in the faith of Ibrahim. At forty, in the Cave of Hira, Jibril came with the first revelation: \u201cRead!\u201d Over 23 years he received the complete Quran, called to tawhid under persecution, led the Hijra to Medina, established a just community, and completed the message. He was taken on the Night Journey (Isra & Mi\u02bfraj) through the heavens and met his brother prophets. His abiding miracle is the Quran itself: \u201cWe have not sent you except as a mercy to all the worlds\u201d (21:107).',
+    spotlightBn: 'মুহাম্মাদ ﷺ — শেষ নবী, সমগ্র জগতের রহমত — মক্কায় এতিম হিসেবে জন্মগ্রহণ ও ইবরাহীমের বিশ্বাসে লালিত। চল্লিশে হেরা গুহায় জিবরীল প্রথম ওহি নিয়ে আসেন: "পড়ো!" ২৩ বছরে পূর্ণ কুরআন অবতীর্ণ হয়, নির্যাতনের মধ্যে তাওহিদের দাওয়াত, মদিনায় হিজরত, ন্যায় সমাজ প্রতিষ্ঠা ও বার্তা পূর্ণ। ইসরা ও মিরাজে ভ্রাতৃ নবীদের সাথে সাক্ষাৎ। তাঁর স্থায়ী মুজিযা স্বয়ং কুরআন: "তোমাকে সমগ্র জগতের জন্য রহমত হিসেবে পাঠিয়েছি।"',
+    trials: [
+      { en: 'Orphaned young and raised in poverty.', bn: 'ছোটবেলায় এতিম ও দারিদ্র্যে প্রতিপালন।' },
+      { en: 'Thirteen years of persecution in Mecca.', bn: 'মক্কায় তেরো বছরের নির্যাতন।' },
+      { en: 'The Hijra — leaving his homeland for the sake of Allah.', bn: 'হিজরত — আল্লাহর জন্য মাতৃভূমি ত্যাগ।' },
+      { en: 'Bearing the responsibility of conveying guidance to all humanity.', bn: 'সমগ্র মানবজাতির কাছে পথনির্দেশ পৌঁছানোর দায়িত্ব বহন।' },
+    ],
+    landEn: 'Mecca and Medina (Hijaz, Arabia)',
+    landBn: 'মক্কা ও মদিনা (হিজায, আরব)',
+    bookEn: 'The Quran — the final and preserved revelation (2:185)',
+    bookBn: 'কুরআন — চূড়ান্ত ও সংরক্ষিত ওহি (২:১৮৫)',
+  },
+};
+
+/**
+ * Seven cross-cutting theological themes visible across every prophet\u2019s story,
+ * from Adam to Muhammad \ufdfa. Each theme lists relevant prophet ids and key refs.
+ */
+const PROPHETS_THEMES = [
+  {
+    emoji: '\u{1f4d6}',
+    titleEn: 'Tawhid — the one universal message',
+    titleBn: 'তাওহিদ — এক সার্বজনীন বার্তা',
+    bodyEn: 'Every prophet, without exception, brought the same core call: \u201cWorship Allah alone.\u201d From Adam\u2019s first instruction to Muhammad\u2019s ﷺ final message, tawhid is the thread that binds them all. No prophet was sent to found a new religion — each renewed the one deen.',
+    bodyBn: 'ব্যতিক্রম ছাড়াই প্রত্যেক নবী একই মূল আহ্বান নিয়ে আসেন: "কেবল আল্লাহর ইবাদত করো।" আদমের প্রথম নির্দেশনা থেকে মুহাম্মাদ ﷺ-এর সর্বশেষ বার্তা পর্যন্ত তাওহিদই সকলকে একসূত্রে বাঁধে। কোনো নবীই নতুন ধর্ম প্রতিষ্ঠায় আসেননি — প্রত্যেকে একই দ্বীন নবায়ন করেছেন।',
+    refs: ['16:36', '21:25', '2:136'],
+    prophetIds: ['adam', 'nuh', 'hud', 'salih', 'ibrahim', 'lut', 'musa', 'isa', 'muhammad'],
+  },
+  {
+    emoji: '\u{1f54b}',
+    titleEn: 'Prophets as mercy — not punishment',
+    titleBn: 'নবীরা রহমত — শাস্তি নয়',
+    bodyEn: 'Prophets were sent as a mercy and a guide before any punishment fell. \u201cWe never punish until We send a messenger.\u201d The mission was always to rescue people from darkness into light, not to condemn them.',
+    bodyBn: 'শাস্তি নাজিলের আগেই নবীদের রহমত ও পথনির্দেশ হিসেবে পাঠানো হতো। "আমরা রাসূল না পাঠানো পর্যন্ত শাস্তি দিই না।" মিশন সবসময় মানুষকে অন্ধকার থেকে আলোতে বের করা, দণ্ড দেওয়া নয়।',
+    refs: ['17:15', '21:107', '14:1'],
+    prophetIds: ['nuh', 'hud', 'salih', 'shuayb', 'musa', 'muhammad'],
+  },
+  {
+    emoji: '\u{23f3}',
+    titleEn: 'Sabr — patience as the prophets\u2019 weapon',
+    titleBn: 'সবর — নবীদের অস্ত্র হিসেবে ধৈর্য',
+    bodyEn: 'The Quran specifically honours the Ulul-\u02bfAzm for their \u201cfirm resolve,\u201d and every prophet is praised for sabr. Patience in the Quran is not passive endurance — it is active, purposeful faithfulness in the face of hardship.',
+    bodyBn: 'কুরআন বিশেষভাবে উলুল-আযমকে "দৃঢ়সংকল্পের" জন্য সম্মান দেয়, এবং প্রত্যেক নবীকে সবরের জন্য প্রশংসা করা হয়। কুরআনে ধৈর্য নিষ্ক্রিয় সহ্য নয় — কষ্টের মুখে সক্রিয়, উদ্দেশ্যমূলক বিশ্বস্ততা।',
+    refs: ['46:35', '21:83-85', '39:10'],
+    prophetIds: ['nuh', 'yaqub', 'ayyub', 'yunus', 'musa', 'isa', 'muhammad'],
+  },
+  {
+    emoji: '\u{1f6aa}',
+    titleEn: 'Tawbah — the open door of repentance',
+    titleBn: 'তওবা — অনুশোচনার খোলা দরজা',
+    bodyEn: 'From Adam\u2019s prayer in the Garden to Yunus\u2019s cry in the fish, prophetic stories model sincere repentance as the path back to Allah. \u201cAnd He is the Ever-Relenting, the Most Merciful.\u201d No matter how far one falls, the door is never closed.',
+    bodyBn: 'বাগানে আদমের দোয়া থেকে মাছের পেটে ইউনুসের আহাজারি পর্যন্ত নবীদের কাহিনিগুলো সত্যিকারের তওবাকে আল্লাহর কাছে ফেরার পথ হিসেবে দেখায়। "তিনি সর্বদা ক্ষমাশীল, পরম দয়ালু।" যত দূরেই পড়ে যাও, দরজা কখনো বন্ধ হয় না।',
+    refs: ['7:23', '21:87', '28:16', '2:37'],
+    prophetIds: ['adam', 'nuh', 'yunus', 'musa', 'dawud'],
+  },
+  {
+    emoji: '\u2728',
+    titleEn: 'Miracles as divine proof — not magic',
+    titleBn: 'মুজিযা — দৈব প্রমাণ, যাদু নয়',
+    bodyEn: 'Every prophetic miracle was given by Allah, at Allah\u2019s command, as a sign (aya) for the people of that time and place. They were not tricks or performances — they confirmed the messenger\u2019s truthfulness. \u201cAnd We sent not a messenger except with clear proofs.\u201d',
+    bodyBn: 'প্রতিটি নবুয়তি মুজিযা আল্লাহর দেওয়া, আল্লাহর আদেশে, সেই সময় ও স্থানের মানুষের জন্য নিদর্শন (আয়াত)। এগুলো কৌশল বা প্রদর্শনী ছিল না — রাসূলের সত্যবাদিতা নিশ্চিত করত। "আমি স্পষ্ট প্রমাণ ছাড়া কোনো রাসূল পাঠাইনি।"',
+    refs: ['17:59', '3:49', '40:78'],
+    prophetIds: ['musa', 'isa', 'salih', 'nuh', 'ibrahim', 'sulayman'],
+  },
+  {
+    emoji: '\u{1f6ab}',
+    titleEn: 'The pattern of opposition',
+    titleBn: 'প্রতিরোধের প্যাটার্ন',
+    bodyEn: 'In every era the same pattern emerged: the powerful and the wealthy led the rejection; the humble and the poor were first to believe. The opponents always said: \u201cYou are only a man like us.\u201d Yet the truth always outlasted every palace.',
+    bodyBn: 'প্রতিটি যুগে একই প্যাটার্ন দেখা যায়: ক্ষমতাবান ও ধনীরা প্রত্যাখ্যান নেতৃত্ব দিত; বিনয়ী ও দরিদ্ররা প্রথম ঈমান আনত। বিরোধীরা সবসময় বলত: "তুমি আমাদের মতো একজন মানুষ মাত্র।" তবু সত্য সব প্রাসাদকে টিকিয়ে রেখেছে।',
+    refs: ['11:27', '7:75-76', '36:15'],
+    prophetIds: ['nuh', 'hud', 'salih', 'ibrahim', 'shuayb', 'musa', 'isa', 'muhammad'],
+  },
+  {
+    emoji: '\u{1f468}\u200d\u{1f469}\u200d\u{1f466}',
+    titleEn: 'Family trials — prophets as human beings',
+    titleBn: 'পারিবারিক পরীক্ষা — মানব হিসেবে নবীগণ',
+    bodyEn: 'Prophets were human, and their closest trials came through family. Nuh\u2019s son refused the Ark; Ibrahim\u2019s father rejected him; Lut\u2019s wife stayed behind; Ya\u02bfqub\u2019s sons deceived him. Proximity to a prophet does not guarantee guidance — only faith does.',
+    bodyBn: 'নবীরা মানুষ ছিলেন, আর তাঁদের ঘনিষ্ঠতম পরীক্ষা পরিবারের মাধ্যমে এসেছে। নূহের পুত্র নৌকায় উঠতে অস্বীকার করে; ইবরাহীমের পিতা তাঁকে প্রত্যাখ্যান করেন; লূতের স্ত্রী পিছনে থাকেন; ইয়াকুবের পুত্ররা তাঁকে প্রতারণা করে। নবীর নিকটে থাকা পথনির্দেশের নিশ্চয়তা দেয় না — কেবল ঈমানই দেয়।',
+    refs: ['11:45-46', '60:4', '12:8', '66:10'],
+    prophetIds: ['nuh', 'ibrahim', 'lut', 'yaqub', 'yusuf'],
+  },
+];
+
+/**
+ * Authentic hadith in which the Prophet \ufdfa spoke of his brother prophets.
+ * Sources: Sahih al-Bukhari and Sahih Muslim only.
+ * All translations are paraphrased glosses, not full renderings.
+ */
+const PROPHETS_HADITH = [
+  {
+    pid: 'ibrahim',
+    sourceEn: 'Sahih al-Bukhari 3394',
+    sourceBn: 'সহিহ বুখারি ৩৩৯৪',
+    glossEn: 'On the Night Journey, the Prophet \ufdfa said: \u201cI saw Ibrahim and of all people he looks most like me.\u201d',
+    glossBn: 'মিরাজের রাতে নবী \ufdfa বললেন: "আমি ইবরাহীমকে দেখলাম, সব মানুষের মধ্যে সে আমার মতো দেখতে।"',
+  },
+  {
+    pid: 'isa',
+    sourceEn: 'Sahih al-Bukhari 3442',
+    sourceBn: 'সহিহ বুখারি ৩৪৪২',
+    glossEn: '\u201cI am the nearest of all people to Isa son of Maryam in this world and the Hereafter. The prophets are brothers from different mothers; their religion is one.\u201d',
+    glossBn: '"আমি ইহকাল ও পরকালে সকল মানুষের মধ্যে মারইয়ামের পুত্র ঈসার সবচেয়ে নিকটবর্তী। নবীরা একই মায়ের ভিন্ন পুত্রের মতো ভাই; তাঁদের দ্বীন এক।"',
+  },
+  {
+    pid: 'musa',
+    sourceEn: 'Sahih Muslim 2375',
+    sourceBn: 'সহিহ মুসলিম ২৩৭৫',
+    glossEn: 'The Prophet \ufdfa said: \u201cI passed by Musa on the Night of the Journey, and he was standing praying in his grave.\u201d',
+    glossBn: 'নবী \ufdfa বললেন: "মিরাজের রাতে আমি মূসার পাশ দিয়ে গেলাম, তিনি তাঁর কবরে দাঁড়িয়ে নামাজ পড়ছিলেন।"',
+  },
+  {
+    pid: 'yusuf',
+    sourceEn: 'Sahih Muslim 162',
+    sourceBn: 'সহিহ মুসলিম ১৬২',
+    glossEn: 'On the Night Journey, the Prophet \ufdfa said of Yusuf: \u201cHe was given half of [all] beauty.\u201d',
+    glossBn: 'মিরাজের রাতে নবী \ufdfa ইউসুফ সম্পর্কে বললেন: "তাকে [সকল] সৌন্দর্যের অর্ধেক দেওয়া হয়েছে।"',
+  },
+  {
+    pid: 'dawud',
+    sourceEn: 'Sahih al-Bukhari 1131',
+    sourceBn: 'সহিহ বুখারি ১১৩১',
+    glossEn: '\u201cThe most beloved fasting to Allah is the fasting of Dawud: he fasted every other day. The most beloved night prayer to Allah is the prayer of Dawud: he slept half the night, prayed a third, then slept a sixth.\u201d',
+    glossBn: '"আল্লাহর কাছে সবচেয়ে প্রিয় রোজা হলো দাউদের রোজা: তিনি একদিন পর পর রোজা রাখতেন। আল্লাহর কাছে সবচেয়ে প্রিয় রাত্রির নামাজ হলো দাউদের নামাজ: তিনি অর্ধরাত ঘুমাতেন, এক-তৃতীয়াংশ নামাজ পড়তেন, পরে এক-ষষ্ঠাংশ ঘুমাতেন।"',
+  },
+  {
+    pid: 'sulayman',
+    sourceEn: 'Sahih al-Bukhari 1189',
+    sourceBn: 'সহিহ বুখারি ১১৮৯',
+    glossEn: 'The Prophet \ufdfa mentioned Sulayman\u2019s du\u02bca for a kingdom granted to no one after him, saying: \u201cSulayman asked for three things; he was granted two and I hope [the third] was also granted.\u201d',
+    glossBn: 'নবী \ufdfa সুলাইমানের সেই দোয়ার কথা উল্লেখ করেন যেখানে তিনি অতুলনীয় রাজত্ব চেয়েছিলেন। বললেন: "সুলাইমান তিনটি জিনিস চেয়েছিলেন; দুটি পেয়েছিলেন এবং আশা করি [তৃতীয়টিও] পেয়েছিলেন।"',
+  },
+  {
+    pid: 'nuh',
+    sourceEn: 'Sahih al-Bukhari 4712',
+    sourceBn: 'সহিহ বুখারি ৪৭১২',
+    glossEn: 'In the hadith of intercession, Nuh is described as the first rasul Allah sent to the people of the earth — and on the Day of Judgment people will come to him seeking his intercession.',
+    glossBn: 'শাফাআতের হাদিসে নূহকে আল্লাহর পাঠানো পৃথিবীর প্রথম রাসূল হিসেবে বর্ণনা করা হয় — কিয়ামতের দিন মানুষ তাঁর কাছে শাফাআত চাইতে আসবে।',
+  },
+  {
+    pid: 'ayyub',
+    sourceEn: 'Sahih al-Bukhari 5645',
+    sourceBn: 'সহিহ বুখারি ৫৬৪৫',
+    glossEn: '\u201cThe most severely tested of people are the prophets, then those most like them, then the next.\u201d (Ayyub\u2019s trial is cited as the supreme example of patient endurance.)',
+    glossBn: '"মানুষের মধ্যে সবচেয়ে কঠিন পরীক্ষায় পড়েন নবীরা, তারপর যারা তাদের মতো, তারপর পরের স্তর।" (আইয়ুবের পরীক্ষা ধৈর্যশীল সহনশীলতার সর্বোচ্চ উদাহরণ হিসেবে উদ্ধৃত।)',
+  },
+  {
+    pid: 'yunus',
+    sourceEn: 'Sunan al-Tirmidhi 3505 (hasan sahih)',
+    sourceBn: 'সুনান আত-তিরমিযি ৩৫০৫ (হাসান সহিহ)',
+    glossEn: '\u201cWhoever is afflicted with grief or sorrow and says [the du\u02bca of Yunus: La ilaha illa anta, subhanaka, inni kuntu min al-zalimin], Allah will relieve him of his grief and sorrow.\u201d',
+    glossBn: '"যে ব্যক্তি দুঃখ বা কষ্টে পড়ে [ইউনুসের দোয়া: লা ইলাহা ইল্লা আনতা সুবহানাকা ইন্নি কুনতু মিনায-যালিমিন] পড়ে, আল্লাহ তার দুঃখ ও কষ্ট দূর করবেন।"',
+  },
+  {
+    pid: 'adam',
+    sourceEn: 'Sahih al-Bukhari 6227',
+    sourceBn: 'সহিহ বুখারি ৬২২৭',
+    glossEn: '\u201cAllah created Adam sixty cubits [in height]. Whoever enters Paradise will be in the form of Adam.\u201d (A reminder of the honour Allah placed in the human form from its very first creation.)',
+    glossBn: '"আল্লাহ আদমকে সৃষ্টি করেছেন ষাট হাত উচ্চতায়। যে জান্নাতে প্রবেশ করবে সে আদমের আকৃতিতে থাকবে।" (আল্লাহ প্রথম সৃষ্টি থেকেই মানব রূপে যে সম্মান রেখেছেন তার স্মারক।)',
+  },
+];
+
+
+/**
  * Cross-cutting themes shared by all the prophets — the single message of tawhid,
  * patience under trial, the covenant taken from the prophets, and belief in all
  * of them as an article of faith. All refs verified against SURAH_DATA.
@@ -528,6 +982,27 @@ const COMMON_THREADS = [
     bodyEn: 'A Muslim believes in every one of Allah’s prophets without distinction. "We make no distinction between any of His messengers." Rejecting even one is rejecting the chain of guidance.',
     bodyBn: 'একজন মুসলিম আল্লাহর প্রত্যেক নবীতে কোনো পার্থক্য ছাড়া বিশ্বাস করে। "আমরা তাঁর রাসূলদের কারও মধ্যে পার্থক্য করি না।" একজনকেও অস্বীকার করা হলো পথনির্দেশের ধারাকেই অস্বীকার করা।',
     refs: ['2:285', '2:136'],
+  },
+  {
+    emoji: '\u{1f6ab}',
+    titleEn: 'The pattern of rejection', titleBn: 'প্রত্যাখ্যানের প্যাটার্ন',
+    bodyEn: 'In every era, the powerful and wealthy led the rejection while the humble were first to believe. The opponents always said: "You are only a man like us; if Allah had willed He would have sent an angel." Truth always outlasted the palaces of those who denied it.',
+    bodyBn: 'প্রতিটি যুগে ক্ষমতাবান ও ধনীরা প্রত্যাখ্যানের নেতৃত্ব দিত, আর বিনয়ীরা প্রথম ঈমান আনত। বিরোধীরা সবসময় বলত: "তুমি আমাদের মতো মানুষ মাত্র।" সত্য সব প্রাসাদকে টিকিয়ে রেখেছে।',
+    refs: ['11:27', '7:75-76'],
+  },
+  {
+    emoji: '\u{1f468}\u200d\u{1f469}\u200d\u{1f466}',
+    titleEn: 'Family trials of the prophets', titleBn: 'নবীদের পারিবারিক পরীক্ষা',
+    bodyEn: 'Even the closest family members of prophets were tested. Nuh\u02bcs son refused the Ark; Ibrahim\u02bcs father rejected him; Lut\u02bcs wife stayed behind; Ya\u02bfqub lost Yusuf to his sons\u02bc jealousy. Nearness to a prophet does not guarantee guidance — only faith does.',
+    bodyBn: 'নবীদের ঘনিষ্ঠ পরিজনও পরীক্ষিত হয়েছেন। নূহের পুত্র নৌকায় উঠতে অস্বীকার করে; ইবরাহীমের পিতা তাঁকে প্রত্যাখ্যান করেন; লূতের স্ত্রী পিছনে থাকেন; ইয়াকুব পুত্রদের ঈর্ষায় ইউসুফকে হারান। নবীর নিকটে থাকা পথনির্দেশের নিশ্চয়তা দেয় না।',
+    refs: ['11:45-46', '60:4'],
+  },
+  {
+    emoji: '\u2705',
+    titleEn: 'The victory of truth', titleBn: 'সত্যের বিজয়',
+    bodyEn: 'In every prophetic story, truth ultimately prevails. The lofty palaces of those who denied are gone; the names of the prophets are still recited in prayer and praise until this day. "Allah will surely help those who help His cause; indeed Allah is Powerful and Mighty." (22:40)',
+    bodyBn: 'প্রতিটি নবুয়তি কাহিনিতে সত্য শেষ পর্যন্ত জয়ী হয়। অস্বীকারকারীদের সুউচ্চ প্রাসাদ অদৃশ্য; নবীদের নাম আজও দোয়া ও প্রশংসায় উচ্চারিত। "আল্লাহ অবশ্যই তাদের সাহায্য করবেন যারা তাঁর পথে সাহায্য করে; নিশ্চয়ই আল্লাহ শক্তিশালী ও পরাক্রমশালী।" (২২:৪০)',
+    refs: ['22:40', '40:51'],
   },
 ];
 
@@ -582,6 +1057,21 @@ const PROPHETS_DUAS = [
   { pid: 'muhammad', ref: '20:114',
     glossEn: '"My Lord, increase me in knowledge." (Rabbi zidni ilma)',
     glossBn: '"হে আমার প্রভু, আমার জ্ঞান বৃদ্ধি করুন।" (রব্বি যিদনি ইলমা)' },
+  { pid: 'lut', ref: '26:169',
+    glossEn: '"My Lord, save me and my family from what they do."',
+    glossBn: '"হে আমার প্রভু, আমাকে ও আমার পরিবারকে তারা যা করে তা থেকে রক্ষা করুন।"' },
+  { pid: 'ibrahim', ref: '14:35',
+    glossEn: '"My Lord, make this city secure and keep me and my sons from worshipping idols."',
+    glossBn: '"হে আমার প্রভু, এই শহরকে নিরাপদ করুন এবং আমাকে ও আমার পুত্রদের মূর্তিপূজা থেকে দূরে রাখুন।"' },
+  { pid: 'musa', ref: '7:155',
+    glossEn: '"My Lord, if You had willed, You could have destroyed them before and me as well. Will You destroy us for what the foolish among us have done? This is only Your trial: You misguide by it whom You will and guide whom You will. You are our Protector, so forgive us and have mercy on us — You are the best of forgivers."',
+    glossBn: '"হে আমার প্রভু, ইচ্ছা করলে আপনি আগেই তাদের ও আমাকে ধ্বংস করতে পারতেন। আমাদের মধ্যকার নির্বোধদের কাজের জন্য কি আপনি আমাদের ধ্বংস করবেন? এটি কেবল আপনার পরীক্ষা। আপনিই আমাদের অভিভাবক — ক্ষমা করুন ও রহম করুন, আপনিই সর্বোত্তম ক্ষমাকারী।"' },
+  { pid: 'dawud', ref: '38:24',
+    glossEn: '"My Lord, forgive me." (Dawud\u02bcs repentance after recognising the parable in the dispute brought to him.)',
+    glossBn: '"হে আমার প্রভু, আমাকে ক্ষমা করুন।" (তাঁর কাছে উপস্থাপিত বিবাদে দৃষ্টান্ত বুঝতে পেরে দাউদের তওবা।)' },
+  { pid: 'isa', ref: '5:114',
+    glossEn: '"O Allah, our Lord, send down to us a table [spread with food] from the sky to be a festival for us — for the first and last of us — and a sign from You. Provide for us; You are the best of providers."',
+    glossBn: '"হে আল্লাহ, আমাদের প্রভু, আমাদের জন্য আকাশ থেকে একটি দস্তরখান নাযিল করুন যা আমাদের — আমাদের আগের ও পরের সবার — জন্য উৎসব হবে এবং আপনার পক্ষ থেকে নিদর্শন। আমাদের রিজিক দিন, আপনিই সর্বোত্তম রিজিকদাতা।"' },
 ];
 
 /**
@@ -713,6 +1203,13 @@ const PROPHETS_UI = {
   prophets_era_ibrahim: { en: 'Age of Ibrahim & his line', bn: 'ইবরাহিম ও তাঁর বংশধারার যুগ' },
   prophets_era_bani: { en: 'Bani Israil', bn: 'বনী ইসরাঈল' },
   prophets_era_final: { en: 'The Final Messenger', bn: 'সর্বশেষ রাসূল' },
+  prophets_label_trials: { en: 'Key Trials', bn: 'গুরুত্বপূর্ণ পরীক্ষাসমূহ' },
+  prophets_label_land: { en: 'Land & Region', bn: 'ভূমি ও অঞ্চল' },
+  prophets_label_book: { en: 'Scripture Given', bn: 'প্রদত্ত কিতাব' },
+  prophets_themes_title: { en: 'Cross-Prophet Themes', bn: 'নবীদের অনুসরণে বিষয়াবলি' },
+  prophets_themes_intro: { en: 'Seven recurring threads that run through every prophet’s story, from Adam to Muhammad ﷺ.', bn: 'আদম থেকে মুহাম্মাদ ࿟a-এর প্রত্যেক নবীর কাহিনিতে সাতটি পুনরাবৃত্তিমূলক সূত্র।' },
+  prophets_hadith_title: { en: 'The Prophets in Hadith', bn: 'হাদিসে নবীগণ' },
+  prophets_hadith_intro: { en: 'Authentic reports in which the Prophet ﷺ spoke of his brother prophets — from Sahih al-Bukhari and Sahih Muslim.', bn: 'বিশুদ্ধ বর্ণনা যেখানে নবী ࿟a ভ্রাতৃ নবীদের সম্পর্কে কথা বলেছেন — সহিহ বুখারি ও সহিহ মুসলিম থেকে।' },
 };
 
 class ProphetsView {
@@ -751,7 +1248,14 @@ class ProphetsView {
   tt(key) {
     try { const v = t(key, this.language); if (v && v !== key) return v; } catch (_) { /* ignore */ }
     const e = PROPHETS_UI[key];
-    if (e) return this.language === 'bn' ? (e.bn || e.en) : e.en;
+    if (e) {
+      if (this.language && e[this.language]) return e[this.language];
+      if (this.language === 'bn') return e.bn || e.en;
+      if (this.language && this.language !== 'en' && typeof CI18N !== 'undefined' && e.en) {
+        const tr = CI18N.tr(this.language, e.en); if (tr) return tr;
+      }
+      return e.en;
+    }
     return key;
   }
   esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
@@ -918,6 +1422,8 @@ class ProphetsView {
 
         ${this.threadsHtml()}
         ${this.duasHtml()}
+        ${this.prophetsThemesHtml()}
+        ${this.hadithHtml()}
         ${this.lineageHtml()}
         ${this.compareHtml()}
         ${this.mentionsHtml()}
@@ -1516,6 +2022,7 @@ class ProphetsView {
     const isRead = this.read.has(p.id);
     const el = this.container ? this.container.querySelector('.prophet-detail-' + p.id) : null;
     if (!el) return;
+    const _depth = (typeof PROPHETS_DEPTH !== 'undefined' && PROPHETS_DEPTH) ? (PROPHETS_DEPTH[p.id] || {}) : {};
 
     const events = Array.isArray(p.events) ? p.events : [];
     const eventsHtml = events.length ? `
@@ -1526,15 +2033,29 @@ class ProphetsView {
         </ul>
       </div>` : '';
 
-    const spotlight = this.loc(p, 'spotlight');
+
+    const _trials = Array.isArray(_depth.trials) ? _depth.trials : [];
+    const trialsHtml = _trials.length ? `
+      <div class="mb-4">
+        <h3 class="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-1.5">\u2696\ufe0f ${this.esc(this.tt('prophets_label_trials'))}</h3>
+        <ul class="space-y-1.5">
+          ${_trials.map(tr => `<li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 mt-0.5 shrink-0" aria-hidden="true">\u25b8</span><span class="flex-1">${this.esc(this.lc(tr))}</span></li>`).join('')}
+        </ul>
+      </div>` : '';
+
+    const _land = this.lc({en: _depth.landEn, bn: _depth.landBn});
+    const _book = this.lc({en: _depth.bookEn, bn: _depth.bookBn});
+    const landCellHtml = _land ? `<div class="p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/40"><div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold">${this.esc(this.tt('prophets_label_land'))}</div><div class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(_land)}</div></div>` : '';
+    const bookCellHtml = _book ? `<div class="p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/40"><div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold">${this.esc(this.tt('prophets_label_book'))}</div><div class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(_book)}</div></div>` : '';
+    const spotlight = this.loc(p, 'spotlight') || this.lc({en: _depth.spotlightEn, bn: _depth.spotlightBn});
     const spotlightHtml = spotlight ? `
       <div class="mb-4 p-3.5 rounded-xl bg-primary/5 border border-primary/20">
         <h3 class="text-sm font-bold text-primary mb-1.5 flex items-center gap-1.5">✧ ${this.esc(this.tt('prophets_label_spotlight'))}</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed" dir="auto">${this.esc(spotlight)}</p>
       </div>` : '';
 
-    const sign = this.loc(p, 'sign');
-    const signRefs = Array.isArray(p.signRefs) ? p.signRefs : [];
+    const sign = this.loc(p, 'sign') || this.lc({en: _depth.signEn, bn: _depth.signBn});
+    const signRefs = (Array.isArray(p.signRefs) && p.signRefs.length) ? p.signRefs : (Array.isArray(_depth.signRefs) ? _depth.signRefs : []);
     const signHtml = sign ? `
       <div class="mb-4 p-3.5 rounded-xl bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-900/40">
         <h3 class="text-sm font-bold text-teal-700 dark:text-teal-300 mb-1.5 flex items-center gap-1.5">✦ ${this.esc(this.tt('prophets_label_sign'))}</h3>
@@ -1568,26 +2089,16 @@ class ProphetsView {
             class="absolute top-3 end-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/80 dark:bg-gray-800/80 text-gray-500 hover:text-primary hover:bg-white dark:hover:bg-gray-700 shadow-sm transition-colors z-10" title="Close">
             ✕
           </button>
-          <span class="absolute top-12 end-3 text-primary/20">${this.starAccent('w-12 h-12')}</span>
-          <div class="flex items-center gap-2 mb-1">
+          <div class="flex items-center gap-2">
             <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/15 text-primary text-xs font-bold" aria-hidden="true">${p.order}</span>
             <span class="text-xs text-gray-400 dark:text-gray-500">#${p.order} ${this.esc(this.tt('prophets_of'))} ${PROPHETS_DATA.length}</span>
           </div>
-          <div class="text-4xl font-arabic text-primary mb-1" dir="rtl" lang="ar">${this.esc(p.ar)}</div>
-          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">${this.esc(p.translit)} <span class="text-gray-400 dark:text-gray-500 font-normal text-base">— ${this.esc(this.lc(p))}</span></h2>
-          <div class="flex flex-wrap gap-1.5 mt-2">${this.badges(p, false)}</div>
         </div>
 
         <div class="p-5">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-            <div class="p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/40">
-              <div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold">${this.esc(this.tt('prophets_label_nation'))}</div>
-              <div class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(this.loc(p, 'nation'))}</div>
-            </div>
-            <div class="p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/40">
-              <div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold">${this.esc(this.tt('prophets_label_era'))}</div>
-              <div class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(this.loc(p, 'era'))}</div>
-            </div>
+          <div class="mb-4 p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/40 inline-block">
+            <div class="text-[0.65rem] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-semibold">${this.esc(this.tt('prophets_label_era'))}</div>
+            <div class="text-sm text-gray-700 dark:text-gray-200" dir="auto">${this.esc(this.loc(p, 'era'))}</div>
           </div>
 
           <div class="mb-4">
@@ -1597,6 +2108,8 @@ class ProphetsView {
 
           ${spotlightHtml}
           ${eventsHtml}
+          ${trialsHtml}
+          ${_land || _book ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">${landCellHtml}${bookCellHtml}</div>` : ''}
           ${signHtml}
           ${refsHtml}
           ${this.whereHtml(p)}
@@ -1740,6 +2253,49 @@ class ProphetsView {
         tabSystem.switchTab('seerah');
       }
     } catch (_) { /* ignore */ }
+  }
+
+  prophetsThemesHtml() {
+    if (typeof PROPHETS_THEMES === 'undefined' || !PROPHETS_THEMES || !PROPHETS_THEMES.length) return '';
+    return `
+      <div class="mt-8">
+        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">\u{1f9f5} ${this.esc(this.tt('prophets_themes_title'))}</h3>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('prophets_themes_intro'))}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          ${PROPHETS_THEMES.map(th => `
+            <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-lg" aria-hidden="true">${th.emoji}</span>
+                <span class="font-bold text-gray-800 dark:text-gray-100 text-sm">${this.esc(this.lc({en: th.titleEn, bn: th.titleBn}))}</span>
+              </div>
+              <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-2" dir="auto">${this.esc(this.lc({en: th.bodyEn, bn: th.bodyBn}))}</p>
+              <div class="flex flex-wrap gap-1.5">
+                ${(th.refs || []).map(r => `<button type="button" data-prophets-ayah="${this.esc(this.openRef(r))}"
+                  class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[0.7rem] font-medium hover:bg-primary hover:text-white transition-colors" dir="auto">\u{1f4d6} ${this.esc(this.refLabel(r))}</button>`).join('')}
+              </div>
+              ${(th.prophetIds || []).length ? `<div class="flex flex-wrap gap-1 mt-2">${(th.prophetIds).map(id => `<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[0.6rem] font-medium">${this.esc(this.pname(id))}</span>`).join('')}</div>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  hadithHtml() {
+    if (typeof PROPHETS_HADITH === 'undefined' || !PROPHETS_HADITH || !PROPHETS_HADITH.length) return '';
+    return `
+      <div class="mt-8">
+        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">\u{1f4dc} ${this.esc(this.tt('prophets_hadith_title'))}</h3>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3" dir="auto">${this.esc(this.tt('prophets_hadith_intro'))}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          ${PROPHETS_HADITH.map(h => `
+            <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex flex-col gap-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold text-gray-800 dark:text-gray-100 text-sm">${this.esc(this.pname(h.pid))}</span>
+                <span class="text-[0.65rem] text-gray-400 dark:text-gray-500 whitespace-nowrap" dir="auto">${this.esc(this.lc({en: h.sourceEn, bn: h.sourceBn}))}</span>
+              </div>
+              <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed italic" dir="auto">${this.esc(this.lc({en: h.glossEn, bn: h.glossBn}))}</p>
+            </div>`).join('')}
+        </div>
+      </div>`;
   }
 }
 
