@@ -12,35 +12,37 @@
  */
 
 const APP_NAV_PRIMARY = [
-  // Pinned to the top of the sidebar (per request): Similar Verses + Memorize.
-  { id: 'mutashabihat', emoji: '🪞', label: 'mutashabihat_title', tab: 'mutashabihat' },
   { id: 'memorize', emoji: '🎙️', label: 'memorize', modes: [
       { mode: 'speech', emoji: '🎙️', label: 'mem_mode_speech' },
       { mode: 'typing', emoji: '⌨️', label: 'mem_mode_typing' },
       { mode: 'arrange', emoji: '🔀', label: 'mem_mode_arrange' },
       { mode: 'record', emoji: '🔴', label: 'mem_mode_record' }
     ] },
-  { id: 'subject', emoji: '📖', label: 'nav_subject', drill: 'legacy' },
-  { id: 'topics', emoji: '🗂️', label: 'topics_title', tab: 'topics' },
-  { id: 'wordrepeat', emoji: '🔁', label: 'wr_title', tab: 'wordrepeat' },
-  { id: 'sarf', emoji: '🧬', label: 'sarf_title', tab: 'sarf' },
-  { id: 'amal', emoji: '📿', label: 'amal_title', tab: 'amal' },
-  { id: 'khatmah', emoji: '📅', label: 'khatmah_title', tab: 'khatmah' },
-  { id: 'learn', emoji: '🎓', label: 'learn', children: [
-      { module: 'kids',        emoji: '🧒', label: 'learn_kids_title' },
-      { module: 'vocab',       emoji: '📚', label: 'learn_vocab_title' },
-      { module: 'names',       emoji: '✨', label: 'learn_names_title' },
-      { module: 'handwriting', emoji: '✍️', label: 'hw_title' },
-      { tab: 'tajweedlearn', emoji: '🎨', label: 'tj_learn_title' },
-      { tab: 'quranicarabic', emoji: '🔤', label: 'qa_title' }
+  { id: 'quran', emoji: '📖', label: 'nav_quran', children: [
+      { tab: 'mushaf', emoji: '📗', label: 'mushaf' },
+      { tab: 'subject', emoji: '📖', label: 'nav_subject', drill: 'legacy' },
+      { tab: 'topics', emoji: '🗂️', label: 'topics_title' },
+      { tab: 'mutashabihat', emoji: '🪞', label: 'mutashabihat_title' },
+      { tab: 'wordrepeat', emoji: '🔁', label: 'wr_title' },
+      { tab: 'sarf', emoji: '🧬', label: 'sarf_title' },
+      { tab: 'nuzul', emoji: '🌅', label: 'nuzul_title' },
+      { tab: 'quiz', emoji: '❓', label: 'quiz' },
+      { tab: 'audio', emoji: '🎧', label: 'audio' },
+      { tab: 'khatmah', emoji: '📅', label: 'khatmah_title' },
+      { id: 'learn', emoji: '🎓', label: 'learn', children: [
+          { module: 'kids',        emoji: '🧒', label: 'learn_kids_title' },
+          { module: 'vocab',       emoji: '📚', label: 'learn_vocab_title' },
+          { module: 'handwriting', emoji: '✍️', label: 'hw_title' },
+          { tab: 'tajweedlearn', emoji: '🎨', label: 'tj_learn_title' },
+          { tab: 'quranicarabic', emoji: '🔤', label: 'qa_title' }
+        ] }
     ] },
-  { id: 'quiz',   emoji: '❓', label: 'quiz_center_title', tab: 'quiz' },
-  { id: 'audio',  emoji: '🎧', label: 'audio',  tab: 'audio' },
-  { id: 'mushaf', emoji: '📗', label: 'mushaf', tab: 'mushaf' },
+  { id: 'names', emoji: '✨', label: 'learn_names_title', learnModule: 'names' },
+  { id: 'amal', emoji: '📿', label: 'amal_title', tab: 'amal' },
+  { id: 'salah', emoji: '🕌', label: 'learn_salah_title', learnModule: 'salah' },
   { id: 'anbiya', emoji: '🕋', label: 'group_prophets', children: [
       { tab: 'prophets', emoji: '📜', label: 'prophets_title' },
-      { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' },
-      { tab: 'nuzul',    emoji: '🌅', label: 'nuzul_title' }
+      { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' }
     ] },
   { id: 'whyislam', emoji: '💡', label: 'whyislam_title', tab: 'whyislam' },
   { id: 'resources', emoji: '🔗', label: 'resources_title', tab: 'resources' }
@@ -150,11 +152,15 @@ class AppNav {
     }
   }
 
-  renderChildren(primary) {
+  renderChildren(primary, parentPrimary) {
     if (this.legacyWrap) this.legacyWrap.classList.add('hidden');
     this.root.classList.remove('hidden');
+    this._childParent = parentPrimary || null;
     const items = primary.children
-      ? primary.children.map(c => ({ key: c.module || c.tab, kind: c.tab ? 'tab' : 'module', emoji: c.emoji, label: c.label }))
+      ? primary.children.map(c => {
+          const hasSub = c.children || c.modes;
+          return { ...c, key: hasSub ? c.id : (c.module || c.tab), kind: hasSub ? 'children' : (c.tab ? 'tab' : 'module') };
+        })
       : primary.modes.map(m => ({ key: m.mode, kind: 'mode', emoji: m.emoji, label: m.label }));
     this.root.innerHTML = `
       <button data-nav-back class="w-full flex items-center gap-2 px-3 py-2 mb-2 rounded-lg text-sm font-semibold text-gray-200 hover:bg-white/10 hover:text-white">
@@ -166,17 +172,32 @@ class AppNav {
       ${items.map(it => {
         const active = (it.kind === 'mode' && this.activeTab === 'memorize' && this.memMode === it.key);
         return `
-        <button data-child="${it.key}" data-kind="${it.kind}" class="${this.itemClass(active)}">
+        <button data-child="${it.key}" data-kind="${it.kind}" data-drill="${it.drill || ''}" class="${this.itemClass(active)}">
           <span class="text-lg leading-none">${it.emoji}</span>
           <span class="flex-1">${this.tt(it.label)}</span>
+          ${it.children || it.modes ? '<span class="text-gray-400">›</span>' : ''}
         </button>`;
       }).join('')}
     `;
-    this.root.querySelector('[data-nav-back]').addEventListener('click', () => this.showPrimary());
+    this.root.querySelector('[data-nav-back]').addEventListener('click', () => {
+      if (this._childParent) { this.renderChildren(this._childParent); }
+      else { this.showPrimary(); }
+    });
     this.root.querySelectorAll('[data-child]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const key = btn.getAttribute('data-child');
+        const drill = btn.getAttribute('data-drill');
+        if (drill === 'legacy') { this.showLegacy(); this.closeSidebarMobile(); return; }
         const kind = btn.getAttribute('data-kind');
+        if (kind === 'children') {
+          const key = btn.getAttribute('data-child');
+          const child = primary.children ? primary.children.find(c => c.id === key) : null;
+          if (child) {
+            this.childGroup = child.id;
+            this.renderChildren(child, primary);
+          }
+          return;
+        }
+        const key = btn.getAttribute('data-child');
         if (kind === 'mode') this.openMemMode(key);
         else if (kind === 'tab') { this.switchTab(key); this.closeSidebarMobile(); }
         else this.openLearnModule(key);
@@ -200,6 +221,7 @@ class AppNav {
     if (p.drill === 'legacy') return this.showLegacy();
     if (p.children) { this.view = 'children'; this.childGroup = p.id; return this.renderChildren(p); }
     if (p.modes) { this.view = 'memorize'; return this.renderChildren(p); }
+    if (p.learnModule) { this.openLearnModule(p.learnModule); return; }
     if (p.tab) { this.switchTab(p.tab); this.closeSidebarMobile(); }
   }
 

@@ -532,15 +532,15 @@ class TopicsBrowser {
  * wins and this map is bypassed. en + bn cover the app's primary languages.
  */
 TopicsBrowser.L = {
-  topics_random:      { en: 'Random', bn: 'এলোমেলো' },
-  topics_collections: { en: 'Collections', bn: 'সংকলন' },
-  topics_favourites:  { en: 'Favourites', bn: 'পছন্দের তালিকা' },
-  topics_recent:      { en: 'Recently viewed', bn: 'সম্প্রতি দেখা' },
-  topics_az_index:    { en: 'A–Z index', bn: 'বর্ণানুক্রমিক তালিকা' },
-  topics_fav:         { en: 'Add to favourites', bn: 'পছন্দে যোগ করুন' },
-  topics_unfav:       { en: 'Remove from favourites', bn: 'পছন্দ থেকে সরান' },
-  topics_sort_az:     { en: 'A–Z', bn: 'ক-হ' },
-  topics_sort_count:  { en: 'Verses', bn: 'আয়াত' }
+  topics_random:      { en: 'Random', bn: 'এলোমেলো', zh: '随机', ja: 'ランダム'},
+  topics_collections: { en: 'Collections', bn: 'সংকলন', zh: '合集', ja: 'コレクション'},
+  topics_favourites:  { en: 'Favourites', bn: 'পছন্দের তালিকা', zh: '收藏', ja: 'お気に入り'},
+  topics_recent:      { en: 'Recently viewed', bn: 'সম্প্রতি দেখা', zh: '最近浏览', ja: '最近見た'},
+  topics_az_index:    { en: 'A–Z index', bn: 'বর্ণানুক্রমিক তালিকা', zh: '字母索引', ja: 'アルファベット順索引'},
+  topics_fav:         { en: 'Add to favourites', bn: 'পছন্দে যোগ করুন', zh: '加入收藏', ja: 'お気に入りに追加'},
+  topics_unfav:       { en: 'Remove from favourites', bn: 'পছন্দ থেকে সরান', zh: '从收藏中移除', ja: 'お気に入りから削除'},
+  topics_sort_az:     { en: 'A–Z', bn: 'ক-হ', zh: 'A–Z', ja: 'A–Z'},
+  topics_sort_count:  { en: 'Verses', bn: 'আয়াত', zh: '节文', ja: '節'}
 };
 
 let topicsBrowser;

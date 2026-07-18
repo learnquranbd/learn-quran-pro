@@ -33,8 +33,7 @@ class AccountSync {
       ? FIREBASE_CONFIG : null;
     if (!this.config) return;
 
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return; // DOM hook missing — bail like other modules
+    if (!document.getElementById('header-quick-actions')) return;
 
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
     this.user = null;
@@ -45,12 +44,12 @@ class AccountSync {
     this._applyingRemote = false;
     this._open = false;
 
-    this.init(themeToggle);
+    this.init();
   }
 
   /* ------------------------------------------------------------ bootstrap */
 
-  async init(themeToggle) {
+  async init() {
     try {
       await this.loadFirebase();
     } catch (err) {
@@ -67,7 +66,7 @@ class AccountSync {
       return;
     }
 
-    this.injectButton(themeToggle);
+    this.injectButton();
 
     window.addEventListener('settingChanged', (e) => {
       if (e.detail.key === 'language') this.language = e.detail.value;
@@ -117,7 +116,7 @@ class AccountSync {
 
   /* ------------------------------------------------------------ UI */
 
-  injectButton(themeToggle) {
+  injectButton() {
     this.wrap = document.createElement('div');
     this.wrap.className = 'relative';
 
@@ -135,7 +134,8 @@ class AccountSync {
     this.panel.style.insetInlineEnd = '0';
     this.wrap.appendChild(this.panel);
 
-    themeToggle.parentElement.appendChild(this.wrap);
+    const container = document.getElementById('header-quick-actions');
+    if (container) container.appendChild(this.wrap);
     this.renderButton();
 
     this.btn.addEventListener('click', () => (this._open ? this.close() : this.open()));
@@ -416,8 +416,7 @@ const PROGRESS_KEY_PREFIXES = [
 class ProgressDashboard {
   constructor() {
     if (typeof document === 'undefined') return;
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return; // DOM hook missing — bail like other modules
+    if (!document.getElementById('header-quick-actions')) return;
 
     this.lang = (typeof appSettings !== 'undefined' && appSettings) ? appSettings.get('language') : 'en';
     this._open = false;
@@ -425,7 +424,7 @@ class ProgressDashboard {
     this._msg = null;           // transient status message { text, tone }
     this._msgTimer = null;
 
-    this.inject(themeToggle);
+    this.inject();
 
     window.addEventListener('settingChanged', (e) => {
       if (e && e.detail && e.detail.key === 'language') {
@@ -588,7 +587,7 @@ class ProgressDashboard {
   }
 
   /* ------------------------------------------------------------ UI shell */
-  inject(themeToggle) {
+  inject() {
     this.wrap = document.createElement('div');
     this.wrap.className = 'relative';
 
@@ -616,7 +615,8 @@ class ProgressDashboard {
     this.fileInput.addEventListener('change', (e) => this.onFileChosen(e));
     this.wrap.appendChild(this.fileInput);
 
-    themeToggle.parentElement.appendChild(this.wrap);
+    const container = document.getElementById('header-quick-actions');
+    if (container) container.appendChild(this.wrap);
 
     this.btn.addEventListener('click', () => (this._open ? this.close() : this.open()));
     document.addEventListener('click', (e) => {

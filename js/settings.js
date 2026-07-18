@@ -171,60 +171,19 @@ class Settings {
     document.documentElement.style.fontSize = (scale * 100) + '%';
     document.documentElement.style.setProperty('--font-scale', 1);
 
-    // Update display if exists
-    const display = document.getElementById('font-size-display');
-    if (display) {
-      display.textContent = `${this.settings.fontSize}%`;
-    }
+    // Font size is now controlled via the settings drawer (gear icon)
   }
 
   /**
    * Setup event listeners for settings controls
    */
   setupEventListeners() {
-    // Theme toggle button
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const currentTheme = this.settings.theme;
-        const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
-        this.set('theme', newTheme);
-      });
-    }
-
-    // Theme select
-    const themeSelect = document.getElementById('theme-select');
-    if (themeSelect) {
-      themeSelect.value = this.settings.theme;
-      themeSelect.addEventListener('change', (e) => {
-        this.set('theme', e.target.value);
-      });
-    }
-
     // Language select
     const langSelect = document.getElementById('language-select');
     if (langSelect) {
       langSelect.value = this.settings.language;
       langSelect.addEventListener('change', (e) => {
         this.set('language', e.target.value);
-      });
-    }
-
-    // Font size controls
-    const fontIncrease = document.getElementById('font-increase');
-    const fontDecrease = document.getElementById('font-decrease');
-
-    if (fontIncrease) {
-      fontIncrease.addEventListener('click', () => {
-        const newSize = Math.min(200, this.settings.fontSize + 10);
-        this.set('fontSize', newSize);
-      });
-    }
-
-    if (fontDecrease) {
-      fontDecrease.addEventListener('click', () => {
-        const newSize = Math.max(70, this.settings.fontSize - 10);
-        this.set('fontSize', newSize);
       });
     }
 

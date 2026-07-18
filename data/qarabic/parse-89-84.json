@@ -1,0 +1,3372 @@
+{
+ "units": [
+  {
+   "id": "read-89",
+   "icon": "📖",
+   "en": "Reading Surah al-Fajr (89)",
+   "bn": "সূরা আল-ফাজর (৮৯) পড়া",
+   "order": 47
+  },
+  {
+   "id": "read-88",
+   "icon": "📖",
+   "en": "Reading Surah al-Ghashiyah (88)",
+   "bn": "সূরা আল-গাশিয়াহ (৮৮) পড়া",
+   "order": 48
+  },
+  {
+   "id": "read-87",
+   "icon": "📖",
+   "en": "Reading Surah al-A'la (87)",
+   "bn": "সূরা আল-আ'লা (৮৭) পড়া",
+   "order": 49
+  },
+  {
+   "id": "read-86",
+   "icon": "📖",
+   "en": "Reading Surah at-Tariq (86)",
+   "bn": "সূরা আত-তারিক (৮৬) পড়া",
+   "order": 50
+  },
+  {
+   "id": "read-85",
+   "icon": "📖",
+   "en": "Reading Surah al-Buruj (85)",
+   "bn": "সূরা আল-বুরূজ (৮৫) পড়া",
+   "order": 51
+  },
+  {
+   "id": "read-84",
+   "icon": "📖",
+   "en": "Reading Surah al-Inshiqaq (84)",
+   "bn": "সূরা আল-ইনশিকাক (৮৪) পড়া",
+   "order": 52
+  }
+ ],
+ "lessons": [
+  {
+   "id": "read-89-1",
+   "unit": "read-89",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Fajr (89) — the opening oaths",
+    "bn": "সূরা আল-ফাজর (৮৯) — সূচনার শপথসমূহ"
+   },
+   "concept": {
+    "en": "Al-Fajr opens with a series of oaths — <b>by the dawn</b>, the ten nights, the even and the odd, and the passing night — before asking whether these are proof enough <b>for one who has understanding</b> (hijr). Watch how the single letter <b>wa</b> before each noun functions as the <b>particle of oath</b> (\"by\"), not merely \"and\".",
+    "bn": "সূরা আল-ফাজর কয়েকটি শপথ দিয়ে শুরু হয় — <b>শপথ ভোরের</b>, দশ রাত, জোড় ও বিজোড়, এবং প্রস্থানরত রাতের — অতঃপর জিজ্ঞাসা করে এগুলো কি <b>বিবেকবানের</b> (হিজর) জন্য যথেষ্ট প্রমাণ নয়। প্রতিটি বিশেষ্যের আগে একক অক্ষর <b>wa</b> কীভাবে শুধু \"ও\" নয়, বরং <b>শপথের অব্যয়</b> (\"শপথ\") হিসেবে কাজ করে তা খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "89:1",
+     "trans": {
+      "en": "By the dawn,",
+      "bn": "শপথ ভোরের,"
+     },
+     "note": {
+      "en": "wa here is the particle of oath; al-fajr (\"the dawn\") is what is sworn by.",
+      "bn": "এখানে wa শপথের অব্যয়; আল-ফাজর (\"ভোর\") হলো যার শপথ করা হচ্ছে।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلْفَجْرِ",
+       "en": "by the dawn",
+       "bn": "শপথ ভোরের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "89:2",
+     "trans": {
+      "en": "and by ten nights,",
+      "bn": "এবং শপথ দশ রাতের,"
+     },
+     "note": {
+      "en": "layalin is indefinite (\"nights\") described by ashr (\"ten\") — the first ten of Dhul-Hijjah.",
+      "bn": "layalin অনির্দিষ্ট (\"রাতসমূহ\"), যা ashr (\"দশ\") দ্বারা বিশেষিত — যিলহজের প্রথম দশ।"
+     },
+     "words": [
+      {
+       "ar": "وَلَيَالٍ",
+       "en": "and by ten nights",
+       "bn": "ও শপথ দশ রাতের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "عَشْرٍ",
+       "en": "ten",
+       "bn": "দশ",
+       "role": {
+        "en": "adjective (number)",
+        "bn": "বিশেষণ (সংখ্যা)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:3",
+     "trans": {
+      "en": "and the even and the odd,",
+      "bn": "এবং জোড় ও বিজোড়ের,"
+     },
+     "note": {
+      "en": "ash-shaf (\"the even\") and al-watr (\"the odd\") are two more things sworn by, joined by wa.",
+      "bn": "ash-shaf (\"জোড়\") ও al-watr (\"বিজোড়\") আরও দুটি শপথ-বস্তু, wa দিয়ে যুক্ত।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلشَّفْعِ",
+       "en": "and the even",
+       "bn": "ও শপথ জোড়ের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "وَٱلْوَتْرِ",
+       "en": "and the odd",
+       "bn": "ও বিজোড়ের",
+       "role": {
+        "en": "conjunction + noun",
+        "bn": "সংযোজক + বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:4",
+     "trans": {
+      "en": "and by the night as it departs,",
+      "bn": "এবং শপথ রাতের, যখন তা প্রস্থান করে,"
+     },
+     "note": {
+      "en": "idha yasri = \"when it moves on / passes\"; the final vowel of yasri is dropped in the mushaf.",
+      "bn": "idha yasri = \"যখন তা চলে যায়\"; মুসহাফে yasri-এর শেষ স্বর লোপ পেয়েছে।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلَّيْلِ",
+       "en": "and by the night",
+       "bn": "ও শপথ রাতের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِذَا",
+       "en": "when",
+       "bn": "যখন",
+       "role": {
+        "en": "adverb of time",
+        "bn": "সময়বাচক ক্রিয়াবিশেষণ"
+       }
+      },
+      {
+       "ar": "يَسْرِ",
+       "en": "it passes",
+       "bn": "তা চলে যায়",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:5",
+     "trans": {
+      "en": "Is there not in that an oath for one of understanding?",
+      "bn": "এতে কি বিবেকবানের জন্য যথেষ্ট শপথ নেই?"
+     },
+     "note": {
+      "en": "hal is a rhetorical question; qasam (\"an oath\") is the subject; li-dhi hijr = \"for a possessor of intellect\".",
+      "bn": "hal অলংকারিক প্রশ্ন; qasam (\"শপথ\") কর্তা; li-dhi hijr = \"বিবেকের অধিকারীর জন্য\"।"
+     },
+     "words": [
+      {
+       "ar": "هَلْ",
+       "en": "is (there)",
+       "bn": "কি (আছে)",
+       "role": {
+        "en": "interrogative particle",
+        "bn": "প্রশ্নবাচক অব্যয়"
+       }
+      },
+      {
+       "ar": "فِى",
+       "en": "in",
+       "bn": "মধ্যে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "ذَٰلِكَ",
+       "en": "that",
+       "bn": "তাতে",
+       "role": {
+        "en": "demonstrative",
+        "bn": "নির্দেশক সর্বনাম"
+       }
+      },
+      {
+       "ar": "قَسَمٌ",
+       "en": "an oath",
+       "bn": "শপথ",
+       "role": {
+        "en": "noun (subject)",
+        "bn": "বিশেষ্য (কর্তা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "لِّذِى",
+       "en": "for one of",
+       "bn": "এর জন্য",
+       "role": {
+        "en": "preposition + noun (construct)",
+        "bn": "অব্যয় + বিশেষ্য (মুদাফ)"
+       }
+      },
+      {
+       "ar": "حِجْرٍ",
+       "en": "understanding",
+       "bn": "বিবেক",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The وَ at the start of وَٱلْفَجْرِ is:",
+     "bn": "وَٱلْفَجْرِ-এর শুরুতে وَ কী?"
+    },
+    "options": [
+     {
+      "en": "the particle of oath (\"by\")",
+      "bn": "শপথের অব্যয় (\"শপথ\")"
+     },
+     {
+      "en": "a plain \"and\"",
+      "bn": "সাধারণ \"ও\""
+     },
+     {
+      "en": "a verb",
+      "bn": "একটি ক্রিয়া"
+     },
+     {
+      "en": "a pronoun",
+      "bn": "একটি সর্বনাম"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "At the head of a surah, وَ before a noun such as ٱلْفَجْرِ is the oath particle — \"By the dawn\".",
+     "bn": "সূরার শুরুতে ٱلْفَجْرِ-এর মতো বিশেষ্যের আগে وَ হলো শপথের অব্যয় — \"শপথ ভোরের\"।"
+    }
+   }
+  },
+  {
+   "id": "read-89-2",
+   "unit": "read-89",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Fajr (89) — 'Ad, Iram and the soul at peace",
+    "bn": "সূরা আল-ফাজর (৮৯) — আদ, ইরাম ও প্রশান্ত আত্মা"
+   },
+   "concept": {
+    "en": "After the oaths the surah recalls the destroyed nation of <b>'Ad — Iram of the lofty pillars</b> — as a warning, then closes with Allah's gentle address to the believer's <b>tranquil soul</b> (an-nafs al-mutmaʾinnah), invited to return to her Lord. Notice the feminine command forms addressed to the soul: <b>irjiʿi, udkhuli</b>.",
+    "bn": "শপথের পর সূরা ধ্বংসপ্রাপ্ত জাতি <b>আদ — উঁচু স্তম্ভের ইরাম</b>-কে সতর্কতা হিসেবে স্মরণ করায়, অতঃপর মুমিনের <b>প্রশান্ত আত্মার</b> (আন-নাফস আল-মুতমাইন্না) প্রতি আল্লাহর কোমল সম্বোধনে শেষ হয়। আত্মার প্রতি স্ত্রীলিঙ্গ আদেশ রূপ <b>irjiʿi, udkhuli</b> খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "89:6",
+     "trans": {
+      "en": "Have you not seen how your Lord dealt with 'Ad,",
+      "bn": "তুমি কি দেখোনি তোমার প্রতিপালক আদ জাতির সাথে কী আচরণ করেছিলেন,"
+     },
+     "note": {
+      "en": "a-lam tara = interrogative + jussive verb (\"have you not seen\"); bi-ʿad = \"with 'Ad\".",
+      "bn": "a-lam tara = প্রশ্নবাচক + মাজযুম ক্রিয়া (\"তুমি কি দেখোনি\"); bi-ʿad = \"আদ জাতির সাথে\"।"
+     },
+     "words": [
+      {
+       "ar": "أَلَمْ",
+       "en": "did not",
+       "bn": "কি না",
+       "role": {
+        "en": "interrogative + negative particle",
+        "bn": "প্রশ্নবাচক + নেতি-অব্যয়"
+       }
+      },
+      {
+       "ar": "تَرَ",
+       "en": "you see",
+       "bn": "তুমি দেখোনি",
+       "role": {
+        "en": "verb (jussive)",
+        "bn": "ক্রিয়া (মাজযুম)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "كَيْفَ",
+       "en": "how",
+       "bn": "কীভাবে",
+       "role": {
+        "en": "interrogative adverb",
+        "bn": "প্রশ্নবাচক ক্রিয়াবিশেষণ"
+       }
+      },
+      {
+       "ar": "فَعَلَ",
+       "en": "dealt",
+       "bn": "আচরণ করেছিলেন",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       }
+      },
+      {
+       "ar": "رَبُّكَ",
+       "en": "your Lord",
+       "bn": "তোমার প্রতিপালক",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "بِعَادٍ",
+       "en": "with 'Ad",
+       "bn": "আদ জাতির সাথে",
+       "role": {
+        "en": "preposition + proper noun",
+        "bn": "অব্যয় + বিশেষ্য নাম"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "89:7",
+     "trans": {
+      "en": "Iram, who had lofty pillars,",
+      "bn": "ইরাম, উঁচু স্তম্ভের অধিকারী,"
+     },
+     "note": {
+      "en": "Iram is a substitute (badal) naming the tribe of 'Ad; dhat al-ʿimad = \"possessing tall pillars\".",
+      "bn": "Iram হলো আদ গোত্রের বদল; dhat al-ʿimad = \"উঁচু স্তম্ভের অধিকারী\"।"
+     },
+     "words": [
+      {
+       "ar": "إِرَمَ",
+       "en": "Iram",
+       "bn": "ইরাম",
+       "role": {
+        "en": "proper noun (apposition)",
+        "bn": "বিশেষ্য নাম (বদল)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ذَاتِ",
+       "en": "possessor of",
+       "bn": "অধিকারী",
+       "role": {
+        "en": "noun (construct)",
+        "bn": "বিশেষ্য (মুদাফ)"
+       }
+      },
+      {
+       "ar": "ٱلْعِمَادِ",
+       "en": "the lofty pillars",
+       "bn": "উঁচু স্তম্ভের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:27",
+     "trans": {
+      "en": "O tranquil soul,",
+      "bn": "হে প্রশান্ত আত্মা,"
+     },
+     "note": {
+      "en": "ya-ayyatuha is the vocative for a feminine noun; al-mutmaʾinnah (\"the reassured\") describes the soul.",
+      "bn": "ya-ayyatuha স্ত্রীবাচক বিশেষ্যের সম্বোধন; al-mutmaʾinnah (\"প্রশান্ত\") আত্মার বিশেষণ।"
+     },
+     "words": [
+      {
+       "ar": "يَـٰٓأَيَّتُهَا",
+       "en": "O",
+       "bn": "হে",
+       "role": {
+        "en": "vocative particle",
+        "bn": "সম্বোধন-অব্যয়"
+       }
+      },
+      {
+       "ar": "ٱلنَّفْسُ",
+       "en": "soul",
+       "bn": "আত্মা",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْمُطْمَئِنَّةُ",
+       "en": "the tranquil",
+       "bn": "প্রশান্ত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:28",
+     "trans": {
+      "en": "return to your Lord, well pleased and pleasing,",
+      "bn": "তোমার প্রতিপালকের কাছে ফিরে এসো, সন্তুষ্ট ও সন্তোষভাজন হয়ে,"
+     },
+     "note": {
+      "en": "irjiʿi is a feminine command (\"return!\"); radiyatan/mardiyyatan are states (hal).",
+      "bn": "irjiʿi স্ত্রীবাচক আদেশ (\"ফিরে এসো\"); radiyatan/mardiyyatan হাল অবস্থা।"
+     },
+     "words": [
+      {
+       "ar": "ٱرْجِعِىٓ",
+       "en": "return",
+       "bn": "ফিরে এসো",
+       "role": {
+        "en": "verb (command, fem.)",
+        "bn": "ক্রিয়া (আদেশ, স্ত্রী.)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِلَىٰ",
+       "en": "to",
+       "bn": "দিকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "رَبِّكِ",
+       "en": "your Lord",
+       "bn": "তোমার প্রতিপালকের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "رَاضِيَةً",
+       "en": "well pleased",
+       "bn": "সন্তুষ্ট অবস্থায়",
+       "role": {
+        "en": "noun (state/hal)",
+        "bn": "বিশেষ্য (হাল)"
+       }
+      },
+      {
+       "ar": "مَّرْضِيَّةً",
+       "en": "well pleasing",
+       "bn": "সন্তোষভাজন হয়ে",
+       "role": {
+        "en": "noun (state/hal)",
+        "bn": "বিশেষ্য (হাল)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:29",
+     "trans": {
+      "en": "then enter among My servants,",
+      "bn": "অতঃপর প্রবেশ করো আমার বান্দাদের মধ্যে,"
+     },
+     "note": {
+      "en": "fadkhuli = fa (\"so\") + udkhuli (feminine command \"enter\"); ʿibadi = \"My servants\".",
+      "bn": "fadkhuli = fa (\"সুতরাং\") + udkhuli (স্ত্রীবাচক আদেশ \"প্রবেশ করো\"); ʿibadi = \"আমার বান্দারা\"।"
+     },
+     "words": [
+      {
+       "ar": "فَٱدْخُلِى",
+       "en": "so enter",
+       "bn": "সুতরাং প্রবেশ করো",
+       "role": {
+        "en": "particle + verb (command)",
+        "bn": "অব্যয় + ক্রিয়া (আদেশ)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "فِى",
+       "en": "among",
+       "bn": "মধ্যে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "عِبَـٰدِى",
+       "en": "My servants",
+       "bn": "আমার বান্দাদের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "89:30",
+     "trans": {
+      "en": "and enter My Paradise.",
+      "bn": "এবং প্রবেশ করো আমার জান্নাতে।"
+     },
+     "note": {
+      "en": "wadkhuli = wa + udkhuli; jannati = \"My Garden\" with the attached pronoun ya (\"My\").",
+      "bn": "wadkhuli = wa + udkhuli; jannati = \"আমার জান্নাত\", সংযুক্ত সর্বনাম ya (\"আমার\") সহ।"
+     },
+     "words": [
+      {
+       "ar": "وَٱدْخُلِى",
+       "en": "and enter",
+       "bn": "আর প্রবেশ করো",
+       "role": {
+        "en": "conjunction + verb (command)",
+        "bn": "সংযোজক + ক্রিয়া (আদেশ)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "جَنَّتِى",
+       "en": "My Paradise",
+       "bn": "আমার জান্নাতে",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The ending in ٱرْجِعِىٓ and ٱدْخُلِى shows the command is addressed to:",
+     "bn": "ٱرْجِعِىٓ ও ٱدْخُلِى-এর গঠন দেখায় আদেশটি কার প্রতি:"
+    },
+    "options": [
+     {
+      "en": "a feminine addressee (the soul)",
+      "bn": "স্ত্রীবাচক সম্বোধিত (আত্মা)"
+     },
+     {
+      "en": "a group of men",
+      "bn": "একদল পুরুষ"
+     },
+     {
+      "en": "the speaker himself",
+      "bn": "বক্তা নিজে"
+     },
+     {
+      "en": "no one in particular",
+      "bn": "কাউকে নির্দিষ্ট নয়"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "The kasra + ya ending (irjiʿi, udkhuli) is the feminine singular imperative — here the tranquil nafs (soul).",
+     "bn": "কাসরা + ইয়া গঠন (irjiʿi, udkhuli) স্ত্রীবাচক একবচন আদেশ — এখানে প্রশান্ত নাফস (আত্মা)।"
+    }
+   }
+  },
+  {
+   "id": "read-88-1",
+   "unit": "read-88",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Ghashiyah (88) — the faces of the wretched",
+    "bn": "সূরা আল-গাশিয়াহ (৮৮) — হতভাগাদের চেহারা"
+   },
+   "concept": {
+    "en": "Al-Ghashiyah opens by asking about <b>the Overwhelming Event</b> (al-ghashiyah). It then paints the <b>faces</b> (wujuh) of the damned on that Day — humbled, labouring, weary — entering a blazing Fire. Grammatically, watch the <b>nominal sentence</b>: wujuh (mubtadaʾ) with its descriptive adjectives as khabar.",
+    "bn": "সূরা আল-গাশিয়াহ <b>আচ্ছাদনকারী মহাঘটনা</b> (আল-গাশিয়াহ) সম্পর্কে প্রশ্ন দিয়ে শুরু হয়। অতঃপর সেদিন হতভাগাদের <b>চেহারা</b> (wujuh) আঁকে — অবনত, পরিশ্রমরত, ক্লান্ত — প্রজ্বলিত আগুনে প্রবেশরত। ব্যাকরণে <b>বিশেষ্যবাচক বাক্য</b> খেয়াল করো: wujuh (মুবতাদা) এবং তার বিশেষণগুলো খবর।"
+   },
+   "examples": [
+    {
+     "ref": "88:1",
+     "trans": {
+      "en": "Has the news of the Overwhelming Event come to you?",
+      "bn": "আচ্ছাদনকারী মহাঘটনার সংবাদ কি তোমার কাছে এসেছে?"
+     },
+     "note": {
+      "en": "atak = ata (\"came\") + ka (\"you\"); hadith al-ghashiyah is a possessive (idafa) chain.",
+      "bn": "atak = ata (\"এসেছে\") + ka (\"তোমার\"); hadith al-ghashiyah একটি সম্বন্ধ (ইদাফা) গঠন।"
+     },
+     "words": [
+      {
+       "ar": "هَلْ",
+       "en": "has",
+       "bn": "কি",
+       "role": {
+        "en": "interrogative particle",
+        "bn": "প্রশ্নবাচক অব্যয়"
+       }
+      },
+      {
+       "ar": "أَتَىٰكَ",
+       "en": "come to you",
+       "bn": "তোমার কাছে এসেছে",
+       "role": {
+        "en": "verb (past) + object pronoun",
+        "bn": "ক্রিয়া (অতীত) + কর্ম-সর্বনাম"
+       },
+       "hl": true
+      },
+      {
+       "ar": "حَدِيثُ",
+       "en": "the news of",
+       "bn": "সংবাদ",
+       "role": {
+        "en": "noun (construct)",
+        "bn": "বিশেষ্য (মুদাফ)"
+       }
+      },
+      {
+       "ar": "ٱلْغَـٰشِيَةِ",
+       "en": "the Overwhelming",
+       "bn": "আচ্ছাদনকারীর",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "88:2",
+     "trans": {
+      "en": "Faces that Day will be humbled,",
+      "bn": "সেদিন কিছু চেহারা হবে অবনত,"
+     },
+     "note": {
+      "en": "wujuh (\"faces\") is the mubtadaʾ; khashiʿah (\"humbled\") is the khabar; yawmaʾidhin = \"that day\".",
+      "bn": "wujuh (\"চেহারা\") মুবতাদা; khashiʿah (\"অবনত\") খবর; yawmaʾidhin = \"সেদিন\"।"
+     },
+     "words": [
+      {
+       "ar": "وُجُوهٌ",
+       "en": "faces",
+       "bn": "চেহারাসমূহ",
+       "role": {
+        "en": "noun (subject/mubtadaʾ)",
+        "bn": "বিশেষ্য (মুবতাদা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "يَوْمَئِذٍ",
+       "en": "that day",
+       "bn": "সেদিন",
+       "role": {
+        "en": "adverb of time",
+        "bn": "সময়বাচক ক্রিয়াবিশেষণ"
+       }
+      },
+      {
+       "ar": "خَـٰشِعَةٌ",
+       "en": "humbled",
+       "bn": "অবনত",
+       "role": {
+        "en": "adjective (khabar)",
+        "bn": "বিশেষণ (খবর)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:3",
+     "trans": {
+      "en": "labouring, exhausted,",
+      "bn": "পরিশ্রমরত, ক্লান্ত,"
+     },
+     "note": {
+      "en": "ʿamilah and nasibah are two further adjectives describing the same wretched faces.",
+      "bn": "ʿamilah ও nasibah একই হতভাগা চেহারার আরও দুটি বিশেষণ।"
+     },
+     "words": [
+      {
+       "ar": "عَامِلَةٌ",
+       "en": "labouring",
+       "bn": "পরিশ্রমরত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       },
+       "hl": true
+      },
+      {
+       "ar": "نَّاصِبَةٌ",
+       "en": "weary",
+       "bn": "ক্লান্ত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:4",
+     "trans": {
+      "en": "entering a blazing Fire,",
+      "bn": "প্রবেশ করবে প্রজ্বলিত আগুনে,"
+     },
+     "note": {
+      "en": "tasla (\"they roast/enter\") is a present verb; naran (\"a fire\") is its object; hamiyah = \"scorching\".",
+      "bn": "tasla (\"প্রবেশ করবে\") বর্তমান ক্রিয়া; naran (\"আগুন\") এর কর্ম; hamiyah = \"উত্তপ্ত\"।"
+     },
+     "words": [
+      {
+       "ar": "تَصْلَىٰ",
+       "en": "they enter",
+       "bn": "তারা প্রবেশ করবে",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "نَارًا",
+       "en": "a Fire",
+       "bn": "আগুনে",
+       "role": {
+        "en": "noun (object)",
+        "bn": "বিশেষ্য (কর্ম)"
+       }
+      },
+      {
+       "ar": "حَامِيَةً",
+       "en": "blazing",
+       "bn": "প্রজ্বলিত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:5",
+     "trans": {
+      "en": "given to drink from a boiling spring.",
+      "bn": "পান করানো হবে ফুটন্ত ঝর্ণা থেকে।"
+     },
+     "note": {
+      "en": "tusqa is passive (\"they are made to drink\"); ʿayn aniyah = \"a spring at the peak of its heat\".",
+      "bn": "tusqa কর্মবাচ্য (\"পান করানো হবে\"); ʿayn aniyah = \"চরম উত্তপ্ত ঝর্ণা\"।"
+     },
+     "words": [
+      {
+       "ar": "تُسْقَىٰ",
+       "en": "they are given to drink",
+       "bn": "তাদের পান করানো হবে",
+       "role": {
+        "en": "verb (passive)",
+        "bn": "ক্রিয়া (কর্মবাচ্য)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مِنْ",
+       "en": "from",
+       "bn": "থেকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "عَيْنٍ",
+       "en": "a spring",
+       "bn": "ঝর্ণা",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "ءَانِيَةٍ",
+       "en": "boiling",
+       "bn": "ফুটন্ত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:6",
+     "trans": {
+      "en": "They will have no food except from a bitter thorn,",
+      "bn": "তাদের জন্য বিষাক্ত কাঁটা ছাড়া কোনো খাদ্য থাকবে না,"
+     },
+     "note": {
+      "en": "laysa negates existence; taʿam (\"food\") is its subject; illa min dariʿ = \"except of a thorn plant\".",
+      "bn": "laysa অস্তিত্ব নাকচ করে; taʿam (\"খাদ্য\") এর ইসম; illa min dariʿ = \"কাঁটাগাছ ছাড়া\"।"
+     },
+     "words": [
+      {
+       "ar": "لَّيْسَ",
+       "en": "there is not",
+       "bn": "নেই",
+       "role": {
+        "en": "verb of negation",
+        "bn": "নেতিবাচক ক্রিয়া"
+       },
+       "hl": true
+      },
+      {
+       "ar": "لَهُمْ",
+       "en": "for them",
+       "bn": "তাদের জন্য",
+       "role": {
+        "en": "preposition + pronoun",
+        "bn": "অব্যয় + সর্বনাম"
+       }
+      },
+      {
+       "ar": "طَعَامٌ",
+       "en": "food",
+       "bn": "খাদ্য",
+       "role": {
+        "en": "noun (subject of laysa)",
+        "bn": "বিশেষ্য (ইসম-লাইসা)"
+       }
+      },
+      {
+       "ar": "إِلَّا",
+       "en": "except",
+       "bn": "ছাড়া",
+       "role": {
+        "en": "exceptive particle",
+        "bn": "ব্যতিক্রম-অব্যয়"
+       }
+      },
+      {
+       "ar": "مِن",
+       "en": "of",
+       "bn": "থেকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "ضَرِيعٍ",
+       "en": "bitter thorn",
+       "bn": "বিষাক্ত কাঁটা",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "In وُجُوهٌ يَوْمَئِذٍ خَاشِعَةٌ, what role does وُجُوهٌ play?",
+     "bn": "وُجُوهٌ يَوْمَئِذٍ خَاشِعَةٌ-তে وُجُوهٌ-এর ভূমিকা কী?"
+    },
+    "options": [
+     {
+      "en": "subject (mubtadaʾ) of a nominal sentence",
+      "bn": "বিশেষ্যবাচক বাক্যের কর্তা (মুবতাদা)"
+     },
+     {
+      "en": "object of a verb",
+      "bn": "ক্রিয়ার কর্ম"
+     },
+     {
+      "en": "an oath",
+      "bn": "একটি শপথ"
+     },
+     {
+      "en": "a preposition",
+      "bn": "একটি অব্যয়"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "There is no verb; وُجُوهٌ is the mubtadaʾ and خَاشِعَةٌ its khabar — \"Faces … are humbled\".",
+     "bn": "কোনো ক্রিয়া নেই; وُجُوهٌ মুবতাদা এবং خَاشِعَةٌ খবর — \"চেহারা … অবনত\"।"
+    }
+   }
+  },
+  {
+   "id": "read-88-2",
+   "unit": "read-88",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Ghashiyah (88) — the faces of the blessed & the call to reflect",
+    "bn": "সূরা আল-গাশিয়াহ (৮৮) — সৌভাগ্যবানদের চেহারা ও চিন্তার আহ্বান"
+   },
+   "concept": {
+    "en": "The surah now turns to the <b>joyful faces</b> of the blessed in a lofty garden, then invites humankind to <b>reflect</b> (a-fala yanzurun) on creation — beginning with the camel. Notice the repeated pattern of a nominal sentence (wujuh … naʿimah) and the <b>passive verbs</b> khuliqat, rufiʿat that describe Allah's design.",
+    "bn": "সূরা এখন সুউচ্চ বাগানে সৌভাগ্যবানদের <b>প্রফুল্ল চেহারার</b> দিকে ফেরে, অতঃপর মানুষকে সৃষ্টির প্রতি <b>চিন্তা করতে</b> (a-fala yanzurun) আহ্বান করে — উট দিয়ে শুরু করে। বিশেষ্যবাচক বাক্যের পুনরাবৃত্ত ধরন (wujuh … naʿimah) ও আল্লাহর সৃষ্টিকৌশল বর্ণনাকারী <b>কর্মবাচ্য ক্রিয়া</b> khuliqat, rufiʿat খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "88:8",
+     "trans": {
+      "en": "Other faces that Day will be joyful,",
+      "bn": "সেদিন কিছু চেহারা হবে প্রফুল্ল,"
+     },
+     "note": {
+      "en": "again a nominal sentence: wujuh (mubtadaʾ), naʿimah (\"blissful\", khabar).",
+      "bn": "আবারও বিশেষ্যবাচক বাক্য: wujuh (মুবতাদা), naʿimah (\"প্রফুল্ল\", খবর)।"
+     },
+     "words": [
+      {
+       "ar": "وُجُوهٌ",
+       "en": "faces",
+       "bn": "চেহারাসমূহ",
+       "role": {
+        "en": "noun (mubtadaʾ)",
+        "bn": "বিশেষ্য (মুবতাদা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "يَوْمَئِذٍ",
+       "en": "that day",
+       "bn": "সেদিন",
+       "role": {
+        "en": "adverb of time",
+        "bn": "সময়বাচক ক্রিয়াবিশেষণ"
+       }
+      },
+      {
+       "ar": "نَّاعِمَةٌ",
+       "en": "joyful",
+       "bn": "প্রফুল্ল",
+       "role": {
+        "en": "adjective (khabar)",
+        "bn": "বিশেষণ (খবর)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:9",
+     "trans": {
+      "en": "well pleased with their striving,",
+      "bn": "তাদের প্রচেষ্টায় সন্তুষ্ট,"
+     },
+     "note": {
+      "en": "li-saʿyiha = li (\"with/for\") + saʿy (\"striving\") + ha (\"their\"); radiyah = \"content\".",
+      "bn": "li-saʿyiha = li (\"জন্য\") + saʿy (\"প্রচেষ্টা\") + ha (\"তাদের\"); radiyah = \"সন্তুষ্ট\"।"
+     },
+     "words": [
+      {
+       "ar": "لِّسَعْيِهَا",
+       "en": "with their striving",
+       "bn": "তাদের প্রচেষ্টায়",
+       "role": {
+        "en": "preposition + noun + pronoun",
+        "bn": "অব্যয় + বিশেষ্য + সর্বনাম"
+       },
+       "hl": true
+      },
+      {
+       "ar": "رَاضِيَةٌ",
+       "en": "well pleased",
+       "bn": "সন্তুষ্ট",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:10",
+     "trans": {
+      "en": "in a lofty garden,",
+      "bn": "সুউচ্চ এক বাগানে,"
+     },
+     "note": {
+      "en": "fi jannatin = \"in a garden\"; ʿaliyah (\"elevated\") is its adjective.",
+      "bn": "fi jannatin = \"এক বাগানে\"; ʿaliyah (\"সুউচ্চ\") এর বিশেষণ।"
+     },
+     "words": [
+      {
+       "ar": "فِى",
+       "en": "in",
+       "bn": "মধ্যে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "جَنَّةٍ",
+       "en": "a garden",
+       "bn": "বাগানে",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "عَالِيَةٍ",
+       "en": "lofty",
+       "bn": "সুউচ্চ",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:11",
+     "trans": {
+      "en": "wherein they hear no vain talk.",
+      "bn": "যেখানে তারা কোনো অসার কথা শুনবে না।"
+     },
+     "note": {
+      "en": "la tasmaʿ = \"you/one hears not\"; fiha (\"therein\"); laghiyah = \"idle speech\".",
+      "bn": "la tasmaʿ = \"শুনবে না\"; fiha (\"সেখানে\"); laghiyah = \"অসার কথা\"।"
+     },
+     "words": [
+      {
+       "ar": "لَّا",
+       "en": "not",
+       "bn": "না",
+       "role": {
+        "en": "negative particle",
+        "bn": "নেতি-অব্যয়"
+       }
+      },
+      {
+       "ar": "تَسْمَعُ",
+       "en": "you hear",
+       "bn": "তুমি শুনবে",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "فِيهَا",
+       "en": "therein",
+       "bn": "তার মধ্যে",
+       "role": {
+        "en": "preposition + pronoun",
+        "bn": "অব্যয় + সর্বনাম"
+       }
+      },
+      {
+       "ar": "لَـٰغِيَةً",
+       "en": "vain talk",
+       "bn": "অসার কথা",
+       "role": {
+        "en": "noun (object)",
+        "bn": "বিশেষ্য (কর্ম)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "88:17",
+     "trans": {
+      "en": "Do they not then look at the camels, how they were created?",
+      "bn": "তবে কি তারা উটের দিকে তাকায় না, কীভাবে সৃষ্টি করা হয়েছে?"
+     },
+     "note": {
+      "en": "a-fala yanzurun = rhetorical \"will they not look\"; khuliqat is passive (\"was created\").",
+      "bn": "a-fala yanzurun = অলংকারিক \"তারা কি দেখে না\"; khuliqat কর্মবাচ্য (\"সৃষ্টি করা হয়েছে\")।"
+     },
+     "words": [
+      {
+       "ar": "أَفَلَا",
+       "en": "do they not then",
+       "bn": "তবে কি তারা না",
+       "role": {
+        "en": "interrogative + particle + negative",
+        "bn": "প্রশ্নবাচক + অব্যয় + নেতি"
+       }
+      },
+      {
+       "ar": "يَنظُرُونَ",
+       "en": "look",
+       "bn": "লক্ষ্য করে",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِلَى",
+       "en": "at",
+       "bn": "দিকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "ٱلْإِبِلِ",
+       "en": "the camels",
+       "bn": "উটের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "كَيْفَ",
+       "en": "how",
+       "bn": "কীভাবে",
+       "role": {
+        "en": "interrogative adverb",
+        "bn": "প্রশ্নবাচক ক্রিয়াবিশেষণ"
+       }
+      },
+      {
+       "ar": "خُلِقَتْ",
+       "en": "they were created",
+       "bn": "সৃষ্টি করা হয়েছে",
+       "role": {
+        "en": "verb (passive)",
+        "bn": "ক্রিয়া (কর্মবাচ্য)"
+       },
+       "hl": true
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The verb خُلِقَتْ in كَيْفَ خُلِقَتْ is:",
+     "bn": "كَيْفَ خُلِقَتْ-এ خُلِقَتْ ক্রিয়াটি:"
+    },
+    "options": [
+     {
+      "en": "passive (\"it was created\")",
+      "bn": "কর্মবাচ্য (\"সৃষ্টি করা হয়েছে\")"
+     },
+     {
+      "en": "a command",
+      "bn": "একটি আদেশ"
+     },
+     {
+      "en": "active (\"it created\")",
+      "bn": "কর্তৃবাচ্য (\"সৃষ্টি করেছে\")"
+     },
+     {
+      "en": "a noun",
+      "bn": "একটি বিশেষ্য"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "خُلِقَتْ is a passive past verb (\"it was created\"), with تْ marking the feminine subject (the camel).",
+     "bn": "خُلِقَتْ কর্মবাচ্য অতীত ক্রিয়া (\"সৃষ্টি করা হয়েছে\"), تْ স্ত্রীবাচক কর্তা (উট) নির্দেশ করে।"
+    }
+   }
+  },
+  {
+   "id": "read-87-1",
+   "unit": "read-87",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-A'la (87) — glorify the name of your Lord",
+    "bn": "সূরা আল-আ'লা (৮৭) — তোমার প্রতিপালকের নাম মহিমান্বিত করো"
+   },
+   "concept": {
+    "en": "Al-Aʿla opens with the command <b>sabbih</b> — \"glorify the name of your Lord, the Most High\" — then describes Him through relative clauses beginning with <b>alladhi</b> (\"the One who created… proportioned… guided\"). Notice how each of Allah's acts is paired: khalaqa fa-sawwa, qaddara fa-hada.",
+    "bn": "সূরা আল-আ'লা <b>sabbih</b> আদেশ দিয়ে শুরু — \"তোমার সর্বোচ্চ প্রতিপালকের নাম মহিমান্বিত করো\" — অতঃপর <b>alladhi</b> (\"যিনি সৃষ্টি করেছেন… সুঠাম করেছেন… পথ দেখিয়েছেন\") দিয়ে শুরু হওয়া সম্বন্ধবাক্যে তাঁকে বর্ণনা করে। আল্লাহর প্রতিটি কাজ জোড়ায় খেয়াল করো: khalaqa fa-sawwa, qaddara fa-hada।"
+   },
+   "examples": [
+    {
+     "ref": "87:1",
+     "trans": {
+      "en": "Glorify the name of your Lord, the Most High,",
+      "bn": "তোমার সর্বোচ্চ প্রতিপালকের নাম মহিমান্বিত করো,"
+     },
+     "note": {
+      "en": "sabbih is a command (\"declare free of all fault\"); ism rabbika is a possessive chain; al-aʿla = \"the Highest\".",
+      "bn": "sabbih আদেশ (\"সব ত্রুটিমুক্ত ঘোষণা করো\"); ism rabbika সম্বন্ধ গঠন; al-aʿla = \"সর্বোচ্চ\"।"
+     },
+     "words": [
+      {
+       "ar": "سَبِّحِ",
+       "en": "glorify",
+       "bn": "পবিত্রতা ঘোষণা করো",
+       "role": {
+        "en": "verb (command)",
+        "bn": "ক্রিয়া (আদেশ)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱسْمَ",
+       "en": "the name of",
+       "bn": "নাম",
+       "role": {
+        "en": "noun (object, construct)",
+        "bn": "বিশেষ্য (কর্ম, মুদাফ)"
+       }
+      },
+      {
+       "ar": "رَبِّكَ",
+       "en": "your Lord",
+       "bn": "তোমার প্রতিপালকের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "ٱلْأَعْلَى",
+       "en": "the Most High",
+       "bn": "সর্বোচ্চ",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "87:2",
+     "trans": {
+      "en": "who created and proportioned,",
+      "bn": "যিনি সৃষ্টি করেছেন ও সুঠাম করেছেন,"
+     },
+     "note": {
+      "en": "alladhi (\"who\") introduces a relative clause; fa-sawwa = fa (\"then\") + sawwa (\"shaped evenly\").",
+      "bn": "alladhi (\"যিনি\") সম্বন্ধবাক্য শুরু করে; fa-sawwa = fa (\"অতঃপর\") + sawwa (\"সুঠাম করলেন\")।"
+     },
+     "words": [
+      {
+       "ar": "ٱلَّذِى",
+       "en": "who",
+       "bn": "যিনি",
+       "role": {
+        "en": "relative pronoun",
+        "bn": "সম্বন্ধবাচক সর্বনাম"
+       }
+      },
+      {
+       "ar": "خَلَقَ",
+       "en": "created",
+       "bn": "সৃষ্টি করেছেন",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "فَسَوَّىٰ",
+       "en": "then proportioned",
+       "bn": "অতঃপর সুঠাম করেছেন",
+       "role": {
+        "en": "particle + verb (past)",
+        "bn": "অব্যয় + ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:3",
+     "trans": {
+      "en": "and who determined and guided,",
+      "bn": "আর যিনি নির্ধারণ করেছেন ও পথ দেখিয়েছেন,"
+     },
+     "note": {
+      "en": "qaddara (\"measured out\") then fa-hada (\"then guided\") — destiny and direction paired.",
+      "bn": "qaddara (\"পরিমাণ নির্ধারণ\") অতঃপর fa-hada (\"পথ দেখালেন\") — নিয়তি ও পথনির্দেশ জোড়ায়।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلَّذِى",
+       "en": "and who",
+       "bn": "আর যিনি",
+       "role": {
+        "en": "conjunction + relative pronoun",
+        "bn": "সংযোজক + সম্বন্ধবাচক সর্বনাম"
+       }
+      },
+      {
+       "ar": "قَدَّرَ",
+       "en": "determined",
+       "bn": "পরিমাণ নির্ধারণ করেছেন",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "فَهَدَىٰ",
+       "en": "then guided",
+       "bn": "অতঃপর পথ দেখিয়েছেন",
+       "role": {
+        "en": "particle + verb (past)",
+        "bn": "অব্যয় + ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:4",
+     "trans": {
+      "en": "and who brought out the pasture,",
+      "bn": "আর যিনি তৃণভূমি উদ্গত করেছেন,"
+     },
+     "note": {
+      "en": "akhraja (\"brought forth\") is a past verb; al-marʿa (\"the pasture/herbage\") is its object.",
+      "bn": "akhraja (\"বের করলেন\") অতীত ক্রিয়া; al-marʿa (\"তৃণভূমি\") এর কর্ম।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلَّذِىٓ",
+       "en": "and who",
+       "bn": "আর যিনি",
+       "role": {
+        "en": "conjunction + relative pronoun",
+        "bn": "সংযোজক + সম্বন্ধবাচক সর্বনাম"
+       }
+      },
+      {
+       "ar": "أَخْرَجَ",
+       "en": "brought forth",
+       "bn": "বের করেছেন",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْمَرْعَىٰ",
+       "en": "the pasture",
+       "bn": "তৃণভূমি",
+       "role": {
+        "en": "noun (object)",
+        "bn": "বিশেষ্য (কর্ম)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:5",
+     "trans": {
+      "en": "then made it dark debris.",
+      "bn": "অতঃপর তা কালচে আবর্জনায় পরিণত করেছেন।"
+     },
+     "note": {
+      "en": "fa-jaʿalahu = fa + jaʿala (\"made\") + hu (\"it\"); ghuthaʾan ahwa = \"blackened stubble\".",
+      "bn": "fa-jaʿalahu = fa + jaʿala (\"বানালেন\") + hu (\"তা\"); ghuthaʾan ahwa = \"কালচে আবর্জনা\"।"
+     },
+     "words": [
+      {
+       "ar": "فَجَعَلَهُۥ",
+       "en": "then made it",
+       "bn": "অতঃপর তা বানিয়েছেন",
+       "role": {
+        "en": "particle + verb + object pronoun",
+        "bn": "অব্যয় + ক্রিয়া + কর্ম-সর্বনাম"
+       },
+       "hl": true
+      },
+      {
+       "ar": "غُثَآءً",
+       "en": "debris",
+       "bn": "আবর্জনা",
+       "role": {
+        "en": "noun (object)",
+        "bn": "বিশেষ্য (কর্ম)"
+       }
+      },
+      {
+       "ar": "أَحْوَىٰ",
+       "en": "darkened",
+       "bn": "কালচে",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The word ٱلَّذِى in ٱلَّذِى خَلَقَ فَسَوَّىٰ is:",
+     "bn": "ٱلَّذِى خَلَقَ فَسَوَّىٰ-তে ٱلَّذِى শব্দটি:"
+    },
+    "options": [
+     {
+      "en": "a relative pronoun (\"the One who\")",
+      "bn": "সম্বন্ধবাচক সর্বনাম (\"যিনি\")"
+     },
+     {
+      "en": "an oath particle",
+      "bn": "শপথের অব্যয়"
+     },
+     {
+      "en": "a command",
+      "bn": "একটি আদেশ"
+     },
+     {
+      "en": "a preposition",
+      "bn": "একটি অব্যয়"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "ٱلَّذِى is the masculine singular relative pronoun linking the description back to رَبِّكَ — \"your Lord, who created…\".",
+     "bn": "ٱلَّذِى পুংলিঙ্গ একবচন সম্বন্ধবাচক সর্বনাম, যা বর্ণনাকে رَبِّكَ-এর সাথে যুক্ত করে — \"তোমার প্রতিপালক, যিনি সৃষ্টি করেছেন…\"।"
+    }
+   }
+  },
+  {
+   "id": "read-87-2",
+   "unit": "read-87",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-A'la (87) — success, and the ancient scriptures",
+    "bn": "সূরা আল-আ'লা (৮৭) — সাফল্য ও প্রাচীন গ্রন্থসমূহ"
+   },
+   "concept": {
+    "en": "The closing verses declare that <b>the one who purifies himself has truly succeeded</b> (qad aflaha man tazakka), remembering his Lord and praying — yet people prefer the fleeting world, though <b>the Hereafter is better and lasting</b>. This truth, it says, is in <b>the earliest scriptures of Ibrahim and Musa</b>. Watch qad + past verb for certainty, and the comparative khayr / abqa.",
+    "bn": "শেষ আয়াতগুলো ঘোষণা করে যে <b>যে আত্মশুদ্ধি করে সে সত্যিই সফল</b> (qad aflaha man tazakka), যে তার প্রতিপালককে স্মরণ করে ও নামায পড়ে — তবু মানুষ ক্ষণস্থায়ী দুনিয়াকে প্রাধান্য দেয়, যদিও <b>পরকাল উত্তম ও স্থায়ী</b>। এই সত্য, বলা হয়, <b>ইবরাহীম ও মূসার প্রাচীনতম গ্রন্থে</b> আছে। নিশ্চয়তার জন্য qad + অতীত ক্রিয়া, ও তুলনামূলক khayr / abqa খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "87:14",
+     "trans": {
+      "en": "He has certainly succeeded who purifies himself,",
+      "bn": "নিশ্চয়ই সে সফল হয়েছে যে আত্মশুদ্ধি করে,"
+     },
+     "note": {
+      "en": "qad + aflaha gives certainty (\"has truly prospered\"); man tazakka = \"whoever purified himself\".",
+      "bn": "qad + aflaha নিশ্চয়তা দেয় (\"সত্যিই সফল\"); man tazakka = \"যে আত্মশুদ্ধি করল\"।"
+     },
+     "words": [
+      {
+       "ar": "قَدْ",
+       "en": "indeed",
+       "bn": "নিশ্চয়ই",
+       "role": {
+        "en": "emphatic particle",
+        "bn": "জোরারোপক অব্যয়"
+       }
+      },
+      {
+       "ar": "أَفْلَحَ",
+       "en": "has succeeded",
+       "bn": "সফল হয়েছে",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مَن",
+       "en": "whoever",
+       "bn": "যে",
+       "role": {
+        "en": "relative pronoun",
+        "bn": "সম্বন্ধবাচক সর্বনাম"
+       }
+      },
+      {
+       "ar": "تَزَكَّىٰ",
+       "en": "purifies himself",
+       "bn": "পবিত্রতা অর্জন করে",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:15",
+     "trans": {
+      "en": "and remembers the name of his Lord and prays.",
+      "bn": "আর তার প্রতিপালকের নাম স্মরণ করে ও নামায পড়ে।"
+     },
+     "note": {
+      "en": "wa-dhakara (\"and mentioned\"); ism rabbihi is a possessive chain; fa-salla = \"then prayed\".",
+      "bn": "wa-dhakara (\"আর স্মরণ করল\"); ism rabbihi সম্বন্ধ গঠন; fa-salla = \"অতঃপর নামায পড়ল\"।"
+     },
+     "words": [
+      {
+       "ar": "وَذَكَرَ",
+       "en": "and remembers",
+       "bn": "আর স্মরণ করে",
+       "role": {
+        "en": "conjunction + verb (past)",
+        "bn": "সংযোজক + ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱسْمَ",
+       "en": "the name of",
+       "bn": "নাম",
+       "role": {
+        "en": "noun (object, construct)",
+        "bn": "বিশেষ্য (কর্ম, মুদাফ)"
+       }
+      },
+      {
+       "ar": "رَبِّهِۦ",
+       "en": "his Lord",
+       "bn": "তার প্রতিপালকের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "فَصَلَّىٰ",
+       "en": "then prays",
+       "bn": "অতঃপর নামায পড়ে",
+       "role": {
+        "en": "particle + verb (past)",
+        "bn": "অব্যয় + ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:16",
+     "trans": {
+      "en": "But you prefer the worldly life,",
+      "bn": "বরং তোমরা দুনিয়ার জীবনকে প্রাধান্য দাও,"
+     },
+     "note": {
+      "en": "bal (\"rather\") corrects course; tuʾthirun = \"you give preference\"; al-hayat ad-dunya = \"the nearer life\".",
+      "bn": "bal (\"বরং\") মোড় ফেরায়; tuʾthirun = \"তোমরা প্রাধান্য দাও\"; al-hayat ad-dunya = \"নিকটবর্তী জীবন\"।"
+     },
+     "words": [
+      {
+       "ar": "بَلْ",
+       "en": "rather",
+       "bn": "বরং",
+       "role": {
+        "en": "retraction particle",
+        "bn": "প্রত্যাবর্তন-অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "تُؤْثِرُونَ",
+       "en": "you prefer",
+       "bn": "তোমরা প্রাধান্য দাও",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       }
+      },
+      {
+       "ar": "ٱلْحَيَوٰةَ",
+       "en": "the life",
+       "bn": "জীবনকে",
+       "role": {
+        "en": "noun (object)",
+        "bn": "বিশেষ্য (কর্ম)"
+       }
+      },
+      {
+       "ar": "ٱلدُّنْيَا",
+       "en": "worldly",
+       "bn": "দুনিয়ার",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:17",
+     "trans": {
+      "en": "while the Hereafter is better and more lasting.",
+      "bn": "অথচ পরকাল উত্তম ও অধিক স্থায়ী।"
+     },
+     "note": {
+      "en": "al-akhirah is the mubtadaʾ; khayr (\"better\") and abqa (\"more enduring\") are its predicates.",
+      "bn": "al-akhirah মুবতাদা; khayr (\"উত্তম\") ও abqa (\"অধিক স্থায়ী\") এর খবর।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلْـَٔاخِرَةُ",
+       "en": "while the Hereafter",
+       "bn": "অথচ পরকাল",
+       "role": {
+        "en": "conjunction + noun (mubtadaʾ)",
+        "bn": "সংযোজক + বিশেষ্য (মুবতাদা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "خَيْرٌ",
+       "en": "is better",
+       "bn": "উত্তম",
+       "role": {
+        "en": "adjective (khabar)",
+        "bn": "বিশেষণ (খবর)"
+       }
+      },
+      {
+       "ar": "وَأَبْقَىٰٓ",
+       "en": "and more lasting",
+       "bn": "এবং অধিক স্থায়ী",
+       "role": {
+        "en": "conjunction + adjective",
+        "bn": "সংযোজক + বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:18",
+     "trans": {
+      "en": "Indeed, this is in the former scriptures,",
+      "bn": "নিশ্চয়ই এটি পূর্ববর্তী গ্রন্থসমূহে আছে,"
+     },
+     "note": {
+      "en": "inna (\"indeed\") + hadha (\"this\"); la-fi (\"surely in\") emphasizes; as-suhuf al-ula = \"the earliest scrolls\".",
+      "bn": "inna (\"নিশ্চয়ই\") + hadha (\"এটি\"); la-fi (\"অবশ্যই মধ্যে\") জোর দেয়; as-suhuf al-ula = \"প্রাচীনতম গ্রন্থ\"।"
+     },
+     "words": [
+      {
+       "ar": "إِنَّ",
+       "en": "indeed",
+       "bn": "নিশ্চয়ই",
+       "role": {
+        "en": "emphatic particle",
+        "bn": "জোরারোপক অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "هَـٰذَا",
+       "en": "this",
+       "bn": "এটি",
+       "role": {
+        "en": "demonstrative (noun of inna)",
+        "bn": "নির্দেশক (ইসম-ইন্না)"
+       }
+      },
+      {
+       "ar": "لَفِى",
+       "en": "is surely in",
+       "bn": "অবশ্যই মধ্যে",
+       "role": {
+        "en": "emphatic lam + preposition",
+        "bn": "জোর-লাম + অব্যয়"
+       }
+      },
+      {
+       "ar": "ٱلصُّحُفِ",
+       "en": "the scriptures",
+       "bn": "গ্রন্থসমূহে",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "ٱلْأُولَىٰ",
+       "en": "the former",
+       "bn": "পূর্ববর্তী",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "87:19",
+     "trans": {
+      "en": "the scriptures of Ibrahim and Musa.",
+      "bn": "ইবরাহীম ও মূসার গ্রন্থসমূহ।"
+     },
+     "note": {
+      "en": "suhuf here is a substitute (badal) specifying the scriptures; joined to Ibrahim and Musa by idafa.",
+      "bn": "এখানে suhuf বদল, গ্রন্থসমূহকে নির্দিষ্ট করে; ইদাফায় ইবরাহীম ও মূসার সাথে যুক্ত।"
+     },
+     "words": [
+      {
+       "ar": "صُحُفِ",
+       "en": "the scriptures of",
+       "bn": "গ্রন্থসমূহ",
+       "role": {
+        "en": "noun (construct, badal)",
+        "bn": "বিশেষ্য (মুদাফ, বদল)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِبْرَٰهِيمَ",
+       "en": "Ibrahim",
+       "bn": "ইবরাহীমের",
+       "role": {
+        "en": "proper noun",
+        "bn": "বিশেষ্য নাম"
+       }
+      },
+      {
+       "ar": "وَمُوسَىٰ",
+       "en": "and Musa",
+       "bn": "ও মূসার",
+       "role": {
+        "en": "conjunction + proper noun",
+        "bn": "সংযোজক + বিশেষ্য নাম"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "In قَدْ أَفْلَحَ, the particle قَدْ before a past verb gives a sense of:",
+     "bn": "قَدْ أَفْلَحَ-তে অতীত ক্রিয়ার আগে قَدْ অব্যয় কী অর্থ দেয়:"
+    },
+    "options": [
+     {
+      "en": "certainty (\"has truly / certainly\")",
+      "bn": "নিশ্চয়তা (\"সত্যিই / নিশ্চিতভাবে\")"
+     },
+     {
+      "en": "negation",
+      "bn": "নেতিবাচকতা"
+     },
+     {
+      "en": "a question",
+      "bn": "একটি প্রশ্ন"
+     },
+     {
+      "en": "the future",
+      "bn": "ভবিষ্যৎ"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "قَدْ before a past verb (أَفْلَحَ) intensifies it into a certainty — \"He has most certainly succeeded\".",
+     "bn": "অতীত ক্রিয়ার (أَفْلَحَ) আগে قَدْ তাকে নিশ্চয়তায় জোরদার করে — \"সে নিশ্চিতভাবেই সফল হয়েছে\"।"
+    }
+   }
+  },
+  {
+   "id": "read-86-1",
+   "unit": "read-86",
+   "icon": "📖",
+   "title": {
+    "en": "Surah at-Tariq (86) — the night-comer and the guarded soul",
+    "bn": "সূরা আত-তারিক (৮৬) — রাত্রি-আগন্তুক ও সংরক্ষিত আত্মা"
+   },
+   "concept": {
+    "en": "Aṭ-Ṭariq swears <b>by the sky and the night-comer</b> — explained as the piercing star — then states the theme: <b>every soul has a keeper over it</b>. Watch the self-questioning formula <b>wa-ma adraka ma…</b> (\"what will make you know what… is?\") and the emphatic negation <b>in … lamma</b> in verse 4.",
+    "bn": "সূরা আত-তারিক <b>আকাশ ও রাত্রি-আগন্তুকের</b> শপথ করে — যা উজ্জ্বল ভেদকারী নক্ষত্র বলে ব্যাখ্যা করা হয় — অতঃপর মূলকথা বলে: <b>প্রত্যেক আত্মার উপর একজন রক্ষক আছে</b>। আত্ম-জিজ্ঞাসার সূত্র <b>wa-ma adraka ma…</b> (\"কী তোমাকে জানাবে … কী?\") ও ৪ নং আয়াতে জোরালো নেতিবাচক <b>in … lamma</b> খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "86:1",
+     "trans": {
+      "en": "By the sky and the night-comer,",
+      "bn": "শপথ আকাশ ও রাত্রি-আগন্তুকের,"
+     },
+     "note": {
+      "en": "wa is the oath particle; at-tariq (\"the one who comes by night\") is joined by wa.",
+      "bn": "wa শপথের অব্যয়; at-tariq (\"রাতে আগমনকারী\") wa দিয়ে যুক্ত।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلسَّمَآءِ",
+       "en": "by the sky",
+       "bn": "শপথ আকাশের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "وَٱلطَّارِقِ",
+       "en": "and the night-comer",
+       "bn": "ও রাত্রি-আগন্তুকের",
+       "role": {
+        "en": "conjunction + noun",
+        "bn": "সংযোজক + বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:2",
+     "trans": {
+      "en": "And what will make you know what the night-comer is?",
+      "bn": "আর কী তোমাকে জানাবে রাত্রি-আগন্তুক কী?"
+     },
+     "note": {
+      "en": "wa-ma adraka = \"what has told you\"; ma at-tariq is a second question (\"what is at-Tariq?\").",
+      "bn": "wa-ma adraka = \"কী তোমাকে জানিয়েছে\"; ma at-tariq দ্বিতীয় প্রশ্ন (\"তারিক কী?\")।"
+     },
+     "words": [
+      {
+       "ar": "وَمَآ",
+       "en": "and what",
+       "bn": "আর কী",
+       "role": {
+        "en": "conjunction + interrogative",
+        "bn": "সংযোজক + প্রশ্নবাচক"
+       }
+      },
+      {
+       "ar": "أَدْرَىٰكَ",
+       "en": "will make you know",
+       "bn": "তোমাকে জানিয়েছে",
+       "role": {
+        "en": "verb (past) + object pronoun",
+        "bn": "ক্রিয়া (অতীত) + কর্ম-সর্বনাম"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مَا",
+       "en": "what is",
+       "bn": "কী",
+       "role": {
+        "en": "interrogative",
+        "bn": "প্রশ্নবাচক"
+       }
+      },
+      {
+       "ar": "ٱلطَّارِقُ",
+       "en": "the night-comer",
+       "bn": "রাত্রি-আগন্তুক",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:3",
+     "trans": {
+      "en": "It is the piercing star,",
+      "bn": "তা উজ্জ্বল ভেদকারী নক্ষত্র,"
+     },
+     "note": {
+      "en": "an-najm (\"the star\") is the khabar answering the question; ath-thaqib = \"brightly piercing\".",
+      "bn": "an-najm (\"নক্ষত্র\") প্রশ্নের উত্তরে খবর; ath-thaqib = \"উজ্জ্বল ভেদকারী\"।"
+     },
+     "words": [
+      {
+       "ar": "ٱلنَّجْمُ",
+       "en": "the star",
+       "bn": "নক্ষত্র",
+       "role": {
+        "en": "noun (khabar)",
+        "bn": "বিশেষ্য (খবর)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلثَّاقِبُ",
+       "en": "piercing (bright)",
+       "bn": "উজ্জ্বল ভেদকারী",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:4",
+     "trans": {
+      "en": "there is no soul but has a keeper over it.",
+      "bn": "এমন কোনো আত্মা নেই যার উপর রক্ষক নেই।"
+     },
+     "note": {
+      "en": "in is negative (\"not\"); lamma here = illa (\"except\"); ʿalayha hafiz = \"over it is a guardian\".",
+      "bn": "in নেতিবাচক (\"নেই\"); এখানে lamma = illa (\"তবে\"); ʿalayha hafiz = \"তার উপর রক্ষক\"।"
+     },
+     "words": [
+      {
+       "ar": "إِن",
+       "en": "(there is) not",
+       "bn": "নেই",
+       "role": {
+        "en": "negative particle",
+        "bn": "নেতি-অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "كُلُّ",
+       "en": "every",
+       "bn": "প্রত্যেক",
+       "role": {
+        "en": "noun (mubtadaʾ, construct)",
+        "bn": "বিশেষ্য (মুবতাদা, মুদাফ)"
+       }
+      },
+      {
+       "ar": "نَفْسٍ",
+       "en": "soul",
+       "bn": "আত্মা",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "لَّمَّا",
+       "en": "but",
+       "bn": "তবে",
+       "role": {
+        "en": "exceptive particle (= illā)",
+        "bn": "ব্যতিক্রম-অব্যয় (= ইল্লা)"
+       }
+      },
+      {
+       "ar": "عَلَيْهَا",
+       "en": "over it",
+       "bn": "তার উপর",
+       "role": {
+        "en": "preposition + pronoun",
+        "bn": "অব্যয় + সর্বনাম"
+       }
+      },
+      {
+       "ar": "حَافِظٌ",
+       "en": "a keeper",
+       "bn": "একজন রক্ষক",
+       "role": {
+        "en": "noun (khabar)",
+        "bn": "বিশেষ্য (খবর)"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The phrase وَمَآ أَدْرَىٰكَ مَا ٱلطَّارِقُ is used to:",
+     "bn": "وَمَآ أَدْرَىٰكَ مَا ٱلطَّارِقُ বাক্যাংশটি ব্যবহৃত হয়:"
+    },
+    "options": [
+     {
+      "en": "magnify the matter and draw attention",
+      "bn": "বিষয়টিকে গুরুত্বপূর্ণ করে মনোযোগ টানতে"
+     },
+     {
+      "en": "deny the star exists",
+      "bn": "নক্ষত্রের অস্তিত্ব নাকচ করতে"
+     },
+     {
+      "en": "give a command",
+      "bn": "আদেশ দিতে"
+     },
+     {
+      "en": "swear an oath",
+      "bn": "শপথ করতে"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "\"What will make you know what … is?\" is a Qurʾanic device to magnify the thing named and stir the listener's attention.",
+     "bn": "\"কী তোমাকে জানাবে … কী?\" হলো নামকৃত বিষয়কে গুরুত্বপূর্ণ করে শ্রোতার মনোযোগ জাগানোর কুরআনিক রীতি।"
+    }
+   }
+  },
+  {
+   "id": "read-86-2",
+   "unit": "read-86",
+   "icon": "📖",
+   "title": {
+    "en": "Surah at-Tariq (86) — from what was man created?",
+    "bn": "সূরা আত-তারিক (৮৬) — মানুষ কী থেকে সৃষ্ট?"
+   },
+   "concept": {
+    "en": "The surah presses a proof of resurrection: <b>let man look at what he was created from</b> — a gushing fluid — for the One who first made him can surely bring him back. It then renews the oath <b>by the sky that returns (rain) and the earth that splits</b>. Notice the command <b>fal-yanzur</b> (lam of command on a jussive) and the passive <b>khuliqa</b>.",
+    "bn": "সূরা পুনরুত্থানের প্রমাণ পেশ করে: <b>মানুষ যেন দেখে সে কী থেকে সৃষ্ট</b> — সবেগে নির্গত পানি — কারণ যিনি প্রথমে তাকে বানিয়েছেন তিনি অবশ্যই তাকে ফেরাতে সক্ষম। অতঃপর <b>বৃষ্টি ফেরানো আকাশ ও বিদীর্ণ হওয়া পৃথিবীর</b> শপথ নবায়ন করে। আদেশ <b>fal-yanzur</b> (মাজযুমের উপর আদেশের লাম) ও কর্মবাচ্য <b>khuliqa</b> খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "86:5",
+     "trans": {
+      "en": "So let man look at what he was created from,",
+      "bn": "সুতরাং মানুষ যেন দেখে সে কী থেকে সৃষ্ট হয়েছে,"
+     },
+     "note": {
+      "en": "fal-yanzur = fa + lam of command + yanzur (jussive); mimma = min + ma (\"from what\").",
+      "bn": "fal-yanzur = fa + আদেশের লাম + yanzur (মাজযুম); mimma = min + ma (\"কী থেকে\")।"
+     },
+     "words": [
+      {
+       "ar": "فَلْيَنظُرِ",
+       "en": "so let man look",
+       "bn": "সুতরাং মানুষ যেন দেখে",
+       "role": {
+        "en": "particle + lām + verb (jussive)",
+        "bn": "অব্যয় + লাম + ক্রিয়া (মাজযুম)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْإِنسَـٰنُ",
+       "en": "man",
+       "bn": "মানুষ",
+       "role": {
+        "en": "noun (subject)",
+        "bn": "বিশেষ্য (কর্তা)"
+       }
+      },
+      {
+       "ar": "مِمَّ",
+       "en": "from what",
+       "bn": "কী থেকে",
+       "role": {
+        "en": "preposition + interrogative",
+        "bn": "অব্যয় + প্রশ্নবাচক"
+       }
+      },
+      {
+       "ar": "خُلِقَ",
+       "en": "he was created",
+       "bn": "সৃষ্টি করা হয়েছে",
+       "role": {
+        "en": "verb (passive)",
+        "bn": "ক্রিয়া (কর্মবাচ্য)"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "86:6",
+     "trans": {
+      "en": "He was created from a gushing fluid,",
+      "bn": "সে সৃষ্ট হয়েছে সবেগে নির্গত পানি থেকে,"
+     },
+     "note": {
+      "en": "khuliqa is passive (\"was created\"); maʾ dafiq = \"water poured out with force\".",
+      "bn": "khuliqa কর্মবাচ্য (\"সৃষ্টি হয়েছে\"); maʾ dafiq = \"সবেগে নির্গত পানি\"।"
+     },
+     "words": [
+      {
+       "ar": "خُلِقَ",
+       "en": "he was created",
+       "bn": "সৃষ্টি করা হয়েছে",
+       "role": {
+        "en": "verb (passive)",
+        "bn": "ক্রিয়া (কর্মবাচ্য)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مِن",
+       "en": "from",
+       "bn": "থেকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "مَّآءٍ",
+       "en": "a fluid",
+       "bn": "পানি",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "دَافِقٍ",
+       "en": "gushing",
+       "bn": "সবেগে নির্গত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:7",
+     "trans": {
+      "en": "emerging from between the backbone and the ribs.",
+      "bn": "যা মেরুদণ্ড ও পাঁজরের মাঝ থেকে বের হয়।"
+     },
+     "note": {
+      "en": "yakhruj (\"comes out\"); bayn (\"between\") in construct with as-sulb wa at-taraʾib.",
+      "bn": "yakhruj (\"বের হয়\"); bayn (\"মাঝ\") as-sulb wa at-taraʾib-এর সাথে সম্বন্ধে।"
+     },
+     "words": [
+      {
+       "ar": "يَخْرُجُ",
+       "en": "emerging",
+       "bn": "বের হয়",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مِنۢ",
+       "en": "from",
+       "bn": "থেকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "بَيْنِ",
+       "en": "between",
+       "bn": "মাঝ থেকে",
+       "role": {
+        "en": "noun (adverb, construct)",
+        "bn": "বিশেষ্য (ক্রিয়াবিশেষণ, মুদাফ)"
+       }
+      },
+      {
+       "ar": "ٱلصُّلْبِ",
+       "en": "the backbone",
+       "bn": "মেরুদণ্ড",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "وَٱلتَّرَآئِبِ",
+       "en": "and the ribs",
+       "bn": "ও পাঁজরের হাড়",
+       "role": {
+        "en": "conjunction + noun",
+        "bn": "সংযোজক + বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:11",
+     "trans": {
+      "en": "By the sky that returns (rain),",
+      "bn": "শপথ বৃষ্টি-ফেরানো আকাশের,"
+     },
+     "note": {
+      "en": "wa (oath) + as-samaʾ; dhat ar-rajʿ = \"possessing the return\" i.e. sending rain repeatedly.",
+      "bn": "wa (শপথ) + as-samaʾ; dhat ar-rajʿ = \"ফেরানোর অধিকারী\" অর্থাৎ বারবার বৃষ্টি পাঠানো।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلسَّمَآءِ",
+       "en": "by the sky",
+       "bn": "শপথ আকাশের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ذَاتِ",
+       "en": "possessor of",
+       "bn": "অধিকারী",
+       "role": {
+        "en": "noun (construct, adjective)",
+        "bn": "বিশেষ্য (মুদাফ, বিশেষণ)"
+       }
+      },
+      {
+       "ar": "ٱلرَّجْعِ",
+       "en": "the returning rain",
+       "bn": "বৃষ্টি ফেরানোর",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "86:12",
+     "trans": {
+      "en": "and the earth that splits open,",
+      "bn": "আর বিদীর্ণ হওয়া পৃথিবীর,"
+     },
+     "note": {
+      "en": "wa (oath) + al-ard; dhat as-sadʿ = \"possessing the cracking\" as plants break through.",
+      "bn": "wa (শপথ) + al-ard; dhat as-sadʿ = \"বিদারণের অধিকারী\" যখন গাছপালা ফুঁড়ে ওঠে।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلْأَرْضِ",
+       "en": "and by the earth",
+       "bn": "ও শপথ পৃথিবীর",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ذَاتِ",
+       "en": "possessor of",
+       "bn": "অধিকারী",
+       "role": {
+        "en": "noun (construct, adjective)",
+        "bn": "বিশেষ্য (মুদাফ, বিশেষণ)"
+       }
+      },
+      {
+       "ar": "ٱلصَّدْعِ",
+       "en": "the splitting",
+       "bn": "বিদারণের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "In فَلْيَنظُرِ, the لْ attached before the verb marks it as:",
+     "bn": "فَلْيَنظُرِ-তে ক্রিয়ার আগে যুক্ত لْ একে চিহ্নিত করে:"
+    },
+    "options": [
+     {
+      "en": "a command (lām of the imperative)",
+      "bn": "আদেশ (আদেশের লাম)"
+     },
+     {
+      "en": "a negation",
+      "bn": "নেতিবাচকতা"
+     },
+     {
+      "en": "a preposition",
+      "bn": "অব্যয়"
+     },
+     {
+      "en": "the future tense",
+      "bn": "ভবিষ্যৎ কাল"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "The لْ is the lām of command placed on a present verb to make it a third-person imperative — \"let him look\".",
+     "bn": "لْ হলো আদেশের লাম, বর্তমান ক্রিয়ার উপর বসে একে তৃতীয় পুরুষের আদেশ বানায় — \"সে যেন দেখে\"।"
+    }
+   }
+  },
+  {
+   "id": "read-85-1",
+   "unit": "read-85",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Buruj (85) — the oaths and the People of the Trench",
+    "bn": "সূরা আল-বুরূজ (৮৫) — শপথসমূহ ও গর্তের অধিপতিরা"
+   },
+   "concept": {
+    "en": "Al-Buruj swears <b>by the sky of great constellations</b>, the promised Day, and witness and witnessed — then recounts how the <b>People of the Trench</b> (ashab al-ukhdud) were destroyed for burning the believers. Watch the oath chain and the passive verb <b>qutila</b> (a curse: \"may they be destroyed\").",
+    "bn": "সূরা আল-বুরূজ <b>নক্ষত্রপুঞ্জময় আকাশ</b>, প্রতিশ্রুত দিন, এবং সাক্ষী ও সাক্ষ্য-বিষয়ের শপথ করে — অতঃপর বর্ণনা করে কীভাবে <b>গর্তের অধিপতিরা</b> (ashab al-ukhdud) মুমিনদের পুড়িয়ে ধ্বংস হলো। শপথ-শৃঙ্খল ও কর্মবাচ্য ক্রিয়া <b>qutila</b> (অভিশাপ: \"তারা ধ্বংস হোক\") খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "85:1",
+     "trans": {
+      "en": "By the sky containing great constellations,",
+      "bn": "শপথ নক্ষত্রপুঞ্জময় আকাশের,"
+     },
+     "note": {
+      "en": "wa (oath) + as-samaʾ; dhat al-buruj = \"possessing the towering constellations\".",
+      "bn": "wa (শপথ) + as-samaʾ; dhat al-buruj = \"নক্ষত্রপুঞ্জের অধিকারী\"।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلسَّمَآءِ",
+       "en": "by the sky",
+       "bn": "শপথ আকাশের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ذَاتِ",
+       "en": "possessor of",
+       "bn": "অধিকারী",
+       "role": {
+        "en": "noun (construct, adjective)",
+        "bn": "বিশেষ্য (মুদাফ, বিশেষণ)"
+       }
+      },
+      {
+       "ar": "ٱلْبُرُوجِ",
+       "en": "the great constellations",
+       "bn": "নক্ষত্রপুঞ্জের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:2",
+     "trans": {
+      "en": "and the promised Day,",
+      "bn": "এবং প্রতিশ্রুত দিনের,"
+     },
+     "note": {
+      "en": "wa (oath) + al-yawm (\"the Day\"); al-mawʿud = \"that has been promised\", i.e. Resurrection.",
+      "bn": "wa (শপথ) + al-yawm (\"সেই দিন\"); al-mawʿud = \"প্রতিশ্রুত\", অর্থাৎ কিয়ামত।"
+     },
+     "words": [
+      {
+       "ar": "وَٱلْيَوْمِ",
+       "en": "and by the Day",
+       "bn": "ও শপথ সেই দিনের",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْمَوْعُودِ",
+       "en": "the promised",
+       "bn": "প্রতিশ্রুত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:3",
+     "trans": {
+      "en": "and a witness and what is witnessed,",
+      "bn": "এবং সাক্ষী ও সাক্ষ্য-বিষয়ের,"
+     },
+     "note": {
+      "en": "shahid (\"a witness\") and mashhud (\"the witnessed\") — an active/passive pair, both sworn by.",
+      "bn": "shahid (\"সাক্ষী\") ও mashhud (\"সাক্ষ্য-বিষয়\") — কর্তৃ/কর্মবাচ্য জোড়া, উভয়ের শপথ।"
+     },
+     "words": [
+      {
+       "ar": "وَشَاهِدٍ",
+       "en": "and by a witness",
+       "bn": "ও শপথ সাক্ষীর",
+       "role": {
+        "en": "oath particle + noun",
+        "bn": "শপথ-অব্যয় + বিশেষ্য"
+       },
+       "hl": true
+      },
+      {
+       "ar": "وَمَشْهُودٍ",
+       "en": "and what is witnessed",
+       "bn": "ও যার সাক্ষ্য দেওয়া হয়",
+       "role": {
+        "en": "conjunction + noun",
+        "bn": "সংযোজক + বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:4",
+     "trans": {
+      "en": "destroyed were the People of the Trench,",
+      "bn": "ধ্বংস হয়েছে গর্তের অধিপতিরা,"
+     },
+     "note": {
+      "en": "qutila is a passive verb used as an imprecation (\"cursed be\"); ashab al-ukhdud = \"the trench-people\".",
+      "bn": "qutila অভিশাপরূপে কর্মবাচ্য ক্রিয়া (\"অভিশপ্ত হোক\"); ashab al-ukhdud = \"গর্তের অধিপতি\"।"
+     },
+     "words": [
+      {
+       "ar": "قُتِلَ",
+       "en": "destroyed were",
+       "bn": "অভিশপ্ত হয়েছে",
+       "role": {
+        "en": "verb (passive, past)",
+        "bn": "ক্রিয়া (কর্মবাচ্য, অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "أَصْحَـٰبُ",
+       "en": "the people of",
+       "bn": "অধিপতিরা",
+       "role": {
+        "en": "noun (subject, construct)",
+        "bn": "বিশেষ্য (কর্তা, মুদাফ)"
+       }
+      },
+      {
+       "ar": "ٱلْأُخْدُودِ",
+       "en": "the trench",
+       "bn": "গর্তের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:5",
+     "trans": {
+      "en": "the fire full of fuel,",
+      "bn": "জ্বালানিপূর্ণ সেই আগুনের,"
+     },
+     "note": {
+      "en": "an-nar is a substitute (badal) for al-ukhdud; dhat al-waqud = \"having abundant fuel\".",
+      "bn": "an-nar হলো al-ukhdud-এর বদল; dhat al-waqud = \"প্রচুর জ্বালানির অধিকারী\"।"
+     },
+     "words": [
+      {
+       "ar": "ٱلنَّارِ",
+       "en": "the fire",
+       "bn": "আগুন",
+       "role": {
+        "en": "noun (badal)",
+        "bn": "বিশেষ্য (বদল)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ذَاتِ",
+       "en": "full of",
+       "bn": "অধিকারী",
+       "role": {
+        "en": "noun (construct, adjective)",
+        "bn": "বিশেষ্য (মুদাফ, বিশেষণ)"
+       }
+      },
+      {
+       "ar": "ٱلْوَقُودِ",
+       "en": "fuel",
+       "bn": "জ্বালানির",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The verb قُتِلَ in قُتِلَ أَصْحَابُ ٱلْأُخْدُودِ is:",
+     "bn": "قُتِلَ أَصْحَابُ ٱلْأُخْدُودِ-তে قُتِلَ ক্রিয়াটি:"
+    },
+    "options": [
+     {
+      "en": "a passive form used as a curse (\"destroyed be\")",
+      "bn": "অভিশাপরূপে কর্মবাচ্য (\"ধ্বংস হোক\")"
+     },
+     {
+      "en": "an oath particle",
+      "bn": "শপথের অব্যয়"
+     },
+     {
+      "en": "a command to fight",
+      "bn": "লড়াইয়ের আদেশ"
+     },
+     {
+      "en": "a question",
+      "bn": "একটি প্রশ্ন"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "قُتِلَ is passive in form and here carries the sense of an imprecation — \"may the People of the Trench be destroyed\".",
+     "bn": "قُتِلَ গঠনে কর্মবাচ্য এবং এখানে অভিশাপের অর্থ বহন করে — \"গর্তের অধিপতিরা ধ্বংস হোক\"।"
+    }
+   }
+  },
+  {
+   "id": "read-85-2",
+   "unit": "read-85",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Buruj (85) — the might and mercy of your Lord",
+    "bn": "সূরা আল-বুরূজ (৮৫) — তোমার প্রতিপালকের পরাক্রম ও দয়া"
+   },
+   "concept": {
+    "en": "The surah affirms that <b>your Lord's grip is severe</b>, yet He is also the One who <b>originates and repeats</b> creation, the <b>All-Forgiving, Most Loving</b>, Owner of the Throne, doer of whatever He wills. Watch the emphatic <b>inna … la-</b> construction and the divine names as successive predicates (khabar).",
+    "bn": "সূরা নিশ্চিত করে যে <b>তোমার প্রতিপালকের পাকড়াও কঠোর</b>, তবু তিনিই <b>সৃষ্টির সূচনা ও পুনরাবৃত্তি করেন</b>, <b>ক্ষমাশীল, প্রেমময়</b>, আরশের অধিপতি, যা চান তা-ই করেন। জোরালো <b>inna … la-</b> গঠন ও ধারাবাহিক খবররূপে আল্লাহর নামসমূহ খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "85:12",
+     "trans": {
+      "en": "Indeed, the grip of your Lord is severe.",
+      "bn": "নিশ্চয়ই তোমার প্রতিপালকের পাকড়াও কঠোর।"
+     },
+     "note": {
+      "en": "inna (\"indeed\") + batsh (\"seizing\") in idafa with rabbika; la-shadid = emphatic \"truly severe\".",
+      "bn": "inna (\"নিশ্চয়ই\") + batsh (\"পাকড়াও\") rabbika-এর সাথে ইদাফায়; la-shadid = জোরালো \"অবশ্যই কঠোর\"।"
+     },
+     "words": [
+      {
+       "ar": "إِنَّ",
+       "en": "indeed",
+       "bn": "নিশ্চয়ই",
+       "role": {
+        "en": "emphatic particle",
+        "bn": "জোরারোপক অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "بَطْشَ",
+       "en": "the grip of",
+       "bn": "পাকড়াও",
+       "role": {
+        "en": "noun (of inna, construct)",
+        "bn": "বিশেষ্য (ইসম-ইন্না, মুদাফ)"
+       }
+      },
+      {
+       "ar": "رَبِّكَ",
+       "en": "your Lord",
+       "bn": "তোমার প্রতিপালকের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "لَشَدِيدٌ",
+       "en": "is surely severe",
+       "bn": "অবশ্যই কঠোর",
+       "role": {
+        "en": "emphatic lām + adjective (khabar)",
+        "bn": "জোর-লাম + বিশেষণ (খবর)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:13",
+     "trans": {
+      "en": "Indeed, it is He who originates and repeats,",
+      "bn": "নিশ্চয়ই তিনিই সৃষ্টির সূচনা ও পুনরাবৃত্তি করেন,"
+     },
+     "note": {
+      "en": "innahu (\"indeed He\") + huwa (emphasis); yubdiʾu (\"begins\") and yuʿidu (\"restores\").",
+      "bn": "innahu (\"নিশ্চয়ই তিনি\") + huwa (জোর); yubdiʾu (\"সূচনা করেন\") ও yuʿidu (\"পুনরাবৃত্তি করেন\")।"
+     },
+     "words": [
+      {
+       "ar": "إِنَّهُۥ",
+       "en": "indeed He",
+       "bn": "নিশ্চয়ই তিনি",
+       "role": {
+        "en": "emphatic particle + pronoun",
+        "bn": "জোরারোপক অব্যয় + সর্বনাম"
+       },
+       "hl": true
+      },
+      {
+       "ar": "هُوَ",
+       "en": "it is He who",
+       "bn": "তিনিই",
+       "role": {
+        "en": "pronoun (emphasis)",
+        "bn": "সর্বনাম (জোর)"
+       }
+      },
+      {
+       "ar": "يُبْدِئُ",
+       "en": "originates",
+       "bn": "সৃষ্টির সূচনা করেন",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       }
+      },
+      {
+       "ar": "وَيُعِيدُ",
+       "en": "and repeats",
+       "bn": "ও পুনরাবৃত্তি করেন",
+       "role": {
+        "en": "conjunction + verb",
+        "bn": "সংযোজক + ক্রিয়া"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:14",
+     "trans": {
+      "en": "and He is the All-Forgiving, the Most Loving,",
+      "bn": "আর তিনি ক্ষমাশীল, প্রেমময়,"
+     },
+     "note": {
+      "en": "wa-huwa (mubtadaʾ); al-ghafur (\"the Forgiving\") and al-wadud (\"the Loving\") as predicates.",
+      "bn": "wa-huwa (মুবতাদা); al-ghafur (\"ক্ষমাশীল\") ও al-wadud (\"প্রেমময়\") খবর।"
+     },
+     "words": [
+      {
+       "ar": "وَهُوَ",
+       "en": "and He is",
+       "bn": "আর তিনি",
+       "role": {
+        "en": "conjunction + pronoun (mubtadaʾ)",
+        "bn": "সংযোজক + সর্বনাম (মুবতাদা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْغَفُورُ",
+       "en": "the All-Forgiving",
+       "bn": "ক্ষমাশীল",
+       "role": {
+        "en": "noun (khabar)",
+        "bn": "বিশেষ্য (খবর)"
+       }
+      },
+      {
+       "ar": "ٱلْوَدُودُ",
+       "en": "the Most Loving",
+       "bn": "প্রেমময়",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:15",
+     "trans": {
+      "en": "Owner of the Throne, the Glorious,",
+      "bn": "আরশের অধিপতি, মহিমান্বিত,"
+     },
+     "note": {
+      "en": "dhu (\"possessor of\") in construct with al-ʿarsh; al-majid = \"the All-Glorious\".",
+      "bn": "dhu (\"অধিপতি\") al-ʿarsh-এর সাথে সম্বন্ধে; al-majid = \"মহিমান্বিত\"।"
+     },
+     "words": [
+      {
+       "ar": "ذُو",
+       "en": "Owner of",
+       "bn": "অধিপতি",
+       "role": {
+        "en": "noun (construct)",
+        "bn": "বিশেষ্য (মুদাফ)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْعَرْشِ",
+       "en": "the Throne",
+       "bn": "আরশের",
+       "role": {
+        "en": "noun",
+        "bn": "বিশেষ্য"
+       }
+      },
+      {
+       "ar": "ٱلْمَجِيدُ",
+       "en": "the Glorious",
+       "bn": "মহিমান্বিত",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "85:16",
+     "trans": {
+      "en": "Doer of whatever He wills.",
+      "bn": "যা ইচ্ছা তা-ই সম্পাদনকারী।"
+     },
+     "note": {
+      "en": "faʿʿal (\"ever-doer\") is an intensive form; li-ma yurid = \"of whatever He wills\".",
+      "bn": "faʿʿal (\"সদা-সম্পাদনকারী\") অতিশয়ার্থক রূপ; li-ma yurid = \"যা তিনি চান তা\"।"
+     },
+     "words": [
+      {
+       "ar": "فَعَّالٌ",
+       "en": "Doer",
+       "bn": "সম্পাদনকারী",
+       "role": {
+        "en": "noun (khabar)",
+        "bn": "বিশেষ্য (খবর)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "لِّمَا",
+       "en": "of what",
+       "bn": "যা তা",
+       "role": {
+        "en": "preposition + relative",
+        "bn": "অব্যয় + সম্বন্ধবাচক"
+       }
+      },
+      {
+       "ar": "يُرِيدُ",
+       "en": "He wills",
+       "bn": "তিনি চান",
+       "role": {
+        "en": "verb (present)",
+        "bn": "ক্রিয়া (বর্তমান)"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "In إِنَّ بَطْشَ رَبِّكَ لَشَدِيدٌ, the لَ on لَشَدِيدٌ serves to:",
+     "bn": "إِنَّ بَطْشَ رَبِّكَ لَشَدِيدٌ-তে لَشَدِيدٌ-এর لَ কী করে:"
+    },
+    "options": [
+     {
+      "en": "emphasize the predicate (\"truly severe\")",
+      "bn": "খবরকে জোর দেয় (\"অবশ্যই কঠোর\")"
+     },
+     {
+      "en": "negate it",
+      "bn": "নাকচ করে"
+     },
+     {
+      "en": "make it a question",
+      "bn": "প্রশ্ন বানায়"
+     },
+     {
+      "en": "join two nouns",
+      "bn": "দুটি বিশেষ্য যুক্ত করে"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "This is the lām of emphasis paired with inna; together إِنَّ … لَ- strongly affirm — \"the grip of your Lord is truly severe\".",
+     "bn": "এটি inna-র সাথে যুক্ত জোরের লাম; একত্রে إِنَّ … لَ- জোরালোভাবে নিশ্চিত করে — \"তোমার প্রতিপালকের পাকড়াও অবশ্যই কঠোর\"।"
+    }
+   }
+  },
+  {
+   "id": "read-84-1",
+   "unit": "read-84",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Inshiqaq (84) — when the sky is split",
+    "bn": "সূরা আল-ইনশিকাক (৮৪) — যখন আকাশ বিদীর্ণ হবে"
+   },
+   "concept": {
+    "en": "Al-Inshiqaq opens with the great upheaval of the Last Day: <b>when the sky is split</b> and <b>the earth is stretched out</b>, each obeying its Lord \"as it must\" (huqqat). Grammatically these are <b>idha clauses</b> (conditions of time) whose response comes later; note the feminine past verbs inshaqqat, muddat, and the passive huqqat.",
+    "bn": "সূরা আল-ইনশিকাক শেষ দিনের মহাপ্রলয় দিয়ে শুরু হয়: <b>যখন আকাশ বিদীর্ণ হবে</b> ও <b>পৃথিবী বিস্তৃত করা হবে</b>, প্রত্যেকে তার প্রতিপালকের আদেশ মানবে \"যেমন করা উচিত\" (huqqat)। ব্যাকরণে এগুলো <b>idha বাক্য</b> (সময়ের শর্ত), যার জওয়াব পরে আসে; স্ত্রীবাচক অতীত ক্রিয়া inshaqqat, muddat ও কর্মবাচ্য huqqat খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "84:1",
+     "trans": {
+      "en": "When the sky is split open,",
+      "bn": "যখন আকাশ বিদীর্ণ হবে,"
+     },
+     "note": {
+      "en": "idha (\"when\") opens a time clause; as-samaʾ (\"the sky\") is its subject; inshaqqat = \"split apart\".",
+      "bn": "idha (\"যখন\") সময়-বাক্য শুরু করে; as-samaʾ (\"আকাশ\") এর কর্তা; inshaqqat = \"বিদীর্ণ হলো\"।"
+     },
+     "words": [
+      {
+       "ar": "إِذَا",
+       "en": "when",
+       "bn": "যখন",
+       "role": {
+        "en": "conditional adverb",
+        "bn": "শর্তবাচক ক্রিয়াবিশেষণ"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلسَّمَآءُ",
+       "en": "the sky",
+       "bn": "আকাশ",
+       "role": {
+        "en": "noun (subject)",
+        "bn": "বিশেষ্য (কর্তা)"
+       }
+      },
+      {
+       "ar": "ٱنشَقَّتْ",
+       "en": "is split open",
+       "bn": "বিদীর্ণ হবে",
+       "role": {
+        "en": "verb (past)",
+        "bn": "ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:2",
+     "trans": {
+      "en": "and listens to its Lord, as it must,",
+      "bn": "এবং তার প্রতিপালকের কথা শোনে, যা করা উচিত,"
+     },
+     "note": {
+      "en": "adhinat (\"gave ear / obeyed\"); li-rabbiha (\"to its Lord\"); huqqat = passive \"it is right that it does\".",
+      "bn": "adhinat (\"কর্ণপাত করল / মানল\"); li-rabbiha (\"তার প্রতিপালকের\"); huqqat = কর্মবাচ্য \"তা করাই উচিত\"।"
+     },
+     "words": [
+      {
+       "ar": "وَأَذِنَتْ",
+       "en": "and listens",
+       "bn": "আর কর্ণপাত করবে",
+       "role": {
+        "en": "conjunction + verb (past)",
+        "bn": "সংযোজক + ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "لِرَبِّهَا",
+       "en": "to its Lord",
+       "bn": "তার প্রতিপালকের",
+       "role": {
+        "en": "preposition + noun + pronoun",
+        "bn": "অব্যয় + বিশেষ্য + সর্বনাম"
+       }
+      },
+      {
+       "ar": "وَحُقَّتْ",
+       "en": "as it must",
+       "bn": "আর তা করাই উচিত",
+       "role": {
+        "en": "conjunction + verb (passive)",
+        "bn": "সংযোজক + ক্রিয়া (কর্মবাচ্য)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:3",
+     "trans": {
+      "en": "and when the earth is stretched out,",
+      "bn": "আর যখন পৃথিবী বিস্তৃত করা হবে,"
+     },
+     "note": {
+      "en": "wa-idha (\"and when\"); al-ard (\"the earth\"); muddat = passive \"was spread/levelled\".",
+      "bn": "wa-idha (\"আর যখন\"); al-ard (\"পৃথিবী\"); muddat = কর্মবাচ্য \"বিস্তৃত করা হলো\"।"
+     },
+     "words": [
+      {
+       "ar": "وَإِذَا",
+       "en": "and when",
+       "bn": "আর যখন",
+       "role": {
+        "en": "conjunction + conditional adverb",
+        "bn": "সংযোজক + শর্তবাচক ক্রিয়াবিশেষণ"
+       },
+       "hl": true
+      },
+      {
+       "ar": "ٱلْأَرْضُ",
+       "en": "the earth",
+       "bn": "পৃথিবী",
+       "role": {
+        "en": "noun (subject)",
+        "bn": "বিশেষ্য (কর্তা)"
+       }
+      },
+      {
+       "ar": "مُدَّتْ",
+       "en": "is stretched out",
+       "bn": "বিস্তৃত করা হবে",
+       "role": {
+        "en": "verb (passive, past)",
+        "bn": "ক্রিয়া (কর্মবাচ্য, অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:4",
+     "trans": {
+      "en": "and casts out what is within it and becomes empty,",
+      "bn": "আর তার ভেতরের সব নিক্ষেপ করে খালি হয়ে যাবে,"
+     },
+     "note": {
+      "en": "alqat (\"threw out\") its dead and treasures; takhallat = \"emptied itself completely\".",
+      "bn": "alqat (\"বের করে দিল\") এর মৃত ও ধনসম্পদ; takhallat = \"সম্পূর্ণ খালি হলো\"।"
+     },
+     "words": [
+      {
+       "ar": "وَأَلْقَتْ",
+       "en": "and casts out",
+       "bn": "আর নিক্ষেপ করবে",
+       "role": {
+        "en": "conjunction + verb (past)",
+        "bn": "সংযোজক + ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مَا",
+       "en": "what",
+       "bn": "যা",
+       "role": {
+        "en": "relative pronoun",
+        "bn": "সম্বন্ধবাচক সর্বনাম"
+       }
+      },
+      {
+       "ar": "فِيهَا",
+       "en": "is within it",
+       "bn": "তার মধ্যে",
+       "role": {
+        "en": "preposition + pronoun",
+        "bn": "অব্যয় + সর্বনাম"
+       }
+      },
+      {
+       "ar": "وَتَخَلَّتْ",
+       "en": "and becomes empty",
+       "bn": "আর খালি হয়ে যাবে",
+       "role": {
+        "en": "conjunction + verb (past)",
+        "bn": "সংযোজক + ক্রিয়া (অতীত)"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:5",
+     "trans": {
+      "en": "and listens to its Lord, as it must.",
+      "bn": "এবং তার প্রতিপালকের কথা শোনে, যা করা উচিত।"
+     },
+     "note": {
+      "en": "the same phrase as verse 2, repeated for the earth — total submission to the Lord's command.",
+      "bn": "২ নং আয়াতের একই বাক্য, পৃথিবীর জন্য পুনরাবৃত্ত — প্রতিপালকের আদেশে পূর্ণ আনুগত্য।"
+     },
+     "words": [
+      {
+       "ar": "وَأَذِنَتْ",
+       "en": "and listens",
+       "bn": "আর কর্ণপাত করবে",
+       "role": {
+        "en": "conjunction + verb (past)",
+        "bn": "সংযোজক + ক্রিয়া (অতীত)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "لِرَبِّهَا",
+       "en": "to its Lord",
+       "bn": "তার প্রতিপালকের",
+       "role": {
+        "en": "preposition + noun + pronoun",
+        "bn": "অব্যয় + বিশেষ্য + সর্বনাম"
+       }
+      },
+      {
+       "ar": "وَحُقَّتْ",
+       "en": "as it must",
+       "bn": "আর তা করাই উচিত",
+       "role": {
+        "en": "conjunction + verb (passive)",
+        "bn": "সংযোজক + ক্রিয়া (কর্মবাচ্য)"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "The word إِذَا in إِذَا ٱلسَّمَآءُ ٱنشَقَّتْ introduces:",
+     "bn": "إِذَا ٱلسَّمَآءُ ٱنشَقَّتْ-তে إِذَا শব্দটি কী শুরু করে:"
+    },
+    "options": [
+     {
+      "en": "a clause of time (\"when …\")",
+      "bn": "সময়ের বাক্য (\"যখন …\")"
+     },
+     {
+      "en": "an oath",
+      "bn": "একটি শপথ"
+     },
+     {
+      "en": "a negation",
+      "bn": "নেতিবাচকতা"
+     },
+     {
+      "en": "a command",
+      "bn": "একটি আদেশ"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "إِذَا is an adverb of time introducing the condition; its answer (\"then man will meet his Lord\") comes later in the surah.",
+     "bn": "إِذَا সময়বাচক ক্রিয়াবিশেষণ, যা শর্ত শুরু করে; এর জওয়াব (\"তখন মানুষ প্রভুর সাক্ষাৎ পাবে\") সূরার পরে আসে।"
+    }
+   }
+  },
+  {
+   "id": "read-84-2",
+   "unit": "read-84",
+   "icon": "📖",
+   "title": {
+    "en": "Surah al-Inshiqaq (84) — man toiling toward his Lord",
+    "bn": "সূরা আল-ইনশিকাক (৮৪) — প্রভুর দিকে পরিশ্রমরত মানুষ"
+   },
+   "concept": {
+    "en": "The surah addresses humankind directly: <b>you are toiling toward your Lord and will meet Him</b>. Then it splits people in two with <b>fa-amma</b>: the one given his record in his right hand faces an easy reckoning and returns joyful. Watch the <b>hal</b> (state) kadihan, the emphatic inna-ka, and the future particle <b>sawfa</b>.",
+    "bn": "সূরা সরাসরি মানুষকে সম্বোধন করে: <b>তুমি তোমার প্রভুর দিকে পরিশ্রম করছ ও তাঁর সাক্ষাৎ পাবে</b>। অতঃপর <b>fa-amma</b> দিয়ে মানুষকে দুই ভাগে ভাগ করে: যাকে ডান হাতে আমলনামা দেওয়া হবে সে সহজ হিসাবের সম্মুখীন হয়ে আনন্দিত হয়ে ফিরবে। অবস্থা (হাল) kadihan, জোরালো inna-ka, ও ভবিষ্যৎ অব্যয় <b>sawfa</b> খেয়াল করো।"
+   },
+   "examples": [
+    {
+     "ref": "84:6",
+     "trans": {
+      "en": "O man, you are toiling toward your Lord, laboriously, and you will meet Him.",
+      "bn": "হে মানুষ, তুমি তোমার প্রভুর দিকে কঠোর পরিশ্রম করছ, অতঃপর তাঁর সাক্ষাৎ পাবে।"
+     },
+     "note": {
+      "en": "innaka (\"indeed you\"); kadih (\"one who strives\") is the khabar; kadhan is an absolute object; fa-mulaqihi = \"then you will meet Him\".",
+      "bn": "innaka (\"নিশ্চয়ই তুমি\"); kadih (\"পরিশ্রমকারী\") খবর; kadhan মাফউল মুতলাক; fa-mulaqihi = \"অতঃপর তাঁর সাক্ষাৎ পাবে\"।"
+     },
+     "words": [
+      {
+       "ar": "يَـٰٓأَيُّهَا",
+       "en": "O",
+       "bn": "হে",
+       "role": {
+        "en": "vocative particle",
+        "bn": "সম্বোধন-অব্যয়"
+       }
+      },
+      {
+       "ar": "ٱلْإِنسَـٰنُ",
+       "en": "man",
+       "bn": "মানুষ",
+       "role": {
+        "en": "noun (called one)",
+        "bn": "বিশেষ্য (মুনাদা)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِنَّكَ",
+       "en": "indeed you",
+       "bn": "নিশ্চয়ই তুমি",
+       "role": {
+        "en": "emphatic particle + pronoun",
+        "bn": "জোরারোপক অব্যয় + সর্বনাম"
+       }
+      },
+      {
+       "ar": "كَادِحٌ",
+       "en": "are toiling",
+       "bn": "কঠোর পরিশ্রমকারী",
+       "role": {
+        "en": "noun (khabar)",
+        "bn": "বিশেষ্য (খবর)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِلَىٰ",
+       "en": "toward",
+       "bn": "দিকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "رَبِّكَ",
+       "en": "your Lord",
+       "bn": "তোমার প্রতিপালকের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "كَدْحًا",
+       "en": "with great effort",
+       "bn": "কঠোর শ্রমে",
+       "role": {
+        "en": "noun (absolute object)",
+        "bn": "বিশেষ্য (মাফউল মুতলাক)"
+       }
+      },
+      {
+       "ar": "فَمُلَـٰقِيهِ",
+       "en": "and will meet Him",
+       "bn": "অতঃপর তাঁর সাক্ষাৎ পাবে",
+       "role": {
+        "en": "particle + noun + pronoun",
+        "bn": "অব্যয় + বিশেষ্য + সর্বনাম"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:7",
+     "trans": {
+      "en": "Then as for the one given his record in his right hand,",
+      "bn": "অতঃপর যাকে তার আমলনামা ডান হাতে দেওয়া হবে,"
+     },
+     "note": {
+      "en": "fa-amma (\"as for\") opens a detailed case; utiya is passive (\"was given\"); bi-yaminihi = \"in his right hand\".",
+      "bn": "fa-amma (\"যে বিষয়ে\") বিশদ প্রসঙ্গ শুরু করে; utiya কর্মবাচ্য (\"দেওয়া হলো\"); bi-yaminihi = \"তার ডান হাতে\"।"
+     },
+     "words": [
+      {
+       "ar": "فَأَمَّا",
+       "en": "then as for",
+       "bn": "অতঃপর যে বিষয়ে",
+       "role": {
+        "en": "particle + detailing particle",
+        "bn": "অব্যয় + বিশদ-অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "مَنْ",
+       "en": "whoever",
+       "bn": "যাকে",
+       "role": {
+        "en": "relative/conditional noun",
+        "bn": "সম্বন্ধ/শর্তবাচক বিশেষ্য"
+       }
+      },
+      {
+       "ar": "أُوتِىَ",
+       "en": "is given",
+       "bn": "দেওয়া হবে",
+       "role": {
+        "en": "verb (passive, past)",
+        "bn": "ক্রিয়া (কর্মবাচ্য, অতীত)"
+       }
+      },
+      {
+       "ar": "كِتَـٰبَهُۥ",
+       "en": "his record",
+       "bn": "তার আমলনামা",
+       "role": {
+        "en": "noun + object pronoun",
+        "bn": "বিশেষ্য + কর্ম-সর্বনাম"
+       }
+      },
+      {
+       "ar": "بِيَمِينِهِۦ",
+       "en": "in his right hand",
+       "bn": "তার ডান হাতে",
+       "role": {
+        "en": "preposition + noun + pronoun",
+        "bn": "অব্যয় + বিশেষ্য + সর্বনাম"
+       },
+       "hl": true
+      }
+     ]
+    },
+    {
+     "ref": "84:8",
+     "trans": {
+      "en": "he will have an easy reckoning,",
+      "bn": "তার হিসাব সহজ হবে,"
+     },
+     "note": {
+      "en": "fa-sawfa signals the future; yuhasabu is passive (\"he will be brought to account\"); hisaban yasiran = \"an easy reckoning\".",
+      "bn": "fa-sawfa ভবিষ্যৎ নির্দেশ করে; yuhasabu কর্মবাচ্য (\"হিসাব নেওয়া হবে\"); hisaban yasiran = \"সহজ হিসাব\"।"
+     },
+     "words": [
+      {
+       "ar": "فَسَوْفَ",
+       "en": "then soon",
+       "bn": "অতঃপর অচিরেই",
+       "role": {
+        "en": "particle + future particle",
+        "bn": "অব্যয় + ভবিষ্যৎ অব্যয়"
+       },
+       "hl": true
+      },
+      {
+       "ar": "يُحَاسَبُ",
+       "en": "he will be reckoned with",
+       "bn": "তার হিসাব নেওয়া হবে",
+       "role": {
+        "en": "verb (passive, present)",
+        "bn": "ক্রিয়া (কর্মবাচ্য, বর্তমান)"
+       }
+      },
+      {
+       "ar": "حِسَابًا",
+       "en": "a reckoning",
+       "bn": "হিসাব",
+       "role": {
+        "en": "noun (absolute object)",
+        "bn": "বিশেষ্য (মাফউল মুতলাক)"
+       }
+      },
+      {
+       "ar": "يَسِيرًا",
+       "en": "easy",
+       "bn": "সহজ",
+       "role": {
+        "en": "adjective",
+        "bn": "বিশেষণ"
+       }
+      }
+     ]
+    },
+    {
+     "ref": "84:9",
+     "trans": {
+      "en": "and return to his family rejoicing.",
+      "bn": "আর আনন্দিত হয়ে তার পরিবারের কাছে ফিরবে।"
+     },
+     "note": {
+      "en": "wa-yanqalib (\"and he turns back\"); ila ahlihi (\"to his people\"); masruran is a state (\"joyful\").",
+      "bn": "wa-yanqalib (\"আর ফিরে যাবে\"); ila ahlihi (\"তার পরিবারের কাছে\"); masruran অবস্থা (\"আনন্দিত\")।"
+     },
+     "words": [
+      {
+       "ar": "وَيَنقَلِبُ",
+       "en": "and he will return",
+       "bn": "আর ফিরে যাবে",
+       "role": {
+        "en": "conjunction + verb (present)",
+        "bn": "সংযোজক + ক্রিয়া (বর্তমান)"
+       },
+       "hl": true
+      },
+      {
+       "ar": "إِلَىٰٓ",
+       "en": "to",
+       "bn": "দিকে",
+       "role": {
+        "en": "preposition",
+        "bn": "অব্যয়"
+       }
+      },
+      {
+       "ar": "أَهْلِهِۦ",
+       "en": "his family",
+       "bn": "তার পরিবারের",
+       "role": {
+        "en": "noun + possessive pronoun",
+        "bn": "বিশেষ্য + সম্বন্ধ-সর্বনাম"
+       }
+      },
+      {
+       "ar": "مَسْرُورًا",
+       "en": "rejoicing",
+       "bn": "আনন্দিত অবস্থায়",
+       "role": {
+        "en": "noun (state/hal)",
+        "bn": "বিশেষ্য (হাল)"
+       }
+      }
+     ]
+    }
+   ],
+   "practice": {
+    "q": {
+     "en": "In فَسَوْفَ يُحَاسَبُ, the particle سَوْفَ indicates:",
+     "bn": "فَسَوْفَ يُحَاسَبُ-তে سَوْفَ অব্যয়টি কী নির্দেশ করে:"
+    },
+    "options": [
+     {
+      "en": "the future (\"will be …\")",
+      "bn": "ভবিষ্যৎ (\"হবে …\")"
+     },
+     {
+      "en": "the past",
+      "bn": "অতীত"
+     },
+     {
+      "en": "a negation",
+      "bn": "নেতিবাচকতা"
+     },
+     {
+      "en": "a command",
+      "bn": "একটি আদেশ"
+     }
+    ],
+    "answer": 0,
+    "explain": {
+     "en": "سَوْفَ is a particle placed before a present verb to push its meaning into the future — \"he will be reckoned with\".",
+     "bn": "سَوْفَ বর্তমান ক্রিয়ার আগে বসে অর্থকে ভবিষ্যতে নিয়ে যায় — \"তার হিসাব নেওয়া হবে\"।"
+    }
+   }
+  }
+ ]
+}

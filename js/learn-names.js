@@ -413,6 +413,8 @@ class NamesOfAllah {
   // ---------- events ----------
 
   onClick(e) {
+    const h2 = e.target.closest('h2');
+    if (h2 && this.root.contains(h2)) { this.mode = 'browse'; this.query = ''; this.quiz = null; this.favOnly = false; this.memGroup = null; this.memRevealed.clear(); this.fcIndex = 0; this.fcFlipped = false; this.render(); return; }
     const dismissBtn = e.target.closest('[data-names-tts-dismiss]');
     if (dismissBtn) {
       this.ttsNoteDismissed = true;
@@ -545,7 +547,7 @@ class NamesOfAllah {
     this.root.innerHTML = `
       <div dir="${dir}" class="w-full space-y-6">
         <div class="text-center">
-          <h2 class="text-2xl font-bold">${isProphets ? t('names_prophets_title', lang) : t('names_title', lang)}</h2>
+          <h2 class="text-2xl font-bold cursor-pointer" title="${t('names_title', lang)}">${isProphets ? t('names_prophets_title', lang) : t('names_title', lang)}</h2>
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${isProphets ? t('names_prophets_subtitle', lang) : t('names_subtitle', lang)}</p>
         </div>
         <div class="flex justify-center gap-2 flex-wrap">

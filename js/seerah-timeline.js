@@ -489,6 +489,8 @@ const SEERAH_QUIZ_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-h
 const SEERAH_PIN_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 2 a7 7 0 0 1 7 7 c0 5 -7 13 -7 13 s-7 -8 -7 -13 a7 7 0 0 1 7 -7 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.4" fill="currentColor"/></svg>';
 // Abstract open-book / flowing-lines motif for Story mode (geometric only — no figures).
 const SEERAH_STORY_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5 C9 3 5 3 3 4 V19 C5 18 9 18 12 20 C15 18 19 18 21 19 V4 C19 3 15 3 12 5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="5" x2="12" y2="20" stroke="currentColor" stroke-width="1.2"/></svg>';
+// Abstract book-shelf / stacked-rectangles for Resources view.
+const SEERAH_RESOURCES_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="4" y="5" width="16" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="10" width="16" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="15" width="16" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
 
 /**
  * MAJOR TOPICS — browsable thematic cards (bilingual, tap-to-expand). Content is
@@ -842,6 +844,153 @@ const SEERAH_QUIZ = [
 ];
 
 /**
+ * Recommended resources for further Seerah study — books, websites, video series
+ * and podcasts. All content is bilingual (en/bn) with CI18N fallback; the type
+ * field drives a small label badge. Rendered in a dedicated Resources view.
+ */
+const SEERAH_RESOURCES = [
+  // ── Books ─────────────────────────────────────────────────────────────
+  {
+    type: 'book', emoji: '📖',
+    nameEn: 'Ar-Raheeq al-Makhtum (The Sealed Nectar)',
+    nameBn: 'আর-রাহিক আল-মাখতুম (সিলমোহরকৃত সুধা)',
+    authorEn: 'Saifur Rahman al-Mubarakpuri',
+    authorBn: 'সাইফুর রহমান আল-মুবারকপুরী',
+    descEn: 'A detailed, award-winning biography (1st prize at the 1979 Muslim World League seerah competition). Covers the full life chronologically with references. Widely used as a standard textbook.',
+    descBn: 'একটি বিস্তারিত, পুরস্কারপ্রাপ্ত জীবনী (১৯৭৯ সালে মুসলিম বিশ্ব লীগের সিরাত প্রতিযোগিতায় প্রথম পুরস্কার)। তথ্যসূত্রসহ পূর্ণ জীবনী কালানুক্রমিকভাবে বর্ণিত। বহুল ব্যবহৃত একটি মানসম্মত পাঠ্যপুস্তক।',
+  },
+  {
+    type: 'book', emoji: '📖',
+    nameEn: 'Muhammad: His Life Based on the Earliest Sources',
+    nameBn: 'মুহাম্মাদ ﷺ: প্রাচীনতম সূত্রের আলোকে জীবনী',
+    authorEn: 'Martin Lings',
+    authorBn: 'মার্টিন লিংস',
+    descEn: 'A beautifully written English biography drawing primarily on Ibn Ishaq and Ibn Hisham. Acclaimed for its flowing narrative and accessible style — one of the most widely read seerah works in English.',
+    descBn: 'প্রধানত ইবনে ইশাক ও ইবনে হিশাম থেকে লিখিত একটি সাবলীল ইংরেজি জীবনী। প্রবহমান বর্ণনা ও সহজবোধ্য শৈলীর জন্য প্রশংসিত — ইংরেজিতে সর্বাধিক পঠিত সিরাত গ্রন্থগুলোর একটি।',
+  },
+  {
+    type: 'book', emoji: '📖',
+    nameEn: 'The Life of the Prophet Muhammad (4 vols)',
+    nameBn: 'নবী মুহাম্মদ ﷺ-এর জীবনী (৪ খণ্ড)',
+    authorEn: 'Ibn Kathir (trans. Trevor Le Gassick)',
+    authorBn: 'ইবনে কাসির (অনু. ট্রেভর লে গ্যাসিক)',
+    descEn: 'Ibn Kathir’s extensive seerah work, "Al-Bidayah wa an-Nihayah" (The Beginning and the End), extracted and translated. Rich with hadith citations and Quranic connections.',
+    descBn: 'ইবনে কাসিরের বিস্তৃত সিরাত গ্রন্থ "আল-বিদায়া ওয়ান-নিহায়া" (শুরু ও শেষ) থেকে সংকলিত ও অনূদিত। হাদিস উদ্ধৃতি ও কুরআনি সংযোগে সমৃদ্ধ।',
+  },
+  {
+    type: 'book', emoji: '📖',
+    nameEn: 'The Seerah of the Prophet Muhammad (ﷺ) — A Commentary',
+    nameBn: 'নবী মুহাম্মদ ﷺ-এর সিরাত — একটি ভাষ্য',
+    authorEn: 'Yasir Qadhi',
+    authorBn: 'ইয়াসির কাধি',
+    descEn: 'Based on the author\'s 100-lecture seerah series. Provides detailed analysis, contextual background, and lessons for today. Published as a multi-volume set with maps and appendices.',
+    descBn: 'লেখকের ১০০-বক্তৃতার সিরাত সিরিজের ওপর ভিত্তি করে রচিত। বিস্তারিত বিশ্লেষণ, প্রাসঙ্গিক পটভূমি ও আজকের জন্য শিক্ষা প্রদান করে। মানচিত্র ও পরিশিষ্টসহ বহু-খণ্ডে প্রকাশিত।',
+  },
+  {
+    type: 'book', emoji: '📖',
+    nameEn: 'Stories of the Prophets',
+    nameBn: 'নবীদের কাহিনি',
+    authorEn: 'Ibn Kathir',
+    authorBn: 'ইবনে কাসির',
+    descEn: 'Classic work narrating the stories of all prophets from Adam to Muhammad ﷺ, drawn from the Quran and authentic hadith. An excellent companion to the seerah for understanding the prophetic tradition.',
+    descBn: 'আদম থেকে মুহাম্মদ ﷺ পর্যন্ত সকল নবীর কাহিনি কুরআন ও সহিহ হাদিস থেকে বর্ণিত একটি ক্লাসিক গ্রন্থ। নবুয়তি ঐতিহ্য বুঝতে সিরাতের চমৎকার সহায়ক।',
+  },
+  // ── Online / websites ─────────────────────────────────────────────────
+  {
+    type: 'web', emoji: '🌐',
+    nameEn: 'Seerah App (seerahapp.com)',
+    nameBn: 'সিরাত অ্যাপ (seerahapp.com)',
+    authorEn: '',
+    authorBn: '',
+    descEn: 'Learn the Prophet\'s life ﷺ in bite-sized, beautifully designed chapters with maps, timelines, and references. Free and ad-free.',
+    descBn: 'মানচিত্র, সময়রেখা ও তথ্যসূত্রসহ ক্ষুদ্র, সুন্দর ডিজাইনের অধ্যায়ে নবী ﷺ-এর জীবন শিখুন। বিনামূল্যে ও বিজ্ঞাপনহীন।',
+  },
+  {
+    type: 'web', emoji: '🌐',
+    nameEn: 'Yaqeen Institute — Life of the Prophet',
+    nameBn: 'ইয়াকিন ইনস্টিটিউট — নবীজির জীবন',
+    authorEn: '',
+    authorBn: '',
+    descEn: 'Free scholarly articles, videos and infographics covering the seerah in depth. Rigorously referenced from classical and contemporary sources.',
+    descBn: 'সিরাতকে গভীরভাবে কভার করা বিনামূল্যের পাণ্ডিত্যপূর্ণ নিবন্ধ, ভিডিও ও ইনফোগ্রাফিক। ধ্রুপদী ও আধুনিক সূত্র থেকে কঠোরভাবে তথ্যসূত্রিত।',
+  },
+  {
+    type: 'web', emoji: '🌐',
+    nameEn: 'Seerah Atlas (seerahatlas.com)',
+    nameBn: 'সিরাত অ্যাটলাস (seerahatlas.com)',
+    authorEn: '',
+    authorBn: '',
+    descEn: 'Interactive maps and timelines of all major seerah locations. Full-colour routes for the Hijra, battles, and expeditions with modern overlays.',
+    descBn: 'সকল প্রধান সিরাত স্থানের ইন্টারেক্টিভ মানচিত্র ও সময়রেখা। হিজরত, যুদ্ধ ও অভিযানের পূর্ণ রঙিন পথনির্দেশ আধুনিক ওভারলেসহ।',
+  },
+  {
+    type: 'web', emoji: '🌐',
+    nameEn: 'SirahMaps (sirahmaps.com)',
+    nameBn: 'সিরাহম্যাপস (sirahmaps.com)',
+    authorEn: '',
+    authorBn: '',
+    descEn: 'Beautiful interactive maps charting the Prophet\'s life ﷺ from birth to passing. Clickable locations with historical notes.',
+    descBn: 'জন্ম থেকে ইন্তিকাল পর্যন্ত নবী ﷺ-এর জীবনের সুন্দর ইন্টারেক্টিভ মানচিত্র। ঐতিহাসিক নোটসহ ক্লিকযোগ্য স্থান।',
+  },
+  {
+    type: 'web', emoji: '🌐',
+    nameEn: 'Madain Project (madainproject.com)',
+    nameBn: 'মাদাইন প্রজেক্ট (madainproject.com)',
+    authorEn: '',
+    authorBn: '',
+    descEn: 'Encyclopedic resource on Abrahamic history and archaeology of seerah sites. Detailed articles with photographs and academic references.',
+    descBn: 'সিরাত স্থানগুলোর আব্রাহামিক ইতিহাস ও প্রত্নতত্ত্বের বিশ্বকোষীয় সংস্থান। ছবি ও একাডেমিক তথ্যসূত্রসহ বিস্তারিত নিবন্ধ।',
+  },
+  // ── Video / lecture series ────────────────────────────────────────────
+  {
+    type: 'video', emoji: '🎬',
+    nameEn: 'Yasir Qadhi — Seerah Series (100 episodes)',
+    nameBn: 'ইয়াসির কাধি — সিরাত সিরিজ (১০০ পর্ব)',
+    authorEn: 'Yasir Qadhi',
+    authorBn: 'ইয়াসির কাধি',
+    descEn: 'A comprehensive 100-episode seerah lecture series covering every major event with contextual analysis and contemporary lessons. Available free on YouTube and podcast platforms.',
+    descBn: 'প্রতিটি গুরুত্বপূর্ণ ঘটনা প্রাসঙ্গিক বিশ্লেষণ ও সমসাময়িক শিক্ষাসহ কভার করা একটি বিস্তৃত ১০০-পর্বের সিরাত বক্তৃতা সিরিজ। ইউটিউব ও পডকাস্ট প্ল্যাটফর্মে বিনামূল্যে।',
+  },
+  {
+    type: 'video', emoji: '🎬',
+    nameEn: 'Omar Suleiman — Seerah Gems Series',
+    nameBn: 'উমর সুলাইমান — সিরাত রত্ন সিরিজ',
+    authorEn: 'Omar Suleiman',
+    authorBn: 'উমর সুলাইমান',
+    descEn: 'Short, reflective seerah videos focusing on spiritual lessons and character takeaways from specific events. Produced by Yaqeen Institute.',
+    descBn: 'নির্দিষ্ট ঘটনা থেকে আধ্যাত্মিক শিক্ষা ও চরিত্রের উপসংহারে দৃষ্টি নিবদ্ধকারী সংক্ষিপ্ত, চিন্তনীয় সিরাত ভিডিও। ইয়াকিন ইনস্টিটিউটের প্রযোজনা।',
+  },
+  {
+    type: 'video', emoji: '🎬',
+    nameEn: 'Muhammad: The Messenger of God (Documentary)',
+    nameBn: 'মুহাম্মাদ: আল্লাহর রাসূল (ডকুমেন্টারি)',
+    authorEn: 'Various',
+    authorBn: 'বিভিন্ন',
+    descEn: 'A three-part documentary from UK\'s Channel 4, exploring the life of the Prophet through historical sites, expert commentary and stunning visuals.',
+    descBn: 'যুক্তরাজ্যের চ্যানেল ৪-এর তিন-পর্বের ডকুমেন্টারি, ঐতিহাসিক স্থান, বিশেষজ্ঞ ভাষ্য ও চমৎকার দৃশ্যের মাধ্যমে নবী-জীবন অন্বেষণ।',
+  },
+  // ── Podcast / audio ───────────────────────────────────────────────────
+  {
+    type: 'podcast', emoji: '🎧',
+    nameEn: 'The Firsts (Yaqeen Podcast)',
+    nameBn: 'দ্য ফার্স্টস (ইয়াকিন পডকাস্ট)',
+    authorEn: 'Omar Suleiman',
+    authorBn: 'উমর সুলাইমান',
+    descEn: 'A podcast series about the first believers in Islam — their stories, sacrifices, and lessons. Deeply connected to the seerah timeline.',
+    descBn: 'ইসলামের প্রথম বিশ্বাসীদের নিয়ে একটি পডকাস্ট সিরিজ — তাদের কাহিনি, কুরবানি ও শিক্ষা। সিরাত সময়রেখার সাথে গভীরভাবে যুক্ত।',
+  },
+  {
+    type: 'podcast', emoji: '🎧',
+    nameEn: 'Seerah of Prophet Muhammad (Yasir Qadhi Podcast)',
+    nameBn: 'নবী মুহাম্মদ ﷺ-এর সিরাত (ইয়াসির কাধি পডকাস্ট)',
+    authorEn: 'Yasir Qadhi',
+    authorBn: 'ইয়াসির কাধি',
+    descEn: 'The complete 100-lecture seerah series also available as a podcast. Episodes are downloadable for offline listening.',
+    descBn: 'সম্পূর্ণ ১০০-বক্তৃতার সিরাত সিরিজ পডকাস্ট হিসেবেও উপলব্ধ। অফলাইন শোনার জন্য পর্ব ডাউনলোডযোগ্য।',
+  },
+];
+
+/**
  * Local fallback dictionary for all UI chrome. tt() prefers the global t()
  * (so translations.js can override once wired), and falls back here so the
  * module renders correctly under ANY UI language (English fallback for the
@@ -917,6 +1066,15 @@ const SEERAH_UI = {
   seerah_places_title: { en: 'Places of the Seerah', bn: 'সিরাতের স্থানসমূহ' },
   seerah_route_title: { en: 'The Hijra Route', bn: 'হিজরতের পথ' },
   seerah_route_caption: { en: 'Abstract route: Mecca → Cave of Thawr (south first, to evade pursuit) → along the coastal route → Quba → Medina. About 450 km in roughly two weeks. Not to scale.', bn: 'বিমূর্ত পথ: মক্কা → সাওর গুহা (ধাওয়া এড়াতে প্রথমে দক্ষিণে) → উপকূলীয় পথ ধরে → কুবা → মদিনা। প্রায় ৪৫০ কিমি, আনুমানিক দুই সপ্তাহে। মাপানুযায়ী নয়।' },
+  // ── Resources view ────────────────────────────────────────────────────
+  seerah_view_resources: { en: 'Resources', bn: 'উপকরণ' },
+  seerah_resources_title: { en: 'Further Study Resources', bn: 'পরবর্তী অধ্যয়নের উপকরণ' },
+  seerah_resources_intro: { en: 'A curated list of books, websites, video series and podcasts for deeper study of the Seerah. All resources are free or widely available.', bn: 'সিরাত গভীরভাবে অধ্যয়নের জন্য বই, ওয়েবসাইট, ভিডিও সিরিজ ও পডকাস্টের একটি নির্বাচিত তালিকা। সকল উপকরণ বিনামূল্যে বা সহজলভ্য।' },
+  seerah_resources_book: { en: 'Book', bn: 'বই' },
+  seerah_resources_web: { en: 'Website', bn: 'ওয়েবসাইট' },
+  seerah_resources_video: { en: 'Video Series', bn: 'ভিডিও সিরিজ' },
+  seerah_resources_podcast: { en: 'Podcast', bn: 'পডকাস্ট' },
+  seerah_resources_by: { en: 'by', bn: 'লেখক' },
 };
 
 class SeerahView {
@@ -1031,6 +1189,7 @@ class SeerahView {
       this.mergeArray(SEERAH_COMPANIONS, data.companions);
       this.mergeArray(SEERAH_ASHARA, data.ashara);
       this.mergeArray(SEERAH_LESSONS, data.lessons);
+      this.mergeArray(SEERAH_RESOURCES, data.resources);
       if (data.battles && typeof data.battles === 'object' && !Array.isArray(data.battles)) {
         for (const key of Object.keys(data.battles)) {
           const b = data.battles[key];
@@ -1135,6 +1294,7 @@ class SeerahView {
           ${vbtn('story', SEERAH_STORY_ICON, this.tt('seerah_view_story'))}
           ${vbtn('topics', SEERAH_TOPICS_ICON, this.tt('seerah_view_topics'))}
           ${vbtn('quiz', SEERAH_QUIZ_ICON, this.tt('seerah_view_quiz'))}
+          ${vbtn('resources', SEERAH_RESOURCES_ICON, this.tt('seerah_view_resources'))}
         </div>
       </div>`;
 
@@ -1183,12 +1343,14 @@ class SeerahView {
     const subtitleLine = this.view === 'topics'
       ? this.tt('seerah_topics_title')
       : (this.view === 'quiz' ? this.tt('seerah_quiz_title')
-        : (this.view === 'story' ? this.tt('seerah_story_title') : this.tt('seerah_intro')));
+        : (this.view === 'story' ? this.tt('seerah_story_title')
+          : (this.view === 'resources' ? this.tt('seerah_resources_title') : this.tt('seerah_intro'))));
 
     let body = timelineBody;
     if (this.view === 'topics') body = topicsBody;
     else if (this.view === 'quiz') body = this.quizHtml();
     else if (this.view === 'story') body = this.storyHtml();
+    else if (this.view === 'resources') body = this.resourcesHtml();
 
     this.container.innerHTML = `
       <div class="w-full max-w-3xl mx-auto">
@@ -1385,6 +1547,44 @@ class SeerahView {
           ${col('seerah_mm_medinan', SEERAH_MECCAN_MEDINAN.medinan)}
         </div>
       </section>`;
+  }
+
+  /**
+   * Resources view — a curated gallery of books, websites, video series and
+   * podcasts for deeper seerah study. Each item is a card with type badge,
+   * title, author, description, and a link (where applicable).
+   */
+  resourcesHtml() {
+    const typeMap = {
+      book:    { label: this.tt('seerah_resources_book'),    cls: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300' },
+      web:     { label: this.tt('seerah_resources_web'),     cls: 'bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-300' },
+      video:   { label: this.tt('seerah_resources_video'),   cls: 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300' },
+      podcast: { label: this.tt('seerah_resources_podcast'), cls: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-300' },
+    };
+    return `
+      <div class="text-center mb-4">
+        <p class="text-xs text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('seerah_resources_intro'))}</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+        ${SEERAH_RESOURCES.map(r => {
+          const meta = typeMap[r.type] || typeMap.book;
+          const authorLine = r.authorEn || r.authorBn
+            ? `<span class="text-xs text-gray-400 dark:text-gray-500">${this.esc(this.tt('seerah_resources_by'))} ${this.esc(this.lc({ en: r.authorEn, bn: r.authorBn }))}</span>`
+            : '';
+          return `
+            <div class="flex flex-col gap-2 p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <div class="flex items-start gap-3">
+                <span class="shrink-0 text-2xl leading-none mt-0.5" aria-hidden="true">${r.emoji}</span>
+                <div class="flex-1 min-w-0">
+                  <span class="block font-semibold text-sm text-gray-800 dark:text-gray-100 leading-snug" dir="auto">${this.esc(this.lc({ en: r.nameEn, bn: r.nameBn }))}</span>
+                  ${authorLine}
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed" dir="auto">${this.esc(this.lc({ en: r.descEn, bn: r.descBn }))}</p>
+              <span class="inline-flex self-start px-2 py-0.5 rounded-full text-[0.65rem] font-semibold ${meta.cls}">${this.esc(meta.label)}</span>
+            </div>`;
+        }).join('')}
+      </div>`;
   }
 
   /**

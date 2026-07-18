@@ -33,31 +33,31 @@ class MushafView {
     const madaniWidth = ((window.devicePixelRatio || 1) > 1.5) ? 1260 : 1024;
     this.EDITIONS = {
       tajweed: {
-        label: { en: 'Tajweed (colour-coded)', bn: 'তাজউইদ (রঙিন)' },
+        label: { en: 'Tajweed (colour-coded)', bn: 'তাজউইদ (রঙিন)', zh: ' tajweed（彩色标记）', ja: 'タジュウィード（色分け）'},
         // Page N of the mushaf is file (N-1).jpg — see mapping note in the header.
         url: (page) => `${QuranData.legacyImgBase}/resources/images/tajweed_quran/${page - 1}.jpg`
       },
       madani: {
-        label: { en: 'Madani Mushaf (KFGQPC)', bn: 'মাদানি মুসহাফ (কিং ফাহাদ)' },
+        label: { en: 'Madani Mushaf (KFGQPC)', bn: 'মাদানি মুসহাফ (কিং ফাহাদ)', zh: 'Madani Mushaf (KFGQPC)', ja: 'Madani Mushaf (KFGQPC)'},
         url: (page) => `https://files.quran.app/hafs/madani/width_${madaniWidth}/page${String(page).padStart(3, '0')}.png`
       },
       // --- QuranHub 604-page scans via jsDelivr (page token = plain integer,
       // no zero-padding). Warsh entries are a DIFFERENT qiraah (riwayah). ---
       kfgqpc_hafs: {
-        label: { en: 'Madani Hafs — KFGQPC (hi-res)', bn: 'মাদানি হাফস — কিং ফাহাদ (উচ্চ রেজ.)' },
+        label: { en: 'Madani Hafs — KFGQPC (hi-res)', bn: 'মাদানি হাফস — কিং ফাহাদ (উচ্চ রেজ.)', zh: 'Madani Hafs — KFGQPC (hi-res)', ja: 'Madani Hafs — KFGQPC (hi-res)'},
         url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/kfgqpc/hafs-wasat/${page}.jpg`
       },
       ayat_hafs: {
-        label: { en: 'Hafs (plain Uthmani)', bn: 'হাফস (সাধারণ উসমানি)' },
+        label: { en: 'Hafs (plain Uthmani)', bn: 'হাফস (সাধারণ উসমানি)', zh: '哈夫斯（标准奥斯曼体）', ja: 'ハフス（標準ウスマーン字体）'},
         url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/ayat/hafs/${page}.png`
       },
       warsh: {
         // Warsh ʿan Nāfiʿ — a distinct riwayah (differs in recitation & some spellings)
-        label: { en: 'Warsh (Warsh ʿan Nāfiʿ)', bn: 'ওয়ারশ (রেওয়ায়েত)' },
+        label: { en: 'Warsh (Warsh ʿan Nāfiʿ)', bn: 'ওয়ারশ (রেওয়ায়েত)', zh: '瓦尔什（瓦尔什·安·纳菲）', ja: 'ワルシュ（ワルシュ・アン・ナーフィ）'},
         url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/ayat/warsh/${page}.png`
       },
       kfgqpc_warsh: {
-        label: { en: 'Warsh — KFGQPC (hi-res)', bn: 'ওয়ারশ — কিং ফাহাদ (উচ্চ রেজ.)' },
+        label: { en: 'Warsh — KFGQPC (hi-res)', bn: 'ওয়ারশ — কিং ফাহাদ (উচ্চ রেজ.)', zh: 'Warsh — KFGQPC (hi-res)', ja: 'Warsh — KFGQPC (hi-res)'},
         url: (page) => `https://cdn.jsdelivr.net/gh/QuranHub/quran-pages-images@main/kfgqpc/warsh/${page}.jpg`
       }
     };

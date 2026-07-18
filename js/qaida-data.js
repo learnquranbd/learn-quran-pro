@@ -51,7 +51,7 @@ const QAIDA_HARAKAT = [
     translit: 'Fatha',
     soundSuffix: 'a',
     makeExample: function (letterChar) { return letterChar + 'َ'; },
-    example: { arabic: 'كَتَبَ', translit: 'Kataba', meaning: { en: 'he wrote', bn: 'সে লিখল' } }
+    example: { arabic: 'كَتَبَ', translit: 'Kataba', meaning: { en: 'he wrote', bn: 'সে লিখল', zh: 'he wrote', ja: 'he wrote' } }
   },
   {
     mark: 'ِ', // kasra
@@ -59,7 +59,7 @@ const QAIDA_HARAKAT = [
     translit: 'Kasra',
     soundSuffix: 'i',
     makeExample: function (letterChar) { return letterChar + 'ِ'; },
-    example: { arabic: 'بِنْت', translit: 'Bint', meaning: { en: 'girl', bn: 'মেয়ে' } }
+    example: { arabic: 'بِنْت', translit: 'Bint', meaning: { en: 'girl', bn: 'মেয়ে', zh: 'girl', ja: 'girl' } }
   },
   {
     mark: 'ُ', // damma
@@ -67,7 +67,7 @@ const QAIDA_HARAKAT = [
     translit: 'Damma',
     soundSuffix: 'u',
     makeExample: function (letterChar) { return letterChar + 'ُ'; },
-    example: { arabic: 'كُتُب', translit: 'Kutub', meaning: { en: 'books', bn: 'বইসমূহ' } }
+    example: { arabic: 'كُتُب', translit: 'Kutub', meaning: { en: 'books', bn: 'বইসমূহ', zh: 'books', ja: 'books' } }
   },
   {
     mark: 'ً', // fathatan
@@ -75,7 +75,7 @@ const QAIDA_HARAKAT = [
     translit: 'Fathatan',
     soundSuffix: 'an',
     makeExample: function (letterChar) { return letterChar + 'ًا'; }, // e.g. بًا
-    example: { arabic: 'عَلِيمًا', translit: "'Aliman", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
+    example: { arabic: 'عَلِيمًا', translit: "'Aliman", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ', zh: 'all-knowing', ja: 'all-knowing' } }
   },
   {
     mark: 'ٍ', // kasratan
@@ -83,7 +83,7 @@ const QAIDA_HARAKAT = [
     translit: 'Kasratan',
     soundSuffix: 'in',
     makeExample: function (letterChar) { return letterChar + 'ٍ'; },
-    example: { arabic: 'عَلِيمٍ', translit: "'Alimin", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
+    example: { arabic: 'عَلِيمٍ', translit: "'Alimin", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ', zh: 'all-knowing', ja: 'all-knowing' } }
   },
   {
     mark: 'ٌ', // dammatan
@@ -91,7 +91,7 @@ const QAIDA_HARAKAT = [
     translit: 'Dammatan',
     soundSuffix: 'un',
     makeExample: function (letterChar) { return letterChar + 'ٌ'; },
-    example: { arabic: 'عَلِيمٌ', translit: "'Alimun", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ' } }
+    example: { arabic: 'عَلِيمٌ', translit: "'Alimun", meaning: { en: 'all-knowing', bn: 'সর্বজ্ঞ', zh: 'all-knowing', ja: 'all-knowing' } }
   },
   {
     mark: 'ْ', // sukoon
@@ -100,14 +100,14 @@ const QAIDA_HARAKAT = [
     soundSuffix: '',
     // A resting letter needs a vowel before it: أَبْ (ab)
     makeExample: function (letterChar) { return 'أَ' + letterChar + 'ْ'; },
-    example: { arabic: 'قُلْ', translit: 'Qul', meaning: { en: 'say', bn: 'বলো' } }
+    example: { arabic: 'قُلْ', translit: 'Qul', meaning: { en: 'say', bn: 'বলো', zh: '说', ja: '言う' } }
   },
   {
     mark: 'ّ', // shadda
     name: 'شَدَّة',
     translit: 'Shadda',
     soundSuffix: '',
-    example: { arabic: 'رَبّ', translit: 'Rabb', meaning: { en: 'Lord', bn: 'প্রভু' } },
+    example: { arabic: 'رَبّ', translit: 'Rabb', meaning: { en: 'Lord', bn: 'প্রভু', zh: '主', ja: '主' } },
     // Doubled letter: أَبَّ (abba)
     makeExample: function (letterChar) { return 'أَ' + letterChar + 'َّ'; }
   },
@@ -116,7 +116,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ أَلِف',
     translit: 'Madd Alif',
     soundSuffix: 'aa',
-    example: { arabic: 'قَالَ', translit: 'Qala', meaning: { en: 'he said', bn: 'সে বলল' } },
+    example: { arabic: 'قَالَ', translit: 'Qala', meaning: { en: 'he said', bn: 'সে বলল', zh: '他说', ja: '彼は言った' } },
     makeExample: function (letterChar) { return letterChar + 'َا'; } // بَا
   },
   {
@@ -124,7 +124,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ يَاء',
     translit: 'Madd Ya',
     soundSuffix: 'ii',
-    example: { arabic: 'قِيلَ', translit: 'Qila', meaning: { en: 'it was said', bn: 'বলা হলো' } },
+    example: { arabic: 'قِيلَ', translit: 'Qila', meaning: { en: 'it was said', bn: 'বলা হলো', zh: '据说', ja: '言われた' } },
     makeExample: function (letterChar) { return letterChar + 'ِي'; } // بِي
   },
   {
@@ -132,7 +132,7 @@ const QAIDA_HARAKAT = [
     name: 'مَدّ وَاو',
     translit: 'Madd Waw',
     soundSuffix: 'uu',
-    example: { arabic: 'نُور', translit: 'Nur', meaning: { en: 'light', bn: 'আলো' } },
+    example: { arabic: 'نُور', translit: 'Nur', meaning: { en: 'light', bn: 'আলো', zh: '光', ja: '光' } },
     makeExample: function (letterChar) { return letterChar + 'ُو'; } // بُو
   }
 ];
@@ -196,61 +196,61 @@ const KIDS_THEME_WORDS = [
   {
     id: 'animals',
     emoji: '🐾',
-    label: { en: 'Animals', bn: 'প্রাণী' },
+    label: { en: 'Animals', bn: 'প্রাণী', zh: '动物', ja: '動物' },
     words: [
-      { arabic: 'بَقَرَة',    translit: 'Baqarah',   emoji: '🐄',  meaning: { en: 'Cow',            bn: 'গরু' },            ref: '2:67',   hl: 'بَقَرَةً' },
-      { arabic: 'فِيل',       translit: 'Fil',       emoji: '🐘',  meaning: { en: 'Elephant',       bn: 'হাতি' },           ref: '105:1',  hl: 'ٱلْفِيلِ' },
-      { arabic: 'حُوت',       translit: 'Hut',       emoji: '🐋',  meaning: { en: 'Big fish (whale)', bn: 'বড় মাছ (তিমি)' }, ref: '37:142', hl: 'ٱلْحُوتُ' },
-      { arabic: 'كَلْب',      translit: 'Kalb',      emoji: '🐕',  meaning: { en: 'Dog',            bn: 'কুকুর' },          ref: '18:18',  hl: 'وَكَلْبُهُم' },
-      { arabic: 'غُرَاب',     translit: 'Ghurab',    emoji: '🐦‍⬛', meaning: { en: 'Crow',           bn: 'কাক' },            ref: '5:31',   hl: 'غُرَابًا' },
-      { arabic: 'نَحْل',      translit: 'Nahl',      emoji: '🐝',  meaning: { en: 'Bee',            bn: 'মৌমাছি' },         ref: '16:68',  hl: 'ٱلنَّحْلِ' },
-      { arabic: 'نَمْل',      translit: 'Naml',      emoji: '🐜',  meaning: { en: 'Ants',           bn: 'পিঁপড়া' },         ref: '27:18',  hl: 'ٱلنَّمْلِ' },
-      { arabic: 'عَنْكَبُوت', translit: "'Ankabut",  emoji: '🕷️', meaning: { en: 'Spider',         bn: 'মাকড়সা' },         ref: '29:41',  hl: 'ٱلْعَنكَبُوتِ' },
-      { arabic: 'ذِئْب',      translit: 'Dhib',      emoji: '🐺',  meaning: { en: 'Wolf',           bn: 'নেকড়ে' },          ref: '12:13',  hl: 'ٱلذِّئْبُ' },
-      { arabic: 'هُدْهُد',    translit: 'Hudhud',    emoji: '🐦',  meaning: { en: 'Hoopoe bird',    bn: 'হুদহুদ পাখি' },     ref: '27:20',  hl: 'ٱلْهُدْهُدَ' }
+      { arabic: 'بَقَرَة',    translit: 'Baqarah',   emoji: '🐄',  meaning: { en: 'Cow', bn: 'গরু', zh: '牛', ja: '牛' },            ref: '2:67',   hl: 'بَقَرَةً' },
+      { arabic: 'فِيل',       translit: 'Fil',       emoji: '🐘',  meaning: { en: 'Elephant', bn: 'হাতি', zh: '大象', ja: '象' },           ref: '105:1',  hl: 'ٱلْفِيلِ' },
+      { arabic: 'حُوت',       translit: 'Hut',       emoji: '🐋',  meaning: { en: 'Big fish (whale)', bn: 'বড় মাছ (তিমি)', zh: '大鱼（鲸鱼）', ja: '大きな魚（鯨）' }, ref: '37:142', hl: 'ٱلْحُوتُ' },
+      { arabic: 'كَلْب',      translit: 'Kalb',      emoji: '🐕',  meaning: { en: 'Dog', bn: 'কুকুর', zh: '狗', ja: '犬' },          ref: '18:18',  hl: 'وَكَلْبُهُم' },
+      { arabic: 'غُرَاب',     translit: 'Ghurab',    emoji: '🐦‍⬛', meaning: { en: 'Crow', bn: 'কাক', zh: '乌鸦', ja: 'カラス' },            ref: '5:31',   hl: 'غُرَابًا' },
+      { arabic: 'نَحْل',      translit: 'Nahl',      emoji: '🐝',  meaning: { en: 'Bee', bn: 'মৌমাছি', zh: '蜜蜂', ja: '蜂' },         ref: '16:68',  hl: 'ٱلنَّحْلِ' },
+      { arabic: 'نَمْل',      translit: 'Naml',      emoji: '🐜',  meaning: { en: 'Ants', bn: 'পিঁপড়া', zh: '蚂蚁', ja: '蟻' },         ref: '27:18',  hl: 'ٱلنَّمْلِ' },
+      { arabic: 'عَنْكَبُوت', translit: "'Ankabut",  emoji: '🕷️', meaning: { en: 'Spider', bn: 'মাকড়সা', zh: '蜘蛛', ja: '蜘蛛' },         ref: '29:41',  hl: 'ٱلْعَنكَبُوتِ' },
+      { arabic: 'ذِئْب',      translit: 'Dhib',      emoji: '🐺',  meaning: { en: 'Wolf', bn: 'নেকড়ে', zh: '狼', ja: '狼' },          ref: '12:13',  hl: 'ٱلذِّئْبُ' },
+      { arabic: 'هُدْهُد',    translit: 'Hudhud',    emoji: '🐦',  meaning: { en: 'Hoopoe bird', bn: 'হুদহুদ পাখি', zh: '戴胜鸟', ja: 'ヤツガシラ' },     ref: '27:20',  hl: 'ٱلْهُدْهُدَ' }
     ]
   },
   {
     id: 'nature',
     emoji: '🌿',
-    label: { en: 'Nature', bn: 'প্রকৃতি' },
+    label: { en: 'Nature', bn: 'প্রকৃতি', zh: '自然', ja: '自然' },
     words: [
-      { arabic: 'شَمْس',     translit: 'Shams',     emoji: '☀️',  meaning: { en: 'Sun',            bn: 'সূর্য' },           ref: '91:1',   hl: 'وَٱلشَّمْسِ' },
-      { arabic: 'قَمَر',     translit: 'Qamar',     emoji: '🌙',  meaning: { en: 'Moon',           bn: 'চাঁদ' },            ref: '91:2',   hl: 'وَٱلْقَمَرِ' },
-      { arabic: 'نَجْم',     translit: 'Najm',      emoji: '⭐',  meaning: { en: 'Star',           bn: 'তারা' },            ref: '53:1',   hl: 'وَٱلنَّجْمِ' },
-      { arabic: 'بَحْر',     translit: 'Bahr',      emoji: '🌊',  meaning: { en: 'Sea',            bn: 'সমুদ্র' },          ref: '18:109', hl: 'ٱلْبَحْرُ' },
-      { arabic: 'جِبَال',    translit: 'Jibal',     emoji: '⛰️',  meaning: { en: 'Mountains',      bn: 'পাহাড়' },           ref: '88:19',  hl: 'ٱلْجِبَالِ' },
-      { arabic: 'مَاء',      translit: "Ma'",       emoji: '💧',  meaning: { en: 'Water',          bn: 'পানি' },            ref: '2:22',   hl: 'مَآءً' },
-      { arabic: 'شَجَرَة',   translit: 'Shajarah',  emoji: '🌳',  meaning: { en: 'Tree',           bn: 'গাছ' },             ref: '2:35',   hl: 'ٱلشَّجَرَةَ' },
-      { arabic: 'نَخْل',     translit: 'Nakhl',     emoji: '🌴',  meaning: { en: 'Date palm',      bn: 'খেজুর গাছ' },       ref: '55:68',  hl: 'وَنَخْلٌ' },
-      { arabic: 'عِنَب',     translit: "'Inab",     emoji: '🍇',  meaning: { en: 'Grapes',         bn: 'আঙুর' },            ref: '80:28',  hl: 'وَعِنَبًا' },
-      { arabic: 'زَيْتُون',  translit: 'Zaytun',    emoji: '🫒',  meaning: { en: 'Olive',          bn: 'জলপাই' },           ref: '95:1',   hl: 'وَٱلزَّيْتُونِ' }
+      { arabic: 'شَمْس',     translit: 'Shams',     emoji: '☀️',  meaning: { en: 'Sun', bn: 'সূর্য', zh: '太阳', ja: '太陽' },           ref: '91:1',   hl: 'وَٱلشَّمْسِ' },
+      { arabic: 'قَمَر',     translit: 'Qamar',     emoji: '🌙',  meaning: { en: 'Moon', bn: 'চাঁদ', zh: '月亮', ja: '月' },            ref: '91:2',   hl: 'وَٱلْقَمَرِ' },
+      { arabic: 'نَجْم',     translit: 'Najm',      emoji: '⭐',  meaning: { en: 'Star', bn: 'তারা', zh: '星星', ja: '星' },            ref: '53:1',   hl: 'وَٱلنَّجْمِ' },
+      { arabic: 'بَحْر',     translit: 'Bahr',      emoji: '🌊',  meaning: { en: 'Sea', bn: 'সমুদ্র', zh: '海', ja: '海' },          ref: '18:109', hl: 'ٱلْبَحْرُ' },
+      { arabic: 'جِبَال',    translit: 'Jibal',     emoji: '⛰️',  meaning: { en: 'Mountains', bn: 'পাহাড়', zh: '山', ja: '山' },           ref: '88:19',  hl: 'ٱلْجِبَالِ' },
+      { arabic: 'مَاء',      translit: "Ma'",       emoji: '💧',  meaning: { en: 'Water', bn: 'পানি', zh: '水', ja: '水' },            ref: '2:22',   hl: 'مَآءً' },
+      { arabic: 'شَجَرَة',   translit: 'Shajarah',  emoji: '🌳',  meaning: { en: 'Tree', bn: 'গাছ', zh: '树', ja: '木' },             ref: '2:35',   hl: 'ٱلشَّجَرَةَ' },
+      { arabic: 'نَخْل',     translit: 'Nakhl',     emoji: '🌴',  meaning: { en: 'Date palm', bn: 'খেজুর গাছ', zh: '椰枣树', ja: 'ナツメヤシ' },       ref: '55:68',  hl: 'وَنَخْلٌ' },
+      { arabic: 'عِنَب',     translit: "'Inab",     emoji: '🍇',  meaning: { en: 'Grapes', bn: 'আঙুর', zh: '葡萄', ja: 'ブドウ' },            ref: '80:28',  hl: 'وَعِنَبًا' },
+      { arabic: 'زَيْتُون',  translit: 'Zaytun',    emoji: '🫒',  meaning: { en: 'Olive', bn: 'জলপাই', zh: '橄榄', ja: 'オリーブ' },           ref: '95:1',   hl: 'وَٱلزَّيْتُونِ' }
     ]
   },
   {
     id: 'family',
     emoji: '👨‍👩‍👧‍👦',
-    label: { en: 'Family', bn: 'পরিবার' },
+    label: { en: 'Family', bn: 'পরিবার', zh: '家庭', ja: '家族' },
     words: [
-      { arabic: 'أَب',         translit: 'Ab',        emoji: '👨',       meaning: { en: 'Father',   bn: 'বাবা' },     ref: '12:78', hl: 'أَبًا' },
-      { arabic: 'أُمّ',         translit: 'Umm',       emoji: '👩',       meaning: { en: 'Mother',   bn: 'মা' },       ref: '28:7',  hl: 'أُمِّ' },
-      { arabic: 'أَخ',         translit: 'Akh',       emoji: '👦',       meaning: { en: 'Brother',  bn: 'ভাই' },      ref: '4:12',  hl: 'أَخٌ' },
-      { arabic: 'أُخْت',       translit: 'Ukht',      emoji: '👧',       meaning: { en: 'Sister',   bn: 'বোন' },      ref: '4:12',  hl: 'أُخْتٌ' },
-      { arabic: 'وَالِدَيْن',  translit: 'Walidayn',  emoji: '👨‍👩‍👧',    meaning: { en: 'Parents',  bn: 'বাবা-মা' },  ref: '4:36',  hl: 'وَبِٱلْوَٰلِدَيْنِ' },
-      { arabic: 'أَهْل',       translit: 'Ahl',       emoji: '🏠',       meaning: { en: 'Family',   bn: 'পরিবার' },   ref: '20:29', hl: 'أَهْلِى' }
+      { arabic: 'أَب',         translit: 'Ab',        emoji: '👨',       meaning: { en: 'Father', bn: 'বাবা', zh: '父亲', ja: '父' },     ref: '12:78', hl: 'أَبًا' },
+      { arabic: 'أُمّ',         translit: 'Umm',       emoji: '👩',       meaning: { en: 'Mother', bn: 'মা', zh: '母亲', ja: '母' },       ref: '28:7',  hl: 'أُمِّ' },
+      { arabic: 'أَخ',         translit: 'Akh',       emoji: '👦',       meaning: { en: 'Brother', bn: 'ভাই', zh: '兄弟', ja: '兄弟' },      ref: '4:12',  hl: 'أَخٌ' },
+      { arabic: 'أُخْت',       translit: 'Ukht',      emoji: '👧',       meaning: { en: 'Sister', bn: 'বোন', zh: '姐妹', ja: '姉妹' },      ref: '4:12',  hl: 'أُخْتٌ' },
+      { arabic: 'وَالِدَيْن',  translit: 'Walidayn',  emoji: '👨‍👩‍👧',    meaning: { en: 'Parents', bn: 'বাবা-মা', zh: '父母', ja: '両親' },  ref: '4:36',  hl: 'وَبِٱلْوَٰلِدَيْنِ' },
+      { arabic: 'أَهْل',       translit: 'Ahl',       emoji: '🏠',       meaning: { en: 'Family', bn: 'পরিবার', zh: '家庭', ja: '家族' },   ref: '20:29', hl: 'أَهْلِى' }
     ]
   },
   {
     id: 'colors',
     emoji: '🎨',
-    label: { en: 'Colours', bn: 'রং' },
+    label: { en: 'Colours', bn: 'রং', zh: '颜色', ja: '色' },
     words: [
-      { arabic: 'أَبْيَض',   translit: 'Abyad',    emoji: '⚪', meaning: { en: 'White',            bn: 'সাদা' },           ref: '2:187', hl: 'ٱلْأَبْيَضُ' },
-      { arabic: 'أَسْوَد',   translit: 'Aswad',    emoji: '⚫', meaning: { en: 'Black',            bn: 'কালো' },           ref: '2:187', hl: 'ٱلْأَسْوَدِ' },
-      { arabic: 'أَخْضَر',   translit: 'Akhdar',   emoji: '🟢', meaning: { en: 'Green',            bn: 'সবুজ' },           ref: '36:80', hl: 'ٱلْأَخْضَرِ' },
-      { arabic: 'صَفْرَاء',  translit: "Safra'",   emoji: '🟡', meaning: { en: 'Yellow',           bn: 'হলুদ' },           ref: '2:69',  hl: 'صَفْرَآءُ' },
-      { arabic: 'حُمْر',     translit: 'Humr',     emoji: '🔴', meaning: { en: 'Red (streaks)',    bn: 'লাল' },            ref: '35:27', hl: 'وَحُمْرٌ' },
-      { arabic: 'وَرْدَة',   translit: 'Wardah',   emoji: '🌹', meaning: { en: 'Rose (rosy pink)', bn: 'গোলাপ (গোলাপি)' }, ref: '55:37', hl: 'وَرْدَةً' }
+      { arabic: 'أَبْيَض',   translit: 'Abyad',    emoji: '⚪', meaning: { en: 'White', bn: 'সাদা', zh: '白色', ja: '白' },           ref: '2:187', hl: 'ٱلْأَبْيَضُ' },
+      { arabic: 'أَسْوَد',   translit: 'Aswad',    emoji: '⚫', meaning: { en: 'Black', bn: 'কালো', zh: '黑色', ja: '黒' },           ref: '2:187', hl: 'ٱلْأَسْوَدِ' },
+      { arabic: 'أَخْضَر',   translit: 'Akhdar',   emoji: '🟢', meaning: { en: 'Green', bn: 'সবুজ', zh: '绿色', ja: '緑' },           ref: '36:80', hl: 'ٱلْأَخْضَرِ' },
+      { arabic: 'صَفْرَاء',  translit: "Safra'",   emoji: '🟡', meaning: { en: 'Yellow', bn: 'হলুদ', zh: '黄色', ja: '黄' },           ref: '2:69',  hl: 'صَفْرَآءُ' },
+      { arabic: 'حُمْر',     translit: 'Humr',     emoji: '🔴', meaning: { en: 'Red (streaks)', bn: 'লাল', zh: '红色（条纹）', ja: '赤（筋）' },            ref: '35:27', hl: 'وَحُمْرٌ' },
+      { arabic: 'وَرْدَة',   translit: 'Wardah',   emoji: '🌹', meaning: { en: 'Rose (rosy pink)', bn: 'গোলাপ (গোলাপি)', zh: '玫瑰（粉红色）', ja: 'バラ（ピンク色）' }, ref: '55:37', hl: 'وَرْدَةً' }
     ]
   }
 ];

@@ -75,13 +75,13 @@ class PWA {
 
   injectButton() {
     if (this.button || this.isDismissed()) return;
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return;
+    const container = document.getElementById('header-quick-actions');
+    if (!container) return;
     const lang = this.lang();
 
     const wrap = document.createElement('span');
     wrap.id = 'pwa-install';
-    wrap.className = 'flex items-center gap-1 ml-1';
+    wrap.className = 'flex items-center gap-1';
 
     const install = document.createElement('button');
     install.id = 'pwa-install-btn';
@@ -108,7 +108,7 @@ class PWA {
 
     wrap.appendChild(install);
     wrap.appendChild(dismiss);
-    themeToggle.parentElement.appendChild(wrap);
+    container.appendChild(wrap);
     this.button = wrap;
   }
 

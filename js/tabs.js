@@ -112,8 +112,8 @@ class TabSystem {
       btn.classList.toggle('active', isActive);
       btn.classList.toggle('border-primary', isActive);
       btn.classList.toggle('text-primary', isActive);
-      btn.classList.toggle('dark:text-blue-400', isActive);
-      btn.classList.toggle('dark:border-blue-400', isActive);
+      btn.classList.toggle('dark:text-sky-300', isActive);
+      btn.classList.toggle('dark:border-sky-300', isActive);
       btn.classList.toggle('border-transparent', !isActive);
       btn.classList.toggle('text-gray-500', !isActive);
     });
@@ -127,6 +127,16 @@ class TabSystem {
     });
 
     this.activeTab = tabId;
+
+    // Show tabs-nav only for Quran-related modules; hide for standalone modules
+    // (learn, memorize, amal, whyislam, resources, prophets, seerah, etc.)
+    const quranTabs = new Set([
+      'reading', 'search', 'tafseer', 'wordbyword', 'grammar', 'tajweedreading',
+      'mushaf', 'topics', 'wordrepeat', 'sarf', 'mutashabihat', 'nuzul',
+      'quiz', 'audio', 'khatmah', 'tajweedlearn', 'quranicarabic'
+    ]);
+    this.tabNav.classList.toggle('hidden', !quranTabs.has(tabId));
+
     this.updateHeadline(tabId);
 
     // Back-navigation: when a module sends us to Reading to view a verse,

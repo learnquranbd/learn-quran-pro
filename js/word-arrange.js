@@ -331,7 +331,8 @@ class WordArrange {
           }).join('')}
         </div>
         <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
-          <button data-hint ${done ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg border border-amber-300 dark:border-amber-500/50 text-amber-600 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40" title="${this.tt('wa_hint')}">💡 ${this.tt('wa_hint')}</button>
+          <button data-hint ${done ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg border border-amber-300 dark:border-amber-500/50 text-amber-600 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40" title="${this.tt('wa_hint')}" aria-label="${this.tt('wa_hint')}">💡 ${this.tt('wa_hint')}</button>
+          <button data-undo ${this.placed.length === 0 ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30">↩ ${this.tt('wa_undo')}</button>
           <button data-reset class="text-xs px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">${this.tt('wa_reset')}</button>
           ${done ? `<span class="text-sm font-semibold ${allCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}">${allCorrect ? '✓ ' + this.tt('wa_correct') : '✗ ' + this.tt('wa_wrong')}</span>` : ''}
           ${allCorrect && this._newBest ? `<span class="text-xs font-semibold text-amber-600 dark:text-amber-300">🏆 ${this.tt('wa_new_best')}</span>` : ''}
@@ -389,6 +390,8 @@ class WordArrange {
     if (unplace) { const slot = parseInt(unplace.getAttribute('data-unplace'), 10); this.placed.splice(slot, 1); this.moves++; this._scored = false; this.renderBoard(); return; }
     const reset = e.target.closest('[data-reset]');
     if (reset) { this.placed = []; this.moves = 0; this.startTime = null; this._scored = false; this.stopTimer(); this.renderBoard(); return; }
+    const undo = e.target.closest('[data-undo]');
+    if (undo && this.placed.length > 0) { this.placed.pop(); this.moves++; this._scored = false; this.renderBoard(); return; }
   }
 
   esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

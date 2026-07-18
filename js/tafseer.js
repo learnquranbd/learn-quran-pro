@@ -390,10 +390,23 @@ class TafseerView {
     const cacheKey = `${tafsirId}:${verseKey}`;
     if (this.cache.has(cacheKey)) return this.cache.get(cacheKey);
 
-    // spa5k/tafsir_api sources (slug-keyed): fetch the per-verse JSON off the
-    // jsdelivr CDN. The service worker caches cross-origin GETs, so this becomes
-    // available offline after the first successful view — no SW change needed.
+    // spa5k/tafsir_api sources (slug-keyed): check offline bundle first, then
+    // fall back to the jsdelivr CDN. The service worker caches cross-origin
+    // GETs, so once viewed, slug tafsir also becomes available offline.
     if (isTafsirSlug(tafsirId)) {
+      // Offline-first: try the bundled slug tafsir (data/tafsir/<slug>.json)
+      try {
+        const local = await this.getLocalTafsir(tafsirId);
+        if (local) {
+          const txt = local[verseKey];
+          if (typeof txt === 'string' && txt.trim()) {
+            const result = { text: this.sanitizeHtml(txt), resourceName: TAFSIR_ID_NAME[tafsirId] || '' };
+            this.cache.set(cacheKey, result);
+            return result;
+          }
+        }
+      } catch (e) { /* fall through to CDN */ }
+
       const [s, a] = verseKey.split(':');
       const url = `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirId}/${s}/${a}.json`;
       const promise = fetch(url)

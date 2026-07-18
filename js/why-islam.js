@@ -74,6 +74,13 @@ const WHY_ISLAM_I18N = {
     en: 'These are gentle suggestions only, offered without any pressure. Go at your own pace, and follow whichever step feels right for you.',
     bn: 'এগুলো কেবল কোমল পরামর্শ, কোনো চাপ ছাড়াই উপস্থাপিত। নিজের গতিতে এগোন, এবং যে পদক্ষেপ আপনার কাছে উপযুক্ত মনে হয় তা-ই অনুসরণ করুন।',
   },
+  whyislam_quiz_title:    { en: 'Quiz', bn: 'কুইজ' },
+  whyislam_quiz_intro:    { en: 'Test your knowledge of the core topics covered in this module.', bn: 'এই মডিউলের মূল বিষয়গুলি সম্পর্কে আপনার জ্ঞান পরীক্ষা করুন।' },
+  whyislam_quiz_score:    { en: 'Your score', bn: 'আপনার স্কোর' },
+  whyislam_quiz_best:     { en: 'Best', bn: 'সেরা' },
+  whyislam_quiz_submit:   { en: 'Check answers', bn: 'উত্তর দেখুন' },
+  whyislam_quiz_retake:   { en: 'Try again', bn: 'আবার চেষ্টা করুন' },
+  whyislam_quiz_hint:     { en: 'Answer all questions to submit', bn: 'জমা দিতে সব প্রশ্নের উত্তর দিন' },
 };
 
 const WHY_ISLAM_DATA = [
@@ -1237,15 +1244,53 @@ const WHY_ISLAM_DATA = [
   },
 ];
 
+const WHY_ISLAM_QUIZ = [
+  { qEn: 'What is the Arabic word for the Oneness of God?', qBn: 'আল্লাহর একত্বের আরবি শব্দ কী?',
+    optsEn: ['Tawhid', 'Shirk', 'Taqwa', 'Ihsan'], optsBn: ['তাওহীদ', 'শিরক', 'তাকওয়া', 'ইহসান'], correct: 0 },
+  { qEn: 'Which book do Muslims believe was revealed to Prophet Muhammad ﷺ?', qBn: 'মুসলিমরা বিশ্বাস করে কোন গ্রন্থ নবী মুহাম্মাদ ﷺ-এর উপর অবতীর্ণ হয়েছে?',
+    optsEn: ['The Torah', 'The Gospel', 'The Quran', 'The Psalms'], optsBn: ['তাওরাত', 'ইঞ্জিল', 'কুরআন', 'যাবুর'], correct: 2 },
+  { qEn: 'What does "Islam" literally mean?', qBn: '"ইসলাম" এর আভিধানিক অর্থ কী?',
+    optsEn: ['Prayer', 'Submission to God', 'Charity', 'Fasting'], optsBn: ['প্রার্থনা', 'আল্লাহর কাছে আত্মসমর্পণ', 'দান', 'রোজা'], correct: 1 },
+  { qEn: 'How many times is the Quran\'s preservation mentioned in the Quran itself?', qBn: 'কুরআনে কুরআনের সংরক্ষণ কতবার উল্লেখ করা হয়েছে?',
+    optsEn: ['Once', 'Three times', 'Five times', 'Ten times'], optsBn: ['একবার', 'তিনবার', 'পাঁচবার', 'দশবার'], correct: 2 },
+  { qEn: 'Which of these is a purpose of life according to Islam?', qBn: 'ইসলাম মতে জীবনের উদ্দেশ্য কী?',
+    optsEn: ['To worship God alone', 'To seek wealth', 'To gain power', 'To enjoy life'], optsBn: ['একমাত্র আল্লাহর ইবাদত করা', 'সম্পদ অর্জন', 'ক্ষমতা লাভ', 'জীবন উপভোগ'], correct: 0 },
+  { qEn: 'What is the Final Day called in Arabic?', qBn: 'শেষ দিবসকে আরবিতে কী বলা হয়?',
+    optsEn: ['Yawm al-Jumu\'ah', 'Yawm al-Qiyamah', 'Yawm al-Jum\'ah', 'Yawm al-Qadr'], optsBn: ['ইয়াওমুল জুমুয়া', 'ইয়াওমুল কিয়ামাহ', 'ইয়াওমুল জুমআ', 'ইয়াওমুল কদর'], correct: 1 },
+  { qEn: 'What does "Qadar" refer to in Islam?', qBn: 'ইসলামে "কদর" বলতে কী বোঝায়?',
+    optsEn: ['Divine decree and predestination', 'Night prayer', 'Charity calculation', 'Pilgrimage rite'], optsBn: ['আল্লাহর নির্ধারিত ভাগ্য', 'রাতের নামাজ', 'যাকাত হিসাব', 'হজ্জের রীতি'], correct: 0 },
+  { qEn: 'Which Prophet is mentioned most frequently in the Quran?', qBn: 'কুরআনে সবচেয়ে বেশি কোন নবীর নাম এসেছে?',
+    optsEn: ['Muhammad ﷺ', 'Musa (Moses)', 'Ibrahim (Abraham)', 'Nuh (Noah)'], optsBn: ['মুহাম্মাদ ﷺ', 'মূসা (আঃ)', 'ইবরাহীম (আঃ)', 'নূহ (আঃ)'], correct: 1 },
+  { qEn: 'The Quran has been preserved in which form since its revelation?', qBn: 'কুরআন অবতীর্ণের পর থেকে কীভাবে সংরক্ষিত হয়েছে?',
+    optsEn: ['Only orally', 'Both oral and written', 'Only written', 'Only digital'], optsBn: ['শুধু মৌখিক', 'মৌখিক ও লিখিত উভয়ভাবেই', 'শুধু লিখিত', 'শুধু ডিজিটাল'], correct: 1 },
+  { qEn: 'What does "Muhammad" mean in Arabic?', qBn: 'আরবিতে "মুহাম্মাদ" অর্থ কী?',
+    optsEn: ['The praised one', 'The warrior', 'The messenger', 'The leader'], optsBn: ['প্রশংসিত', 'যোদ্ধা', 'বার্তাবাহক', 'নেতা'], correct: 0 },
+  { qEn: 'How many chapters (sūrahs) are in the Quran?', qBn: 'কুরআনে কয়টি সূরা আছে?',
+    optsEn: ['86', '114', '99', '25'], optsBn: ['৮৬', '১১৪', '৯৯', '২৫'], correct: 1 },
+  { qEn: 'What is the first revelation that came to Prophet Muhammad ﷺ?', qBn: 'নবী মুহাম্মাদ ﷺ-এর উপর প্রথম কী অবতীর্ণ হয়?',
+    optsEn: ['Surah al-Fatiha', 'The first 5 verses of Surah al-Alaq', 'Surah al-Ikhlas', 'Surah an-Nas'], optsBn: ['সূরা ফাতিহা', 'সূরা আলাকের প্রথম ৫ আয়াত', 'সূরা ইখলাস', 'সূরা নাস'], correct: 1 },
+  { qEn: 'Which city did the Prophet ﷺ migrate to (Hijra)?', qBn: 'নবী ﷺ কোন শহরে হিজরত করেন?',
+    optsEn: ['Jerusalem', 'Medina', 'Ta\'if', 'Najran'], optsBn: ['জেরুজালেম', 'মদিনা', 'তায়েফ', 'নাজরান'], correct: 1 },
+  { qEn: 'What is the Arabic term for the Islamic creed "There is no god but Allah"?', qBn: '"আল্লাহ ছাড়া কোনো উপাস্য নেই"-এর আরবি পরিভাষা কী?',
+    optsEn: ['Takbir', 'Tahlil', 'Tasbih', 'Tahmid'], optsBn: ['তাকবির', 'তাহলিল', 'তাসবিহ', 'তাহমিদ'], correct: 1 },
+  { qEn: 'What does "Rahman" mean?', qBn: '"রহমান" অর্থ কী?',
+    optsEn: ['The Most Merciful', 'The All-Knowing', 'The All-Powerful', 'The Eternal'], optsBn: ['পরম করুণাময়', 'সর্বজ্ঞ', 'সর্বশক্তিমান', 'চিরন্তন'], correct: 0 },
+  { qEn: 'How many names of God are mentioned in the famous "99 Names" tradition?', qBn: 'বিখ্যাত "৯৯ নাম" ঐতিহ্যে আল্লাহর কতটি নাম উল্লেখ আছে?',
+    optsEn: ['100', '99', '77', '33'], optsBn: ['১০০', '৯৯', '৭৭', '৩৩'], correct: 1 },
+];
+
 class WhyIslamView {
   constructor() {
     this.container = document.getElementById('why-islam-container');
     if (!this.container) return;
     this.language = (typeof appSettings !== 'undefined' && appSettings) ? (appSettings.get('language') || 'en') : 'en';
     this.rendered = false;
-    this.currentId = null; // null => home grid; otherwise topic detail
+    this.currentId = null;
     this.query = '';
     this.readSet = this.loadRead();
+    this.quizAnswers = {};
+    this.quizSubmitted = false;
+    this.quizBest = this.loadQuizBest();
 
     window.addEventListener('tabChanged', (e) => {
       if (e && e.detail && e.detail.tabId === 'whyislam') this.render();
@@ -1292,6 +1337,13 @@ class WhyIslamView {
     ));
   }
 
+  loadQuizBest() {
+    try { return parseInt(localStorage.getItem('lq_whyislam_quiz_best'), 10) || 0; } catch (_) { return 0; }
+  }
+  saveQuizBest() {
+    try { localStorage.setItem('lq_whyislam_quiz_best', String(this.quizBest)); } catch (_) { }
+  }
+
   loadRead() {
     const s = new Set();
     try {
@@ -1300,7 +1352,7 @@ class WhyIslamView {
         const arr = JSON.parse(raw);
         if (Array.isArray(arr)) arr.forEach(id => { if (typeof id === 'string') s.add(id); });
       }
-    } catch (_) { /* ignore */ }
+    } catch (_) { }
     return s;
   }
 
@@ -1327,16 +1379,109 @@ class WhyIslamView {
     this.rendered = true;
     if (!this.container) return;
     try {
-      if (this.currentId && this.topicById(this.currentId)) {
+      if (this.currentId === '__quiz__') {
+        this.renderQuiz();
+      } else if (this.currentId && this.topicById(this.currentId)) {
         this.renderDetail(this.topicById(this.currentId));
       } else {
         this.currentId = null;
         this.renderHome();
       }
     } catch (_) {
-      // Never throw into the app shell.
       this.container.innerHTML = '';
     }
+  }
+
+  /* ---------- quiz view ---------- */
+  renderQuiz() {
+    const submitted = this.quizSubmitted;
+    const total = WHY_ISLAM_QUIZ.length;
+    let score = 0;
+    const answeredAll = WHY_ISLAM_QUIZ.every((_, i) => this.quizAnswers[i] != null);
+
+    const questions = WHY_ISLAM_QUIZ.map((q, qi) => {
+      const sel = this.quizAnswers[qi];
+      const opts = q.optsEn.map((_, oi) => ({ en: q.optsEn[oi], bn: q.optsBn[oi] }));
+      if (submitted && sel === q.correct) score++;
+      const optHtml = opts.map((o, oi) => {
+        const chosen = sel === oi;
+        let cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-primary';
+        let mark = '';
+        if (submitted) {
+          if (oi === q.correct) { cls = 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-700 text-green-700 dark:text-green-300'; mark = ' ✓'; }
+          else if (chosen) { cls = 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-700 text-red-700 dark:text-red-300'; mark = ' ✗'; }
+          else { cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500'; }
+        } else if (chosen) {
+          cls = 'bg-primary/10 border-primary text-primary';
+        }
+        return `<button type="button" ${submitted ? 'disabled' : ''} data-wi-quiz-opt="${qi}:${oi}"
+          class="w-full text-left px-3 py-2 rounded-lg border text-sm transition-colors ${cls}" dir="auto">${this.esc(this.lc(o))}${mark}</button>`;
+      }).join('');
+      return `
+        <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+          <p class="font-semibold text-sm text-gray-800 dark:text-gray-100 mb-2" dir="auto">${qi + 1}. ${this.esc(this.lc({ en: q.qEn, bn: q.qBn }))}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${optHtml}</div>
+        </div>`;
+    }).join('');
+
+    const footer = submitted
+      ? `<div class="text-center py-6">
+           <div class="inline-flex flex-col items-center gap-1 px-6 py-4 rounded-xl bg-primary/5">
+             <span class="text-sm text-gray-500 dark:text-gray-400">${this.esc(this.tt('whyislam_quiz_score'))}</span>
+             <span class="text-3xl font-bold text-primary">${score} / ${total}</span>
+             <span class="text-xs text-gray-500 dark:text-gray-400">${this.esc(this.tt('whyislam_quiz_best'))}: ${Math.max(this.quizBest, score)} / ${total}</span>
+           </div>
+           <div class="mt-3">
+             <button type="button" data-wi-quiz-reset
+               class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:opacity-90">${this.esc(this.tt('whyislam_quiz_retake'))}</button>
+           </div>
+         </div>`
+      : `<div class="text-center pt-4 pb-6">
+           <button type="button" data-wi-quiz-submit ${answeredAll ? '' : 'disabled'}
+             class="px-5 py-2 rounded-lg text-sm font-medium transition-colors ${answeredAll ? 'bg-primary text-white hover:opacity-90 cursor-pointer' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'}">${this.esc(this.tt('whyislam_quiz_submit'))}</button>
+           ${answeredAll ? '' : `<p class="text-xs text-gray-400 dark:text-gray-500 mt-2">${this.esc(this.tt('whyislam_quiz_hint'))}</p>`}
+         </div>`;
+
+    this.container.innerHTML = `
+      <div class="w-full max-w-3xl mx-auto">
+        <button type="button" id="wi-back"
+          class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-primary mb-5">
+          <span aria-hidden="true">←</span><span>${this.esc(this.tt('whyislam_back'))}</span>
+        </button>
+
+        <div class="text-center mb-4">
+          <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">🧠 ${this.esc(this.tt('whyislam_quiz_title'))}</h3>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-1" dir="auto">${this.esc(this.tt('whyislam_quiz_intro'))}
+            <span class="ml-2">· ${this.esc(this.tt('whyislam_quiz_best'))}: ${this.quizBest} / ${total}</span></p>
+        </div>
+        <div class="space-y-3">${questions}</div>
+        ${footer}
+      </div>`;
+    this.wireQuiz();
+  }
+
+  wireQuiz() {
+    const back = this.container.querySelector('#wi-back');
+    if (back) back.addEventListener('click', () => { this.currentId = null; this.quizAnswers = {}; this.quizSubmitted = false; this.renderHome(); });
+    this.container.querySelectorAll('[data-wi-quiz-opt]').forEach(el => {
+      el.addEventListener('click', () => {
+        if (this.quizSubmitted) return;
+        const [qi, oi] = el.getAttribute('data-wi-quiz-opt').split(':').map(Number);
+        if (!isNaN(qi) && !isNaN(oi)) { this.quizAnswers[qi] = oi; this.renderQuiz(); }
+      });
+    });
+    const subBtn = this.container.querySelector('[data-wi-quiz-submit]');
+    if (subBtn) subBtn.addEventListener('click', () => this.submitQuizWI());
+    const resetBtn = this.container.querySelector('[data-wi-quiz-reset]');
+    if (resetBtn) resetBtn.addEventListener('click', () => { this.quizAnswers = {}; this.quizSubmitted = false; this.renderQuiz(); });
+  }
+
+  submitQuizWI() {
+    let score = 0;
+    WHY_ISLAM_QUIZ.forEach((q, i) => { if (this.quizAnswers[i] === q.correct) score++; });
+    if (score > this.quizBest) { this.quizBest = score; this.saveQuizBest(); }
+    this.quizSubmitted = true;
+    this.renderQuiz();
   }
 
   /* ---------- home grid ---------- */
@@ -1396,6 +1541,18 @@ class WhyIslamView {
           <div class="w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
             <div class="h-full rounded-full bg-primary transition-all" style="width:${pct}%"></div>
           </div>
+        </div>
+
+        <div class="mt-6 mb-6">
+          <button type="button" data-topic="__quiz__"
+            class="w-full group text-start flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800 hover:shadow-md transition-all">
+            <span class="text-3xl" aria-hidden="true">🧠</span>
+            <span class="flex-1 min-w-0">
+            <span class="block font-bold text-gray-800 dark:text-gray-100">${this.esc(this.tt('whyislam_quiz_title'))}</span>
+            <span class="block text-sm text-gray-500 dark:text-gray-400 leading-relaxed" dir="auto">${this.esc(this.tt('whyislam_quiz_intro'))}</span>
+            </span>
+            <span class="text-gray-300 dark:text-gray-600 group-hover:text-primary transition-colors" aria-hidden="true">→</span>
+          </button>
         </div>
 
         ${grid}

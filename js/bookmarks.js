@@ -456,6 +456,7 @@ class Bookmarks {
       inner += `
         <button id="bm-continue" data-hash="${this.escapeHtml(lastRead.hash)}"
                 class="w-full flex items-center gap-2 px-4 py-3 rounded-lg text-start
+                       sticky top-0 z-20 lg:static lg:z-auto shadow-md lg:shadow-none
                        bg-primary/10 dark:bg-blue-900/30 border border-primary/20 dark:border-blue-800
                        text-primary dark:text-blue-300 hover:bg-primary/20 dark:hover:bg-blue-900/50 transition-colors">
           <span>↪️</span>

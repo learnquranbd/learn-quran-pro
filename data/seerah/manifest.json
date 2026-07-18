@@ -6,5 +6,8 @@
   "companions-ansar-women.json",
   "topics-family.json",
   "topics-character.json",
-  "topics-treaties.json"
+  "topics-treaties.json",
+  "events-extra-w2.json",
+  "companions-extra-w2.json",
+  "topics-extra-w2.json"
 ]

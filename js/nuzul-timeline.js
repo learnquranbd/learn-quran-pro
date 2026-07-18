@@ -1,25 +1,50 @@
-/**
- * Revelation Context (Asbāb an-Nuzūl / শানে নুযূল) — standalone module.
- *
- * Two things the tradition actually supports, kept honest:
- *   1. The SŪRAH revelation order (tartīb an-nuzūl) — the standard Cairo 1924
- *      sequence in which each sūrah came down, grouped into four phases that
- *      track the Seerah. Toggle between muṣḥaf order and revelation order.
- *   2. Per-sūrah ASBĀB AN-NUZŪL — for the āyāt that have a well-documented
- *      occasion of revelation, why/when/what was happening. Not every āyah has
- *      one (that is expected); a sūrah shows the ones that do, in āyah order.
- *
- * Data (all lazy-loaded, fully defensive — the module degrades gracefully if a
- * file is missing):
- *   data/nuzul/revelation-order.json  = { surahOrder[], phases[], landmarks[] }
- *   data/nuzul/manifest.json          = [ "asbab-002.json", ... ]  (asbāb shards)
- *   data/nuzul/<shard>                = { asbab: { "<surah>": [ {ref,titleEn/Bn,
- *                                        contextEn/Bn,event}, ... ] } }
- *
- * All prose routes through lc({en,bn}) → the CI18N knowledgebase, so every UI
- * language is served (Arabic sūrah text stays Arabic). Āyah pills open the
- * shared ayahModal. No figurative imagery; mainstream Sunni sources only.
- */
+const NUZUL_I18N = {
+  nuzul_title:          { en: 'Revelation Context', bn: 'শানে নুযূল', zh: '启示背景', ja: '啓示の背景' },
+  nuzul_subtitle:       { en: 'The order in which the Qur\'an was revealed, and — sūrah by sūrah — the documented occasions behind the verses (asbāb an-nuzūl). Not every āyah has a recorded occasion; those that do are shown in āyah order.', bn: 'কুরআন যে ক্রমে অবতীর্ণ হয়েছে, এবং সূরা ধরে ধরে আয়াতসমূহের পেছনের নথিভুক্ত প্রেক্ষাপট (আসবাবুন নুযূল)। প্রতিটি আয়াতের নির্দিষ্ট শানে নুযূল নেই; যেগুলোর আছে সেগুলো আয়াত-ক্রমে দেখানো হয়েছে।', zh: '古兰经启示的顺序，以及逐章记录的经文背后的事件（启示背景）。并非每节经文都有记录。', ja: 'クルアーンが啓示された順序と、章ごとに記録された啓示の背景（アスバーブ・アン＝ヌズール）。すべての節に記録があるわけではありません。' },
+  nuzul_view_overview:  { en: 'Sūrahs', bn: 'সূরা', zh: '章节', ja: 'スーラ' },
+  nuzul_view_quiz:      { en: 'Quiz', bn: 'কুইজ', zh: '测验', ja: 'クイズ' },
+  nuzul_quiz_intro:     { en: 'Test your knowledge of revelation order and asbāb an-nuzūl.', bn: 'অবতীর্ণের ক্রম ও আসবাবুন নুযূল সম্পর্কে আপনার জ্ঞান পরীক্ষা করুন।', zh: '测试您对启示顺序和启示背景的了解。', ja: '啓示の順序とアスバーブ・アン＝ヌズールの知識をテストしましょう。' },
+  nuzul_quiz_score:     { en: 'Your score', bn: 'আপনার স্কোর', zh: '您的分数', ja: 'スコア' },
+  nuzul_quiz_best:      { en: 'Best', bn: 'সেরা', zh: '最佳', ja: '最高' },
+  nuzul_quiz_submit:    { en: 'Check answers', bn: 'উত্তর দেখুন', zh: '检查答案', ja: '回答を確認' },
+  nuzul_quiz_retake:    { en: 'Try again', bn: 'আবার চেষ্টা করুন', zh: '再试一次', ja: 'もう一度挑戦' },
+  nuzul_quiz_hint:      { en: 'Answer all questions to submit', bn: 'জমা দিতে সব প্রশ্নের উত্তর দিন', zh: '回答所有问题后提交', ja: 'すべての質問に答えて提出' },
+};
+
+const NUZUL_QUIZ = [
+  { qEn: 'Which sūrah is generally accepted as the first complete sūrah revealed?', qBn: 'সর্বপ্রথম পূর্ণাঙ্গ সূরারূপে অবতীর্ণ হয়েছে কোন সূরা?',
+    optsEn: ['Surah al-Fatiha', 'Surah al-Ikhlas', "Surah al-'Alaq", 'Surah an-Nas'], optsBn: ['সূরা ফাতিহা', 'সূরা ইখলাস', 'সূরা আলাক', 'সূরা নাস'], correct: 0 },
+  { qEn: 'How many sūrahs make up the "Seven Long Ones" (al-Sab\' al-Tiwāl)?', qBn: '"সাবউ তিওয়াল" (সাত দীর্ঘ) সূরা কয়টি?',
+    optsEn: ['7', '5', '9', '11'], optsBn: ['৭', '৫', '৯', '১১'], correct: 0 },
+  { qEn: 'What was the first āyah revealed to Prophet Muhammad ﷺ?', qBn: 'নবী মুহাম্মাদ ﷺ-এর উপর প্রথম অবতীর্ণ আয়াত কোনটি?',
+    optsEn: ['Bismillahir Rahmanir Rahim', 'Alhamdu lillahi Rabbil Alamin', 'Iqra bismi rabbik', 'Ya ayyuhal muddaththir'], optsBn: ['বিসমিল্লাহির রাহমানির রাহিম', 'আলহামদু লিল্লাহি রাব্বিল আলামিন', 'إقْرَأْ بِاسْمِ رَبِّكَ', 'يَا أَيُّهَا الْمُدَّثِّرُ'], correct: 2 },
+  { qEn: 'Into how many phases is the revelation order typically divided?', qBn: 'অবতীর্ণের ক্রমকে সাধারণত কয়টি পর্যায়ে ভাগ করা হয়?',
+    optsEn: ['2', '4', '6', '8'], optsBn: ['২', '৪', '৬', '৮'], correct: 1 },
+  { qEn: 'Which sūrah is the last complete sūrah of the Qur\'an?', qBn: 'কুরআনের সর্বশেষ পূর্ণাঙ্গ সূরা কোনটি?',
+    optsEn: ['Surah al-Ikhlas (112)', "Surah al-Falaq (113)", 'Surah an-Nas (114)', 'Surah an-Nasr (110)'], optsBn: ['সূরা ইখলাস (১১২)', 'সূরা ফালাক (১১৩)', 'সূরা নাস (১১৪)', 'সূরা নাসর (১১০)'], correct: 3 },
+  { qEn: 'How many Meccan sūrahs are there in the Qur\'an?', qBn: 'কুরআনে কয়টি মক্কী সূরা আছে?',
+    optsEn: ['82', '86', '92', '76'], optsBn: ['৮২', '৮৬', '৯২', '৭৬'], correct: 1 },
+  { qEn: 'How many Medinan sūrahs are there?', qBn: 'কুরআনে কয়টি মাদানী সূরা আছে?',
+    optsEn: ['20', '28', '32', '18'], optsBn: ['২০', '২৮', '৩২', '১৮'], correct: 1 },
+  { qEn: 'What is the meaning of "Asbāb an-Nuzūl"?', qBn: '"আসবাবুন নুযূল" এর অর্থ কী?',
+    optsEn: ['The pillars of faith', 'The causes/occasions of revelation', 'The rules of recitation', 'The levels of paradise'], optsBn: ['ঈমানের স্তম্ভ', 'অবতীর্ণের কারণ/প্রেক্ষাপট', 'তিলাওয়াতের নিয়ম', 'জান্নাতের স্তর'], correct: 1 },
+  { qEn: 'Which Meccan period (phase) includes sūrahs like al-Qalam (68) and al-Muzzammil (73)?', qBn: 'কোন মক্কী পর্যায়ে সূরা আল-কলম (৬৮) ও আল-মুজ্জাম্মিল (৭৩) অন্তর্ভুক্ত?',
+    optsEn: ['Early Meccan', 'Middle Meccan', 'Late Meccan', 'Medinan'], optsBn: ['প্রথম মক্কী', 'মধ্য মক্কী', 'শেষ মক্কী', 'মাদানী'], correct: 0 },
+  { qEn: 'Which sūrah in the muṣḥaf is a Medinan sūrah?', qBn: 'মুসহাফের কোন সূরাটি মাদানী?',
+    optsEn: ["Surah al-'Alaq (96)", 'Surah al-Baqarah (2)', "Surah al-Masad (111)", 'Surah al-Quraysh (106)'], optsBn: ['সূরা আলাক (৯৬)', 'সূরা বাকারা (২)', 'সূরা মাসাদ (১১১)', 'সূরা কুরায়শ (১০৬)'], correct: 1 },
+  { qEn: 'What was the context (asbab) for the revelation of Surah al-Kawthar (108)?', qBn: 'সূরা কাওসার (১০৮) অবতীর্ণের প্রেক্ষাপট কী?',
+    optsEn: ['When the Prophet\'s son passed away and he was mocked', 'During the Battle of Badr', 'During the conquest of Mecca', 'On the night of Isra and Mi\'raj'], optsBn: ['নবী ﷺ-এর পুত্রের ইন্তেকালে ব্যঙ্গ করা হলে', 'বদর যুদ্ধের সময়', 'মক্কা বিজয়ের সময়', 'ইসরা ও মিরাজের রাতে'], correct: 0 },
+  { qEn: 'The longest sūrah in the Qur\'an was revealed in which phase?', qBn: 'কুরআনের দীর্ঘতম সূরাটি কোন পর্যায়ে অবতীর্ণ হয়েছে?',
+    optsEn: ['Early Meccan', 'Middle Meccan', 'Late Meccan', 'Medinan'], optsBn: ['প্রথম মক্কী', 'মধ্য মক্কী', 'শেষ মক্কী', 'মাদানী'], correct: 3 },
+  { qEn: 'Which sūrah was revealed when the Prophet ﷺ was in the cave of Thawr during the Hijra?', qBn: 'হিজরতের সময় নবী ﷺ সাওর গুহায় থাকাকালে কোন সূরাটি অবতীর্ণ হয়?',
+    optsEn: ['Surah at-Tawbah (9)', 'Surah al-Anfal (8)', 'Surah Muhammad (47)', 'Surah al-Fatiha (1)'], optsBn: ['সূরা তাওবা (৯)', 'সূরা আনফাল (৮)', 'সূরা মুহাম্মাদ (৪৭)', 'সূরা ফাতিহা (১)'], correct: 0 },
+  { qEn: 'How many total sūrahs were revealed in the Meccan period?', qBn: 'মক্কী পর্যায়ে মোট কতটি সূরা অবতীর্ণ হয়েছে?',
+    optsEn: ['About 48', 'About 62', 'About 86', 'About 96'], optsBn: ['প্রায় ৪৮', 'প্রায় ৬২', 'প্রায় ৮৬', 'প্রায় ৯৬'], correct: 2 },
+  { qEn: 'What does "Makki" refer to?', qBn: '"মক্কী" বলতে কী বোঝায়?',
+    optsEn: ['Sūrahs revealed before the Hijra', 'Sūrahs revealed in Mecca only', 'Sūrahs about Mecca', 'Short sūrahs'], optsBn: ['হিজরতের পূর্বে অবতীর্ণ সূরা', 'শুধু মক্কায় অবতীর্ণ সূরা', 'মক্কা সম্পর্কিত সূরা', 'ছোট সূরা'], correct: 0 },
+  { qEn: 'What does "Madani" refer to?', qBn: '"মাদানী" বলতে কী বোঝায়?',
+    optsEn: ['Sūrahs about Medina', 'Sūrahs revealed after the Hijra', 'Long sūrahs', 'Medinan Arabic dialect'], optsBn: ['মদিনা সম্পর্কিত সূরা', 'হিজরতের পর অবতীর্ণ সূরা', 'দীর্ঘ সূরা', 'মাদানী আরবি উপভাষা'], correct: 1 },
+];
 
 class NuzulView {
   constructor() {
@@ -29,22 +54,26 @@ class NuzulView {
     if (!this.language) this.language = 'en';
 
     this.rendered = false;
-    this.orderMode = this.loadOrderMode(); // 'nuzul' | 'mushaf'
-    this.selected = null;                  // null = overview; else surah number
+    this.orderMode = this.loadOrderMode();
+    this.selected = null;
     this.query = '';
+    this.subView = 'surahs';
 
-    // Data holders
-    this.revBySurah = {};   // n -> { order, phase }
-    this.phases = [];       // [ {id, emoji, titleEn/Bn, descEn/Bn} ]
-    this.landmarks = [];    // [ {kind, ref, titleEn/Bn, noteEn/Bn, event} ]
-    this.asbab = {};        // "<surah>" -> [ {ref, titleEn/Bn, contextEn/Bn, event} ]
+    this.revBySurah = {};
+    this.phases = [];
+    this.landmarks = [];
+    this.asbab = {};
     this.dataLoaded = false;
     this.dataLoading = false;
 
-    this.loadData(); // async, non-blocking
+    this.quizAnswers = {};
+    this.quizSubmitted = false;
+    this.quizBest = this.loadQuizBest();
+
+    this.loadData();
 
     window.addEventListener('tabChanged', (e) => {
-      try { if (e && e.detail && e.detail.tabId === 'nuzul') this.render(); } catch (_) { /* ignore */ }
+      try { if (e && e.detail && e.detail.tabId === 'nuzul') this.render(); } catch (_) { }
     });
     window.addEventListener('settingChanged', (e) => {
       try {
@@ -52,11 +81,17 @@ class NuzulView {
           this.language = e.detail.value || 'en';
           if (this.rendered) this.render();
         }
-      } catch (_) { /* ignore */ }
+      } catch (_) { }
     });
   }
 
-  // ── data loading ─────────────────────────────────────────────────────
+  loadQuizBest() {
+    try { return parseInt(localStorage.getItem('lq_nuzul_quiz_best'), 10) || 0; } catch (_) { return 0; }
+  }
+  saveQuizBest() {
+    try { localStorage.setItem('lq_nuzul_quiz_best', String(this.quizBest)); } catch (_) { }
+  }
+
   async loadData() {
     if (this.dataLoaded || this.dataLoading) return;
     this.dataLoading = true;
@@ -79,10 +114,10 @@ class NuzulView {
           if (shard && shard.asbab && typeof shard.asbab === 'object') this.mergeAsbab(shard.asbab);
         }
       }
-    } catch (_) { /* ignore — module degrades gracefully */ }
+    } catch (_) { }
     this.dataLoading = false;
     this.dataLoaded = true;
-    try { if (this.rendered) this.render(); } catch (_) { /* ignore */ }
+    try { if (this.rendered) this.render(); } catch (_) { }
   }
 
   async fetchJson(url) {
@@ -104,13 +139,18 @@ class NuzulView {
         seen.add(e.ref);
         this.asbab[key].push(e);
       }
-      // keep āyā order
       this.asbab[key].sort((a, b) => this.ayahNum(a.ref) - this.ayahNum(b.ref));
     }
   }
 
-  // ── helpers ──────────────────────────────────────────────────────────
   esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  tt(key) {
+    try { const v = t(key, this.language); if (v && v !== key) return v; } catch (_) { }
+    const e = NUZUL_I18N[key];
+    if (e) return e[this.language] || e.en || key;
+    return key;
+  }
 
   lc(o) {
     if (!o) return '';
@@ -137,34 +177,50 @@ class NuzulView {
   loadOrderMode() {
     try { const v = localStorage.getItem('lq_nuzul_order'); return (v === 'mushaf' || v === 'nuzul') ? v : 'nuzul'; } catch (_) { return 'nuzul'; }
   }
-  saveOrderMode() { try { localStorage.setItem('lq_nuzul_order', this.orderMode); } catch (_) { /* ignore */ } }
+  saveOrderMode() { try { localStorage.setItem('lq_nuzul_order', this.orderMode); } catch (_) { } }
 
   openAyah(ref) {
     try {
       if (typeof ayahModal !== 'undefined' && ayahModal && typeof ayahModal.open === 'function') ayahModal.open(ref);
-    } catch (_) { /* ignore */ }
+    } catch (_) { }
   }
 
-  // ── rendering ────────────────────────────────────────────────────────
   render() {
     this.rendered = true;
     if (!this.container) return;
-    this.container.innerHTML = this.selected ? this.renderDetail(this.selected) : this.renderOverview();
+    if (this.selected) {
+      this.container.innerHTML = this.renderDetail(this.selected);
+    } else if (this.subView === 'quiz') {
+      this.container.innerHTML = this.renderQuiz();
+    } else {
+      this.container.innerHTML = this.renderOverview();
+    }
     this.bind();
   }
 
   header() {
     return `
       <div class="mb-4">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-50" dir="auto">${this.esc(this.lc({ en: 'Revelation Context', bn: 'শানে নুযূল' }))}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-relaxed" dir="auto">${this.esc(this.lc({
-          en: 'The order in which the Qur’an was revealed, and — sūrah by sūrah — the documented occasions behind the verses (asbāb an-nuzūl). Not every āyah has a recorded occasion; those that do are shown in āyah order.',
-          bn: 'কুরআন যে ক্রমে অবতীর্ণ হয়েছে, এবং সূরা ধরে ধরে আয়াতসমূহের পেছনের নথিভুক্ত প্রেক্ষাপট (আসবাবুন নুযূল)। প্রতিটি আয়াতের নির্দিষ্ট শানে নুযূল নেই; যেগুলোর আছে সেগুলো আয়াত-ক্রমে দেখানো হয়েছে।'
-        }))}</p>
+        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-50" dir="auto">📜 ${this.esc(this.tt('nuzul_title'))}</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-relaxed" dir="auto">${this.esc(this.tt('nuzul_subtitle'))}</p>
       </div>`;
   }
 
-  // Overview — landmarks strip, order toggle, phase-grouped (or muṣḥaf) list.
+  subToggleHtml() {
+    const btn = (id, label) => `
+      <button type="button" data-nuzul-sub="${id}"
+        class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap
+               ${this.subView === id ? 'bg-white dark:bg-gray-700 text-primary shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}">
+        ${this.esc(label)}</button>`;
+    return `
+      <div class="flex justify-center mb-4">
+        <div class="inline-flex gap-1 p-1 rounded-xl bg-gray-100 dark:bg-gray-800">
+          ${btn('surahs', this.tt('nuzul_view_overview'))}
+          ${btn('quiz', this.tt('nuzul_view_quiz'))}
+        </div>
+      </div>`;
+  }
+
   renderOverview() {
     const landmarks = this.renderLandmarks();
     const toggle = `
@@ -210,7 +266,7 @@ class NuzulView {
     }
     if (!body.trim()) body = `<p class="text-sm text-gray-500 dark:text-gray-400 py-8 text-center" dir="auto">${this.esc(this.lc({ en: 'No sūrah matches your search.', bn: 'আপনার অনুসন্ধানে কোনো সূরা মেলেনি।' }))}</p>`;
 
-    return `<div class="max-w-3xl mx-auto p-1">${this.header()}${landmarks}${toggle}${body}</div>`;
+    return `<div class="max-w-3xl mx-auto p-1">${this.header()}${this.subToggleHtml()}${landmarks}${toggle}${body}</div>`;
   }
 
   matchesSurah(n) {
@@ -268,7 +324,6 @@ class NuzulView {
       </div>`;
   }
 
-  // Detail — one sūrah: header card + vertical asbāb context timeline.
   renderDetail(n) {
     const m = this.surahMeta(n);
     const r = this.revBySurah[n];
@@ -331,7 +386,6 @@ class NuzulView {
         </div>`;
     }
 
-    // prev / next by muṣḥaf number
     const nav = `
       <div class="flex items-center justify-between mt-5 pt-3 border-t border-gray-100 dark:border-gray-700">
         <button data-nuzul-surah="${n > 1 ? n - 1 : 1}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 ${n <= 1 ? 'invisible' : ''}">← ${this.esc(this.surahMeta(n - 1 || 1).name)}</button>
@@ -341,10 +395,78 @@ class NuzulView {
     return `<div class="max-w-2xl mx-auto p-1">${back}${headCard}${timeline}${nav}</div>`;
   }
 
-  // ── events ───────────────────────────────────────────────────────────
+  renderQuiz() {
+    const submitted = this.quizSubmitted;
+    const total = NUZUL_QUIZ.length;
+    let score = 0;
+    const answeredAll = NUZUL_QUIZ.every((_, i) => this.quizAnswers[i] != null);
+
+    const questions = NUZUL_QUIZ.map((q, qi) => {
+      const sel = this.quizAnswers[qi];
+      const opts = q.optsEn.map((_, oi) => ({ en: q.optsEn[oi], bn: q.optsBn[oi] }));
+      if (submitted && sel === q.correct) score++;
+      const optHtml = opts.map((o, oi) => {
+        const chosen = sel === oi;
+        let cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-primary';
+        let mark = '';
+        if (submitted) {
+          if (oi === q.correct) { cls = 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-700 text-green-700 dark:text-green-300'; mark = ' ✓'; }
+          else if (chosen) { cls = 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-700 text-red-700 dark:text-red-300'; mark = ' ✗'; }
+          else { cls = 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500'; }
+        } else if (chosen) {
+          cls = 'bg-primary/10 border-primary text-primary';
+        }
+        return `<button type="button" ${submitted ? 'disabled' : ''} data-nuzul-quiz-opt="${qi}:${oi}"
+          class="w-full text-left px-3 py-2 rounded-lg border text-sm transition-colors ${cls}" dir="auto">${this.esc(this.lc(o))}${mark}</button>`;
+      }).join('');
+      return `
+        <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+          <p class="font-semibold text-sm text-gray-800 dark:text-gray-100 mb-2" dir="auto">${qi + 1}. ${this.esc(this.lc({ en: q.qEn, bn: q.qBn }))}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${optHtml}</div>
+        </div>`;
+    }).join('');
+
+    const footer = submitted
+      ? `<div class="text-center py-6">
+           <div class="inline-flex flex-col items-center gap-1 px-6 py-4 rounded-xl bg-primary/5">
+             <span class="text-sm text-gray-500 dark:text-gray-400">${this.esc(this.tt('nuzul_quiz_score'))}</span>
+             <span class="text-3xl font-bold text-primary">${score} / ${total}</span>
+             <span class="text-xs text-gray-500 dark:text-gray-400">${this.esc(this.tt('nuzul_quiz_best'))}: ${Math.max(this.quizBest, score)} / ${total}</span>
+           </div>
+           <div class="mt-3">
+             <button type="button" data-nuzul-quiz-reset
+               class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:opacity-90">${this.esc(this.tt('nuzul_quiz_retake'))}</button>
+           </div>
+         </div>`
+      : `<div class="text-center pt-4 pb-6">
+           <button type="button" data-nuzul-quiz-submit ${answeredAll ? '' : 'disabled'}
+             class="px-5 py-2 rounded-lg text-sm font-medium transition-colors ${answeredAll ? 'bg-primary text-white hover:opacity-90 cursor-pointer' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'}">${this.esc(this.tt('nuzul_quiz_submit'))}</button>
+           ${answeredAll ? '' : `<p class="text-xs text-gray-400 dark:text-gray-500 mt-2">${this.esc(this.tt('nuzul_quiz_hint'))}</p>`}
+         </div>`;
+
+    return `
+      <div class="max-w-3xl mx-auto p-1">${this.header()}${this.subToggleHtml()}
+        <div class="text-center mb-4">
+          <p class="text-xs text-gray-400 dark:text-gray-500" dir="auto">${this.esc(this.tt('nuzul_quiz_intro'))}
+            <span class="ml-2">· ${this.esc(this.tt('nuzul_quiz_best'))}: ${this.quizBest} / ${total}</span></p>
+        </div>
+        <div class="space-y-3">${questions}</div>
+        ${footer}
+      </div>`;
+  }
+
   bind() {
-    if (!this.container || this._bound === this.container) { /* re-bind after innerHTML swap */ }
+    if (!this.container) return;
     this.container.onclick = (ev) => {
+      const subBtn = ev.target.closest('[data-nuzul-sub]');
+      if (subBtn) {
+        this.subView = subBtn.getAttribute('data-nuzul-sub');
+        this.selected = null;
+        this.query = '';
+        this.render();
+        this.scrollTop();
+        return;
+      }
       const surahBtn = ev.target.closest('[data-nuzul-surah]');
       if (surahBtn) { this.selected = parseInt(surahBtn.getAttribute('data-nuzul-surah'), 10); this.query = ''; this.render(); this.scrollTop(); return; }
       const backBtn = ev.target.closest('[data-nuzul-back]');
@@ -353,24 +475,41 @@ class NuzulView {
       if (orderBtn) { this.orderMode = orderBtn.getAttribute('data-nuzul-order'); this.saveOrderMode(); this.render(); return; }
       const ayahBtn = ev.target.closest('[data-nuzul-ayah]');
       if (ayahBtn) { this.openAyah(ayahBtn.getAttribute('data-nuzul-ayah')); return; }
+      const qopt = ev.target.closest('[data-nuzul-quiz-opt]');
+      if (qopt && !this.quizSubmitted) {
+        const [qi, oi] = qopt.getAttribute('data-nuzul-quiz-opt').split(':').map(Number);
+        if (!isNaN(qi) && !isNaN(oi)) { this.quizAnswers[qi] = oi; this.render(); }
+        return;
+      }
+      const qsub = ev.target.closest('[data-nuzul-quiz-submit]');
+      if (qsub) { this.submitQuiz(); return; }
+      const qreset = ev.target.closest('[data-nuzul-quiz-reset]');
+      if (qreset) { this.quizAnswers = {}; this.quizSubmitted = false; this.render(); return; }
     };
     const search = this.container.querySelector('[data-nuzul-search]');
     if (search) {
       search.oninput = (e) => {
         this.query = e.target.value || '';
-        // Re-render list only; keep focus & caret.
         const caret = e.target.selectionStart;
         this.render();
         const s2 = this.container.querySelector('[data-nuzul-search]');
-        if (s2) { s2.focus(); try { s2.setSelectionRange(caret, caret); } catch (_) { /* ignore */ } }
+        if (s2) { s2.focus(); try { s2.setSelectionRange(caret, caret); } catch (_) { } }
       };
     }
   }
 
+  submitQuiz() {
+    let score = 0;
+    NUZUL_QUIZ.forEach((q, i) => { if (this.quizAnswers[i] === q.correct) score++; });
+    if (score > this.quizBest) { this.quizBest = score; this.saveQuizBest(); }
+    this.quizSubmitted = true;
+    this.render();
+  }
+
   scrollTop() {
-    try { this.container.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) { /* ignore */ }
+    try { this.container.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) { }
   }
 }
 
 let nuzulView;
-document.addEventListener('DOMContentLoaded', () => { try { nuzulView = new NuzulView(); } catch (_) { /* ignore */ } });
+document.addEventListener('DOMContentLoaded', () => { try { nuzulView = new NuzulView(); } catch (_) { } });

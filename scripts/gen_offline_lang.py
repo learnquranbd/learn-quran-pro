@@ -27,7 +27,7 @@ TRANSLATION_IDS = {
     "zh": 56, "ja": 35,
 }
 # Languages quran.com has real word-by-word translations for.
-WBW_LANGS = {"en", "bn", "ur", "id", "tr", "fa", "ru", "de", "ta", "ml", "hi"}
+WBW_LANGS = {"en", "bn", "ur", "id", "tr", "fa", "ru", "de", "ta", "ml", "hi", "zh", "ja"}
 
 TAG_RE = re.compile(r"<[^>]+>")
 FOOT_RE = re.compile(r"\s*\[\[.*?\]\]\s*")  # occasional footnote markers

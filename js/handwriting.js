@@ -154,7 +154,7 @@ class Handwriting {
       <div class="w-full">
         <div class="text-center mb-4">
           <div class="text-4xl mb-1">✍️</div>
-          <h2 class="text-xl font-bold">${t('hw_title', lang)}</h2>
+          <h2 class="text-xl font-bold cursor-pointer" title="${t('hw_title', lang)}">${t('hw_title', lang)}</h2>
           <p class="text-sm text-gray-500 dark:text-gray-400">${t('hw_subtitle', lang)}</p>
           <p class="text-xs mt-1 text-emerald-600 dark:text-emerald-400">⭐ ${t('hw_progress', lang)}: <span id="hw-progress-count">${prog.done}</span>/${prog.total}</p>
         </div>
@@ -520,6 +520,8 @@ class Handwriting {
   }
 
   onClick(e) {
+    const h2 = e.target.closest('h2');
+    if (h2 && this.root.contains(h2)) { this.section = 'letters'; this.form = 'isolated'; this.index = 0; this.render(); return; }
     const pick = e.target.closest('[data-hw-pick]');
     if (pick) { this.index = parseInt(pick.getAttribute('data-hw-pick'), 10); this.render(); return; }
     const sec = e.target.closest('[data-hw-section]');

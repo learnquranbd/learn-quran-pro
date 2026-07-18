@@ -14,31 +14,31 @@
  * keep the UI readable (en/bn) until the keys land centrally.
  */
 const VOCAB_I18N_FALLBACK = {
-  vocab_review:         { en: 'Review', bn: 'রিভিউ' },
-  vocab_due:            { en: '{count} due', bn: '{count}টি বাকি' },
-  vocab_review_empty:   { en: 'All caught up! Nothing due for review.', bn: 'দারুণ! এখন রিভিউয়ের জন্য কিছু বাকি নেই।' },
-  vocab_next_due:       { en: 'Next review in {time}', bn: 'পরবর্তী রিভিউ {time} পরে' },
-  vocab_show_meaning:   { en: 'Show meaning', bn: 'অর্থ দেখুন' },
-  vocab_again:          { en: 'Again', bn: 'আবার' },
-  vocab_good:           { en: 'Good', bn: 'পেরেছি' },
-  vocab_new_word:       { en: 'New', bn: 'নতুন' },
-  vocab_all:            { en: 'All', bn: 'সব' },
-  vocab_quiz_words:     { en: 'Word meanings', bn: 'শব্দের অর্থ' },
-  vocab_quiz_roots:     { en: 'Root families', bn: 'মূল ধাতু' },
-  vocab_choose_arabic:  { en: 'Choose the Arabic word', bn: 'সঠিক আরবি শব্দটি বেছে নিন' },
-  vocab_root_prompt:    { en: 'Which word comes from this root?', bn: 'কোন শব্দটি এই মূল থেকে এসেছে?' },
-  vocab_reviewed_count: { en: '{count} reviewed this session', bn: 'এই সেশনে {count}টি রিভিউ হয়েছে' },
-  vocab_wotd:           { en: 'Word of the day', bn: 'আজকের শব্দ' },
-  vocab_quiz_listen:    { en: 'Listening', bn: 'শুনে চিনুন' },
-  vocab_listen_prompt:  { en: 'Listen, then choose the meaning', bn: 'শুনে সঠিক অর্থটি বেছে নিন' },
-  vocab_play_word:      { en: 'Play word audio', bn: 'শব্দটি শুনুন' },
-  vocab_mastery:        { en: 'Mastery by theme', bn: 'বিষয়ভিত্তিক অগ্রগতি' },
-  vocab_core_words:     { en: 'Core 50 words', bn: 'মূল ৫০ শব্দ' },
-  vocab_favorites:      { en: 'Favorites', bn: 'প্রিয়' },
-  vocab_favorite:       { en: 'Favorite', bn: 'প্রিয়' },
-  vocab_search:         { en: 'Search words…', bn: 'শব্দ খুঁজুন…' },
-  vocab_no_matches:     { en: 'No matching words', bn: 'কোনো মিল পাওয়া শব্দ নেই' },
-  vocab_clear_search:   { en: 'Clear', bn: 'মুছুন' }
+  vocab_review:         { en: 'Review', bn: 'রিভিউ', zh: '复习', ja: '復習'},
+  vocab_due:            { en: '{count} due', bn: '{count}টি বাকি', zh: '待复习{count}个', ja: '{count}が期限'},
+  vocab_review_empty:   { en: 'All caught up! Nothing due for review.', bn: 'দারুণ! এখন রিভিউয়ের জন্য কিছু বাকি নেই।', zh: '全部完成！没有待复习的。', ja: 'すべて完了！復習期限はありません。'},
+  vocab_next_due:       { en: 'Next review in {time}', bn: 'পরবর্তী রিভিউ {time} পরে', zh: '下次复习在{time}后', ja: '次回復習まで{time}'},
+  vocab_show_meaning:   { en: 'Show meaning', bn: 'অর্থ দেখুন', zh: '显示含义', ja: '意味を表示'},
+  vocab_again:          { en: 'Again', bn: 'আবার', zh: '再来一次', ja: 'もう一度'},
+  vocab_good:           { en: 'Good', bn: 'পেরেছি', zh: '记住了', ja: '良好'},
+  vocab_new_word:       { en: 'New', bn: 'নতুন', zh: '新词', ja: '新規'},
+  vocab_all:            { en: 'All', bn: 'সব', zh: '全部', ja: 'すべて'},
+  vocab_quiz_words:     { en: 'Word meanings', bn: 'শব্দের অর্থ', zh: '词义', ja: '単語の意味'},
+  vocab_quiz_roots:     { en: 'Root families', bn: 'মূল ধাতু', zh: '词根家族', ja: '語根ファミリー'},
+  vocab_choose_arabic:  { en: 'Choose the Arabic word', bn: 'সঠিক আরবি শব্দটি বেছে নিন', zh: '选择正确的阿拉伯语单词', ja: '正しいアラビア語を選んでください'},
+  vocab_root_prompt:    { en: 'Which word comes from this root?', bn: 'কোন শব্দটি এই মূল থেকে এসেছে?', zh: '哪个词来自这个词根？', ja: 'どの単語がこの語根から来ていますか？'},
+  vocab_reviewed_count: { en: '{count} reviewed this session', bn: 'এই সেশনে {count}টি রিভিউ হয়েছে', zh: '本课复习了{count}个', ja: 'このセッションで{count}復習しました'},
+  vocab_wotd:           { en: 'Word of the day', bn: 'আজকের শব্দ', zh: '每日一词', ja: '今日の単語'},
+  vocab_quiz_listen:    { en: 'Listening', bn: 'শুনে চিনুন', zh: '听力', ja: 'リスニング'},
+  vocab_listen_prompt:  { en: 'Listen, then choose the meaning', bn: 'শুনে সঠিক অর্থটি বেছে নিন', zh: '听音选择正确含义', ja: '聞いて正しい意味を選んでください'},
+  vocab_play_word:      { en: 'Play word audio', bn: 'শব্দটি শুনুন', zh: '播放音频', ja: '単語を再生'},
+  vocab_mastery:        { en: 'Mastery by theme', bn: 'বিষয়ভিত্তিক অগ্রগতি', zh: '按主题掌握度', ja: 'テーマ別習熟度'},
+  vocab_core_words:     { en: 'Core 50 words', bn: 'মূল ৫০ শব্দ', zh: '核心50词', ja: 'コア50語'},
+  vocab_favorites:      { en: 'Favorites', bn: 'প্রিয়', zh: '收藏', ja: 'お気に入り'},
+  vocab_favorite:       { en: 'Favorite', bn: 'প্রিয়', zh: '收藏', ja: 'お気に入り'},
+  vocab_search:         { en: 'Search words…', bn: 'শব্দ খুঁজুন…', zh: '搜索单词…', ja: '単語を検索…'},
+  vocab_no_matches:     { en: 'No matching words', bn: 'কোনো মিল পাওয়া শব্দ নেই', zh: '没有匹配的单词', ja: '一致する単語がありません'},
+  vocab_clear_search:   { en: 'Clear', bn: 'মুছুন', zh: '清除', ja: 'クリア'}
 };
 
 class VocabTrainer {
@@ -367,6 +367,8 @@ class VocabTrainer {
   // ---------- events ----------
 
   onClick(e) {
+    const h2 = e.target.closest('h2');
+    if (h2 && this.root.contains(h2)) { this.setMode('flashcards'); this.category = 'all'; this.search = ''; this.quiz = null; this.render(); return; }
     // Verse-preview chip on a grid card — handled before the action dispatch
     const vv = e.target.closest('[data-vocab-verse]');
     if (vv) {
@@ -510,7 +512,7 @@ class VocabTrainer {
     this.root.innerHTML = `
       <div dir="${dir}" class="w-full space-y-6">
         <div class="text-center">
-          <h2 class="text-2xl font-bold">${t('vocab_title', lang)}</h2>
+          <h2 class="text-2xl font-bold cursor-pointer" title="${t('vocab_title', lang)}">${t('vocab_title', lang)}</h2>
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${t('vocab_subtitle', lang)}</p>
         </div>
         <div class="flex justify-center gap-2 flex-wrap">

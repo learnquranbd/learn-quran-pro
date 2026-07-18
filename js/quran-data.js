@@ -38,7 +38,7 @@ const QuranData = {
   // Languages with real word-by-word translations bundled offline (data/wbw/<lang>.json).
   // Verified genuine (non-English) glosses: en, bn, ur, id, tr, fa, hi.
   // All other UI languages reuse en.json glosses (their ayah translation is still native).
-  WBW_LANGS: ['en', 'bn', 'ur', 'id', 'tr', 'fa', 'hi'],
+  WBW_LANGS: ['en', 'bn', 'ur', 'id', 'tr', 'fa', 'hi', 'zh', 'ja'],
 
   _morphCache: {},
   _rootsPromise: null,

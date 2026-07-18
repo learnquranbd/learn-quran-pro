@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
+<html lang="en" dir="ltr" data-theme="light" class="overflow-x-hidden">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,14 +40,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css?v=102">
+  <link rel="stylesheet" href="css/style.css?v=103">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
 
   <div id="app" class="min-h-screen flex flex-col">
 
     <!-- Header Section -->
-    <header class="bg-primary dark:bg-gray-800 text-white shadow-lg relative z-30 lg:sticky lg:top-0 lg:z-50">
+    <header class="bg-primary dark:bg-gray-800 text-white shadow-lg sticky top-0 z-40 lg:z-50">
       <div class="w-full px-4 py-3">
         <div class="flex flex-wrap items-center justify-between gap-4">
 
@@ -58,11 +58,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
             </button>
-            <h1 class="text-xl font-bold">Learn Quran</h1>
+            <h1 class="text-xl font-bold">
+              <a href="#" id="site-title" title="Home" class="hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/50 rounded">Learn Quran</a>
+            </h1>
           </div>
 
           <!-- Surah Selection -->
-          <div class="flex flex-wrap items-center gap-2 flex-1 max-w-2xl">
+          <div class="flex flex-wrap items-center gap-2 flex-1 max-w-2xl order-3 lg:order-none basis-full lg:basis-auto lg:max-w-none">
             <select id="surah-select" class="surah-dropdown flex-1 min-w-[200px] px-4 py-2 rounded-lg bg-gray-700 dark:bg-gray-900 border border-gray-600 dark:border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="" data-lang-key="select_surah">Select Surah</option>
             </select>
@@ -76,8 +78,8 @@
             </button>
           </div>
 
-          <!-- Quick Actions: language / font size / theme grouped top-right -->
-          <div class="flex flex-wrap items-center justify-end gap-1 bg-white/10 rounded-lg px-2 py-1 max-w-full">
+          <!-- Quick Actions: language selector + gear (font/theme moved to gear drawer) -->
+          <div id="header-quick-actions" class="flex flex-wrap items-center justify-end gap-1 bg-white/10 rounded-lg px-2 py-1 max-w-full">
             <select id="language-select" class="max-w-[46vw] sm:max-w-none px-2 py-1 text-sm rounded-md bg-transparent text-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 [&>option]:text-gray-900">
               <option value="en">English</option>
               <option value="ar">العربية (Arabic)</option>
@@ -95,24 +97,7 @@
               <option value="ja">日本語 (Japanese)</option>
               <option value="zh">简体中文 (Chinese)</option>
             </select>
-            <span class="w-px h-5 bg-white/20"></span>
-            <button id="font-decrease" class="px-2 py-1 text-sm rounded-md hover:bg-white/10" title="Decrease font size" aria-label="Decrease font size">A-</button>
-            <span id="font-size-display" class="px-1 text-xs text-white/80" aria-live="polite">100%</span>
-            <button id="font-increase" class="px-2 py-1 text-sm rounded-md hover:bg-white/10" title="Increase font size" aria-label="Increase font size">A+</button>
-            <span class="w-px h-5 bg-white/20"></span>
-            <select id="theme-select" class="px-2 py-1 text-sm rounded-md bg-transparent text-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 [&>option]:text-gray-900">
-              <option value="light" data-lang-key="light">Light</option>
-              <option value="dark" data-lang-key="dark">Dark</option>
-              <option value="system" data-lang-key="system">System</option>
-            </select>
-            <button id="theme-toggle" class="p-2 hover:bg-white/10 rounded-lg" title="Toggle Theme" aria-label="Toggle theme">
-              <svg class="w-6 h-6 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
-              </svg>
-              <svg class="w-6 h-6 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-              </svg>
-            </button>
+            <span id="settings-drawer-anchor" class="hidden"></span>
           </div>
         </div>
       </div>
@@ -159,7 +144,7 @@
           <!-- Tabs Navigation -->
           <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
             <nav class="flex flex-wrap gap-2 -mb-px" id="tabs-nav">
-              <button class="tab-btn active px-4 py-3 text-sm font-medium border-b-2 border-primary text-primary dark:text-blue-400 dark:border-blue-400" data-tab="reading">
+              <button class="tab-btn active px-4 py-3 text-sm font-medium border-b-2 border-primary text-primary dark:text-sky-300 dark:border-sky-300" data-tab="reading">
                 <span data-lang-key="ayah_reading">Ayah Reading</span>
               </button>
               <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-tab="search">
@@ -244,6 +229,7 @@
               <div id="learn-vocab-root" class="hidden"></div>
               <div id="learn-names-root" class="hidden"></div>
               <div id="handwriting-root" class="hidden"></div>
+              <div id="learn-prayer-root" class="hidden"></div>
             </div>
 
             <!-- Memorize Tab (Speech checker | Typing recall) -->
@@ -447,61 +433,87 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/surah-data.js?v=102"></script>
-  <script src="js/translations.js?v=102"></script>
-  <script src="js/content-i18n.js?v=102"></script>
-  <script src="js/quran-data.js?v=102"></script>
-  <script src="js/ayah-modal.js?v=102"></script>
-  <script src="js/tabs.js?v=102"></script>
-  <script src="js/settings.js?v=102"></script>
-  <script src="js/wordbyword.js?v=102"></script>
-  <script src="js/grammar.js?v=102"></script>
-  <script src="js/memorize.js?v=102"></script>
-  <script src="js/quiz-center.js?v=102"></script>
-  <script src="js/word-highlight.js?v=102"></script>
-  <script src="js/audio.js?v=102"></script>
-  <script src="js/tafseer.js?v=102"></script>
-  <script src="js/tajweed.js?v=102"></script>
-  <script src="js/qaida-data.js?v=102"></script>
-  <script src="js/learn-kids.js?v=102"></script>
-  <script src="js/vocab-data.js?v=102"></script>
-  <script src="js/learn-vocab.js?v=102"></script>
-  <script src="js/names-data.js?v=102"></script>
-  <script src="js/learn-names.js?v=102"></script>
-  <script src="js/learn.js?v=102"></script>
-  <script src="js/handwriting.js?v=102"></script>
-  <script src="js/type-memorize.js?v=102"></script>
-  <script src="js/word-arrange.js?v=102"></script>
-  <script src="js/record-memorize.js?v=102"></script>
-  <script src="js/menu-data.js?v=102"></script>
-  <script src="js/legacy-surah-data.js?v=102"></script>
-  <script src="js/sidebar-menu.js?v=102"></script>
-  <script src="js/app-nav.js?v=102"></script>
-  <script src="js/topics-browser.js?v=102"></script>
-  <script src="js/word-repeat.js?v=102"></script>
-  <script src="js/sarf.js?v=102"></script>
-  <script src="js/amal-daily.js?v=102"></script>
-  <script src="js/tajweed-learn.js?v=102"></script>
-  <script src="js/khatmah.js?v=102"></script>
-  <script src="js/resources.js?v=102"></script>
-  <script src="js/mutashabihat.js?v=102"></script>
-  <script src="js/learn-quranic-arabic.js?v=102"></script>
-  <script src="js/seerah-timeline.js?v=102"></script>
-  <script src="js/why-islam.js?v=102"></script>
-  <script src="js/prophets.js?v=102"></script>
-  <script src="js/nuzul-timeline.js?v=102"></script>
-  <script src="js/topics-data.js?v=102"></script>
-  <script src="js/navigation.js?v=102"></script>
-  <script src="js/legacy-ayah.js?v=102"></script>
-  <script src="js/settings-drawer.js?v=102"></script>
-  <script src="js/firebase-config.js?v=102"></script>
-  <script src="js/account.js?v=102"></script>
-  <script src="js/ponder.js?v=102"></script>
-  <script src="js/mushaf.js?v=102"></script>
-  <script src="js/pwa.js?v=102"></script>
-  <script src="js/search.js?v=102"></script>
-  <script src="js/subscribe.js?v=102"></script>
-  <script src="js/bookmarks.js?v=102"></script>
-  <script src="js/app.js?v=102"></script>
+  <script src="js/surah-data.js?v=103"></script>
+  <script src="js/translations.js?v=103"></script>
+  <script src="js/content-i18n.js?v=103"></script>
+  <script src="js/quran-data.js?v=103"></script>
+  <script src="js/ayah-modal.js?v=103"></script>
+  <script src="js/tabs.js?v=103"></script>
+  <script src="js/settings.js?v=103"></script>
+  <script src="js/wordbyword.js?v=103"></script>
+  <script src="js/grammar.js?v=103"></script>
+  <script src="js/memorize.js?v=103"></script>
+  <script src="js/quiz-center.js?v=103"></script>
+  <script src="js/word-highlight.js?v=103"></script>
+  <script src="js/audio.js?v=103"></script>
+  <script src="js/tafseer.js?v=103"></script>
+  <script src="js/tajweed.js?v=103"></script>
+  <script src="js/qaida-data.js?v=103"></script>
+  <script src="js/learn-kids.js?v=103"></script>
+  <script src="js/vocab-data.js?v=103"></script>
+  <script src="js/learn-vocab.js?v=103"></script>
+  <script src="js/names-data.js?v=103"></script>
+  <script src="js/learn-names.js?v=103"></script>
+  <script src="js/learn.js?v=103"></script>
+  <script src="js/learn-prayer.js?v=103"></script>
+  <script src="js/handwriting.js?v=103"></script>
+  <script src="js/type-memorize.js?v=103"></script>
+  <script src="js/word-arrange.js?v=103"></script>
+  <script src="js/record-memorize.js?v=103"></script>
+  <script src="js/menu-data.js?v=103"></script>
+  <script src="js/legacy-surah-data.js?v=103"></script>
+  <script src="js/sidebar-menu.js?v=103"></script>
+  <script src="js/app-nav.js?v=103"></script>
+  <script src="js/topics-browser.js?v=103"></script>
+  <script src="js/word-repeat.js?v=103"></script>
+  <script src="js/sarf.js?v=103"></script>
+  <script src="js/amal-daily.js?v=103"></script>
+  <script src="js/tajweed-learn.js?v=103"></script>
+  <script src="js/khatmah.js?v=103"></script>
+  <script src="js/resources.js?v=103"></script>
+  <script src="js/mutashabihat.js?v=103"></script>
+  <script src="js/learn-quranic-arabic.js?v=103"></script>
+  <script src="js/seerah-timeline.js?v=103"></script>
+  <script src="js/why-islam.js?v=103"></script>
+  <script src="js/prophets.js?v=103"></script>
+  <script src="js/nuzul-timeline.js?v=103"></script>
+  <script src="js/topics-data.js?v=103"></script>
+  <script src="js/navigation.js?v=103"></script>
+  <script src="js/legacy-ayah.js?v=103"></script>
+  <script src="js/settings-drawer.js?v=103"></script>
+  <script src="js/firebase-config.js?v=103"></script>
+  <script src="js/account.js?v=103"></script>
+  <script src="js/ponder.js?v=103"></script>
+  <script src="js/mushaf.js?v=103"></script>
+  <script src="js/pwa.js?v=103"></script>
+  <script src="js/search.js?v=103"></script>
+  <script src="js/subscribe.js?v=103"></script>
+  <script src="js/bookmarks.js?v=103"></script>
+  <script src="js/app.js?v=103"></script>
+  <script>
+    // Site title: translate to current language and hard-refresh on click.
+    (function () {
+      var el = document.getElementById('site-title');
+      if (!el) return;
+      var TITLES = {
+        en: 'Learn Quran', bn: 'কুরআন শিখুন', ar: 'تعلّم القرآن',
+        ur: 'قرآن سیکھیں', fa: 'قرآن بیاموز', id: 'Belajar Al-Quran',
+        ms: 'Belajar Al-Quran', tr: "Kur'an Öğren", hi: 'क़ुरआन सीखें',
+        fr: 'Apprendre le Coran', es: 'Aprender el Corán', de: 'Koran lernen',
+        ru: 'Изучаем Коран', ja: 'クルアーンを学ぶ', zh: '学习古兰经'
+      };
+      function apply(lang) { el.textContent = TITLES[lang] || TITLES.en; }
+      var lang = (typeof appSettings !== 'undefined' && appSettings)
+        ? appSettings.get('language') : 'en';
+      apply(lang);
+      window.addEventListener('settingChanged', function (e) {
+        if (e && e.detail && e.detail.key === 'language') apply(e.detail.value);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        location.reload();
+      });
+    })();
+  </script>
 </body>
 </html>

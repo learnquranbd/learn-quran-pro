@@ -16,7 +16,7 @@ const RABBANA_DUAS = [
       id: 'Diterimanya amal saleh',
       tr: 'Salih amellerin kabulü',
       fr: 'Acceptation des bonnes œuvres'
-    }
+    , zh: '善功的接受', ja: '善行の受入れ'}
   },
   {
     refs: '2:201',
@@ -28,7 +28,7 @@ const RABBANA_DUAS = [
       id: 'Kebaikan dunia dan akhirat',
       tr: 'Dünya ve ahiret iyiliği',
       fr: "Le bien d'ici-bas et de l'au-delà"
-    }
+    , zh: '今世与后世的福祉', ja: '現世と来世の善'}
   },
   {
     refs: '2:250',
@@ -40,7 +40,7 @@ const RABBANA_DUAS = [
       id: 'Kesabaran dan kemenangan',
       tr: 'Sabır ve zafer',
       fr: 'Patience et victoire'
-    }
+    , zh: '忍耐与胜利', ja: '忍耐と勝利'}
   },
   {
     refs: '2:286',
@@ -52,7 +52,7 @@ const RABBANA_DUAS = [
       id: 'Jangan bebani kami di luar kemampuan',
       tr: 'Gücümüzün üstünde yük yükleme',
       fr: 'Ne nous charge pas au-delà de nos forces'
-    }
+    , zh: '不要使我们负担过重', ja: '力を超える負担をかけないでください'}
   },
   {
     refs: '3:8',
@@ -64,7 +64,7 @@ const RABBANA_DUAS = [
       id: 'Keteguhan hati',
       tr: 'Kalplerin sebatı',
       fr: 'Fermeté des cœurs'
-    }
+    , zh: '坚定之心', ja: '心の堅固'}
   },
   {
     refs: '3:16',
@@ -76,7 +76,7 @@ const RABBANA_DUAS = [
       id: 'Ampunan dan perlindungan dari neraka',
       tr: 'Bağışlanma ve ateşten korunma',
       fr: 'Pardon et protection contre le Feu'
-    }
+    , zh: '恕饶与火狱的庇护', ja: '赦しと火獄からの保護'}
   },
   {
     refs: '3:38',
@@ -88,7 +88,7 @@ const RABBANA_DUAS = [
       id: 'Keturunan yang saleh',
       tr: 'Hayırlı evlat duası',
       fr: 'Une descendance pieuse'
-    }
+    , zh: '善良的后代', ja: '敬虔な子孫'}
   },
   {
     refs: '3:147',
@@ -100,7 +100,7 @@ const RABBANA_DUAS = [
       id: 'Ampunan atas dosa dan kelalaian',
       tr: 'Günahların ve aşırılıkların affı',
       fr: 'Pardon des péchés et des excès'
-    }
+    , zh: '饶恕罪过和过分', ja: '罪と放埓の赦し'}
   },
   {
     refs: '3:191-194',
@@ -112,7 +112,7 @@ const RABBANA_DUAS = [
       id: 'Doa orang-orang yang berpikir',
       tr: 'Akıl sahiplerinin duası',
       fr: "Invocation des doués d'intelligence"
-    }
+    , zh: '深思者的祈祷', ja: '思慮深い人々の祈り'}
   },
   {
     refs: '14:40-41',
@@ -124,7 +124,7 @@ const RABBANA_DUAS = [
       id: 'Tetap mendirikan salat dan ampunan bagi orang tua',
       tr: 'Namazda devamlılık ve ana babaya mağfiret',
       fr: 'Constance dans la prière et pardon pour les parents'
-    }
+    , zh: '坚守拜功与为父母求饶', ja: '礼拝の堅持と両親の赦し'}
   },
   {
     refs: '23:109',
@@ -136,7 +136,7 @@ const RABBANA_DUAS = [
       id: 'Kami beriman, maka ampunilah kami',
       tr: 'İman ettik, bizi bağışla ve merhamet et',
       fr: 'Nous croyons, pardonne-nous et fais-nous miséricorde'
-    }
+    , zh: '我们已信道，求你饶恕我们', ja: '私たちは信じました、お赦しください'}
   },
   {
     refs: '25:74',
@@ -148,7 +148,7 @@ const RABBANA_DUAS = [
       id: 'Penyejuk mata dari pasangan dan keturunan',
       tr: 'Eş ve çocuklardan göz aydınlığı',
       fr: 'Réconfort dans nos épouses et nos enfants'
-    }
+    , zh: '配偶和子女的欣慰', ja: '配偶者と子孫の慰め'}
   },
   {
     refs: '59:10',
@@ -160,7 +160,7 @@ const RABBANA_DUAS = [
       id: 'Ampunan bagi kami dan saudara seiman terdahulu',
       tr: 'Bize ve bizden önceki müminlere mağfiret',
       fr: 'Pardon pour nous et les croyants qui nous ont précédés'
-    }
+    , zh: '饶恕我们和前辈的信士', ja: '私たちと先人信者の赦し'}
   },
   {
     refs: '66:8',
@@ -172,7 +172,7 @@ const RABBANA_DUAS = [
       id: 'Sempurnakanlah cahaya kami dan ampunilah kami',
       tr: 'Nurumuzu tamamla ve bizi bağışla',
       fr: 'Parachève notre lumière et pardonne-nous'
-    }
+    , zh: '完善我们的光明并饶恕我们', ja: '私たちの光を完成させ赦してください'}
   }
 ];
 
@@ -188,7 +188,7 @@ const TOPIC_GROUPS = [
       id: 'Kesabaran',
       tr: 'Sabır',
       fr: 'Patience'
-    },
+    , zh: '忍耐', ja: '忍耐'},
     refs: ['2:153', '2:155-157', '3:200', '39:10', '94:5-6']
   },
   {
@@ -202,7 +202,7 @@ const TOPIC_GROUPS = [
       id: 'Rasa Syukur',
       tr: 'Şükür',
       fr: 'Gratitude'
-    },
+    , zh: '感恩', ja: '感謝'},
     refs: ['2:152', '14:7', '16:18', '31:12', '55:13']
   },
   {
@@ -216,7 +216,7 @@ const TOPIC_GROUPS = [
       id: 'Ampunan',
       tr: 'Bağışlanma',
       fr: 'Pardon'
-    },
+    , zh: '饶恕', ja: '赦し'},
     refs: ['39:53', '3:135', '4:110', '24:22', '42:25']
   },
   {
@@ -230,7 +230,7 @@ const TOPIC_GROUPS = [
       id: 'Salat',
       tr: 'Namaz',
       fr: 'Prière'
-    },
+    , zh: '礼拜', ja: '礼拝'},
     refs: ['2:45', '29:45', '20:14', '17:78', '23:1-2']
   },
   {
@@ -244,7 +244,7 @@ const TOPIC_GROUPS = [
       id: 'Orang Tua',
       tr: 'Anne Baba',
       fr: 'Parents'
-    },
+    , zh: '父母', ja: '両親'},
     refs: ['17:23-24', '31:14', '46:15', '29:8']
   },
   {
@@ -258,7 +258,7 @@ const TOPIC_GROUPS = [
       id: 'Ilmu',
       tr: 'İlim',
       fr: 'Savoir'
-    },
+    , zh: '知识', ja: '知識'},
     refs: ['96:1-5', '20:114', '58:11', '39:9', '35:28']
   },
   {
@@ -272,7 +272,7 @@ const TOPIC_GROUPS = [
       id: 'Sedekah',
       tr: 'Sadaka',
       fr: 'Charité'
-    },
+    , zh: '施舍', ja: '施し'},
     refs: ['2:261', '2:274', '57:18', '3:92', '76:8-9']
   },
   {
@@ -286,7 +286,7 @@ const TOPIC_GROUPS = [
       id: 'Surga',
       tr: 'Cennet',
       fr: 'Paradis'
-    },
+    , zh: '天堂', ja: '楽園'},
     refs: ['2:25', '3:133', '13:23-24', '55:46', '76:12-22']
   },
   {
@@ -300,7 +300,7 @@ const TOPIC_GROUPS = [
       id: 'Keadilan',
       tr: 'Adalet',
       fr: 'Justice'
-    },
+    , zh: '公正', ja: '正義'},
     refs: ['4:135', '5:8', '16:90', '49:9']
   },
   {
@@ -314,7 +314,7 @@ const TOPIC_GROUPS = [
       id: 'Penciptaan dan Alam Semesta',
       tr: 'Yaratılış ve Evren',
       fr: 'Création et Univers'
-    },
+    , zh: '创造与宇宙', ja: '創造と宇宙'},
     refs: ['21:30', '41:53', '51:47', '67:3-4', '3:190']
   }
 ];
@@ -337,7 +337,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Tawakal kepada Allah',
       tr: "Allah'a tevekkül",
       fr: 'Confiance en Allah'
-    },
+    , zh: '托靠真主', ja: 'アッラーへの信頼'},
     refs: ['3:159', '8:2', '25:58', '65:3', '14:11-12']
   },
   {
@@ -351,7 +351,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Tobat',
       tr: 'Tevbe',
       fr: 'Repentir'
-    },
+    , zh: '忏悔', ja: '悔悟'},
     refs: ['2:222', '4:17', '9:104', '24:31', '66:8']
   },
   {
@@ -365,7 +365,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Zikir kepada Allah',
       tr: "Allah'ı anmak",
       fr: "Rappel d'Allah"
-    },
+    , zh: '记念真主', ja: 'アッラーの唱念'},
     refs: ['2:152', '13:28', '33:41-42', '62:10', '8:45']
   },
   {
@@ -379,7 +379,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Akhirat',
       tr: 'Ahiret',
       fr: "L'au-delà"
-    },
+    , zh: '后世', ja: '来世'},
     refs: ['3:185', '21:35', '50:19', '56:83-87', '62:8']
   },
   {
@@ -393,7 +393,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Nama-nama Surga',
       tr: 'Cennetin isimleri',
       fr: 'Les noms du Paradis'
-    },
+    , zh: '天堂的名称', ja: '楽園の名'},
     refs: ['18:107', '9:72', '32:19', '6:127', '56:89']
   },
   {
@@ -407,7 +407,7 @@ const TOPIC_COLLECTIONS = [
       id: 'Nama-nama Neraka',
       tr: 'Cehennemin isimleri',
       fr: "Les noms de l'Enfer"
-    },
+    , zh: '火狱的名称', ja: '火獄の名'},
     refs: ['74:26-27', '70:15', '104:4-5', '101:9', '79:39']
   }
 ];

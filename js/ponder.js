@@ -58,10 +58,10 @@ const PONDER_THEMES = {
 // In-module en/bn fallbacks for NEW UI strings (render before translations.js
 // is updated). t() returns the key unchanged when it is not yet merged.
 const PONDER_I18N = {
-  ponder_themes: { en: 'Reflect by theme', bn: 'থিম অনুযায়ী ভাবুন' },
-  ponder_all:    { en: 'All', bn: 'সব' },
-  ponder_prev:   { en: 'Previous ayah', bn: 'পূর্ববর্তী আয়াত' },
-  ponder_next:   { en: 'Next ayah', bn: 'পরবর্তী আয়াত' }
+  ponder_themes: { en: 'Reflect by theme', bn: 'থিম অনুযায়ী ভাবুন', zh: '按主题反思', ja: 'テーマ別に振り返る'},
+  ponder_all:    { en: 'All', bn: 'সব', zh: '全部', ja: 'すべて'},
+  ponder_prev:   { en: 'Previous ayah', bn: 'পূর্ববর্তী আয়াত', zh: '上一节', ja: '前の節'},
+  ponder_next:   { en: 'Next ayah', bn: 'পরবর্তী আয়াত', zh: '下一节', ja: '次の節'}
 };
 
 class PonderCard {
