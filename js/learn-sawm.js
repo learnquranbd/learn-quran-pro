@@ -400,6 +400,109 @@ class SawmModule {
         </div>
 
         <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">⚖️ ${L({ en: 'What Breaks the Fast — and What Does Not', bn: 'কী রোজা ভাঙ্গে — আর কী ভাঙ্গে না' })}</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" dir="auto">${L({ en: 'A fast is broken (mufsidat) only when something enters the body by the usual route, or by certain deliberate acts. Many everyday things do NOT break it.', bn: 'রোজা কেবল তখনই ভাঙ্গে (মুফসিদাত) যখন স্বাভাবিক পথে দেহে কিছু প্রবেশ করে বা কিছু ইচ্ছাকৃত কাজ ঘটে। বহু দৈনন্দিন বিষয় রোজা ভাঙ্গে না।' })}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/40">
+              <div class="text-sm font-semibold text-rose-800 dark:text-rose-200 mb-2">❌ ${L({ en: 'Breaks the fast', bn: 'রোজা ভাঙ্গে' })}</div>
+              <ul class="space-y-1.5">
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Intentionally eating or drinking — anything reaching the stomach by the usual route.', bn: 'ইচ্ছাকৃত পানাহার — স্বাভাবিক পথে পেটে পৌঁছায় এমন কিছু।' })}</li>
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Sexual intercourse — breaks the fast and additionally requires kaffara.', bn: 'সহবাস — রোজা ভাঙ্গে এবং অতিরিক্ত কাফফারা ওয়াজিব হয়।' })}</li>
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Deliberately inducing vomiting — "whoever vomits intentionally must make up the fast." (Abu Dawud, Tirmidhi)', bn: 'ইচ্ছাকৃতভাবে বমি করা — "যে ইচ্ছাকৃত বমি করে সে যেন কাযা করে।" (আবু দাউদ, তিরমিযি)' })}</li>
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Onset of menstruation (hayd) or postnatal bleeding (nifas) — even moments before Maghrib.', bn: 'ঋতুস্রাব (হায়য) বা নিফাস শুরু হওয়া — মাগরিবের কিছু আগেও।' })}</li>
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Intentional ejaculation (e.g. masturbation) while fasting.', bn: 'ইচ্ছাকৃত বীর্যপাত (যেমন হস্তমৈথুন) রোজা অবস্থায়।' })}</li>
+                <li class="flex gap-2 text-xs text-rose-700 dark:text-rose-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Nutritional injections or IV drips that replace food and drink (per contemporary scholars).', bn: 'পুষ্টিকর ইনজেকশন বা স্যালাইন যা খাদ্য-পানীয়ের বিকল্প (সমকালীন আলিমদের মতে)।' })}</li>
+              </ul>
+            </div>
+            <div class="p-3 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/40">
+              <div class="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">✅ ${L({ en: 'Does NOT break the fast', bn: 'রোজা ভাঙ্গে না' })}</div>
+              <ul class="space-y-1.5">
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Eating or drinking forgetfully — "Allah fed him and gave him drink." (Bukhari)', bn: 'ভুলবশত পানাহার — "আল্লাহই তাকে খাইয়েছেন ও পান করিয়েছেন।" (বুখারি)' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Involuntary vomiting; swallowing one\'s own saliva; dust or a fly entering unintentionally.', bn: 'অনিচ্ছাকৃত বমি; নিজের থুতু গেলা; ধুলা বা মাছি ভুলবশত ঢোকা।' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Rinsing the mouth and nose (without exaggeration) and using the miswak.', bn: 'কুলি করা ও নাকে পানি দেওয়া (অতিরঞ্জন ছাড়া) এবং মিসওয়াক ব্যবহার।' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'A wet dream — ghusl becomes due, but the fast remains valid.', bn: 'স্বপ্নদোষ — গোসল ফরজ হয়, তবে রোজা সহীহ থাকে।' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Injections that are not nutritional (e.g. vaccines, insulin) — per the majority.', bn: 'অপুষ্টিকর ইনজেকশন (যেমন টিকা, ইনসুলিন) — জমহুরের মতে।' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Blood test or giving a little blood; eye and ear drops — per the majority.', bn: 'রক্ত পরীক্ষা বা সামান্য রক্তদান; চোখ ও কানের ড্রপ — জমহুরের মতে।' })}</li>
+                <li class="flex gap-2 text-xs text-green-700 dark:text-green-300" dir="auto"><span class="shrink-0">•</span> ${L({ en: 'Bathing, swimming, or applying perfume, oil or kohl — provided nothing is swallowed.', bn: 'গোসল, সাঁতার বা সুগন্ধি, তেল, সুরমা ব্যবহার — যদি কিছু গিলে ফেলা না হয়।' })}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+            <div class="text-xs font-semibold text-gray-700 dark:text-gray-200">📝 ${L({ en: 'A point of scholarly difference', bn: 'একটি মতভেদের বিষয়' })}</div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" dir="auto">${L({ en: 'Cupping (hijama): the majority hold it does not break the fast, while the Hanbali school considers that it does. Where scholars differ, follow reliable local guidance.', bn: 'হিজামা (রক্তমোক্ষণ): জমহুরের মতে এতে রোজা ভাঙ্গে না, তবে হানবালি মাযহাব মনে করে ভাঙ্গে। মতভেদের ক্ষেত্রে নির্ভরযোগ্য স্থানীয় আলিমের পরামর্শ অনুসরণ করুন।' })}</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🌟 ${L({ en: 'Sunnahs & Adab of Fasting', bn: 'রোজার সুন্নাত ও আদব' })}</h3>
+          <ul class="space-y-2">
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Take suhur and delay it close to dawn — "Have suhur, for in suhur there is blessing." (Bukhari & Muslim)', bn: 'সেহরি খাওয়া ও তা ফজরের কাছাকাছি দেরি করা — "সেহরি খাও, কেননা সেহরিতে বরকত রয়েছে।" (বুখারি ও মুসলিম)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Hasten to break the fast at sunset with fresh dates, or dry dates, or water. (Abu Dawud, Tirmidhi)', bn: 'সূর্যাস্তে তাজা খেজুর, নয়তো শুকনো খেজুর, নয়তো পানি দিয়ে দ্রুত ইফতার করা। (আবু দাউদ, তিরমিযি)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Make du\'a at the moment of iftar — the fasting person\'s supplication is not turned away.', bn: 'ইফতারের মুহূর্তে দোয়া করা — রোজাদারের দোয়া ফিরিয়ে দেওয়া হয় না।' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Guard the tongue and limbs from lies, backbiting and quarrels — "Fasting is a shield." (Bukhari)', bn: 'মিথ্যা, গীবত ও ঝগড়া থেকে জিহ্বা ও অঙ্গ সংযত রাখা — "রোজা ঢাল।" (বুখারি)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Increase recitation of the Quran — Jibril reviewed the Quran with the Prophet ﷺ each Ramadan. (Bukhari)', bn: 'কুরআন তিলাওয়াত বাড়ানো — জিবরীল প্রতি রমজানে নবী ﷺ-এর সাথে কুরআন পুনরালোচনা করতেন। (বুখারি)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Be abundantly generous and feed others — "Whoever feeds a fasting person will have a reward like his." (Tirmidhi)', bn: 'প্রচুর দানশীল হওয়া ও অন্যকে খাওয়ানো — "যে রোজাদারকে ইফতার করায় তার জন্য রোজাদারের সমান সওয়াব।" (তিরমিযি)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'If insulted or provoked, respond calmly: "I am fasting." (Bukhari & Muslim)', bn: 'কেউ গালি দিলে বা উস্কে দিলে শান্তভাবে বলা: "আমি রোজা রেখেছি।" (বুখারি ও মুসলিম)' })}</li>
+            <li class="flex gap-2 text-sm text-gray-600 dark:text-gray-300" dir="auto"><span class="text-amber-500 shrink-0">✦</span> ${L({ en: 'Stand in Tarawih at night and seek Laylatul Qadr in the last ten nights.', bn: 'রাতে তারাবিহে দাঁড়ানো এবং শেষ দশ রাতে লাইলাতুল কদর অনুসন্ধান করা।' })}</li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🍽️ ${L({ en: 'Suhur & Iftar Etiquette', bn: 'সেহরি ও ইফতারের আদব' })}</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-sm font-semibold text-gray-700 dark:text-gray-200">🌌 ${L({ en: 'Suhur — the blessed meal', bn: 'সেহরি — বরকতময় আহার' })}</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" dir="auto">${L({ en: 'Do not skip suhur — even a sip of water carries blessing. Delaying it close to (but ending at) true dawn is sunnah. The intention (niyyah) is made in the heart; no spoken formula is needed. Eating and drinking are permitted until Subh Sadiq (the true dawn when Fajr begins), per Quran 2:187.', bn: 'সেহরি বাদ দেবেন না — এক ঢোক পানিতেও বরকত। সুবহে সাদিকের কাছাকাছি (তবে সেখানেই শেষ করে) দেরি করা সুন্নাত। নিয়ত অন্তরে করলেই হয়; মুখে বলা লাগে না। কুরআন ২:১৮৭ অনুযায়ী সুবহে সাদিক (ফজরের ওয়াক্ত শুরুর প্রকৃত ভোর) পর্যন্ত পানাহার বৈধ।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-sm font-semibold text-gray-700 dark:text-gray-200">🌇 ${L({ en: 'Iftar — breaking the fast', bn: 'ইফতার — রোজা খোলা' })}</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" dir="auto">${L({ en: 'Break the fast promptly once the sun has set — do not delay. Begin with fresh or dry dates, or water. Make du\'a before eating, then pray Maghrib without long delay. Avoid overeating so worship at night stays easy.', bn: 'সূর্য অস্ত গেলে দেরি না করে দ্রুত ইফতার করুন। তাজা বা শুকনো খেজুর, নয়তো পানি দিয়ে শুরু করুন। খাওয়ার আগে দোয়া করুন, এরপর দেরি না করে মাগরিব পড়ুন। বেশি খাওয়া এড়িয়ে চলুন যাতে রাতের ইবাদত সহজ হয়।' })}</p>
+            </div>
+          </div>
+          <div class="mt-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/40">
+            <div class="text-xs font-semibold text-amber-800 dark:text-amber-200 mb-1">🤲 ${L({ en: 'Du\'a after breaking the fast', bn: 'ইফতারের পরের দোয়া' })}</div>
+            <p class="text-lg text-amber-800 dark:text-amber-200 text-center font-arabic leading-loose" dir="rtl">ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ</p>
+            <p class="text-xs text-amber-600 dark:text-amber-400 text-center mt-1 italic">Dhahaba az-zama\'u wabtallatil-\'urooqu wa thabatal-ajru in sha\'a Allah</p>
+            <p class="text-sm text-amber-800 dark:text-amber-200 text-center mt-1" dir="auto">${L({ en: '"The thirst is gone, the veins are moistened, and the reward is confirmed, if Allah wills." (Abu Dawud — hasan)', bn: '"পিপাসা দূর হয়েছে, শিরাগুলো সিক্ত হয়েছে এবং ইনশাআল্লাহ সওয়াব সাব্যস্ত হয়েছে।" (আবু দাউদ — হাসান)' })}</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
+          <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🧩 ${L({ en: 'Common Misconceptions', bn: 'প্রচলিত ভুল ধারণা' })}</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" dir="auto">${L({ en: 'Widespread beliefs about fasting that are not correct, with the mainstream position.', bn: 'রোজা নিয়ে প্রচলিত কিছু ভুল ধারণা এবং তার বিপরীতে মূলধারার অবস্থান।' })}</p>
+          <div class="space-y-2">
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"Swallowing your own saliva breaks the fast."', bn: '"নিজের থুতু গিললে রোজা ভাঙ্গে।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'It does not — only what enters from outside the body counts.', bn: 'ভাঙ্গে না — কেবল বাইরে থেকে দেহে প্রবেশকারী বস্তুই ধর্তব্য।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"You must say the intention aloud every night."', bn: '"প্রতি রাতে মুখে নিয়ত উচ্চারণ করতে হয়।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'The niyyah is in the heart; no verbal formula is required.', bn: 'নিয়ত অন্তরে; কোনো মৌখিক বাক্য আবশ্যক নয়।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"Brushing the teeth or using the miswak breaks the fast."', bn: '"দাঁত ব্রাশ বা মিসওয়াক করলে রোজা ভাঙ্গে।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'The miswak is sunnah; toothpaste is allowed if not swallowed (some avoid it out of caution).', bn: 'মিসওয়াক সুন্নাত; টুথপেস্ট গিলে না ফেললে বৈধ (কেউ সতর্কতাবশত এড়িয়ে চলেন)।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"Any injection or blood test breaks the fast."', bn: '"যেকোনো ইনজেকশন বা রক্ত পরীক্ষা রোজা ভাঙ্গে।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'Non-nutritional injections and blood tests do not, per the majority; only nourishing drips break the fast.', bn: 'জমহুরের মতে অপুষ্টিকর ইনজেকশন ও রক্ত পরীক্ষায় ভাঙ্গে না; কেবল পুষ্টিকর স্যালাইনে ভাঙ্গে।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"Eating by mistake means you must start the fast over."', bn: '"ভুলে খেয়ে ফেললে রোজা নতুন করে শুরু করতে হয়।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'The fast stays valid — "Allah fed him and gave him drink." (Bukhari)', bn: 'রোজা সহীহ থাকে — "আল্লাহই তাকে খাইয়েছেন ও পান করিয়েছেন।" (বুখারি)' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"You must stop eating 10-15 minutes before Fajr (imsak)."', bn: '"ফজরের ১০-১৫ মিনিট আগে (ইমসাক) খাওয়া বন্ধ করতেই হবে।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'Eating is permitted until true dawn / Subh Sadiq (Quran 2:187); the imsak margin is a precaution, not an obligation.', bn: 'প্রকৃত ভোর / সুবহে সাদিক পর্যন্ত খাওয়া বৈধ (কুরআন ২:১৮৭); ইমসাকের ব্যবধান একটি সতর্কতা, বাধ্যবাধকতা নয়।' })}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/40">
+              <div class="text-xs font-semibold text-rose-700 dark:text-rose-300" dir="auto">❌ ${L({ en: '"A wet dream or bathing breaks the fast."', bn: '"স্বপ্নদোষ বা গোসল করলে রোজা ভাঙ্গে।"' })}</div>
+              <p class="text-xs text-green-700 dark:text-green-300 mt-1" dir="auto">✅ ${L({ en: 'Neither breaks the fast; ghusl is simply due before prayer.', bn: 'কোনোটিই রোজা ভাঙ্গে না; শুধু নামাজের আগে গোসল ফরজ হয়।' })}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5">
           <h3 class="font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🧠 ${L({ en: 'Self-check — Test Your Understanding', bn: 'নিজেই যাচাই — আপনার বোঝাপড়া পরীক্ষা করুন' })}</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" dir="auto">${L({ en: 'Tap each question to reveal the answer.', bn: 'প্রতিটি প্রশ্নে ট্যাপ করে উত্তর দেখুন।' })}</p>
           <div class="space-y-2">
@@ -422,6 +525,10 @@ class SawmModule {
               { q: { en: 'Is a verbal niyyah (intention) required for fasting?', bn: 'রোজার জন্য মৌখিক নিয়ত কি আবশ্যক?' }, a: { en: 'No. The niyyah is in the heart — intending to fast for Allah is sufficient. A verbal statement is not required. For Ramadan fasts, the majority say the intention must be formed before Fajr each night.', bn: 'না। নিয়ত অন্তরে থাকলেই যথেষ্ট — আল্লাহর জন্য রোজার সংকল্পই যথেষ্ট। মৌখিক নিয়ত আবশ্যক নয়। রমজানের রোজার জন্য জমহুরের মতে প্রতি রাতে ফজরের আগে নিয়ত করতে হবে।' } },
               { q: { en: 'What is the ruling on eye drops while fasting?', bn: 'রোজা অবস্থায় চোখের ড্রপের বিধান কী?' }, a: { en: 'Eye drops do not break the fast according to the majority of scholars (Shafi\'i, Maliki, Hanbali) — even if a taste reaches the throat — because the eye is not an entry point for nourishment. This is the stronger scholarly position.', bn: 'জমহুর আলিম (শাফিঈ, মালিকি, হানবালি) মতে চোখের ড্রপ রোজা ভাঙ্গে না — গলায় স্বাদ গেলেও — কারণ চোখ পুষ্টির প্রবেশদ্বার নয়। এটিই শক্তিশালী মত।' } },
               { q: { en: 'When is it obligatory (wajib) to break the fast?', bn: 'কখন রোজা ভাঙা ওয়াজিব হয়?' }, a: { en: 'When continuing the fast would cause serious harm or be life-threatening — e.g., a medical emergency, uncontrolled diabetes, severe dehydration. Islam forbids self-harm (la darar). In such cases, breaking the fast and making it up later is obligatory, not just permitted.', bn: 'রোজা চালিয়ে যাওয়ায় গুরুতর ক্ষতি বা জীবনহানির আশঙ্কা থাকলে — যেমন চিকিৎসা জরুরি অবস্থা, অনিয়ন্ত্রিত ডায়াবেটিস, তীব্র পানিশূন্যতা। ইসলাম আত্মক্ষতি নিষিদ্ধ করে (লা দারার)। এসব ক্ষেত্রে রোজা ভাঙা ও পরে কাযা করা ওয়াজিব।' } },
+              { q: { en: 'Does swallowing your own saliva break the fast?', bn: 'নিজের থুতু গিললে কি রোজা ভাঙ্গে?' }, a: { en: 'No. Only substances entering the body from outside break the fast — swallowing one\'s own saliva does not.', bn: 'না। কেবল বাইরে থেকে দেহে প্রবেশকারী বস্তু রোজা ভাঙ্গে — নিজের থুতু গিলে ফেললে ভাঙ্গে না।' } },
+              { q: { en: 'Does deliberately making yourself vomit break the fast?', bn: 'ইচ্ছাকৃতভাবে বমি করলে কি রোজা ভাঙ্গে?' }, a: { en: 'Yes. Intentional vomiting breaks the fast and must be made up; involuntary vomiting does not break it. (Abu Dawud, Tirmidhi)', bn: 'হ্যাঁ। ইচ্ছাকৃত বমি রোজা ভাঙ্গে ও কাযা করতে হয়; অনিচ্ছাকৃত বমিতে ভাঙ্গে না। (আবু দাউদ, তিরমিযি)' } },
+              { q: { en: 'What is the sunnah way to break the fast?', bn: 'ইফতারের সুন্নাত পদ্ধতি কী?' }, a: { en: 'Hasten at sunset and break the fast with fresh dates; if none, dry dates; if none, water. (Abu Dawud, Tirmidhi)', bn: 'সূর্যাস্তে দ্রুত করে তাজা খেজুর দিয়ে ইফতার করা; না থাকলে শুকনো খেজুর; তাও না থাকলে পানি দিয়ে। (আবু দাউদ, তিরমিযি)' } },
+              { q: { en: 'Does a blood test or non-nutritional injection break the fast?', bn: 'রক্ত পরীক্ষা বা অপুষ্টিকর ইনজেকশন কি রোজা ভাঙ্গে?' }, a: { en: 'No, according to the majority of scholars. Only injections or drips that nourish the body (replacing food and drink) break the fast.', bn: 'না, জমহুর আলিমের মতে। কেবল দেহকে পুষ্টি দেয় এমন ইনজেকশন বা স্যালাইন (খাদ্য-পানীয়ের বিকল্প) রোজা ভাঙ্গে।' } },
             ].map(item => `
               <details class="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/40 overflow-hidden">
                 <summary class="flex items-center gap-2 p-3 cursor-pointer list-none hover:bg-amber-100/50 dark:hover:bg-amber-900/30">
