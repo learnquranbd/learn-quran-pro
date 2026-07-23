@@ -346,6 +346,112 @@ const VOCAB_WORDS = [
   {
     arabic: 'فَوْزٌ', translit: 'fawz', count: 40,
     meanings: { en: 'success, triumph', bn: 'সাফল্য, মুক্তি', fr: 'succès, triomphe', id: 'keberhasilan, kemenangan', ur: 'کامیابی، نجات', tr: 'kurtuluş, zafer', ar: 'نَجَاح' , zh: '成功，胜利', ja: '成功、ファウズ'}
+  },
+
+  // ---- More high-frequency verbs ----
+  {
+    arabic: 'جَعَلَ', translit: 'jaʿala', count: 340,
+    meanings: { en: 'he made, placed', bn: 'সে বানাল, রাখল', fr: 'il a fait, placé', id: 'dia menjadikan', ur: 'اس نے بنایا', tr: 'yaptı, kıldı', ar: 'صَيَّرَ' , zh: '他使，安置', ja: '彼は作った、定めた'}
+  },
+  {
+    arabic: 'كَذَّبَ', translit: 'kadhdhaba', count: 280,
+    meanings: { en: 'he denied, belied', bn: 'সে মিথ্যা প্রতিপন্ন করল', fr: 'il a démenti', id: 'dia mendustakan', ur: 'اس نے جھٹلایا', tr: 'yalanladı', ar: 'أَنْكَرَ وَكَذَّب' , zh: '他否认，斥为谎言', ja: '彼は嘘とした'}
+  },
+  {
+    arabic: 'أَخَذَ', translit: 'akhadha', count: 270,
+    meanings: { en: 'he took, seized', bn: 'সে নিল, ধরল', fr: 'il a pris, saisi', id: 'dia mengambil', ur: 'اس نے لیا، پکڑا', tr: 'aldı, yakaladı', ar: 'تَنَاوَلَ / أَمْسَكَ' , zh: '他拿取，抓住', ja: '彼は取った、捕らえた'}
+  },
+  {
+    arabic: 'أَرَادَ', translit: 'arāda', count: 140,
+    meanings: { en: 'he wanted, willed', bn: 'সে চাইল', fr: 'il a voulu', id: 'dia menghendaki', ur: 'اس نے چاہا', tr: 'istedi, diledi', ar: 'شَاءَ' , zh: '他想要，意欲', ja: '彼は望んだ'}
+  },
+  {
+    arabic: 'عَبَدَ', translit: 'ʿabada', count: 140,
+    meanings: { en: 'he worshipped', bn: 'সে ইবাদত করল', fr: 'il a adoré', id: 'dia menyembah', ur: 'اس نے عبادت کی', tr: 'ibadet etti, kulluk etti', ar: 'تَذَلَّلَ لِلَّه' , zh: '他崇拜', ja: '彼は崇拝した'}
+  },
+  {
+    arabic: 'دَخَلَ', translit: 'dakhala', count: 125,
+    meanings: { en: 'he entered', bn: 'সে প্রবেশ করল', fr: 'il est entré', id: 'dia masuk', ur: 'وہ داخل ہوا', tr: 'girdi', ar: 'وَلَجَ' , zh: '他进入', ja: '彼は入った'}
+  },
+  {
+    arabic: 'رَزَقَ', translit: 'razaqa', count: 120,
+    meanings: { en: 'he provided, sustained', bn: 'তিনি রিযিক দিলেন', fr: 'il a pourvu', id: 'dia memberi rezeki', ur: 'اس نے رزق دیا', tr: 'rızıklandırdı', ar: 'أَعْطَى الْقُوت' , zh: '他供给', ja: '彼は糧を与えた'}
+  },
+  {
+    arabic: 'نَصَرَ', translit: 'naṣara', count: 120,
+    meanings: { en: 'he helped, aided', bn: 'তিনি সাহায্য করলেন', fr: 'il a secouru', id: 'dia menolong', ur: 'اس نے مدد کی', tr: 'yardım etti', ar: 'أَعَانَ' , zh: '他援助', ja: '彼は助けた'}
+  },
+  {
+    arabic: 'غَفَرَ', translit: 'ghafara', count: 95,
+    meanings: { en: 'he forgave', bn: 'তিনি ক্ষমা করলেন', fr: 'il a pardonné', id: 'dia mengampuni', ur: 'اس نے بخشا', tr: 'bağışladı', ar: 'سَتَرَ الذَّنْب' , zh: '他饶恕', ja: '彼は赦した'}
+  },
+  {
+    arabic: 'ضَرَبَ', translit: 'ḍaraba', count: 58,
+    meanings: { en: 'he struck; set forth', bn: 'সে আঘাত করল; উপমা দিল', fr: 'il a frappé; proposé', id: 'dia memukul; membuat (perumpamaan)', ur: 'اس نے مارا؛ مثال دی', tr: 'vurdu; örnek verdi', ar: 'صَكَّ / أَوْرَدَ مَثَلًا' , zh: '他打；设（比喻）', ja: '彼は打った；例を挙げた'}
+  },
+
+  // ---- More high-frequency nouns ----
+  {
+    arabic: 'نَاسٌ', translit: 'nās', count: 240,
+    meanings: { en: 'people, mankind', bn: 'মানুষ, লোকজন', fr: 'les gens, l’humanité', id: 'manusia', ur: 'لوگ، انسان', tr: 'insanlar', ar: 'الْبَشَر' , zh: '人们，人类', ja: '人々、人類'}
+  },
+  {
+    arabic: 'أَمْرٌ', translit: 'amr', count: 250,
+    meanings: { en: 'command; matter', bn: 'আদেশ; বিষয়', fr: 'ordre; affaire', id: 'perintah; urusan', ur: 'حکم؛ معاملہ', tr: 'emir; iş', ar: 'حُكْمٌ / شَأْن' , zh: '命令；事务', ja: '命令；事柄'}
+  },
+  {
+    arabic: 'مَالٌ', translit: 'māl', count: 86,
+    meanings: { en: 'wealth, property', bn: 'ধন-সম্পদ', fr: 'biens, richesse', id: 'harta', ur: 'مال، دولت', tr: 'mal, servet', ar: 'مَا يُمْلَك' , zh: '财产，财富', ja: '財産、富'}
+  },
+  {
+    arabic: 'بَيْتٌ', translit: 'bayt', count: 65,
+    meanings: { en: 'house, home', bn: 'ঘর, গৃহ', fr: 'maison', id: 'rumah', ur: 'گھر', tr: 'ev', ar: 'مَسْكَن' , zh: '房屋，家', ja: '家'}
+  },
+  {
+    arabic: 'عَدُوٌّ', translit: 'ʿaduww', count: 45,
+    meanings: { en: 'enemy', bn: 'শত্রু', fr: 'ennemi', id: 'musuh', ur: 'دشمن', tr: 'düşman', ar: 'خَصْمٌ مُعَادٍ' , zh: '敌人', ja: '敵'}
+  },
+  {
+    arabic: 'كَلِمَةٌ', translit: 'kalimah', count: 42,
+    meanings: { en: 'word, statement', bn: 'শব্দ, কথা, কালিমা', fr: 'parole, mot', id: 'kata, kalimat', ur: 'کلمہ، بات', tr: 'kelime, söz', ar: 'لَفْظٌ ذُو مَعْنًى' , zh: '话语，词', ja: '言葉'}
+  },
+  {
+    arabic: 'ذَنْبٌ', translit: 'dhanb', count: 39,
+    meanings: { en: 'sin, offense', bn: 'পাপ, গুনাহ', fr: 'péché', id: 'dosa', ur: 'گناہ', tr: 'günah', ar: 'إِثْم' , zh: '罪过', ja: '罪'}
+  },
+  {
+    arabic: 'رُوحٌ', translit: 'rūḥ', count: 24,
+    meanings: { en: 'spirit, soul', bn: 'রূহ, আত্মা', fr: 'esprit', id: 'roh', ur: 'روح', tr: 'ruh', ar: 'مَا بِهِ الْحَيَاة' , zh: '精神，灵', ja: '霊、魂'}
+  },
+  {
+    arabic: 'مَلِكٌ', translit: 'malik', count: 13,
+    meanings: { en: 'king, sovereign', bn: 'রাজা, বাদশাহ', fr: 'roi', id: 'raja', ur: 'بادشاہ', tr: 'kral, hükümdar', ar: 'ذُو الْمُلْك' , zh: '国王，君主', ja: '王、君主'}
+  },
+
+  // ---- Divine names & key adjectives ----
+  {
+    arabic: 'عَظِيمٌ', translit: 'ʿaẓīm', count: 107,
+    meanings: { en: 'great, mighty', bn: 'মহান, বিরাট', fr: 'immense, grandiose', id: 'agung, besar', ur: 'عظیم، بہت بڑا', tr: 'büyük, azametli', ar: 'كَبِيرُ الشَّأْن' , zh: '伟大的', ja: '偉大な'}
+  },
+  {
+    arabic: 'عَزِيزٌ', translit: 'ʿazīz', count: 99,
+    meanings: { en: 'mighty, Almighty', bn: 'পরাক্রমশালী, সম্মানিত', fr: 'puissant, tout-puissant', id: 'Maha Perkasa', ur: 'زبردست، غالب', tr: 'aziz, üstün', ar: 'قَوِيٌّ غَالِب' , zh: '万能的，尊贵的', ja: '偉力ある者'}
+  },
+  {
+    arabic: 'حَكِيمٌ', translit: 'ḥakīm', count: 97,
+    meanings: { en: 'wise, All-Wise', bn: 'প্রজ্ঞাময়, হাকীম', fr: 'sage', id: 'Maha Bijaksana', ur: 'حکمت والا، حکیم', tr: 'hikmet sahibi, hakîm', ar: 'ذُو الْحِكْمَة' , zh: '至睿的，明智的', ja: '英明な者'}
+  },
+  {
+    arabic: 'سَمِيعٌ', translit: 'samīʿ', count: 47,
+    meanings: { en: 'All-Hearing', bn: 'সর্বশ্রোতা', fr: 'qui entend tout', id: 'Maha Mendengar', ur: 'سب سننے والا', tr: 'her şeyi işiten', ar: 'كَثِيرُ السَّمْع' , zh: '全聪的', ja: '全聴者'}
+  },
+  {
+    arabic: 'بَصِيرٌ', translit: 'baṣīr', count: 42,
+    meanings: { en: 'All-Seeing', bn: 'সর্বদ্রষ্টা', fr: 'qui voit tout', id: 'Maha Melihat', ur: 'سب دیکھنے والا', tr: 'her şeyi gören', ar: 'كَثِيرُ الْبَصَر' , zh: '全明的', ja: '全視者'}
+  },
+  {
+    arabic: 'قَدِيرٌ', translit: 'qadīr', count: 45,
+    meanings: { en: 'All-Powerful, able', bn: 'সর্বশক্তিমান', fr: 'tout-puissant, capable', id: 'Maha Kuasa', ur: 'قادر، ہر چیز پر قادر', tr: 'her şeye gücü yeten', ar: 'قَادِرٌ عَلَى كُلِّ شَيْء' , zh: '全能的', ja: '全能者'}
   }
 ];
 
