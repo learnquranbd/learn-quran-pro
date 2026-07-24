@@ -35,6 +35,7 @@ const TAB_META = {
   makruh:       { emoji: '⚠️', key: 'islam_makruh_title' },
   mustahabb:    { emoji: '🌟', key: 'islam_mustahabb_title' },
   prophets:     { emoji: '📜', key: 'prophets_title' },
+  sahaba:       { emoji: '🤝', key: 'sahaba_title' },
   nuzul:        { emoji: '🌅', key: 'nuzul_title' },
   sawm:         { emoji: '🌅', key: 'learn_sawm_title' },
   hajj:         { emoji: '🕋', key: 'learn_hajj_title' },

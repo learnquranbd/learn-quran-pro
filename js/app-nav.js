@@ -45,7 +45,8 @@ const APP_NAV_PRIMARY = [
   { id: 'namaz', emoji: '🕌', label: 'learn_salah_title', tab: 'namaz' },
   { id: 'anbiya', emoji: '🕋', label: 'group_prophets', children: [
       { tab: 'prophets', emoji: '📜', label: 'prophets_title' },
-      { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' }
+      { tab: 'seerah',   emoji: '🌙', label: 'seerah_title' },
+      { tab: 'sahaba',   emoji: '🤝', label: 'sahaba_title' }
     ] },
   { id: 'islam', emoji: '💡', label: 'islam_group_title', children: [
       { tab: 'whyislam', emoji: '💡', label: 'whyislam_title' },
