@@ -263,7 +263,10 @@ class Mutashabihat {
 
   /* ---------- curated groups ---------- */
   curatedGroupsHtml() {
-    const cards = MUTASHABIHAT_GROUPS.map(g => {
+    // Show the groups with the most similar verses first (descending by verse count);
+    // slice() so the source array order is never mutated.
+    const sorted = MUTASHABIHAT_GROUPS.slice().sort((a, b) => b.verses.length - a.verses.length);
+    const cards = sorted.map(g => {
       const chips = g.verses.map(ref => {
         const [s] = ref.split(':');
         return `<button data-mt-ref="${ref}" title="${this.tt('mt_group_open_verse')} ${ref}"

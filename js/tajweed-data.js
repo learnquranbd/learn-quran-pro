@@ -130,6 +130,26 @@ const TAJWEED_LESSONS = {
   madd_farq: { group: 'madd', names: { bn: 'মাদ্দ ফারক (৬)', ar: 'مد الفرق (6)' }, letters: 'ٱ + ال',
     en: 'Madd al-Farq: an interrogative hamza meets the hamzat al-wasl of ال, lengthened 6 counts to distinguish a question from a statement (e.g. آلذَّكَرَيْنِ, آللّٰهُ أَذِنَ, آلْآنَ). One of six such places in the Quran.',
     bn: 'মাদ্দ ফারক: প্রশ্নবোধক হামযা ال-এর হামযাতুল ওয়াসলের সাথে মিলিত হলে প্রশ্ন ও বিবৃতির পার্থক্য বোঝাতে ৬ হরকত টানা হয় (যেমন آلذَّكَرَيْنِ, آللّٰهُ أَذِنَ, آلْآنَ)। কোরআনে এমন ছয়টি স্থান।' },
+
+  // ── Hamzat al-Qaṭʿ: the always-pronounced hamza (pairs with hamzat al-wasl) ─
+  hamzat_qat: { group: 'other', names: { bn: 'হামযাতুল ক্বাত', ar: 'همزة القطع' }, letters: 'ء أ إ ؤ ئ',
+    en: 'Cutting hamza: a fixed, always-pronounced hamza (ء / أ / إ / ؤ / ئ) — sounded whether you START at it or continue THROUGH it, unlike hamzat al-wasl which drops in continuation (e.g. أَنْعَمْتَ, إِيَّاكَ, اقْرَأْ).',
+    bn: 'হামযাতুল ক্বাত: স্থায়ী হামযা (ء / أ / إ / ؤ / ئ) — শুরু করলেও মাঝে পড়লেও সর্বদা উচ্চারিত; হামযাতুল ওয়াসলের বিপরীত যা ওয়াসলে বাদ পড়ে (যেমন أَنْعَمْتَ, إِيَّاكَ, اقْرَأْ)।' },
+
+  // ── Tarqīq of the general Lām (every lām except the Name Allāh) ─────────────
+  tarqiq_lam: { group: 'ra', names: { bn: 'তারকিকুল লাম (সাধারণ লাম)', ar: 'ترقيق اللام' }, letters: 'ل',
+    en: 'Light Lām: the letter ل is recited light (tarqīq) in every word of the Quran — the ONLY heavy lām is that of the Name اللّٰه after a fathah or dammah (so لَا, قُلْ, مَالِكِ are all light).',
+    bn: 'তারকিকুল লাম: কোরআনের প্রতিটি শব্দে ل হালকা (তারকিক) উচ্চারিত — একমাত্র اللّٰه শব্দের লাম ফাতহা/দাম্মার পরে ভারী হয় (তাই لَا, قُلْ, مَالِكِ সবই হালকা)।' },
+
+  // ── Marātib al-Ghunnah: the levels/strength of the nasal sound ──────────────
+  ghunnah_maratib: { group: 'core', names: { bn: 'গুন্নাহর স্তর (মারাতিব)', ar: 'مراتب الغنّة' }, letters: 'ن م',
+    en: 'Levels of ghunnah: the nasal sound varies in strength — strongest on a doubled نّ/مّ, then in idghām & iqlāb, then ikhfā (~2 counts each), lighter on a sākinah with iẓhār, and lightest on a voweled ن/م.',
+    bn: 'গুন্নাহর স্তর: নাকি ধ্বনির মাত্রা ভিন্ন — সবচেয়ে জোরালো মুশাদ্দাদ نّ/مّ-এ, তারপর ইদগাম ও ইকলাবে, এরপর ইখফায় (~২ হরকত), ইযহারে হালকা এবং স্বরযুক্ত ن/م-এ সবচেয়ে হালকা।' },
+
+  // ── Waqf & Ibtidāʾ: stopping and starting correctly ────────────────────────
+  waqf_ibtida: { group: 'other', names: { bn: 'ওয়াকফ ও ইবতিদা', ar: 'الوقف والابتداء' }, letters: '—',
+    en: 'Stopping & starting: choosing correct places to pause (waqf) and resume (ibtidāʾ). A tāmm (complete) stop ends a full meaning, e.g. a verse end; a ḥasan stop is sound mid-verse; avoid a qabīḥ stop that breaks the meaning. A tie-mark (muʿānaqah ۛ) means stop at only ONE of two adjacent spots.',
+    bn: 'ওয়াকফ ও ইবতিদা: থামা (ওয়াকফ) ও পুনরায় শুরু (ইবতিদা)-র সঠিক স্থান বাছাই। তাম্ম (পূর্ণ) ওয়াকফ সম্পূর্ণ অর্থে শেষ হয় — যেমন আয়াতের শেষ; হাসান ওয়াকফ আয়াতের মাঝে সঠিক; অর্থ নষ্টকারী কবিহ ওয়াকফ পরিহার্য। মুআনাকা চিহ্ন (ۛ) মানে পাশাপাশি দুই স্থানের যেকোনো একটিতেই থামা।' },
 };
 
 /**
@@ -139,11 +159,11 @@ const TAJWEED_LESSONS = {
  */
 const TAJWEED_PATH = [
   { level: 'beginner', emoji: '🌱', labelKey: 'tj_level_beginner', fallback: 'Beginner',
-    rules: ['madd_2', 'lam_shamsiyyah', 'lam_qamariyyah', 'hamzat_wasl', 'silent', 'ghunnah', 'qalqalah', 'izhar_halqi'] },
+    rules: ['madd_2', 'lam_shamsiyyah', 'lam_qamariyyah', 'hamzat_wasl', 'hamzat_qat', 'silent', 'ghunnah', 'qalqalah', 'izhar_halqi'] },
   { level: 'intermediate', emoji: '🌿', labelKey: 'tj_level_intermediate', fallback: 'Intermediate',
-    rules: ['ikhfa', 'iqlab', 'idghaam_ghunnah', 'idghaam_no_ghunnah', 'ikhfa_shafawi', 'idghaam_shafawi', 'izhar_shafawi', 'izhar_mutlaq', 'madd_aridh', 'madd_lin', 'ra_tafkhim', 'ra_tarqiq', 'lafz_jalalah', 'tafkhim_istila'] },
+    rules: ['ikhfa', 'iqlab', 'idghaam_ghunnah', 'idghaam_no_ghunnah', 'ikhfa_shafawi', 'idghaam_shafawi', 'izhar_shafawi', 'izhar_mutlaq', 'madd_aridh', 'madd_lin', 'ra_tafkhim', 'ra_tarqiq', 'lafz_jalalah', 'tarqiq_lam', 'tafkhim_istila', 'ghunnah_maratib'] },
   { level: 'advanced', emoji: '🌳', labelKey: 'tj_level_advanced', fallback: 'Advanced',
-    rules: ['madd_muttasil', 'madd_munfasil', 'madd_246', 'madd_6', 'madd_badal', 'madd_iwad', 'madd_silah', 'madd_farq', 'idghaam_mutamathilayn', 'idghaam_mutajanisayn', 'idghaam_mutaqaribayn', 'ha_sakt', 'sakt'] },
+    rules: ['madd_muttasil', 'madd_munfasil', 'madd_246', 'madd_6', 'madd_badal', 'madd_iwad', 'madd_silah', 'madd_farq', 'idghaam_mutamathilayn', 'idghaam_mutajanisayn', 'idghaam_mutaqaribayn', 'ha_sakt', 'sakt', 'waqf_ibtida'] },
 ];
 
 /**
@@ -672,6 +692,42 @@ const TAJWEED_RULE_EXAMPLES = {
     { ref: '10:59', focus: 'آللَّهُ أَذِنَ',     noteEn: 'آللَّهُ — interrogative hamza before the ال of the Name; 6-count madd al-farq.',              noteBn: 'آللَّهُ — প্রশ্নবোধক হামযা + الله; ৬ হরকত মাদ্দ ফারক।' },
     { ref: '27:59', focus: 'آللَّهُ خَيْرٌ',     noteEn: 'آللَّهُ خَيْرٌ — the same interrogative آللَّهُ; distinguish "Is it Allah?" with 6 counts.',   noteBn: 'آللَّهُ خَيْرٌ — একই প্রশ্নবোধক آللَّهُ; ৬ হরকতে পার্থক্য।' },
     { ref: '10:51', focus: 'آلْآنَ',             noteEn: 'آلْآنَ — interrogative hamza + ال of الآن; 6-count madd al-farq ("Now?").',                   noteBn: 'آلْآنَ — প্রশ্নবোধক হামযা + الآن; ৬ হরকত মাদ্দ ফারক।' },
+  ],
+
+  // ── Hamzat al-Qaṭʿ ──────────────────────────────────────────────────────────
+  hamzat_qat: [
+    { ref: '1:7',   focus: 'أَنْعَمْتَ',        noteEn: 'أ hamzat al-qatʿ with fathah — sounded whether you start at أَنْعَمْتَ or join from الَّذِينَ before it.', noteBn: 'أَنْعَمْتَ-তে أ হামযাতুল ক্বাত — শুরু করলেও ওয়াসলেও উচ্চারিত।' },
+    { ref: '1:5',   focus: 'إِيَّاكَ',          noteEn: 'إ hamzat al-qatʿ with kasrah at the head of إِيَّاكَ — always pronounced, never dropped.',   noteBn: 'إِيَّاكَ-এর শুরুতে إ হামযাতুল ক্বাত — সর্বদা উচ্চারিত।' },
+    { ref: '2:6',   focus: 'إِنَّ',             noteEn: 'إِنَّ opens with hamzat al-qatʿ; contrast the wasl-alif of الَّذِينَ right after it (which drops in flow).', noteBn: 'إِنَّ-তে হামযাতুল ক্বাত; পরের الَّذِينَ-এর ওয়াসল-আলিফ ওয়াসলে বাদ পড়ে — বৈসাদৃশ্য।' },
+    { ref: '106:4', focus: 'أَطْعَمَهُم',       noteEn: 'أ hamzat al-qatʿ mid-verse in أَطْعَمَهُم — pronounced fully even when connected to الَّذِي before it.', noteBn: 'أَطْعَمَهُم-তে أ হামযাতুল ক্বাত — আয়াতের মাঝেও পূর্ণ উচ্চারিত।' },
+    { ref: '96:1',  focus: 'اقْرَأْ',           noteEn: 'One word, two hamzas: the initial ا is hamzat al-wasl (dropped when joined), the FINAL ء is hamzat al-qatʿ (always sounded).', noteBn: 'اقْرَأْ — এক শব্দে দুই হামযা: শুরুর ا ওয়াসল (ওয়াসলে বাদ), শেষের ء ক্বাত (সর্বদা উচ্চারিত)।' },
+  ],
+
+  // ── Tarqīq of the general Lām ───────────────────────────────────────────────
+  tarqiq_lam: [
+    { ref: '2:2',   focus: 'لَا',               noteEn: 'The ل of the negative لَا — light (tarqīq); this is the default weight of every lām in the Quran.', noteBn: 'لَا-এর ল হালকা (তারকিক) — কোরআনে লামের স্বাভাবিক ওজন।' },
+    { ref: '1:2',   focus: 'الْحَمْدُ',         noteEn: 'The ل of the article ال in الْحَمْدُ — pronounced light and thin.',                          noteBn: 'الْحَمْدُ-তে ال-এর ল হালকা ও পাতলা।' },
+    { ref: '112:1', focus: 'قُلْ',              noteEn: 'The ل with sukoon in قُلْ — light, not heavy.',                                              noteBn: 'قُلْ-তে সাকিন ل — হালকা, ভারী নয়।' },
+    { ref: '1:4',   focus: 'مَالِكِ',           noteEn: 'The ل with kasrah in مَالِكِ — light and thin.',                                             noteBn: 'مَالِكِ-তে কাসরাযুক্ত ل — হালকা।' },
+    { ref: '3:2',   focus: 'اللَّهُ لَا إِلَٰهَ', noteEn: 'Contrast: starting on اللَّهُ its lām is HEAVY (after the fathah), while the lāms of لَا and إِلَٰهَ stay light.', noteBn: 'বৈসাদৃশ্য: اللَّهُ থেকে শুরু করলে এর লাম ভারী, কিন্তু لَا ও إِلَٰهَ-এর লাম হালকা।' },
+  ],
+
+  // ── Marātib al-Ghunnah ──────────────────────────────────────────────────────
+  ghunnah_maratib: [
+    { ref: '108:1', focus: 'إِنَّا',            noteEn: 'Doubled نّ — the STRONGEST, fullest ghunnah (level 1), held ~2 counts.',                    noteBn: 'إِنَّا-তে মুশাদ্দাদ نّ — সবচেয়ে জোরালো গুন্নাহ (স্তর ১), ~২ হরকত।' },
+    { ref: '3:37',  focus: 'مَن يَشَاءُ',       noteEn: 'نْ merging into يَ (idghām bi-ghunnah) — strong ghunnah, one level below the doubled letter.', noteBn: 'مَن يَشَاءُ-তে ইদগাম বিল-গুন্নাহ — জোরালো গুন্নাহ (মুশাদ্দাদের এক ধাপ নিচে)।' },
+    { ref: '2:18',  focus: 'صُمٌّ بُكْمٌ',      noteEn: 'Tanween before بُ (iqlāb) — full ghunnah on the converted nasal meem.',                    noteBn: 'صُمٌّ بُكْمٌ-এ ইকলাব — রূপান্তরিত নাকি মীমে পূর্ণ গুন্নাহ।' },
+    { ref: '2:3',   focus: 'يُنفِقُونَ',        noteEn: 'نْ before ف (ikhfā) — medium-strength ghunnah, held ~2 counts.',                            noteBn: 'يُنفِقُونَ-তে ইখফা — মধ্যম গুন্নাহ, ~২ হরকত।' },
+    { ref: '1:2',   focus: 'الْعَالَمِينَ',    noteEn: 'The voweled نَ carries only the faint inherent ghunnah (the weakest level) — do not over-nasalise it.', noteBn: 'الْعَالَمِينَ-তে স্বরযুক্ত نَ — কেবল সহজাত ক্ষীণ গুন্নাহ (সবচেয়ে হালকা); অতিরিক্ত নাসাল দেবেন না।' },
+  ],
+
+  // ── Waqf & Ibtidāʾ ──────────────────────────────────────────────────────────
+  waqf_ibtida: [
+    { ref: '2:5',   focus: 'الْمُفْلِحُونَ',    noteEn: 'A verse end with complete meaning — a tāmm (complete) stop; begin the next verse fresh.',   noteBn: 'الْمُفْلِحُونَ — পূর্ণ অর্থে আয়াতের শেষ: তাম্ম ওয়াকফ; পরের আয়াত নতুন করে শুরু।' },
+    { ref: '1:7',   focus: 'عَلَيْهِمْ',        noteEn: 'The first عَلَيْهِمْ mid-verse is a ḥasan (good) stop — grammatically sound but connected to what follows.', noteBn: 'প্রথম عَلَيْهِمْ আয়াতের মাঝে — হাসান ওয়াকফ: ব্যাকরণসম্মত কিন্তু পরের সাথে যুক্ত।' },
+    { ref: '2:2',   focus: 'فِيهِ',             noteEn: 'The tie-mark ۛ sits on both لَا رَيْبَ ۛ and فِيهِ ۛ (muʿānaqah) — stop at only ONE of the two, never both.', noteBn: 'لَا رَيْبَ ۛ ও فِيهِ ۛ উভয়ে মুআনাকা চিহ্ন — দুইয়ের যেকোনো একটিতেই থামুন, দুটিতে নয়।' },
+    { ref: '114:6', focus: 'النَّاسِ',          noteEn: 'The very last word of the Quran — the most complete stop of all.',                          noteBn: 'النَّاسِ — কোরআনের শেষ শব্দ: সবচেয়ে পূর্ণ ওয়াকফ।' },
+    { ref: '1:1',   focus: 'بِسْمِ اللَّهِ',    noteEn: 'Ibtidāʾ: after the istiʿādhah, the recommended place to begin the recitation.',              noteBn: 'বিসমিল্লাহ — ইবতিদা: ইস্তিআযার পর তিলাওয়াত শুরুর উত্তম স্থান।' },
   ],
 };
 

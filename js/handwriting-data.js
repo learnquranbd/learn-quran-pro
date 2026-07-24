@@ -199,6 +199,54 @@ const HW_CONFUSABLES = [
       bn: 'দুটিতেই গোলাকার শরীর। ফা: উপরে ১টি বিন্দু, বৃত্ত বেসলাইনের উপরে (অগভীর বাটি)। কাফ: উপরে ২টি বিন্দু, গভীর বাটি বেসলাইনের নিচে নামে।'
     }
   },
+  {
+    letters: ['ك', 'ل'],
+    label: { en: 'Kāf / Lām', bn: 'কাফ / লাম' },
+    tip: {
+      en: 'Both are tall letters that rise well above the line, and in their initial/medial forms both begin as a tall upright stroke — so beginners confuse them. Kāf has a bent "shoulder" at the top and a small diagonal hamza-like mark inside; Lām is a plain smooth upstroke with no inner mark, ending in a rounded tail that curls below the baseline in isolated/final form.',
+      bn: 'দুটিই লম্বা অক্ষর যা লাইনের অনেক উপরে ওঠে, এবং আদি/মধ্য রূপে দুটিই লম্বা খাড়া রেখা হিসেবে শুরু হয় — তাই শিক্ষার্থীরা গুলিয়ে ফেলে। কাফের (ك) উপরে একটি বাঁকানো "কাঁধ" ও ভেতরে ছোট তির্যক হামযার মতো চিহ্ন থাকে; লাম (ل) মসৃণ খাড়া রেখা, কোনো ভেতরের চিহ্ন নেই, বিচ্ছিন্ন/অন্তিম রূপে বেসলাইনের নিচে বাঁকানো লেজে শেষ হয়।'
+    }
+  },
+  {
+    letters: ['ا', 'ل'],
+    label: { en: 'Alif / Lām', bn: 'আলিফ / লাম' },
+    tip: {
+      en: 'Both are tall vertical strokes. Alif (ا) is perfectly straight and is a non-connector — it never joins the following letter. Lām (ل) connects on both sides and, in isolated/final form, sweeps into a rounded bowl-tail at the base, whereas Alif has no tail at all.',
+      bn: 'দুটিই লম্বা উল্লম্ব রেখা। আলিফ (ا) পুরোপুরি সোজা এবং নন-কানেক্টর — পরের অক্ষরের সাথে কখনো যুক্ত হয় না। লাম (ل) উভয় দিকে সংযুক্ত হয় এবং বিচ্ছিন্ন/অন্তিম রূপে নিচে গোলাকার লেজে বাঁকে, যেখানে আলিফের কোনো লেজ নেই।'
+    }
+  },
+  {
+    letters: ['ه', 'ة'],
+    label: { en: 'Hā / Tā marbūṭa', bn: 'হা / তা মারবূতা' },
+    tip: {
+      en: 'Tā marbūṭa (ة) is the Hā (ه) shape with 2 dots added above; it appears only at the end of a word to mark the feminine, and is read as "t" (or a soft "h" when pausing). Hā (ه) has no dots and can occur anywhere in a word. The two dots are the only difference.',
+      bn: 'তা মারবূতা (ة) হলো হা-এর (ه) আকৃতির উপরে ২টি বিন্দু যোগ করা রূপ; এটি শুধু শব্দের শেষে স্ত্রীলিঙ্গ বোঝাতে আসে এবং "ত" (বা থামলে নরম "হ") হিসেবে পড়া হয়। হা-তে (ه) কোনো বিন্দু নেই এবং শব্দের যেকোনো স্থানে বসে। ২টি বিন্দুই একমাত্র পার্থক্য।'
+    }
+  },
+  {
+    letters: ['ى', 'ي'],
+    label: { en: 'Alif maqṣūra / Yā', bn: 'আলিফ মাকসূরা / ইয়া' },
+    tip: {
+      en: 'Both share the same final bowl that dips below the baseline. Yā (ي) carries 2 dots below; alif maqṣūra (ى) — a final "long-a" written like a dotless yā — has no dots. The presence or absence of the two lower dots is the only thing that tells them apart.',
+      bn: 'দুটিতেই একই অন্তিম বাটি যা বেসলাইনের নিচে নামে। ইয়া-তে (ي) নিচে ২টি বিন্দু থাকে; আলিফ মাকসূরা (ى) — বিন্দুহীন ইয়ার মতো লেখা অন্তিম দীর্ঘ "আ" — এর কোনো বিন্দু নেই। নিচের দুটি বিন্দুর উপস্থিতি বা অনুপস্থিতিই এদের আলাদা করার একমাত্র উপায়।'
+    }
+  },
+  {
+    letters: ['و', 'ر', 'ز'],
+    label: { en: 'Wāw / Rā / Zāy', bn: 'ওয়াও / রা / যায়' },
+    tip: {
+      en: 'All three have a tail curving down and to the right, and all are non-connectors. Wāw (و) begins with a small closed rounded head at the top before the tail; Rā (ر) and Zāy (ز) have no head — just a plain downward curve (Zāy adds 1 dot above, Rā none). A poorly-closed wāw head is easily mistaken for a rā.',
+      bn: 'তিনটিরই নিচে ও ডানে বাঁকানো লেজ আছে এবং তিনটিই নন-কানেক্টর। ওয়াও (و) লেজের আগে উপরে একটি ছোট বন্ধ গোলাকার মাথা দিয়ে শুরু হয়; রা (ر) ও যায় (ز)-এর কোনো মাথা নেই — শুধু একটি নিম্নমুখী বক্ররেখা (যায়ে উপরে ১টি বিন্দু, রা-তে নেই)। খারাপভাবে বন্ধ করা ওয়াওয়ের মাথা সহজেই রা-এর সাথে গুলিয়ে যায়।'
+    }
+  },
+  {
+    letters: ['ء', 'ع'],
+    label: { en: 'Hamza / ʿAyn', bn: 'হামযা / আইন' },
+    tip: {
+      en: 'The hamza (ء) is a small standalone glottal-stop mark shaped like the head of ʿAyn (ع) — historically it derives from a miniature ʿayn. ʿAyn is a full-size letter with a teardrop/eye head and a descending tail that connects to its neighbours; hamza is tiny, sits above or beside its carrier, and never connects.',
+      bn: 'হামযা (ء) একটি ছোট স্বতন্ত্র গলদেশীয়-বিরতি চিহ্ন যা আইনের (ع) মাথার মতো আকৃতির — ঐতিহাসিকভাবে এটি একটি ক্ষুদ্র আইন থেকে এসেছে। আইন একটি পূর্ণ আকারের অক্ষর, অশ্রু/চোখের মাথা ও নিম্নমুখী লেজ সহ যা প্রতিবেশীর সাথে যুক্ত হয়; হামযা ক্ষুদ্র, তার বাহকের উপরে বা পাশে বসে এবং কখনো যুক্ত হয় না।'
+    }
+  },
 ];
 
 /**
@@ -277,6 +325,16 @@ const HW_PRACTICE_WORDS = [
   { arabic: 'سَلَام',     translit: 'Salām',     note: { en: 'Peace — Sīn·Lām·Alif·Mīm', bn: 'শান্তি — সিন·লাম·আলিফ·মিম' } },
   { arabic: 'لا إِلَٰهَ', translit: 'Lā ilāha',  note: { en: 'No deity — Lā·Alif·Lām·Hā (Shahāda)', bn: 'কোনো ইলাহ নেই — শাহাদার প্রথম অংশ' } },
   { arabic: 'إِلَّا اللَّهُ', translit: 'illallāh', note: { en: 'Except Allāh (Shahāda)', bn: 'আল্লাহ ছাড়া (শাহাদা)' } },
+  { arabic: 'أُمّ',        translit: 'Umm',       note: { en: 'Mother — Alif·Mīm (shadda)', bn: 'মা — আলিফ·মিম (শাদ্দা)' } },
+  { arabic: 'قَمَر',      translit: 'Qamar',     note: { en: 'Moon — Qāf·Mīm·Rā', bn: 'চাঁদ — কাফ·মিম·রা' } },
+  { arabic: 'شَمْس',      translit: 'Shams',     note: { en: 'Sun — Shīn·Mīm·Sīn', bn: 'সূর্য — শিন·মিম·সিন' } },
+  { arabic: 'نَجْم',      translit: 'Najm',      note: { en: 'Star — Nūn·Jīm·Mīm', bn: 'তারা — নুন·জিম·মিম' } },
+  { arabic: 'جَنَّة',      translit: 'Jannah',    note: { en: 'Garden / Paradise — Jīm·Nūn·tā marbūṭa (shadda)', bn: 'বাগান/জান্নাত — জিম·নুন·তা মারবূতা (শাদ্দা)' } },
+  { arabic: 'نَار',       translit: 'Nār',       note: { en: 'Fire — Nūn·Alif·Rā', bn: 'আগুন — নুন·আলিফ·রা' } },
+  { arabic: 'عِلْم',      translit: 'ʿIlm',      note: { en: 'Knowledge — ʿAyn·Lām·Mīm', bn: 'জ্ঞান — আইন·লাম·মিম' } },
+  { arabic: 'دِين',       translit: 'Dīn',       note: { en: 'Religion / way of life — Dāl·Yā·Nūn', bn: 'ধর্ম/জীবনব্যবস্থা — দাল·ইয়া·নুন' } },
+  { arabic: 'مَلِك',      translit: 'Malik',     note: { en: 'King — Mīm·Lām·Kāf (Quran 114:2)', bn: 'রাজা — মিম·লাম·কাফ (কুরআন ১১৪:২)' } },
+  { arabic: 'حَمْد',      translit: 'Ḥamd',      note: { en: 'Praise — Ḥā·Mīm·Dāl (al-ḥamdu lillāh)', bn: 'প্রশংসা — হা·মিম·দাল (আলহামদুলিল্লাহ)' } },
 ];
 
 /**

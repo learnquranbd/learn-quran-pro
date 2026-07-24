@@ -456,5 +456,72 @@ const MUTASHABIHAT_GROUPS = [
     descEn: 'The restrictive statement of the Prophet\'s mission "wa-mā arsalnāka illā…" (We have not sent you except as…) appears with four different predicates: "mubashshiran wa-nadhīran" (a bringer of glad tidings and a warner — 17:105 and 25:56, word-for-word identical); "raḥmatan li-l-ʿālamīn" (a mercy to the worlds — 21:107); and "kāffatan li-n-nāsi bashīran wa-nadhīran" (to all mankind, a bearer of glad tidings and a warner — 34:28). The shared "wa-mā arsalnāka illā" opening with a rotating description — two of them near-identical — is a classic substitution set.',
     descBn: 'নবীর দায়িত্ব সীমিতকারী বাক্য "ওয়ামা আরসালনাকা ইল্লা…" (আমি তোমাকে কেবল … রূপেই পাঠিয়েছি) চারটি ভিন্ন বিশেষণে আসে: "মুবাশশিরান ওয়া নাযীরা" (সুসংবাদদাতা ও সতর্ককারী — ১৭:১০৫ ও ২৫:৫৬ হুবহু অভিন্ন); "রাহমাতান লিল-আলামীন" (বিশ্বজগতের জন্য রহমত — ২১:১০৭); এবং "কাফফাতান লিন-নাসি বাশীরান ওয়া নাযীরা" (সমগ্র মানবজাতির জন্য সুসংবাদদাতা ও সতর্ককারী — ৩৪:২৮)। অভিন্ন সূচনার সঙ্গে ঘূর্ণায়মান বর্ণনা — যার দুটি প্রায় একই — শাস্ত্রীয় বিভ্রান্তি-গুচ্ছ।',
     verses: ['17:105', '21:107', '25:56', '34:28']
+  },
+
+  // ── Wave 5 — 8 additional curated groups ─────────────────────────────────
+
+  {
+    id: 'wa-la-takunu-ka',
+    nameEn: '"Do Not Be Like Those Who…" — Wa-lā Takūnū ka-lladhīna',
+    nameAr: 'وَلَا تَكُونُوا۟ كَٱلَّذِينَ',
+    descEn: 'The prohibition "(wa-)lā takūnū ka-lladhīna…" (do not be like those who…) recurs with a different failing each time: "who split and differed after clear proofs came to them" (3:105), "who said \'we hear\' while they hear not" (8:21), "who harmed Mūsā" (33:69), and "who forgot Allah so He made them forget themselves" (59:19). The identical frame followed by a distinct community-failing is a classic substitution trap; note 33:69 opens "yā ayyuhā lladhīna āmanū lā takūnū" while the others begin "wa-lā takūnū".',
+    descBn: 'নিষেধ "(ওয়া-)লা তাকূনূ কাল্লাযীনা…" (তাদের মতো হয়ো না যারা…) প্রতিবার ভিন্ন ত্রুটিসহ আসে: "যারা স্পষ্ট প্রমাণ আসার পর বিভক্ত ও মতভেদ করেছে" (৩:১০৫), "যারা বলল \'শুনলাম\' অথচ শোনে না" (৮:২১), "যারা মূসাকে কষ্ট দিয়েছিল" (৩৩:৬৯), এবং "যারা আল্লাহকে ভুলে গেছে, ফলে তিনি তাদের নিজেদেরই ভুলিয়ে দিয়েছেন" (৫৯:১৯)। অভিন্ন কাঠামোর পর ভিন্ন জাতির ব্যর্থতা — বিভ্রান্তির ফাঁদ; লক্ষণীয়, ৩৩:৬৯ শুরু হয় "ইয়া আইয়ুহাল্লাযীনা আমানূ লা তাকূনূ" দিয়ে, বাকিগুলো "ওয়া-লা তাকূনূ" দিয়ে।',
+    verses: ['3:105', '8:21', '33:69', '59:19']
+  },
+  {
+    id: 'lahum-ajruhum-inda-rabbihim',
+    nameEn: '"Their Reward Is with Their Lord" — Lahum Ajruhum ʿinda Rabbihim',
+    nameAr: 'لَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ',
+    descEn: 'The reward formula "(fa-)lahum ajruhum ʿinda rabbihim wa-lā khawfun ʿalayhim wa-lā hum yaḥzanūn" recurs with subtle shifts. 2:262 drops the "fa-"; 2:112 switches to the SINGULAR "fa-lahu ajruhu ʿinda rabbihi" (his reward, his Lord) though the following clause stays plural; 3:199 keeps "ulāʾika lahum ajruhum ʿinda rabbihim" but ends "inna llāha sarīʿu l-ḥisāb" with no khawf-clause; and 5:69 — the deceptive near-twin of 2:62 — OMITS the reward clause entirely, reading only "fa-lā khawfun ʿalayhim…". Singular-vs-plural and the presence or absence of the ajr-clause are top ḥifẓ traps.',
+    descBn: 'পুরস্কার-সূত্র "(ফা-)লাহুম আজরুহুম ইনদা রাব্বিহিম ওয়া লা খাওফুন আলাইহিম ওয়া লা হুম ইয়াহযানূন" সূক্ষ্ম পরিবর্তনে ফিরে আসে। ২:২৬২-এ "ফা-" বাদ পড়ে; ২:১১২-এ একবচন হয়ে যায় "ফালাহু আজরুহু ইনদা রাব্বিহি" (তার পুরস্কার, তার রব) যদিও পরের অংশ বহুবচন থাকে; ৩:১৯৯-এ "উলাইকা লাহুম আজরুহুম ইনদা রাব্বিহিম" থাকে কিন্তু শেষ হয় "ইন্নাল্লাহা সারীউল-হিসাব" দিয়ে, কোনো খাওফ-অংশ নেই; আর ৫:৬৯ — ২:৬২-এর প্রতারক যমজ — পুরস্কার-অংশ সম্পূর্ণ বাদ দিয়ে শুধু "ফালা খাওফুন আলাইহিম…" পড়ে। একবচন/বহুবচন ও আজর-অংশের উপস্থিতি/অনুপস্থিতি হিফযের বড় ফাঁদ।',
+    verses: ['2:62', '2:112', '2:262', '2:274', '3:199', '5:69']
+  },
+  {
+    id: 'sujud-li-adam-openings',
+    nameEn: '"Prostrate to Adam" — The Sujūd Command Openings',
+    nameAr: 'وَإِذْ قُلْنَا لِلْمَلَٰٓئِكَةِ ٱسْجُدُوا۟ لِـَٔادَمَ',
+    descEn: 'The command "wa-idh qulnā li-l-malāʾikati sjudū li-ādama fa-sajadū illā iblīs" opens the prostration scene identically in 2:34, 17:61, 18:50 and 20:116 — but each continuation differs: "abā wa-stakbara wa-kāna mina l-kāfirīn" (2:34), "qāla a-asjudu li-man khalaqta ṭīnan" (17:61), "kāna mina l-jinni fa-fasaqa ʿan amri rabbih" (18:50), and the terse "abā" alone (20:116). 7:11 breaks the frame, opening "wa-laqad khalaqnākum thumma ṣawwarnākum thumma qulnā…" and closing "lam yakun mina s-sājidīn". Matching each opening to its distinct tail is a core mutashābihāt drill.',
+    descBn: 'আদেশ "ওয়া ইয কুলনা লিল-মালাইকাতিসজুদূ লিআদামা ফাসাজাদূ ইল্লা ইবলীস" — প্রণাম-দৃশ্য ২:৩৪, ১৭:৬১, ১৮:৫০ ও ২০:১১৬-এ হুবহু একইভাবে শুরু হয়, কিন্তু প্রতিটির ধারাবাহিকতা ভিন্ন: "আবা ওয়াসতাকবারা ওয়া কানা মিনাল-কাফিরীন" (২:৩৪), "কালা আআসজুদু লিমান খালাকতা তীনা" (১৭:৬১), "কানা মিনাল-জিন্নি ফাফাসাকা আন আমরি রাব্বিহ" (১৮:৫০), এবং শুধু সংক্ষিপ্ত "আবা" (২০:১১৬)। ৭:১১ কাঠামো ভেঙে শুরু হয় "ওয়া লাকাদ খালাকনাকুম ছুম্মা সাওওয়ারনাকুম ছুম্মা কুলনা…" দিয়ে ও শেষ হয় "লাম ইয়াকুম মিনাস-সাজিদীন" দিয়ে। প্রতিটি সূচনাকে তার ভিন্ন সমাপ্তির সঙ্গে মেলানো মূল অনুশীলন।',
+    verses: ['2:34', '7:11', '17:61', '18:50', '20:116']
+  },
+  {
+    id: 'inna-anzalnahu-quranan',
+    nameEn: '"We Sent It Down as an Arabic Quran" — Anzalnāhu vs Jaʿalnāhu',
+    nameAr: 'إِنَّآ أَنزَلْنَٰهُ قُرْءَٰنًا عَرَبِيًّا',
+    descEn: 'The revelation-opening "innā anzalnāhu qurʾānan ʿarabiyyan laʿallakum taʿqilūn" (12:2) is echoed almost verbatim in 43:3 — except the verb changes: "innā JAʿALnāhu qurʾānan ʿarabiyyan…" (We MADE it) instead of "anzalnāhu" (We sent it down). 20:113 shares "qurʾānan ʿarabiyyan" but opens "wa-kadhālika anzalnāhu…" and continues "wa-ṣarrafnā fīhi mina l-waʿīd". And 97:1 reuses the "innā anzalnāhu" opening — but for the Night of Decree, not the Arabic Quran: "innā anzalnāhu fī laylati l-qadr". The anzalnāhu/jaʿalnāhu swap at 12:2 / 43:3 is a celebrated single-word trap.',
+    descBn: 'অবতরণ-সূচনা "ইন্না আনযালনাহু কুরআনান আরাবিয়্যান লাআল্লাকুম তা‘কিলূন" (১২:২) প্রায় হুবহু ৪৩:৩-এ প্রতিধ্বনিত হয় — কেবল ক্রিয়া বদলে যায়: "ইন্না জাআলনাহু কুরআনান আরাবিয়্যান…" (আমি তা বানিয়েছি) — "আনযালনাহু" (নাযিল করেছি)-এর বদলে। ২০:১১৩-এ "কুরআনান আরাবিয়্যান" থাকে কিন্তু শুরু হয় "ওয়া কাযালিকা আনযালনাহু…" দিয়ে ও চলে "ওয়া সাররাফনা ফীহি মিনাল-ওয়াঈদ" দিয়ে। আর ৯৭:১ একই "ইন্না আনযালনাহু" সূচনা পুনর্ব্যবহার করে — তবে আরবি কুরআনের নয়, বরং কদরের রাতের জন্য: "ইন্না আনযালনাহু ফী লাইলাতিল-কাদর"। ১২:২ / ৪৩:৩-এ আনযালনাহু/জাআলনাহু অদলবদল একটি প্রসিদ্ধ এক-শব্দের ফাঁদ।',
+    verses: ['12:2', '20:113', '43:3', '97:1']
+  },
+  {
+    id: 'kadhalika-najzi',
+    nameEn: '"Thus We Recompense…" — Kadhālika Najzī',
+    nameAr: 'وَكَذَٰلِكَ نَجْزِى',
+    descEn: 'The recompense formula "wa-kadhālika najzī…" (thus We recompense…) closes many verses with a rotating object. For the doers of good it is "al-muḥsinīn": "wa-kadhālika najzī l-muḥsinīn" (6:84, 12:22, 28:14) and, with an added emphatic, "innā kadhālika najzī l-muḥsinīn" (37:80). For transgressors the object flips: "najzī l-mujrimīn" (the criminals — 7:40) and "najzī ẓ-ẓālimīn" (the wrongdoers — 12:75, 21:29). The identical verb-frame with muḥsinīn / mujrimīn / ẓālimīn as the swappable ending is a classic colophon-confusion set.',
+    descBn: 'প্রতিদান-সূত্র "ওয়া কাযালিকা নাজযী…" (এভাবে আমি প্রতিদান দিই…) বহু আয়াত শেষ করে ঘূর্ণায়মান কর্মপদসহ। সৎকর্মশীলদের জন্য তা "আল-মুহসিনীন": "ওয়া কাযালিকা নাজযিল-মুহসিনীন" (৬:৮৪, ১২:২২, ২৮:১৪) এবং জোরদার সংযোজনে "ইন্না কাযালিকা নাজযিল-মুহসিনীন" (৩৭:৮০)। সীমালঙ্ঘনকারীদের জন্য কর্মপদ বদলে যায়: "নাজযিল-মুজরিমীন" (অপরাধীদের — ৭:৪০) ও "নাজযিয-যালিমীন" (যালিমদের — ১২:৭৫, ২১:২৯)। অভিন্ন ক্রিয়া-কাঠামোর সঙ্গে মুহসিনীন / মুজরিমীন / যালিমীন — বদলযোগ্য সমাপ্তি হিসেবে — শাস্ত্রীয় বিভ্রান্তি-গুচ্ছ।',
+    verses: ['6:84', '7:40', '12:22', '12:75', '21:29', '28:14', '37:80']
+  },
+  {
+    id: 'fa-kayfa-kana-adhabi',
+    nameEn: '"How Were My Punishment and Warnings" — Al-Qamar\'s ʿAdhābī wa-Nudhur',
+    nameAr: 'فَكَيْفَ كَانَ عَذَابِى وَنُذُرِ',
+    descEn: 'Sūrat al-Qamar drives home each destroyed people with a near-refrain built on "ʿadhābī wa-nudhur" (My punishment and My warnings). Four times it is the rhetorical "fa-kayfa kāna ʿadhābī wa-nudhur" (so how were My punishment and warnings! — 54:16, 54:18, 54:21, 54:30); twice it becomes the imperative "fa-dhūqū ʿadhābī wa-nudhur" (so taste My punishment and warnings — 54:37, 54:39). Both share the "ʿadhābī wa-nudhur" tail; recalling which opening — fa-kayfa kāna vs fa-dhūqū — attaches to which scene is the drill. (Distinct from the surah\'s other refrain, "yassarnā l-Qurʾāna".)',
+    descBn: 'সূরা আল-কামার প্রতিটি ধ্বংসপ্রাপ্ত জাতিকে "আযাবী ওয়া নুযুর" (আমার শাস্তি ও আমার সতর্কবাণী)-ভিত্তিক প্রায়-পুনরাবৃত্তি দিয়ে দৃঢ় করে। চারবার তা অলংকারিক "ফাকাইফা কানা আযাবী ওয়া নুযুর" (তবে আমার শাস্তি ও সতর্কবাণী কেমন ছিল! — ৫৪:১৬, ৫৪:১৮, ৫৪:২১, ৫৪:৩০); দুইবার তা আদেশাত্মক "ফাযূকূ আযাবী ওয়া নুযুর" (অতএব আমার শাস্তি ও সতর্কবাণী আস্বাদন কর — ৫৪:৩৭, ৫৪:৩৯)। উভয়ই "আযাবী ওয়া নুযুর" সমাপ্তি ভাগ করে; কোন সূচনা — ফাকাইফা কানা না ফাযূকূ — কোন দৃশ্যের সঙ্গে যুক্ত তা মনে রাখাই অনুশীলন। (সূরার অপর পুনরাবৃত্তি "ইয়াসসারনাল-কুরআন" থেকে ভিন্ন।)',
+    verses: ['54:16', '54:18', '54:21', '54:30', '54:37', '54:39']
+  },
+  {
+    id: 'qul-audhu-openings',
+    nameEn: 'The Four "Qul" Sūrahs — and the Muʿawwidhatān Twin',
+    nameAr: 'سور "قل" الأربع والمعوذتان',
+    descEn: 'The four "Qul" sūrahs each open with the imperative "Qul" (Say). Al-Kāfirūn begins "qul yā ayyuhā l-kāfirūn" (109:1) and al-Ikhlāṣ "qul huwa llāhu aḥad" (112:1). The muʿawwidhatān form a near-twin pair: "qul aʿūdhu bi-rabbi l-FALAQ" (Lord of the daybreak — 113:1) versus "qul aʿūdhu bi-rabbi n-NĀS" (Lord of mankind — 114:1) — identical but for the final word, after which 114 uniquely continues "maliki n-nās, ilāhi n-nās". Learners routinely blend the openings of these short, adjacent sūrahs.',
+    descBn: 'চারটি "কুল" সূরা প্রতিটি "কুল" (বলো) আদেশ দিয়ে শুরু হয়। আল-কাফিরূন শুরু হয় "কুল ইয়া আইয়ুহাল-কাফিরূন" (১০৯:১), আল-ইখলাস "কুল হুওয়াল্লাহু আহাদ" (১১২:১)। মুআওবিযাতাইন প্রায়-যমজ জোড়া গঠন করে: "কুল আঊযু বিরাব্বিল-ফালাক" (ভোরের রব — ১১৩:১) বনাম "কুল আঊযু বিরাব্বিন-নাস" (মানুষের রব — ১১৪:১) — কেবল শেষ শব্দে ভিন্ন, এরপর ১১৪ অনন্যভাবে চলে "মালিকিন-নাস, ইলাহিন-নাস" দিয়ে। শিক্ষার্থীরা এই সংক্ষিপ্ত, পাশাপাশি সূরাগুলোর সূচনা প্রায়ই গুলিয়ে ফেলে।',
+    verses: ['109:1', '112:1', '113:1', '114:1']
+  },
+  {
+    id: 'ittaqu-llaha-openings',
+    nameEn: '"O You Who Believe, Fear Allah…" — Ittaqū llāha Openings',
+    nameAr: 'يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱتَّقُوا۟ ٱللَّهَ',
+    descEn: 'The address "yā ayyuhā lladhīna āmanū ttaqū llāha…" (O you who believe, fear Allah…) opens many verses with a different command attached: "wa-dharū mā baqiya mina r-ribā" (2:278), "ḥaqqa tuqātihi" (3:102), "wa-btaghū ilayhi l-wasīla" (5:35), "wa-kūnū maʿa ṣ-ṣādiqīn" (9:119), "wa-qūlū qawlan sadīdā" (33:70), "wa-āminū bi-rasūlih" (57:28), and "wa-ltanẓur nafsun mā qaddamat li-ghad" (59:18). The identical opening with a rotating follow-on command is a prime sequential-memorisation challenge.',
+    descBn: 'সম্বোধন "ইয়া আইয়ুহাল্লাযীনা আমানুত্তাকুল্লাহা…" (হে ঈমানদারগণ, আল্লাহকে ভয় কর…) বহু আয়াত শুরু করে ভিন্ন আদেশসহ: "ওয়া যারূ মা বাকিয়া মিনার-রিবা" (২:২৭৮), "হাক্কা তুকাতিহি" (৩:১০২), "ওয়াবতাগূ ইলাইহিল-ওয়াসীলা" (৫:৩৫), "ওয়া কূনূ মাআস-সাদিকীন" (৯:১১৯), "ওয়া কূলূ কাওলান সাদীদা" (৩৩:৭০), "ওয়া আমিনূ বিরাসূলিহ" (৫৭:২৮), এবং "ওয়ালতানযুর নাফসুম মা কাদ্দামাত লিগাদ" (৫৯:১৮)। অভিন্ন সূচনার সঙ্গে ঘূর্ণায়মান অনুবর্তী আদেশ — একটি প্রধান ধারাবাহিক-মুখস্থকরণ চ্যালেঞ্জ।',
+    verses: ['2:278', '3:102', '5:35', '9:119', '33:70', '57:28', '59:18']
   }
 ];

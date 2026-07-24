@@ -2332,6 +2332,270 @@ const WHY_ISLAM_DATA = [
       },
     ],
   },
+  {
+    id: 'zakat-charity',
+    emoji: '💰',
+    kind: 'article',
+    title: { en: 'Zakat and Charity', bn: 'যাকাত ও দান' },
+    summary: {
+      en: 'The third pillar of Islam: an obligatory purifying charity on wealth, alongside a wider culture of voluntary giving.',
+      bn: 'ইসলামের তৃতীয় স্তম্ভ: সম্পদের উপর বাধ্যতামূলক পবিত্রকারী দান, সেই সাথে স্বেচ্ছাসেবী দানের এক ব্যাপক সংস্কৃতি।',
+    },
+    points: [
+      {
+        heading: { en: 'A right of the poor, not a favour', bn: 'দরিদ্রের অধিকার, অনুগ্রহ নয়' },
+        body: {
+          en: 'Zakat is an annual obligation on Muslims whose wealth reaches a minimum threshold (nisab) and has been held for a full year. The standard rate on cash, gold and trade goods is 2.5%. It is not viewed as an optional donation but as a due share that the wealthy owe: "and those in whose wealth is a recognised right for the beggar and the deprived" (a theme of 70:24-25). The Quran repeatedly pairs it with prayer — "establish prayer and give zakat" (2:110) — linking devotion to God with responsibility toward people.',
+          bn: 'যাকাত সেই মুসলিমদের উপর বার্ষিক ফরজ যাদের সম্পদ একটি ন্যূনতম পরিমাণে (নিসাব) পৌঁছে এবং পূর্ণ এক বছর ধরে থাকে। নগদ, স্বর্ণ ও ব্যবসায়িক পণ্যের উপর সাধারণ হার ২.৫%। এটিকে ঐচ্ছিক দান নয়, বরং ধনীদের প্রদেয় প্রাপ্য অংশ হিসেবে দেখা হয়: "এবং যাদের সম্পদে প্রার্থী ও বঞ্চিতের স্বীকৃত অধিকার রয়েছে" (৭০:২৪-২৫ এর ভাব)। কুরআন বারবার একে নামাজের সাথে যুক্ত করে — "নামাজ কায়েম করো ও যাকাত দাও" (২:১১০) — আল্লাহর প্রতি ভক্তিকে মানুষের প্রতি দায়িত্বের সাথে বেঁধে।',
+        },
+      },
+      {
+        heading: { en: 'Where it goes', bn: 'এটি কোথায় যায়' },
+        body: {
+          en: 'The Quran specifies eight categories of eligible recipients: "Charity is only for the poor and the needy, those who collect it, those whose hearts are to be reconciled, for freeing captives, for those in debt, for the cause of God, and for the stranded traveller" (9:60). This makes zakat a structured system of wealth circulation, not scattered almsgiving — a yearly transfer that reaches the vulnerable and prevents wealth from pooling only among the rich.',
+          bn: 'কুরআন আট শ্রেণির যোগ্য প্রাপক নির্দিষ্ট করে: "দান কেবল দরিদ্র, অভাবী, যারা তা সংগ্রহ করে, যাদের হৃদয় আকৃষ্ট করতে হয়, দাসমুক্তি, ঋণগ্রস্ত, আল্লাহর পথে ও পথচারীর জন্য" (৯:৬০)। এটি যাকাতকে ছড়ানো-ছিটানো দান নয়, বরং সম্পদ সঞ্চালনের এক সুবিন্যস্ত ব্যবস্থায় পরিণত করে — এক বার্ষিক স্থানান্তর যা দুর্বলদের কাছে পৌঁছে এবং সম্পদকে কেবল ধনীদের মধ্যে জমা হওয়া থেকে রোধ করে।',
+        },
+      },
+      {
+        heading: { en: 'Purifying the giver', bn: 'দাতাকে পবিত্র করা' },
+        body: {
+          en: 'The word zakat means both "purification" and "growth". The Quran says: "Take from their wealth a charity by which you purify them and cause them to grow" (9:103). Giving loosens the grip of greed on the heart and reminds the believer that wealth is a trust from God, not an achievement to hoard. Beyond obligatory zakat, Islam strongly encourages sadaqa — voluntary charity of any amount, including a kind word or a smile — and promises that God multiplies what is given (2:261).',
+          bn: 'যাকাত শব্দের অর্থ "পবিত্রতা" ও "বৃদ্ধি" উভয়ই। কুরআন বলে: "তাদের সম্পদ থেকে দান গ্রহণ করো যার দ্বারা তুমি তাদের পবিত্র করবে ও পরিশুদ্ধ করবে" (৯:১০৩)। দান অন্তরের উপর লোভের মুঠি শিথিল করে এবং মুমিনকে স্মরণ করায় যে সম্পদ আল্লাহর পক্ষ থেকে এক আমানত, জমিয়ে রাখার অর্জন নয়। বাধ্যতামূলক যাকাত ছাড়াও ইসলাম সাদাকাকে — যেকোনো পরিমাণের স্বেচ্ছাসেবী দান, এমনকি একটি ভালো কথা বা হাসি — জোরালোভাবে উৎসাহিত করে এবং প্রতিশ্রুতি দেয় যে আল্লাহ যা দেওয়া হয় তা বহুগুণ করেন (২:২৬১)।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'hajj-pilgrimage',
+    emoji: '🕋',
+    kind: 'article',
+    title: { en: 'Hajj: The Pilgrimage', bn: 'হজ: তীর্থযাত্রা' },
+    summary: {
+      en: 'The fifth pillar: a once-in-a-lifetime pilgrimage to Mecca for those able, retracing the legacy of Abraham and uniting the ummah.',
+      bn: 'পঞ্চম স্তম্ভ: সামর্থ্যবানদের জন্য জীবনে একবার মক্কার তীর্থযাত্রা, যা ইবরাহিমের উত্তরাধিকার পুনরাবৃত্তি করে ও উম্মাহকে একত্র করে।',
+    },
+    points: [
+      {
+        heading: { en: 'An obligation for the able', bn: 'সামর্থ্যবানের জন্য ফরজ' },
+        body: {
+          en: 'Hajj is obligatory once in a lifetime for every adult Muslim who has the physical health and financial means to make the journey without neglecting their dependants: "Pilgrimage to the House is a duty owed to God by people who are able to undertake it" (3:97). Performed in the month of Dhul-Hijjah, it gathers millions from every nation at the same time, in the same simple garments, performing the same rites — a living picture of human equality before God.',
+          bn: 'হজ প্রত্যেক প্রাপ্তবয়স্ক মুসলিমের জন্য জীবনে একবার ফরজ, যার শারীরিক সুস্থতা ও আর্থিক সামর্থ্য আছে নির্ভরশীলদের অবহেলা না করে যাত্রা করার: "যে মানুষ সেখানে পৌঁছাতে সক্ষম, তাদের উপর আল্লাহর জন্য বাইতুল্লাহর হজ কর্তব্য" (৩:৯৭)। জিলহজ মাসে সম্পাদিত এই ইবাদত একই সময়ে, একই সাধারণ পোশাকে, একই আচার পালন করতে প্রতিটি জাতি থেকে লক্ষ লক্ষ মানুষকে জড়ো করে — আল্লাহর সামনে মানবিক সমতার এক জীবন্ত চিত্র।',
+        },
+      },
+      {
+        heading: { en: 'Retracing Abraham’s legacy', bn: 'ইবরাহিমের উত্তরাধিকার পুনরাবৃত্তি' },
+        body: {
+          en: 'The rites of Hajj re-enact events from the life of Prophet Abraham (Ibrahim) and his family: the circling of the Kaaba he and his son Ishmael raised, the hurried walk between Safa and Marwa recalling Hagar’s search for water for her infant, and the stoning of pillars symbolising rejection of temptation. The Quran records Abraham’s call: "Proclaim the pilgrimage to all people; they will come to you on foot and on every lean camel from every distant pass" (22:27). Standing at Arafat is the climax — a day of prayer, repentance and seeking God’s forgiveness.',
+          bn: 'হজের আচারগুলো নবী ইবরাহিম ও তাঁর পরিবারের জীবনের ঘটনা পুনরায় অভিনয় করে: তিনি ও তাঁর পুত্র ইসমাইলের নির্মিত কাবা তাওয়াফ, সাফা ও মারওয়ার মাঝে দ্রুত হাঁটা যা শিশুর জন্য পানির খোঁজে হাজেরার ছোটাছুটি স্মরণ করায়, এবং প্রলোভন প্রত্যাখ্যানের প্রতীক স্তম্ভে পাথর নিক্ষেপ। কুরআন ইবরাহিমের আহ্বান লিপিবদ্ধ করে: "মানুষের মাঝে হজের ঘোষণা দাও; তারা পায়ে হেঁটে ও দূরবর্তী প্রতিটি পথ থেকে কৃশ উটে চড়ে তোমার কাছে আসবে" (২২:২৭)। আরাফাতে অবস্থান হলো চূড়ান্ত মুহূর্ত — প্রার্থনা, তওবা ও আল্লাহর ক্ষমা প্রার্থনার এক দিন।',
+        },
+      },
+      {
+        heading: { en: 'The inner journey', bn: 'অন্তরের যাত্রা' },
+        body: {
+          en: 'Hajj is meant to transform, not merely to be completed. The Quran reminds pilgrims that outward ritual is empty without inner sincerity: "Their meat will not reach God, nor their blood, but what reaches Him is your God-consciousness" (22:37). It teaches that the best provision for the journey — and for life — is taqwa (2:197). Pilgrims often describe returning home renewed, their past forgiven, resolved to live more honestly. It is both a physical journey to a sacred place and a rehearsal for standing before God on the Last Day.',
+          bn: 'হজ কেবল সম্পন্ন করার জন্য নয়, রূপান্তরের জন্য। কুরআন হাজিদের স্মরণ করায় যে অন্তরের আন্তরিকতা ছাড়া বাহ্যিক আচার শূন্য: "তাদের গোশত আল্লাহর কাছে পৌঁছে না, তাদের রক্তও নয়, বরং তাঁর কাছে পৌঁছে তোমাদের তাকওয়া" (২২:৩৭)। এটি শেখায় যে যাত্রার — ও জীবনের — সর্বোত্তম পাথেয় হলো তাকওয়া (২:১৯৭)। হাজিরা প্রায়ই বলেন তারা নবায়িত হয়ে, অতীত ক্ষমা পেয়ে, আরও সৎভাবে জীবনযাপনের সংকল্প নিয়ে ঘরে ফেরেন। এটি একই সাথে এক পবিত্র স্থানে দৈহিক যাত্রা এবং শেষ দিবসে আল্লাহর সামনে দাঁড়ানোর মহড়া।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'the-day-of-judgment',
+    emoji: '⚖️',
+    kind: 'article',
+    title: { en: 'The Day of Judgment', bn: 'বিচার দিবস' },
+    summary: {
+      en: 'The belief that every life will be resurrected and held to account, where perfect justice is finally established.',
+      bn: 'এই বিশ্বাস যে প্রতিটি জীবন পুনরুত্থিত হবে ও জবাবদিহির মুখোমুখি হবে, যেখানে অবশেষে নিখুঁত ন্যায় প্রতিষ্ঠিত হয়।',
+    },
+    points: [
+      {
+        heading: { en: 'Why there must be a reckoning', bn: 'কেন হিসাব হতেই হবে' },
+        body: {
+          en: 'A core Islamic belief is that this life is not the whole story. The oppressor who dies untouched and the victim who dies unavenged both point to a justice that this world leaves unfinished. Islam answers that God, being perfectly just, will resurrect all people and settle every account: "Every soul will taste death, and you will only be given your full compensation on the Day of Resurrection" (3:185). The certainty of that day gives moral weight to every choice and hope to those who suffer wrongly.',
+          bn: 'একটি মূল ইসলামি বিশ্বাস হলো এই জীবনই পুরো গল্প নয়। যে অত্যাচারী অক্ষত মারা যায় ও যে নির্যাতিত প্রতিশোধহীন মারা যায় — উভয়ই এমন এক ন্যায়ের দিকে ইঙ্গিত করে যা এই দুনিয়া অসমাপ্ত রেখে যায়। ইসলাম উত্তর দেয় যে আল্লাহ, পরম ন্যায়বান হওয়ায়, সকল মানুষকে পুনরুত্থিত করবেন ও প্রতিটি হিসাব চুকাবেন: "প্রতিটি প্রাণ মৃত্যুর স্বাদ গ্রহণ করবে, আর কিয়ামতের দিনই তোমাদের পূর্ণ প্রতিদান দেওয়া হবে" (৩:১৮৫)। সেই দিনের নিশ্চয়তা প্রতিটি সিদ্ধান্তকে নৈতিক ভার দেয় ও অন্যায়ভাবে কষ্টভোগীদের আশা দেয়।',
+        },
+      },
+      {
+        heading: { en: 'A perfectly fair scale', bn: 'এক নিখুঁত ন্যায্য দাঁড়িপাল্লা' },
+        body: {
+          en: 'The Quran describes a judgment of absolute precision, where nothing is overlooked and no one is wronged: "We shall set up scales of justice for the Day of Resurrection, so that no soul will be treated unjustly in the least; even if it is the weight of a mustard seed, We will bring it forth" (21:47). And: "Whoever does an atom’s weight of good will see it, and whoever does an atom’s weight of evil will see it" (99:7-8). On that day even one’s own limbs will testify to the truth (36:65).',
+          bn: 'কুরআন এক পরম নির্ভুল বিচারের বর্ণনা দেয়, যেখানে কিছুই উপেক্ষিত হয় না ও কারও প্রতি অবিচার হয় না: "আমি কিয়ামতের দিনের জন্য ন্যায়ের দাঁড়িপাল্লা স্থাপন করব, ফলে কোনো প্রাণের প্রতি সামান্যতম অবিচার করা হবে না; এমনকি তা সরিষা দানার ওজন সমান হলেও আমি তা উপস্থিত করব" (২১:৪৭)। আর: "যে অণু পরিমাণ ভালো করে সে তা দেখবে, আর যে অণু পরিমাণ মন্দ করে সে তা দেখবে" (৯৯:৭-৮)। সেদিন এমনকি নিজের অঙ্গপ্রত্যঙ্গও সত্যের সাক্ষ্য দেবে (৩৬:৬৫)।',
+        },
+      },
+      {
+        heading: { en: 'Between fear and hope', bn: 'ভয় ও আশার মাঝে' },
+        body: {
+          en: 'Belief in the Last Day is not meant to produce despair but a balanced life lived between fear of falling short and hope in God’s vast mercy. The reckoning is real, but the Quran presents God as "the Most Merciful of the merciful", who forgives readily those who turn to Him. This belief steadies the believer: comfort is not the ultimate goal, and hardship is not the final word. Every good deed counts, every wrong can be repented, and the account will be closed with perfect fairness.',
+          bn: 'শেষ দিবসে বিশ্বাস হতাশা তৈরির জন্য নয়, বরং ঘাটতির ভয় ও আল্লাহর বিশাল রহমতে আশার মাঝে যাপিত এক ভারসাম্যপূর্ণ জীবনের জন্য। হিসাব বাস্তব, তবে কুরআন আল্লাহকে "পরম দয়ালুদের মধ্যে সর্বাধিক দয়ালু" হিসেবে উপস্থাপন করে, যিনি তাঁর দিকে প্রত্যাবর্তনকারীদের সহজেই ক্ষমা করেন। এই বিশ্বাস মুমিনকে স্থির রাখে: আরাম চূড়ান্ত লক্ষ্য নয়, আর কষ্ট শেষ কথা নয়। প্রতিটি সৎকাজ গণনা হয়, প্রতিটি ভুলের তওবা করা যায়, এবং হিসাব নিখুঁত ন্যায্যতায় বন্ধ হবে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'human-dignity-and-brotherhood',
+    emoji: '🤝',
+    kind: 'article',
+    title: { en: 'Human Dignity and Brotherhood', bn: 'মানবিক মর্যাদা ও ভ্রাতৃত্ব' },
+    summary: {
+      en: 'Islam’s teaching that all humans share one origin and inherent dignity, and that differences are meant for mutual knowing, not ranking.',
+      bn: 'ইসলামের শিক্ষা যে সকল মানুষ এক উৎস ও সহজাত মর্যাদার অংশীদার, এবং পার্থক্য পারস্পরিক পরিচয়ের জন্য, শ্রেণিবিন্যাসের জন্য নয়।',
+    },
+    points: [
+      {
+        heading: { en: 'Honoured by their Creator', bn: 'স্রষ্টা কর্তৃক সম্মানিত' },
+        body: {
+          en: 'The Quran grants dignity to every human being as such, not as a reward earned: "We have certainly honoured the children of Adam" (17:70). This honour is rooted in being God’s creation, entrusted with reason and moral responsibility. It underlies Islamic teachings on the sanctity of life, the rights of the poor, prisoners and the vulnerable, and the prohibition of humiliating or mocking others. Dignity is not granted by the state or earned by status — it is a given of being human.',
+          bn: 'কুরআন প্রতিটি মানুষকে অর্জিত পুরস্কার হিসেবে নয়, বরং মানুষ হওয়ার কারণেই মর্যাদা দেয়: "নিশ্চয়ই আমি আদম সন্তানদের সম্মানিত করেছি" (১৭:৭০)। এই সম্মান আল্লাহর সৃষ্টি হওয়া, বিবেক ও নৈতিক দায়িত্বে ন্যস্ত হওয়ার মধ্যে নিহিত। এটি জীবনের পবিত্রতা, দরিদ্র, বন্দি ও দুর্বলদের অধিকার এবং অন্যকে অপমান বা উপহাস করার নিষেধাজ্ঞা সম্পর্কিত ইসলামি শিক্ষার ভিত্তি। মর্যাদা রাষ্ট্র প্রদান করে না বা মর্যাদাক্রম দিয়ে অর্জিত হয় না — এটি মানুষ হওয়ারই এক প্রদত্ত বাস্তবতা।',
+        },
+      },
+      {
+        heading: { en: 'One family, no superior race', bn: 'এক পরিবার, কোনো শ্রেষ্ঠ জাতি নেই' },
+        body: {
+          en: 'Islam teaches that all people descend from a single pair, so differences of colour, tribe and nation are signs of God’s creativity, not grounds for hierarchy: "O mankind, We created you from a male and a female and made you peoples and tribes that you may know one another. The most noble of you in the sight of God is the most righteous" (49:13). In his farewell sermon the Prophet ﷺ declared that no Arab is superior to a non-Arab, nor white over black, except by God-consciousness — an early, explicit rejection of racism.',
+          bn: 'ইসলাম শেখায় যে সকল মানুষ একই যুগল থেকে উদ্ভূত, তাই বর্ণ, গোত্র ও জাতির পার্থক্য আল্লাহর সৃজনশীলতার নিদর্শন, শ্রেণিবিন্যাসের ভিত্তি নয়: "হে মানুষ, আমি তোমাদের এক পুরুষ ও এক নারী থেকে সৃষ্টি করেছি এবং তোমাদের নানা জাতি ও গোত্রে বিভক্ত করেছি যেন তোমরা একে অপরকে চিনতে পারো। আল্লাহর দৃষ্টিতে তোমাদের মধ্যে সবচেয়ে সম্মানিত সে-ই যে সবচেয়ে বেশি মুত্তাকি" (৪৯:১৩)। বিদায় হজের ভাষণে নবী ﷺ ঘোষণা করেন যে কোনো আরব অনারবের উপর, শ্বেতাঙ্গ কৃষ্ণাঙ্গের উপর শ্রেষ্ঠ নয়, কেবল তাকওয়া ছাড়া — বর্ণবাদের এক আদি, স্পষ্ট প্রত্যাখ্যান।',
+        },
+      },
+      {
+        heading: { en: 'The sanctity of a single life', bn: 'একটি প্রাণের পবিত্রতা' },
+        body: {
+          en: 'The value Islam places on human life is captured in a striking verse addressed to the Children of Israel: "Whoever kills a soul — unless for murder or corruption in the land — it is as if he had killed all mankind; and whoever saves one, it is as if he had saved all mankind" (5:32). Brotherhood in Islam therefore extends beyond fellow believers to a shared human family owed justice, mercy and protection. Faith is not measured only by ritual, but by how one treats other people.',
+          bn: 'মানব জীবনের প্রতি ইসলাম যে মূল্য দেয় তা বনি ইসরাইলের উদ্দেশে বলা এক মর্মস্পর্শী আয়াতে ধরা পড়ে: "যে ব্যক্তি কোনো প্রাণ হত্যা করল — হত্যা বা যমিনে বিপর্যয়ের কারণ ছাড়া — সে যেন সমগ্র মানবজাতিকে হত্যা করল; আর যে একজনকে বাঁচাল, সে যেন সমগ্র মানবজাতিকে বাঁচাল" (৫:৩২)। তাই ইসলামে ভ্রাতৃত্ব সহবিশ্বাসীদের ছাড়িয়ে এক অভিন্ন মানব পরিবার পর্যন্ত বিস্তৃত, যারা ন্যায়, দয়া ও সুরক্ষার হকদার। ঈমান কেবল আচার দিয়ে মাপা হয় না, বরং কেউ অন্য মানুষের সাথে কেমন আচরণ করে তা দিয়ে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'wealth-and-ethics',
+    emoji: '💼',
+    kind: 'article',
+    title: { en: 'Wealth and Ethics', bn: 'সম্পদ ও নৈতিকতা' },
+    summary: {
+      en: 'How Islam treats earning and spending as moral acts — permitting honest enterprise while forbidding exploitation, fraud and interest.',
+      bn: 'ইসলাম কীভাবে উপার্জন ও ব্যয়কে নৈতিক কাজ হিসেবে দেখে — সৎ ব্যবসার অনুমতি দিয়ে শোষণ, প্রতারণা ও সুদ নিষিদ্ধ করে।',
+    },
+    points: [
+      {
+        heading: { en: 'Wealth is a trust, not an end', bn: 'সম্পদ এক আমানত, লক্ষ্য নয়' },
+        body: {
+          en: 'Islam does not condemn wealth or trade; it honours honest enterprise and considers a truthful merchant praiseworthy. What it rejects is treating wealth as life’s ultimate purpose. Property is a trust from God, to be earned lawfully and spent responsibly — neither hoarded selfishly nor squandered wastefully. This frames every transaction as a moral act with consequences beyond profit and loss, answerable to God as well as to the market.',
+          bn: 'ইসলাম সম্পদ বা ব্যবসাকে নিন্দা করে না; এটি সৎ ব্যবসাকে সম্মান করে ও সত্যবাদী ব্যবসায়ীকে প্রশংসনীয় গণ্য করে। এটি যা প্রত্যাখ্যান করে তা হলো সম্পদকে জীবনের চূড়ান্ত উদ্দেশ্য বানানো। সম্পত্তি আল্লাহর পক্ষ থেকে এক আমানত, যা বৈধভাবে উপার্জন ও দায়িত্বশীলভাবে ব্যয় করতে হয় — স্বার্থপরভাবে জমানো বা অপচয়ে নষ্ট করা নয়। এটি প্রতিটি লেনদেনকে এমন এক নৈতিক কাজ হিসেবে দাঁড় করায় যার পরিণতি লাভ-ক্ষতির ঊর্ধ্বে, যা বাজারের পাশাপাশি আল্লাহর কাছেও জবাবদিহিযোগ্য।',
+        },
+      },
+      {
+        heading: { en: 'No wealth by wrongdoing', bn: 'অন্যায়ে অর্জিত সম্পদ নয়' },
+        body: {
+          en: 'The Quran draws firm lines around how wealth may change hands: "Do not consume one another’s wealth unjustly" (2:188), and instead: "let it be trade by mutual consent" (4:29). Fraud in weights and measures is condemned outright — "Woe to those who give short measure, who demand full measure from others but give less themselves" (83:1-3) — and honesty is commanded: "Give full measure when you measure, and weigh with an even balance" (17:35). Bribery, theft, deception and exploitation are all forms of consuming wealth unjustly.',
+          bn: 'সম্পদ কীভাবে হাতবদল হতে পারে তা নিয়ে কুরআন দৃঢ় সীমারেখা টানে: "তোমরা একে অপরের সম্পদ অন্যায়ভাবে গ্রাস করো না" (২:১৮৮), বরং: "পারস্পরিক সম্মতিতে ব্যবসা হোক" (৪:২৯)। ওজন ও মাপে প্রতারণা সরাসরি নিন্দিত — "দুর্ভোগ সেই সব লোকের যারা মাপে কম দেয়, যারা অন্যের কাছ থেকে পূর্ণ মাপ নেয় কিন্তু নিজেরা কম দেয়" (৮৩:১-৩) — এবং সততার নির্দেশ: "মাপার সময় পূর্ণ মাপ দাও, আর সঠিক দাঁড়িপাল্লায় ওজন করো" (১৭:৩৫)। ঘুষ, চুরি, প্রতারণা ও শোষণ সবই অন্যায়ভাবে সম্পদ গ্রাসের রূপ।',
+        },
+      },
+      {
+        heading: { en: 'The prohibition of interest (riba)', bn: 'সুদের নিষেধাজ্ঞা (রিবা)' },
+        body: {
+          en: 'A distinctive feature of Islamic ethics is the prohibition of riba — lending money to be repaid with a guaranteed increase regardless of the borrower’s outcome. The Quran states plainly: "God has permitted trade and forbidden interest" (2:275). The concern is that interest lets the lender profit risklessly from another’s need, concentrating wealth and burdening the poor. In its place Islam encourages profit-and-loss partnership, honest trade, interest-free loans (qard hasan) and charity — a model where wealth grows through shared risk and real productivity rather than debt.',
+          bn: 'ইসলামি নৈতিকতার একটি স্বতন্ত্র বৈশিষ্ট্য হলো রিবার নিষেধাজ্ঞা — ঋণগ্রহীতার পরিণতি যাই হোক, নিশ্চিত বৃদ্ধিসহ ফেরতের শর্তে অর্থ ধার দেওয়া। কুরআন স্পষ্ট বলে: "আল্লাহ ব্যবসা হালাল করেছেন ও সুদ হারাম করেছেন" (২:২৭৫)। উদ্বেগ হলো সুদ ঋণদাতাকে অন্যের প্রয়োজন থেকে ঝুঁকিহীনভাবে মুনাফা অর্জনের সুযোগ দেয়, সম্পদ কেন্দ্রীভূত করে ও দরিদ্রের উপর বোঝা চাপায়। এর বদলে ইসলাম লাভ-ক্ষতির অংশীদারিত্ব, সৎ ব্যবসা, সুদমুক্ত ঋণ (কর্জে হাসানা) ও দান উৎসাহিত করে — এমন এক মডেল যেখানে সম্পদ ঋণের বদলে ভাগ করা ঝুঁকি ও প্রকৃত উৎপাদনশীলতার মাধ্যমে বৃদ্ধি পায়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'the-mosque-and-community',
+    emoji: '🕌',
+    kind: 'article',
+    title: { en: 'The Mosque and Community', bn: 'মসজিদ ও সমাজ' },
+    summary: {
+      en: 'The role of the mosque as a house of worship and a hub of community life, and Islam’s strong emphasis on unity and congregation.',
+      bn: 'ইবাদতগৃহ ও সমাজজীবনের কেন্দ্র হিসেবে মসজিদের ভূমিকা এবং ঐক্য ও জামাতের উপর ইসলামের জোরালো গুরুত্ব।',
+    },
+    points: [
+      {
+        heading: { en: 'A house built on devotion', bn: 'ভক্তির উপর নির্মিত গৃহ' },
+        body: {
+          en: 'The mosque (masjid, literally "place of prostration") is first a house of worship, where the community gathers for the five daily prayers and the Friday congregation. The Quran ties its upkeep to sincere faith: "The mosques of God are only maintained by those who believe in God and the Last Day, establish prayer and give zakat, and fear none but God" (9:18). It describes them as places "which God has permitted to be raised, that His name be remembered therein" (24:36) — spaces oriented wholly toward the remembrance of God.',
+          bn: 'মসজিদ (আক্ষরিক অর্থে "সিজদার স্থান") প্রথমত এক ইবাদতগৃহ, যেখানে সমাজ পাঁচ ওয়াক্ত নামাজ ও জুমার জামাতের জন্য একত্র হয়। কুরআন এর রক্ষণাবেক্ষণকে আন্তরিক ঈমানের সাথে বাঁধে: "আল্লাহর মসজিদ কেবল তারাই আবাদ করে যারা আল্লাহ ও শেষ দিবসে বিশ্বাস করে, নামাজ কায়েম করে ও যাকাত দেয়, এবং আল্লাহ ছাড়া কাউকে ভয় করে না" (৯:১৮)। কুরআন এগুলোকে এমন স্থান বলে বর্ণনা করে "যেগুলো উঁচু করার ও যেখানে তাঁর নাম স্মরণ করার আল্লাহ অনুমতি দিয়েছেন" (২৪:৩৬) — সম্পূর্ণরূপে আল্লাহর স্মরণের দিকে অভিমুখী পরিসর।',
+        },
+      },
+      {
+        heading: { en: 'More than a prayer hall', bn: 'কেবল নামাজের ঘর নয়' },
+        body: {
+          en: 'From the earliest days in Medina, the Prophet’s mosque was also the community’s centre — a place of learning, counsel, welcome for travellers, care for the needy and shared decision-making. Mosques historically grew into schools, libraries and charitable hubs. This reflects Islam’s refusal to divide life into "sacred" and "secular": worship, knowledge and social responsibility belong together. The congregational prayer, shoulder to shoulder and in rows regardless of rank, quietly trains equality, punctuality and belonging.',
+          bn: 'মদিনায় প্রথম দিনগুলো থেকেই নবীর মসজিদ ছিল সমাজেরও কেন্দ্র — শিক্ষা, পরামর্শ, মুসাফিরদের আতিথ্য, অভাবীদের যত্ন ও যৌথ সিদ্ধান্ত গ্রহণের স্থান। মসজিদ ইতিহাসে বিদ্যালয়, গ্রন্থাগার ও দাতব্য কেন্দ্রে রূপ নিয়েছে। এটি জীবনকে "পবিত্র" ও "জাগতিক"-এ বিভক্ত করতে ইসলামের অস্বীকৃতি প্রতিফলিত করে: ইবাদত, জ্ঞান ও সামাজিক দায়িত্ব একসাথে থাকে। মর্যাদা নির্বিশেষে কাঁধে কাঁধ মিলিয়ে কাতারবদ্ধ জামাতের নামাজ নীরবে সমতা, সময়ানুবর্তিতা ও একাত্মতা শেখায়।',
+        },
+      },
+      {
+        heading: { en: 'One rope, held together', bn: 'এক রশি, একত্রে ধরা' },
+        body: {
+          en: 'Islam places great weight on unity and warns against needless division: "Hold firmly to the rope of God all together and do not become divided" (3:103), and "The believers are but brothers, so make peace between your brothers" (49:10). The community (ummah) is meant to function like a single body — when one part hurts, the rest feels it. The mosque is where this ideal is practised in miniature: strangers become neighbours, and worship of God is joined to responsibility for one another.',
+          bn: 'ইসলাম ঐক্যের উপর বিরাট গুরুত্ব দেয় ও অহেতুক বিভেদের বিরুদ্ধে সতর্ক করে: "তোমরা সকলে আল্লাহর রশি দৃঢ়ভাবে ধরো এবং বিভক্ত হয়ো না" (৩:১০৩), আর "মুমিনরা তো পরস্পর ভাই, সুতরাং তোমাদের ভাইদের মধ্যে শান্তি স্থাপন করো" (৪৯:১০)। উম্মাহকে এক দেহের মতো কাজ করার কথা — যখন একটি অংশ ব্যথা পায়, বাকিরা তা অনুভব করে। মসজিদ সেই আদর্শ ক্ষুদ্র পরিসরে চর্চার স্থান: অপরিচিতরা প্রতিবেশী হয়, এবং আল্লাহর ইবাদত একে অপরের প্রতি দায়িত্বের সাথে যুক্ত হয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'the-beautiful-names-of-god',
+    emoji: '✨',
+    kind: 'article',
+    title: { en: 'The Beautiful Names of God', bn: 'আল্লাহর সুন্দর নামসমূহ' },
+    summary: {
+      en: 'How Muslims come to know God through His revealed names and attributes — the Merciful, the Just, the Near — and what they mean for daily life.',
+      bn: 'মুসলিমরা কীভাবে আল্লাহর অবতীর্ণ নাম ও গুণাবলির মাধ্যমে তাঁকে জানে — দয়াময়, ন্যায়বান, নিকটবর্তী — এবং দৈনন্দিন জীবনে সেগুলোর অর্থ কী।',
+    },
+    points: [
+      {
+        heading: { en: 'Knowing God through His names', bn: 'তাঁর নামের মাধ্যমে আল্লাহকে জানা' },
+        body: {
+          en: 'Islam teaches that God cannot be fully grasped by human minds, but He has made Himself known through beautiful names and attributes revealed in the Quran: "To God belong the most beautiful names, so call upon Him by them" (7:180). A well-known tradition mentions ninety-nine such names. They are not separate gods or forces but descriptions of the One God — the Most Merciful, the All-Knowing, the Forgiving, the Just, the Provider — each a window onto who He is.',
+          bn: 'ইসলাম শেখায় যে মানব বুদ্ধি আল্লাহকে পূর্ণরূপে ধারণ করতে পারে না, তবে তিনি কুরআনে অবতীর্ণ সুন্দর নাম ও গুণাবলির মাধ্যমে নিজেকে পরিচিত করেছেন: "আল্লাহর জন্যই রয়েছে সুন্দরতম নামসমূহ, সুতরাং সেগুলো দিয়ে তাঁকে ডাকো" (৭:১৮০)। একটি প্রসিদ্ধ বর্ণনায় এমন নিরানব্বইটি নামের উল্লেখ আছে। এগুলো পৃথক কোনো উপাস্য বা শক্তি নয়, বরং এক আল্লাহরই বর্ণনা — পরম দয়াময়, সর্বজ্ঞ, ক্ষমাশীল, ন্যায়বান, রিযিকদাতা — প্রতিটি তিনি কে তার এক জানালা।',
+        },
+      },
+      {
+        heading: { en: 'Mercy and majesty together', bn: 'দয়া ও মহিমা একত্রে' },
+        body: {
+          en: 'The names present a balanced portrait: God is at once utterly transcendent and intimately near. One passage gathers many together: "He is God, other than whom there is no deity, Knower of the unseen and the witnessed; He is the Most Merciful. He is God, the Sovereign, the Pure, the Source of Peace, the Guardian of Faith, the Mighty, the Compeller, the Supreme... To Him belong the best names" (59:22-24). His mercy is emphasised most — every chapter but one opens by naming Him the Most Compassionate, the Most Merciful — yet His justice and majesty are never diminished.',
+          bn: 'নামগুলো এক ভারসাম্যপূর্ণ চিত্র তুলে ধরে: আল্লাহ একই সাথে সম্পূর্ণ অতীন্দ্রিয় ও ঘনিষ্ঠভাবে নিকটবর্তী। একটি অনুচ্ছেদ অনেকগুলো একত্র করে: "তিনিই আল্লাহ, যিনি ছাড়া কোনো উপাস্য নেই, অদৃশ্য ও দৃশ্যের জ্ঞাতা; তিনি পরম দয়াময়। তিনিই আল্লাহ, অধিপতি, পবিত্র, শান্তির উৎস, নিরাপত্তাদাতা, পরাক্রমশালী, মহাপ্রতাপশালী, সর্বোচ্চ... সুন্দরতম নামসমূহ তাঁরই" (৫৯:২২-২৪)। তাঁর দয়াই সর্বাধিক গুরুত্ব পায় — একটি ছাড়া প্রতিটি সুরা তাঁকে পরম করুণাময়, পরম দয়ালু নামে অভিহিত করে শুরু হয় — তবু তাঁর ন্যায় ও মহিমা কখনো হ্রাস পায় না।',
+        },
+      },
+      {
+        heading: { en: 'Names that shape a life', bn: 'যে নাম জীবন গড়ে' },
+        body: {
+          en: 'Knowing God’s names is meant to transform the heart, not just inform the mind. Whoever truly knows God as the All-Seeing grows careful in private; as the Provider, learns contentment; as the Forgiving, never despairs of returning after sin; as the Just, refuses to wrong others. Muslims are also encouraged to reflect God’s qualities in a human measure — to be merciful because He is merciful, forgiving because He forgives. To "call upon Him by them" is to turn the names into supplication and, gradually, into character.',
+          bn: 'আল্লাহর নাম জানার উদ্দেশ্য কেবল মনকে জানানো নয়, হৃদয়কে রূপান্তরিত করা। যে সত্যিকারভাবে আল্লাহকে সর্বদ্রষ্টা হিসেবে জানে সে নির্জনেও সতর্ক হয়; রিযিকদাতা হিসেবে জেনে তুষ্টি শেখে; ক্ষমাশীল হিসেবে জেনে পাপের পর ফিরে আসতে কখনো নিরাশ হয় না; ন্যায়বান হিসেবে জেনে অন্যের প্রতি অবিচার করতে অস্বীকার করে। মুসলিমদের মানবিক পরিমাপে আল্লাহর গুণাবলি প্রতিফলিত করতেও উৎসাহ দেওয়া হয় — দয়ালু হতে কারণ তিনি দয়ালু, ক্ষমাশীল হতে কারণ তিনি ক্ষমা করেন। "সেগুলো দিয়ে তাঁকে ডাকা" মানে নামগুলোকে প্রার্থনায় এবং ধীরে ধীরে চরিত্রে পরিণত করা।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'seeking-knowledge-in-islam',
+    emoji: '📖',
+    kind: 'article',
+    title: { en: 'Seeking Knowledge in Islam', bn: 'ইসলামে জ্ঞান অন্বেষণ' },
+    summary: {
+      en: 'Why Islam treats the pursuit of knowledge as an act of worship, from the first revealed word "Read" to a rich scholarly tradition.',
+      bn: 'কেন ইসলাম জ্ঞান অন্বেষণকে ইবাদত হিসেবে দেখে, প্রথম অবতীর্ণ শব্দ "পড়ো" থেকে এক সমৃদ্ধ পাণ্ডিত্যিক ঐতিহ্য পর্যন্ত।',
+    },
+    points: [
+      {
+        heading: { en: 'The first word was “Read”', bn: 'প্রথম শব্দ ছিল "পড়ো"' },
+        body: {
+          en: 'The very first words revealed to the Prophet ﷺ were a command to learn: "Read in the name of your Lord who created... who taught by the pen, taught man what he did not know" (96:1-5). It is striking that a faith should begin not with a ritual but with reading and the pen. The Quran repeatedly urges reflection on nature, history and the self, and asks: "Are those who know equal to those who do not know?" (39:9). The only prayer the Prophet ﷺ was told to ask for increase in was knowledge: "My Lord, increase me in knowledge" (20:114).',
+          bn: 'নবী ﷺ এর কাছে অবতীর্ণ একেবারে প্রথম শব্দগুলো ছিল শেখার নির্দেশ: "পড়ো তোমার রবের নামে যিনি সৃষ্টি করেছেন... যিনি কলমের মাধ্যমে শিক্ষা দিয়েছেন, মানুষকে শিখিয়েছেন যা সে জানত না" (৯৬:১-৫)। এটি লক্ষণীয় যে একটি ধর্ম কোনো আচার দিয়ে নয়, বরং পড়া ও কলম দিয়ে শুরু হয়। কুরআন বারবার প্রকৃতি, ইতিহাস ও নিজের প্রতি অনুধ্যানের আহ্বান জানায় এবং জিজ্ঞাসা করে: "যারা জানে ও যারা জানে না তারা কি সমান?" (৩৯:৯)। একমাত্র যে জিনিসের বৃদ্ধির জন্য নবী ﷺ কে প্রার্থনা করতে বলা হয়েছিল তা হলো জ্ঞান: "হে আমার রব, আমার জ্ঞান বৃদ্ধি করো" (২০:১১৪)।',
+        },
+      },
+      {
+        heading: { en: 'Knowledge raises the believer', bn: 'জ্ঞান মুমিনকে উন্নীত করে' },
+        body: {
+          en: 'The Quran links knowledge to both rank and reverence: "God will raise those who believe among you and those given knowledge, by many degrees" (58:11); and: "Of His servants, only those with knowledge truly fear God" (35:28) — meaning real knowledge deepens awe of the Creator rather than replacing it. The Prophet ﷺ taught that seeking knowledge is an obligation on every Muslim, and that a path to knowledge is a path made easier toward Paradise. Learning, sincerely pursued, is itself a form of worship.',
+          bn: 'কুরআন জ্ঞানকে মর্যাদা ও শ্রদ্ধা উভয়ের সাথে যুক্ত করে: "তোমাদের মধ্যে যারা ঈমান এনেছে ও যাদের জ্ঞান দেওয়া হয়েছে আল্লাহ তাদের বহু মর্যাদায় উন্নীত করবেন" (৫৮:১১); আর: "আল্লাহর বান্দাদের মধ্যে কেবল জ্ঞানীরাই তাঁকে যথার্থ ভয় করে" (৩৫:২৮) — অর্থাৎ প্রকৃত জ্ঞান স্রষ্টার প্রতি বিস্ময়কে প্রতিস্থাপন না করে বরং গভীর করে। নবী ﷺ শিখিয়েছেন যে জ্ঞান অন্বেষণ প্রতিটি মুসলিমের উপর কর্তব্য, এবং জ্ঞানের পথ জান্নাতের দিকে সহজ করা এক পথ। আন্তরিকভাবে অনুসৃত শিক্ষা নিজেই ইবাদতের এক রূপ।',
+        },
+      },
+      {
+        heading: { en: 'A civilisation of learning', bn: 'জ্ঞানের এক সভ্যতা' },
+        body: {
+          en: 'This ethos bore fruit in history. Inspired by the call to seek knowledge, Muslim societies built libraries, hospitals and centres of study, and made lasting contributions in mathematics, medicine, astronomy and other fields, often preserving and building on earlier Greek, Persian and Indian learning. In the Islamic view there is no conflict between studying God’s revealed words and studying His created world — both are ways of coming to know the same Creator, and both are pursued as a trust and a form of gratitude.',
+          bn: 'এই মূল্যবোধ ইতিহাসে ফল দিয়েছে। জ্ঞান অন্বেষণের আহ্বানে অনুপ্রাণিত হয়ে মুসলিম সমাজ গ্রন্থাগার, হাসপাতাল ও অধ্যয়নকেন্দ্র গড়ে তোলে এবং গণিত, চিকিৎসা, জ্যোতির্বিদ্যা ও অন্যান্য ক্ষেত্রে স্থায়ী অবদান রাখে, প্রায়ই পূর্ববর্তী গ্রিক, ফারসি ও ভারতীয় জ্ঞান সংরক্ষণ ও তার উপর নির্মাণ করে। ইসলামি দৃষ্টিতে আল্লাহর অবতীর্ণ বাণী অধ্যয়ন ও তাঁর সৃষ্ট জগৎ অধ্যয়নের মধ্যে কোনো দ্বন্দ্ব নেই — উভয়ই একই স্রষ্টাকে জানার পথ, এবং উভয়ই এক আমানত ও কৃতজ্ঞতার রূপ হিসেবে অনুসৃত হয়।',
+        },
+      },
+    ],
+  },
   /* ─────────────────────────────────────────────────────────────────────── */
   {
     id: 'study',
