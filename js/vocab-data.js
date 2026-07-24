@@ -558,6 +558,112 @@ const VOCAB_WORDS = [
   {
     arabic: 'كَرِيمٌ', translit: 'karīm', count: 27,
     meanings: { en: 'noble, generous', bn: 'সম্মানিত, উদার, দয়ালু', fr: 'noble, généreux', id: 'mulia, pemurah', ur: 'کریم، معزز، سخی', tr: 'kerîm, cömert', ar: 'شَرِيفٌ مِعْطَاء' , zh: '尊贵的，慷慨的', ja: '高貴な、寛大な'}
+  },
+
+  // ---- Round 3: more high-frequency verbs ----
+  {
+    arabic: 'ظَلَمَ', translit: 'ẓalama', count: 200,
+    meanings: { en: 'he wronged, oppressed', bn: 'সে জুলুম করল', fr: 'il a été injuste', id: 'dia menzalimi', ur: 'اس نے ظلم کیا', tr: 'zulmetti', ar: 'جَارَ وَاعْتَدَى', zh: '他不义，压迫', ja: '彼は不正を行った'}
+  },
+  {
+    arabic: 'شَكَرَ', translit: 'shakara', count: 75,
+    meanings: { en: 'he was grateful, thanked', bn: 'সে কৃতজ্ঞতা প্রকাশ করল', fr: 'il a remercié', id: 'dia bersyukur', ur: 'اس نے شکر کیا', tr: 'şükretti', ar: 'حَمِدَ وَامْتَنَّ', zh: '他感恩', ja: '彼は感謝した'}
+  },
+  {
+    arabic: 'صَبَرَ', translit: 'ṣabara', count: 100,
+    meanings: { en: 'he was patient, endured', bn: 'সে ধৈর্য ধরল', fr: 'il a patienté', id: 'dia bersabar', ur: 'اس نے صبر کیا', tr: 'sabretti', ar: 'تَحَمَّلَ وَثَبَتَ', zh: '他忍耐', ja: '彼は忍耐した'}
+  },
+  {
+    arabic: 'تَابَ', translit: 'tāba', count: 87,
+    meanings: { en: 'he repented, turned back', bn: 'সে তওবা করল', fr: 'il s’est repenti', id: 'dia bertaubat', ur: 'اس نے توبہ کی', tr: 'tövbe etti', ar: 'رَجَعَ إِلَى اللَّه', zh: '他悔过', ja: '彼は悔い改めた'}
+  },
+  {
+    arabic: 'فَتَحَ', translit: 'fataha', count: 38,
+    meanings: { en: 'he opened; granted victory', bn: 'সে খুলল; বিজয় দিল', fr: 'il a ouvert ; accordé la victoire', id: 'dia membuka; memberi kemenangan', ur: 'اس نے کھولا؛ فتح دی', tr: 'açtı; fetih verdi', ar: 'حَلَّ وَنَصَرَ', zh: '他开启；赐胜利', ja: '彼は開いた；勝利を与えた'}
+  },
+  {
+    arabic: 'وَعَدَ', translit: 'waʿada', count: 70,
+    meanings: { en: 'he promised', bn: 'সে প্রতিশ্রুতি দিল', fr: 'il a promis', id: 'dia menjanjikan', ur: 'اس نے وعدہ کیا', tr: 'söz verdi, vaat etti', ar: 'قَطَعَ عَهْدًا', zh: '他许诺', ja: '彼は約束した'}
+  },
+  {
+    arabic: 'خَافَ', translit: 'khāfa', count: 120,
+    meanings: { en: 'he feared', bn: 'সে ভয় পেল', fr: 'il a craint', id: 'dia takut', ur: 'وہ ڈرا', tr: 'korktu', ar: 'خَشِيَ', zh: '他害怕', ja: '彼は恐れた'}
+  },
+  {
+    arabic: 'رَجَعَ', translit: 'rajaʿa', count: 105,
+    meanings: { en: 'he returned', bn: 'সে ফিরে এল', fr: 'il est revenu', id: 'dia kembali', ur: 'وہ لوٹا', tr: 'döndü', ar: 'عَادَ', zh: '他返回', ja: '彼は戻った'}
+  },
+  {
+    arabic: 'قَتَلَ', translit: 'qatala', count: 93,
+    meanings: { en: 'he killed', bn: 'সে হত্যা করল', fr: 'il a tué', id: 'dia membunuh', ur: 'اس نے قتل کیا', tr: 'öldürdü', ar: 'أَزْهَقَ الرُّوح', zh: '他杀害', ja: '彼は殺した'}
+  },
+  {
+    arabic: 'خَرَجَ', translit: 'kharaja', count: 180,
+    meanings: { en: 'he went out, emerged', bn: 'সে বেরিয়ে এল', fr: 'il est sorti', id: 'dia keluar', ur: 'وہ نکلا', tr: 'çıktı', ar: 'ضِدُّ دَخَلَ', zh: '他出去', ja: '彼は出た'}
+  },
+  {
+    arabic: 'نَظَرَ', translit: 'naẓara', count: 110,
+    meanings: { en: 'he looked, gazed', bn: 'সে তাকাল', fr: 'il a regardé', id: 'dia memandang', ur: 'اس نے دیکھا', tr: 'baktı', ar: 'أَبْصَرَ وَتَأَمَّلَ', zh: '他观看', ja: '彼は見つめた'}
+  },
+
+  // ---- Round 3: more high-frequency nouns & concepts ----
+  {
+    arabic: 'ثَوَابٌ', translit: 'thawāb', count: 13,
+    meanings: { en: 'reward, recompense', bn: 'সওয়াব, প্রতিদান', fr: 'récompense', id: 'pahala, ganjaran', ur: 'ثواب، بدلہ', tr: 'sevap, mükâfat', ar: 'جَزَاءُ الْخَيْر', zh: '回赐，报酬', ja: '報奨、サワーブ'}
+  },
+  {
+    arabic: 'شَيْطَانٌ', translit: 'shayṭān', count: 88,
+    meanings: { en: 'Satan, devil', bn: 'শয়তান', fr: 'Satan, diable', id: 'setan', ur: 'شیطان', tr: 'şeytan', ar: 'إِبْلِيسُ الْمُضِلّ', zh: '恶魔，撒旦', ja: '悪魔、シャイターン'}
+  },
+  {
+    arabic: 'عَدْلٌ', translit: 'ʿadl', count: 28,
+    meanings: { en: 'justice, fairness', bn: 'ন্যায়বিচার, ইনসাফ', fr: 'justice, équité', id: 'keadilan', ur: 'عدل، انصاف', tr: 'adalet', ar: 'إِنْصَافٌ وَقِسْط', zh: '公正，公道', ja: '正義、公正'}
+  },
+  {
+    arabic: 'مِيثَاقٌ', translit: 'mīthāq', count: 25,
+    meanings: { en: 'covenant, solemn pledge', bn: 'অঙ্গীকার, দৃঢ় প্রতিশ্রুতি', fr: 'pacte solennel', id: 'perjanjian teguh', ur: 'پختہ عہد، میثاق', tr: 'sağlam söz, misak', ar: 'عَهْدٌ مُؤَكَّد', zh: '盟约，坚约', ja: '堅い誓約、ミーサーク'}
+  },
+  {
+    arabic: 'صَدَقَةٌ', translit: 'ṣadaqah', count: 24,
+    meanings: { en: 'charity, alms', bn: 'সদকা, দান', fr: 'aumône', id: 'sedekah', ur: 'صدقہ، خیرات', tr: 'sadaka', ar: 'عَطَاءٌ لِلَّه', zh: '施舍，赈济', ja: '施し、サダカ'}
+  },
+  {
+    arabic: 'عَرْشٌ', translit: 'ʿarsh', count: 26,
+    meanings: { en: 'throne (of God)', bn: 'আরশ, সিংহাসন', fr: 'trône', id: 'Arasy, singgasana', ur: 'عرش', tr: 'arş', ar: 'سَرِيرُ الْمُلْك', zh: '宝座', ja: '御座、アルシュ'}
+  },
+  {
+    arabic: 'رِيحٌ', translit: 'rīḥ', count: 29,
+    meanings: { en: 'wind', bn: 'বাতাস, বায়ু', fr: 'vent', id: 'angin', ur: 'ہوا', tr: 'rüzgâr', ar: 'هَوَاءٌ مُتَحَرِّك', zh: '风', ja: '風'}
+  },
+  {
+    arabic: 'إِسْلَامٌ', translit: 'islām', count: 8,
+    meanings: { en: 'submission to God, Islam', bn: 'ইসলাম, আত্মসমর্পণ', fr: 'soumission à Dieu, Islam', id: 'Islam, kepasrahan', ur: 'اسلام، فرمانبرداری', tr: 'İslam, teslimiyet', ar: 'الِاسْتِسْلَامُ لِلَّه', zh: '伊斯兰，顺服', ja: 'イスラーム、服従'}
+  },
+
+  // ---- Round 3: key adjectives & descriptors ----
+  {
+    arabic: 'ظَالِمٌ', translit: 'ẓālim', count: 130,
+    meanings: { en: 'wrongdoer, oppressor', bn: 'জালিম, অত্যাচারী', fr: 'injuste, oppresseur', id: 'orang zalim', ur: 'ظالم', tr: 'zalim', ar: 'مُعْتَدٍ جَائِر', zh: '不义者，压迫者', ja: '不正を行う者'}
+  },
+  {
+    arabic: 'مُنَافِقٌ', translit: 'munāfiq', count: 37,
+    meanings: { en: 'hypocrite', bn: 'মুনাফিক, কপট', fr: 'hypocrite', id: 'munafik, orang munafik', ur: 'منافق', tr: 'münafık, iki yüzlü', ar: 'مُظْهِرٌ خِلَافَ مَا يُبْطِن', zh: '伪信者', ja: '偽信者、ムナーフィク'}
+  },
+  {
+    arabic: 'كَبِيرٌ', translit: 'kabīr', count: 40,
+    meanings: { en: 'great, big', bn: 'বড়, মহান', fr: 'grand', id: 'besar, agung', ur: 'بڑا، عظیم', tr: 'büyük', ar: 'ضِدُّ الصَّغِير', zh: '大的，伟大的', ja: '大きい、偉大な'}
+  },
+  {
+    arabic: 'مُبِينٌ', translit: 'mubīn', count: 119,
+    meanings: { en: 'clear, manifest', bn: 'সুস্পষ্ট, প্রকাশ্য', fr: 'clair, manifeste', id: 'yang nyata, jelas', ur: 'واضح، کھلا', tr: 'apaçık', ar: 'وَاضِحٌ ظَاهِر', zh: '明显的，明白的', ja: '明白な'}
+  },
+  {
+    arabic: 'مُسْتَقِيمٌ', translit: 'mustaqīm', count: 37,
+    meanings: { en: 'straight, upright', bn: 'সরল, সোজা', fr: 'droit', id: 'lurus', ur: 'سیدھا، مستقیم', tr: 'dosdoğru', ar: 'ضِدُّ الْمُعْوَجّ', zh: '正直的，端正的', ja: 'まっすぐな、正しい'}
+  },
+  {
+    arabic: 'شَدِيدٌ', translit: 'shadīd', count: 52,
+    meanings: { en: 'severe, intense', bn: 'কঠোর, প্রচণ্ড', fr: 'sévère, intense', id: 'keras, dahsyat', ur: 'سخت، شدید', tr: 'şiddetli', ar: 'قَوِيٌّ عَنِيف', zh: '严厉的，剧烈的', ja: '厳しい、激しい'}
   }
 ];
 

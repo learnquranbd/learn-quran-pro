@@ -301,6 +301,54 @@ const SALAH_DUAS = [
     meaning: { en: 'O Allah, You are Peace and from You is peace. Blessed are You, O Possessor of Majesty and Honor. (Said after the three istighfars following salam.)', bn: 'হে আল্লাহ! আপনিই শান্তি এবং আপনার কাছ থেকেই শান্তি আসে। আপনি বরকতময়, হে মহিমা ও সম্মানের অধিকারী। (সালামের পর তিনটি ইস্তিগফারের পরপরই বলা হয়।)' },
     reference: { en: 'Muslim 591', bn: 'মুসলিম ৫৯১' }
   },
+  {
+    id: 'istiftah_baid',
+    step: 'thana',
+    arabic: 'اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ، اللَّهُمَّ نَقِّنِي مِنْ خَطَايَايَ كَمَا يُنَقَّى الثَّوْبُ الْأَبْيَضُ مِنَ الدَّنَسِ، اللَّهُمَّ اغْسِلْنِي مِنْ خَطَايَايَ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ',
+    transliteration: "Allahumma ba'id bayni wa bayna khatayaya kama ba'adta baynal-mashriqi wal-maghrib, Allahumma naqqini min khatayaya kama yunaqqath-thawbul-abyadu minad-danas, Allahummaghsilni min khatayaya bil-ma'i wath-thalji wal-barad",
+    meaning: { en: 'O Allah, distance me from my sins as You have distanced the East from the West. O Allah, cleanse me of my sins as a white garment is cleansed of dirt. O Allah, wash away my sins with water, snow and hail. (An authentic opening supplication — istiftah.)', bn: 'হে আল্লাহ! আমার ও আমার গুনাহের মাঝে দূরত্ব সৃষ্টি করুন যেমন আপনি পূর্ব ও পশ্চিমের মাঝে দূরত্ব রেখেছেন। হে আল্লাহ! আমাকে গুনাহ থেকে এমনভাবে পরিষ্কার করুন যেমন সাদা কাপড় ময়লা থেকে পরিষ্কার করা হয়। হে আল্লাহ! পানি, বরফ ও শিলা দিয়ে আমার গুনাহ ধুয়ে দিন। (একটি বিশুদ্ধ সানা — প্রারম্ভিক দোয়া।)' },
+    reference: { en: 'Bukhari 744, Muslim 598', bn: 'বুখারী ৭৪৪, মুসলিম ৫৯৮' }
+  },
+  {
+    id: 'istiftah_wajjahtu',
+    step: 'thana',
+    arabic: 'وَجَّهْتُ وَجْهِيَ لِلَّذِي فَطَرَ السَّمَاوَاتِ وَالْأَرْضَ حَنِيفًا وَمَا أَنَا مِنَ الْمُشْرِكِينَ، إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ، لَا شَرِيكَ لَهُ وَبِذَٰلِكَ أُمِرْتُ وَأَنَا مِنَ الْمُسْلِمِينَ',
+    transliteration: "Wajjahtu wajhiya lilladhi fataras-samawati wal-arda hanifan wa ma ana minal-mushrikin, inna salati wa nusuki wa mahyaya wa mamati lillahi Rabbil-'alamin, la sharika lah, wa bidhalika umirtu wa ana minal-muslimin",
+    meaning: { en: 'I have turned my face toward the One who created the heavens and the earth, as a pure monotheist, and I am not of the polytheists. Indeed my prayer, my sacrifice, my living and my dying are for Allah, Lord of the worlds; He has no partner. With this I was commanded, and I am among the Muslims. (Longer istiftah reported from Ali RA, especially in night prayer.)', bn: 'আমি একনিষ্ঠভাবে সেই সত্তার দিকে মুখ ফিরিয়েছি যিনি আসমান ও জমিন সৃষ্টি করেছেন, আর আমি মুশরিকদের অন্তর্ভুক্ত নই। নিশ্চয় আমার নামাজ, কুরবানি, জীবন ও মৃত্যু সবই বিশ্বজগতের রব আল্লাহর জন্য; তাঁর কোনো শরিক নেই। এরই আদেশ আমাকে দেওয়া হয়েছে এবং আমি মুসলিমদের অন্তর্ভুক্ত। (আলী রা. থেকে বর্ণিত দীর্ঘ সানা, বিশেষত রাতের নামাজে।)' },
+    reference: { en: 'Muslim 771 — from Ali ibn Abi Talib (RA)', bn: 'মুসলিম ৭৭১ — আলী ইবন আবি তালিব (রা.) বর্ণিত' }
+  },
+  {
+    id: 'qawmah_mila_samawat',
+    step: 'standing',
+    arabic: 'رَبَّنَا وَلَكَ الْحَمْدُ، مِلْءَ السَّمَاوَاتِ وَمِلْءَ الْأَرْضِ وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ',
+    transliteration: "Rabbana wa lakal-hamd, mil'as-samawati wa mil'al-ard, wa mil'a ma shi'ta min shay'in ba'd",
+    meaning: { en: 'Our Lord, all praise is Yours — filling the heavens, filling the earth, and filling whatever else You will beyond them. (Extended qawmah supplication said after rising from ruku.)', bn: 'হে আমাদের রব, আপনারই সমস্ত প্রশংসা — আসমান ভরে, জমিন ভরে এবং এরপর আপনি যা চান তা ভরে দেওয়ার মতো প্রশংসা। (রুকু থেকে ওঠার পর পঠিত বিস্তারিত দোয়া।)' },
+    reference: { en: 'Muslim 476, 477', bn: 'মুসলিম ৪৭৬, ৪৭৭' }
+  },
+  {
+    id: 'sujud_tilawah',
+    step: 'sujud',
+    arabic: 'اللَّهُمَّ اكْتُبْ لِي بِهَا عِنْدَكَ أَجْرًا، وَضَعْ عَنِّي بِهَا وِزْرًا، وَاجْعَلْهَا لِي عِنْدَكَ ذُخْرًا، وَتَقَبَّلْهَا مِنِّي كَمَا تَقَبَّلْتَهَا مِنْ عَبْدِكَ دَاوُدَ',
+    transliteration: "Allahummaktub li biha 'indaka ajran, wa da' 'anni biha wizran, waj'alha li 'indaka dhukhran, wa taqabbalha minni kama taqabbaltaha min 'abdika Dawud",
+    meaning: { en: 'O Allah, record for me a reward with You for this (prostration), remove from me a burden by it, store it up for me with You, and accept it from me as You accepted it from Your servant Dawud. (Du\'a of Sujud al-Tilawah — the prostration of recitation.)', bn: 'হে আল্লাহ! এর বিনিময়ে আপনার কাছে আমার জন্য সওয়াব লিখুন, এর দ্বারা আমার থেকে গুনাহের বোঝা নামিয়ে দিন, একে আপনার কাছে আমার জন্য সঞ্চয় করে রাখুন এবং তা আমার থেকে কবুল করুন যেমন আপনার বান্দা দাউদ (আ.) থেকে কবুল করেছিলেন। (সিজদায়ে তিলাওয়াতের দোয়া — তিলাওয়াতের সিজদা।)' },
+    reference: { en: 'Tirmidhi 3424, Ibn Majah 1053 — hasan', bn: 'তিরমিযী ৩৪২৪, ইবন মাজাহ ১০৫৩ — হাসান' }
+  },
+  {
+    id: 'dua_refuge_saad',
+    step: 'tashahhud',
+    arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبُخْلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ أَنْ أُرَدَّ إِلَىٰ أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ',
+    transliteration: "Allahumma inni a'udhu bika minal-bukhl, wa a'udhu bika minal-jubn, wa a'udhu bika an uradda ila ardhalil-'umur, wa a'udhu bika min fitnatid-dunya, wa a'udhu bika min 'adhabil-qabr",
+    meaning: { en: 'O Allah, I seek refuge in You from miserliness, from cowardice, from being returned to the most feeble age, from the trial of this world, and from the punishment of the grave. (Refuge du\'a taught by the Prophet ﷺ, said in prayer — from Sa\'d ibn Abi Waqqas RA.)', bn: 'হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই কৃপণতা থেকে, কাপুরুষতা থেকে, অতি জরাগ্রস্ত বয়সে ফিরিয়ে দেওয়া থেকে, দুনিয়ার ফিতনা থেকে এবং কবরের শাস্তি থেকে। (নবী ﷺ শিখিয়েছেন এই আশ্রয়ের দোয়া, নামাজে পড়া হয় — সাদ ইবন আবি ওয়াক্কাস রা. বর্ণিত।)' },
+    reference: { en: 'Bukhari 6390', bn: 'বুখারী ৬৩৯০' }
+  },
+  {
+    id: 'muadh_ainni_dhikr',
+    step: 'tashahhud',
+    arabic: 'اللَّهُمَّ أَعِنِّي عَلَىٰ ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ',
+    transliteration: "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+    meaning: { en: 'O Allah, help me to remember You, to thank You, and to worship You beautifully. (The Prophet ﷺ instructed Mu\'adh RA never to leave this du\'a at the end of every prayer, before the salam.)', bn: 'হে আল্লাহ! আপনার যিকির করতে, শুকরিয়া আদায় করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন। (নবী ﷺ মুয়াজ রা.-কে প্রতি নামাজের শেষে সালামের আগে এই দোয়া কখনো না ছাড়তে বলেছেন।)' },
+    reference: { en: 'Abu Dawud 1522, Nasa\'i 1303 — sahih', bn: 'আবু দাউদ ১৫২২, নাসায়ী ১৩০৩ — সহিহ' }
+  },
 ];
 
 const SALAH_TASBEEH = [
@@ -498,6 +546,40 @@ const SALAH_TASBEEH = [
     meaning: { en: 'O Allah, You are Peace and from You is peace. (Short form — said after the three istighfars; the full form adds "tabarakta ya dhal-jalali wal-ikram".)', bn: 'হে আল্লাহ! আপনিই শান্তি এবং আপনার কাছ থেকেই শান্তি। (সংক্ষিপ্ত রূপ — তিনটি ইস্তিগফারের পরে পড়া হয়; পূর্ণ রূপে "তাবারাকতা ইয়া জাল-জালালি ওয়াল-ইকরাম" যোগ হয়।)' },
     reference: { en: 'Muslim 591', bn: 'মুসলিম ৫৯১' }
   },
+  {
+    id: 'ibn_zubayr_tahlil',
+    arabic: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لَا إِلَٰهَ إِلَّا اللَّهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ',
+    transliteration: "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir, la hawla wa la quwwata illa billah, la ilaha illallahu wa la na'budu illa iyyah, lahun-ni'matu wa lahul-fadlu wa lahuth-thana'ul-hasan, la ilaha illallahu mukhlisina lahud-dina wa law karihal-kafirun",
+    meaning: { en: 'There is no god but Allah, alone without partner; His is the dominion, His is all praise, and He has power over all things. There is no might nor power except with Allah. There is no god but Allah, and we worship none but Him. His is all favour, His is all grace, and His is the excellent praise. There is no god but Allah, sincere to Him in religion though the disbelievers detest it. (Ibn Zubayr RA recited this after every fard prayer.)', bn: 'আল্লাহ ছাড়া কোনো উপাস্য নেই, তিনি একক, তাঁর কোনো শরিক নেই; রাজত্ব ও প্রশংসা তাঁরই, তিনি সব কিছুর উপর ক্ষমতাবান। আল্লাহর সাহায্য ছাড়া কোনো শক্তি ও ক্ষমতা নেই। আল্লাহ ছাড়া কোনো উপাস্য নেই এবং আমরা কেবল তাঁরই ইবাদত করি। নেয়ামত তাঁরই, অনুগ্রহ তাঁরই এবং উত্তম প্রশংসা তাঁরই। আল্লাহ ছাড়া কোনো উপাস্য নেই, আমরা দ্বীনে তাঁর প্রতি একনিষ্ঠ, যদিও কাফিররা তা অপছন্দ করে। (ইবন যুবায়র রা. প্রতিটি ফরজ নামাজের পর এটি পড়তেন।)' },
+    reference: { en: 'Muslim 594', bn: 'মুসলিম ৫৯৪' },
+    context: { en: 'After every fard prayer', bn: 'প্রতিটি ফরজ নামাজের পর' }
+  },
+  {
+    id: 'dua_afwa_afiyah',
+    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ',
+    transliteration: "Allahumma inni as'alukal-'afwa wal-'afiyata fid-dunya wal-akhirah",
+    meaning: { en: 'O Allah, I ask You for pardon and well-being in this world and the Hereafter. (Part of the morning and evening remembrance, said after Fajr and Maghrib.)', bn: 'হে আল্লাহ! আমি আপনার কাছে দুনিয়া ও আখিরাতে ক্ষমা ও সুস্থতা চাই। (সকাল-সন্ধ্যার যিকিরের অংশ, ফজর ও মাগরিবের পর পড়া হয়।)' },
+    reference: { en: 'Ibn Majah 3871, Abu Dawud 5074 — hasan', bn: 'ইবন মাজাহ ৩৮৭১, আবু দাউদ ৫০৭৪ — হাসান' },
+    context: { en: 'Morning and evening', bn: 'সকাল ও সন্ধ্যা' }
+  },
+  {
+    id: 'dua_kufr_faqr',
+    arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَٰهَ إِلَّا أَنْتَ',
+    transliteration: "Allahumma inni a'udhu bika minal-kufri wal-faqr, wa a'udhu bika min 'adhabil-qabr, la ilaha illa Ant",
+    meaning: { en: 'O Allah, I seek refuge in You from disbelief and poverty, and I seek refuge in You from the punishment of the grave. There is no god but You. (×3 in the morning and evening.)', bn: 'হে আল্লাহ! আমি আপনার কাছে কুফর ও দারিদ্র্য থেকে আশ্রয় চাই এবং কবরের শাস্তি থেকে আশ্রয় চাই। আপনি ছাড়া কোনো উপাস্য নেই। (সকাল-সন্ধ্যায় ৩ বার।)' },
+    count: 3,
+    reference: { en: 'Abu Dawud 5090, Nasa\'i — hasan', bn: 'আবু দাউদ ৫০৯০, নাসায়ী — হাসান' },
+    context: { en: 'Morning and evening (×3)', bn: 'সকাল ও সন্ধ্যা (৩ বার)' }
+  },
+  {
+    id: 'bismillah_la_yadurru',
+    arabic: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    transliteration: "Bismillahil-ladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama', wa Huwas-Sami'ul-'Alim",
+    meaning: { en: 'In the name of Allah, with whose name nothing on earth or in heaven can cause harm, and He is the All-Hearing, the All-Knowing. (×3 in the morning and evening — whoever says it three times, nothing will harm him.)', bn: 'আল্লাহর নামে, যাঁর নামের সাথে জমিন ও আসমানের কোনো কিছু ক্ষতি করতে পারে না, আর তিনি সর্বশ্রোতা, সর্বজ্ঞ। (সকাল-সন্ধ্যায় ৩ বার — যে তিনবার বলবে, কোনো কিছু তার ক্ষতি করতে পারবে না।)' },
+    count: 3,
+    reference: { en: 'Abu Dawud 5088, Tirmidhi 3388, Ibn Majah 3869 — sahih', bn: 'আবু দাউদ ৫০৮৮, তিরমিযী ৩৩৮৮, ইবন মাজাহ ৩৮৬৯ — সহিহ' },
+    context: { en: 'Morning and evening (×3)', bn: 'সকাল ও সন্ধ্যা (৩ বার)' }
+  },
 ];
 
 const SALAH_INFO = {
@@ -533,6 +615,8 @@ const SALAH_INFO = {
     { en: 'Tasbeeh in ruku and sujud', bn: 'রুকু ও সিজদায় তাসবিহ বলা' },
     { en: 'First Tashahhud (in 3 or 4 rak\'ah prayers)', bn: 'প্রথম তাশাহহুদ (তিন বা চার রাকাতে)' },
     { en: 'Sitting for the first Tashahhud', bn: 'প্রথম তাশাহহুদের জন্য বসা' },
+    { en: 'Reciting Qunut in the Witr prayer', bn: 'বিতর নামাজে দুআ কুনূত পড়া' },
+    { en: 'Performing Sujud as-Sahw (two prostrations of forgetfulness) when a wajib is omitted, delayed, or added by mistake', bn: 'ভুলবশত কোনো ওয়াজিব ছুটে গেলে, বিলম্ব হলে বা বাড়তি হলে সাহু সিজদা (ভুলের দুই সিজদা) করা' },
   ],
   sunnah: [
     { en: 'Raising the hands for takbirs', bn: 'তাকবিরের সময় হাত উঠানো' },
@@ -545,6 +629,8 @@ const SALAH_INFO = {
     { en: 'Saying the tasbeeh in ruku/sujud more than once', bn: 'রুকু/সিজদায় তাসবিহ একাধিকবার বলা' },
     { en: 'Dua between the two sujud', bn: 'দুই সিজদার মাঝে দোয়া পড়া' },
     { en: 'Dua after the final Tashahhud before salaam', bn: 'শেষ তাশাহহুদের পর সালামের আগে দোয়া' },
+    { en: 'Avoiding voluntary (nafl) prayer at the three prohibited times: at sunrise, when the sun is at its zenith (midday), and at sunset', bn: 'তিন নিষিদ্ধ সময়ে নফল নামাজ না পড়া: সূর্যোদয়ের সময়, ঠিক দুপুরে (সূর্য মধ্যাকাশে) এবং সূর্যাস্তের সময়' },
+    { en: 'For a traveller, shortening the four-rak\'ah fard prayers to two rak\'ahs (qasr), as the Prophet ﷺ did on journeys', bn: 'মুসাফিরের জন্য চার রাকাত ফরজ নামাজ দুই রাকাতে সংক্ষিপ্ত করা (কসর), যেমন নবী ﷺ সফরে করতেন' },
   ],
 };
 

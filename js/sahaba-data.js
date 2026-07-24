@@ -3454,6 +3454,442 @@ const SAHABA_DATA = [
     "refs": [],
     "lessonEn": "One bold step toward the truth can define an entire life of devotion.",
     "lessonBn": "সত্যের দিকে একটি সাহসী পদক্ষেপ গোটা একটি নিবেদিত জীবনকে রূপ দিতে পারে।"
+  },
+  {
+    "id": "abu_dujana_simak_ibn_kharashah",
+    "order": 74,
+    "init": "AD",
+    "color": "bg-teal-600",
+    "ar": "أَبُو دُجَانَة سِمَاك بْن خَرَشَة",
+    "translit": "Abu Dujana Simak ibn Kharashah",
+    "en": "Abu Dujana Simak ibn Kharashah (RA)",
+    "bn": "আবু দুজানা সিমাক ইবনে খারাশা (রাঃ)",
+    "era": "battles",
+    "ashara": false,
+    "caliph": false,
+    "ansar": true,
+    "woman": false,
+    "roleEn": "The Warrior of the Red Headband",
+    "roleBn": "লাল পট্টির যোদ্ধা",
+    "yearEn": "d. 633 CE",
+    "highlightEn": "He took the Prophet's ﷺ sword at Uhud and gave it its due.",
+    "highlightBn": "উহুদে নবীজি ﷺ-এর তরবারি নিয়ে তার হক আদায় করেন।",
+    "summaryEn": "Abu Dujana Simak ibn Kharashah (RA) was a courageous warrior of the Ansar from the tribe of Khazraj in Madinah. At the Battle of Uhud the Prophet Muhammad (peace be upon him) held out his sword and asked who would take it and give it its right; Abu Dujana asked what its right was, and when told it was to strike the enemy until it bent, he took it. He tied on his famous red headband, a sign he wore only when he meant to fight to the death, and walked proudly between the ranks. He fought fiercely that day and was among those who guarded the Prophet when the Muslims were scattered. He later attained martyrdom at the Battle of Yamama against Musaylimah the Liar.",
+    "summaryBn": "আবু দুজানা সিমাক ইবনে খারাশা (রাঃ) ছিলেন মদিনার খাযরাজ গোত্রের একজন সাহসী আনসার যোদ্ধা। উহুদের যুদ্ধে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) তাঁর তরবারি বাড়িয়ে জিজ্ঞাসা করেন কে এটি নিয়ে এর হক আদায় করবে; আবু দুজানা এর হক জানতে চাইলে তাঁকে বলা হয় বাঁকা হওয়া পর্যন্ত শত্রুকে আঘাত করা, আর তিনি তা গ্রহণ করেন। তিনি তাঁর বিখ্যাত লাল পট্টি বাঁধেন, যা তিনি কেবল মৃত্যুপণ যুদ্ধের সংকল্প করলেই পরতেন, এবং সারিগুলোর মাঝে গর্বভরে চলেন। সেদিন তিনি প্রচণ্ড লড়াই করেন এবং মুসলিমরা ছত্রভঙ্গ হলে যারা নবীজিকে পাহারা দেন তাদের একজন ছিলেন। পরে ইয়ামামার যুদ্ধে মুসায়লিমা কাযযাবের বিরুদ্ধে তিনি শাহাদাত বরণ করেন।",
+    "events": [
+      {
+        "en": "Took the Prophet's ﷺ sword at Uhud and pledged its right",
+        "bn": "উহুদে নবীজি ﷺ-এর তরবারি নিয়ে এর হক আদায়ের অঙ্গীকার করেন"
+      },
+      {
+        "en": "Wore his red headband, his mark of fighting to the death",
+        "bn": "মৃত্যুপণ যুদ্ধের চিহ্ন লাল পট্টি বাঁধেন"
+      },
+      {
+        "en": "Among those who defended the Prophet ﷺ when ranks broke at Uhud",
+        "bn": "উহুদে সারি ভেঙে গেলে নবীজি ﷺ-কে রক্ষাকারীদের একজন"
+      },
+      {
+        "en": "Attained martyrdom at the Battle of Yamama",
+        "bn": "ইয়ামামার যুদ্ধে শাহাদাত বরণ করেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Courage is not boasting; it is taking up a trust and giving it its full due.",
+    "lessonBn": "সাহস মানে বড়াই নয়; বরং একটি আমানত গ্রহণ করে তার পূর্ণ হক আদায় করা।"
+  },
+  {
+    "id": "hanzala_ibn_abi_amir",
+    "order": 75,
+    "init": "HA",
+    "color": "bg-sky-600",
+    "ar": "حَنْظَلَة بْن أَبِي عَامِر",
+    "translit": "Hanzala ibn Abi Amir",
+    "en": "Hanzala ibn Abi Amir (RA)",
+    "bn": "হানযালা ইবনে আবি আমির (রাঃ)",
+    "era": "battles",
+    "ashara": false,
+    "caliph": false,
+    "ansar": true,
+    "woman": false,
+    "roleEn": "The One Washed by the Angels",
+    "roleBn": "ফেরেশতাদের গোসল দেওয়া শহীদ",
+    "yearEn": "d. 625 CE",
+    "highlightEn": "Angels washed his body, so he is called Ghasil al-Mala'ika.",
+    "highlightBn": "ফেরেশতারা তাঁর দেহ গোসল দেন, তাই তিনি 'গাসিলুল মালাইকা'।",
+    "summaryEn": "Hanzala ibn Abi Amir (RA) was a young companion of the Ansar whose father, in tragic contrast, had rejected Islam and fought against the Muslims. Hanzala married on the very night before the Battle of Uhud, and when the call to arms came at dawn he hurried out to join the fighting without having performed the ritual bath (ghusl). He fought bravely and was martyred that day. The Prophet Muhammad (peace be upon him) told the companions that he had seen the angels washing Hanzala between the sky and the earth, so he became known as Ghasil al-Mala'ika, the one washed by the angels. His story shows that Allah honours the sincere believer even in the smallest details of their devotion.",
+    "summaryBn": "হানযালা ইবনে আবি আমির (রাঃ) ছিলেন আনসারের একজন তরুণ সাহাবি, যাঁর পিতা করুণভাবে ইসলাম প্রত্যাখ্যান করে মুসলিমদের বিরুদ্ধে যুদ্ধ করেছিলেন। উহুদের যুদ্ধের ঠিক আগের রাতে হানযালা বিবাহ করেন, আর ভোরে যুদ্ধের ডাক এলে তিনি ফরজ গোসল না করেই লড়াইয়ে ছুটে যান। সেদিন তিনি সাহসিকতার সাথে লড়ে শহীদ হন। রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) সাহাবিদের জানান যে তিনি আকাশ ও জমিনের মাঝে ফেরেশতাদের হানযালাকে গোসল দিতে দেখেছেন, তাই তিনি 'গাসিলুল মালাইকা' নামে পরিচিত হন। তাঁর কাহিনি দেখায় যে আল্লাহ আন্তরিক মুমিনকে তার ইবাদতের ক্ষুদ্রতম বিষয়েও সম্মানিত করেন।",
+    "events": [
+      {
+        "en": "Married on the night before Uhud",
+        "bn": "উহুদের আগের রাতে বিবাহ করেন"
+      },
+      {
+        "en": "Rushed to battle at dawn without performing ghusl",
+        "bn": "ভোরে গোসল না করেই যুদ্ধে ছুটে যান"
+      },
+      {
+        "en": "Martyred at the Battle of Uhud",
+        "bn": "উহুদের যুদ্ধে শহীদ হন"
+      },
+      {
+        "en": "The Prophet ﷺ saw angels washing his body between sky and earth",
+        "bn": "নবীজি ﷺ আকাশ-জমিনের মাঝে ফেরেশতাদের তাঁকে গোসল দিতে দেখেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Sincere haste toward Allah's call can earn an honour no worldly deed could buy.",
+    "lessonBn": "আল্লাহর ডাকে আন্তরিক তাড়া এমন সম্মান এনে দিতে পারে যা কোনো দুনিয়াবি আমল কিনতে পারে না।"
+  },
+  {
+    "id": "amr_ibn_al_jamuh",
+    "order": 76,
+    "init": "AJ",
+    "color": "bg-lime-600",
+    "ar": "عَمْرو بْن الْجَمُوح",
+    "translit": "Amr ibn al-Jamuh",
+    "en": "Amr ibn al-Jamuh (RA)",
+    "bn": "আমর ইবনুল জামুহ (রাঃ)",
+    "era": "battles",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Lame Man Who Sought Paradise",
+    "roleBn": "জান্নাতপ্রত্যাশী পঙ্গু সাহাবি",
+    "yearEn": "d. 625 CE",
+    "highlightEn": "Old and lame, he insisted on marching to Uhud to seek martyrdom.",
+    "highlightBn": "বৃদ্ধ ও খোঁড়া হয়েও শাহাদাতের জন্য উহুদে যাওয়ার জেদ ধরেন।",
+    "summaryEn": "Amr ibn al-Jamuh (RA) was an elderly leader of the Ansar of Madinah who walked with a pronounced limp. Before Islam he had honoured an idol in his home, until his sons secretly threw it into a pit again and again, teaching him that a helpless idol could bring no good; he then embraced Islam wholeheartedly. When Uhud came his sons urged him to stay behind because of his lameness and his excuse before Allah, but he refused, saying he longed to tread Paradise with his limping foot. The Prophet Muhammad (peace be upon him) permitted him to go, and he charged into battle and was martyred. The Prophet said he saw him walking sound and whole in Paradise.",
+    "summaryBn": "আমর ইবনুল জামুহ (রাঃ) ছিলেন মদিনার আনসারের একজন বয়োবৃদ্ধ নেতা, যিনি স্পষ্ট খোঁড়া পায়ে হাঁটতেন। ইসলামের আগে তিনি ঘরে একটি মূর্তিকে সম্মান করতেন, শেষে তাঁর ছেলেরা বারবার গোপনে সেটি গর্তে ফেলে দিলে তিনি বুঝতে পারেন অসহায় মূর্তি কোনো কল্যাণ আনতে পারে না; এরপর তিনি অন্তর থেকে ইসলাম গ্রহণ করেন। উহুদের সময় ছেলেরা তাঁকে খোঁড়া পায়ের ওজরের কারণে থেকে যেতে বলেন, কিন্তু তিনি অস্বীকার করে বলেন তিনি এই খোঁড়া পা নিয়েই জান্নাতে হাঁটতে চান। রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) তাঁকে অনুমতি দেন, আর তিনি যুদ্ধে ঝাঁপিয়ে পড়ে শহীদ হন। নবীজি বলেন তিনি তাঁকে সুস্থ পায়ে জান্নাতে হাঁটতে দেখেছেন।",
+    "events": [
+      {
+        "en": "Abandoned his household idol after his sons exposed its helplessness",
+        "bn": "ছেলেরা মূর্তির অসহায়তা দেখানোর পর তা পরিত্যাগ করেন"
+      },
+      {
+        "en": "Insisted on joining Uhud despite his lameness and valid excuse",
+        "bn": "খোঁড়া পা ও বৈধ ওজর সত্ত্বেও উহুদে যাওয়ার জেদ ধরেন"
+      },
+      {
+        "en": "Martyred at Uhud alongside his son Khallad",
+        "bn": "পুত্র খাল্লাদসহ উহুদে শহীদ হন"
+      },
+      {
+        "en": "The Prophet ﷺ said he saw him walking whole in Paradise",
+        "bn": "নবীজি ﷺ বলেন তিনি তাঁকে সুস্থ পায়ে জান্নাতে হাঁটতে দেখেছেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "A sincere heart turns even its weaknesses into a means of drawing near to Allah.",
+    "lessonBn": "আন্তরিক অন্তর নিজের দুর্বলতাকেও আল্লাহর নৈকট্যের মাধ্যম বানিয়ে নেয়।"
+  },
+  {
+    "id": "abdullah_ibn_amr_ibn_haram",
+    "order": 77,
+    "init": "AH",
+    "color": "bg-emerald-600",
+    "ar": "عَبْد اللّٰه بْن عَمْرو بْن حَرَام",
+    "translit": "Abdullah ibn Amr ibn Haram",
+    "en": "Abdullah ibn Amr ibn Haram (RA)",
+    "bn": "আবদুল্লাহ ইবনে আমর ইবনে হারাম (রাঃ)",
+    "era": "battles",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Martyr Whom Allah Addressed",
+    "roleBn": "যাঁর সাথে আল্লাহ কথা বলেছেন",
+    "yearEn": "d. 625 CE",
+    "highlightEn": "Father of Jabir; Allah spoke to him directly after his martyrdom at Uhud.",
+    "highlightBn": "জাবিরের পিতা; উহুদে শাহাদাতের পর আল্লাহ তাঁর সাথে সরাসরি কথা বলেন।",
+    "summaryEn": "Abdullah ibn Amr ibn Haram (RA) was a noble of the Ansar and one of the leaders (naqib) chosen at the Pledge of Aqaba, and the father of the famous companion Jabir ibn Abdullah. On the eve of Uhud he sensed he would be martyred, so he gathered his son and instructed him to care for his sisters and settle his debts. He was among the first to fall at Uhud, and his body was mutilated by the enemy. The Prophet Muhammad (peace be upon him) later told Jabir that Allah had spoken to his father face to face, asking what he wished; Abdullah asked only to be returned to the world to be killed again in Allah's cause. This is linked to the verse forbidding us to think the martyrs are dead.",
+    "summaryBn": "আবদুল্লাহ ইবনে আমর ইবনে হারাম (রাঃ) ছিলেন আনসারের একজন সম্ভ্রান্ত ব্যক্তি এবং আকাবার শপথে নির্বাচিত নেতাদের (নকিব) একজন, আর বিখ্যাত সাহাবি জাবির ইবনে আবদুল্লাহর পিতা। উহুদের প্রাক্কালে তিনি আন্দাজ করেন যে তিনি শহীদ হবেন, তাই ছেলেকে ডেকে বোনদের দেখাশোনা ও ঋণ পরিশোধের নির্দেশ দেন। উহুদে প্রথম শহীদদের একজন ছিলেন তিনি, আর শত্রুরা তাঁর দেহ বিকৃত করে। পরে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) জাবিরকে জানান যে আল্লাহ তাঁর পিতার সাথে সরাসরি কথা বলে তাঁর ইচ্ছা জানতে চেয়েছেন; আবদুল্লাহ কেবল দুনিয়ায় ফিরে আল্লাহর পথে পুনরায় নিহত হওয়ার আকাঙ্ক্ষা করেন। এটি শহীদদের মৃত মনে করতে নিষেধকারী আয়াতের সাথে সংশ্লিষ্ট।",
+    "events": [
+      {
+        "en": "A naqib (leader) chosen at the Pledge of Aqaba",
+        "bn": "আকাবার শপথে নির্বাচিত একজন নকিব (নেতা)"
+      },
+      {
+        "en": "Foretold his own martyrdom and instructed his son Jabir",
+        "bn": "নিজ শাহাদাতের আভাস দিয়ে ছেলে জাবিরকে নির্দেশ দেন"
+      },
+      {
+        "en": "Among the first martyrs of Uhud",
+        "bn": "উহুদের প্রথম শহীদদের একজন"
+      },
+      {
+        "en": "Allah addressed him directly and he wished to return to be martyred again",
+        "bn": "আল্লাহ সরাসরি তাঁর সাথে কথা বলেন, তিনি পুনরায় শহীদ হতে চান"
+      }
+    ],
+    "refs": [
+      "3:169"
+    ],
+    "lessonEn": "The martyrs live on with their Lord; death in His path is a doorway, not an end.",
+    "lessonBn": "শহীদগণ তাঁদের প্রভুর কাছে জীবিত; তাঁর পথে মৃত্যু শেষ নয়, বরং এক দরজা।"
+  },
+  {
+    "id": "al_bara_ibn_malik_al_ansari",
+    "order": 78,
+    "init": "BM",
+    "color": "bg-orange-500",
+    "ar": "الْبَرَاء بْن مَالِك الْأَنْصَارِي",
+    "translit": "al-Bara ibn Malik al-Ansari",
+    "en": "al-Bara ibn Malik al-Ansari (RA)",
+    "bn": "আল-বারা ইবনে মালিক আল-আনসারি (রাঃ)",
+    "era": "battles",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Hero of Yamama",
+    "roleBn": "ইয়ামামার বীর",
+    "yearEn": "d. 641 CE",
+    "highlightEn": "Thrown over the wall of Musaylimah's garden to open the gate for the Muslims.",
+    "highlightBn": "মুসায়লিমার বাগানের দেয়াল টপকে ভেতরে গিয়ে দরজা খুলে দেন।",
+    "summaryEn": "Al-Bara ibn Malik al-Ansari (RA) was the brother of the Prophet's servant Anas ibn Malik and one of the bravest warriors of the Ansar. He was a man whose prayers Allah answered, and the companions would sometimes ask him to swear an oath upon Allah in the heat of battle, confident it would be fulfilled. At the Battle of Yamama against Musaylimah the Liar, the enemy retreated into a walled garden; al-Bara had himself lifted on shields and thrown over the wall, where he fought alone until he opened the gate for the Muslim army, though he was wounded many times. He continued to fight in later campaigns in Persia and finally attained the martyrdom he had long sought.",
+    "summaryBn": "আল-বারা ইবনে মালিক আল-আনসারি (রাঃ) ছিলেন নবীজির খাদেম আনাস ইবনে মালিকের ভাই এবং আনসারের অন্যতম সাহসী যোদ্ধা। তিনি ছিলেন এমন ব্যক্তি যাঁর দোয়া আল্লাহ কবুল করতেন, আর যুদ্ধের উত্তাপে সাহাবিরা কখনো তাঁকে আল্লাহর নামে শপথ করতে বলতেন এই আস্থায় যে তা পূর্ণ হবে। মুসায়লিমা কাযযাবের বিরুদ্ধে ইয়ামামার যুদ্ধে শত্রুরা একটি প্রাচীরঘেরা বাগানে আশ্রয় নিলে, বারাকে ঢালের ওপর তুলে দেয়ালের ওপারে ফেলে দেওয়া হয়, যেখানে তিনি একাই লড়ে মুসলিম বাহিনীর জন্য দরজা খুলে দেন, যদিও বহুবার আহত হন। পরবর্তীতে পারস্যের অভিযানেও তিনি লড়ে যান এবং শেষে দীর্ঘদিনের কাঙ্ক্ষিত শাহাদাত লাভ করেন।",
+    "events": [
+      {
+        "en": "Brother of Anas ibn Malik and a man whose prayers were answered",
+        "bn": "আনাস ইবনে মালিকের ভাই ও যাঁর দোয়া কবুল হতো"
+      },
+      {
+        "en": "Thrown over the wall at Yamama to open the garden gate",
+        "bn": "ইয়ামামায় বাগানের দরজা খুলতে দেয়াল টপকে ফেলা হয়"
+      },
+      {
+        "en": "Fought on in the conquests of Persia",
+        "bn": "পারস্য বিজয়েও লড়াই চালিয়ে যান"
+      },
+      {
+        "en": "Attained the martyrdom he had long yearned for",
+        "bn": "দীর্ঘদিনের কাঙ্ক্ষিত শাহাদাত লাভ করেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Nearness to Allah gives a believer a courage the world cannot understand.",
+    "lessonBn": "আল্লাহর নৈকট্য মুমিনকে এমন সাহস দেয় যা দুনিয়া বুঝতে পারে না।"
+  },
+  {
+    "id": "abu_sufyan_ibn_al_harith",
+    "order": 79,
+    "init": "SH",
+    "color": "bg-slate-600",
+    "ar": "أَبُو سُفْيَان بْن الْحَارِث",
+    "translit": "Abu Sufyan ibn al-Harith",
+    "en": "Abu Sufyan ibn al-Harith (RA)",
+    "bn": "আবু সুফিয়ান ইবনুল হারিস (রাঃ)",
+    "era": "conquest",
+    "ansar": false,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Cousin Who Returned",
+    "roleBn": "ফিরে আসা চাচাতো ভাই",
+    "yearEn": "d. 639 CE",
+    "highlightEn": "The Prophet's ﷺ cousin and foster-brother who embraced Islam before the conquest of Makkah.",
+    "highlightBn": "নবীজি ﷺ-এর চাচাতো ভাই ও দুধভাই, মক্কা বিজয়ের আগে ইসলাম গ্রহণ করেন।",
+    "summaryEn": "Abu Sufyan ibn al-Harith (RA) was a cousin of the Prophet Muhammad (peace be upon him) and his foster-brother, having been nursed by the same woman, and in youth a close friend. Yet after the mission began he opposed the Prophet for years and composed poetry mocking him. As the Muslims marched to conquer Makkah, he came with his son, repented sincerely, and embraced Islam; the Prophet forgave him warmly. He then fought valiantly at the Battle of Hunayn, standing firm beside the Prophet when many fled, holding the reins of his mule. So complete was his transformation that the Prophet said he hoped Abu Sufyan would be a substitute for Hamza. He lived a life of deep humility and worship until his death.",
+    "summaryBn": "আবু সুফিয়ান ইবনুল হারিস (রাঃ) ছিলেন নবী মুহাম্মাদ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর চাচাতো ভাই ও দুধভাই, কারণ একই নারীর দুধ পান করেছিলেন, আর যৌবনে ঘনিষ্ঠ বন্ধু। তবু নবুয়তের পর তিনি বছরের পর বছর নবীজির বিরোধিতা করেন এবং তাঁকে বিদ্রূপ করে কবিতা রচনা করেন। মুসলিমরা মক্কা বিজয়ের পথে রওনা হলে তিনি ছেলেসহ এসে আন্তরিকভাবে তওবা করে ইসলাম গ্রহণ করেন; নবীজি উষ্ণভাবে তাঁকে ক্ষমা করেন। এরপর হুনায়নের যুদ্ধে তিনি বীরত্বের সাথে লড়েন, অনেকে পালিয়ে গেলেও নবীজির খচ্চরের লাগাম ধরে পাশে অবিচল থাকেন। তাঁর পরিবর্তন এতটাই পূর্ণ ছিল যে নবীজি আশা করেন তিনি যেন হামজার স্থলাভিষিক্ত হন। মৃত্যু পর্যন্ত তিনি গভীর বিনয় ও ইবাদতের জীবন যাপন করেন।",
+    "events": [
+      {
+        "en": "Cousin and foster-brother of the Prophet ﷺ, once his opponent",
+        "bn": "নবীজি ﷺ-এর চাচাতো ও দুধভাই, একসময় বিরোধী ছিলেন"
+      },
+      {
+        "en": "Embraced Islam sincerely on the march to conquer Makkah",
+        "bn": "মক্কা বিজয়ের পথে আন্তরিকভাবে ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Stood firm beside the Prophet ﷺ at Hunayn when others fled",
+        "bn": "হুনায়নে অন্যরা পালালেও নবীজি ﷺ-এর পাশে অবিচল থাকেন"
+      },
+      {
+        "en": "Lived out his years in humility, digging his own grave before death",
+        "bn": "বিনয়ের সাথে জীবন কাটান, মৃত্যুর আগে নিজ কবর খনন করেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "No past enmity is too great for sincere repentance to wash away.",
+    "lessonBn": "আন্তরিক তওবার সামনে কোনো অতীত শত্রুতাই মুছে ফেলার অসাধ্য নয়।"
+  },
+  {
+    "id": "thabit_ibn_qays_ibn_shammas",
+    "order": 80,
+    "init": "TQ",
+    "color": "bg-fuchsia-600",
+    "ar": "ثَابِت بْن قَيْس بْن شَمَّاس",
+    "translit": "Thabit ibn Qays ibn Shammas",
+    "en": "Thabit ibn Qays ibn Shammas (RA)",
+    "bn": "সাবিত ইবনে কায়স ইবনে শাম্মাস (রাঃ)",
+    "era": "battles",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Orator of the Ansar",
+    "roleBn": "আনসারের বাগ্মী",
+    "yearEn": "d. 633 CE",
+    "highlightEn": "The Prophet's ﷺ spokesman; given glad tidings of Paradise while alive.",
+    "highlightBn": "নবীজি ﷺ-এর মুখপাত্র; জীবদ্দশায় জান্নাতের সুসংবাদপ্রাপ্ত।",
+    "summaryEn": "Thabit ibn Qays ibn Shammas (RA) was the eloquent orator and spokesman of the Ansar, who would reply on behalf of the Prophet Muhammad (peace be upon him) to visiting delegations just as the poet Hassan answered in verse. He had a naturally loud voice, and when the verse was revealed forbidding the believers from raising their voices above the Prophet's, he feared his deeds were ruined and shut himself in his home grieving. The Prophet reassured him that he was not of the people of the Fire but of the people of Paradise. Years later Thabit had a true dream foretelling his martyrdom and even the settlement of his estate; he was killed at the Battle of Yamama, and his final bequest was carried out exactly as he had seen.",
+    "summaryBn": "সাবিত ইবনে কায়স ইবনে শাম্মাস (রাঃ) ছিলেন আনসারের বাগ্মী ও মুখপাত্র, যিনি আগত প্রতিনিধিদলের সামনে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর পক্ষ থেকে জবাব দিতেন, যেমন কবি হাসসান কবিতায় জবাব দিতেন। তাঁর কণ্ঠস্বর ছিল স্বভাবতই উঁচু, আর যখন নবীজির স্বরের ওপর কণ্ঠ না তোলার আয়াত নাজিল হয়, তিনি নিজের আমল বরবাদ হওয়ার আশঙ্কায় ঘরে বন্দি হয়ে শোক করেন। নবীজি তাঁকে আশ্বস্ত করেন যে তিনি জাহান্নামি নন বরং জান্নাতিদের একজন। বছর কয়েক পরে সাবিত এক সত্য স্বপ্নে নিজ শাহাদাত ও এমনকি সম্পত্তির ফয়সালার আভাস পান; ইয়ামামার যুদ্ধে তিনি শহীদ হন, আর তাঁর শেষ অসিয়ত হুবহু তাঁর দেখা মতোই বাস্তবায়িত হয়।",
+    "events": [
+      {
+        "en": "Spokesman of the Ansar before delegations",
+        "bn": "প্রতিনিধিদলের সামনে আনসারের মুখপাত্র"
+      },
+      {
+        "en": "Feared ruin at the verse on lowering voices, then reassured of Paradise",
+        "bn": "কণ্ঠ নত করার আয়াতে ভয় পান, পরে জান্নাতের আশ্বাস পান"
+      },
+      {
+        "en": "Foretold his martyrdom and estate in a true dream",
+        "bn": "সত্য স্বপ্নে নিজ শাহাদাত ও সম্পত্তির আভাস পান"
+      },
+      {
+        "en": "Martyred at the Battle of Yamama",
+        "bn": "ইয়ামামার যুদ্ধে শহীদ হন"
+      }
+    ],
+    "refs": [
+      "49:2"
+    ],
+    "lessonEn": "Guard the manners of reverence, and Allah will guard your good deeds.",
+    "lessonBn": "সম্মানের আদব রক্ষা করো, আল্লাহ তোমার নেক আমল রক্ষা করবেন।"
+  },
+  {
+    "id": "salamah_ibn_al_akwa",
+    "order": 81,
+    "init": "SA",
+    "color": "bg-cyan-600",
+    "ar": "سَلَمَة بْن الْأَكْوَع",
+    "translit": "Salamah ibn al-Akwa",
+    "en": "Salamah ibn al-Akwa (RA)",
+    "bn": "সালামা ইবনুল আকওয়া (রাঃ)",
+    "era": "battles",
+    "ansar": false,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Swift Warrior on Foot",
+    "roleBn": "পদাতিক দ্রুতগামী যোদ্ধা",
+    "yearEn": "d. 693 CE",
+    "highlightEn": "He single-handedly recovered the Prophet's ﷺ camels from raiders.",
+    "highlightBn": "একাই লুটেরাদের কাছ থেকে নবীজি ﷺ-এর উট উদ্ধার করেন।",
+    "summaryEn": "Salamah ibn al-Akwa (RA) was a companion famed for his speed on foot, said to be able to outrun a galloping horse, and for his skill as an archer and warrior. He gave the pledge of Ridwan to the Prophet Muhammad (peace be upon him) under the tree at Hudaybiyyah three times, being singled out as among the best of the people that day. When raiders from Ghatafan stole the Prophet's grazing camels, Salamah pursued them alone, shooting arrows and shouting battle cries until he recovered every animal and held the enemy off until reinforcements arrived. The Prophet praised him as the best of the foot-soldiers that day. He narrated many hadith and later withdrew to a simple life, dying in Madinah.",
+    "summaryBn": "সালামা ইবনুল আকওয়া (রাঃ) ছিলেন পায়ে দৌড়ে অসাধারণ দ্রুতগতির জন্য খ্যাত এক সাহাবি, বলা হয় তিনি ছুটন্ত ঘোড়াকেও পেছনে ফেলতে পারতেন, আর তিনি ছিলেন দক্ষ তীরন্দাজ ও যোদ্ধা। হুদায়বিয়ায় গাছের নিচে তিনি তিনবার রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর হাতে রিদওয়ানের বাইআত করেন এবং সেদিনের শ্রেষ্ঠ ব্যক্তিদের একজন হিসেবে বিশেষভাবে উল্লেখিত হন। গাতাফানের লুটেরারা নবীজির চারণরত উট লুট করলে সালামা একাই তাদের পিছু নেন, তীর ছুঁড়ে ও রণহুংকার দিয়ে প্রতিটি পশু উদ্ধার করেন এবং সাহায্য না আসা পর্যন্ত শত্রুকে ঠেকিয়ে রাখেন। নবীজি তাঁকে সেদিনের শ্রেষ্ঠ পদাতিক বলে প্রশংসা করেন। তিনি বহু হাদিস বর্ণনা করেন এবং পরে সাধারণ জীবনে ফিরে মদিনায় ইন্তেকাল করেন।",
+    "events": [
+      {
+        "en": "Gave the Pledge of Ridwan three times at Hudaybiyyah",
+        "bn": "হুদায়বিয়ায় তিনবার রিদওয়ানের বাইআত করেন"
+      },
+      {
+        "en": "Alone recovered the Prophet's ﷺ raided camels from Ghatafan",
+        "bn": "একাই গাতাফানের কাছ থেকে নবীজি ﷺ-এর লুট হওয়া উট উদ্ধার করেন"
+      },
+      {
+        "en": "Praised by the Prophet ﷺ as the best foot-soldier that day",
+        "bn": "নবীজি ﷺ তাঁকে সেদিনের শ্রেষ্ঠ পদাতিক বলে প্রশংসা করেন"
+      },
+      {
+        "en": "Narrated many hadith of the Prophet ﷺ",
+        "bn": "নবীজি ﷺ-এর বহু হাদিস বর্ণনা করেন"
+      }
+    ],
+    "refs": [
+      "48:18"
+    ],
+    "lessonEn": "Whatever talent Allah gives you, spend it fearlessly in service of the truth.",
+    "lessonBn": "আল্লাহ তোমাকে যে প্রতিভা দিয়েছেন, তা সত্যের সেবায় নির্ভয়ে ব্যয় করো।"
+  },
+  {
+    "id": "abbad_ibn_bishr",
+    "order": 82,
+    "init": "AB",
+    "color": "bg-violet-600",
+    "ar": "عَبَّاد بْن بِشْر",
+    "translit": "Abbad ibn Bishr",
+    "en": "Abbad ibn Bishr (RA)",
+    "bn": "আব্বাদ ইবনে বিশর (রাঃ)",
+    "era": "battles",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Devoted Guardian of the Night",
+    "roleBn": "রাতের নিবেদিত প্রহরী",
+    "yearEn": "d. 633 CE",
+    "highlightEn": "Shot with arrows while praying on guard duty, he refused to break his prayer.",
+    "highlightBn": "পাহারায় নামাজরত অবস্থায় তীরবিদ্ধ হয়েও নামাজ ভাঙেননি।",
+    "summaryEn": "Abbad ibn Bishr (RA) was a young Ansari companion who embraced Islam at the hands of Musab ibn Umayr before the Hijra, and became known for his devotion, his beautiful recitation, and his night prayer. On one expedition he and Ammar ibn Yasir took turns guarding the camp; Abbad stood in voluntary prayer during his watch, and when an enemy shot him with three arrows he pulled each one out and continued his prayer rather than cut it short, only then waking his companion. The Prophet Muhammad (peace be upon him) once heard his recitation at night and praised it. He was one of the trusted men entrusted to break the idols after the conquest, and he was martyred at the Battle of Yamama, fighting to rally the Ansar.",
+    "summaryBn": "আব্বাদ ইবনে বিশর (রাঃ) ছিলেন একজন তরুণ আনসারি সাহাবি, যিনি হিজরতের আগে মুসআব ইবনে উমায়েরের হাতে ইসলাম গ্রহণ করেন এবং তাঁর নিষ্ঠা, সুন্দর তিলাওয়াত ও রাতের নামাজের জন্য পরিচিত হন। এক অভিযানে তিনি ও আম্মার ইবনে ইয়াসির পালা করে শিবির পাহারা দেন; আব্বাদ তাঁর পালায় নফল নামাজে দাঁড়ান, আর শত্রু তাঁকে তিনটি তীর মারলে তিনি প্রতিটি তীর খুলে ফেলে নামাজ সংক্ষিপ্ত না করে চালিয়ে যান, তারপরই সঙ্গীকে জাগান। রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) একবার রাতে তাঁর তিলাওয়াত শুনে প্রশংসা করেন। বিজয়ের পর মূর্তি ভাঙার জন্য নিয়োজিত বিশ্বস্তদের একজন ছিলেন তিনি, আর ইয়ামামার যুদ্ধে আনসারকে সমবেত করতে লড়াই করে শহীদ হন।",
+    "events": [
+      {
+        "en": "Embraced Islam through Musab ibn Umayr in Madinah",
+        "bn": "মদিনায় মুসআব ইবনে উমায়েরের মাধ্যমে ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Pierced by three arrows on guard, he finished his prayer first",
+        "bn": "পাহারায় তিন তীরবিদ্ধ হয়েও আগে নামাজ শেষ করেন"
+      },
+      {
+        "en": "His night recitation was praised by the Prophet ﷺ",
+        "bn": "তাঁর রাতের তিলাওয়াত নবীজি ﷺ প্রশংসা করেন"
+      },
+      {
+        "en": "Martyred at Yamama rallying the Ansar",
+        "bn": "ইয়ামামায় আনসারকে সমবেত করতে গিয়ে শহীদ হন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "The love of standing before Allah can make even pain feel small.",
+    "lessonBn": "আল্লাহর সামনে দাঁড়ানোর ভালোবাসা যন্ত্রণাকেও তুচ্ছ করে দিতে পারে।"
+  },
+  {
+    "id": "usayd_ibn_hudayr",
+    "order": 83,
+    "init": "UH",
+    "color": "bg-indigo-600",
+    "ar": "أُسَيْد بْن حُضَيْر",
+    "translit": "Usayd ibn Hudayr",
+    "en": "Usayd ibn Hudayr (RA)",
+    "bn": "উসাইদ ইবনে হুদাইর (রাঃ)",
+    "era": "hijra",
+    "ansar": true,
+    "ashara": false,
+    "caliph": false,
+    "woman": false,
+    "roleEn": "The Chief Whom the Angels Drew Near",
+    "roleBn": "যাঁর কাছে ফেরেশতারা নেমেছিলেন",
+    "yearEn": "d. 641 CE",
+    "highlightEn": "Angels descended to listen as he recited the Quran at night.",
+    "highlightBn": "রাতে কুরআন তিলাওয়াতের সময় ফেরেশতারা শুনতে নেমে এসেছিলেন।",
+    "summaryEn": "Usayd ibn Hudayr (RA) was a noble chief of the Aws tribe in Madinah, wise, dignified, and skilled in warfare. He came to argue against Musab ibn Umayr, who was teaching Islam before the Hijra, but was so moved by the Quran that he embraced Islam and helped bring his people to faith. One night as he recited Surah al-Baqarah near his tethered horse, the animal grew restless; looking up, he saw a canopy of light with what seemed like lamps, which the Prophet Muhammad (peace be upon him) explained were angels drawing near to listen to his recitation. He was one of the leaders of the Ansar, firm in supporting Abu Bakr's succession, and known for his justice and generosity until his death in Madinah.",
+    "summaryBn": "উসাইদ ইবনে হুদাইর (রাঃ) ছিলেন মদিনার আওস গোত্রের একজন সম্ভ্রান্ত নেতা—জ্ঞানী, মর্যাদাবান ও যুদ্ধবিদ্যায় দক্ষ। হিজরতের আগে ইসলাম শিক্ষাদানকারী মুসআব ইবনে উমায়েরের সাথে তর্ক করতে এসে তিনি কুরআনে এতটাই অভিভূত হন যে ইসলাম গ্রহণ করেন এবং নিজ গোত্রকে ঈমানে আনতে সাহায্য করেন। এক রাতে বাঁধা ঘোড়ার কাছে সূরা বাকারা তিলাওয়াতের সময় ঘোড়াটি অস্থির হয়ে ওঠে; উপরে তাকিয়ে তিনি প্রদীপসদৃশ আলোর ছাউনি দেখেন, যা সম্পর্কে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) বলেন সেগুলো ছিল তাঁর তিলাওয়াত শুনতে নেমে আসা ফেরেশতা। তিনি ছিলেন আনসারের একজন নেতা, আবু বকরের খিলাফত সমর্থনে অবিচল, আর মৃত্যু পর্যন্ত ন্যায়পরায়ণতা ও দানশীলতার জন্য পরিচিত।",
+    "events": [
+      {
+        "en": "Came to oppose Musab ibn Umayr but embraced Islam on hearing the Quran",
+        "bn": "মুসআবের বিরোধিতা করতে এসে কুরআন শুনে ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Angels descended to listen to his night recitation",
+        "bn": "তাঁর রাতের তিলাওয়াত শুনতে ফেরেশতারা নেমে আসেন"
+      },
+      {
+        "en": "A leading chief of the Aws and pillar of the Ansar",
+        "bn": "আওসের প্রধান নেতা ও আনসারের স্তম্ভ"
+      },
+      {
+        "en": "Firmly supported the succession of Abu Bakr (RA)",
+        "bn": "আবু বকর (রাঃ)-এর খিলাফতে দৃঢ় সমর্থন দেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "An open heart can turn a moment of argument into a lifetime of guidance.",
+    "lessonBn": "একটি উন্মুক্ত অন্তর তর্কের মুহূর্তকেও সারাজীবনের হিদায়াতে রূপান্তর করতে পারে।"
   }
 ];
 
