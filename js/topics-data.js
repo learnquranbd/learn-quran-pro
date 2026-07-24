@@ -173,6 +173,126 @@ const RABBANA_DUAS = [
       tr: 'Nurumuzu tamamla ve bizi bağışla',
       fr: 'Parachève notre lumière et pardonne-nous'
     , zh: '完善我们的光明并饶恕我们', ja: '私たちの光を完成させ赦してください'}
+  },
+  {
+    refs: '3:9',
+    names: {
+      en: 'You will gather all mankind',
+      bn: 'আপনি সব মানুষকে একত্র করবেন',
+      ar: 'إنك جامع الناس ليوم لا ريب فيه',
+      ur: 'تو سب لوگوں کو جمع کرنے والا ہے',
+      id: 'Engkau mengumpulkan seluruh manusia',
+      tr: 'İnsanları toplayacak olan Sensin',
+      fr: 'Tu rassembleras tous les hommes'
+    , zh: '你必集合世人', ja: 'あなたは全人類を集められる'}
+  },
+  {
+    refs: '5:83',
+    names: {
+      en: 'Record us among the witnesses',
+      bn: 'আমাদের সাক্ষীদের অন্তর্ভুক্ত করুন',
+      ar: 'فاكتبنا مع الشاهدين',
+      ur: 'ہمیں گواہوں میں لکھ لے',
+      id: 'Catatlah kami bersama para saksi',
+      tr: 'Bizi şahitlerle beraber yaz',
+      fr: 'Inscris-nous parmi les témoins'
+    , zh: '求你使我们与作证者同列', ja: '私たちを証人たちと共に記してください'}
+  },
+  {
+    refs: '7:23',
+    names: {
+      en: 'We have wronged ourselves (dua of Adam)',
+      bn: 'আমরা নিজেদের প্রতি জুলুম করেছি (আদম আঃ-এর দুআ)',
+      ar: 'ربنا ظلمنا أنفسنا',
+      ur: 'ہم نے اپنے آپ پر ظلم کیا (آدم علیہ السلام کی دعا)',
+      id: 'Kami telah menzalimi diri kami (doa Adam)',
+      tr: 'Kendimize zulmettik (Âdem’in duası)',
+      fr: 'Nous nous sommes fait du tort (invocation d’Adam)'
+    , zh: '我们自欺了（阿丹的祈祷）', ja: '私たちは自らを損ないました（アーダムの祈り）'}
+  },
+  {
+    refs: '7:47',
+    names: {
+      en: 'Place us not with the wrongdoing people',
+      bn: 'আমাদের জালিমদের সাথে রাখবেন না',
+      ar: 'لا تجعلنا مع القوم الظالمين',
+      ur: 'ہمیں ظالم قوم کے ساتھ نہ کر',
+      id: 'Jangan tempatkan kami bersama kaum yang zalim',
+      tr: 'Bizi zalim toplulukla beraber kılma',
+      fr: 'Ne nous place pas avec les injustes'
+    , zh: '求你不要使我们与不义者同列', ja: '不義の民と共にしないでください'}
+  },
+  {
+    refs: '7:89',
+    names: {
+      en: 'Decide between us and our people in truth',
+      bn: 'আমাদের ও আমাদের জাতির মাঝে সত্যের ফয়সালা করুন',
+      ar: 'ربنا افتح بيننا وبين قومنا بالحق',
+      ur: 'ہمارے اور ہماری قوم کے درمیان حق کے ساتھ فیصلہ فرما',
+      id: 'Berilah keputusan yang benar antara kami dan kaum kami',
+      tr: 'Bizimle kavmimiz arasında hak ile hüküm ver',
+      fr: 'Tranche en toute vérité entre nous et notre peuple'
+    , zh: '求你在我们和我们的宗族之间依真理而判决', ja: '私たちと民の間を真理で裁いてください'}
+  },
+  {
+    refs: '7:126',
+    names: {
+      en: 'Pour patience upon us and let us die as Muslims',
+      bn: 'আমাদের ধৈর্য দিন ও মুসলিম হিসেবে মৃত্যু দিন',
+      ar: 'ربنا أفرغ علينا صبرا وتوفنا مسلمين',
+      ur: 'ہم پر صبر انڈیل دے اور ہمیں مسلمان کر کے موت دے',
+      id: 'Limpahkanlah kesabaran dan wafatkanlah kami sebagai muslim',
+      tr: 'Üzerimize sabır yağdır ve bizi müslüman olarak öldür',
+      fr: 'Déverse sur nous la patience et fais-nous mourir soumis'
+    , zh: '求你把坚忍倾注于我们，并使我们作为归顺者而死', ja: '忍耐を注ぎ、ムスリムとして死なせてください'}
+  },
+  {
+    refs: '10:85-86',
+    names: {
+      en: 'Make us not a trial; save us from the disbelievers',
+      bn: 'আমাদের ফিতনা বানাবেন না; কাফিরদের থেকে রক্ষা করুন',
+      ar: 'لا تجعلنا فتنة ونجنا من القوم الكافرين',
+      ur: 'ہمیں آزمائش نہ بنا اور کافروں سے نجات دے',
+      id: 'Jangan jadikan kami sasaran fitnah; selamatkan kami dari kaum kafir',
+      tr: 'Bizi bir fitne kılma; kâfir topluluktan bizi kurtar',
+      fr: 'Ne fais pas de nous une épreuve; sauve-nous des mécréants'
+    , zh: '求你不要使我们受迫害，求你拯救我们脱离不信道的民众', ja: '私たちを試練とせず、不信者から救ってください'}
+  },
+  {
+    refs: '18:10',
+    names: {
+      en: 'Grant us mercy and guidance (People of the Cave)',
+      bn: 'আমাদের রহমত ও হেদায়েত দিন (আসহাবে কাহফ)',
+      ar: 'آتنا من لدنك رحمة وهيئ لنا من أمرنا رشدا',
+      ur: 'ہمیں اپنے پاس سے رحمت دے اور ہمارے کام میں رہنمائی فرما',
+      id: 'Berikanlah rahmat dan petunjuk bagi urusan kami (Ashabul Kahfi)',
+      tr: 'Bize katından rahmet ver ve işimizde bize doğruyu kolaylaştır',
+      fr: 'Accorde-nous miséricorde et guide-nous en notre affaire'
+    , zh: '求你把你那里的恩惠赏赐我们，求你使我们的事业完全端正', ja: '御許から慈悲を授け、私たちの事を正しく導いてください'}
+  },
+  {
+    refs: '25:65-66',
+    names: {
+      en: 'Avert from us the punishment of Hell',
+      bn: 'জাহান্নামের শাস্তি আমাদের থেকে দূর করুন',
+      ar: 'اصرف عنا عذاب جهنم',
+      ur: 'ہم سے جہنم کا عذاب ٹال دے',
+      id: 'Jauhkanlah azab Jahanam dari kami',
+      tr: 'Cehennem azabını bizden savuştur',
+      fr: 'Écarte de nous le châtiment de l’Enfer'
+    , zh: '求你使我们得免于火狱的刑罚', ja: '地獄の懲罰を私たちから遠ざけてください'}
+  },
+  {
+    refs: '60:4-5',
+    names: {
+      en: 'Upon You we rely; make us not a trial (dua of Ibrahim)',
+      bn: 'আপনার উপরই ভরসা করি; আমাদের ফিতনা বানাবেন না (ইবরাহীম আঃ-এর দুআ)',
+      ar: 'عليك توكلنا ولا تجعلنا فتنة للذين كفروا',
+      ur: 'ہم نے تجھ پر بھروسہ کیا؛ ہمیں کافروں کے لیے آزمائش نہ بنا (ابراہیم علیہ السلام کی دعا)',
+      id: 'Kepada-Mu kami bertawakal; jangan jadikan kami fitnah bagi orang kafir (doa Ibrahim)',
+      tr: 'Sana tevekkül ettik; bizi inkârcılara fitne kılma (İbrahim’in duası)',
+      fr: 'C’est à Toi que nous nous confions; ne fais pas de nous une épreuve (invocation d’Ibrahim)'
+    , zh: '我们只信托你；求你不要使我们成为不信道者的考验（易卜拉欣的祈祷）', ja: 'あなたに委ねます、私たちを不信者への試練とされないでください（イブラーヒームの祈り）'}
   }
 ];
 

@@ -389,5 +389,72 @@ const MUTASHABIHAT_GROUPS = [
     nameAr: 'فَمَنۡ أَظۡلَمُ مِمَّنۡ — التقريع البلاغي',
     descEn: 'The rhetorical formula "fa-man aẓlamu mim-man…" (who is more unjust than one who…) appears nine times across six sūrahs, each introducing a specific category of supreme transgression: fabricating lies against God (6:21, 6:93, 7:37, 10:17, 11:18, 29:68, 39:32) or concealing divine testimony (2:140). Al-Kirmānī devotes an extended section in al-Burhān to this group, noting that the question is always rhetorical — no one is more unjust — yet the offence named varies each time, and students memorising these sūrahs routinely transpose the specific crime from one occurrence to another.',
     verses: ['2:140', '6:21', '6:93', '7:37', '10:17', '11:18', '29:68', '39:32']
+  },
+
+  // ── Wave 4 — 8 additional curated groups ─────────────────────────────────
+
+  {
+    id: 'ghafil-amma-tamalun',
+    nameEn: '"Allah Is Not Unaware of What You Do" — taʿmalūn vs yaʿmalūn',
+    nameAr: 'وَمَا ٱللَّهُ بِغَٰفِلٍ عَمَّا تَعْمَلُونَ / يَعْمَلُونَ',
+    descEn: 'The verse-closing warning "wa-mā llāhu bi-ghāfilin ʿammā taʿmalūn" (…of what YOU do) recurs identically at 2:74, 2:85, 2:140, 2:149 and 3:99. But at 2:144 the pronoun shifts to third person — "…ʿammā yaʿmalūn" (of what THEY do) — and at 27:93 the subject changes to "wa-mā rabbuka" (your Lord) instead of "wa-mā llāhu". Al-Kirmānī flags the taʿmalūn/yaʿmalūn switch as one of the most substituted single-letter distinctions in ḥifẓ, since five near-neighbours in al-Baqarah use "taʿmalūn" while 2:144 alone breaks the pattern.',
+    descBn: 'আয়াতের শেষে সতর্কবাণী "ওয়া মা-ল্লাহু বিগাফিলিন আম্মা তা\'মালূন" (তোমরা যা কর তা থেকে আল্লাহ গাফিল নন) হুবহু একই রূপে আসে ২:৭৪, ২:৮৫, ২:১৪০, ২:১৪৯ ও ৩:৯৯-এ। কিন্তু ২:১৪৪-এ সর্বনাম বদলে তৃতীয় পুরুষ হয়ে যায় — "আম্মা ইয়া\'মালূন" (তারা যা করে) — আর ২৭:৯৩-এ কর্তা বদলে "ওয়া মা রাব্বুকা" (তোমার রব) হয়। আল-বাকারার পাঁচটি কাছাকাছি আয়াতে "তা\'মালূন" থাকায় একমাত্র ব্যতিক্রম ২:১৪৪ হিফযে বহুল বিভ্রান্তির কারণ।',
+    verses: ['2:74', '2:85', '2:140', '2:144', '2:149', '3:99', '27:93']
+  },
+  {
+    id: 'sami-alim-endings',
+    nameEn: 'As-Samīʿ al-ʿAlīm — The "Hearing, Knowing" Verse-Endings',
+    nameAr: 'ٱلسَّمِيعُ ٱلْعَلِيمُ — خواتيم الآيات',
+    descEn: 'Dozens of verses close with the divine-name pair "as-Samīʿ al-ʿAlīm" (the All-Hearing, All-Knowing), but the lead-in phrase rotates: "wa-huwa s-Samīʿu l-ʿAlīm" (2:137), "inna llāha samīʿun ʿalīm" (2:181), and "innahu huwa s-Samīʿu l-ʿAlīm" (8:61, 26:220, 41:36, 44:6). Al-Kirmānī notes that the same closing pair with four different introductory formulas — plus the risk of substituting it for "al-ʿAzīz al-Ḥakīm" or "al-ʿAlīm al-Ḥakīm" — makes this one of the densest colophon-confusion sets in the Quran.',
+    descBn: 'বহু আয়াত শেষ হয় "আস-সামী\' আল-আলীম" (সর্বশ্রোতা, সর্বজ্ঞ) নাম-জোড়ায়, তবে এর পূর্ববর্তী বাক্যাংশ বদলায়: "ওয়া হুওয়াস-সামী\'উল-আলীম" (২:১৩৭), "ইন্নাল্লাহা সামী\'উন আলীম" (২:১৮১), এবং "ইন্নাহু হুওয়াস-সামী\'উল-আলীম" (৮:৬১, ২৬:২২০, ৪১:৩৬, ৪৪:৬)। একই সমাপ্তি-জোড়ার চারটি ভিন্ন সূচনা, সেই সঙ্গে একে "আল-আযীয আল-হাকীম" বা "আল-আলীম আল-হাকীম"-এর সঙ্গে গুলিয়ে ফেলার ঝুঁকি — এটি কুরআনের অন্যতম ঘন বিভ্রান্তিকর সমাপ্তি-গুচ্ছ।',
+    verses: ['2:137', '2:181', '8:61', '26:220', '41:36', '44:6']
+  },
+  {
+    id: 'tughni-nudhur',
+    nameEn: '"Warnings Avail Nothing" — Fa-mā Tughni n-Nudhur',
+    nameAr: 'فَمَا تُغْنِ ٱلنُّذُرُ / وَمَا تُغْنِى ٱلْـَٔايَٰتُ وَٱلنُّذُرُ',
+    descEn: 'Two verses hinge on the root gh-n-y (to avail) with "an-nudhur" (the warnings/warners). Sūrat al-Qamar 54:5 reads tersely "ḥikmatun bālighatun fa-mā tughni n-nudhur" (…so what use are the warners?), while Yūnus 10:101 expands it: "wa-mā tughnī l-āyātu wa-n-nudhuru ʿan qawmin lā yuʾminūn" (neither signs nor warners avail a people who will not believe). The near-identical "tughni…an-nudhur" core with one adding "al-āyāt" and a full clause is a classic close-pair that reciters conflate.',
+    descBn: 'দুটি আয়াত গ-ন-ইয়া (উপকারে আসা) মূল ও "আন-নুযুর" (সতর্ককারী) নিয়ে গঠিত। সূরা আল-কামার ৫৪:৫ সংক্ষেপে বলে "হিকমাতুন বালিগাতুন ফামা তুগনিন-নুযুর" (…তবে সতর্ককারীরা কী কাজে আসে?), আর ইউনুস ১০:১০১ তা বিস্তৃত করে: "ওয়ামা তুগনিল-আয়াতু ওয়ান-নুযুরু আন কাওমিন লা ইউ\'মিনূন" (যারা ঈমান আনবে না তাদের জন্য নিদর্শন ও সতর্ককারী কোনো কাজে আসে না)। প্রায় একই "তুগনি…আন-নুযুর" কেন্দ্র থাকায় তিলাওয়াতকারীরা এদুটি গুলিয়ে ফেলেন।',
+    verses: ['10:101', '54:5']
+  },
+  {
+    id: 'bani-israil-baqarah',
+    nameEn: 'The Banū Isrāʾīl Reminders in al-Baqarah',
+    nameAr: 'نداءات بني إسرائيل في سورة البقرة',
+    descEn: 'Three verses open the Israelite address with the identical call "yā banī Isrāʾīla dhkurū niʿmatiya llatī anʿamtu ʿalaykum" (O Children of Israel, remember My favour upon you). At 2:40 the continuation is unique — "wa-awfū bi-ʿahdī ūfi bi-ʿahdikum wa-iyyāya fa-rhabūn" (fulfil My covenant…). But 2:47 and 2:122 are word-for-word identical, both continuing "wa-annī faḍḍaltukum ʿalā l-ʿālamīn" (and that I favoured you above the worlds). Al-Kirmānī cites this trio as a textbook trap: one shared opening, two verses fully identical, one diverging.',
+    descBn: 'তিনটি আয়াত ইসরাঈল-সন্তানদের প্রতি একই আহ্বানে শুরু হয় "ইয়া বানী ইসরাঈলাযকুরূ নি\'মাতিয়াল্লাতী আন\'আমতু আলাইকুম" (হে বনী ইসরাঈল, আমার নিয়ামত স্মরণ কর)। ২:৪০-এ ধারাবাহিকতা অনন্য — "ওয়া আওফূ বিআহদী ঊফি বিআহদিকুম ওয়া ইয়্যায়া ফারহাবূন" (আমার অঙ্গীকার পূরণ কর…)। কিন্তু ২:৪৭ ও ২:১২২ হুবহু একই, উভয়ই বলে "ওয়া আন্নী ফাদ্দালতুকুম আলাল-আলামীন" (আমি তোমাদের সৃষ্টিকুলের ওপর শ্রেষ্ঠত্ব দিয়েছি)। একটি অভিন্ন সূচনা, দুটি সম্পূর্ণ অভিন্ন, একটি ভিন্ন — শাস্ত্রীয় ফাঁদ।',
+    verses: ['2:40', '2:47', '2:122']
+  },
+  {
+    id: 'innaka-anta-closings',
+    nameEn: '"Indeed You, You Are…" — The Innaka Anta Supplication Closings',
+    nameAr: 'إِنَّكَ أَنتَ — خواتيم الأدعية',
+    descEn: 'Prophetic supplications frequently close with "innaka anta…" (indeed You, You are…) followed by different divine-name pairs: "al-ʿAlīm al-Ḥakīm" (Ibrāhīm & Ismāʿīl, 2:32 is the angels\' — Ibrāhīm at 2:129 "al-ʿAzīz al-Ḥakīm"); "at-Tawwāb ar-Raḥīm" (2:128); "al-Wahhāb" (3:8); "ʿAllām al-Ghuyūb" (5:116); and "al-ʿAzīz al-Ḥakīm" (5:118). Al-Kirmānī highlights that memorisers, primed by the identical "innaka anta" frame, routinely attach the wrong attribute-pair to the wrong prayer.',
+    descBn: 'নবীগণের দোয়া প্রায়ই "ইন্নাকা আনতা…" (নিশ্চয় আপনি, আপনিই…) দিয়ে শেষ হয়, এরপর ভিন্ন নাম-জোড়া: "আল-আলীম আল-হাকীম" (২:৩২ ফেরেশতাদের বাণী), "আত-তাওওয়াব আর-রাহীম" (২:১২৮), "আল-ওয়াহহাব" (৩:৮), "আল্লাম আল-গুয়ূব" (৫:১১৬), এবং "আল-আযীয আল-হাকীম" (৫:১১৮)। অভিন্ন "ইন্নাকা আনতা" কাঠামোর কারণে হাফিযগণ প্রায়ই ভুল দোয়ার সঙ্গে ভুল গুণ-জোড়া যুক্ত করে ফেলেন বলে আল-কিরমানী উল্লেখ করেন।',
+    verses: ['2:32', '2:128', '3:8', '5:116', '5:118']
+  },
+  {
+    id: 'aqim-salata-atu-zakata',
+    nameEn: '"Establish Prayer and Give Zakāh" — The Twin Command',
+    nameAr: 'وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ',
+    descEn: 'The paired command "wa-aqīmū ṣ-ṣalāta wa-ātū z-zakāta" (establish the prayer and give the zakāh) recurs in dozens of verses, always with a different continuation. At 2:43 it closes "wa-rkaʿū maʿa r-rākiʿīn" (…and bow with those who bow); at 2:110 "wa-mā tuqaddimū li-anfusikum…" (whatever good you send forth…); at 24:56 "wa-aṭīʿū r-rasūla laʿallakum turḥamūn" (…and obey the Messenger); within the covenant of 2:83; and among the night-prayer rulings of 73:20. Ibn az-Zubayr al-Gharnāṭī treats the varying tail clause attached to the identical command as the defining challenge.',
+    descBn: 'যুগল আদেশ "ওয়া আকীমুস-সালাতা ওয়া আতুয-যাকাতা" (নামায কায়েম কর ও যাকাত দাও) বহু আয়াতে আসে, প্রতিবার ভিন্ন ধারাবাহিকতায়। ২:৪৩-এ শেষ হয় "ওয়ারকাঊ মা\'আর-রাকিঈন" (রুকুকারীদের সঙ্গে রুকু কর); ২:১১০-এ "ওয়ামা তুকাদ্দিমূ লিআনফুসিকুম…" (যে কল্যাণ আগে পাঠাবে…); ২৪:৫৬-এ "ওয়া আতীঊর-রাসূলা লা\'আল্লাকুম তুরহামূন" (রাসূলের আনুগত্য কর); ২:৮৩-এর অঙ্গীকারে; এবং ৭৩:২০-এর রাত্রি-নামাযের বিধানে। অভিন্ন আদেশের সঙ্গে যুক্ত ভিন্ন অংশটিই মুখ্য চ্যালেঞ্জ।',
+    verses: ['2:43', '2:83', '2:110', '24:56', '73:20']
+  },
+  {
+    id: 'laallakum-clause-endings',
+    nameEn: '"Thus Allah Makes Clear His Signs" — taʿqilūn / tatafakkarūn / yatadhakkarūn',
+    nameAr: 'كَذَٰلِكَ يُبَيِّنُ ٱللَّهُ — لَعَلَّكُمْ تَعْقِلُونَ / تَتَفَكَّرُونَ',
+    descEn: 'The clarification formula "kadhālika yubayyinu llāhu lakum…" (thus Allah makes clear to you His signs) closes with a rotating purpose-verb. At 2:219 and 2:266 it is "laʿallakum tatafakkarūn" (that you may reflect); at 2:242 "laʿallakum taʿqilūn" (that you may reason); and at 2:221 the pronoun and verb shift to "li-n-nāsi laʿallahum yatadhakkarūn" (…for the people, that they may take heed). Al-Kirmānī notes that the taʿqilūn/tatafakkarūn/yatadhakkarūn ending is among the most frequently transposed verse-closings, especially with two occurrences (2:219, 2:266) sharing the identical "tatafakkarūn".',
+    descBn: 'স্পষ্টীকরণ সূত্র "কাযালিকা ইউবাইয়িনুল্লাহু লাকুম…" (এভাবে আল্লাহ তোমাদের জন্য তাঁর নিদর্শন স্পষ্ট করেন) ঘূর্ণায়মান উদ্দেশ্য-ক্রিয়ায় শেষ হয়। ২:২১৯ ও ২:২৬৬-এ "লা\'আল্লাকুম তাতাফাক্কারূন" (যাতে তোমরা চিন্তা কর); ২:২৪২-এ "লা\'আল্লাকুম তা\'কিলূন" (যাতে তোমরা বোঝ); আর ২:২২১-এ সর্বনাম ও ক্রিয়া বদলে "লিন-নাসি লা\'আল্লাহুম ইয়াতাযাক্কারূন" (মানুষের জন্য, যাতে তারা উপদেশ নেয়)। বিশেষত দুটি আয়াত (২:২১৯, ২:২৬৬) একই "তাতাফাক্কারূন" ভাগ করায় এই সমাপ্তি বহুল বিভ্রান্তিকর।',
+    verses: ['2:219', '2:221', '2:242', '2:266']
+  },
+  {
+    id: 'wama-arsalnaka-illa',
+    nameEn: '"We Sent You Only As…" — Wa-mā Arsalnāka Illā',
+    nameAr: 'وَمَآ أَرْسَلْنَٰكَ إِلَّا',
+    descEn: 'The restrictive statement of the Prophet\'s mission "wa-mā arsalnāka illā…" (We have not sent you except as…) appears with four different predicates: "mubashshiran wa-nadhīran" (a bringer of glad tidings and a warner — 17:105 and 25:56, word-for-word identical); "raḥmatan li-l-ʿālamīn" (a mercy to the worlds — 21:107); and "kāffatan li-n-nāsi bashīran wa-nadhīran" (to all mankind, a bearer of glad tidings and a warner — 34:28). The shared "wa-mā arsalnāka illā" opening with a rotating description — two of them near-identical — is a classic substitution set.',
+    descBn: 'নবীর দায়িত্ব সীমিতকারী বাক্য "ওয়ামা আরসালনাকা ইল্লা…" (আমি তোমাকে কেবল … রূপেই পাঠিয়েছি) চারটি ভিন্ন বিশেষণে আসে: "মুবাশশিরান ওয়া নাযীরা" (সুসংবাদদাতা ও সতর্ককারী — ১৭:১০৫ ও ২৫:৫৬ হুবহু অভিন্ন); "রাহমাতান লিল-আলামীন" (বিশ্বজগতের জন্য রহমত — ২১:১০৭); এবং "কাফফাতান লিন-নাসি বাশীরান ওয়া নাযীরা" (সমগ্র মানবজাতির জন্য সুসংবাদদাতা ও সতর্ককারী — ৩৪:২৮)। অভিন্ন সূচনার সঙ্গে ঘূর্ণায়মান বর্ণনা — যার দুটি প্রায় একই — শাস্ত্রীয় বিভ্রান্তি-গুচ্ছ।',
+    verses: ['17:105', '21:107', '25:56', '34:28']
   }
 ];

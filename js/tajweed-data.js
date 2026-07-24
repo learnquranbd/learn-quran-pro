@@ -102,6 +102,34 @@ const TAJWEED_LESSONS = {
   sakt: { group: 'other', names: { bn: 'সাকত', ar: 'السكت' }, letters: '—',
     en: "Sakt: a brief, silent pause without inhaling at four specific places in the Quran in Hafs 'an 'Asim (e.g. عِوَجاً|قَيِّماً, مَرْقَدِنَا|هَذَا, مَنْ|رَاقٍ, بَلْ|رَانَ).",
     bn: "সাকত: শ্বাস না নিয়ে স্বল্প নীরব বিরতি — হাফসের রিওয়ায়েতে কোরআনের চারটি নির্দিষ্ট স্থানে (যেমন عِوَجاً|قَيِّماً, مَرْقَدِنَا|هَذَا, مَنْ|رَاقٍ, بَلْ|رَانَ)।" },
+
+  // ── Meem Sākinah: the clear ruling ────────────────────────────────────────
+  izhar_shafawi: { group: 'meem', names: { bn: 'ইযহার শাফাবি', ar: 'الإظهار الشفوي' }, letters: '26 letters (all except ب م)',
+    en: "Labial clarity: meem sakinah (مْ) before any of the 26 letters other than ب and م is pronounced clearly with no ghunnah. Take extra care before و and ف — sharing the meem's articulation area — so the meem is not accidentally hidden.",
+    bn: 'ইযহার শাফাবি: মীম সাকিন (مْ)-এর পরে ب ও م ছাড়া বাকি ২৬টি হরফ এলে গুন্নাহ ছাড়াই স্পষ্ট উচ্চারণ। বিশেষত و ও ف-এর আগে সতর্ক থাকুন যেন মীম গোপন না হয়।' },
+
+  // ── Idghām of two identical letters ───────────────────────────────────────
+  idghaam_mutamathilayn: { group: 'other', names: { bn: 'ইদগাম মুতামাসিলাইন', ar: 'إدغام المتماثلين' }, letters: 'same letter ×2',
+    en: 'Merging of two identical letters: when a letter with sukoon is followed by the same letter (same makhraj AND same attributes), the first merges completely into the second, which takes a shaddah (e.g. اضْرِب بِّعَصَاكَ, قَد دَّخَلُوا).',
+    bn: 'ইদগাম মুতামাসিলাইন: এক হরফ সাকিন হয়ে অবিকল একই হরফের (একই মাখরাজ ও একই সিফাত) আগে এলে প্রথমটি দ্বিতীয়টিতে সম্পূর্ণ মিশে যায় এবং সেটি শাদ্দাযুক্ত হয় (যেমন اضْرِب بِّعَصَاكَ, قَد دَّخَلُوا)।' },
+
+  // ── Lafẓ al-Jalālah: the lām of the Name "Allāh" ──────────────────────────
+  lafz_jalalah: { group: 'ra', names: { bn: 'লাফযুল জালালাহ (আল্লাহ শব্দের লাম)', ar: 'لفظ الجلالة (اللّٰه)' }, letters: 'اللّٰه',
+    en: 'The lām of the Name اللّٰه is heavy (tafkhim) when preceded by a fathah or dammah (e.g. قَالَ اللّٰهُ, هُوَ اللّٰهُ), and light (tarqiq) when preceded by a kasrah (e.g. بِسْمِ اللّٰهِ, الْحَمْدُ لِلّٰهِ).',
+    bn: 'اللّٰه শব্দের লাম — এর আগে ফাতহা বা দাম্মা থাকলে ভারী (তাফখিম) (যেমন قَالَ اللّٰهُ, هُوَ اللّٰهُ), আর কাসরা থাকলে হালকা (তারকিক) (যেমন بِسْمِ اللّٰهِ, الْحَمْدُ لِلّٰهِ)।' },
+
+  // ── Istiʿlāʾ: the seven ever-heavy letters ────────────────────────────────
+  tafkhim_istila: { group: 'ra', names: { bn: 'তাফখিম (ইসতিলা হরফ)', ar: 'تفخيم حروف الاستعلاء' }, letters: 'خ ص ض غ ط ق ظ',
+    en: "Letters of isti'la (خُصَّ ضَغْطٍ قِظْ): خ ص ض غ ط ق ظ are always heavy (mufakhkham) — the back of the tongue rises regardless of their vowel, and they colour the surrounding vowels (e.g. خَلَقَ, الصِّرَاطَ, الْعَظِيم).",
+    bn: 'ইসতিলার হরফ (خُصَّ ضَغْطٍ قِظْ): خ ص ض غ ط ق ظ সর্বদা ভারী (মুফাখখাম) — স্বরচিহ্ন যাই হোক জিহ্বার পিছন উঁচু হয় এবং পার্শ্ববর্তী স্বরকেও প্রভাবিত করে (যেমন خَلَقَ, الصِّرَاطَ, الْعَظِيم)।' },
+
+  // ── Madd al-Ṣilah & Madd al-Farq ──────────────────────────────────────────
+  madd_silah: { group: 'madd', names: { bn: 'মাদ্দ সিলাহ (২ / ৪-৫)', ar: 'مد الصلة (2 / 4-5)' }, letters: 'ـهُ ـهِ',
+    en: 'Madd al-Silah: the pronoun haa (ـهُ / ـهِ) between two voweled letters is stretched as a hidden و/ي. Silah Sughra = 2 counts before a normal letter (e.g. لَهُ مَا); Silah Kubra = 4–5 counts before a hamzat qatʿ (e.g. مَالَهُ أَخْلَدَهُ).',
+    bn: 'মাদ্দ সিলাহ: দুই স্বরযুক্ত হরফের মাঝে থাকা সর্বনাম হা (ـهُ / ـهِ) গোপন و/ي হিসেবে টানা হয়। সিলাহ সুগরা = সাধারণ হরফের আগে ২ হরকত (যেমন لَهُ مَا); সিলাহ কুবরা = হামযাতুল ক্বাতের আগে ৪–৫ হরকত (যেমন مَالَهُ أَخْلَدَهُ)।' },
+  madd_farq: { group: 'madd', names: { bn: 'মাদ্দ ফারক (৬)', ar: 'مد الفرق (6)' }, letters: 'ٱ + ال',
+    en: 'Madd al-Farq: an interrogative hamza meets the hamzat al-wasl of ال, lengthened 6 counts to distinguish a question from a statement (e.g. آلذَّكَرَيْنِ, آللّٰهُ أَذِنَ, آلْآنَ). One of six such places in the Quran.',
+    bn: 'মাদ্দ ফারক: প্রশ্নবোধক হামযা ال-এর হামযাতুল ওয়াসলের সাথে মিলিত হলে প্রশ্ন ও বিবৃতির পার্থক্য বোঝাতে ৬ হরকত টানা হয় (যেমন آلذَّكَرَيْنِ, آللّٰهُ أَذِنَ, آلْآنَ)। কোরআনে এমন ছয়টি স্থান।' },
 };
 
 /**
@@ -113,9 +141,9 @@ const TAJWEED_PATH = [
   { level: 'beginner', emoji: '🌱', labelKey: 'tj_level_beginner', fallback: 'Beginner',
     rules: ['madd_2', 'lam_shamsiyyah', 'lam_qamariyyah', 'hamzat_wasl', 'silent', 'ghunnah', 'qalqalah', 'izhar_halqi'] },
   { level: 'intermediate', emoji: '🌿', labelKey: 'tj_level_intermediate', fallback: 'Intermediate',
-    rules: ['ikhfa', 'iqlab', 'idghaam_ghunnah', 'idghaam_no_ghunnah', 'ikhfa_shafawi', 'idghaam_shafawi', 'izhar_mutlaq', 'madd_aridh', 'madd_lin', 'ra_tafkhim', 'ra_tarqiq'] },
+    rules: ['ikhfa', 'iqlab', 'idghaam_ghunnah', 'idghaam_no_ghunnah', 'ikhfa_shafawi', 'idghaam_shafawi', 'izhar_shafawi', 'izhar_mutlaq', 'madd_aridh', 'madd_lin', 'ra_tafkhim', 'ra_tarqiq', 'lafz_jalalah', 'tafkhim_istila'] },
   { level: 'advanced', emoji: '🌳', labelKey: 'tj_level_advanced', fallback: 'Advanced',
-    rules: ['madd_muttasil', 'madd_munfasil', 'madd_246', 'madd_6', 'madd_badal', 'madd_iwad', 'idghaam_mutajanisayn', 'idghaam_mutaqaribayn', 'ha_sakt', 'sakt'] },
+    rules: ['madd_muttasil', 'madd_munfasil', 'madd_246', 'madd_6', 'madd_badal', 'madd_iwad', 'madd_silah', 'madd_farq', 'idghaam_mutamathilayn', 'idghaam_mutajanisayn', 'idghaam_mutaqaribayn', 'ha_sakt', 'sakt'] },
 ];
 
 /**
@@ -590,6 +618,60 @@ const TAJWEED_RULE_EXAMPLES = {
     { ref: '36:52', focus: 'مَرْقَدِنَا ۜ هَٰذَا',   noteEn: 'Sakt after مَرْقَدِنَا — the pause marks the shift between the disbelievers\' words and the reply.',  noteBn: 'مَرْقَدِنَا-র পর সাকত — বক্তা পরিবর্তনের পূর্বে বিরতি।' },
     { ref: '75:27', focus: 'مَنْ ۜ رَاقٍ',           noteEn: 'Sakt on مَنْ before رَاقٍ — prevents نْ from merging into رَ (which would otherwise be idghaam mutaqaribayn).', noteBn: 'مَنْ-এর পর সাকত — نْ কে رَ-তে মিশতে বাধা দেয়।' },
     { ref: '83:14', focus: 'بَلْ ۜ رَانَ',           noteEn: 'Sakt on بَلْ before رَانَ — prevents ل from merging into رَ; these are the only four sakt positions in Hafs.',  noteBn: 'بَلْ-এর পর সাকত — ل কে رَ-তে মিশতে বাধা; হাফসে মোট চার স্থান।' },
+  ],
+
+  // ── Meem Sākinah: Iẓhār Shafawī ─────────────────────────────────────────────
+  izhar_shafawi: [
+    { ref: '1:2',   focus: 'الْحَمْدُ',        noteEn: 'مْ before د in الْحَمْدُ — pronounce the meem clearly, no ghunnah, no hiding.',              noteBn: 'الْحَمْدُ-তে مْ before د — মীম স্পষ্ট, গুন্নাহ নেই।' },
+    { ref: '1:7',   focus: 'أَنْعَمْتَ',       noteEn: 'مْ before تَ in أَنْعَمْتَ — clear izhar shafawi.',                                           noteBn: 'أَنْعَمْتَ-তে مْ before تَ — স্পষ্ট ইযহার শাফাবি।' },
+    { ref: '1:7',   focus: 'عَلَيْهِمْ غَيْرِ', noteEn: 'مْ before غَ across words — meem clear; note غ is a heavy letter but the meem stays light.',   noteBn: 'عَلَيْهِمْ before غَيْرِ — مْ স্পষ্ট, মীম হালকা।' },
+    { ref: '112:3', focus: 'لَمْ يَلِدْ',       noteEn: 'مْ before يَ — a careful case: keep the meem clearly separate from the yaa, no ghunnah.',      noteBn: 'لَمْ before يَ — সতর্ক স্থান: মীম ইয়া থেকে আলাদা, গুন্নাহ নেই।' },
+    { ref: '2:25',  focus: 'لَهُمْ فِيهَا',     noteEn: 'مْ before ف — the trickiest case: do NOT hide the meem into the faa; pronounce it clearly.',   noteBn: 'مْ before ف — কঠিনতম স্থান: মীমকে ف-এ গোপন করবেন না, স্পষ্ট রাখুন।' },
+  ],
+
+  // ── Idghām of two identical letters ─────────────────────────────────────────
+  idghaam_mutamathilayn: [
+    { ref: '2:60',  focus: 'اضْرِب بِّعَصَاكَ', noteEn: 'بْ before بِّ — identical letters; the first ب merges fully into the second (بّ takes shaddah).', noteBn: 'اضْرِب بِّعَصَاكَ-তে بْ before بِّ — অভিন্ন হরফ, প্রথম ب দ্বিতীয়টিতে মিশে যায়।' },
+    { ref: '5:61',  focus: 'قَد دَّخَلُوا',     noteEn: 'دْ before دَّ — the د of قَد merges completely into the following دَّ.',                       noteBn: 'قَد دَّخَلُوا-তে دْ before دَّ — قَد-এর দাল সম্পূর্ণ মিশে যায়।' },
+    { ref: '4:78',  focus: 'يُدْرِككُّمُ',       noteEn: 'كْ before كُّ within يُدْرِككُّمُ — two identical kaafs merge into one doubled كّ.',          noteBn: 'يُدْرِككُّمُ-তে كْ before كُّ — দুই অভিন্ন কাফ মিশে এক مُشَدَّد كّ।' },
+    { ref: '21:87', focus: 'إِذ ذَّهَبَ',       noteEn: 'ذْ before ذَّ — the ذ of إِذ merges completely into the following ذَّ (shaddah).',            noteBn: 'إِذ ذَّهَبَ-তে ذْ before ذَّ — إِذ-এর ذ সম্পূর্ণ মিশে যায়।' },
+  ],
+
+  // ── Lafẓ al-Jalālah: the lām of "Allāh" ─────────────────────────────────────
+  lafz_jalalah: [
+    { ref: '112:1', focus: 'هُوَ اللَّهُ',      noteEn: 'اللَّهُ after the fathah of هُوَ — heavy lām (tafkhim): fill the mouth.',                     noteBn: 'هُوَ-এর ফাতহার পরে اللَّهُ — ভারী লাম (তাফখিম)।' },
+    { ref: '3:18',  focus: 'شَهِدَ اللَّهُ',     noteEn: 'اللَّهُ after the fathah of شَهِدَ — heavy lām.',                                             noteBn: 'شَهِدَ-এর ফাতহার পরে اللَّهُ — ভারী লাম।' },
+    { ref: '5:110', focus: 'قَالَ اللَّهُ',      noteEn: 'اللَّهُ after the fathah of قَالَ — tafkhim; the classic heavy lām of the Name.',            noteBn: 'قَالَ-এর ফাতহার পরে اللَّهُ — তাফখিম, ভারী লাম।' },
+    { ref: '1:1',   focus: 'بِسْمِ اللَّهِ',     noteEn: 'اللَّهِ after the kasrah of بِسْمِ — light lām (tarqiq): thin and soft.',                     noteBn: 'بِسْمِ-এর কাসরার পরে اللَّهِ — হালকা লাম (তারকিক)।' },
+    { ref: '1:2',   focus: 'الْحَمْدُ لِلَّهِ',  noteEn: 'لِلَّهِ after the kasrah of لِ — light lām; contrast this with the heavy cases above.',        noteBn: 'لِلَّهِ-তে কাসরার পরে লাম হালকা — উপরের ভারী উদাহরণের বিপরীত।' },
+  ],
+
+  // ── Istiʿlāʾ: the seven ever-heavy letters ──────────────────────────────────
+  tafkhim_istila: [
+    { ref: '96:2',  focus: 'خَلَقَ',            noteEn: 'خ (and ق) in خَلَقَ — letters of istiʿlāʾ; always heavy, whatever the vowel.',               noteBn: 'خَلَقَ-তে خ (ও ق) — ইসতিলার হরফ; সর্বদা ভারী।' },
+    { ref: '1:6',   focus: 'الصِّرَاطَ',        noteEn: 'ص and ط in الصِّرَاطَ — heavy despite the kasrah on ص; isti\'la overrides the vowel.',        noteBn: 'الصِّرَاطَ-তে ص ও ط — কাসরা সত্ত্বেও ভারী; ইসতিলা স্বরচিহ্নকে ছাপিয়ে যায়।' },
+    { ref: '1:7',   focus: 'الضَّالِّينَ',      noteEn: 'ض in الضَّالِّينَ — a heavy isti\'la letter unique to Arabic.',                               noteBn: 'الضَّالِّينَ-তে ض — আরবির স্বতন্ত্র ভারী ইসতিলা হরফ।' },
+    { ref: '1:7',   focus: 'غَيْرِ',             noteEn: 'غ in غَيْرِ — heavy, from the top of the throat; keep it full even before a kasrah.',         noteBn: 'غَيْرِ-তে غ — গলার উপর থেকে ভারী; কাসরার আগেও পূর্ণ রাখুন।' },
+    { ref: '2:255', focus: 'الْعَظِيمُ',        noteEn: 'ظ in الْعَظِيمُ — a heavy isti\'la letter; the tongue-tip touches the upper teeth, mouth full.', noteBn: 'الْعَظِيمُ-তে ظ — ভারী ইসতিলা হরফ; জিহ্বার অগ্র উপরের দাঁতে, মুখ ভরা।' },
+    { ref: '112:1', focus: 'قُلْ',               noteEn: 'ق in قُلْ — deepest isti\'la letter; a full, heavy uvular stop.',                             noteBn: 'قُلْ-তে ق — গভীরতম ইসতিলা হরফ; পূর্ণ ভারী উচ্চারণ।' },
+  ],
+
+  // ── Madd al-Ṣilah ───────────────────────────────────────────────────────────
+  madd_silah: [
+    { ref: '2:255', focus: 'لَهُ مَا',           noteEn: 'ـهُ between two vowels, next letter مَ (not hamza) — Silah Sughra: stretch 2 counts as a hidden waaw.', noteBn: 'لَهُ مَا-তে ـهُ দুই স্বরের মাঝে, পরে مَ — সিলাহ সুগরা: ২ হরকত।' },
+    { ref: '2:37',  focus: 'إِنَّهُ هُوَ',       noteEn: 'ـهُ in إِنَّهُ before هُوَ — Silah Sughra, 2 counts (a hidden waaw after the dammah).',       noteBn: 'إِنَّهُ before هُوَ — সিলাহ সুগরা, ২ হরকত।' },
+    { ref: '104:3', focus: 'مَالَهُ أَخْلَدَهُ', noteEn: 'ـهُ in مَالَهُ before أَخْلَدَهُ (hamzat qatʿ) — Silah Kubra: stretch 4–5 counts.',            noteBn: 'مَالَهُ before أَخْلَدَ (হামযা) — সিলাহ কুবরা: ৪–৫ হরকত।' },
+    { ref: '18:110', focus: 'رَبِّهِ أَحَدًا',   noteEn: 'ـهِ in رَبِّهِ before أَحَدًا (hamzat qatʿ) — Silah Kubra: 4–5 counts as a hidden yaa.',       noteBn: 'رَبِّهِ before أَحَدًا (হামযা) — সিলাহ কুবরা: ৪–৫ হরকত।' },
+    { ref: '2:2',   focus: 'فِيهِ',              noteEn: 'No silah here — the haa of فِيهِ is preceded by a sukoon (long ī), so it is not stretched.',   noteBn: 'এখানে সিলাহ নেই — فِيهِ-এর হা-এর আগে সাকিন (দীর্ঘ ঈ), তাই টানা হয় না।' },
+  ],
+
+  // ── Madd al-Farq ────────────────────────────────────────────────────────────
+  madd_farq: [
+    { ref: '6:143', focus: 'آلذَّكَرَيْنِ',     noteEn: 'Interrogative hamza + ال of الذَّكَرَيْنِ — stretch 6 counts so the question is not heard as a statement.', noteBn: 'প্রশ্নবোধক হামযা + الذَّكَرَيْنِ — প্রশ্ন যেন বিবৃতি না শোনায়, ৬ হরকত।' },
+    { ref: '6:144', focus: 'آلذَّكَرَيْنِ',     noteEn: 'The parallel place in the next verse — same madd al-farq, 6 counts.',                          noteBn: 'পরের আয়াতে একই স্থান — মাদ্দ ফারক, ৬ হরকত।' },
+    { ref: '10:59', focus: 'آللَّهُ أَذِنَ',     noteEn: 'آللَّهُ — interrogative hamza before the ال of the Name; 6-count madd al-farq.',              noteBn: 'آللَّهُ — প্রশ্নবোধক হামযা + الله; ৬ হরকত মাদ্দ ফারক।' },
+    { ref: '27:59', focus: 'آللَّهُ خَيْرٌ',     noteEn: 'آللَّهُ خَيْرٌ — the same interrogative آللَّهُ; distinguish "Is it Allah?" with 6 counts.',   noteBn: 'آللَّهُ خَيْرٌ — একই প্রশ্নবোধক آللَّهُ; ৬ হরকতে পার্থক্য।' },
+    { ref: '10:51', focus: 'آلْآنَ',             noteEn: 'آلْآنَ — interrogative hamza + ال of الآن; 6-count madd al-farq ("Now?").',                   noteBn: 'آلْآنَ — প্রশ্নবোধক হামযা + الآن; ৬ হরকত মাদ্দ ফারক।' },
   ],
 };
 

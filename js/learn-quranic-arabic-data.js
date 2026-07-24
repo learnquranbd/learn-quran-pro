@@ -2031,6 +2031,105 @@ const QA_LESSONS = [
       explain: { en: 'Both active and passive higher-form participles use مُـ. Active has kasra (‑i): مُسْلِم. Passive has fatḥa (‑a): مُكَرَّم, مُسَمًّى.', bn: 'কর্তৃবাচক ও কর্মবাচক উভয়ই مُـ নেয়। কর্তৃবাচকে কাসরা (‑i): مُسْلِم। কর্মবাচকে ফাতহা (‑a): مُكَرَّم, مُسَمًّى।' },
     },
   },
+  {
+    id: 'maful-mutlaq', unit: 'advanced', icon: '💥',
+    title: { en: 'The absolute object (al-mafʿūl al-muṭlaq)', bn: 'মাফউল মুতলাক (নিরঙ্কুশ কর্ম)' },
+    concept: {
+      en: 'The <b>absolute object</b> (المفعول المطلق) is a maṣdar (verbal noun) placed in the <b>accusative</b> (naṣb, ending ‑an) and taken from the <em>same root as the main verb</em>. It comes right after the verb to <b>emphasise</b> it, describe its manner, or count its occurrences. So كَلَّمَ … تَكْلِيمًا means "He spoke to him — a true, direct speaking." It cannot take a preposition; the plain ‑an ending signals it.',
+      bn: '<b>মাফউল মুতলাক</b> (المفعول المطلق) হলো একটি মাসদার (ক্রিয়াবাচক বিশেষ্য) যা <b>নসব</b> অবস্থায় (শেষে ‑an) থাকে এবং <em>মূল ক্রিয়ার একই ধাতু</em> থেকে গঠিত। এটি ক্রিয়ার ঠিক পরে বসে ক্রিয়াকে <b>জোর দেয়</b>, ধরন বোঝায় বা সংখ্যা গণনা করে। তাই كَلَّمَ … تَكْلِيمًا অর্থ "তিনি তার সাথে কথা বলেছেন — সত্যিকারের সরাসরি কথা।" এতে কোনো অব্যয় বসে না; খালি ‑an শেষই এর চিহ্ন।',
+    },
+    examples: [
+      { ref: '4:164', trans: { en: 'And Allah spoke to Moses with [direct] speech.', bn: 'আর আল্লাহ মূসার সাথে [সরাসরি] কথা বলেছেন।' },
+        note: { en: 'تَكْلِيمًا is the maṣdar of كَلَّمَ in naṣb — it stresses that Allah truly spoke to Moses directly, leaving no doubt.', bn: 'تَكْلِيمًا হলো كَلَّمَ-এর মাসদার, নসব অবস্থায় — এটি জোর দেয় যে আল্লাহ মূসার সাথে সত্যিই সরাসরি কথা বলেছেন, কোনো সন্দেহ নেই।' },
+        words: [
+          { ar: 'وَكَلَّمَ ٱللَّهُ', en: 'And Allah spoke', bn: 'আর আল্লাহ কথা বলেছেন' },
+          { ar: 'مُوسَىٰ', en: 'to Moses', bn: 'মূসার সাথে' },
+          { ar: 'تَكْلِيمًا', en: 'with [true] speech', bn: '[সত্যিকারের] কথা বলে', hl: true },
+        ] },
+      { ref: '48:1', trans: { en: 'Indeed, We have granted you a clear conquest.', bn: 'নিশ্চয়ই আমরা তোমাকে এক সুস্পষ্ট বিজয় দান করেছি।' },
+        note: { en: 'فَتْحًا is the absolute object of فَتَحْنَا; the adjective مُّبِينًا ("clear") then describes that opening.', bn: 'فَتْحًا হলো فَتَحْنَا-এর মাফউল মুতলাক; বিশেষণ مُّبِينًا ("সুস্পষ্ট") সেই বিজয়কে বর্ণনা করে।' },
+        words: [
+          { ar: 'إِنَّا فَتَحْنَا لَكَ', en: 'Indeed We have opened for you', bn: 'নিশ্চয়ই আমরা তোমার জন্য উন্মুক্ত করেছি' },
+          { ar: 'فَتْحًا', en: 'an opening', bn: 'এক বিজয়', hl: true },
+          { ar: 'مُّبِينًا', en: 'clear', bn: 'সুস্পষ্ট' },
+        ] },
+      { ref: '71:17', trans: { en: 'And Allah caused you to grow from the earth [a special] growth.', bn: 'আর আল্লাহ তোমাদের মাটি থেকে [বিশেষভাবে] উদ্গত করেছেন।' },
+        note: { en: 'نَبَاتًا functions as an absolute object emphasising the manner in which Allah made mankind grow.', bn: 'نَبَاتًا মাফউল মুতলাকের কাজ করে, আল্লাহ যেভাবে মানুষকে উদ্গত করেছেন সেই ধরনে জোর দেয়।' },
+        words: [
+          { ar: 'وَٱللَّهُ أَنۢبَتَكُم', en: 'And Allah grew you', bn: 'আর আল্লাহ তোমাদের উদ্গত করেছেন' },
+          { ar: 'مِّنَ ٱلْأَرْضِ', en: 'from the earth', bn: 'মাটি থেকে' },
+          { ar: 'نَبَاتًا', en: '[a] growth', bn: 'উদ্গমন', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which word is the absolute object (mafʿūl muṭlaq)?', bn: 'কোন শব্দটি মাফউল মুতলাক?' },
+      options: ['تَكْلِيمًا', 'ٱللَّهُ', 'مُوسَىٰ'], answer: 0,
+      explain: { en: 'تَكْلِيمًا is the maṣdar of the verb كَلَّمَ in naṣb (‑an), placed after it to emphasise it — the mark of an absolute object.', bn: 'تَكْلِيمًا হলো كَلَّمَ ক্রিয়ার মাসদার, নসব (‑an) অবস্থায়, ক্রিয়ার পরে জোর দিতে বসেছে — এটিই মাফউল মুতলাকের চিহ্ন।' },
+    },
+  },
+  {
+    id: 'maful-liajlih', unit: 'advanced', icon: '🎯',
+    title: { en: 'The object of purpose (al-mafʿūl li-ajlih)', bn: 'মাফউল লি-আজলিহ (কারণবাচক কর্ম)' },
+    concept: {
+      en: 'The <b>object of purpose</b> (المفعول لأجله) is a maṣdar in the <b>accusative</b> (naṣb) that states the <em>reason or motive</em> for the action — it answers "why?". It is usually translated "out of…", "for fear of…", or "seeking…". For example حَذَرَ ٱلْمَوْتِ means "out of fear of death". The doer of the action and of the motive are the same person.',
+      bn: '<b>মাফউল লি-আজলিহ</b> (المفعول لأجله) হলো <b>নসব</b> অবস্থায় একটি মাসদার যা কাজের <em>কারণ বা উদ্দেশ্য</em> জানায় — এটি "কেন?" প্রশ্নের উত্তর দেয়। সাধারণত অনুবাদ হয় "…-এর ভয়ে", "…-এর কারণে", বা "…-এর সন্ধানে"। যেমন حَذَرَ ٱلْمَوْتِ অর্থ "মৃত্যুর ভয়ে"। কাজ ও কারণের কর্তা একই ব্যক্তি।',
+    },
+    examples: [
+      { ref: '2:19', trans: { en: 'They put their fingers in their ears against the thunderclaps, out of fear of death.', bn: 'তারা বজ্রধ্বনির কারণে মৃত্যুর ভয়ে কানে আঙুল ঢোকায়।' },
+        note: { en: 'حَذَرَ is a maṣdar in naṣb telling us WHY they block their ears — the motive of the action.', bn: 'حَذَرَ হলো নসব অবস্থায় একটি মাসদার যা জানায় কেন তারা কান বন্ধ করে — কাজের উদ্দেশ্য।' },
+        words: [
+          { ar: 'يَجْعَلُونَ أَصَٰبِعَهُمْ', en: 'they put their fingers', bn: 'তারা তাদের আঙুল ঢোকায়' },
+          { ar: 'فِىٓ ءَاذَانِهِم', en: 'in their ears', bn: 'তাদের কানে' },
+          { ar: 'حَذَرَ ٱلْمَوْتِ', en: 'out of fear of death', bn: 'মৃত্যুর ভয়ে', hl: true },
+        ] },
+      { ref: '17:31', trans: { en: 'And do not kill your children out of fear of poverty.', bn: 'আর দারিদ্র্যের ভয়ে তোমাদের সন্তানদের হত্যা করো না।' },
+        note: { en: 'خَشْيَةَ (naṣb) gives the false motive being condemned — killing children "for fear of poverty".', bn: 'خَشْيَةَ (নসব) সেই ভ্রান্ত কারণটি জানায় যা নিন্দিত — "দারিদ্র্যের ভয়ে" সন্তান হত্যা।' },
+        words: [
+          { ar: 'وَلَا تَقْتُلُوٓا۟ أَوْلَٰدَكُمْ', en: 'and do not kill your children', bn: 'আর তোমাদের সন্তানদের হত্যা করো না' },
+          { ar: 'خَشْيَةَ إِمْلَٰقٍ', en: 'out of fear of poverty', bn: 'দারিদ্র্যের ভয়ে', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'The object of purpose (mafʿūl li-ajlih) answers which question about the verb?', bn: 'মাফউল লি-আজলিহ ক্রিয়া সম্পর্কে কোন প্রশ্নের উত্তর দেয়?' },
+      options: [{ en: 'When?', bn: 'কখন?' }, { en: 'Where?', bn: 'কোথায়?' }, { en: 'Why?', bn: 'কেন?' }], answer: 2,
+      explain: { en: 'It is a maṣdar in naṣb stating the reason or motive — "why" the action happened, e.g. حَذَرَ ٱلْمَوْتِ "out of fear of death".', bn: 'এটি নসব অবস্থায় একটি মাসদার যা কারণ বা উদ্দেশ্য জানায় — কাজটি "কেন" ঘটল, যেমন حَذَرَ ٱلْمَوْتِ "মৃত্যুর ভয়ে"।' },
+    },
+  },
+  {
+    id: 'dharf-zaman-makan', unit: 'advanced', icon: '🧭',
+    title: { en: 'Adverbs of time & place (aẓ-ẓarf / al-mafʿūl fīh)', bn: 'কাল ও স্থানের ক্রিয়াবিশেষণ (যরফ / মাফউল ফীহ)' },
+    concept: {
+      en: 'The <b>ẓarf</b> (الظرف, also called المفعول فيه) is a noun in the <b>accusative</b> giving the <em>time</em> or <em>place</em> of an action — it answers "when?" or "where?". Time adverbs: قَبْلَ (before), بَعْدَ (after), يَوْمَ (on the day). Place adverbs: عِندَ (at), فَوْقَ (above), تَحْتَ (below), مَكَانَ (in the place of). It carries the meaning "in/at" without needing the preposition فِى.',
+      bn: '<b>যরফ</b> (الظرف, আরেক নাম المفعول فيه) হলো <b>নসব</b> অবস্থায় একটি বিশেষ্য যা কাজের <em>কাল</em> বা <em>স্থান</em> জানায় — এটি "কখন?" বা "কোথায়?" প্রশ্নের উত্তর দেয়। কালের যরফ: قَبْلَ (আগে), بَعْدَ (পরে), يَوْمَ (যেদিন)। স্থানের যরফ: عِندَ (কাছে), فَوْقَ (উপরে), تَحْتَ (নিচে), مَكَانَ (স্থানে)। এটি فِى অব্যয় ছাড়াই "মধ্যে/এ" অর্থ বহন করে।',
+    },
+    examples: [
+      { ref: '30:4', trans: { en: 'To Allah belongs the command before and after.', bn: 'আগে ও পরে সকল সিদ্ধান্ত আল্লাহরই।' },
+        note: { en: 'قَبْلُ and بَعْدُ are adverbs of time. When their second term is dropped after مِن, they are built (mabnī) on ḍamma: qablu, baʿdu.', bn: 'قَبْلُ ও بَعْدُ কালের যরফ। مِن-এর পরে যখন এদের দ্বিতীয় অংশ উহ্য থাকে, তখন এরা দম্মায় মাবনী হয়: কাবলু, বা‘দু।' },
+        words: [
+          { ar: 'لِلَّهِ ٱلْأَمْرُ', en: 'To Allah belongs the command', bn: 'সকল সিদ্ধান্ত আল্লাহরই' },
+          { ar: 'مِن قَبْلُ', en: 'before', bn: 'আগে', hl: true },
+          { ar: 'وَمِنۢ بَعْدُ', en: 'and after', bn: 'ও পরে', hl: true },
+        ] },
+      { ref: '19:16', trans: { en: 'And she withdrew from her family to a place toward the east.', bn: 'আর সে তার পরিবার থেকে সরে পূর্বদিকের এক স্থানে গেল।' },
+        note: { en: 'مَكَانًا is an adverb of place in naṣb answering "where?"; the adjective شَرْقِيًّا ("eastward") describes it.', bn: 'مَكَانًا নসব অবস্থায় স্থানের যরফ, "কোথায়?" এর উত্তর দেয়; বিশেষণ شَرْقِيًّا ("পূর্বদিকের") একে বর্ণনা করে।' },
+        words: [
+          { ar: 'إِذِ ٱنتَبَذَتْ', en: 'when she withdrew', bn: 'যখন সে সরে গেল' },
+          { ar: 'مِنْ أَهْلِهَا', en: 'from her family', bn: 'তার পরিবার থেকে' },
+          { ar: 'مَكَانًا شَرْقِيًّا', en: 'to a place, eastward', bn: 'পূর্বদিকের এক স্থানে', hl: true },
+        ] },
+      { ref: '7:143', trans: { en: 'If it remains in its place, then you will see Me.', bn: 'যদি তা নিজ স্থানে স্থির থাকে, তবে তুমি আমাকে দেখবে।' },
+        note: { en: 'مَكَانَهُ is an adverb of place (naṣb) meaning "in its place" — the location where the mountain must stay.', bn: 'مَكَانَهُ স্থানের যরফ (নসব), অর্থ "নিজ স্থানে" — যেখানে পাহাড়টি স্থির থাকতে হবে।' },
+        words: [
+          { ar: 'فَإِنِ ٱسْتَقَرَّ', en: 'if it remains', bn: 'যদি তা স্থির থাকে' },
+          { ar: 'مَكَانَهُۥ', en: 'in its place', bn: 'নিজ স্থানে', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which word is an adverb of place (ẓarf makān)?', bn: 'কোন শব্দটি স্থানের যরফ?' },
+      options: ['مَكَانًا', 'ٱنتَبَذَتْ', 'أَهْلِهَا'], answer: 0,
+      explain: { en: 'مَكَانًا is in naṣb and states where the action happened ("to a place") — a ẓarf makān. ٱنتَبَذَتْ is a verb and أَهْلِهَا is genitive after مِنْ.', bn: 'مَكَانًا নসব অবস্থায় কাজটি কোথায় ঘটল তা জানায় ("এক স্থানে") — এটি স্থানের যরফ। ٱنتَبَذَتْ একটি ক্রিয়া এবং أَهْلِهَا مِنْ-এর পরে জর অবস্থায়।' },
+    },
+  },
 ];
 
 /* ------------------------------------------------------------------ *
