@@ -52,8 +52,8 @@ const MUTASHABIHAT_GROUPS = [
     id: 'fabi-ayyi',
     nameEn: '"Which of Your Lord\'s Favours Will You Deny?" — Refrain of al-Raḥmān',
     nameAr: 'فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ',
-    descEn: 'The celebrated refrain of Surat al-Raḥmān is repeated 31 times. These representative verses span the surah\'s main themes: creation, the two heavenly gardens, and divine mercy.',
-    verses: ['55:13', '55:16', '55:18', '55:21', '55:23', '55:25', '55:28', '55:30', '55:32', '55:34', '55:36', '55:38', '55:40', '55:42', '55:45']
+    descEn: 'The celebrated refrain of Surat al-Raḥmān, repeated 31 times across the surah — after each mention of creation, the two heavenly gardens, and divine mercy. All 31 occurrences are listed below.',
+    verses: ['55:13', '55:16', '55:18', '55:21', '55:23', '55:25', '55:28', '55:30', '55:32', '55:34', '55:36', '55:38', '55:40', '55:42', '55:45', '55:47', '55:49', '55:51', '55:53', '55:55', '55:57', '55:59', '55:61', '55:63', '55:65', '55:67', '55:69', '55:71', '55:73', '55:75', '55:77']
   },
   {
     id: 'aziz-hakim',
