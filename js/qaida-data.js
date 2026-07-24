@@ -181,7 +181,20 @@ const QAIDA_WORDS = [
   { arabic: 'أَرْض',     translit: 'Ard'     },
   { arabic: 'سَمَاء',    translit: "Sama'"   },
   { arabic: 'رَحْمَة',   translit: 'Rahmah'  },
-  { arabic: 'سَلَام',    translit: 'Salam'   }
+  { arabic: 'سَلَام',    translit: 'Salam'   },
+  // --- 12 more common Islamic / Quranic practice words ---
+  { arabic: 'قَلَم',     translit: 'Qalam'   },
+  { arabic: 'عِلْم',     translit: "'Ilm"    },
+  { arabic: 'رِزْق',     translit: 'Rizq'    },
+  { arabic: 'صَبْر',     translit: 'Sabr'    },
+  { arabic: 'حَمْد',     translit: 'Hamd'    },
+  { arabic: 'خُبْز',     translit: 'Khubz'   },
+  { arabic: 'لَبَن',     translit: 'Laban'   },
+  { arabic: 'عَسَل',     translit: "'Asal"   },
+  { arabic: 'وَلَد',     translit: 'Walad'   },
+  { arabic: 'نَجْم',     translit: 'Najm'    },
+  { arabic: 'مِفْتَاح',  translit: 'Miftah'  },
+  { arabic: 'سِرَاج',    translit: 'Siraj'   }
 ];
 
 /**
@@ -251,6 +264,30 @@ const KIDS_THEME_WORDS = [
       { arabic: 'صَفْرَاء',  translit: "Safra'",   emoji: '🟡', meaning: { en: 'Yellow', bn: 'হলুদ', zh: '黄色', ja: '黄' },           ref: '2:69',  hl: 'صَفْرَآءُ' },
       { arabic: 'حُمْر',     translit: 'Humr',     emoji: '🔴', meaning: { en: 'Red (streaks)', bn: 'লাল', zh: '红色（条纹）', ja: '赤（筋）' },            ref: '35:27', hl: 'وَحُمْرٌ' },
       { arabic: 'وَرْدَة',   translit: 'Wardah',   emoji: '🌹', meaning: { en: 'Rose (rosy pink)', bn: 'গোলাপ (গোলাপি)', zh: '玫瑰（粉红色）', ja: 'バラ（ピンク色）' }, ref: '55:37', hl: 'وَرْدَةً' }
+    ]
+  },
+  {
+    id: 'food',
+    emoji: '🍽️',
+    label: { en: 'Food', bn: 'খাবার', zh: '食物', ja: '食べ物' },
+    words: [
+      { arabic: 'خُبْز',  translit: 'Khubz',  emoji: '🍞', meaning: { en: 'Bread', bn: 'রুটি', zh: '面包', ja: 'パン' },   ref: '12:36', hl: 'خُبْزًا' },
+      { arabic: 'لَبَن',  translit: 'Laban',  emoji: '🥛', meaning: { en: 'Milk', bn: 'দুধ', zh: '牛奶', ja: '牛乳' },    ref: '16:66', hl: 'لَّبَنًا' },
+      { arabic: 'عَسَل',  translit: "'Asal",  emoji: '🍯', meaning: { en: 'Honey', bn: 'মধু', zh: '蜂蜜', ja: '蜂蜜' },   ref: '47:15', hl: 'عَسَلٍ' },
+      { arabic: 'لَحْم',  translit: 'Lahm',   emoji: '🍖', meaning: { en: 'Meat', bn: 'মাংস', zh: '肉', ja: '肉' },     ref: '16:14', hl: 'لَحْمًا' }
+    ]
+  },
+  {
+    id: 'body',
+    emoji: '🧑',
+    label: { en: 'Body', bn: 'শরীর', zh: '身体', ja: '体' },
+    words: [
+      { arabic: 'وَجْه',  translit: 'Wajh',   emoji: '😊', meaning: { en: 'Face', bn: 'মুখ', zh: '脸', ja: '顔' },     ref: '2:144', hl: 'وَجْهَكَ' },
+      { arabic: 'عَيْن',  translit: "'Ayn",   emoji: '👁️', meaning: { en: 'Eye', bn: 'চোখ', zh: '眼睛', ja: '目' },     ref: '5:45',  hl: 'وَٱلْعَيْنَ' },
+      { arabic: 'أُذُن',  translit: 'Udhun',  emoji: '👂', meaning: { en: 'Ear', bn: 'কান', zh: '耳朵', ja: '耳' },     ref: '5:45',  hl: 'وَٱلْأُذُنَ' },
+      { arabic: 'لِسَان', translit: 'Lisan',  emoji: '👅', meaning: { en: 'Tongue', bn: 'জিহ্বা', zh: '舌头', ja: '舌' }, ref: '20:27', hl: 'لِّسَانِى' },
+      { arabic: 'قَلْب',  translit: 'Qalb',   emoji: '❤️', meaning: { en: 'Heart', bn: 'হৃদয়', zh: '心', ja: '心臓' },   ref: '26:89', hl: 'بِقَلْبٍ' },
+      { arabic: 'يَد',    translit: 'Yad',    emoji: '✋', meaning: { en: 'Hand', bn: 'হাত', zh: '手', ja: '手' },     ref: '20:22', hl: 'يَدَكَ' }
     ]
   }
 ];

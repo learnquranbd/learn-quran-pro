@@ -2130,6 +2130,128 @@ const QA_LESSONS = [
       explain: { en: 'مَكَانًا is in naṣb and states where the action happened ("to a place") — a ẓarf makān. ٱنتَبَذَتْ is a verb and أَهْلِهَا is genitive after مِنْ.', bn: 'مَكَانًا নসব অবস্থায় কাজটি কোথায় ঘটল তা জানায় ("এক স্থানে") — এটি স্থানের যরফ। ٱنتَبَذَتْ একটি ক্রিয়া এবং أَهْلِهَا مِنْ-এর পরে জর অবস্থায়।' },
     },
   },
+  {
+    id: 'badal', unit: 'sentences', icon: '🪞',
+    title: { en: 'Apposition (al-badal)', bn: 'বদল (পরিবর্তক)' },
+    concept: {
+      en: 'The <b>badal</b> (البدل) is a "follower" (tābiʿ) that renames or clarifies the noun before it (the <em>mubdal minhu</em>) and copies its <b>exact case</b> — as if the first noun could be dropped and the badal put in its place. In "the straight path — the path of those You favoured", the second "path" is a badal that specifies the first. Common types are <em>badal kull</em> (whole for whole) and <em>badal baʿḍ</em> (part for whole).',
+      bn: '<b>বদল</b> (البدل) হলো একটি "অনুসরণকারী" (তাবি‘) যা আগের বিশেষ্যকে (<em>মুবদাল মিনহু</em>) নতুন নামে বা ব্যাখ্যায় প্রকাশ করে এবং তার <b>হুবহু একই এ‘রাব</b> নেয় — যেন প্রথম বিশেষ্যটি বাদ দিয়ে বদলটিকে তার জায়গায় বসানো যায়। "সরল পথ — যাদের উপর অনুগ্রহ করেছ তাদের পথ"-এ দ্বিতীয় "পথ" প্রথমটির বদল। প্রকারভেদ: <em>বদল কুল</em> (সম্পূর্ণের বদলে সম্পূর্ণ) ও <em>বদল বা‘দ</em> (অংশের বদল)।',
+    },
+    examples: [
+      { ref: '1:7', trans: { en: 'The path of those upon whom You have bestowed favour.', bn: 'তাদের পথ যাদের উপর তুমি অনুগ্রহ করেছ।' },
+        note: { en: 'صِرَٰطَ (naṣb, ‑a) is a badal from ٱلصِّرَٰطَ ("the path") in the previous āyah; it renames and specifies which path — so it copies the accusative case.', bn: 'صِرَٰطَ (নসব, ‑a) আগের আয়াতের ٱلصِّرَٰطَ ("পথ")-এর বদল; এটি নতুন নামে কোন পথ তা নির্দিষ্ট করে — তাই একই নসব এ‘রাব নেয়।' },
+        words: [
+          { ar: 'صِرَٰطَ', en: 'the path of', bn: 'পথ', hl: true },
+          { ar: 'ٱلَّذِينَ أَنْعَمْتَ', en: 'those You favoured', bn: 'যাদের অনুগ্রহ করেছ' },
+          { ar: 'عَلَيْهِمْ', en: 'upon them', bn: 'তাদের উপর' },
+        ] },
+      { ref: '96:16', trans: { en: 'A lying, sinning forelock.', bn: 'মিথ্যাবাদী, পাপী এক চুলগুচ্ছ।' },
+        note: { en: 'نَاصِيَةٍ (jarr, ‑in) is a badal from ٱلنَّاصِيَةِ ("the forelock") in the prior āyah; it stays genitive to match, then is described as "lying, sinning".', bn: 'نَاصِيَةٍ (জর, ‑in) আগের আয়াতের ٱلنَّاصِيَةِ ("চুলগুচ্ছ")-এর বদল; মিল রাখতে জর অবস্থায় থাকে, পরে "মিথ্যাবাদী, পাপী" বলে বর্ণনা করা হয়।' },
+        words: [
+          { ar: 'نَاصِيَةٍ', en: 'a forelock', bn: 'একটি চুলগুচ্ছ', hl: true },
+          { ar: 'كَـٰذِبَةٍ خَاطِئَةٍ', en: 'lying, sinning', bn: 'মিথ্যাবাদী, পাপী' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which word is a badal (apposition) of the earlier "the path"?', bn: 'আগের "পথ"-এর বদল কোন শব্দটি?' },
+      options: ['صِرَٰطَ', 'ٱلَّذِينَ', 'أَنْعَمْتَ'], answer: 0,
+      explain: { en: 'صِرَٰطَ renames the earlier ٱلصِّرَٰطَ and copies its accusative case — the mark of a badal.', bn: 'صِرَٰطَ আগের ٱلصِّرَٰطَ-কে নতুন নামে প্রকাশ করে ও তার নসব এ‘রাব নেয় — এটিই বদলের চিহ্ন।' },
+    },
+  },
+  {
+    id: 'tawkid', unit: 'sentences', icon: '💪',
+    title: { en: 'Corroboration (at-tawkīd)', bn: 'তাওকীদ (গুরুত্বারোপ)' },
+    concept: {
+      en: 'A <b>tawkīd</b> (التوكيد) is a follower that removes doubt about the word it emphasises and copies its case. Two kinds: (1) <b>lafẓī</b> (verbal) — repeating the very word, e.g. دَكًّا دَكًّا; and (2) <b>maʿnawī</b> (of meaning) — using set words like نَفْس (self), عَيْن (very), كُلّ (all), أَجْمَع (altogether) with a matching pronoun, e.g. كُلُّهُمْ أَجْمَعُونَ ("all of them, everyone").',
+      bn: '<b>তাওকীদ</b> (التوكيد) হলো একটি অনুসরণকারী যা যে শব্দে জোর দেয় তার সন্দেহ দূর করে এবং একই এ‘রাব নেয়। দুই প্রকার: (১) <b>লাফযী</b> — শব্দটিই পুনরাবৃত্তি, যেমন دَكًّا دَكًّا; এবং (২) <b>মা‘নবী</b> — নির্দিষ্ট শব্দ যেমন نَفْس (নিজে), عَيْن (স্বয়ং), كُلّ (সব), أَجْمَع (সমগ্র) সঙ্গে মিল সর্বনাম দিয়ে, যেমন كُلُّهُمْ أَجْمَعُونَ ("তাদের সবাই, প্রত্যেকে")।',
+    },
+    examples: [
+      { ref: '15:30', trans: { en: 'So the angels prostrated, all of them together.', bn: 'অতঃপর ফেরেশতারা সবাই একসাথে সিজদা করল।' },
+        note: { en: 'كُلُّهُمْ and أَجْمَعُونَ are maʿnawī corroboratives of ٱلْمَلَـٰٓئِكَةُ (all in rafʿ); together they stress that not a single angel held back.', bn: 'كُلُّهُمْ ও أَجْمَعُونَ হলো ٱلْمَلَـٰٓئِكَةُ-এর মা‘নবী তাওকীদ (সবই রফ‘); একত্রে জোর দেয় যে একজন ফেরেশতাও বিরত থাকেনি।' },
+        words: [
+          { ar: 'فَسَجَدَ ٱلْمَلَـٰٓئِكَةُ', en: 'so the angels prostrated', bn: 'অতঃপর ফেরেশতারা সিজদা করল' },
+          { ar: 'كُلُّهُمْ', en: 'all of them', bn: 'তাদের সবাই', hl: true },
+          { ar: 'أَجْمَعُونَ', en: 'altogether', bn: 'সমগ্র', hl: true },
+        ] },
+      { ref: '89:21', trans: { en: 'When the earth is crushed to powder, crushing upon crushing.', bn: 'যখন পৃথিবীকে চূর্ণবিচূর্ণ করে গুঁড়িয়ে দেওয়া হবে।' },
+        note: { en: 'The first دَكًّا is an absolute object; repeating it as دَكًّا دَكًّا is lafẓī tawkīd — hammering home a total, repeated pulverising.', bn: 'প্রথম دَكًّا মাফউল মুতলাক; দ্বিতীয়বার دَكًّا বলা লাফযী তাওকীদ — সম্পূর্ণ, বারবার চূর্ণ করার উপর জোর।' },
+        words: [
+          { ar: 'دُكَّتِ ٱلْأَرْضُ', en: 'the earth is crushed', bn: 'পৃথিবী চূর্ণ করা হবে' },
+          { ar: 'دَكًّا دَكًّا', en: 'crushing after crushing', bn: 'চূর্ণবিচূর্ণ করে', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'Which word is a maʿnawī corroborative (tawkīd) of "the angels"?', bn: '"ফেরেশতাদের"-এর মা‘নবী তাওকীদ কোন শব্দটি?' },
+      options: ['أَجْمَعُونَ', 'فَسَجَدَ', 'ٱلْمَلَـٰٓئِكَةُ'], answer: 0,
+      explain: { en: 'أَجْمَعُونَ (rafʿ) emphasises ٱلْمَلَـٰٓئِكَةُ — "all together". ٱلْمَلَـٰٓئِكَةُ is the one emphasised (fāʿil) and فَسَجَدَ is the verb.', bn: 'أَجْمَعُونَ (রফ‘) ٱلْمَلَـٰٓئِكَةُ-কে জোর দেয় — "সবাই একসাথে"। ٱلْمَلَـٰٓئِكَةُ যাকে জোর দেওয়া হয় (ফা‘িল) এবং فَسَجَدَ ক্রিয়া।' },
+    },
+  },
+  {
+    id: 'afal-muqaraba', unit: 'verbs', icon: '🌡️',
+    title: { en: 'Verbs of nearness (kāda & its sisters)', bn: 'নৈকট্যবাচক ক্রিয়া (কাদা ও তার বোনেরা)' },
+    concept: {
+      en: 'Like كَانَ, the verb <b>كَادَ</b> ("almost / was on the point of") and its sisters take a noun in <b>rafʿ</b> (their ism) and a <b>present-tense verbal sentence</b> as their khabar. كَادَ signals nearness — the action nearly happened; عَسَىٰ signals hope ("perhaps"); أَخَذَ / جَعَلَ signal beginning ("started to"). So يَكَادُ + verb means "almost does", while negated مَا كَادَ means "hardly / barely did".',
+      bn: 'كَانَ-এর মতো <b>كَادَ</b> ("প্রায় / উপক্রম হওয়া") ক্রিয়া ও তার বোনেরা <b>রফ‘</b> অবস্থায় একটি বিশেষ্য (তাদের ইসম) এবং খবর হিসেবে একটি <b>বর্তমান-ক্রিয়া বাক্য</b> নেয়। كَادَ নৈকট্য বোঝায় — কাজটি প্রায় ঘটে গিয়েছিল; عَسَىٰ আশা বোঝায় ("সম্ভবত"); أَخَذَ / جَعَلَ শুরু বোঝায় ("করতে লাগল")। তাই يَكَادُ + ক্রিয়া অর্থ "প্রায় করে", আর নফি مَا كَادَ অর্থ "সবে / কষ্টে করল"।',
+    },
+    examples: [
+      { ref: '2:20', trans: { en: 'The lightning almost snatches away their sight.', bn: 'বিদ্যুৎ প্রায় তাদের দৃষ্টি কেড়ে নেয়।' },
+        note: { en: 'ٱلْبَرْقُ (rafʿ) is the ism of يَكَادُ; the sentence يَخْطَفُ أَبْصَـٰرَهُمْ is its khabar — "the lightning nearly snatches their sight".', bn: 'ٱلْبَرْقُ (রফ‘) يَكَادُ-এর ইসম; يَخْطَفُ أَبْصَـٰرَهُمْ বাক্যটি তার খবর — "বিদ্যুৎ প্রায় তাদের দৃষ্টি কেড়ে নেয়"।' },
+        words: [
+          { ar: 'يَكَادُ ٱلْبَرْقُ', en: 'the lightning almost', bn: 'বিদ্যুৎ প্রায়', hl: true },
+          { ar: 'يَخْطَفُ أَبْصَـٰرَهُمْ', en: 'snatches their sight', bn: 'তাদের দৃষ্টি কেড়ে নেয়' },
+        ] },
+      { ref: '24:35', trans: { en: 'Its oil almost gives light, even though fire has not touched it.', bn: 'তার তেল প্রায় আলো দেয়, যদিও আগুন তা স্পর্শ করেনি।' },
+        note: { en: 'زَيْتُهَا (rafʿ) is the ism; يُضِىٓءُ ("gives light") is the khabar — oil so pure it almost glows before any fire touches it.', bn: 'زَيْتُهَا (রফ‘) ইসম; يُضِىٓءُ ("আলো দেয়") খবর — তেল এত স্বচ্ছ যে আগুন ছোঁয়ার আগেই প্রায় জ্বলে ওঠে।' },
+        words: [
+          { ar: 'يَكَادُ زَيْتُهَا', en: 'its oil almost', bn: 'তার তেল প্রায়', hl: true },
+          { ar: 'يُضِىٓءُ', en: 'gives light', bn: 'আলো দেয়' },
+        ] },
+      { ref: '2:71', trans: { en: 'They slaughtered her, though they almost did not do it.', bn: 'তারা তাকে জবাই করল, যদিও প্রায় করেনি।' },
+        note: { en: 'With negation, مَا كَادُوا۟ يَفْعَلُونَ means "they hardly did it" — the doer-pronoun ‑ū is the ism, يَفْعَلُونَ the khabar.', bn: 'নফির সাথে مَا كَادُوا۟ يَفْعَلُونَ অর্থ "তারা কষ্টেসৃষ্টে করল" — কর্তা-সর্বনাম ‑ū ইসম, يَفْعَلُونَ খবর।' },
+        words: [
+          { ar: 'وَمَا كَادُوا۟', en: 'and they almost did not', bn: 'আর তারা প্রায় করেনি', hl: true },
+          { ar: 'يَفْعَلُونَ', en: 'do [it]', bn: 'করে' },
+        ] },
+    ],
+    practice: {
+      q: { en: 'In يَكَادُ ٱلْبَرْقُ يَخْطَفُ, what role does ٱلْبَرْقُ play?', bn: 'يَكَادُ ٱلْبَرْقُ يَخْطَفُ-এ ٱلْبَرْقُ কী ভূমিকা রাখে?' },
+      options: [{ en: 'ism of kāda (rafʿ subject)', bn: 'কাদা-র ইসম (রফ‘ কর্তা)' }, { en: 'khabar (predicate)', bn: 'খবর (বিধেয়)' }, { en: 'mafʿūl bihi (object)', bn: 'মাফ‘ূল বিহি (কর্ম)' }], answer: 0,
+      explain: { en: 'Like كَانَ, كَادَ raises a noun to rafʿ as its ism (ٱلْبَرْقُ) and takes the following verb-sentence يَخْطَفُ… as its khabar.', bn: 'كَانَ-এর মতো كَادَ একটি বিশেষ্যকে রফ‘ করে তার ইসম বানায় (ٱلْبَرْقُ) এবং পরের ক্রিয়া-বাক্য يَخْطَفُ…-কে খবর হিসেবে নেয়।' },
+    },
+  },
+  {
+    id: 'mamnu-sarf', unit: 'nouns', icon: '⛔',
+    title: { en: 'Diptotes (al-mamnūʿ min aṣ-ṣarf)', bn: 'অপূর্ণ-বিভক্তি বিশেষ্য (মামনূ‘ মিন আস-সরফ)' },
+    concept: {
+      en: 'Most nouns are "fully inflected": they take tanwīn and a <b>kasra</b> in the genitive. But certain nouns are <b>diptotes</b> (mamnūʿ min aṣ-ṣarf): they refuse tanwīn and, in the genitive, take a <b>fatḥa</b> (‑a) instead of a kasra — unless they become definite or muḍāf. Common diptotes: non-Arabic proper names (إِبْرَٰهِيم, يُوسُف), feminine proper names (مَرْيَم, مَكَّة), and the patterns أَفْعَل (أَحْسَن, أُخَر) and mafāʿil/mafāʿīl (مَسَٰجِد, مَصَٰبِيح).',
+      bn: 'অধিকাংশ বিশেষ্য "পূর্ণ-বিভক্তি": তারা তানভীন নেয় ও জর অবস্থায় <b>কাসরা</b> নেয়। কিন্তু কিছু বিশেষ্য <b>অপূর্ণ-বিভক্তি</b> (মামনূ‘ মিন আস-সরফ): তারা তানভীন নেয় না এবং জর অবস্থায় কাসরার বদলে <b>ফাতহা</b> (‑a) নেয় — যদি না নির্দিষ্ট হয় বা মুদাফ হয়। সাধারণ উদাহরণ: অনারবি নাম (إِبْرَٰهِيم, يُوسُف), স্ত্রীবাচক নাম (مَرْيَم, مَكَّة), এবং أَفْعَل (أَحْسَن, أُخَر) ও মাফা‘ইল/মাফা‘ীল (مَسَٰجِد, مَصَٰبِيح) ছাঁচ।',
+    },
+    examples: [
+      { ref: '2:130', trans: { en: 'Who would turn away from the religion of Abraham?', bn: 'ইবরাহীমের ধর্ম থেকে কে বিমুখ হবে?' },
+        note: { en: 'إِبْرَٰهِـۧمَ is genitive here (muḍāf ilayh after مِلَّةِ) yet ends in fatḥa ‑a with no tanwīn — a non-Arabic proper name is a diptote.', bn: 'এখানে إِبْرَٰهِـۧمَ জর অবস্থায় (مِلَّةِ-এর পরে মুদাফ ইলাইহি) তবু ফাতহা ‑a-তে শেষ, তানভীন নেই — অনারবি নাম অপূর্ণ-বিভক্তি।' },
+        words: [
+          { ar: 'عَن مِّلَّةِ', en: 'from the religion of', bn: 'ধর্ম থেকে' },
+          { ar: 'إِبْرَٰهِـۧمَ', en: 'Abraham', bn: 'ইবরাহীম', hl: true },
+        ] },
+      { ref: '2:184', trans: { en: 'Then a number of other days.', bn: 'তবে অন্য দিনগুলো থেকে সমান সংখ্যা।' },
+        note: { en: 'أُخَرَ describes أَيَّامٍ and is genitive, yet takes fatḥa (‑a) and no tanwīn — the plural pattern أُفَعَل is a diptote. Compare أَيَّامٍ, an ordinary noun ending ‑in.', bn: 'أُخَرَ শব্দটি أَيَّامٍ-কে বর্ণনা করে ও জর অবস্থায়, তবু ফাতহা (‑a) নেয়, তানভীন নেই — أُفَعَل বহুবচন ছাঁচ অপূর্ণ-বিভক্তি। তুলনা করো أَيَّامٍ, সাধারণ বিশেষ্য ‑in সহ।' },
+        words: [
+          { ar: 'مِّنْ أَيَّامٍ', en: 'of days', bn: 'দিনগুলো থেকে' },
+          { ar: 'أُخَرَ', en: 'other', bn: 'অন্য', hl: true },
+        ] },
+      { ref: '48:24', trans: { en: 'In the valley of Makkah, after He gave you victory over them.', bn: 'মক্কার উপত্যকায়, তোমাদের তাদের উপর বিজয়ী করার পর।' },
+        note: { en: 'مَكَّةَ is genitive (muḍāf ilayh after بَطْنِ) but ends in fatḥa with no tanwīn — a feminine place-name, hence a diptote.', bn: 'مَكَّةَ জর অবস্থায় (بَطْنِ-এর পরে মুদাফ ইলাইহি) কিন্তু ফাতহায় শেষ, তানভীন নেই — স্ত্রীবাচক স্থাননাম, তাই অপূর্ণ-বিভক্তি।' },
+        words: [
+          { ar: 'بِبَطْنِ', en: 'in the valley of', bn: 'উপত্যকায়' },
+          { ar: 'مَكَّةَ', en: 'Makkah', bn: 'মক্কা', hl: true },
+        ] },
+    ],
+    practice: {
+      q: { en: 'A diptote (mamnūʿ min aṣ-ṣarf) in the genitive takes which ending?', bn: 'অপূর্ণ-বিভক্তি বিশেষ্য জর অবস্থায় কোন শেষ নেয়?' },
+      options: [{ en: 'fatḥa (‑a), no tanwīn', bn: 'ফাতহা (‑a), তানভীন ছাড়া' }, { en: 'kasra (‑i) with tanwīn', bn: 'কাসরা (‑i), তানভীন সহ' }, { en: 'ḍamma (‑u)', bn: 'দম্মা (‑u)' }], answer: 0,
+      explain: { en: 'Unlike normal nouns, a diptote refuses tanwīn and shows the genitive with a fatḥa, e.g. مِلَّةِ إِبْرَٰهِـۧمَ, بِبَطْنِ مَكَّةَ.', bn: 'সাধারণ বিশেষ্যের বিপরীতে অপূর্ণ-বিভক্তি তানভীন নেয় না ও জর ফাতহা দিয়ে দেখায়, যেমন مِلَّةِ إِبْرَٰهِـۧمَ, بِبَطْنِ مَكَّةَ।' },
+    },
+  },
 ];
 
 /* ------------------------------------------------------------------ *

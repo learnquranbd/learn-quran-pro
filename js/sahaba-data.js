@@ -3890,6 +3890,440 @@ const SAHABA_DATA = [
     "refs": [],
     "lessonEn": "An open heart can turn a moment of argument into a lifetime of guidance.",
     "lessonBn": "একটি উন্মুক্ত অন্তর তর্কের মুহূর্তকেও সারাজীবনের হিদায়াতে রূপান্তর করতে পারে।"
+  },
+  {
+    "id": "khalid_ibn_said_ibn_al_as",
+    "order": 84,
+    "init": "KS",
+    "color": "bg-sky-600",
+    "ar": "خالد بن سعيد بن العاص",
+    "translit": "Khalid ibn Sa'id ibn al-As",
+    "en": "Khalid ibn Sa'id ibn al-As (RA)",
+    "bn": "খালিদ ইবনে সাঈদ ইবনুল আস (রাঃ)",
+    "era": "first",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "One of the Earliest to Believe",
+    "roleBn": "সর্বপ্রথম ঈমান আনয়নকারীদের একজন",
+    "yearEn": "d. c. 634 CE",
+    "highlightEn": "A dream led him to Islam among its very first converts.",
+    "highlightBn": "একটি স্বপ্ন তাঁকে ইসলামের প্রথম দিকের ঈমানদারদের কাতারে নিয়ে আসে।",
+    "summaryEn": "Khalid ibn Sa'id ibn al-As (RA) belonged to the powerful Umayyad clan of Quraysh, yet he was among the earliest people to accept Islam, often counted among the first four or five believers. He related that a dream of fire and the Prophet Muhammad (peace be upon him) pulling him back from its edge drew him to faith, and Abu Bakr (RA) encouraged him. His own father raged and beat him for leaving the idols, so he migrated to Abyssinia and stayed there for years. On returning he served the Prophet faithfully, and after the Prophet's passing he fought in the campaigns for Syria, where he was martyred at the battle of Marj as-Suffar. His steadfastness against his own clan marks him among the pioneers of Islam.",
+    "summaryBn": "খালিদ ইবনে সাঈদ ইবনুল আস (রাঃ) ছিলেন কুরাইশের শক্তিশালী উমাইয়া গোত্রের সদস্য, তবুও তিনি সর্বপ্রথম ইসলাম গ্রহণকারীদের একজন—প্রায়ই প্রথম চার-পাঁচজন ঈমানদারের অন্তর্ভুক্ত গণ্য হন। তিনি বর্ণনা করেন যে আগুনের এক স্বপ্ন এবং রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর তাঁকে সেই আগুনের কিনারা থেকে টেনে সরানোর দৃশ্য তাঁকে ঈমানের দিকে টানে, আর আবু বকর (রাঃ) তাঁকে উৎসাহ দেন। মূর্তি ত্যাগ করায় তাঁর নিজ পিতা ক্ষুব্ধ হয়ে তাঁকে প্রহার করেন, তাই তিনি আবিসিনিয়ায় হিজরত করেন ও বহু বছর সেখানে থাকেন। ফিরে এসে তিনি নবীজির বিশ্বস্ত খেদমত করেন এবং নবীজির ইন্তেকালের পর সিরিয়া অভিযানে অংশ নিয়ে মারজ আস-সুফফারের যুদ্ধে শহীদ হন। নিজ গোত্রের বিরুদ্ধে তাঁর অবিচলতা তাঁকে ইসলামের অগ্রপথিকদের কাতারে স্থান দেয়।",
+    "events": [
+      {
+        "en": "Among the first handful of people to accept Islam",
+        "bn": "সর্বপ্রথম ইসলাম গ্রহণকারী মুষ্টিমেয় ব্যক্তিদের একজন"
+      },
+      {
+        "en": "Beaten and disowned by his father for his faith",
+        "bn": "ঈমানের কারণে পিতা কর্তৃক প্রহৃত ও ত্যাজ্য"
+      },
+      {
+        "en": "Migrated to Abyssinia to escape persecution",
+        "bn": "নির্যাতন থেকে বাঁচতে আবিসিনিয়ায় হিজরত করেন"
+      },
+      {
+        "en": "Martyred fighting in the conquest of Syria",
+        "bn": "সিরিয়া বিজয়ের যুদ্ধে শহীদ হন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "The first to answer the truth often pay the highest price, and earn the greatest honour.",
+    "lessonBn": "সত্যের ডাকে প্রথম সাড়াদানকারীরা প্রায়ই সর্বোচ্চ মূল্য দেন এবং সর্বোচ্চ মর্যাদা অর্জন করেন।"
+  },
+  {
+    "id": "abdullah_ibn_zayd_al_ansari",
+    "order": 85,
+    "init": "AZ",
+    "color": "bg-teal-600",
+    "ar": "عبد الله بن زيد الأنصاري",
+    "translit": "Abdullah ibn Zayd al-Ansari",
+    "en": "Abdullah ibn Zayd al-Ansari (RA)",
+    "bn": "আবদুল্লাহ ইবনে জায়েদ আল-আনসারি (রাঃ)",
+    "era": "hijra",
+    "ashara": false,
+    "caliph": false,
+    "ansar": true,
+    "woman": false,
+    "roleEn": "He Who Saw the Adhan in a Dream",
+    "roleBn": "যিনি স্বপ্নে আজান দেখেছিলেন",
+    "yearEn": "d. c. 652 CE",
+    "highlightEn": "Allah showed him the words of the call to prayer in a dream.",
+    "highlightBn": "আল্লাহ তাঁকে স্বপ্নে নামাজের আহ্বানের শব্দগুলো দেখিয়েছিলেন।",
+    "summaryEn": "Abdullah ibn Zayd ibn Abd Rabbih (RA) was a companion of the Ansar in Madinah. When the Muslims sought a way to call people to the congregational prayer, opinions differed over a bell, a horn, or a fire. Abdullah then saw a vision in which a man taught him the wording of the adhan, and he came to the Prophet Muhammad (peace be upon him), who confirmed it as a true vision and had Bilal (RA) call it out because of his beautiful, far-reaching voice. Umar ibn al-Khattab (RA) reported having seen the same dream. Abdullah took part in the battles alongside the Prophet and lived on into the caliphate of Uthman (RA), remembered forever for the words the Muslims still call out five times a day.",
+    "summaryBn": "আবদুল্লাহ ইবনে জায়েদ ইবনে আবদে রাব্বিহি (রাঃ) ছিলেন মদিনার আনসার সাহাবিদের একজন। মুসলিমরা যখন জামাতে নামাজের জন্য আহ্বানের উপায় খুঁজছিলেন, তখন ঘণ্টা, শিঙা নাকি আগুন—এ নিয়ে মতভেদ দেখা দেয়। এমন সময় আবদুল্লাহ স্বপ্নে দেখেন এক ব্যক্তি তাঁকে আজানের শব্দগুলো শিক্ষা দিচ্ছেন; তিনি রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর কাছে এলে নবীজি একে সত্য স্বপ্ন বলে নিশ্চিত করেন এবং বিলাল (রাঃ)-কে তাঁর সুন্দর ও সুদূরপ্রসারী কণ্ঠের কারণে তা ঘোষণা করার নির্দেশ দেন। উমর ইবনুল খাত্তাব (রাঃ)-ও একই স্বপ্ন দেখেছিলেন বলে জানান। আবদুল্লাহ নবীজির সাথে যুদ্ধে অংশ নেন এবং উসমান (রাঃ)-এর খিলাফতকাল পর্যন্ত জীবিত ছিলেন; মুসলিমরা দিনে পাঁচবার যে শব্দ উচ্চারণ করে, তার জন্য তিনি চিরস্মরণীয়।",
+    "events": [
+      {
+        "en": "Saw the words of the adhan taught to him in a true dream",
+        "bn": "সত্য স্বপ্নে আজানের শব্দ শেখানো হতে দেখেন"
+      },
+      {
+        "en": "The Prophet confirmed the vision and adopted the call to prayer",
+        "bn": "নবীজি স্বপ্নটি সত্যায়ন করেন ও আজান গ্রহণ করেন"
+      },
+      {
+        "en": "Bilal (RA) was chosen to call it aloud",
+        "bn": "বিলাল (রাঃ)-কে উচ্চস্বরে আজান দেওয়ার জন্য বেছে নেওয়া হয়"
+      },
+      {
+        "en": "Fought in the battles beside the Prophet (peace be upon him)",
+        "bn": "নবীজির সাথে যুদ্ধসমূহে অংশ নেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Allah honours the sincere seeker, sometimes granting guidance through the gentlest of means.",
+    "lessonBn": "আল্লাহ আন্তরিক অন্বেষণকারীকে সম্মানিত করেন, কখনও সবচেয়ে কোমল উপায়েও হিদায়াত দান করেন।"
+  },
+  {
+    "id": "kab_ibn_malik_al_ansari",
+    "order": 86,
+    "init": "KM",
+    "color": "bg-emerald-600",
+    "ar": "كعب بن مالك الأنصاري",
+    "translit": "Ka'b ibn Malik al-Ansari",
+    "en": "Ka'b ibn Malik al-Ansari (RA)",
+    "bn": "কাব ইবনে মালিক আল-আনসারি (রাঃ)",
+    "era": "battles",
+    "ashara": false,
+    "caliph": false,
+    "ansar": true,
+    "woman": false,
+    "roleEn": "The Poet Whose Repentance Allah Accepted",
+    "roleBn": "যাঁর তওবা আল্লাহ কবুল করেছিলেন সেই কবি",
+    "yearEn": "d. c. 670 CE",
+    "highlightEn": "One of the three whose sincere repentance the Quran records.",
+    "highlightBn": "কুরআনে যাঁদের আন্তরিক তওবা লিপিবদ্ধ, সেই তিনজনের একজন।",
+    "summaryEn": "Ka'b ibn Malik (RA) was one of the poets of the Ansar who defended Islam with his verse, and he pledged allegiance at al-Aqabah before the Hijra. Though he fought in most battles, he stayed behind from the expedition to Tabuk without excuse, out of hesitation rather than hypocrisy. When the army returned, he refused to lie to the Prophet Muhammad (peace be upon him) and told the truth; he and two others were boycotted by the whole community for fifty days as their test. Then Allah revealed the acceptance of their repentance in Surah at-Tawbah, and Ka'b called it the greatest day of his life. He remained a truthful, grateful believer and a guardian of the Prophet's memory.",
+    "summaryBn": "কাব ইবনে মালিক (রাঃ) ছিলেন আনসারের একজন কবি, যিনি নিজ কবিতা দিয়ে ইসলামের পক্ষে লড়েছেন এবং হিজরতের পূর্বে আকাবায় বায়আত করেছিলেন। যদিও তিনি অধিকাংশ যুদ্ধে অংশ নেন, তাবুক অভিযানে তিনি মুনাফিকির কারণে নয় বরং গড়িমসির কারণে বিনা ওজরে পিছিয়ে থাকেন। সেনাবাহিনী ফিরে এলে তিনি রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর কাছে মিথ্যা বলতে অস্বীকার করে সত্য বলেন; পরীক্ষা হিসেবে তাঁকে ও আরও দুজনকে গোটা সমাজ পঞ্চাশ দিন বয়কট করে। অতঃপর আল্লাহ সূরা তওবায় তাঁদের তওবা কবুলের ঘোষণা নাজিল করেন, আর কাব একে নিজ জীবনের শ্রেষ্ঠ দিন বলে অভিহিত করেন। তিনি আজীবন সত্যবাদী, কৃতজ্ঞ মুমিন ও নবীজির স্মৃতির রক্ষক ছিলেন।",
+    "events": [
+      {
+        "en": "Pledged allegiance to the Prophet at al-Aqabah",
+        "bn": "আকাবায় নবীজির হাতে বায়আত করেন"
+      },
+      {
+        "en": "Defended Islam with his poetry",
+        "bn": "নিজ কবিতা দিয়ে ইসলামের পক্ষে লড়েন"
+      },
+      {
+        "en": "Told the truth about staying back from Tabuk",
+        "bn": "তাবুক থেকে পিছিয়ে থাকার ব্যাপারে সত্য বলেন"
+      },
+      {
+        "en": "Boycotted fifty days, then his repentance accepted in the Quran",
+        "bn": "পঞ্চাশ দিন বয়কট, অতঃপর কুরআনে তওবা কবুল হয়"
+      }
+    ],
+    "refs": [
+      "9:118"
+    ],
+    "lessonEn": "Honesty in your worst moment is dearer to Allah than a comfortable lie.",
+    "lessonBn": "নিজের সবচেয়ে কঠিন মুহূর্তে সততা আল্লাহর কাছে আরামদায়ক মিথ্যার চেয়ে অধিক প্রিয়।"
+  },
+  {
+    "id": "dihyah_al_kalbi",
+    "order": 87,
+    "init": "DK",
+    "color": "bg-indigo-600",
+    "ar": "دحية الكلبي",
+    "translit": "Dihyah al-Kalbi",
+    "en": "Dihyah al-Kalbi (RA)",
+    "bn": "দিহইয়া আল-কালবি (রাঃ)",
+    "era": "battles",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "The Envoy Whose Form Jibril Took",
+    "roleBn": "যাঁর রূপে জিবরাইল আসতেন সেই দূত",
+    "yearEn": "d. c. 670 CE",
+    "highlightEn": "So handsome that the angel Jibril would appear in his likeness.",
+    "highlightBn": "এত সুদর্শন যে ফেরেশতা জিবরাইল তাঁর রূপে আসতেন।",
+    "summaryEn": "Dihyah ibn Khalifah al-Kalbi (RA) was a Companion famed for his striking beauty, and it is reported that the angel Jibril would sometimes come to the Prophet Muhammad (peace be upon him) in his form. A trusted man of standing, he was chosen by the Prophet to carry the letter inviting Heraclius, the emperor of Byzantium, to Islam, a mission he fulfilled with dignity. He took part in the battles and lived to serve in the later conquests of Syria, settling near Damascus. His life shows how the Prophet entrusted grave responsibilities to Companions of wisdom and bearing.",
+    "summaryBn": "দিহইয়া ইবনে খালিফা আল-কালবি (রাঃ) ছিলেন অসাধারণ সৌন্দর্যের জন্য খ্যাত একজন সাহাবি, আর বর্ণিত আছে যে ফেরেশতা জিবরাইল কখনও কখনও তাঁর রূপে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর কাছে আসতেন। মর্যাদাবান ও বিশ্বস্ত ব্যক্তি হিসেবে নবীজি তাঁকে বাইজেন্টাইন সম্রাট হিরাক্লিয়াসকে ইসলামের দাওয়াত দিয়ে চিঠি পৌঁছানোর জন্য মনোনীত করেন, যে দায়িত্ব তিনি মর্যাদার সাথে পালন করেন। তিনি যুদ্ধসমূহে অংশ নেন এবং পরবর্তীতে সিরিয়া বিজয়ে খেদমত করেন ও দামেস্কের নিকট বসতি গড়েন। তাঁর জীবন দেখায় নবীজি কীভাবে জ্ঞানী ও মর্যাদাবান সাহাবিদের হাতে গুরুদায়িত্ব অর্পণ করতেন।",
+    "events": [
+      {
+        "en": "Jibril would at times appear in his likeness",
+        "bn": "জিবরাইল কখনও তাঁর রূপে আসতেন"
+      },
+      {
+        "en": "Carried the Prophet's letter to Emperor Heraclius",
+        "bn": "সম্রাট হিরাক্লিয়াসের কাছে নবীজির চিঠি পৌঁছান"
+      },
+      {
+        "en": "Fought in the battles of Islam",
+        "bn": "ইসলামের যুদ্ধসমূহে অংশ নেন"
+      },
+      {
+        "en": "Served in the conquest of Syria and settled near Damascus",
+        "bn": "সিরিয়া বিজয়ে খেদমত করেন ও দামেস্কের নিকট বসতি গড়েন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Great trust is placed in those whose character matches their calling.",
+    "lessonBn": "যাঁদের চরিত্র তাঁদের দায়িত্বের সাথে মানানসই, তাঁদের হাতেই বড় আমানত অর্পিত হয়।"
+  },
+  {
+    "id": "utbah_ibn_ghazwan",
+    "order": 88,
+    "init": "UG",
+    "color": "bg-cyan-600",
+    "ar": "عتبة بن غزوان",
+    "translit": "Utbah ibn Ghazwan",
+    "en": "Utbah ibn Ghazwan (RA)",
+    "bn": "উতবা ইবনে গাযওয়ান (রাঃ)",
+    "era": "first",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "Early Believer and Founder of Basra",
+    "roleBn": "প্রথম যুগের মুমিন ও বসরার প্রতিষ্ঠাতা",
+    "yearEn": "d. c. 638 CE",
+    "highlightEn": "An early convert who founded the great city of Basra.",
+    "highlightBn": "একজন প্রথম যুগের মুসলিম, যিনি বসরা নগরী প্রতিষ্ঠা করেন।",
+    "summaryEn": "Utbah ibn Ghazwan (RA) was among the earliest to embrace Islam, often counted as the seventh believer, and he migrated first to Abyssinia and then to Madinah. He fought at Badr and in the campaigns that followed, a humble man who disliked worldly rank. Under the caliph Umar ibn al-Khattab (RA) he was sent to Iraq, where he led the founding of the garrison city of Basra, laying out its mosque and settlements. In a famous sermon there he warned against the deceptions of a fleeting world and reminded people that leadership had never suited the arrogant. He died soon after, remembered for piety and simplicity.",
+    "summaryBn": "উতবা ইবনে গাযওয়ান (রাঃ) ছিলেন সর্বপ্রথম ইসলাম গ্রহণকারীদের একজন—প্রায়ই সপ্তম মুমিন হিসেবে গণ্য—এবং তিনি প্রথমে আবিসিনিয়ায় ও পরে মদিনায় হিজরত করেন। তিনি বদর ও পরবর্তী অভিযানসমূহে অংশ নেন; দুনিয়াবি পদমর্যাদা অপছন্দকারী একজন বিনয়ী মানুষ ছিলেন। খলিফা উমর ইবনুল খাত্তাব (রাঃ)-এর অধীনে তিনি ইরাকে প্রেরিত হন, যেখানে তিনি সেনানগরী বসরা প্রতিষ্ঠার নেতৃত্ব দেন এবং এর মসজিদ ও বসতি স্থাপন করেন। সেখানে এক বিখ্যাত খুতবায় তিনি ক্ষণস্থায়ী দুনিয়ার ধোঁকা সম্পর্কে সতর্ক করেন ও স্মরণ করান যে নেতৃত্ব কখনও অহংকারীর জন্য শোভনীয় নয়। এর অল্প পরেই তিনি ইন্তেকাল করেন; তাকওয়া ও সরলতার জন্য তিনি স্মরণীয়।",
+    "events": [
+      {
+        "en": "Among the earliest to accept Islam",
+        "bn": "সর্বপ্রথম ইসলাম গ্রহণকারীদের একজন"
+      },
+      {
+        "en": "Migrated to Abyssinia and fought at Badr",
+        "bn": "আবিসিনিয়ায় হিজরত করেন ও বদরে অংশ নেন"
+      },
+      {
+        "en": "Founded the garrison city of Basra under Umar (RA)",
+        "bn": "উমর (রাঃ)-এর অধীনে বসরা নগরী প্রতিষ্ঠা করেন"
+      },
+      {
+        "en": "Warned against pride and the deceptions of the world",
+        "bn": "অহংকার ও দুনিয়ার ধোঁকা সম্পর্কে সতর্ক করেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Build great things for the sake of God, yet keep your heart free of the world.",
+    "lessonBn": "আল্লাহর সন্তুষ্টির জন্য মহৎ কিছু গড়ুন, তবে অন্তরকে দুনিয়ামুক্ত রাখুন।"
+  },
+  {
+    "id": "said_ibn_amir_al_jumahi",
+    "order": 89,
+    "init": "SA",
+    "color": "bg-violet-600",
+    "ar": "سعيد بن عامر الجمحي",
+    "translit": "Sa'id ibn Amir al-Jumahi",
+    "en": "Sa'id ibn Amir al-Jumahi (RA)",
+    "bn": "সাঈদ ইবনে আমির আল-জুমাহি (রাঃ)",
+    "era": "conquest",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "The Ascetic Governor of Homs",
+    "roleBn": "হিমসের দরবেশ গভর্নর",
+    "yearEn": "d. c. 641 CE",
+    "highlightEn": "A governor so pious he gave his salary away and lived poor.",
+    "highlightBn": "এমন এক গভর্নর, যিনি বেতন দান করে দরিদ্র জীবন যাপন করতেন।",
+    "summaryEn": "Sa'id ibn Amir al-Jumahi (RA) embraced Islam around the time of Khaybar and became known for his deep piety and detachment from wealth. When the caliph Umar ibn al-Khattab (RA) appointed him governor of Homs in Syria, he gave away most of his stipend in charity and lived so simply that people complained he was too poor and unavailable. Investigating, Umar found that Sa'id spent his money on the needy, worked for the hereafter, and delayed only to serve his household and worship. Umar wept and affirmed his trust in him. Sa'id remained a model of a ruler who feared Allah more than he desired the comforts of office.",
+    "summaryBn": "সাঈদ ইবনে আমির আল-জুমাহি (রাঃ) খাইবারের সময়কালে ইসলাম গ্রহণ করেন এবং গভীর তাকওয়া ও সম্পদ-বিমুখতার জন্য পরিচিত হন। খলিফা উমর ইবনুল খাত্তাব (রাঃ) যখন তাঁকে সিরিয়ার হিমস শহরের গভর্নর নিযুক্ত করেন, তখন তিনি তাঁর বেতনের অধিকাংশ সদকা করে দিতেন ও এত সাদাসিধা জীবন যাপন করতেন যে লোকেরা অভিযোগ করত তিনি অতি দরিদ্র ও সহজলভ্য নন। তদন্ত করে উমর দেখেন সাঈদ তাঁর অর্থ অভাবীদের পেছনে ব্যয় করেন, আখিরাতের জন্য কাজ করেন এবং কেবল পরিবার ও ইবাদতের কারণে বিলম্ব করেন। উমর কেঁদে ফেলেন ও তাঁর প্রতি আস্থা দৃঢ় করেন। সাঈদ এমন এক শাসকের আদর্শ ছিলেন, যিনি পদের আরামের চেয়ে আল্লাহকে অধিক ভয় করতেন।",
+    "events": [
+      {
+        "en": "Accepted Islam around the time of Khaybar",
+        "bn": "খাইবারের সময়কালে ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Appointed governor of Homs by Umar (RA)",
+        "bn": "উমর (রাঃ) কর্তৃক হিমসের গভর্নর নিযুক্ত হন"
+      },
+      {
+        "en": "Gave away his salary and lived in simplicity",
+        "bn": "নিজ বেতন দান করে সরল জীবন যাপন করতেন"
+      },
+      {
+        "en": "Praised by Umar as a truly trustworthy ruler",
+        "bn": "উমর কর্তৃক প্রকৃত বিশ্বস্ত শাসক হিসেবে প্রশংসিত"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "The best leaders spend on others what lesser hearts hoard for themselves.",
+    "lessonBn": "শ্রেষ্ঠ নেতারা অন্যের জন্য তা-ই ব্যয় করেন, যা নীচু অন্তর নিজের জন্য জমা রাখে।"
+  },
+  {
+    "id": "al_ala_ibn_al_hadrami",
+    "order": 90,
+    "init": "AH",
+    "color": "bg-orange-500",
+    "ar": "العلاء بن الحضرمي",
+    "translit": "al-Ala ibn al-Hadrami",
+    "en": "al-Ala ibn al-Hadrami (RA)",
+    "bn": "আল-আলা ইবনুল হাদরামি (রাঃ)",
+    "era": "conquest",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "The Governor of Bahrain",
+    "roleBn": "বাহরাইনের গভর্নর",
+    "yearEn": "d. c. 641 CE",
+    "highlightEn": "The Prophet's envoy to Bahrain who held the region firm.",
+    "highlightBn": "বাহরাইনে নবীজির দূত, যিনি অঞ্চলটিকে দৃঢ় রাখেন।",
+    "summaryEn": "Al-Ala ibn al-Hadrami (RA) was sent by the Prophet Muhammad (peace be upon him) as his envoy and governor to Bahrain in eastern Arabia, where he invited its people, both Arabs and others, to Islam and collected its dues. After the Prophet's death, when many tribes there wavered in the Ridda, al-Ala stood firm and led the believers to victory, restoring the region to the faith. He was known as a man of earnest supplication, and reports describe striking answers to his prayers during his campaigns. He continued to serve under Abu Bakr and Umar (may Allah be pleased with them) until his death, a steadfast frontier governor of the young Muslim state.",
+    "summaryBn": "আল-আলা ইবনুল হাদরামি (রাঃ)-কে রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) পূর্ব আরবের বাহরাইনে নিজ দূত ও গভর্নর হিসেবে প্রেরণ করেন, যেখানে তিনি আরব ও অন্যান্য অধিবাসীদের ইসলামের দাওয়াত দেন ও রাজস্ব সংগ্রহ করেন। নবীজির ইন্তেকালের পর সেখানকার বহু গোত্র যখন রিদ্দায় টলে যায়, তখন আল-আলা দৃঢ় থেকে মুমিনদের বিজয়ের দিকে নেতৃত্ব দেন ও অঞ্চলটিকে ঈমানে ফিরিয়ে আনেন। তিনি ছিলেন আন্তরিক দোয়াকারী এক ব্যক্তি, আর বর্ণনায় তাঁর অভিযানকালে দোয়ার বিস্ময়কর কবুলিয়াতের কথা এসেছে। তিনি মৃত্যু পর্যন্ত আবু বকর ও উমর (রাঃ)-এর অধীনে খেদমত করেন—নবীন মুসলিম রাষ্ট্রের এক অবিচল সীমান্ত গভর্নর।",
+    "events": [
+      {
+        "en": "Sent by the Prophet as governor of Bahrain",
+        "bn": "নবীজি কর্তৃক বাহরাইনের গভর্নর নিযুক্ত হন"
+      },
+      {
+        "en": "Held the region firm during the Ridda wars",
+        "bn": "রিদ্দার যুদ্ধকালে অঞ্চলটিকে দৃঢ় রাখেন"
+      },
+      {
+        "en": "Known for earnest, answered supplications",
+        "bn": "আন্তরিক ও কবুলকৃত দোয়ার জন্য পরিচিত"
+      },
+      {
+        "en": "Served under Abu Bakr and Umar (RA)",
+        "bn": "আবু বকর ও উমর (রাঃ)-এর অধীনে খেদমত করেন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "Firmness in a time of confusion can hold a whole people to the truth.",
+    "lessonBn": "বিভ্রান্তির সময়ে অবিচলতা একটি গোটা জাতিকে সত্যের উপর ধরে রাখতে পারে।"
+  },
+  {
+    "id": "fayruz_ad_daylami",
+    "order": 91,
+    "init": "FD",
+    "color": "bg-slate-600",
+    "ar": "فيروز الديلمي",
+    "translit": "Fayruz ad-Daylami",
+    "en": "Fayruz ad-Daylami (RA)",
+    "bn": "ফাইরুয আদ-দাইলামি (রাঃ)",
+    "era": "conquest",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "Slayer of the False Prophet of Yemen",
+    "roleBn": "ইয়েমেনের ভণ্ড নবীর হন্তা",
+    "yearEn": "1st century AH",
+    "highlightEn": "He killed al-Aswad al-Ansi, the false prophet, restoring Yemen.",
+    "highlightBn": "ভণ্ড নবী আল-আসওয়াদ আল-আনসিকে হত্যা করে ইয়েমেন উদ্ধার করেন।",
+    "summaryEn": "Fayruz ad-Daylami (RA) was a Yemeni of Persian descent, from the community known as the Abna, who accepted Islam when the message of the Prophet Muhammad (peace be upon him) reached Yemen. When al-Aswad al-Ansi rose there claiming prophethood and seizing power by force, Fayruz joined a small band of believers who plotted to end his tyranny, and it was Fayruz who struck him down, freeing Yemen and returning it to Islam. The Prophet received news of the victory near the time of his own passing and praised the believer who accomplished it. Fayruz lived on as a respected figure in Yemen, an example of courage against imposture.",
+    "summaryBn": "ফাইরুয আদ-দাইলামি (রাঃ) ছিলেন পারস্য বংশোদ্ভূত একজন ইয়েমেনি, 'আবনা' নামে পরিচিত সম্প্রদায়ের সদস্য, যিনি রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর বার্তা ইয়েমেনে পৌঁছালে ইসলাম গ্রহণ করেন। আল-আসওয়াদ আল-আনসি যখন সেখানে নবুয়তের দাবি করে বলপ্রয়োগে ক্ষমতা দখল করে, তখন ফাইরুয মুষ্টিমেয় মুমিনের এক দলে যোগ দেন যারা তার অত্যাচার অবসানের পরিকল্পনা করেন; আর ফাইরুযই তাকে হত্যা করে ইয়েমেনকে মুক্ত করেন ও ইসলামে ফিরিয়ে আনেন। নবীজি নিজ ইন্তেকালের কাছাকাছি সময়ে এই বিজয়ের সংবাদ পান ও এর কৃতী মুমিনের প্রশংসা করেন। ফাইরুয ইয়েমেনে একজন সম্মানিত ব্যক্তি হিসেবে জীবন কাটান—ভণ্ডামির বিরুদ্ধে সাহসের এক দৃষ্টান্ত।",
+    "events": [
+      {
+        "en": "A Yemeni of Persian descent who accepted Islam",
+        "bn": "পারস্য বংশোদ্ভূত ইয়েমেনি, যিনি ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Slew the false prophet al-Aswad al-Ansi",
+        "bn": "ভণ্ড নবী আল-আসওয়াদ আল-আনসিকে হত্যা করেন"
+      },
+      {
+        "en": "Restored Yemen to Islam and order",
+        "bn": "ইয়েমেনকে ইসলাম ও শৃঙ্খলায় ফিরিয়ে আনেন"
+      },
+      {
+        "en": "Praised in the report the Prophet received of the victory",
+        "bn": "নবীজির কাছে পৌঁছানো বিজয়সংবাদে প্রশংসিত হন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "A few sincere believers can topple a great falsehood when they trust in Allah.",
+    "lessonBn": "আল্লাহর উপর ভরসা রাখলে অল্প কয়েকজন আন্তরিক মুমিনও বিশাল মিথ্যাকে ধসিয়ে দিতে পারেন।"
+  },
+  {
+    "id": "wahshi_ibn_harb",
+    "order": 92,
+    "init": "WH",
+    "color": "bg-red-600",
+    "ar": "وحشي بن حرب",
+    "translit": "Wahshi ibn Harb",
+    "en": "Wahshi ibn Harb (RA)",
+    "bn": "ওয়াহশি ইবনে হারব (রাঃ)",
+    "era": "battles",
+    "ashara": false,
+    "caliph": false,
+    "ansar": false,
+    "woman": false,
+    "roleEn": "From Slaying Hamza to Slaying the Liar",
+    "roleBn": "হামযার হত্যাকারী থেকে ভণ্ড নবীর হন্তা",
+    "yearEn": "1st century AH",
+    "highlightEn": "The mercy verse gave him hope, and he embraced Islam.",
+    "highlightBn": "রহমতের আয়াত তাঁকে আশা দেয়, আর তিনি ইসলাম গ্রহণ করেন।",
+    "summaryEn": "Wahshi ibn Harb (RA) was an Abyssinian slave in Makkah who killed the Prophet's uncle Hamza (RA) at the Battle of Uhud with his spear, promised freedom for the deed. He carried the weight of that act for years, feeling his sin too great for forgiveness. When he learned of the verse promising that Allah forgives all sins for those who turn to Him in repentance, hope revived in him, and he came to Madinah and embraced Islam. He later fought in the Ridda wars and killed Musaylima the liar at the Battle of Yamama, saying he had killed the best of men in ignorance and the worst of men in faith. His story is a lasting sign that no sinner is beyond Allah's mercy.",
+    "summaryBn": "ওয়াহশি ইবনে হারব (রাঃ) ছিলেন মক্কায় একজন আবিসিনীয় ক্রীতদাস, যিনি মুক্তির প্রতিশ্রুতিতে উহুদের যুদ্ধে নিজ বর্শা দিয়ে নবীজির চাচা হামযা (রাঃ)-কে হত্যা করেন। বহু বছর ধরে তিনি সেই কাজের বোঝা বহন করেন, নিজ পাপকে ক্ষমার অযোগ্য বলে অনুভব করতেন। যখন তিনি জানতে পারেন এমন এক আয়াতের কথা, যাতে আল্লাহ তাওবাকারীদের সকল পাপ ক্ষমার প্রতিশ্রুতি দিয়েছেন, তখন তাঁর অন্তরে আশা ফিরে আসে; তিনি মদিনায় এসে ইসলাম গ্রহণ করেন। পরে তিনি রিদ্দার যুদ্ধে অংশ নিয়ে ইয়ামামার যুদ্ধে ভণ্ড নবী মুসাইলিমাকে হত্যা করেন এবং বলেন, তিনি অজ্ঞতাবস্থায় শ্রেষ্ঠ মানুষকে ও ঈমান অবস্থায় নিকৃষ্ট মানুষকে হত্যা করেছেন। তাঁর কাহিনি চিরকালীন এক নিদর্শন যে কোনো পাপীই আল্লাহর রহমতের বাইরে নয়।",
+    "events": [
+      {
+        "en": "Killed Hamza (RA) at Uhud before accepting Islam",
+        "bn": "ইসলাম গ্রহণের আগে উহুদে হামযা (রাঃ)-কে হত্যা করেন"
+      },
+      {
+        "en": "The verse of Allah's vast mercy renewed his hope",
+        "bn": "আল্লাহর বিশাল রহমতের আয়াত তাঁর আশা জাগায়"
+      },
+      {
+        "en": "Came to Madinah and embraced Islam",
+        "bn": "মদিনায় এসে ইসলাম গ্রহণ করেন"
+      },
+      {
+        "en": "Killed Musaylima the liar at the Battle of Yamama",
+        "bn": "ইয়ামামার যুদ্ধে ভণ্ড নবী মুসাইলিমাকে হত্যা করেন"
+      }
+    ],
+    "refs": [
+      "39:53"
+    ],
+    "lessonEn": "No sin is so great that sincere repentance cannot reach Allah's boundless mercy.",
+    "lessonBn": "কোনো পাপ এত বড় নয় যে আন্তরিক তওবা আল্লাহর অসীম রহমতে পৌঁছাতে পারে না।"
+  },
+  {
+    "id": "umm_haram_bint_milhan",
+    "order": 93,
+    "init": "UH",
+    "color": "bg-pink-500",
+    "ar": "أم حرام بنت ملحان",
+    "translit": "Umm Haram bint Milhan",
+    "en": "Umm Haram bint Milhan (RA)",
+    "bn": "উম্মে হারাম বিনতে মিলহান (রাঃ)",
+    "era": "conquest",
+    "ashara": false,
+    "caliph": false,
+    "ansar": true,
+    "woman": true,
+    "roleEn": "The First Martyr at Sea",
+    "roleBn": "সমুদ্রের প্রথম শহীদ",
+    "yearEn": "d. c. 649 CE",
+    "highlightEn": "The Prophet foretold she would sail the sea in the path of Allah.",
+    "highlightBn": "নবীজি ভবিষ্যদ্বাণী করেছিলেন যে তিনি আল্লাহর পথে সমুদ্রযাত্রা করবেন।",
+    "summaryEn": "Umm Haram bint Milhan (RA) was a noble woman of the Ansar in Madinah and a maternal relative of the Prophet Muhammad (peace be upon him), who would visit her home and rest there. One day he awoke smiling and told her he had seen believers riding the sea like kings on thrones in the path of Allah, and he prayed that she be among them. She asked him to pray she be of the first, and he did. Years later, during the caliphate of Uthman (RA), she crossed the sea with the first Muslim naval expedition to Cyprus. There she fell from her mount and was martyred, and was buried on the island, her Prophet's words fulfilled exactly as he had foretold.",
+    "summaryBn": "উম্মে হারাম বিনতে মিলহান (রাঃ) ছিলেন মদিনার আনসারের একজন সম্ভ্রান্ত নারী ও রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম)-এর মাতৃকুলের আত্মীয়া, যাঁর বাড়িতে নবীজি যেতেন ও বিশ্রাম নিতেন। একদিন তিনি হাসিমুখে জেগে উঠে তাঁকে বলেন যে তিনি স্বপ্নে দেখেছেন মুমিনরা আল্লাহর পথে সিংহাসনে বসা রাজাদের মতো সমুদ্র পাড়ি দিচ্ছে, আর তিনি দোয়া করেন যেন উম্মে হারাম তাঁদের অন্তর্ভুক্ত হন। তিনি নবীজিকে দোয়া করতে বলেন যেন তিনি প্রথম দলের হন, নবীজি তা-ই করেন। বহু বছর পর উসমান (রাঃ)-এর খিলাফতকালে তিনি সাইপ্রাসের উদ্দেশ্যে প্রথম মুসলিম নৌ-অভিযানে সমুদ্র পাড়ি দেন। সেখানে তিনি নিজ বাহন থেকে পড়ে শহীদ হন ও দ্বীপে সমাহিত হন—নবীজির কথা হুবহু সত্য হয়ে ওঠে।",
+    "events": [
+      {
+        "en": "A relative of the Prophet who hosted him in her home",
+        "bn": "নবীজির আত্মীয়া, যিনি নিজ বাড়িতে তাঁকে আপ্যায়ন করতেন"
+      },
+      {
+        "en": "The Prophet foretold she would ride the sea for Allah",
+        "bn": "নবীজি ভবিষ্যদ্বাণী করেন যে তিনি আল্লাহর পথে সমুদ্রযাত্রা করবেন"
+      },
+      {
+        "en": "Sailed with the first naval expedition to Cyprus",
+        "bn": "সাইপ্রাসের প্রথম নৌ-অভিযানে যোগ দেন"
+      },
+      {
+        "en": "Martyred and buried on the island of Cyprus",
+        "bn": "সাইপ্রাস দ্বীপে শহীদ হন ও সমাহিত হন"
+      }
+    ],
+    "refs": [],
+    "lessonEn": "A sincere longing for God's path can carry a believer to honours beyond the horizon.",
+    "lessonBn": "আল্লাহর পথের আন্তরিক আকাঙ্ক্ষা একজন মুমিনকে দিগন্তের ওপারের মর্যাদায় পৌঁছে দিতে পারে।"
   }
 ];
 
