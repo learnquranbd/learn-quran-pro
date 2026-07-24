@@ -57,6 +57,19 @@ class Mutashabihat {
   }
 
   tt(key) { return t(key, this.language); }
+  /**
+   * Localize an { en, bn } content pair to the active UI language.
+   * bn → the Bangla field (falls back to en); en → en; any other language →
+   * the CI18N content-translation if present, else the English source.
+   */
+  L(o) {
+    if (!o) return '';
+    const en = o.en || '', bn = o.bn || '';
+    if (this.language === 'bn') return bn || en;
+    if (this.language === 'en') return en;
+    const tr = (typeof CI18N !== 'undefined') ? CI18N.tr(this.language, en) : null;
+    return tr || en;
+  }
   esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
   /* ---------- persistence ---------- */
@@ -279,12 +292,12 @@ class Mutashabihat {
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
           <div class="flex items-start gap-2 mb-1">
             <div class="flex-1 min-w-0">
-              <div class="font-semibold text-sm text-gray-800 dark:text-gray-100">${this.esc(g.nameEn)}</div>
+              <div class="font-semibold text-sm text-gray-800 dark:text-gray-100">${this.esc(this.L({ en: g.nameEn, bn: g.nameBn }))}</div>
               <div class="ayah-arabic !text-base !leading-snug !border-b-0 !pb-0 text-gray-500 dark:text-gray-400 mt-0.5" dir="rtl">${this.esc(g.nameAr)}</div>
             </div>
             <span class="shrink-0 px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-primary/20 text-[0.65rem] font-medium">${g.verses.length} ${this.tt('mt_group_verses_label')}</span>
           </div>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">${this.esc(g.descEn)}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">${this.esc(this.L({ en: g.descEn, bn: g.descBn }))}</p>
           <div class="flex flex-wrap gap-1.5">${chips}</div>
         </div>`;
     }).join('');
