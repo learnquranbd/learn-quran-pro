@@ -2035,6 +2035,303 @@ const WHY_ISLAM_DATA = [
       },
     ],
   },
+  {
+    id: 'pillars-of-islam',
+    emoji: '🕌',
+    kind: 'article',
+    title: { en: 'The Five Pillars of Islam', bn: 'ইসলামের পাঁচ স্তম্ভ' },
+    summary: {
+      en: 'The five acts of worship that form the practical framework of a Muslim’s life: testimony, prayer, charity, fasting and pilgrimage.',
+      bn: 'পাঁচটি ইবাদত যা একজন মুসলিমের জীবনের ব্যবহারিক কাঠামো গঠন করে: সাক্ষ্য, নামাজ, দান, রোজা ও হজ।',
+    },
+    points: [
+      {
+        heading: { en: 'A structure built on five', bn: 'পাঁচের উপর নির্মিত কাঠামো' },
+        body: {
+          en: 'In a well-known hadith reported by al-Bukhari and Muslim, the Prophet ﷺ said: "Islam is built upon five: to testify that there is no god but God and that Muhammad is the Messenger of God, to establish prayer, to give zakat, to fast Ramadan, and to make pilgrimage to the House for whoever is able." These pillars are not the whole of the religion, but its supporting framework — acts that translate inner faith into a rhythm of daily and yearly worship.',
+          bn: 'আল-বুখারি ও মুসলিমে বর্ণিত একটি প্রসিদ্ধ হাদিসে নবী ﷺ বলেছেন: "ইসলাম পাঁচটি বিষয়ের উপর প্রতিষ্ঠিত: সাক্ষ্য দেওয়া যে আল্লাহ ছাড়া কোনো উপাস্য নেই ও মুহাম্মাদ আল্লাহর রাসুল, নামাজ কায়েম করা, যাকাত দেওয়া, রমজানের রোজা রাখা এবং সামর্থ্যবানের জন্য বাইতুল্লাহর হজ করা।" এই স্তম্ভগুলো গোটা দ্বীন নয়, বরং এর ধারক কাঠামো — এমন আমল যা অন্তরের ঈমানকে প্রতিদিনের ও বার্ষিক ইবাদতের ছন্দে রূপ দেয়।',
+        },
+      },
+      {
+        heading: { en: 'Testimony and prayer', bn: 'সাক্ষ্য ও নামাজ' },
+        body: {
+          en: 'The first pillar is the shahada — sincerely bearing witness that God alone deserves worship and that Muhammad ﷺ is His messenger. It is the doorway to Islam and the meaning behind every other act. The second is salah, the five daily prayers, which anchor the day around remembrance of God. The Quran describes its purpose: "Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of God is greater" (29:45). Prayer is a direct, repeated connection between the worshipper and the Creator.',
+          bn: 'প্রথম স্তম্ভ শাহাদাহ — আন্তরিকভাবে সাক্ষ্য দেওয়া যে কেবল আল্লাহই ইবাদতের যোগ্য এবং মুহাম্মাদ ﷺ তাঁর রাসুল। এটি ইসলামের প্রবেশদ্বার এবং অন্য প্রতিটি আমলের অন্তর্নিহিত অর্থ। দ্বিতীয়টি সালাত, পাঁচ ওয়াক্ত নামাজ, যা দিনকে আল্লাহর স্মরণের চারপাশে গেঁথে রাখে। কুরআন এর উদ্দেশ্য বর্ণনা করে: "নিশ্চয়ই নামাজ অশ্লীলতা ও মন্দ কাজ থেকে বিরত রাখে, আর আল্লাহর স্মরণ সর্বশ্রেষ্ঠ" (২৯:৪৫)। নামাজ বান্দা ও স্রষ্টার মধ্যে সরাসরি, পুনরাবৃত্ত সংযোগ।',
+        },
+      },
+      {
+        heading: { en: 'Charity, fasting and pilgrimage', bn: 'দান, রোজা ও হজ' },
+        body: {
+          en: 'Zakat is an obligatory annual charity — a fixed small portion of accumulated wealth given to the poor and other eligible recipients, purifying wealth and binding the community: "Take from their wealth a charity by which you purify them" (9:103). Sawm, fasting the month of Ramadan from dawn to sunset, trains self-restraint and God-consciousness (2:183). Hajj, the pilgrimage to Mecca, is obligatory once in a lifetime for those with the physical and financial means (3:97). Together the pillars engage the tongue, body, wealth, appetite and a lifetime’s journey.',
+          bn: 'যাকাত একটি বাধ্যতামূলক বার্ষিক দান — সঞ্চিত সম্পদের একটি নির্দিষ্ট ক্ষুদ্র অংশ দরিদ্র ও অন্যান্য যোগ্য প্রাপকদের দেওয়া, যা সম্পদকে পবিত্র করে ও সমাজকে বাঁধে: "তাদের সম্পদ থেকে দান গ্রহণ করো যার দ্বারা তুমি তাদের পবিত্র করবে" (৯:১০৩)। সাওম, রমজান মাসে ভোর থেকে সূর্যাস্ত পর্যন্ত রোজা, আত্মসংযম ও আল্লাহভীতি শেখায় (২:১৮৩)। হজ, মক্কার তীর্থযাত্রা, সামর্থ্যবানদের জন্য জীবনে একবার ফরজ (৩:৯৭)। একত্রে স্তম্ভগুলো জিহ্বা, দেহ, সম্পদ, ক্ষুধা ও জীবনের যাত্রাকে যুক্ত করে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'articles-of-faith',
+    emoji: '🕋',
+    kind: 'article',
+    title: { en: 'The Six Articles of Faith (Iman)', bn: 'ঈমানের ছয় স্তম্ভ' },
+    summary: {
+      en: 'The six beliefs at the heart of a Muslim’s creed: God, His angels, His books, His messengers, the Last Day, and divine decree.',
+      bn: 'একজন মুসলিমের আকিদার কেন্দ্রে থাকা ছয়টি বিশ্বাস: আল্লাহ, তাঁর ফেরেশতা, তাঁর কিতাব, তাঁর রাসুলগণ, শেষ দিবস ও তাকদির।',
+    },
+    points: [
+      {
+        heading: { en: 'What iman includes', bn: 'ঈমান যা যা অন্তর্ভুক্ত করে' },
+        body: {
+          en: 'While the pillars of Islam describe outward practice, the articles of iman describe inner belief. The Quran lists them together: "The Messenger believes in what was revealed to him from his Lord, and so do the believers. Each one believes in God, His angels, His books and His messengers" (2:285); and: "Believe in God, His messengers, His books, His angels and the Last Day" (4:136). To these five, the prophetic teaching adds belief in the divine decree (qadar), completing the six.',
+          bn: 'ইসলামের স্তম্ভগুলো যেখানে বাহ্যিক আমল বর্ণনা করে, ঈমানের স্তম্ভগুলো সেখানে অন্তরের বিশ্বাস বর্ণনা করে। কুরআন এগুলো একসাথে উল্লেখ করে: "রাসুল তাঁর রবের পক্ষ থেকে অবতীর্ণ বিষয়ে বিশ্বাস করেন, এবং মুমিনরাও। প্রত্যেকে বিশ্বাস করে আল্লাহ, তাঁর ফেরেশতা, তাঁর কিতাব ও তাঁর রাসুলগণে" (২:২৮৫); এবং: "আল্লাহ, তাঁর রাসুলগণ, তাঁর কিতাবসমূহ, তাঁর ফেরেশতা ও শেষ দিবসে বিশ্বাস করো" (৪:১৩৬)। এই পাঁচটির সাথে নবীর শিক্ষা তাকদিরে বিশ্বাস যোগ করে ছয় পূর্ণ করে।',
+        },
+      },
+      {
+        heading: { en: 'One unified worldview', bn: 'একটি সংহত বিশ্বদৃষ্টি' },
+        body: {
+          en: 'The six articles fit together into a coherent picture. Belief in one God (tawhid) is the foundation; the angels are His unseen servants; the books are His guidance revealed across history (the scrolls of Abraham, the Torah, Psalms, Gospel and finally the Quran); the messengers are the humans He chose to deliver that guidance; the Last Day is the accounting where justice is completed; and qadar is the recognition that all of this unfolds within God’s knowledge and will. Each belief supports and explains the others.',
+          bn: 'ছয়টি স্তম্ভ একত্রে একটি সুসংগত চিত্র গঠন করে। এক আল্লাহে বিশ্বাস (তাওহিদ) ভিত্তি; ফেরেশতারা তাঁর অদৃশ্য দাস; কিতাবসমূহ ইতিহাসজুড়ে অবতীর্ণ তাঁর হিদায়াত (ইবরাহিমের সহিফা, তাওরাত, যাবুর, ইঞ্জিল ও সবশেষে কুরআন); রাসুলগণ সেই হিদায়াত পৌঁছাতে তাঁর মনোনীত মানুষ; শেষ দিবস সেই হিসাব যেখানে ন্যায় পূর্ণ হয়; এবং তাকদির এই স্বীকৃতি যে এ সবকিছু আল্লাহর জ্ঞান ও ইচ্ছার মধ্যেই ঘটে। প্রতিটি বিশ্বাস অন্যগুলোকে সমর্থন ও ব্যাখ্যা করে।',
+        },
+      },
+      {
+        heading: { en: 'Belief that shapes character', bn: 'যে বিশ্বাস চরিত্র গড়ে' },
+        body: {
+          en: 'These are not abstract propositions but convictions meant to shape how a person lives. Belief in the angels who record deeds encourages honesty in private; belief in the messengers gives a moral pattern to follow; belief in the Last Day frames every choice within a longer horizon of accountability and hope; and belief in qadar brings calm trust in times of both blessing and hardship. In the famous hadith of Gabriel, the Prophet ﷺ defined faith precisely by these articles — belief that then flowers into worship and good character.',
+          bn: 'এগুলো বিমূর্ত ধারণা নয়, বরং এমন প্রত্যয় যা মানুষের জীবনযাপনকে গড়ে তোলার কথা। আমল লিপিবদ্ধকারী ফেরেশতায় বিশ্বাস নির্জনে সততায় উৎসাহ দেয়; রাসুলগণে বিশ্বাস অনুসরণের নৈতিক আদর্শ দেয়; শেষ দিবসে বিশ্বাস প্রতিটি সিদ্ধান্তকে জবাবদিহি ও আশার দীর্ঘতর দিগন্তে স্থাপন করে; আর তাকদিরে বিশ্বাস নেয়ামত ও কষ্ট উভয় সময়ে প্রশান্ত ভরসা আনে। জিবরিলের প্রসিদ্ধ হাদিসে নবী ﷺ ঠিক এই স্তম্ভগুলো দিয়েই ঈমানের সংজ্ঞা দিয়েছেন — যে বিশ্বাস পরে ইবাদত ও সৎ চরিত্রে প্রস্ফুটিত হয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'jesus-in-islam',
+    emoji: '🕊️',
+    kind: 'article',
+    title: { en: 'Jesus (Isa) in Islam', bn: 'ইসলামে ঈসা (যিশু)' },
+    summary: {
+      en: 'The honoured place of Jesus as a mighty prophet and Messiah in Islam — what Muslims affirm about him, and where the Islamic view differs.',
+      bn: 'ইসলামে একজন মহান নবী ও মসিহ হিসেবে ঈসার সম্মানিত অবস্থান — মুসলিমরা তাঁর সম্পর্কে যা নিশ্চিত করেন এবং যেখানে ইসলামি দৃষ্টিভঙ্গি ভিন্ন।',
+    },
+    points: [
+      {
+        heading: { en: 'A deeply honoured prophet', bn: 'গভীরভাবে সম্মানিত এক নবী' },
+        body: {
+          en: 'Jesus — Isa ibn Maryam — holds a place of great honour in Islam. He is named the Messiah (al-Masih), a "word" from God and a spirit from Him, and one of the mightiest of the messengers. The Quran affirms his miraculous birth to the Virgin Mary without a father: "the angels said: O Mary, God gives you good tidings of a word from Him, whose name will be the Messiah, Jesus, son of Mary, distinguished in this world and the Hereafter" (3:45). Mary herself is honoured as the greatest of women, with an entire chapter of the Quran named after her.',
+          bn: 'ঈসা — ঈসা ইবন মারইয়াম — ইসলামে অত্যন্ত সম্মানের অধিকারী। তাঁকে মসিহ (আল-মাসিহ), আল্লাহর পক্ষ থেকে একটি "কালিমা" ও তাঁর কাছ থেকে একটি রুহ এবং শ্রেষ্ঠ রাসুলদের একজন বলা হয়েছে। কুরআন পিতা ছাড়া কুমারী মারইয়ামের গর্ভে তাঁর অলৌকিক জন্ম নিশ্চিত করে: "ফেরেশতারা বলল: হে মারইয়াম, আল্লাহ তোমাকে তাঁর পক্ষ থেকে একটি কালিমার সুসংবাদ দিচ্ছেন, যাঁর নাম হবে মসিহ, মারইয়ামের পুত্র ঈসা, দুনিয়া ও আখিরাতে সম্মানিত" (৩:৪৫)। মারইয়াম নিজে নারীদের মধ্যে শ্রেষ্ঠ হিসেবে সম্মানিত, কুরআনের একটি সম্পূর্ণ সুরা তাঁর নামে।',
+        },
+      },
+      {
+        heading: { en: 'A servant and messenger, not divine', bn: 'দাস ও রাসুল, উপাস্য নন' },
+        body: {
+          en: 'Where the Islamic view differs from Christian doctrine is on the nature of Jesus. Islam holds that he was a human prophet — a servant of God raised to deliver God’s message — not God, nor the son of God. The Quran presents his own words as an infant: "Indeed, I am the servant of God. He has given me the Scripture and made me a prophet" (19:30). And it draws a direct comparison to Adam, who had no parents at all: "The example of Jesus before God is like that of Adam. He created him from dust, then said to him, Be, and he was" (3:59). A miraculous birth, Islam teaches, points to God’s power, not to divinity in the created being.',
+          bn: 'যেখানে ইসলামি দৃষ্টিভঙ্গি খ্রিস্টীয় মতবাদ থেকে ভিন্ন তা হলো ঈসার প্রকৃতি নিয়ে। ইসলামের অভিমত, তিনি ছিলেন একজন মানব নবী — আল্লাহর বার্তা পৌঁছাতে প্রেরিত তাঁর এক দাস — আল্লাহ নন, আল্লাহর পুত্রও নন। কুরআন শিশু অবস্থায় তাঁর নিজের কথা উপস্থাপন করে: "নিশ্চয়ই আমি আল্লাহর দাস। তিনি আমাকে কিতাব দিয়েছেন ও নবী করেছেন" (১৯:৩০)। আর এটি আদমের সাথে সরাসরি তুলনা টানে, যাঁর কোনো পিতামাতাই ছিল না: "আল্লাহর কাছে ঈসার দৃষ্টান্ত আদমের মতো। তিনি তাঁকে মাটি থেকে সৃষ্টি করলেন, তারপর বললেন, হও, আর সে হয়ে গেল" (৩:৫৯)। অলৌকিক জন্ম আল্লাহর ক্ষমতার দিকে ইশারা করে, সৃষ্ট সত্তার ঐশত্বের দিকে নয়।',
+        },
+      },
+      {
+        heading: { en: 'Common ground and continuity', bn: 'অভিন্ন ভিত্তি ও ধারাবাহিকতা' },
+        body: {
+          en: 'For Muslims, Jesus is not a rival figure but a beloved brother in the single chain of prophets carrying one message: worship God alone. He performed miracles by God’s permission, was given a scripture (the Injil/Gospel), and called his people to righteousness. Islam holds that he was not crucified but raised by God, and Islamic tradition speaks of his return before the end of time. To believe in Jesus — truly and rightly — is in fact a requirement of being Muslim. This shared reverence is often a meaningful bridge in conversation between Muslims and Christians.',
+          bn: 'মুসলিমদের কাছে ঈসা কোনো প্রতিদ্বন্দ্বী নন, বরং এক বার্তা বহনকারী নবীদের অভিন্ন ধারায় এক প্রিয় ভাই: কেবল আল্লাহর ইবাদত করো। তিনি আল্লাহর অনুমতিতে মুজিজা দেখিয়েছেন, তাঁকে একটি কিতাব (ইঞ্জিল) দেওয়া হয়েছিল, এবং তিনি তাঁর জাতিকে সৎকর্মের দিকে ডেকেছিলেন। ইসলামের অভিমত, তাঁকে ক্রুশবিদ্ধ করা হয়নি বরং আল্লাহ তাঁকে তুলে নিয়েছেন, এবং ইসলামি ঐতিহ্য সময়ের শেষে তাঁর প্রত্যাবর্তনের কথা বলে। ঈসায় সঠিকভাবে বিশ্বাস করা প্রকৃতপক্ষে মুসলিম হওয়ার একটি শর্ত। এই অভিন্ন শ্রদ্ধা প্রায়ই মুসলিম ও খ্রিস্টানদের সংলাপে অর্থবহ সেতু হয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'angels-in-islam',
+    emoji: '🕊',
+    kind: 'article',
+    title: { en: 'Belief in the Angels', bn: 'ফেরেশতায় বিশ্বাস' },
+    summary: {
+      en: 'Who the angels are in Islam, what they do, and why belief in the unseen is part of a coherent worldview.',
+      bn: 'ইসলামে ফেরেশতারা কারা, তারা কী করে এবং কেন অদৃশ্যে বিশ্বাস একটি সুসংগত বিশ্বদৃষ্টির অংশ।',
+    },
+    points: [
+      {
+        heading: { en: 'Beings of light and pure obedience', bn: 'নূরের সৃষ্টি ও বিশুদ্ধ আনুগত্য' },
+        body: {
+          en: 'Angels (mala’ika) are a class of beings created by God from light, existing in the unseen realm. Unlike humans, they have no free will to disobey; they act only as God commands: "They do not disobey God in what He commands them, and they do what they are commanded" (66:6). They are not gods, nor God’s children, nor objects of worship — they are honoured servants. The Quran describes them with varying forms and powers: "Praise be to God, Originator of the heavens and earth, who made the angels messengers with wings — two, three or four" (35:1).',
+          bn: 'ফেরেশতারা (মালাইকা) আল্লাহর নূর থেকে সৃষ্ট এক শ্রেণির সত্তা, অদৃশ্য জগতে বিদ্যমান। মানুষের বিপরীতে তাদের অবাধ্য হওয়ার স্বাধীন ইচ্ছা নেই; তারা কেবল আল্লাহর আদেশমতো কাজ করে: "আল্লাহ তাদের যা আদেশ করেন তারা তাতে অবাধ্য হয় না, এবং যা আদিষ্ট হয় তা-ই করে" (৬৬:৬)। তারা উপাস্য নয়, আল্লাহর সন্তান নয়, ইবাদতের বস্তুও নয় — তারা সম্মানিত দাস। কুরআন তাদের বিভিন্ন রূপ ও ক্ষমতায় বর্ণনা করে: "সমস্ত প্রশংসা আল্লাহর, আসমান ও জমিনের স্রষ্টা, যিনি ফেরেশতাদের বার্তাবাহক করেছেন দুই, তিন ও চার পাখাবিশিষ্ট" (৩৫:১)।',
+        },
+      },
+      {
+        heading: { en: 'Their roles in creation', bn: 'সৃষ্টিতে তাদের ভূমিকা' },
+        body: {
+          en: 'The Quran and authentic tradition describe angels carrying out many appointed tasks: Gabriel (Jibril) conveyed revelation to the prophets; angels record every human deed; some are entrusted with natural phenomena by God’s command; others will be present at death and at the resurrection. Belief in the angels reminds a person that the seen world is not the whole of reality, and that our lives unfold within a larger order of purpose and accountability that we do not fully perceive.',
+          bn: 'কুরআন ও বিশুদ্ধ ঐতিহ্য বর্ণনা করে ফেরেশতারা বহু নির্ধারিত কাজ সম্পাদন করে: জিবরিল নবীদের কাছে ওহি পৌঁছাতেন; ফেরেশতারা মানুষের প্রতিটি আমল লিপিবদ্ধ করে; কেউ কেউ আল্লাহর আদেশে প্রাকৃতিক ঘটনার দায়িত্বপ্রাপ্ত; অন্যরা মৃত্যুকালে ও পুনরুত্থানে উপস্থিত থাকবে। ফেরেশতায় বিশ্বাস মানুষকে স্মরণ করায় যে দৃশ্যমান জগতই বাস্তবতার সবটুকু নয়, এবং আমাদের জীবন এমন এক বৃহত্তর উদ্দেশ্য ও জবাবদিহির শৃঙ্খলার মধ্যে ঘটে যা আমরা পুরোপুরি অনুভব করি না।',
+        },
+      },
+      {
+        heading: { en: 'Believing in the unseen', bn: 'অদৃশ্যে বিশ্বাস' },
+        body: {
+          en: 'A modern reader may ask why one should accept beings that cannot be observed. Islam’s answer is that belief in the angels is part of trusting a truthful source — the revelation whose overall case one has reason to accept — rather than a leap in the dark. It is also reasonable in principle: a Creator of the vast unseen dimensions of the universe may well have created orders of life beyond human sight. What Islam asks is intellectual humility about a reality larger than the visible, not blind credulity.',
+          bn: 'একজন আধুনিক পাঠক প্রশ্ন করতে পারেন, যা পর্যবেক্ষণযোগ্য নয় তা কেন মেনে নেব। ইসলামের উত্তর: ফেরেশতায় বিশ্বাস অন্ধকারে ঝাঁপ নয়, বরং এক সত্যনিষ্ঠ উৎসে আস্থার অংশ — সেই ওহি যার সামগ্রিক দাবি গ্রহণের যুক্তিসংগত কারণ রয়েছে। এটি নীতিগতভাবেও যুক্তিসংগত: যিনি বিশ্বজগতের বিশাল অদৃশ্য মাত্রার স্রষ্টা, তিনি মানুষের দৃষ্টির বাইরে প্রাণের শ্রেণিও সৃষ্টি করতে পারেন। ইসলাম দৃশ্যমানের চেয়ে বৃহত্তর বাস্তবতা সম্পর্কে বৌদ্ধিক বিনয় চায়, অন্ধ বিশ্বাস নয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'meaning-of-worship',
+    emoji: '🤲',
+    kind: 'article',
+    title: { en: 'What Worship (Ibadah) Really Means', bn: 'ইবাদত আসলে কী' },
+    summary: {
+      en: 'Why Islam frames the purpose of life as worship — and how that word means far more than ritual alone.',
+      bn: 'কেন ইসলাম জীবনের উদ্দেশ্যকে ইবাদত হিসেবে দেখে — এবং কীভাবে এই শব্দ কেবল আনুষ্ঠানিকতার চেয়ে অনেক বেশি বোঝায়।',
+    },
+    points: [
+      {
+        heading: { en: 'The stated purpose of creation', bn: 'সৃষ্টির ঘোষিত উদ্দেশ্য' },
+        body: {
+          en: 'The Quran states the purpose of human existence directly: "I did not create the jinn and mankind except to worship Me" (51:56). At first hearing this can sound narrow — as if life were only rituals. But the Arabic word ‘ibadah is far wider than ceremony. Its root carries the sense of loving devotion, humble service and willing submission to the One who deserves it. To be created "for worship" is to be created for a relationship of grateful, purposeful living oriented toward God.',
+          bn: 'কুরআন মানব অস্তিত্বের উদ্দেশ্য সরাসরি বলে: "আমি জিন ও মানুষকে কেবল আমার ইবাদতের জন্যই সৃষ্টি করেছি" (৫১:৫৬)। প্রথম শোনায় এটি সংকীর্ণ মনে হতে পারে — যেন জীবন কেবল আনুষ্ঠানিকতা। কিন্তু আরবি শব্দ ইবাদত অনুষ্ঠানের চেয়ে অনেক ব্যাপক। এর মূলে রয়েছে প্রেমময় ভক্তি, বিনম্র সেবা ও যিনি যোগ্য তাঁর কাছে স্বেচ্ছা আত্মসমর্পণ। "ইবাদতের জন্য" সৃষ্ট হওয়া মানে আল্লাহমুখী কৃতজ্ঞ, উদ্দেশ্যপূর্ণ জীবনযাপনের সম্পর্কের জন্য সৃষ্ট হওয়া।',
+        },
+      },
+      {
+        heading: { en: 'All of life as worship', bn: 'গোটা জীবনই ইবাদত' },
+        body: {
+          en: 'In Islam, formal acts like prayer and fasting are the core of worship, but they are not its limit. Any permissible act done sincerely for God’s sake becomes worship: honest work, kindness to parents, a smile, removing harm from a road, seeking knowledge, feeding one’s family. The Prophet ﷺ taught that even the morsel of food a person places in their spouse’s mouth is rewarded. The believer is invited to make the whole of ordinary life meaningful by orienting its intention toward God: "Say, my prayer, my rites, my living and my dying are for God, Lord of the worlds" (6:162).',
+          bn: 'ইসলামে নামাজ ও রোজার মতো আনুষ্ঠানিক আমল ইবাদতের মূল, কিন্তু এর সীমা নয়। আল্লাহর সন্তুষ্টির জন্য আন্তরিকভাবে করা যেকোনো বৈধ কাজই ইবাদত হয়ে ওঠে: সৎ কর্ম, পিতামাতার প্রতি সদয়তা, এক টুকরো হাসি, রাস্তা থেকে কষ্টদায়ক বস্তু সরানো, জ্ঞান অন্বেষণ, পরিবারকে খাওয়ানো। নবী ﷺ শিখিয়েছেন এমনকি স্ত্রীর মুখে তুলে দেওয়া খাবারের লোকমারও প্রতিদান আছে। মুমিনকে আমন্ত্রণ জানানো হয় সাধারণ জীবনের নিয়তকে আল্লাহমুখী করে গোটা জীবনকে অর্থবহ করতে: "বলো, আমার নামাজ, আমার কুরবানি, আমার জীবন ও আমার মৃত্যু জগতসমূহের রব আল্লাহরই জন্য" (৬:১৬২)।',
+        },
+      },
+      {
+        heading: { en: 'Freedom in serving God alone', bn: 'কেবল আল্লাহর দাসত্বে স্বাধীনতা' },
+        body: {
+          en: 'Islam presents worship of God not as bondage but as liberation. Every human being serves something — wealth, status, desire, the opinions of others, an ideology. Islam teaches that to consciously serve the Creator alone is to be freed from servitude to all these lesser masters, each of which is unstable and ultimately unsatisfying. In the daily prayer the believer says, "You alone we worship, and You alone we ask for help" (1:5) — a declaration that anchors dignity and freedom in devotion to the One rather than the many.',
+          bn: 'ইসলাম আল্লাহর ইবাদতকে দাসত্ব নয়, বরং মুক্তি হিসেবে উপস্থাপন করে। প্রত্যেক মানুষ কিছু-না-কিছুর সেবা করে — সম্পদ, মর্যাদা, প্রবৃত্তি, অন্যের মতামত, কোনো মতাদর্শ। ইসলাম শেখায়, সচেতনভাবে কেবল স্রষ্টার দাসত্ব করা মানে এই সব ছোট প্রভুর দাসত্ব থেকে মুক্ত হওয়া, যাদের প্রত্যেকটি অস্থির ও পরিণামে অতৃপ্তিকর। দৈনিক নামাজে মুমিন বলে, "কেবল তোমারই ইবাদত করি ও কেবল তোমারই কাছে সাহায্য চাই" (১:৫) — এমন এক ঘোষণা যা মর্যাদা ও স্বাধীনতাকে বহুর নয়, একের প্রতি ভক্তিতে গেঁথে দেয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'sin-and-repentance',
+    emoji: '🪷',
+    kind: 'article',
+    title: { en: 'Sin, Mercy and Repentance (Tawbah)', bn: 'পাপ, রহমত ও তওবা' },
+    summary: {
+      en: 'How Islam understands sin, why there is no despair, and the direct path of returning to God without any intermediary.',
+      bn: 'ইসলাম কীভাবে পাপকে বোঝে, কেন কোনো হতাশা নেই, এবং কোনো মধ্যস্থতাকারী ছাড়াই আল্লাহর দিকে ফেরার সরাসরি পথ।',
+    },
+    points: [
+      {
+        heading: { en: 'No inherited sin', bn: 'উত্তরাধিকারসূত্রে পাপ নেই' },
+        body: {
+          en: 'Islam teaches that every person is born in a state of natural purity (fitrah), not carrying the guilt of anyone else’s sin. Adam and Eve’s lapse in the garden was their own, they repented, and God forgave them; it is not inherited by their descendants. "No bearer of burdens shall bear the burden of another" (the Quran repeats this principle in several places). Sin, in Islam, is a real wrong that harms the soul, but it is something a person does — not a condition they are born condemned in. This shapes a hopeful view of the human being.',
+          bn: 'ইসলাম শেখায় প্রত্যেক মানুষ স্বাভাবিক পবিত্রতার (ফিতরাহ) অবস্থায় জন্মে, অন্য কারও পাপের বোঝা বহন করে না। জান্নাতে আদম ও হাওয়ার ভুল ছিল তাঁদেরই, তাঁরা তওবা করেছিলেন, আর আল্লাহ তাঁদের ক্ষমা করেছিলেন; তা বংশধরদের উত্তরাধিকারসূত্রে বর্তায় না। "কোনো বোঝা বহনকারী অন্যের বোঝা বহন করবে না" (কুরআন এই নীতি একাধিক স্থানে পুনরাবৃত্তি করে)। ইসলামে পাপ এক বাস্তব অন্যায় যা আত্মার ক্ষতি করে, কিন্তু তা মানুষের কৃত কাজ — জন্মগত অভিশপ্ত অবস্থা নয়। এটি মানুষ সম্পর্কে এক আশাব্যঞ্জক দৃষ্টি গড়ে।',
+        },
+      },
+      {
+        heading: { en: 'The door of mercy never closes', bn: 'রহমতের দরজা কখনো বন্ধ হয় না' },
+        body: {
+          en: 'The Quran’s message to the sinner is overwhelmingly one of hope. "Say: O My servants who have transgressed against themselves, do not despair of the mercy of God. Indeed, God forgives all sins. He is the Forgiving, the Merciful" (39:53). God is described as loving those who turn back to Him: "Indeed, God loves those who are constantly repentant" (2:222). Sincere repentance — tawbah — has recognised conditions: to stop the wrong, to feel genuine regret, to resolve not to return, and, where a person was wronged, to make it right. God’s mercy, the Quran insists, outweighs His wrath.',
+          bn: 'পাপীর প্রতি কুরআনের বার্তা অপরিসীমভাবে আশার। "বলো: হে আমার বান্দারা, যারা নিজেদের উপর সীমালঙ্ঘন করেছ, আল্লাহর রহমত থেকে নিরাশ হয়ো না। নিশ্চয়ই আল্লাহ সকল পাপ ক্ষমা করেন। তিনি ক্ষমাশীল, পরম দয়ালু" (৩৯:৫৩)। আল্লাহকে তাঁর দিকে প্রত্যাবর্তনকারীদের ভালোবাসা হিসেবে বর্ণনা করা হয়: "নিশ্চয়ই আল্লাহ অধিক তওবাকারীদের ভালোবাসেন" (২:২২২)। আন্তরিক তওবার স্বীকৃত শর্ত আছে: অন্যায় বন্ধ করা, প্রকৃত অনুশোচনা, ফিরে না যাওয়ার সংকল্প, এবং কারও প্রতি অন্যায় হলে তা সংশোধন করা। কুরআন জোর দেয়, আল্লাহর রহমত তাঁর ক্রোধকে ছাপিয়ে যায়।',
+        },
+      },
+      {
+        heading: { en: 'A direct return, no intermediary', bn: 'সরাসরি প্রত্যাবর্তন, কোনো মধ্যস্থতা নয়' },
+        body: {
+          en: 'In Islam a person repents to God directly. There is no priest to confess to, no ritual of absolution required, and no need for anyone to bear the punishment on one’s behalf. At any moment — in prayer, in private, in a whisper of the heart — a person can turn back to God and ask forgiveness. "And whoever does a wrong or wrongs himself but then seeks forgiveness of God will find God Forgiving and Merciful" (4:110). This directness reflects tawhid itself: the same One who is worshipped without intermediary is also the One who forgives without intermediary.',
+          bn: 'ইসলামে মানুষ সরাসরি আল্লাহর কাছে তওবা করে। স্বীকারোক্তির জন্য কোনো পুরোহিত নেই, ক্ষমার কোনো আনুষ্ঠানিকতা প্রয়োজন নেই, এবং কারও পক্ষে শাস্তি বহনের প্রয়োজন নেই। যেকোনো মুহূর্তে — নামাজে, নির্জনে, অন্তরের ফিসফিসানিতে — মানুষ আল্লাহর দিকে ফিরে ক্ষমা চাইতে পারে। "আর যে মন্দ কাজ করে বা নিজের উপর জুলুম করে, অতঃপর আল্লাহর কাছে ক্ষমা চায়, সে আল্লাহকে ক্ষমাশীল ও দয়ালু পাবে" (৪:১১০)। এই সরাসরি সম্পর্ক তাওহিদেরই প্রতিফলন: যিনি মধ্যস্থতা ছাড়াই উপাসিত, তিনিই মধ্যস্থতা ছাড়াই ক্ষমা করেন।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'salah-prayer',
+    emoji: '🧎',
+    kind: 'article',
+    title: { en: 'Prayer (Salah) in Islam', bn: 'ইসলামে নামাজ (সালাত)' },
+    summary: {
+      en: 'The meaning of the five daily prayers, what they involve, and the inner purpose behind the outward form.',
+      bn: 'পাঁচ ওয়াক্ত নামাজের অর্থ, এতে কী থাকে এবং বাহ্যিক রূপের পেছনের অন্তর্নিহিত উদ্দেশ্য।',
+    },
+    points: [
+      {
+        heading: { en: 'A rhythm of remembrance', bn: 'স্মরণের এক ছন্দ' },
+        body: {
+          en: 'Salah is the formal prayer performed five times a day — at dawn, midday, afternoon, sunset and night. Rather than a single weekly service, Islam distributes worship across the whole day, so that a person never drifts far from the remembrance of God before returning to it. The Quran ties prayer to God’s own instruction to Moses: "Indeed, I am God. There is no deity except Me, so worship Me and establish prayer for My remembrance" (20:14). It is the first act a Muslim will be asked about on the Day of Judgment.',
+          bn: 'সালাত হলো দিনে পাঁচবার আদায়কৃত আনুষ্ঠানিক নামাজ — ভোর, দুপুর, বিকাল, সূর্যাস্ত ও রাতে। সপ্তাহে একটি মাত্র উপাসনার বদলে ইসলাম গোটা দিনজুড়ে ইবাদত ছড়িয়ে দেয়, যাতে মানুষ আল্লাহর স্মরণে ফেরার আগে কখনো বেশি দূরে সরে না যায়। কুরআন নামাজকে মুসার প্রতি আল্লাহর নির্দেশের সাথে যুক্ত করে: "নিশ্চয়ই আমিই আল্লাহ। আমি ছাড়া কোনো উপাস্য নেই, সুতরাং আমার ইবাদত করো এবং আমার স্মরণে নামাজ কায়েম করো" (২০:১৪)। কিয়ামতের দিন মুসলিমকে সর্বপ্রথম নামাজ সম্পর্কেই জিজ্ঞেস করা হবে।',
+        },
+      },
+      {
+        heading: { en: 'What the prayer involves', bn: 'নামাজে কী থাকে' },
+        body: {
+          en: 'A Muslim prepares for prayer with wudu (a simple washing) and faces the Kaaba in Mecca, uniting worshippers worldwide toward a single point. The prayer weaves together standing, bowing and prostrating — postures of humility — with recitation of the Quran, glorification and supplication. The lowest posture, prostration with the forehead on the ground, expresses the heart of worship: the created being at its most humble before the Creator. The whole body, the tongue and the mind are engaged together, so that worship is not merely felt but enacted.',
+          bn: 'মুসলিম ওজু (সহজ ধৌতকরণ) দিয়ে নামাজের প্রস্তুতি নেয় এবং মক্কার কাবার দিকে মুখ করে, বিশ্বজুড়ে মুসল্লিদের একটি বিন্দুতে একত্র করে। নামাজে দাঁড়ানো, রুকু ও সিজদা — বিনয়ের ভঙ্গি — কুরআন তিলাওয়াত, তাসবিহ ও দোয়ার সাথে গাঁথা। সর্বনিম্ন ভঙ্গি, কপাল মাটিতে রেখে সিজদা, ইবাদতের অন্তঃসার প্রকাশ করে: স্রষ্টার সামনে সৃষ্ট সত্তা তার সবচেয়ে বিনম্র অবস্থায়। দেহ, জিহ্বা ও মন একসাথে যুক্ত হয়, যাতে ইবাদত কেবল অনুভূত নয় বরং সম্পাদিত হয়।',
+        },
+      },
+      {
+        heading: { en: 'Form serving the heart', bn: 'অন্তরের সেবায় রূপ' },
+        body: {
+          en: 'Some ask why worship needs a fixed form at all. Islam’s answer is that the outward discipline is meant to cultivate an inner state, and to protect worship from being reduced to fleeting moods. Done with presence of heart, prayer is meant to restrain a person from wrongdoing: "Establish prayer; indeed, prayer prohibits immorality and wrongdoing" (29:45). It is not a favour done to God, who needs nothing, but a gift to the worshipper — a daily reset of perspective, humility and connection that steadies the soul amid the pressures of life.',
+          bn: 'কেউ প্রশ্ন করেন, ইবাদতের আদৌ কেন একটি নির্দিষ্ট রূপ দরকার। ইসলামের উত্তর: বাহ্যিক শৃঙ্খলা এক অন্তর্গত অবস্থা গড়তে এবং ইবাদতকে ক্ষণস্থায়ী মেজাজে পরিণত হওয়া থেকে রক্ষা করতে। অন্তরের উপস্থিতি নিয়ে আদায় করা নামাজ মানুষকে অন্যায় থেকে বিরত রাখার কথা: "নামাজ কায়েম করো; নিশ্চয়ই নামাজ অশ্লীলতা ও মন্দ কাজ থেকে বিরত রাখে" (২৯:৪৫)। এটি আল্লাহর প্রতি কোনো অনুগ্রহ নয়, যিনি কিছুরই মুখাপেক্ষী নন, বরং মুসল্লির জন্য এক উপহার — দৃষ্টিভঙ্গি, বিনয় ও সংযোগের দৈনিক পুনঃস্থাপন যা জীবনের চাপে আত্মাকে স্থির রাখে।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'sawm-fasting',
+    emoji: '🌙',
+    kind: 'article',
+    title: { en: 'Fasting and Ramadan (Sawm)', bn: 'রোজা ও রমজান (সাওম)' },
+    summary: {
+      en: 'Why Muslims fast the month of Ramadan, what the fast involves, and the spiritual and social purposes behind it.',
+      bn: 'কেন মুসলিমরা রমজান মাসে রোজা রাখে, রোজায় কী থাকে এবং এর পেছনের আধ্যাত্মিক ও সামাজিক উদ্দেশ্য।',
+    },
+    points: [
+      {
+        heading: { en: 'An ancient act of devotion', bn: 'ভক্তির এক প্রাচীন আমল' },
+        body: {
+          en: 'Fasting is one of the oldest forms of worship, practised in many faith traditions. The Quran presents it as a continuation of that heritage: "O you who believe, fasting is prescribed for you as it was prescribed for those before you, that you may become God-conscious" (2:183). During Ramadan — the month in which the Quran began to be revealed — Muslims abstain from food, drink and marital relations from dawn until sunset, then break the fast each evening, often in the company of family and community.',
+          bn: 'রোজা ইবাদতের প্রাচীনতম রূপগুলোর একটি, বহু ধর্মীয় ঐতিহ্যে পালিত। কুরআন এটিকে সেই ঐতিহ্যের ধারাবাহিকতা হিসেবে উপস্থাপন করে: "হে ঈমানদারগণ, তোমাদের উপর রোজা ফরজ করা হয়েছে যেমন ফরজ করা হয়েছিল তোমাদের পূর্ববর্তীদের উপর, যাতে তোমরা আল্লাহভীরু হও" (২:১৮৩)। রমজানে — যে মাসে কুরআন অবতীর্ণ হতে শুরু করে — মুসলিমরা ভোর থেকে সূর্যাস্ত পর্যন্ত খাদ্য, পানীয় ও দাম্পত্য সম্পর্ক থেকে বিরত থাকে, তারপর প্রতি সন্ধ্যায়, প্রায়ই পরিবার ও সমাজের সঙ্গে, রোজা ভাঙে।',
+        },
+      },
+      {
+        heading: { en: 'Training the soul', bn: 'আত্মার প্রশিক্ষণ' },
+        body: {
+          en: 'The stated aim of fasting is taqwa — God-consciousness and self-restraint. By voluntarily setting aside even lawful food and drink for God’s sake, a person strengthens their will over their appetites and learns that they are more than their desires. Fasting is not only of the stomach: the tradition teaches that a fasting person should also guard the tongue, the eyes and the temper. In this way Ramadan becomes an annual month of intensive spiritual training — more prayer, more Quran, more charity — that aims to reset a person’s character for the year ahead.',
+          bn: 'রোজার ঘোষিত লক্ষ্য তাকওয়া — আল্লাহভীতি ও আত্মসংযম। আল্লাহর সন্তুষ্টির জন্য স্বেচ্ছায় বৈধ খাদ্য-পানীয়ও ত্যাগ করে মানুষ তার প্রবৃত্তির উপর ইচ্ছাশক্তিকে দৃঢ় করে এবং শেখে যে সে তার কামনার চেয়েও বেশি কিছু। রোজা কেবল পেটের নয়: ঐতিহ্য শেখায় রোজাদারকে জিহ্বা, চোখ ও রাগও সংযত রাখতে হবে। এভাবে রমজান হয়ে ওঠে নিবিড় আধ্যাত্মিক প্রশিক্ষণের এক বার্ষিক মাস — বেশি নামাজ, বেশি কুরআন, বেশি দান — যা আগামী বছরের জন্য মানুষের চরিত্র পুনর্গঠনের লক্ষ্য রাখে।',
+        },
+      },
+      {
+        heading: { en: 'Empathy and community', bn: 'সহানুভূতি ও সমাজ' },
+        body: {
+          en: 'Fasting also has a deeply social dimension. Feeling genuine hunger and thirst awakens empathy for the poor who face them without choice, prompting increased generosity — Ramadan is the year’s peak season of charity for many Muslims. Because the whole community fasts together and gathers to break the fast and pray at night, the month strengthens bonds of family and neighbourhood. Islam does not command harm to the body: the sick, travellers, the pregnant, the elderly and others are exempted (2:185), for the goal is devotion and mercy, not hardship for its own sake.',
+          bn: 'রোজার এক গভীর সামাজিক মাত্রাও আছে। প্রকৃত ক্ষুধা-তৃষ্ণা অনুভব করা সেই দরিদ্রদের প্রতি সহানুভূতি জাগায় যারা তা নিরুপায় হয়ে সহ্য করে, ফলে দানশীলতা বাড়ে — বহু মুসলিমের কাছে রমজান বছরের সর্বোচ্চ দানের মৌসুম। যেহেতু গোটা সমাজ একসাথে রোজা রাখে এবং ইফতার ও রাতের নামাজে জড়ো হয়, মাসটি পরিবার ও প্রতিবেশীর বন্ধন দৃঢ় করে। ইসলাম দেহের ক্ষতির আদেশ দেয় না: অসুস্থ, মুসাফির, গর্ভবতী, বৃদ্ধ ও অন্যরা অব্যাহতিপ্রাপ্ত (২:১৮৫), কারণ লক্ষ্য ভক্তি ও রহমত, নিছক কষ্ট নয়।',
+        },
+      },
+    ],
+  },
+  {
+    id: 'quran-and-earlier-scriptures',
+    emoji: '📖',
+    kind: 'article',
+    title: { en: 'The Quran and Earlier Scriptures', bn: 'কুরআন ও পূর্ববর্তী কিতাবসমূহ' },
+    summary: {
+      en: 'How Islam relates the Quran to the Torah, Psalms and Gospel — affirming their divine origin while explaining the Quran’s distinct role.',
+      bn: 'ইসলাম কীভাবে কুরআনকে তাওরাত, যাবুর ও ইঞ্জিলের সাথে সম্পর্কিত করে — এদের ঐশী উৎস স্বীকার করে অথচ কুরআনের স্বতন্ত্র ভূমিকা ব্যাখ্যা করে।',
+    },
+    points: [
+      {
+        heading: { en: 'Belief in the revealed books', bn: 'অবতীর্ণ কিতাবে বিশ্বাস' },
+        body: {
+          en: 'A Muslim is required to believe not only in the Quran but in the earlier scriptures God revealed: the scrolls of Abraham, the Torah (Tawrat) given to Moses, the Psalms (Zabur) given to David, and the Gospel (Injil) given to Jesus. The Quran speaks of them with reverence as light and guidance in their time: "Indeed, We sent down the Torah, in which was guidance and light" (5:44), and describes the Gospel likewise (5:46). Rejecting these earlier revelations is not the Islamic position; honouring them is part of the faith.',
+          bn: 'একজন মুসলিমকে কেবল কুরআনে নয়, বরং আল্লাহর অবতীর্ণ পূর্ববর্তী কিতাবগুলোতেও বিশ্বাস করতে হয়: ইবরাহিমের সহিফা, মুসাকে দেওয়া তাওরাত, দাউদকে দেওয়া যাবুর এবং ঈসাকে দেওয়া ইঞ্জিল। কুরআন এগুলোকে তাদের সময়ের আলো ও হিদায়াত হিসেবে শ্রদ্ধার সাথে উল্লেখ করে: "নিশ্চয়ই আমি তাওরাত অবতীর্ণ করেছি, যাতে ছিল হিদায়াত ও আলো" (৫:৪৪), এবং ইঞ্জিলকেও অনুরূপ বর্ণনা করে (৫:৪৬)। এই পূর্ববর্তী ওহি প্রত্যাখ্যান করা ইসলামের অবস্থান নয়; এগুলোকে সম্মান করা ঈমানের অংশ।',
+        },
+      },
+      {
+        heading: { en: 'Confirming and guarding', bn: 'সত্যায়ন ও সংরক্ষণ' },
+        body: {
+          en: 'The Quran describes itself as both confirming the truth in earlier scriptures and serving as a criterion over them: "And We revealed to you the Book in truth, confirming that which preceded it of the Scripture and as a guardian over it" (5:48). On this view the essential message — worship the one God, live justly, prepare for the hereafter — is one continuous truth across all the prophets. Where later human transmission introduced additions or alterations, the Quran comes to restore and settle the original message, not to abolish it.',
+          bn: 'কুরআন নিজেকে পূর্ববর্তী কিতাবের সত্য সত্যায়নকারী এবং সেগুলোর উপর মানদণ্ড উভয়ই হিসেবে বর্ণনা করে: "আর আমি তোমার প্রতি সত্যসহ কিতাব অবতীর্ণ করেছি, পূর্ববর্তী কিতাবের সত্যায়নকারী এবং তার উপর তত্ত্বাবধায়করূপে" (৫:৪৮)। এই দৃষ্টিতে মূল বার্তা — এক আল্লাহর ইবাদত করো, ন্যায়ে জীবন কাটাও, পরকালের প্রস্তুতি নাও — সকল নবীর মধ্য দিয়ে এক অবিচ্ছিন্ন সত্য। যেখানে পরবর্তী মানবিক সংক্রমণে সংযোজন বা পরিবর্তন এসেছে, সেখানে কুরআন মূল বার্তাকে পুনঃপ্রতিষ্ঠা ও চূড়ান্ত করতে আসে, বাতিল করতে নয়।',
+        },
+      },
+      {
+        heading: { en: 'One family of faith', bn: 'বিশ্বাসের এক পরিবার' },
+        body: {
+          en: 'Because of this shared lineage, Muslims are taught to address the People of the Book — Jews and Christians — with a recognition of common roots. The Quran instructs the believers to say: "We believe in what has been revealed to us and revealed to you; our God and your God is one, and to Him we submit" (a principle expressed in 29:46). Belief in "no distinction between any of His messengers" (2:285) means a Muslim reveres Moses and Jesus alongside Muhammad ﷺ. The Quran, in this framing, is not a new religion but the final chapter of a very old one.',
+          bn: 'এই অভিন্ন বংশধারার কারণে মুসলিমদের শেখানো হয় আহলে কিতাব — ইহুদি ও খ্রিস্টান — এর সাথে অভিন্ন শিকড়ের স্বীকৃতি নিয়ে কথা বলতে। কুরআন মুমিনদের বলতে নির্দেশ দেয়: "আমরা বিশ্বাস করি আমাদের প্রতি ও তোমাদের প্রতি যা অবতীর্ণ হয়েছে; আমাদের ইলাহ ও তোমাদের ইলাহ এক, এবং আমরা তাঁরই কাছে আত্মসমর্পিত" (২৯:৪৬-এ প্রকাশিত নীতি)। "তাঁর রাসুলদের কারও মধ্যে পার্থক্য না করা" (২:২৮৫) মানে একজন মুসলিম মুহাম্মাদ ﷺ এর পাশাপাশি মুসা ও ঈসাকেও শ্রদ্ধা করে। এই কাঠামোয় কুরআন কোনো নতুন ধর্ম নয়, বরং এক অতি প্রাচীন ধর্মের চূড়ান্ত অধ্যায়।',
+        },
+      },
+    ],
+  },
   /* ─────────────────────────────────────────────────────────────────────── */
   {
     id: 'study',

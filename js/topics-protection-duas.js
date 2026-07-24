@@ -243,6 +243,90 @@ const PROTECTION_DUAS = [
       zh: '求庇护于人类之主',
       ja: '人々の主への庇護を求める祈り'
     }
+  },
+  {
+    refs: '2:201',
+    names: {
+      en: "Rabbanā ātinā — good in this world and the Hereafter",
+      bn: 'দুনিয়া ও আখিরাতের কল্যাণ এবং আগুন থেকে রক্ষার দুআ',
+      ar: 'ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار',
+      ur: 'دنیا و آخرت کی بھلائی اور آگ سے بچاؤ کی دعا',
+      id: 'Doa kebaikan dunia dan akhirat serta perlindungan dari azab neraka',
+      tr: 'Dünya ve ahiret iyiliği ile ateş azabından korunma duası',
+      fr: "Rabbanā ātinā — le bien ici-bas et dans l'au-delà, préservés du Feu",
+      zh: '求今世与后世的美好并免受火狱刑罚的祈祷',
+      ja: '現世と来世の善と火獄からの守りを求める祈り'
+    }
+  },
+  {
+    refs: '2:286',
+    names: {
+      en: "Rabbanā — pardon, forgiveness, mercy, and help against disbelievers",
+      bn: 'ক্ষমা, মাগফিরাত, রহমত ও কাফিরদের বিরুদ্ধে সাহায্যের দুআ',
+      ar: 'ربنا لا تؤاخذنا واعف عنا واغفر لنا وارحمنا وانصرنا على القوم الكافرين',
+      ur: 'درگزر، مغفرت، رحمت اور کافروں کے خلاف نصرت کی دعا',
+      id: 'Doa pemaafan, ampunan, rahmat, dan pertolongan atas kaum kafir',
+      tr: 'Affet, bağışla, merhamet et ve kâfirlere karşı yardım et duası',
+      fr: 'Prière de pardon, miséricorde et secours contre les mécréants',
+      zh: '求恕宥、赦免、慈悯并助我们胜过不信道者的祈祷',
+      ja: '赦しと慈悲、不信者に対する助けを求める祈り'
+    }
+  },
+  {
+    refs: '3:8',
+    names: {
+      en: "Prayer that hearts not deviate after guidance",
+      bn: 'হেদায়েতের পর অন্তর বিপথগামী না হওয়ার দুআ',
+      ar: 'الدعاء بألا تزيغ القلوب بعد الهداية',
+      ur: 'ہدایت کے بعد دلوں کے ٹیڑھے نہ ہونے کی دعا',
+      id: 'Doa agar hati tidak menyimpang setelah mendapat petunjuk',
+      tr: 'Hidayetten sonra kalplerin sapmaması duası',
+      fr: 'Prière pour que les cœurs ne dévient pas après la guidée',
+      zh: '祈求心灵在受引导后不偏离',
+      ja: '導きの後に心が逸れないための祈り'
+    }
+  },
+  {
+    refs: '18:10',
+    names: {
+      en: "The Cave youths' prayer for mercy and right guidance",
+      bn: 'গুহাবাসী যুবকদের রহমত ও সঠিক পথের দুআ',
+      ar: 'دعاء فتية الكهف بالرحمة والرشد',
+      ur: 'اصحابِ کہف کے نوجوانوں کی رحمت اور رہنمائی کی دعا',
+      id: 'Doa para pemuda gua memohon rahmat dan petunjuk yang lurus',
+      tr: 'Mağara gençlerinin rahmet ve doğru yol duası',
+      fr: 'Prière des jeunes de la Caverne pour la miséricorde et la droiture',
+      zh: '山洞青年为慈悯与正道的祈祷',
+      ja: '洞窟の若者たちの慈悲と正しき導きの祈り'
+    }
+  },
+  {
+    refs: '25:65-66',
+    names: {
+      en: "Prayer to avert the punishment of Hell",
+      bn: 'জাহান্নামের শাস্তি দূর করার দুআ',
+      ar: 'الدعاء بصرف عذاب جهنم',
+      ur: 'جہنم کے عذاب کو ٹالنے کی دعا',
+      id: 'Doa memohon dijauhkan dari azab Jahanam',
+      tr: 'Cehennem azabının uzaklaştırılması duası',
+      fr: "Prière pour écarter le châtiment de l'Enfer",
+      zh: '祈求消除火狱刑罚的祈祷',
+      ja: '地獄の刑罰を退けるための祈り'
+    }
+  },
+  {
+    refs: '59:10',
+    names: {
+      en: "Prayer against harbouring resentment toward the believers",
+      bn: 'মুমিনদের প্রতি অন্তরে বিদ্বেষ না রাখার দুআ',
+      ar: 'الدعاء بألا يجعل في القلوب غلًّا للمؤمنين',
+      ur: 'مومنوں کے لیے دلوں میں کینہ نہ رکھنے کی دعا',
+      id: 'Doa agar tidak ada kedengkian dalam hati terhadap kaum beriman',
+      tr: 'Müminlere karşı kalpte kin bulunmaması duası',
+      fr: 'Prière contre toute rancune envers les croyants',
+      zh: '祈求心中不对信士怀有怨恨',
+      ja: '信者への恨みを心に抱かないための祈り'
+    }
   }
 ];
 

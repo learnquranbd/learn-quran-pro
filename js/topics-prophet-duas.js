@@ -369,5 +369,89 @@ const PROPHET_DUAS = [
       zh: '先知为防护撒旦低语的祈祷',
       ja: '預言者のシャイターンの囁きからの庇護の祈り'
     }
+  },
+  {
+    refs: '2:127-129',
+    names: {
+      en: "Ibrāhīm and Ismāʿīl's prayer while raising the Kaaba",
+      bn: 'কাবা নির্মাণকালে ইবরাহিম ও ইসমাইলের দুআ',
+      ar: 'دعاء إبراهيم وإسماعيل عند رفع قواعد الكعبة',
+      ur: 'کعبہ کی بنیادیں اٹھاتے وقت ابراہیم اور اسماعیل کی دعا',
+      id: 'Doa Ibrahim dan Ismail saat meninggikan pondasi Kabah',
+      tr: "İbrahim ve İsmail'in Kâbe'nin temellerini yükseltirken duası",
+      fr: "Prière d'Ibrahim et Ismaël en élevant les fondations de la Kaaba",
+      zh: '易卜拉欣与易司马仪奠立天房根基时的祈祷',
+      ja: 'イブラーヒームとイスマーイールのカアバの礎を築く際の祈り'
+    }
+  },
+  {
+    refs: '28:21',
+    names: {
+      en: "Mūsā's prayer for deliverance from the wrongdoing people",
+      bn: 'জালিম সম্প্রদায় থেকে মুক্তির জন্য মূসার দুআ',
+      ar: 'دعاء موسى بالنجاة من القوم الظالمين',
+      ur: 'موسی کی ظالم قوم سے نجات کی دعا',
+      id: 'Doa Musa memohon keselamatan dari kaum yang zalim',
+      tr: "Mûsâ'nın zalim kavimden kurtuluş duası",
+      fr: 'Prière de Moïse pour être délivré du peuple injuste',
+      zh: '穆萨为脱离不义之民的祈祷',
+      ja: 'ムーサーの不正な民からの救出の祈り'
+    }
+  },
+  {
+    refs: '28:24',
+    names: {
+      en: "Mūsā's prayer of need after watering the flocks",
+      bn: 'ছাগল পান করানোর পর মূসার প্রয়োজনের দুআ',
+      ar: 'دعاء موسى بالفقر إلى الله بعد سقي الغنم',
+      ur: 'بکریوں کو پانی پلانے کے بعد موسی کی حاجت کی دعا',
+      id: 'Doa Musa yang memerlukan pertolongan setelah memberi minum ternak',
+      tr: "Mûsâ'nın davarları suladıktan sonra muhtaçlık duası",
+      fr: "Prière de Moïse dans le besoin après avoir abreuvé les troupeaux",
+      zh: '穆萨饮羊后向真主表白匮乏的祈祷',
+      ja: 'ムーサーの羊に水を飲ませた後の窮乏の祈り'
+    }
+  },
+  {
+    refs: '12:33',
+    names: {
+      en: "Yūsuf's prayer preferring prison to sin",
+      bn: 'গুনাহের চেয়ে কারাগার শ্রেয় — ইউসুফের দুআ',
+      ar: 'دعاء يوسف مؤثِراً السجن على المعصية',
+      ur: 'یوسف کی گناہ کے بجائے قید کو ترجیح دینے کی دعا',
+      id: 'Doa Yusuf yang lebih memilih penjara daripada maksiat',
+      tr: "Yusuf'un günaha karşı zindanı tercih eden duası",
+      fr: 'Prière de Joseph préférant la prison au péché',
+      zh: '优素福宁愿入狱不愿犯罪的祈祷',
+      ja: 'ユースフの罪より牢獄を選ぶ祈り'
+    }
+  },
+  {
+    refs: '26:169',
+    names: {
+      en: "Lūṭ's prayer to be saved with his family",
+      bn: 'লুতের নিজে ও পরিবারসহ মুক্তির দুআ',
+      ar: 'دعاء لوط بنجاته وأهله مما يعملون',
+      ur: 'لوط کی اپنے اور اہل خانہ کی نجات کی دعا',
+      id: 'Doa Luth memohon keselamatan dirinya dan keluarganya',
+      tr: "Lût'un kendisi ve ailesinin kurtuluşu için duası",
+      fr: 'Prière de Lot pour son salut et celui de sa famille',
+      zh: '鲁特为自己与家人获救的祈祷',
+      ja: 'ルートの自身と家族の救済の祈り'
+    }
+  },
+  {
+    refs: '38:41',
+    names: {
+      en: "Ayyūb's call upon his Lord when touched by hardship",
+      bn: 'কষ্টে আক্রান্ত হয়ে আইউবের রবকে ডাকার দুআ',
+      ar: 'نداء أيوب ربه إذ مسّه الشيطان بنُصب وعذاب',
+      ur: 'ایوب کی تکلیف پہنچنے پر اپنے رب کو پکارنے کی دعا',
+      id: 'Seruan Ayub kepada Tuhannya ketika ditimpa kesusahan',
+      tr: "Eyyûb'un sıkıntı dokunduğunda Rabbine niyazı",
+      fr: "Invocation d'Ayoub à son Seigneur touché par la détresse",
+      zh: '阿尤布遭受困苦时向主的呼吁',
+      ja: 'アイユーブの苦難に触れられた際の主への呼びかけ'
+    }
   }
 ];
