@@ -13941,6 +13941,26 @@ const TADABBUR_NOTES = {
     ],
     "lessonEn": "Read each night and day as the work of the Mighty One who made all things with truth, set every course to its term, and still forgives whoever turns back.",
     "lessonBn": "প্রতিটি রাত ও দিনকে দেখুন সেই মহাপরাক্রমশালীর কাজ হিসেবে, যিনি সবকিছু সত্য উদ্দেশ্যে সৃষ্টি করেছেন, প্রতিটি গতিকে মেয়াদে বেঁধেছেন, আর যে ফিরে আসে তাকে আজও ক্ষমা করেন।"
+  },
+  "38:85": {
+    "reflectionEn": "Iblis had just sworn, by Allah's own might, that he would mislead every human being except Allah's sincere servants. The reply does not threaten; it settles. Allah states it as already-decided fact, repeating the word truth twice: Hell will be filled with Iblis and with everyone among people who chooses to follow him. Notice what the verse does not say. It does not say Hell will be filled with mankind. It names only those who follow. Iblis's own boast had already carved out an exception, the sincere servants he admitted he could not reach. The ayah closes a story that began with one refusal to bow, and ends with a sorting of two camps: those who follow, and those who do not.",
+    "reflectionBn": "ইবলিস তখনই আল্লাহর ইজ্জতের নামে কসম করেছিল যে, আল্লাহর একনিষ্ঠ বান্দা ছাড়া সব মানুষকে সে বিভ্রান্ত করবে। আল্লাহর জবাব কোনো ধমক নয়, এটা একটা স্থির সত্য। তিনি দুইবার সত্য শব্দটা বলে জানিয়ে দেন: জাহান্নাম ভরে দেওয়া হবে ইবলিস আর তার অনুসারী মানুষদের দিয়ে। আয়াতটা বলছে না যে জাহান্নাম ভরবে পুরো মানবজাতি দিয়ে। এখানে নাম আছে শুধু তাদের, যারা ইবলিসকে অনুসরণ করে। ইবলিস নিজেই তার কসমে একটা ব্যতিক্রম রেখে দিয়েছিল: একনিষ্ঠ বান্দাদের কাছে তার পৌঁছানোর সাধ্য নেই, এটা সে নিজেই মেনে নিয়েছিল। এক সিজদা অস্বীকারের গল্প এখানে শেষ হয় দুই দলে ভাগ হয়ে: যারা অনুসরণ করে, আর যারা করে না।",
+    "pointsEn": [
+      "Iblis's oath excluded Allah's sincere servants before he even began. What makes someone fall inside that exception, or outside it?",
+      "The verse names only those who follow Iblis, not mankind as a whole. Whose following am I actually in, today?",
+      "Allah states this sentence as already-settled truth, repeated twice. Do I take His warnings as seriously as He states them?",
+      "This story began with one refusal to bow to a command. What is the one command I am most tempted to argue my way out of?",
+      "If today's choices were sorted right now into 'followed Iblis' or 'did not', which pile would they fall into?"
+    ],
+    "pointsBn": [
+      "ইবলিসের কসম শুরুতেই আল্লাহর একনিষ্ঠ বান্দাদের বাইরে রেখেছিল, কাজ শুরুর আগেই। কোন বিষয়টা কাউকে সেই ব্যতিক্রমের ভেতরে রাখে, আর কোনটা বাইরে?",
+      "আয়াতে নাম আছে শুধু ইবলিসের অনুসারীদের, পুরো মানবজাতির নয়। আজ আমি আসলে কার অনুসরণে আছি?",
+      "আল্লাহ এই রায়টা দুইবার সত্য বলে জানিয়ে দিয়েছেন, যেন আগে থেকেই স্থির। তাঁর সতর্কবাণীকে আমি কি একই গুরুত্ব দিয়ে নিই?",
+      "এই গল্প শুরু হয়েছিল একটামাত্র সিজদা অস্বীকার দিয়ে। কোন একটা নির্দেশ মানতে আমি সবচেয়ে বেশি যুক্তি সাজাই?",
+      "আজকের সিদ্ধান্তগুলো যদি এখনই দুই ভাগে ভাগ করা হতো, 'ইবলিসকে অনুসরণ করল' আর 'করল না' — কোন ভাগে পড়ত?"
+    ],
+    "lessonEn": "Iblis's own promise could not touch Allah's sincere servants; make sure you are one of them, not one of his following.",
+    "lessonBn": "ইবলিসের প্রতিশ্রুতি আল্লাহর একনিষ্ঠ বান্দাদের স্পর্শ করতে পারেনি; নিজেকে তাদেরই একজন বানান, তার অনুসারী নয়।"
   }
 };
 

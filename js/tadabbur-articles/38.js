@@ -2006,5 +2006,145 @@ Object.assign(TADABBUR_ARTICLES, {
         ]
       }
     ]
+  },
+  "38:85": {
+    "sections": [
+      {
+        "h": {
+          "en": "The Story's Final Verdict",
+          "bn": "গল্পের শেষ রায়"
+        },
+        "p": [
+          {
+            "en": "Surat Sad is a Makkan surah built around contested authority: Dawud's (AS) kingship, Sulayman's (AS) trials, Ayyub's (AS) patience under loss. It closes with the oldest contest of all, Iblis's refusal to bow to Adam (AS), told in 38:71-74. Allah questioned him in 38:75, Iblis answered with a comparison in 38:76, and the sentence followed at once in 38:77-78: expulsion, and a curse until the Day of Recompense. Iblis then asked for reprieve, received it in 38:79-81, and used it to swear an oath in 38:82-83. Verse 85 is Allah's answer to that oath.",
+            "bn": "সূরা সাদ একটি মক্কী সূরা, যার ভেতরে বারবার ফিরে আসে প্রশ্নবিদ্ধ কর্তৃত্বের গল্প: দাউদের (আঃ) রাজত্ব, সুলাইমানের (আঃ) পরীক্ষা, আইয়ুবের (আঃ) ক্ষতির মধ্যে ধৈর্য। সূরাটি শেষ হয় সবচেয়ে পুরনো সংঘাত দিয়ে, আদমকে (আঃ) সিজদা করতে ইবলিসের অস্বীকার, যার বর্ণনা ৩৮:৭১-৭৪ আয়াতে। আল্লাহ তাকে প্রশ্ন করেন ৩৮:৭৫-এ, ইবলিস জবাব দেয় একটা তুলনা দিয়ে ৩৮:৭৬-এ, আর রায় আসে তখনই, ৩৮:৭৭-৭৮-এ: বহিষ্কার, আর বিচার দিবস পর্যন্ত লানত। তারপর ইবলিস অবকাশ চায়, পায় ৩৮:৭৯-৮১-এ, আর সেই অবকাশ কাজে লাগিয়ে কসম খায় ৩৮:৮২-৮৩-এ। ৮৫ নম্বর আয়াত সেই কসমের জবাব।"
+          },
+          {
+            "en": "Nothing here is a disputed occasion of revelation; the passage is pure narrative. Ibn Kathir notes that Allah tells this same account of Adam and Iblis in six places: in Al-Baqarah, near the start of Al-A'raf, in Al-Hijr, Al-Isra, Al-Kahf, and here in Sad. Each telling draws out something different; this one ends not with the command to descend to earth, but with the two-sided sorting of Hell's company. The very next verse turns the surah outward, and Allah tells the Prophet ﷺ to say that he asks no payment for the message and that it is a reminder to the worlds (38:86-87).",
+            "bn": "এখানে কোনো বিতর্কিত অবতরণ-প্রসঙ্গ নেই; পুরো অংশটাই একটা বর্ণনা। ইবনে কাসির উল্লেখ করেন, আদম আর ইবলিসের এই একই ঘটনা আল্লাহ কুরআনের ছয় জায়গায় বলেছেন: সূরা বাকারায়, সূরা আরাফের শুরুতে, সূরা হিজর, ইসরা, কাহফ, আর এখানে সূরা সাদে। প্রতিটি বর্ণনায় আলাদা একটা দিক সামনে আসে; এখানকার বর্ণনা শেষ হয় না পৃথিবীতে নেমে যাওয়ার নির্দেশ দিয়ে, যেমন অন্য কিছু জায়গায় হয়েছে, বরং শেষ হয় জাহান্নামের অংশীদারদের দুই ভাগে ভাগ করে দিয়ে। পরের আয়াত থেকেই সূরাটি ঘুরে যায় নবীর ﷺ দিকে, আর আল্লাহ তাঁকে বলতে বলেন যে তিনি এই বার্তার জন্য কোনো বিনিময় চান না, আর এটা বিশ্বজগতের জন্য একটা উপদেশমাত্র (৩৮:৮৬-৮৭)।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "Truth Declared Twice",
+          "bn": "দুইবার বলা সত্য"
+        },
+        "p": [
+          {
+            "en": "The verse right before this one already carries the weight: qala fa-l-haqqu wa-l-haqqa aqulu, \"He said: the truth, and the truth I say.\" Two readings exist for that doubled word. Mujahid is reported to have taken the first occurrence as Allah naming Himself, \"I am the Truth, and the truth I say.\" As-Suddi read both occurrences as an oath formula, Allah swearing by the truth before stating what follows. Both readings agree on what matters most for the sentence that comes next: this is not a threat issued in anger but a verdict already fixed before Iblis finished speaking.",
+            "bn": "এর ঠিক আগের আয়াতেই ভার বহন করছে: قَالَ فَالْحَقُّ وَالْحَقَّ أَقُولُ, \"তিনি বললেন, সত্য, আর সত্যই আমি বলি।\" এই দুইবার বলা শব্দটার দুটো পাঠ আছে। মুজাহিদের মত অনুসারে প্রথমটি আল্লাহর নিজের নাম, \"আমিই সত্য, আর সত্যই আমি বলি।\" আস-সুদ্দি দুটোকেই কসমের সূত্র হিসেবে পড়েছেন, অর্থাৎ আল্লাহ সত্যের নামে কসম করে তারপর কথাটা বলছেন। দুই পাঠই একটা বিষয়ে একমত: পরের বাক্যটা রাগের মুহূর্তে বলা কোনো হুমকি নয়, বরং ইবলিসের কথা শেষ হওয়ার আগেই স্থির হয়ে যাওয়া একটা রায়।"
+          },
+          {
+            "en": "Verse 85 itself runs seven words in Arabic: la-amla'anna jahannama minka wa-mimman tabi'aka minhum ajma'in. The verb amla'anna stacks two layers of emphasis, an oath-lam and a confirming nun, so the sense lands closer to \"I will most certainly fill\" than a plain future tense. The verse closes on ajma'in, \"all together,\" a word that gathers Iblis and his followers into one company rather than naming them apart. Word order carries its own point too: minka, \"from you,\" comes before any mention of a follower, so the sentence is built around Iblis first, and only then the crowd who chose to walk behind him.",
+            "bn": "৮৫ নম্বর আয়াতটি আরবিতে সাত শব্দের: لَأَمْلَأَنَّ جَهَنَّمَ مِنْكَ وَمِمَّنْ تَبِعَكَ مِنْهُمْ أَجْمَعِينَ। ক্রিয়াপদ أَمْلَأَنَّ-এর গঠনে দুই স্তরের জোর বসানো আছে, একটা কসমের লাম আর একটা তাগিদের নুন, ফলে অর্থটা সাধারণ ভবিষ্যৎকালের চেয়ে বরং \"আমি নিশ্চিতভাবেই পূর্ণ করব\" এর কাছাকাছি দাঁড়ায়। আয়াতটি শেষ হয় أَجْمَعِينَ, \"সবাইকে একসঙ্গে\" শব্দে, যা ইবলিস আর তার অনুসারীদের আলাদা না করে একই দলে জড়ো করে দেয়। শব্দের ক্রমও একটা কথা বলে: مِنْكَ, \"তোমার কাছ থেকে\", আসে অনুসারীর উল্লেখের আগে। তাই বাক্যটা প্রথমে গড়ে ওঠে ইবলিসকে ঘিরে, আর তারপরই আসে তার পেছনে হাঁটা দলটা।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "How the Commentators Read It",
+          "bn": "মুফাসসিরগণ যেভাবে পড়েছেন"
+        },
+        "p": [
+          {
+            "en": "Ibn Kathir reads 38:82-85 as a mirror of Iblis's own earlier oath in 17:62, where he swore to destroy Adam's descendants except for a few, and ties verse 85 to Allah's answer there in 17:63: whoever of them follows you, Hell is the recompense of you all. For Ibn Kathir the structure repeats across both surahs: Iblis boasts, excepting a remnant he admits he cannot touch, and Allah answers in kind, promising Hell only to Iblis and that same following crowd, not to anyone else.",
+            "bn": "ইবনে কাসির ৩৮:৮২-৮৫ আয়াতগুলোকে ইবলিসের আগের কসমের প্রতিচ্ছবি হিসেবে পড়েন, যা ছিল ১৭:৬২-এ, যেখানে সে আদমের বংশধরদের ধ্বংস করার কসম খেয়েছিল, কয়েকজন ছাড়া। এই আয়াতটিকে তিনি জুড়ে দেন ১৭:৬৩-এর জবাবের সাথে: তাদের মধ্যে যে তোমাকে অনুসরণ করবে, জাহান্নামই তোমাদের সবার প্রতিদান। ইবনে কাসিরের চোখে দুই সূরাতেই একই কাঠামো ফিরে আসে: ইবলিস বড়াই করে, কিছু মানুষকে ছেড়ে দিয়ে যাদের কাছে তার পৌঁছানোর ক্ষমতা নেই, আর আল্লাহ তার জবাব দেন সেই ভাষাতেই, জাহান্নামের প্রতিশ্রুতি দেন শুধু ইবলিস আর তার সেই অনুসারী দলকে, আর কাউকে নয়।"
+          },
+          {
+            "en": "On how far \"those of them that follow you\" reaches, the tafsir attributed to Ibn 'Abbas reads the phrase as stretching to Iblis's own offspring as well as the human beings who take his path, widening the \"you\" of the verse beyond his single person to his line and his following together. This is a genuine difference from the narrower reading, Hell promised to Iblis and his human followers alone. The verse's own wording, \"them,\" pointing back to mankind in verse 82, favors the narrower reading, though the wider one is not without support among the exegetes.",
+            "bn": "\"তাদের মধ্যে যে তোমাকে অনুসরণ করবে\" কথাটা কতদূর পর্যন্ত যায়, এই প্রশ্নে ইবনে আব্বাসের নামে পরিচিত তাফসিরটি একে ইবলিসের নিজের বংশধর পর্যন্তও টেনে নেয়, মানুষের অনুসারীদের পাশাপাশি। এতে আয়াতের \"তুমি\" শব্দটা ইবলিসের একক সত্তা থেকে বিস্তৃত হয়ে তার বংশ আর অনুসারী, দুটোকেই ছুঁয়ে যায়। এটা সরু পাঠ থেকে একটা সত্যিকারের ভিন্নতা, যে পাঠে জাহান্নামের প্রতিশ্রুতি কেবল ইবলিস আর তার মানুষ অনুসারীদের জন্যই সীমিত থাকে। আয়াতের নিজের শব্দ \"তাদের\", যা ৮২ নম্বর আয়াতের মানুষের দিকে ফিরে তাকায়, সরু পাঠের দিকেই বেশি ঝোঁকে, যদিও বিস্তৃত পাঠটিও মুফাসসিরদের মধ্যে সমর্থনহীন নয়।"
+          },
+          {
+            "en": "Across every reading, the mufassirun agree on one point: the sentence does not fall on mankind by birth, or by the clay Iblis mocked in 38:76. It falls on \"those of them that follow you,\" a clause built on a verb of choice. Ibn Kathir's own citation of the parallel in 32:13, \"the Word from Me will come into effect, that I will fill Hell with jinn and people all together,\" makes the same point from another angle: the filling of Hell is tied throughout the Quran to the word taking effect upon those who earn it, not to a class fixed in advance.",
+            "bn": "সব পাঠের ভেতরেই মুফাসসিরগণ একটা জায়গায় একমত, আর তা আয়াতটা শোনার ধরনকেই গড়ে দেয়: এই রায় মানুষের উপর জন্মসূত্রে পড়ে না, পড়ে না সেই মাটির কারণে যাকে ইবলিস ৩৮:৭৬-এ হেয় করেছিল। এটা পড়ে \"তাদের মধ্যে যে তোমাকে অনুসরণ করবে\" এই বাক্যাংশের উপর, যা গড়ে উঠেছে একটা বেছে নেওয়ার ক্রিয়া দিয়ে। ইবনে কাসির নিজেই ৩২:১৩-এর সমান্তরাল আয়াতটা তুলে ধরেন, \"আমার কথা অবশ্যই সত্য প্রতিপন্ন হবে, আমি নিশ্চয়ই জাহান্নামকে জ্বিন ও মানুষ মিলিয়ে পূর্ণ করব\", আর এটাই একই কথা বলে অন্য দিক থেকে: জাহান্নাম ভরে ওঠা কুরআনে সবখানেই জড়িয়ে আছে সেই কথার কার্যকর হওয়ার সাথে, যারা তা অর্জন করে তাদের উপর, আগে থেকে ঠিক করা কোনো শ্রেণির উপর নয়।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "A Verse Without a Hadith",
+          "bn": "যে আয়াতে হাদিস নেই"
+        },
+        "p": [
+          {
+            "en": "No sound hadith is attached specifically to this verse in the classical commentary consulted for it. Ibn Kathir's remarks stay inside the Quran itself, moving to Allah's other statements in Al-Isra and As-Sajdah rather than reaching for a narration tied to this exact ayah. That restraint is worth naming on its own: not every verse carries a hadith, and the honest response to an empty slot is to say so plainly, not to borrow a report that only loosely touches the subject.",
+            "bn": "এই আয়াতের জন্য আলাদা করে কোনো সহিহ হাদিস যুক্ত নেই, যতটুকু শাস্ত্রীয় তাফসির এখানে দেখা হয়েছে তাতে। ইবনে কাসিরের আলোচনা কুরআনের ভেতরেই থাকে, তিনি চলে যান সূরা ইসরা আর সূরা সাজদায় আল্লাহর অন্য বক্তব্যের দিকে, এই নির্দিষ্ট আয়াতের সাথে জোড়া কোনো বর্ণনার দিকে না গিয়ে। এই সংযমটা একাই উল্লেখ করার মতো: প্রতিটি আয়াতে হাদিস থাকে না, আর খালি জায়গাটার সৎ জবাব হলো সোজাসুজি তা বলে দেওয়া, কোনো দূরসম্পর্কের বর্ণনা ধার করে আনা নয়।"
+          },
+          {
+            "en": "This matters more here than in many places, because the subject, Iblis's followers and Hell, is exactly the kind that invites a dramatic but unverified addition: a vivid description of Hell's crowding, a count of how many will follow him, a named group singled out from the rest. None of that is in the tafsir actually consulted for this ayah, and none of it is added here. The verse is left to say exactly what it says: a sentence already decided, resting on following, not on who someone's parents were.",
+            "bn": "এখানে এর গুরুত্ব আরও বেশি, কারণ বিষয়টাই এমন, ইবলিসের অনুসারী আর জাহান্নাম, যেখানে একটা জমকালো কিন্তু অযাচাইকৃত সংযোজন খুব সহজেই ঢুকে পড়তে পারে: জাহান্নামের ভিড়ের নাটকীয় বর্ণনা, কতজন তাকে অনুসরণ করবে তার একটা সংখ্যা, বাকিদের থেকে আলাদা করে একটা নির্দিষ্ট দলের নাম। এই আয়াতের জন্য যতটুকু তাফসির দেখা হয়েছে তার কোথাও এসবের কিছু নেই, আর এখানেও কিছু যুক্ত করা হয়নি। আয়াতটিকে ঠিক তাই বলতে দেওয়া হয়েছে যা এটা বলে: আগেই ঠিক হয়ে যাওয়া একটা রায়, যা দাঁড়িয়ে আছে অনুসরণের উপর, কারো পিতামাতা কে ছিল তার উপর নয়।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "Echoes Across the Quran",
+          "bn": "কুরআনের অন্য আয়াতে প্রতিধ্বনি"
+        },
+        "p": [
+          {
+            "en": "Two verses carry almost the same promise in almost the same words. 32:13 states that if Allah had willed, He could have guided every soul, but His word has already taken effect that Hell will be filled with jinn and people together, the same filling and the same totality, stated here as a general law rather than a reply to one being's oath. 17:63 answers Iblis's parallel oath in Al-Isra directly: whoever of them follows you, Hell is the recompense of you all, confirming that the same sentence was given twice, in two different surahs, to the same claim.",
+            "bn": "দুটো আয়াত প্রায় একই প্রতিশ্রুতি বহন করে প্রায় একই শব্দে। ৩২:১৩ বলছে, আল্লাহ চাইলে প্রত্যেক মানুষকেই সঠিক পথে পরিচালিত করতে পারতেন, কিন্তু তাঁর কথা এরইমধ্যে সত্য প্রতিপন্ন হয়ে গেছে যে জাহান্নাম জ্বিন ও মানুষ মিলিয়ে পূর্ণ হবে। একই পূর্ণতা, একই সামগ্রিকতা, এখানে একটা সাধারণ নিয়ম হিসেবে বলা হয়েছে, একজনের কসমের জবাব হিসেবে নয়। ১৭:৬৩ সরাসরি জবাব দেয় সূরা ইসরায় ইবলিসের সমান্তরাল কসমের: তাদের মধ্যে যে তোমাকে অনুসরণ করবে, জাহান্নামই তোমাদের সবার প্রতিদান। এতে বোঝা যায়, একই রায় দুবার দেওয়া হয়েছে, দুটো আলাদা সূরায়, একই দাবির জবাবে।"
+          },
+          {
+            "en": "Two more verses guard the boundary of that sentence. 17:65 tells Iblis plainly that he has no authority over Allah's believing servants, and that Allah alone is sufficient as their guardian, the very exception verse 85 already carries in its excepted \"sincere servants.\" 15:42 repeats the same boundary from Al-Hijr: \"My servants, no authority will you have over them, except those who follow you of the deviators,\" making clear across three surahs that the line is drawn by following, and nowhere else.",
+            "bn": "আরও দুটো আয়াত সেই রায়ের সীমারেখা পাহারা দেয়। ১৭:৬৫ ইবলিসকে স্পষ্ট বলে দেয় যে আল্লাহর বিশ্বাসী বান্দাদের উপর তার কোনো আধিপত্য চলবে না, আর তাদের কাজ সম্পাদনে আল্লাহই যথেষ্ট। এটাই সেই ব্যতিক্রম, যা ৮৫ নম্বর আয়াত আগেই \"একনিষ্ঠ বান্দা\" বলে রেখে দিয়েছে। ১৫:৪২ সূরা হিজর থেকে একই সীমারেখা আবার বলে: \"আমার বান্দাদের উপর তোমার কোনো আধিপত্য নেই, কেবল তাদের মধ্যে যারা পথভ্রষ্ট হয়ে তোমাকে অনুসরণ করে, তাদের উপর ছাড়া।\" তিন সূরা মিলিয়ে এটা স্পষ্ট হয়ে যায় যে সীমারেখাটা টানা হয়েছে অনুসরণ দিয়ে, আর কিছু দিয়ে নয়।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "Choosing Which Camp",
+          "bn": "কোন দলে থাকবেন"
+        },
+        "p": [
+          {
+            "en": "The verse offers a believer a plain audit, not a theology lesson. Iblis's oath named a method, making wrongdoing attractive, misleading by stages, and the sentence names the only thing that decides who it catches: following. Reading this verse honestly means asking a narrower, harder question than \"am I a good person\": today, in this one choice in front of me, whose suggestion am I actually walking behind?",
+            "bn": "এই আয়াত একজন মুমিনকে একটা সোজা হিসাব দেয়, কোনো তত্ত্বকথা নয়। ইবলিসের কসমে একটা পদ্ধতির নাম ছিল, গুনাহকে সুন্দর দেখানো, ধাপে ধাপে বিভ্রান্ত করা। আর এই রায় শুধু একটা জিনিস দেখে কাকে ধরবে: অনুসরণ। আয়াতটা সৎভাবে পড়তে হলে প্রশ্ন করতে হবে \"আমি কি ভালো মানুষ\" তার চেয়ে ছোট আর কঠিন একটা প্রশ্ন: আজ, সামনে থাকা এই একটা সিদ্ধান্তে, আসলে আমি কার পরামর্শের পেছনে হাঁটছি?"
+          },
+          {
+            "en": "Practically, that means naming the small places where Iblis's method shows up before worrying about the large ones: a comparison that excuses skipping something clearly right, exactly as 38:76 already showed; a suggestion dressed up as reasonable advice; a delay that quietly becomes a habit, echoing the reprieve Iblis asked for and then misused. Saying a'udhu billahi min ash-shaytan ar-rajim before reciting or starting an act is not a formality; it is naming the one this verse is about, out loud, before he finds a foothold.",
+            "bn": "কাজের দিক থেকে, এর মানে হলো বড় জায়গার আগে ছোট জায়গাগুলো চিনে নেওয়া, যেখানে ইবলিসের পদ্ধতি দেখা দেয়: এমন একটা তুলনা যা স্পষ্ট ভালো কাজ এড়িয়ে যাওয়ার অজুহাত দেয়, যেমন ৩৮:৭৬-এ দেখা গেছে; যুক্তিসঙ্গত পরামর্শের ছদ্মবেশে একটা প্রস্তাব; এমন একটা বিলম্ব যা চুপিচুপি অভ্যাসে পরিণত হয়, ইবলিসের চাওয়া আর তারপর অপব্যবহার করা অবকাশের মতোই। তিলাওয়াতের আগে বা কোনো কাজ শুরুর আগে আউযু বিল্লাহি মিনাশ শাইতানির রাজীম বলা শুধু একটা নিয়ম নয়; এটা এই আয়াতের বিষয়টাকে নাম ধরে ডাকা, শব্দ করে, সে পা রাখার জায়গা পাওয়ার আগেই।"
+          },
+          {
+            "en": "One boundary matters here as much as the lesson itself. This verse describes Iblis and those who choose to follow him; it licenses nothing against any living person or community. No one reading this ayah has the standing to call another human being part of Iblis's company, and the verse's own restriction, following and nothing else, forbids exactly that shortcut. The sentence belongs to Allah to pass, not to a reader to hand out.",
+            "bn": "একটা সীমা এখানে ঠিক শিক্ষাটার মতোই গুরুত্বপূর্ণ। এই আয়াত ইবলিস আর তাকে অনুসরণ করা মানুষদের কথা বলে; এটা কোনো জীবিত মানুষ বা জনগোষ্ঠীর বিরুদ্ধে কিছু করার অনুমতি দেয় না। এই আয়াত পড়ে কেউ অন্য কোনো মানুষকে \"ইবলিসের দলের লোক\" বলার অধিকার পায় না, আর আয়াতের নিজের সীমা, কেবল অনুসরণ, আর কিছু নয়, ঠিক এই শর্টকাটটাকেই নিষেধ করে। এই রায় দেওয়ার দায়িত্ব আল্লাহর, কোনো পাঠকের হাতে তুলে দেওয়ার জিনিস নয়।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "A Prayer From the Verse",
+          "bn": "আয়াত থেকে একটা দোয়া"
+        },
+        "p": [
+          {
+            "en": "The verse does not hand the reader a ready-made supplication the way some ayat do, so this one borrows its own vocabulary rather than importing an unrelated one. Iblis's oath excepted \"Your sincere servants\"; a believer can ask, plainly, to be counted among exactly that exception. This is not a narration-based dua requiring a collection and a number; it is a prayer built from the verse's own words, offered in the verse's own terms.",
+            "bn": "কিছু আয়াতে যেমন সরাসরি একটা দোয়া দেওয়া থাকে, এই আয়াতে তা নেই। তাই এই দোয়াটা নেওয়া হচ্ছে আয়াতের নিজের শব্দ থেকেই, বাইরে থেকে কিছু না এনে। ইবলিসের কসম \"একনিষ্ঠ বান্দাদের\" বাদ রেখেছিল; একজন মুমিন সরাসরি চাইতে পারেন, ঠিক সেই ব্যতিক্রমের মধ্যে গণ্য হওয়ার জন্য। এটা কোনো হাদিস-ভিত্তিক দোয়া নয় যার সংকলন আর নম্বর লাগবে; এটা আয়াতের নিজের শব্দ দিয়ে গড়া একটা প্রার্থনা, আয়াতেরই ভাষায় পেশ করা।"
+          },
+          {
+            "en": "\"O Allah, count me among Your sincere servants, the ones Iblis swore he could not reach, and let nothing I follow today be his suggestion.\" It is a short request, asking for exactly what the verse already promised to the excepted few: protection that is not automatic, but is there for whoever actually seeks it.",
+            "bn": "\"হে আল্লাহ, আমাকে আপনার একনিষ্ঠ বান্দাদের মধ্যে গণ্য করুন, যাদের কাছে ইবলিস কসম করেও পৌঁছাতে পারে না, আর আজ আমি যা অনুসরণ করি তার কিছুই তার প্রস্তাব না হোক।\" এটা একটা ছোট আবেদন, ঠিক তা-ই চাওয়া যা এই আয়াত আগেই সেই ব্যতিক্রমী কয়েকজনকে দিয়ে রেখেছে: এমন সুরক্ষা যা এমনি এমনি আসে না, কিন্তু যে সত্যিই চায় তার জন্য থেকে যায়।"
+          }
+        ]
+      },
+      {
+        "h": {
+          "en": "Questions to Carry",
+          "bn": "নিয়ে চলার প্রশ্ন"
+        },
+        "p": [
+          {
+            "en": "Iblis's oath already conceded that some people are beyond his reach. The honest question is not whether such people exist, but whether I am living like one of them: in this week's choices, whose suggestion have I actually been following, and would I be comfortable naming it out loud? When a wrong action has felt reasonable lately, what comparison or delay made it feel that way, and does it look the same once the verse's two camps are named plainly, followed, or did not follow?",
+            "bn": "ইবলিসের কসম নিজেই মেনে নিয়েছিল যে কিছু মানুষ তার নাগালের বাইরে। সৎ প্রশ্নটা এই না যে এমন মানুষ আছে কিনা, বরং এই যে আমি কি আসলে তাদের একজনের মতো বাঁচছি: এই সপ্তাহের সিদ্ধান্তগুলোয় আসলে আমি কার পরামর্শ অনুসরণ করেছি, আর তা শব্দ করে বলতে কি আমার আপত্তি হবে? সম্প্রতি কোনো ভুল কাজ যদি স্বাভাবিক মনে হয়ে থাকে, কোন তুলনা বা বিলম্ব সেটাকে স্বাভাবিক মনে করিয়েছে, আর আয়াতের দুই ভাগ, অনুসরণ করা বা না করা, সোজাসুজি নাম ধরে ডাকলে সেটাকে কি একই রকম দেখায়?"
+          },
+          {
+            "en": "Allah stated this sentence as settled truth, twice, before Iblis had even acted on his oath. Do I treat His warnings with that same settled weight, or only once a consequence has already arrived? And on an ordinary day, with no dramatic test in front of me, what is the one small habit of refuge, a phrase said before an act, a pause before a suggestion is taken up, that would keep me inside the exception this verse already names?",
+            "bn": "আল্লাহ এই রায়টা স্থির সত্য বলে দুইবার জানিয়ে দিয়েছিলেন, ইবলিস তার কসম কাজে লাগানোর আগেই। তাঁর সতর্কবাণীকে আমি কি সেই একই স্থির গুরুত্ব দিয়ে নিই, নাকি কেবল পরিণতি এসে পড়ার পরেই? আর একটা সাধারণ দিনে, যখন সামনে কোনো বড় পরীক্ষা নেই, আশ্রয় নেওয়ার কোন ছোট্ট অভ্যাসটা, কোনো কাজের আগে একটা বাক্য বলা, কোনো প্রস্তাব গ্রহণ করার আগে একটু থামা, আমাকে এই আয়াতের বলা ব্যতিক্রমের ভেতরেই রাখবে?"
+          }
+        ]
+      }
+    ]
   }
 });
